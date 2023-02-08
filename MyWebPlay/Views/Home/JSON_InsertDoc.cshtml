@@ -1,0 +1,41 @@
+﻿<table align="center">
+    <h2 style="text-align:center">Insert Doc SQL</h2>
+
+    <h3 style="color:blue">@ViewBag.KetQua</h3>
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <tr style="height:40px">
+            <td> Nhập trạng thái theo mẫu (tên cột-kiểu dữ liệu) *** Với # 1 : Kiểu số, 2 : Kiểu chuỗi, 3 : Kiểu DateTime/Char </td>
+            <td>
+                <input type="text" size="50" name="TrangThai" value="MSSV-3,HoTen-2,DTB-1,NgaySinh-3">
+                <br>
+                <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+            </td>
+        </tr>
+        <br />
+        <br />
+        <tr style="height:40px">
+            <td> Nhập dãy dữ liệu theo mẫu (VD - nếu mỗi doc SQL có 5 cột/ mỗi col cách nhau bởi # - mỗi doc cách nhau bởi Enter)... </td>
+            <td>
+                <textarea name="DuLieu" cols="100" rows="50">SV001#Bùi Văn Luật#10#20/06/2000
+SV002#Nguyễn Văn Đạt#9.5#15/08/2001
+SV003#Trần Chí Khôi#2.5#29/07/1990
+SV004#Lê Tuấn Kiệt#9.2#05/12/1995
+SV005#Đào Vũ Hạnh#4.8#28/03/1992</textarea>
+                <br>
+                <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
+            </td>
+        </tr>
+
+
+        <tr style="height:40px">
+            <td></td>
+            <td>
+                <input type="Submit" value="Kết Quả" />
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,73 @@
+﻿<table align="center">
+    <h2 style="text-align:center">Special - OrderBy (Sắp xếp tăng dần)</h2>
+
+    <h3 style="color:blue">@ViewBag.KetQua</h3>
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <tr style="height:40px">
+            <td> Dữ kiện thứ tự sắp xếp và ưu tiên (index mỗi từ) : </td>
+            <td>
+                <input type="text" size="50" name="SapXep" value="N-1=N-2=0=1">
+                <br>
+                <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+            </td>
+        </tr>
+        <br />
+        <br />
+
+        <tr style="height:40px">
+            <td> Chuỗi của bạn : </td>
+            <td>
+                <textarea rows="20" cols="150" name="Chuoi" autofocus>Bùi Nguyễn Tú Dương
+Nguyễn Thị Xuân Hoài Anh
+Lê Trần Anh Huy
+Bùi Văn Luật
+Lê Đức Anh
+Lê Anh Huy
+Lê Gia Khiêm
+Phạm Lưu Văn Sang
+Lê Thảo Lâm
+Lý Ngọc Thảo
+Trần Tú Anh
+Nguyễn Tấn Lộc
+Lê Ngọc Thảo
+Lê Minh Tuấn Anh
+Lê Xuân Thảo
+Phạm Ngọc Hoài Anh
+Nguyễn Đại Lộc
+Trần Đức Lộc
+Phạm Đức Anh
+Phạm Hoàng Lan
+Trần Ngọc Khánh Xuân
+Đỗ Tấn Huệ
+Kim Đức Anh
+Phạm Hoàng Lan Anh
+Phạm Thị Mỹ Linh
+Trần Ngọc Lê Hoài Anh
+Trần Ngọc Hoài Anh
+Phạm Ngọc Hải Yến
+Trần Ngọc Duy Anh
+Lê Tú Anh
+Trần Xuân Anh
+Nguyễn Phạm Lê Hoài Anh
+Dương Thảo Lâm
+Phạm Bình Hoài Anh
+Bùi Ngọc Tú
+Lê Anh Hào
+Phạm Xuân Anh
+Trần Phương Thảo</textarea>
+                <br>
+                <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
+            </td>
+        </tr>
+        <tr style="height:40px">
+            <td></td>
+            <td>
+                <input type="Submit" value="Kết Quả" />
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,87 @@
+﻿<table align="center">
+    <h2 style="text-align:center">Insert Doc SQL</h2>
+
+    <h3 style="color:blue">@ViewBag.KetQua</h3>
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <tr style="height:40px">
+            <td> Tên Table : </td>
+            <td>
+                <input type="text" size="50" name="Table" value="SinhVien">
+                <br>
+                <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+            </td>
+        </tr>
+        <br /><br />
+        <tr style="height:40px">
+            <td> Nhập trạng thái theo mẫu - Nhập ví dụ theo từng phần (VD : 3-1-3-1-2 # nếu một doc SQL có 5 cột)... - Với # 1 : Kiểu số, 2 : Kiểu chuỗi, 3 : Kiểu DateTime/Char </td>
+            <td>
+                <input type="text" size="50" name="TrangThai" value="3-2-1-3">
+                <br>
+                <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+            </td>
+        </tr>
+        <br /><br />
+        <tr style="height:40px">
+            <td> Nhập dãy dữ liệu theo mẫu (VD - nếu mỗi doc SQL có 5 cột/ mỗi col cách nhau bởi # - mỗi doc cách nhau bởi Enter)... </td>
+            <td>
+                <textarea name="DuLieu" cols="100" rows="50">SV001#Bùi Văn Luật#10#20/06/2000
+SV002#Nguyễn Văn Đạt#9.5#15/08/2001
+SV003#Trần Chí Khôi#2.5#29/07/1990
+SV004#Lê Tuấn Kiệt#9.2#05/12/1995
+SV005#Đào Vũ Hạnh#4.8#28/03/1992</textarea>
+                <br>
+                <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
+            </td>
+        </tr>
+
+
+        <tr style="height:40px">
+            <td></td>
+            <td>
+                <input type="Submit" value="Kết Quả" />
+            </td>
+        </tr>
+    }
+</table>
+
+@Html.ActionLink("Copy ví dụ lệnh tạo và sử dụng database Sinh Viên","Copy_CreateDatabase") <br />
+@Html.ActionLink("Copy ví dụ lệnh backup database Sinh Viên - không mật khẩu","Copy_BackupDatabase1") <br />
+@Html.ActionLink("Copy ví dụ lệnh backup database Sinh Viên - có mật khẩu","Copy_BackupDatabase2")<br />
+@Html.ActionLink("Copy ví dụ lệnh restore database Sinh Viên","Copy_CreateDatabase")
+<br />
+@Html.ActionLink("Copy ví dụ lệnh restore database Sinh Viên - không mật khẩu, không ghi đè lên database cũ","Copy_RestoreDatabase1")
+<br />
+@Html.ActionLink("Copy ví dụ lệnh restore database Sinh Viên - không mật khẩu, có ghi đè lên database cũ","Copy_RestoreDatabase2")
+<br />
+@Html.ActionLink("Copy ví dụ lệnh restore database Sinh Viên - có mật khẩu, không ghi đè lên database cũ","Copy_RestoreDatabase3")
+<br />
+@Html.ActionLink("Copy ví dụ lệnh restore database Sinh Viên - có mật khẩu, có ghi đè lên database cũ","Copy_RestoreDatabase4")
+<br />
+@Html.ActionLink("Copy ví dụ lệnh attach database Sinh Viên","Copy_AttachDatabase")
+<br />
+@Html.ActionLink("Copy ví dụ lệnh detach database Sinh Viên","Copy_DetachDatabase4")
+<br />
+@Html.ActionLink("Copy ví dụ lệnh tạo index","Copy_Index")
+<br />
+@Html.ActionLink("Copy ví dụ lệnh tạo view","Copy_View")
+<br />
+@Html.ActionLink("Copy ví dụ lệnh tạo procedure","Copy_Procedure")
+<br />
+@Html.ActionLink("Copy ví dụ lệnh tạo function","Copy_Function")
+<br />
+@Html.ActionLink("Copy ví dụ lệnh tạo trigger","Copy_Trigger")
+<br />
+@Html.ActionLink("Copy ví dụ lệnh thêm các cột cho table Sinh Viên","Copy_AddColumn")
+<br />
+@Html.ActionLink("Copy ví dụ lệnh xoá các cột cho table Sinh Viên","Copy_DeleteColumn")
+<br />
+@Html.ActionLink("Copy ví dụ lệnh sửa cột (sửa kiểu dữ liệu) cho table Sinh Viên","Copy_RepairColumn1")
+<br />
+@Html.ActionLink("Copy ví dụ lệnh sửa cột (thêm khoá chính) cho table Sinh Viên","Copy_RepairColumn2")
+<br />
+@Html.ActionLink("Copy ví dụ lệnh sửa cột (thêm khoá ngoại) cho table Sinh Viên","Copy_RepairColumn3")
+<br />

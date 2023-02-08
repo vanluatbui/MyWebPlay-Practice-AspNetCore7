@@ -1,0 +1,137 @@
+﻿<table align="center">
+    <h2 style="text-align:center">Replace - Regex</h2>
+
+    <h3 style="color:blue">@ViewBag.KetQua</h3>
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <tr style="height:40px">
+            <td> Chuỗi của bạn : </td>
+            <td>
+                <textarea rows="20" cols="150" name="Chuoi" autofocus></textarea>
+                <br>
+                <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+            </td>
+        </tr>
+
+        <br />
+        <br />
+
+        <tr style="height:40px">
+            <td> Nhập pattern-input cần thay đổi : </td>
+            <td>
+                <textarea rows="10" cols="100" name="Input" autofocus></textarea>
+                <br>
+                <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+            </td>
+        </tr>
+
+        <br />
+        <br />
+
+             <tr style="height:40px">
+                <td> Nhập pattern-output sẽ được thay thế thành : </td>
+            <td>
+                <textarea rows="10" cols="100" name="Output" autofocus></textarea>
+                <br>
+                <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
+            </td>
+        </tr>
+
+            <br />
+            <br />
+
+                <tr style="height:40px">
+                <td> Mời bạn lựa chọn áp dụng Regex (Với 1 : Áp dụng Regex, 2 : Không áp dụng Regex) </td>
+            <td>
+                <input type="number" min="1" max="2" name="DuKien1" value="1">
+                <br>
+                <span style="color:red; font-style:italic">@ViewData["Loi4"] </span>
+            </td>
+        </tr>
+
+            <br />
+
+        <br />
+
+        <tr style="height:40px">
+            <td> Nhập số lượng thay thế kết quả áp dụng - [Chú ý nếu đã chọn không áp dụng Regex thì nó sẽ áp dụng tất cả...] (ưu tiên các kết quả đầu tiên) # Có thể nhập -1 để áp dụng tất cả...</td>
+            <td>
+                <input type="number" min="-1" name="DuKien2" value="-1">
+                <br>
+                <span style="color:red; font-style:italic">@ViewData["Loi5"] </span>
+            </td>
+        </tr>
+
+        <br />
+        <br />
+
+        <tr style="height:40px">
+            <td></td>
+            <td>
+                <input type="Submit" value="Kết Quả" />
+            </td>
+        </tr>
+    }
+</table>
+<br>
+<br />
+* QUY TẮC PATTERN - REGEX (50%) :
+<br>
+<br>. : đại diện cho 1 kí tự, ngoại trừ Enter
+<br>
+<br>\d : đại diện kí tự số
+<br>
+<br>[0-9] : giống \d (đại diện kí từ số từ 0 đến 9]
+<br>
+<br>[x-y] : đại diện kí từ số từ x đến y
+<br>
+<br>\d{x} : Tìm chuỗi con có x kí tự là số liên tiếp nhau
+<br>
+<br>\D : đại diện ký tự không phải là số
+<br>
+<br>\s : ký tự khoảng trắng hay Enter hay cách Tab
+<br>
+<br>\w : bao gồm kí tự chữ, số và dấu gạch dưới
+<br>
+<br>[azAZ_0-9] : giống \w
+<br>
+<br>^[azAZ_0-9] : Phủ định của [azAZ_0-9] (những TH còn lại)
+<br>
+<br>\S : kí tự không là khoảng trắng, Enter hay cách Tab
+<br>
+<br>\W : ký tự không phải là một từ word
+<br>
+<br>^ : Bắt đầu một chuỗi hay một dòng
+<br>
+<br>$ : Kết thúc một chuỗi hay một dòng
+<br>
+<br>\A : Bắt đầu một chuỗi
+<br>
+<br>\z : Kết thúc một chuỗi
+<br>
+<br>| : OR (điều kiện 'hoặc' - logic)
+<br>
+<br>[xyz] : x hay y hay z đều thoả mãn (miễn ít nhất một và không nằm  ngoài vùng này)
+<br>
+<br>^[xyz] : Phủ định với [xyz]
+<br>
+<br>( hay và ) : xác định một group các pattern
+<br>
+<br>?x : Trước chữ x của một từ phải có các chữ đứng trước xuất hiện 0 hay 1 lần
+<br>VD : ax --> Trước chữ x chỉ có đúng một chữ a.
+<br>
+<br>*x : Trước chữ x của một từ phải có các chữ đứng trước xuất hiện 0 lần trở lên
+<br>
+<br>+x : Trước chữ x của một từ phải có các chữ đứng trước xuất hiện 1 lần trở lên
+<br>
+<br>{n}x : Trước chữ x của một từ phải có các chữ đứng trước xuất hiện đúng n lần
+<br>
+<br>{n,}x : Trước chữ x của một từ phải có các chữ đứng trước xuất hiện n lần trở lên
+<br>
+<br>{m,n}x : Trước chữ x của một từ phải có các chữ đứng trước xuất hiện từ m đến n lần.
+<br>
+<br>...
+<br>

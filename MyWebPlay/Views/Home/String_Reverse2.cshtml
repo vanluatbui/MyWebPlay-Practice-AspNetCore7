@@ -1,0 +1,29 @@
+﻿<table align="center">
+    <h2 style="text-align:center">Reverse String 2 - Ví dụ : 1 2 3 | 4 5 6 | 7 8 9 --> 3 2 1 | 6 5 4 | 9 8 7</h2>
+
+    <h3 style="color:blue">@ViewBag.KetQua</h3>
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <tr style="height:40px">
+            <td> Chuỗi của bạn : </td>
+            <td>
+                <textarea rows="20" cols="150" name="Chuoi" autofocus>A B C
+D E F
+G H I
+K L M
+X Y Z</textarea>
+                <br>
+                <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
+            </td>
+        </tr>
+        <tr style="height:40px">
+            <td></td>
+            <td>
+                <input type="Submit" value="Kết Quả" />
+            </td>
+        </tr>
+    }
+</table>

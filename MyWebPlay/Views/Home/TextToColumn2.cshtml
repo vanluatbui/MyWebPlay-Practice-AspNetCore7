@@ -1,0 +1,35 @@
+﻿<table align="center">
+    <h2 style="text-align:center">Text all one line-column to convert x column part 2</h2>
+
+    <h3 style="color:blue">@ViewBag.KetQua</h3>
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <tr style="height:40px">
+            <td> Chuỗi của bạn : </td>
+            <td>
+                <textarea rows="20" cols="150" name="Chuoi" autofocus></textarea>
+                <br>
+                <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+            </td>
+        </tr>
+
+        <tr style="height:40px">
+            <td> Number column : </td>
+            <td>
+                <input type="number" name="Number" min="1" value="1">
+                <br>
+                <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+            </td>
+        </tr>
+
+        <tr style="height:40px">
+            <td></td>
+            <td>
+                <input type="Submit" value="Kết Quả" />
+            </td>
+        </tr>
+    }
+</table>

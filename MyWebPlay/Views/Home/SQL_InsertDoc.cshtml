@@ -51,8 +51,6 @@ SV005#Đào Vũ Hạnh#4.8#28/03/1992</textarea>
 @Html.ActionLink("Copy ví dụ lệnh tạo và sử dụng database Sinh Viên","Copy_CreateDatabase") <br />
 @Html.ActionLink("Copy ví dụ lệnh backup database Sinh Viên - không mật khẩu","Copy_BackupDatabase1") <br />
 @Html.ActionLink("Copy ví dụ lệnh backup database Sinh Viên - có mật khẩu","Copy_BackupDatabase2")<br />
-@Html.ActionLink("Copy ví dụ lệnh restore database Sinh Viên","Copy_CreateDatabase")
-<br />
 @Html.ActionLink("Copy ví dụ lệnh restore database Sinh Viên - không mật khẩu, không ghi đè lên database cũ","Copy_RestoreDatabase1")
 <br />
 @Html.ActionLink("Copy ví dụ lệnh restore database Sinh Viên - không mật khẩu, có ghi đè lên database cũ","Copy_RestoreDatabase2")
@@ -63,7 +61,7 @@ SV005#Đào Vũ Hạnh#4.8#28/03/1992</textarea>
 <br />
 @Html.ActionLink("Copy ví dụ lệnh attach database Sinh Viên","Copy_AttachDatabase")
 <br />
-@Html.ActionLink("Copy ví dụ lệnh detach database Sinh Viên","Copy_DetachDatabase4")
+@Html.ActionLink("Copy ví dụ lệnh detach database Sinh Viên","Copy_DetachDatabase")
 <br />
 @Html.ActionLink("Copy ví dụ lệnh tạo index","Copy_Index")
 <br />
@@ -85,3 +83,14 @@ SV005#Đào Vũ Hạnh#4.8#28/03/1992</textarea>
 <br />
 @Html.ActionLink("Copy ví dụ lệnh sửa cột (thêm khoá ngoại) cho table Sinh Viên","Copy_RepairColumn3")
 <br />
+
+<br />
+<br />
+<br />
+******************************************************************************************************************************************************************************
+
+<br />
+<br />
+<br />
+
+@Html.Raw(ViewBag.Result)

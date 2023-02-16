@@ -1,5 +1,5 @@
 ﻿<table align="center">
-    <h2 style="text-align:center">SQL - CREATE TABLE</h2>
+    <h2 style="text-align:center">Special X - OrderBy</h2>
 
     <h3 style="color:blue">@ViewBag.KetQua</h3>
 
@@ -8,45 +8,47 @@
         @Html.ValidationSummary(true)
 
         <tr style="height:40px">
-            <td> Tên danh sách Table (thứ tự theo mẫu) : </td>
+            <td> Dữ kiện thứ tự sắp xếp và ưu tiên (index mỗi từ) : </td>
             <td>
-                <input type="text" size="50" name="Table" value="SINHVIEN-MONHOC-DIEMSINHVIEN">
+                <input type="text" size="50" name="SapXep" value="N-1=N-2=0=1">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
             </td>
         </tr>
         <br />
         <br />
+
         <tr style="height:40px">
-            <td> Nhập số lượng cột cần làm khoá chính (lưu ý sẽ lấy các cột đầu tiên - ví dụ)</td>
+            <td> Chuỗi của bạn : </td>
             <td>
-                <input type="text" size="50" name="Key" value="1-1-2">
+                <textarea rows="20" cols="150" name="Chuoi" autofocus>@ViewBag.ChuoiViDu</textarea>
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
             </td>
         </tr>
-        <br />
-        <br />
+        <br /><br />
+
         <tr style="height:40px">
-            <td> Nhập dãy dữ liệu các Table (theo mẫu và lưu ý) :</td>
+            <td> Với 0 là sắp tăng và 1 là sắp giảm </td>
             <td>
-                <textarea name="DuLieu" cols="100" rows="50">MSSV VARCHAR(5)
-HOTEN NVARCHAR(30)
-PHAI BIT
-NTNS DATE
-
-MAMH VARCHAR(5)
-TENMONHOC NVARCHAR(30)
-SOTINCHI TINYINT
-
-MSSV VARCHAR(5) [SINHVIEN] MSSV
-MAMH VARCHAR(5) [MONHOC] MAMH
-DIEM FLOAT</textarea>
+                <input type="number" size="50" name="TangGiam" value="0" max="1" min="0">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
             </td>
         </tr>
+        <br />
+        <br />
 
+                <tr style="height:40px">
+            <td> Nhập số ô cần xác định sắp xếp (index start in 1) </td>
+            <td>
+                <input type="number" size="50" name="CoDinh" value="2" min="1">
+                <br>
+                <span style="color:red; font-style:italic">@ViewData["Loi4"] </span>
+            </td>
+        </tr>
+        <br />
+        <br />
 
         <tr style="height:40px">
             <td></td>
@@ -56,8 +58,9 @@ DIEM FLOAT</textarea>
         </tr>
     }
 </table>
-
-<br /><br /><br />
+<br />
+<br />
+<br />
 ******************************************************************************************************************************************************************************
 
 <br />

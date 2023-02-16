@@ -102,7 +102,14 @@ namespace MyWebPlay.Controllers
 
             TextCopy.ClipboardService.SetText(sql);
 
-            ViewBag.KetQua = "Thành công! Một kết quả đã được lưu copy vào Clipboard của bạn!";
+            //sql = "\r\n" + sql;
+            //sql = sql.Replace("\r\n", "<br>");
+
+            sql = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
+
+            ViewBag.Result = sql;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
             return View();
         }
 
@@ -145,7 +152,7 @@ namespace MyWebPlay.Controllers
                 DS_thuoctinh.Add(ds[1]);
             }
 
-            string s = "public class " + tenclass + "\r\n{\r\n";
+            string s = "\r\npublic class " + tenclass + "\r\n{\r\n";
 
             for (int i = 0; i < DS_Kieudulieu.Count; i++)
             {
@@ -218,7 +225,13 @@ namespace MyWebPlay.Controllers
 
             TextCopy.ClipboardService.SetText(s);
 
-            ViewBag.KetQua = "Thành công! Một kết quả đã được lưu copy vào Clipboard của bạn!";
+            //s = s.Replace("<", "&lt;").Replace(">", "&gt;").Replace("\r\n", "<br>");
+
+            s = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + s + "</textarea>";
+
+            ViewBag.Result = s;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
             return View();
         }
 
@@ -298,7 +311,7 @@ namespace MyWebPlay.Controllers
 
             string[] value = Regex.Split(dulieu, "\r\n#\r\n");
 
-            string ss = "";
+            string ss = "\r\n";
             for (int i = 0; i < value.Length; i++)
             {
                 int k = 0;
@@ -354,7 +367,13 @@ namespace MyWebPlay.Controllers
 
             TextCopy.ClipboardService.SetText(ss);
 
-            ViewBag.KetQua = "Thành công! Một kết quả đã được lưu copy vào Clipboard của bạn!";
+            //ss = ss.Replace("\r\n", "<br>");
+
+            ss = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + ss + "</textarea>";
+
+            ViewBag.Result = ss;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
             return View();
         }
     }

@@ -31,11 +31,18 @@ namespace MyWebPlay.Controllers
 
             s.Reverse();
 
-            string x = String.Join("\n", s);
+            string x = String.Join("\r\n", s);
 
             TextCopy.ClipboardService.SetText(x);
 
-            ViewBag.KetQua = "Thành công! Một kết quả đã được lưu copy vào Clipboard của bạn!";
+            //x = "\r\n" + x;
+            //x = x.Replace("\r\n", "<br>");
+
+            x = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + x + "</textarea>";
+
+            ViewBag.Result = x;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
             return View();
         }
 
@@ -67,11 +74,16 @@ namespace MyWebPlay.Controllers
                 s.Add(String.Join(" ",winx));
             }
 
-            string x = String.Join("\n", s);
+            string x = String.Join("\r\n", s);
 
             TextCopy.ClipboardService.SetText(x);
 
-            ViewBag.KetQua = "Thành công! Một kết quả đã được lưu copy vào Clipboard của bạn!";
+
+            x = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + x + "</textarea>";
+
+            ViewBag.Result = x;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
             return View();
         }
 
@@ -181,12 +193,20 @@ namespace MyWebPlay.Controllers
                 if (String.Compare(kq1, kq2) == 0)
                     break;
             }
-        
 
+            string dx = String.Join("\n", DS);
 
-            TextCopy.ClipboardService.SetText(String.Join("\n",DS));
+            TextCopy.ClipboardService.SetText(dx);
 
-            ViewBag.KetQua = "Thành công! Một kết quả đã được lưu copy vào Clipboard của bạn!";
+            //String sql = "\r\n" + String.Join("\r\n", DS);
+            
+            //sql = sql.Replace("\r\n", "<br>");
+
+            dx = "<p style=\"color:blue\"" + dx + "</p>";
+
+            ViewBag.Result = dx;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
             return View();
         }
     }

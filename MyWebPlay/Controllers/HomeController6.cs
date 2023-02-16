@@ -42,7 +42,7 @@ namespace MyWebPlay.Controllers
                pattern = pattern.Replace(@"\\", @"\");
             }
 
-            string result = "Chuỗi :\r\n\r\n"+chuoi+ "\r\n\r\nPattern :\r\n\r\n"+pattern+ "\r\n\r\n**********************************************************************\r\n\r\n";
+            string result = "\r\nChuỗi :\r\n\r\n"+chuoi+ "\r\n\r\nPattern :\r\n\r\n"+pattern+ "\r\n\r\n**********************************************************************\r\n\r\n";
 
             Regex regExp = new Regex(pattern);
 
@@ -59,7 +59,11 @@ namespace MyWebPlay.Controllers
 
             TextCopy.ClipboardService.SetText(result);
 
-            ViewBag.KetQua = "Thành công! Một kết quả đã được lưu copy vào Clipboard của bạn!";
+            result = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+
+            ViewBag.Result = result;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
 
             return View();
         }
@@ -111,7 +115,7 @@ namespace MyWebPlay.Controllers
             }
 
             Regex regex = new Regex(input);
-            string result = "";
+            string result = "\r\n";
 
             if (int.Parse(dukien1) == 1)
             {
@@ -137,7 +141,11 @@ namespace MyWebPlay.Controllers
 
             TextCopy.ClipboardService.SetText(result);
 
-            ViewBag.KetQua = "Thành công! Một kết quả đã được lưu copy vào Clipboard của bạn!";
+            result = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+
+            ViewBag.Result = result;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
 
 
             return View();

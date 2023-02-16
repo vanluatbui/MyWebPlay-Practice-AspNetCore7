@@ -59,7 +59,7 @@ namespace MyWebPlay.Controllers
             string[] DS = Regex.Split(chuoi, "\r\n");
             Regex regex = new Regex(pattern);
 
-            string result = "";
+            string result = "\r\n";
 
             int stt = 0;
             for (int i = 0; i < DS.Length; i++)
@@ -130,7 +130,15 @@ namespace MyWebPlay.Controllers
 
             TextCopy.ClipboardService.SetText(result);
 
-            ViewBag.KetQua = "Thành công! Một kết quả đã được lưu copy vào Clipboard của bạn!";
+            //            string re = "\r\n" + result;
+
+            //re = re.Replace("\r\n", "<br>");
+
+            result = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+
+            ViewBag.Result = result;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
 
             return View();
         }
@@ -166,6 +174,7 @@ namespace MyWebPlay.Controllers
             }
 
             bool result = Regex.IsMatch(chuoi, pattern);
+            
             ViewBag.KetQua = "Chuỗi : "+chuoi+" |-| Pattern : "+pattern+" |-| ==> KẾT QUẢ :  " + result;
             return View();
         }

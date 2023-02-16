@@ -185,7 +185,13 @@ namespace MyWebPlay.Controllers
 
             TextCopy.ClipboardService.SetText(s);
 
-            ViewBag.KetQua = "Thành công! Một kết quả đã được lưu copy vào Clipboard của bạn!";
+           // s = "<p style=\"color:blue\"" + s + "</p>";
+
+            s = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + s + "</textarea>";
+
+            ViewBag.Result = s;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
             return View();
         }
 
@@ -240,7 +246,14 @@ namespace MyWebPlay.Controllers
 
             TextCopy.ClipboardService.SetText(ss);
 
-            ViewBag.KetQua = "Thành công! Một kết quả đã được lưu copy vào Clipboard của bạn!";
+            //ss = "\r\n" + ss;
+            //ss = ss.Replace("\r\n", "<br>");
+
+            ss = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + ss + "</textarea>";
+
+            ViewBag.Result = ss;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
             return View();
         }
 
@@ -297,7 +310,15 @@ namespace MyWebPlay.Controllers
 
             TextCopy.ClipboardService.SetText(ss);
 
-            ViewBag.KetQua = "Thành công! Một kết quả đã được lưu copy vào Clipboard của bạn!";
+
+            //ss = "\r\n" + ss;
+            //ss = ss.Replace("\r\n", "<br>");
+
+            ss = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + ss + "</textarea>";
+
+            ViewBag.Result = ss;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
             return View();
         }
 
@@ -335,7 +356,14 @@ namespace MyWebPlay.Controllers
 
             TextCopy.ClipboardService.SetText(result);
 
-            ViewBag.KetQua = "Thành công! Một kết quả đã được lưu copy vào Clipboard của bạn!";
+            result = "\r\n" + result;
+            result = result.Replace("\r\n", "<br>");
+
+            result = "<p style=\"color:blue\"" + result + "</p>";
+
+            ViewBag.Result = result;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
 
             return View();
         }
@@ -369,7 +397,14 @@ namespace MyWebPlay.Controllers
 
             TextCopy.ClipboardService.SetText(noidung);
 
-            ViewBag.KetQua = "Thành công! Một kết quả đã được lưu copy vào Clipboard của bạn!";
+            //noidung = "\r\n" + noidung;
+            //noidung= noidung.Replace("\r\n", "<br>").Replace(" ","&nbsp;");
+
+            noidung = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + noidung + "</textarea>";
+
+            ViewBag.Result = noidung;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
 
             return View();
         }
@@ -690,9 +725,9 @@ namespace MyWebPlay.Controllers
             for (int i = 0; i < s; i++)
             {
                 if (x[i].xi.Length == 0)
-                    noidung += "\n" + x[i].b + "\t\tNULL\t\t" + x[i].x1 + "\t\t" + x[i].xf;
+                    noidung += "\r\n" + x[i].b + "\t\tNULL\t\t" + x[i].x1 + "\t\t" + x[i].xf;
                 else
-                    noidung += "\n" + x[i].b + "\t\t" + x[i].xi + "\t\t" + x[i].x1 + "\t\t" + x[i].xf;
+                    noidung += "\r\n" + x[i].b + "\t\t" + x[i].xi + "\t\t" + x[i].x1 + "\t\t" + x[i].xf;
             }
             return noidung;
         }
@@ -811,7 +846,13 @@ namespace MyWebPlay.Controllers
                 
                 TextCopy.ClipboardService.SetText(s);
 
-                ViewBag.KetQua = "Thành công! Một kết quả đã được lưu copy vào Clipboard của bạn!";
+                //s = "\r\n" + s.Replace("\r\n", "<br>");
+
+                s = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + s + "</textarea>";
+
+                ViewBag.Result = s;
+
+                ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
 
                 return View();
             }
@@ -830,7 +871,7 @@ namespace MyWebPlay.Controllers
             Play_On3(y);
 
 
-            s += "\r\n --> BẢNG KẾT QUẢ (SO SÁNH) :\r\n\r\n";
+            s += "\r\n\r\n --> BẢNG KẾT QUẢ (SO SÁNH) :\r\n\r\n";
 
            s  += xuatDS(y);
 
@@ -839,7 +880,13 @@ namespace MyWebPlay.Controllers
 
             TextCopy.ClipboardService.SetText(s);
 
-            ViewBag.KetQua = "Thành công! Một kết quả đã được lưu copy vào Clipboard của bạn!";
+
+
+            s = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + s + "</textarea>";
+
+            ViewBag.Result = s;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
 
             return View();
         }

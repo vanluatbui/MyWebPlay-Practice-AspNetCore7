@@ -1,0 +1,78 @@
+﻿<table align="center">
+    <h2 style="text-align:center">Đồ Thị Ma Trận - Chu Trình Euler Cơ Bản</h2>
+
+    <h3 style="color:blue">@ViewBag.KetQua</h3>
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+       
+        <tr style="height:40px">
+            <td> Nhập ma trận đồ thị (lưu ý hãy tự tưởng tượng hoặc tự vẽ đồ thị của bạn để hình dung :v )  - ví dụ bên dưới  : </td>
+            <td>
+                <textarea rows="20" cols="150" name="Chuoi" autofocus>0 1 0 1 0 0 0 0
+1 0 1 0 0 0 0 0
+0 1 0 0 0 1 0 0
+1 0 0 0 1 0 0 0
+0 0 0 1 0 1 0 0
+0 0 1 0 1 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0</textarea>
+                <br>
+                <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
+            </td>
+        </tr>
+
+        <br />
+        <br />
+
+        <tr style="height:40px">
+            <td></td>
+            <td>
+                <input type="Submit" value="Kết Quả" />
+            </td>
+        </tr>
+    }
+</table>
+<br>
+<br />
+
+Lý Thuyết Đồ Thị - Chu trình Euler☆
+<br>
+<br>- Ví dụ cho một đồ thị gồm 8 đỉnh :
+<br>
+<br>           [ 0 ] --- [ 1 ] --- [ 2 ]&nbsp;&nbsp;&nbsp;[ 6 ]
+<br>             &nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;||
+<br>           [ 3 ] --- [ 4 ] --- [ 5 ]&nbsp;&nbsp;&nbsp;[ 7 ]
+<br>
+<br>- Biểu diễn ma trận kề cho đồ thị trên :
+<br>0 1 0 1 0 0 0 0
+<br>1 0 1 0 0 0 0 0
+<br>0 1 0 0 0 1 0 0
+<br>1 0 0 0 1 0 0 0
+<br>0 0 0 1 0 1 0 0
+<br>0 0 1 0 1 0 0 0
+<br>0 0 0 0 0 0 0 0
+<br>0 0 0 0 0 0 0 0
+<br>
+<br>- Đồ thị trên là đồ thị vô hướng
+<br>
+<br>- Tất cả các đỉnh đều có bậc chẵn (có bao nhiêu đỉnh được nối với đỉnh đang xét thì đỉnh đang xét đó có bấy nhiêu bậc)
+<br>Ví dụ : đỉnh 6 có bậc là 0 vì không có đỉnh nào nối với nó, đỉnh 0 có bậc là 2 vì có 2 đỉnh nối với nó là 1 và 3...
+<br>
+<br>- Trong đồ thị vô hướng, điều kiện để tồn tại chu trình Euler :
+<br>
+<br>+ Tất cả đỉnh đều có bậc chẵn
+<br>
+<br>+ Chọn đỉnh có bậc >0 làm đỉnh xuất phát
+<br>
+<br>+ Từ đỉnh xuất phát, hãy tìm cách đi qua tất cả các đỉnh còn lại (qua hết mọi con đường nối hiện có trên đồ thị).Đường nào đã đi qua thì không đi lại nữa, và không thể đi lùi
+<br>
+<br>+ Nếu trong quá trình di chuyển mà gặp phải sự cố như phải dừng tại đỉnh nào đó mà không thể đi tiếp được nữa vì đỉnh đang đứng không còn đường để cho ta tiếp tục di chuyển (cho dù vẫn còn nhiều đường khác trong đồ thị mà ta chưa đi qua) hay đã đi hết mọi con đường nhưng đỉnh kết thúc không trùng với đỉnh xuất phát thì đồ thị không có chu trình Euler
+<br>
+<br>+ Nhưng với đồ thị có các đỉnh là bậc chẵn thì đồ thị đó sẽ có chu trình Euler...
+<br>
+<br>- Ví dụ, với đồ thị trên ta có chu trình Euler như sau (nếu chọn đỉnh xuất phát là 0) :
+<br>0 -> 1 -> 2 -> 5 -> 4 -> 3 -> 0
+<br />

@@ -199,10 +199,10 @@ namespace MyWebPlay.Controllers
             TextCopy.ClipboardService.SetText(dx);
 
             //String sql = "\r\n" + String.Join("\r\n", DS);
-            
+
             //sql = sql.Replace("\r\n", "<br>");
 
-            dx = "<p style=\"color:blue\"" + dx + "</p>";
+            dx = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + dx + "</textarea>";
 
             ViewBag.Result = dx;
 

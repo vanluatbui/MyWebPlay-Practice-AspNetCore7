@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="styles/style.css" />
+    <title>Trộn màu!</title>
+</head>
+<body onload="hienthimau()">
+    <script>
+        function xemmamau() {
+            var color = document.getElementById("color1");
+            alert("Mã màu bạn đã chọn : " + color.value);
+        }
+
+        function tronmau() {
+            var color1 = document.getElementById("color1");
+            var color2 = document.getElementById("color2");
+            var div1 = document.getElementById("ketqua1");
+            var div2 = document.getElementById("ketqua2");
+
+            div1.style.backgroundColor = color1.value;
+            div2.style.backgroundColor = color2.value;
+        }
+
+        function mixmau() {
+            var select = document.getElementsByName("select");
+            var div1 = document.getElementById("kq1");
+            var div2 = document.getElementById("kq2");
+
+            div1.style.backgroundColor = select[0].options[select[0].selectedIndex].value;
+            div2.style.backgroundColor = select[1].options[select[1].selectedIndex].value;
+
+        }
+
+        function hienthimau() {
+            var s = "aliceblue " +
+                "antiquewhite aqua aquamarine azure" +
+                " beige bisque black blanchedalmond" +
+                " blue blueviolet brown burlywood" +
+                " cadetblue chartreuse chocolate" +
+                " coral cornflowerblue cornsilk" +
+                " crimson cyan darkblue darkcyan" +
+                " darkgoldenrod darkgray darkgreen" +
+                " darkgrey darkkhaki darkmagenta" +
+                " darkolivegreen darkorange" +
+                " darkorchid darkred darksalmon" +
+                " darkseagreen darkslateblue" +
+                " darkslategray darkslategrey" +
+                " darkturquoise darkviolet firebrick" +
+                " floralwhite forestgreen fuchsia" +
+                " gainsborovghostwhite gold goldenrod" +
+                " gray green greenyellow grey" +
+                " honeydew hotpink indianred" +
+                " indigo ivory khaki lavender" +
+                " lavenderblush lawngreen" +
+                " lemonchiffon lightblue lightcoral" +
+                " lightcyan lightgoldenrodyellow" +
+                " lightgray lightgreen lightgrey" +
+                " lightpink lightsalmon" +
+                " lightseagreen lightskyblue" +
+                " lightslategray lightslategrey" +
+                " lightsteelblue lightyellow lime" +
+                " limegreen linen magenta" +
+                "mediumturquoise mediumvioletred" +
+                " midnightblue mintcream mistyrose" +
+                " moccasin navajowhite navy" +
+                " oldlace olive olivedrab orange" +
+                " orangered orchid palegoldenrod" +
+                " palegreen paleturquoise" +
+                " palevioletred papayawhip" +
+                " peachpuff peru pink plum" +
+                " powderblue purple rebeccapurple" +
+                " red rosybrown royalblue" +
+                " saddlebrown salmon sandybrown" +
+                " seagreen seashell sienna silver" +
+                " skyblue slateblue slategray" +
+                " slategrey snow springgreen" +
+                " steelblue tan teal thistle tomato" +
+                " turquoise violet wheat white" +
+                " whitesmoke yellow yellowgreen";
+
+            var x = s.split(" ");
+            var select = document.getElementsByName("select");
+
+            for (var i = 0; i < x.length; i++) {
+                var option = document.createElement("option");
+                var text = document.createTextNode(x[i]);
+                option.appendChild(text);
+                select[0].appendChild(option);
+            }
+
+            for (var i = 0; i < x.length; i++) {
+                var option = document.createElement("option");
+                var text = document.createTextNode(x[i]);
+                option.appendChild(text);
+                select[1].appendChild(option);
+            }
+        }
+
+        function xemmau() {
+            var xem = document.getElementsByName("xem");
+            var select = document.getElementsByName("select");
+
+            xem[0].style.backgroundColor = select[0].options[select[0].selectedIndex].value;
+            xem[1].style.backgroundColor = select[1].options[select[1].selectedIndex].value;
+
+        }
+    </script>
+    Chọn màu thứ nhất :
+    <input id="color1" type="color">
+    <input type="button" value="Xem mã màu này" onclick="xemmamau()">
+    <br>
+    <br>
+    <br>
+    Chọn màu thứ hai :
+    <input id="color2" type="color">
+    <input type="button" value="Trộn hai màu này" onclick="tronmau()">
+    <br>
+    <br>
+    <br>
+    Kết quả :
+    <br>
+    <br>
+    <div id="ketqua1" style="border : 2px solid black; background-color:#000000;width:100px;height:100px; overflow : hidden;">
+        <div id="ketqua2" style="background-color:#000000; opacity : 0.5; width:100px;height:100px;"></div>
+    </div>
+
+    <br>
+    <br>
+    <hr>
+    <br>
+    <br>
+
+    Chọn màu thứ nhất :
+
+    <select onchange="xemmau()" name="select"></select>
+    <br>
+    <br>
+    <div name="xem" style="border : 2px solid black; background-color:aliceblue;width:50px;height:50px"></div>
+
+    <br>
+    <br>
+
+    Chọn màu thứ hai :
+
+    <select onchange="xemmau()" name="select"></select>
+    <br>
+    <br>
+
+    <div name="xem" style="border : 2px solid black; background-color:aliceblue;width:50px;height:50px"></div>
+
+    <br>
+
+    <input type="button" value="Trộn hai màu này" onclick="mixmau()">
+    <br>
+    <br>
+
+    Kết quả :
+    <br>
+    <br>
+    <div id="kq1" style="border: 2px solid black; background-color:aliceblue;width:100px;height:100px; overflow : hidden;">
+        <div id="kq2" style="background-color:aliceblue; opacity : 0.5; width:100px;height:100px;"></div>
+    </div>
+
+    <br>
+    <br>
+    <hr>
+    <br>
+    <br>
+
+</body>
+</html>

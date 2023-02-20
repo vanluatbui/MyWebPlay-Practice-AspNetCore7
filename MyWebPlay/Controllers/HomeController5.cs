@@ -175,7 +175,7 @@ namespace MyWebPlay.Controllers
 
             bool result = Regex.IsMatch(chuoi, pattern);
             
-            ViewBag.KetQua = "Chuỗi : "+chuoi+" |-| Pattern : "+pattern+" |-| ==> KẾT QUẢ :  " + result;
+            ViewBag.KetQua = "Chuỗi : "+chuoi.Replace(" ","[Space]").Replace("\t","[Tab]")+" |-| Pattern : "+pattern.Replace(" ", "[Space]").Replace("\t", "[Tab]") + " |-| ==> KẾT QUẢ :  " + result;
             return View();
         }
     }

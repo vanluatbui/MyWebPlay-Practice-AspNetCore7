@@ -10,12 +10,14 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult ResultCheck_Regex()
         {
+            ViewBag.ViDu = "!\"#$%&'()*+,-./0123456789:;<=>?@ ABCDEFGHIJKLMNOPQRSTUVWXYZ\t[\\]^_`\r\nabcdefghijklmnopqrstuvwxyz{|}~";
             return View();
         }
 
         [HttpPost]
         public ActionResult ResultCheck_Regex(IFormCollection f)
         {
+            ViewBag.ViDu = "!\"#$%&'()*+,-./0123456789:;<=>?@ ABCDEFGHIJKLMNOPQRSTUVWXYZ\t[\\]^_`\r\nabcdefghijklmnopqrstuvwxyz{|}~";
             string chuoi = f["Chuoi"].ToString();
             if (string.IsNullOrEmpty(chuoi))
             {
@@ -51,7 +53,7 @@ namespace MyWebPlay.Controllers
             {
                 stt++;
                 if (int.Parse(dukien2) == 1)
-                    result += "\r\n* Kết quả tìm kiếm thứ " + stt + " :\r\n\r\n" + match.Value + "\r\n\r\n+ Vị trí xuất hiện : " + match.Index + "\r\n+ Độ dài : " + match.Length + "\r\n------------------------------------------------------\r\n\r\n";
+                    result += "\r\n* Kết quả tìm kiếm thứ " + stt + " :\r\n\r\n" + match.Value.Replace(" ", "[Space]").Replace("\t", "[Tab]").Replace("\n","[Enter]") + "\r\n\r\n+ Vị trí xuất hiện : " + match.Index + "\r\n+ Độ dài : " + match.Length + "\r\n------------------------------------------------------\r\n\r\n";
                 else
                     result += match.Value + "\r\n";
             }
@@ -108,11 +110,11 @@ namespace MyWebPlay.Controllers
             }
 
             string output = f["Output"].ToString();
-            if (string.IsNullOrEmpty(output))
-            {
-                ViewData["Loi3"] = "Trường này không được để trống!";
-                return this.Replace_Regex();
-            }
+            //if (string.IsNullOrEmpty(output))
+            //{
+            //    ViewData["Loi3"] = "Trường này không được để trống!";
+            //    return this.Replace_Regex();
+            //}
 
             Regex regex = new Regex(input);
             string result = "\r\n";

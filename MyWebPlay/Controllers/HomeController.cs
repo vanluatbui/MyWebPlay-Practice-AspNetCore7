@@ -842,7 +842,7 @@ namespace MyWebPlay.Controllers
             if (y.trunggian.Length == 0)
             {
                 s += "\r\n+ Các thuộc tính trung gian : NULL\r\n";
-                s = "\r\n==> Không có kết quả Key phù hợp hoặc có thể có một Key duy nhất là khoá từ tập nguồn : " + y.nguon + " !";
+                s += "\r\n==> Không có kết quả Key phù hợp hoặc có thể có một Key duy nhất là khoá từ tập nguồn : " + y.nguon + " !";
                 
                 TextCopy.ClipboardService.SetText(s);
 

@@ -1,16 +1,46 @@
-﻿<table align="center">
-    <h2 style="text-align:center">Đồ Thị Ma Trận - Chu Trình Euler Cơ Bản</h2>
+﻿
+<script>
+    function chooseEuler()
+    {
+        var chuoi = document.getElementById("ChuoiX");
+        var dukien = document.getElementById("DuKienX").options;
+        if (dukien.selectedIndex == 0)
+            chuoi.innerHTML = "0 1 0 1 0 0 0 0\n1 0 1 0 0 0 0 0\n0 1 0 0 0 1 0 0\n1 0 0 0 1 0 0 0\n0 0 0 1 0 1 0 0\n0 0 1 0 1 0 0 0\n0 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 0";
+        else
+            if (dukien.selectedIndex == 1)
+                chuoi.innerHTML = "0 1 0 1 0 1 0\n1 0 1 0 1 0 1\n0 1 0 1 0 0 0\n1 0 1 0 0 0 0\n0 1 0 0 0 0 1\n1 0 0 0 0 0 0\n0 1 0 0 1 0 0";
+        else
+        chuoi.innerHTML = "";
+    }
+ </script>
+
+<table align="center">
+    <h2 style="text-align:center">Đồ Thị Ma Trận - Euler Cơ Bản</h2>
 
     <h3 style="color:blue">@ViewBag.KetQua</h3>
 
     @using (Html.BeginForm())
     {
         @Html.ValidationSummary(true)
+
+         <tr style="height:40px">
+            <td> Nhập lựa chọn khi xuất kết quả (Với 1 : Chu trình Euler, 2 : Đường đi Euler) </td>
+            <td>
+                <select onchange="chooseEuler()" name="DuKien" id="DuKienX">
+                    <option>1</option>
+                    <option>2</option>
+                </select>
+                <br>
+                <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+            </td>
+        </tr>
+
+        <br /><br />
        
         <tr style="height:40px">
             <td> Nhập ma trận đồ thị (lưu ý hãy tự tưởng tượng hoặc tự vẽ đồ thị của bạn để hình dung :v )  - ví dụ bên dưới  : </td>
             <td>
-                <textarea rows="20" cols="150" name="Chuoi" autofocus>0 1 0 1 0 0 0 0
+                <textarea rows="20" cols="150" id ="ChuoiX" name="Chuoi" autofocus>0 1 0 1 0 0 0 0
 1 0 1 0 0 0 0 0
 0 1 0 0 0 1 0 0
 1 0 0 0 1 0 0 0

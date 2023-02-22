@@ -1,0 +1,1195 @@
+﻿<h4>
+    Tài liệu mẫu hướng dẫn từng bước : <a target="_blank" href="https://bom.so/API_TaiLieu">https://bom.so/API_TaiLieu</a> (có thể không giống hướng dẫn dưới đây)...
+<br>
+
+<br>
+Bước 1 : Tải các package : Tools - NuGet Package Manager - Manage NuGet Packages for Solution... - Browse và search thích hợp...
+<br>
+
+<br>
+Microsoft.AspNetCore.Identity.EntityFrameworkCore (nếu cần hoặc bỏ qua)
+<br>
+
+<br>
+Microsoft.EntityFrameworkCore
+<br>
+Microsoft.EntityFrameworkCore.Design
+<br>
+Microsoft.EntityFrameworkCore.SqlServer
+<br>
+Microsoft.EntityFrameworkCore.Tools
+<br>
+
+<br>
+Bước 2 : (nếu cần hoặc bỏ qua) Tạo thư mục Data và copy 2 file :
+<br>
+
+<br>
+- Link file IRepository.cs : <a target="_blank" href="https://bom.so/API_IRepository">https://bom.so/API_IRepository</a>
+<br>
+    - Link file RepositoryBase.cs : <a target="_blank" href="https://bom.so/API_RepositoryBase">https://bom.so/API_RepositoryBase</a>
+<br>
+
+<br>
+Bước 3 : (nếu cần hoặc bỏ qua - sử dụng bảng User của AspNetCore) Tạo thư mục Security và tạo class ApplicationUser cấu trúc như sau :
+<br>
+
+<br>
+public class ApplicationUser : IdentityUser
+<br>
+{
+<br>
+    // Bổ sung các thuộc tính cần thêm cho bảng User (nếu có)... - ví dụ :
+<br>
+   public bool isLock { get; set; }
+<br>
+    ...
+<br>
+}
+<br>
+
+<br>
+
+<br>
+Bước 4 : Tạo folder Entity và các class xây dựng cơ sở dữ liệu - ví dụ : CSDL Quản Lý Sinh Viên
+<br>
+
+<br>
+Có các class cơ bản như sau : Lớp, Sinh Viên, Môn Học và Điểm Sinh Viên (tự hiểu các khoá chính, khoá ngoại, ràng buộc và quan hệ :)) )
+<br>
+
+<br>
+# Với class Lớp :
+<br>
+
+<br>
+    [Table("Lop")]
+<br>
+    public class Lop
+<br>
+    {
+<br>
+        public Lop()
+<br>
+        {
+<br>
+	// Một lớp có nhiều sinh viên
+<br>
+               SinhViens = new List&lt;SinhVien&gt;();
+<br>
+        }
+<br>
+
+<br>
+        [Key]
+<br>
+        [Column(TypeName = "VARCHAR")]
+<br>
+        [MaxLength(5)]
+<br>
+        public string MaLop { get; set; }
+<br>
+
+<br>
+        [MaxLength(50)]
+<br>
+        public string TenLop { get; set; }
+<br>
+
+<br>
+        // Một lớp có nhiều sinh viên
+<br>
+        public List&lt;SinhVien&gt; SinhViens { get; set; }
+<br>
+    }
+<br>
+
+<br>
+# Với class Sinh Viên :
+<br>
+
+<br>
+    [Table("SinhVien")]
+<br>
+    public class SinhVien
+<br>
+    {
+<br>
+        public SinhVien()
+<br>
+        {
+<br>
+           // Bảng Điểm Sinh Viên (tức là một sinh viên có thể có điểm nhiều môn)
+<br>
+            diemSinhViens = new List&lt;DiemSinhVien&gt;();
+<br>
+        }
+<br>
+
+<br>
+        [Key]
+<br>
+        [Column(TypeName = "VARCHAR")]
+<br>
+        [MaxLength(5)]
+<br>
+        public string MaSinhVien { get; set; }
+<br>
+
+<br>
+        [MaxLength(50)]
+<br>
+        public string TenSinhVien { get; set; }
+<br>
+
+<br>
+        // Mã Lớp là khoá ngoại của bảng Lớp (cần chú ý với kiểu dữ liệu để tránh xung đột)...
+<br>
+        [Column(TypeName = "VARCHAR")]
+<br>
+        [MaxLength(5)]
+<br>
+        public string MaLop { get; set; }
+<br>
+        public Lop Lop { get; set; }
+<br>
+
+<br>
+        // Bảng Điểm Sinh Viên (tức là một sinh viên có thể có điểm nhiều môn)
+<br>
+        public List&lt;DiemSinhVien&gt; diemSinhViens { get; set; }
+<br>
+    }
+<br>
+
+<br>
+# Với class Môn Học (tự làm :)) )
+<br>
+
+<br>
+
+<br>
+# Với class Điểm Sinh Viên :
+<br>
+
+<br>
+    [Table("DiemSinhVien")]
+<br>
+    public class DiemSinhVien
+<br>
+    {
+<br>
+        [Column(TypeName = "VARCHAR")]
+<br>
+        [MaxLength(5)]
+<br>
+        public string MaSinhVien { get; set; }
+<br>
+        public SinhVien SinhVien { get; set; }
+<br>
+
+<br>
+        [Column(TypeName = "VARCHAR")]
+<br>
+        [MaxLength(5)]
+<br>
+        public string MaMonHoc { get; set; }
+<br>
+        public MonHoc MonHoc { get; set; }
+<br>
+
+<br>
+        public double Diem {get; set; }
+<br>
+    }
+<br>
+
+<br>
+Bước 5 : Tạo file ApplicationDbContext.cs mẫu như sau (ví dụ mẫu CSDL QL Sinh Viên như trên) :
+<br>
+
+<br>
+
+<br>
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+ public class ApplicationDbContext : IdentityDbContext&lt;AppicationUser&gt;
+<br>
+    {
+<br>
+        public DbSet&lt;Lop&gt; Lops { get; set; }
+<br>
+        public DbSet&lt;SinhVien&gt; SinhViens { get; set; }
+<br>
+        ...
+<br>
+
+<br>
+        public ApplicationDbContext(DbContextOptions&lt;ApplicationDbContext&gt; options) : base(options)
+<br>
+        {
+<br>
+
+<br>
+        }
+<br>
+        protected override void OnModelCreating(ModelBuilder builder)
+<br>
+        {
+<br>
+            base.OnModelCreating(builder);
+<br>
+
+<br>
+            //TABLE SinhVien :
+<br>
+  
+<br>
+                // ONE TO MANY (một lớp có nhiều SV - SV chỉ trong một lớp)
+<br>
+
+<br>
+            builder.Entity&lt;Lop&gt;()
+<br>
+    .HasMany&lt;SinhVien&gt;(p =&gt; p.SinhViens)
+<br>
+    .WithOne(q =&gt; q.Lop)
+<br>
+    .HasForeignKey(s =&gt; s.MaLop);
+<br>
+
+<br>
+        // TABLE DiemSinhVien :
+<br>
+
+<br>
+            // Cài đặt 2 thuộc tính lồng nhau thành khoá chính primary key...
+<br>
+            builder.Entity&lt;DiemSinhVien&gt;(entity =&gt;
+<br>
+            {
+<br>
+                entity.HasKey(p =&gt; new { p.MaTacGia, p.MaSach});
+<br>
+            });
+<br>
+
+<br>
+            // MANY TO MANY :
+<br>
+
+<br>
+            builder.Entity&lt;DiemSinhVien&gt;()
+<br>
+    .HasOne&lt;SinhVien&gt;(p =&gt; p.SinhVien)
+<br>
+    .WithMany(q =&gt; q.DiemSinhViens)
+<br>
+    .HasForeignKey(s =&gt; s.MaSinhVien);
+<br>
+
+<br>
+            builder.Entity&lt;DiemSinhVien&gt;()
+<br>
+    .HasOne&lt;MonHoc&gt;(p =&gt; p.MonHoc)
+<br>
+    .WithMany(q =&gt; q.DiemSinhViens)
+<br>
+    .HasForeignKey(s =&gt; s.MaMonHoc);
+<br>
+
+<br>
+       }
+<br>
+    }
+<br>
+
+<br>
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+
+<br>
+Bước 6 : appsetting.json thay thế (tự thiết đặt) :
+<br>
+
+<br>
+{
+<br>
+  "ConnectionStrings": {
+<br>
+
+<br>
+    "DefaultConnection": "Server=[];Database=[];Trusted_Connection=True;MultipleActiveResultSets=true;User ID=sa;Password=12345;Integrated Security=False"
+<br>
+  },
+<br>
+  "Logging": {
+<br>
+    "LogLevel": {
+<br>
+      "Default": "Information",
+<br>
+      "Microsoft.AspNetCore": "Warning"
+<br>
+    }
+<br>
+  },
+<br>
+  "AllowedHosts": "*"
+<br>
+}
+<br>
+
+<br>
+------------------------------------[AspNET Core 7 - Nếu lỗi gì ấy nên thử xài cái dưới đây :)) ]----------------------------------------
+<br>
+
+<br>
+{
+<br>
+  "ConnectionStrings": {
+<br>
+
+<br>
+    "DefaultConnection": "Server=DESKTOP-VRQG566\\VANLUASQLEXPRESS;Database=VNR_InternShip;Trusted_Connection=True;MultipleActiveResultSets=true;User ID=sa;Password=12345;Integrated Security=True;TrustServerCertificate=True"
+<br>
+  },
+<br>
+  "Logging": {
+<br>
+    "LogLevel": {
+<br>
+      "Default": "Information",
+<br>
+      "Microsoft.AspNetCore": "Warning"
+<br>
+    }
+<br>
+  },
+<br>
+  "AllowedHosts": "*"
+<br>
+}
+<br>
+
+<br>
+Bước 7 : Program.cs bổ sung (sau dòng chú thích // Add services to the container ) :
+<br>
+
+<br>
+...
+<br>
+
+<br>
+builder.Services.AddSingleton&lt;ApplicationDbContext&gt;();
+<br>
+
+<br>
+builder.Services.AddDbContext&lt;ApplicationDbContext&gt;(options =&gt;
+<br>
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")),
+<br>
+ServiceLifetime.Singleton);
+<br>
+
+<br>
+// (các đoạn này nếu có hoặc bỏ qua)...
+<br>
+builder.Services.AddIdentityCore&lt;ApplicationUser&gt;(options =&gt;
+<br>
+options.SignIn.RequireConfirmedAccount = true)
+<br>
+.AddRoles&lt;IdentityRole&gt;()
+<br>
+.AddEntityFrameworkStores&lt;ApplicationDbContext&gt;();
+<br>
+
+<br>
+
+<br>
+Bước 8 : Rebuild project.
+<br>
+
+<br>
+Bước 9 : View - Other Windows - Package Manager Console và gõ các lệnh (dưới Output) ... :
+<br>
+
+<br>
+Add-Migration &lt;tự đặt tên&gt;
+<br>
+[sau này muốn xoá dùng lệnh : Remove-Migration]
+<br>
+
+<br>
+Update-database
+<br>
+
+<br>
+// MẸO : nếu bạn đã lỡ tạo CSDL và một bảng mà bạn cần xoá hay thêm các cột thuộc tính (thậm chí là đổi kiểu dữ liệu của thuộc tính ...vv...) thì trong
+<br>
+code C# bạn thường sẽ chỉnh sửa như bình thường (chú ý file ApplicationDbContext và class trong folder Entity cần chỉnh sửa) và gọi lệnh 
+<br>
+Add-Migration &lt;tự đặt tên&gt; và Update-database ==&gt; KHÔNG CẦN PHẢI XOÁ ĐI LÀM LẠI !
+<br>
+
+<br>
+Bước 10 : Từ các class trong Enity, tự tạo ra các class DTO vào folder DTO
+<br>
+
+<br>
+Bước 11 : AutoMapper
+<br>
+
+<br>
+- Tải package : AutoMapper và AutoMapper.Extensions.Microsoft.DependencyInjection :
+<br>
+
+<br>
+- Trong file Program.cs bổ sung đoạn : builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+<br>
+
+<br>
+- Tạo folder AutoMapper và file mẫu AutoMapper_Config như sau :
+<br>
+
+<br>
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+public class AutoMapper_Config : Profile
+<br>
+    {
+<br>
+        public AutoMapper_Config()
+<br>
+        { 
+<br>
+            this.CreateMap&lt;SinhVienDTO, SinhVien&gt;();
+<br>
+            ...
+<br>
+
+<br>
+            // this.CreateMap&lt;TokenModel, User&gt;();
+<br>
+
+<br>
+            this.CreateMap&lt;SinhVien, SinhVienDTO&gt;();
+<br>
+            ...
+<br>
+
+<br>
+            // Khi 2 thuộc tính bản chất giống nhau của 2 class khác nhau mà lại đặt tên thuộc tính khác nhau...
+<br>
+            // this.CreateMap&lt;User, TokenModel&gt;().ForMember(des =&gt; des.Password, act =&gt; act.MapFrom(src =&gt; src.PasswordHash));
+<br>
+
+<br>
+        }
+<br>
+    }
+<br>
+
+<br>
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+Bước 12 : Tạo folder Repositories - ví dụ ta có class [Table SinhVien], ở đây tạo class SinhVienResponsitory.cs
+<br>
+
+<br>
+// NẾU TRƯỜNG HỢP BẠN KHÔNG CÓ 2 FILE RepositoryBase và IRepository thì mẫu như sau (không thì bỏ qua) :
+<br>
+
+<br>
+public interface ISinhVienRespository
+<br>
+    {
+<br>
+            public List&lt;SinhVienDTO&gt; GetAllSinhVien();
+<br>
+            public void InsertSinhVien(SinhVienDTO newSinhVien);
+<br>
+            public void UpdateSinhVien(ChuDeDTO newSinhVien);
+<br>
+            public void DeleteSinhVien(string MaSinhVien);
+<br>
+    }
+<br>
+
+<br>
+// NẾU TRƯỜNG HỢP BẠN ĐÃ CÓ 2 FILE RepositoryBase và IRepository thì mẫu như sau (không thì bỏ qua - lưu ý về AutoMapper) :
+<br>
+
+<br>
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+public interface ISinhVienRepository : IRepository&lt;SinhVien&gt;
+<br>
+    {
+<br>
+        List&lt;SinhVien&gt; GetSinhViens();
+<br>
+        void InsertSinhVien(SinhVien sv);
+<br>
+    }
+<br>
+
+<br>
+    public class SinhVienRespository : RepositoryBase&lt;SinhVien&gt;, ISinhVienRepository
+<br>
+    {
+<br>
+        public SinhVienRespository(ApplicationDbContext dbContext) : base(dbContext)
+<br>
+        {
+<br>
+        }
+<br>
+
+<br>
+        public List&lt;SinhVien&gt; GetSinhViens()
+<br>
+        {
+<br>
+            var query = _dbcontext.SinhVien;
+<br>
+            return query.ToList();
+<br>
+        }
+<br>
+
+<br>
+        public void InsertSinhVien(SinhVien sv)
+<br>
+        {
+<br>
+            _dbcontext.SinhVien.Add(sv);
+<br>
+            _dbcontext.SaveChanges();
+<br>
+        }
+<br>
+    }
+<br>
+
+<br>
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+Bước 13 : Tạo folder Services - ví dụ ta có class [Table SinhVien], ở đây ta tạo SinhVienService.cs
+<br>
+
+<br>
+// NẾU TRƯỜNG HỢP BẠN KHÔNG CÓ 2 FILE RepositoryBase và IRepository thì mẫu như sau (không thì bỏ qua) :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+public class SinhVienService : ISinhVienRespository
+<br>
+        {
+<br>
+            private ApplicationDbContext _context;
+<br>
+            private IMapper _mapper;
+<br>
+
+<br>
+            public SinhVienService(ApplicationDbContext context, IMapper mapper)
+<br>
+            {
+<br>
+                _context = context;
+<br>
+                _mapper = mapper;
+<br>
+            }
+<br>
+
+<br>
+            public void DeleteSinhVien(string MaSinhVien)
+<br>
+            {
+<br>
+                SinhVien SV = _context.SinhViens.FirstOrDefault(p =&gt; p.MaSinhVien == MaSinhVien);
+<br>
+                _context.SinhViens.Remove(SV);
+<br>
+                _context.SaveChanges();
+<br>
+            }
+<br>
+
+<br>
+            public List&lt;SinhVienDTO&gt; GetAllSinhVien()
+<br>
+            {
+<br>
+                List&lt;SinhVien&gt; SinhViens = _context.SinhViens.ToList();
+<br>
+
+<br>
+            List&lt;SinhVienDTO&gt; listSinhVien = SinhViens.Select
+<br>
+                          (
+<br>
+                            emp =&gt; _mapper.Map&lt;SinhVien, SinhVienDTO&gt;(emp)
+<br>
+                          ).ToList();
+<br>
+
+<br>
+            return listSinhVien;
+<br>
+            }
+<br>
+
+<br>
+            public void InsertSinhVien(SinhVienDTO newSinhVien)
+<br>
+            {
+<br>
+                _context.SinhViens.Add(_mapper.Map&lt;SinhVienDTO,SinhVien&gt;(newSinhVien));
+<br>
+                _context.SaveChanges();
+<br>
+            }
+<br>
+
+<br>
+            public void UpdateSinhVien(SinhVienDTO newSinhVien)
+<br>
+            {
+<br>
+                _context.SinhViens.Update(_mapper.Map&lt;SinhVienDTO, SinhVien&gt;(newSinhVien));
+<br>
+                _context.SaveChanges();
+<br>
+            }
+<br>
+        }
+<br>
+
+<br>
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+// NẾU TRƯỜNG HỢP BẠN ĐÃ CÓ 2 FILE RepositoryBase và IRepository thì mẫu như sau (không thì bỏ qua - lưu ý về AutoMapper) :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+public class SinhVienService
+<br>
+    {
+<br>
+        private ApplicationDbContext dbContext;
+<br>
+        private ISinhVienRepository sinhvienRepository;
+<br>
+        public SinhVienService(ApplicationDbContext dbContext, ISinhVienRepository sinhvienRepository)
+<br>
+        {
+<br>
+            this.sinhvienRepository = sinhvienRepository;
+<br>
+            this.dbContext = dbContext;
+<br>
+        }
+<br>
+        public List&lt;SinhVien&gt; GetSinhViens()
+<br>
+        {
+<br>
+            return sinhvienRepository.GetSinhViens();
+<br>
+        }
+<br>
+
+<br>
+        public void InsertSinhVien(SinhVien newSV)
+<br>
+        {
+<br>
+            sinhvienRepository.InsertSinhVien(newSV);
+<br>
+        }
+<br>
+    }
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+Bước 14 : [DI] Program.cs [tiếp tục] bổ sung đoạn code như nãy - nếu ví dụ ta có class [Table Student] :
+<br>
+
+<br>
+// NẾU TRƯỜNG HỢP BẠN KHÔNG CÓ 2 FILE RepositoryBase và IRepository thì mẫu như sau (không thì bỏ qua) :
+<br>
+
+<br>
+builder.Services.AddScoped&lt;ISinhvienRespository, SinhVienService&gt;();
+<br>
+
+<br>
+// NẾU TRƯỜNG HỢP BẠN ĐÃ CÓ 2 FILE RepositoryBase và IRepository thì mẫu như sau (không thì bỏ qua) :
+<br>
+
+<br>
+services.AddTransient&lt;ISinhVienRepository, SinhVienRepository&gt;();
+<br>
+services.AddTransient&lt;SinhVienService&gt;();
+<br>
+
+<br>
+Bước 15 : Controller
+<br>
+
+<br>
+// NẾU TRƯỜNG HỢP BẠN KHÔNG CÓ 2 FILE RepositoryBase và IRepository thì mẫu như sau (không thì bỏ qua) :
+<br>
+
+<br>
+----------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+    [Route("api/[controller]")]
+<br>
+    [ApiController]
+<br>
+    public class SinhVienController : ControllerBase
+<br>
+    {
+<br>
+        private ILogger&lt;SinhVienController&gt; _logger;
+<br>
+        private ISinhVienRespository _SinhVienService;
+<br>
+
+<br>
+        public SinhVienController(ILogger&lt;SinhVienController&gt; logger, ISinhVienRespository SinhVienService)
+<br>
+        {
+<br>
+            _logger = logger;
+<br>
+            _SinhVienService = SinhVienService;
+<br>
+        }
+<br>
+
+<br>
+        [HttpGet("get-all-sinh-vien")]
+<br>
+        public async Task&lt;ActionResult&gt; GetAllSinhVien()
+<br>
+        {
+<br>
+            try
+<br>
+            {
+<br>
+                List&lt;SinhVienDTO&gt; listSV = _SinhVienService.GetAllSinhVien();
+<br>
+                return Ok(new { result = true, data = listSV });
+<br>
+            }
+<br>
+            catch
+<br>
+            {
+<br>
+                return Ok(new { result = false, message = "Get all SinhVien failed !" });
+<br>
+            }
+<br>
+        }
+<br>
+
+<br>
+        [HttpPost("insert-sinh-vien")]
+<br>
+        //[Authorize(Roles = "Admin, Guest")]
+<br>
+        public async Task&lt;ActionResult&gt; InsertSinhVien(SinhVienDTO newSV)
+<br>
+        {
+<br>
+            try
+<br>
+            {
+<br>
+                _SinhVienService.InsertSinhVien(newSV);
+<br>
+                return Ok(new { result = true, message = "Insert SinhVien successful !" });
+<br>
+            }
+<br>
+            catch (Exception ex)
+<br>
+            {
+<br>
+                return Ok(new { result = false, message = "Insert SinhVien failed !" });
+<br>
+            }
+<br>
+        }
+<br>
+
+<br>
+        [HttpPut("update-sinh-vien")]
+<br>
+        //[Authorize(Roles = "Admin")]
+<br>
+        public async Task&lt;ActionResult&gt; UpdateSinhVien(SinhVienDTO newSV)
+<br>
+        {
+<br>
+            try
+<br>
+            {
+<br>
+                _SinhVienService.UpdateSinhVien(newSV);
+<br>
+                return Ok(new { result = true, message = "Update SinhVien successful !" });
+<br>
+            }
+<br>
+            catch(Exception ex)
+<br>
+            {
+<br>
+                return Ok(new { result = false, message = "Update SinhVien failed !"});
+<br>
+            }
+<br>
+        }
+<br>
+
+<br>
+        [HttpDelete("delete-sinh-vien")]
+<br>
+        //[Authorize(Roles = "Admin")]
+<br>
+        public async Task&lt;ActionResult&gt; DeleteSinhVien(string MaSinhVien)
+<br>
+        {
+<br>
+            try
+<br>
+            {
+<br>
+                _SinhVienService.DeleteSinhVien(MaSinhVien);
+<br>
+                return Ok(new { result = true, message = "Delete SinhVien successful !" });
+<br>
+            }
+<br>
+            catch
+<br>
+            {
+<br>
+                return Ok(new { result = false, message = "Delete SinhVien failed !" });
+<br>
+            }
+<br>
+        }
+<br>
+    }
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+// NẾU TRƯỜNG HỢP BẠN ĐÃ CÓ 2 FILE RepositoryBase và IRepository thì mẫu như sau (không thì bỏ qua - chú ý AutoMapper) :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+public class SinhVienController : ControllerBase
+<br>
+    {
+<br>
+        private readonly ILogger&lt;SinhVienController&gt; _logger;
+<br>
+        private SinhVienService _svService;
+<br>
+
+<br>
+        public SinhVienController(ILogger&lt;SinhVienController&gt; logger, SinhVienService svService)
+<br>
+        {
+<br>
+            _logger = logger;
+<br>
+            _svService = svService;
+<br>
+        }
+<br>
+
+<br>
+        [HttpGet("get-all-sinh-vien")]
+<br>
+        public async Task&lt;ActionResult&gt; GetAllSinhVien()
+<br>
+        {
+<br>
+            try
+<br>
+            {
+<br>
+                List&lt;SinhVienDTO&gt; listSV = _svService.GetAllSinhVien();
+<br>
+                return Ok(new { result = true, data = listSV });
+<br>
+            }
+<br>
+            catch
+<br>
+            {
+<br>
+                return Ok(new { result = false, message = "Get all SinhVien failed !" });
+<br>
+            }
+<br>
+        }
+<br>
+
+<br>
+           ...
+<br>
+    }
+<br>
+
+<br>
+-------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+Bước 16  : Save ALL và build lại project!
+<br>
+
+<br>
+Bước 17 : Chạy project bằng IIS Express và xem trang swagger index. Thử API bằng PostMan và kiểm tra SQL.
+<br>
+
+<br>
+<span style="color:red"> ==&gt; TỚI ĐÂY COI NHƯ CŨNG ĐÃ GẦN XONG HOÀN HẢO MỘT API RỒI :)) ! </span>
+<br>
+
+<br>
+...
+<br>
+
+<br>
+Bước 18 : Chứng thực và bảo mật API (nếu cần hoặc bỏ qua) :
+<br>
+
+<br>
+- Tải package : Microsoft.AspNetCore.Authentication.JwtBearer
+<br>
+
+<br>
+- Program.cs bổ sung đoạn sau :
+<br>
+
+<br>
+
+<br>
+//-------------------------JWT BEARER----------------------------------------------
+<br>
+
+<br>
+builder.Services.AddAuthentication(options =&gt;
+<br>
+{
+<br>
+    options.DefaultAuthenticateScheme =
+<br>
+    JwtBearerDefaults.AuthenticationScheme;
+<br>
+    options.DefaultChallengeScheme =
+<br>
+    JwtBearerDefaults.AuthenticationScheme;
+<br>
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+<br>
+})
+<br>
+// Adding Jwt Bearer
+<br>
+.AddJwtBearer(options =&gt;
+<br>
+{
+<br>
+    options.SaveToken = true;
+<br>
+    options.RequireHttpsMetadata = false;
+<br>
+    options.TokenValidationParameters = new
+<br>
+    TokenValidationParameters()
+<br>
+    {
+<br>
+        ValidateIssuer = true,
+<br>
+        ValidateAudience = true,
+<br>
+        ValidAudience = builder.Configuration["JWT:ValidAudience"],
+<br>
+        ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
+<br>
+        IssuerSigningKey = new
+<br>
+    SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]
+<br>
+    ))
+<br>
+    };
+<br>
+});
+<br>
+
+<br>
+//---------------------------------------------------------------------------------
+<br>
+
+<br>
+app.UseAuthentication();
+<br>
+
+<br>
+- Cập nhật lại toàn bộ file appsettings.json :
+<br>
+
+<br>
+{
+<br>
+  "ConnectionStrings": {
+<br>
+
+<br>
+    "DefaultConnection": "Server=[];Database=[];Trusted_Connection=True;MultipleActiveResultSets=true;User ID=[];Password=[];Integrated Security=False;Encrypt=False"
+<br>
+  },
+<br>
+  "Logging": {
+<br>
+    "LogLevel": {
+<br>
+      "Default": "Information",
+<br>
+      "Microsoft.AspNetCore": "Warning"
+<br>
+    }
+<br>
+  },
+<br>
+  "AllowedHosts": "*",
+<br>
+  "JWT": {
+<br>
+    "ValidAudience": "http://localhost:[PORT]/",
+<br>
+    "ValidIssuer": "http://localhost:[PORT]/",
+<br>
+    "Secret": "ByYM000OLlMQG6VVVp1OH7Xzyr7gHuw1qvUC5dcGt3SNM"
+<br>
+  }
+<br>
+}
+<br>
+
+<br>
+- Tạo folder Model và tạo 2 file TokenModel và UserModel :
+<br>
+
+<br>
+# VÍ DỤ CLASS TokenModel :
+<br>
+
+<br>
+public class TokenModel (là DTO của class User trong Entity)
+<br>
+    {
+<br>
+        public string UserName {get; set;}
+<br>
+        public string Password { get; set;}
+<br>
+        public string FullName {get; set;}
+<br>
+        public bool Gender {get; set;}
+<br>
+        public string PhoneNumber {get; set;}
+<br>
+        public string Email {get; set;}
+<br>
+        public string Address {get; set;}
+<br>
+        public DateTime BirthDate {get; set;}
+<br>
+    }
+<br>
+
+<br>
+# VÍ DỤ CLASS UserModel (thông tin đăng nhập và cũng để xác thực người dùng) :
+<br>
+
+<br>
+public class UserModel
+<br>
+    {
+<br>
+        public string UserName { get; set; }
+<br>
+        public string Password { get; set; }
+<br>
+    }
+<br>
+
+<br>
+- Tại thư mục Controllers tạo folder User_Login, trong đó copy vào đây hai file sau :
+<br>
+
+<br>
++ Link file AuthenticateController.cs : <a target="_blank" href="https://bom.so/API_AuthenticateController">https://bom.so/API_AuthenticateController</a>
+<br>
+
+<br>
++ Link file UserController.cs : <a target="_blank" href="https://bom.so/API_UserController">https://bom.so/API_UserController</a>
+<br>
+
+<br>
+- Save All và build Project và chạy, kiểm tra lại thử API đã cần chứng thực ! (link đăng nhập để lấy đoạn &lt;TOKEN&gt; sau đó link 
+<br>
+API mà nó cần xác thực, tick chọn thuộc tính Author... = "Bearer &lt;TOKEN ĐÃ LẤY&gt;" và run thử trong PostMan...)
+</h4>

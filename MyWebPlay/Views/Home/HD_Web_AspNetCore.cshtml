@@ -1,0 +1,3271 @@
+﻿<h4>
+    ViewData["_TÊN_"]
+<br>
+ViewBag._TÊN_
+<br>
+
+<br>
+TempData["_TÊN""]
+<br>
+
+<br>
+*******************************************************************************************
+<br>
+
+<br>
+# Ví dụ về Partial View giỏ hàng :
+<br>
+
+<br>
+- Tạo folder ... và class Extension mở rộng như sau :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+     public static class HtmlHelperViewExtensions
+<br>
+    {
+<br>
+        public static IHtmlContent Action(this IHtmlHelper helper, string action, object parameters = null)
+<br>
+        {
+<br>
+            var controller = (string)helper.ViewContext.RouteData.Values["controller"];
+<br>
+            return Action(helper, action, controller, parameters);
+<br>
+        }
+<br>
+
+<br>
+        public static IHtmlContent Action(this IHtmlHelper helper, string action, string controller, object parameters = null)
+<br>
+        {
+<br>
+            var area = (string)helper.ViewContext.RouteData.Values["area"];
+<br>
+            return Action(helper, action, controller, area, parameters);
+<br>
+        }
+<br>
+
+<br>
+        public static IHtmlContent Action(this IHtmlHelper helper, string action, string controller, string area, object parameters = null)
+<br>
+        {
+<br>
+            if (action == null)
+<br>
+                throw new ArgumentNullException(nameof(controller));
+<br>
+            if (controller == null)
+<br>
+                throw new ArgumentNullException(nameof(action));
+<br>
+
+<br>
+            var task = ActionAsync(helper, action, controller, area, parameters);
+<br>
+            return task.Result;
+<br>
+        }
+<br>
+
+<br>
+        private static async Task&lt;IHtmlContent&gt; ActionAsync(this IHtmlHelper helper, string action, string controller, string area, object parameters = null)
+<br>
+        {
+<br>
+            // fetching required services for invocation
+<br>
+            var currentHttpContext = helper.ViewContext.HttpContext;
+<br>
+            var httpContextFactory = GetServiceOrFail&lt;IHttpContextFactory&gt;(currentHttpContext);
+<br>
+            var actionInvokerFactory = GetServiceOrFail&lt;IActionInvokerFactory&gt;(currentHttpContext);
+<br>
+            var actionSelector = GetServiceOrFail&lt;IActionDescriptorCollectionProvider&gt;(currentHttpContext);
+<br>
+
+<br>
+            // creating new action invocation context
+<br>
+            var routeData = new RouteData();
+<br>
+            var routeParams = new RouteValueDictionary(parameters ?? new { });
+<br>
+            var routeValues = new RouteValueDictionary(new { area, controller, action });
+<br>
+            var newHttpContext = httpContextFactory.Create(currentHttpContext.Features);
+<br>
+
+<br>
+            newHttpContext.Response.Body = new MemoryStream();
+<br>
+
+<br>
+            foreach (var router in helper.ViewContext.RouteData.Routers)
+<br>
+                routeData.PushState(router, null, null);
+<br>
+
+<br>
+            routeData.PushState(null, routeValues, null);
+<br>
+            routeData.PushState(null, routeParams, null);
+<br>
+
+<br>
+            var actionDescriptor = actionSelector.ActionDescriptors.Items.First(i =&gt; i.RouteValues["Controller"] == controller && i.RouteValues["Action"] == action);
+<br>
+            var actionContext = new ActionContext(newHttpContext, routeData, actionDescriptor);
+<br>
+
+<br>
+            // invoke action and retreive the response body
+<br>
+            var invoker = actionInvokerFactory.CreateInvoker(actionContext);
+<br>
+            string content = null;
+<br>
+
+<br>
+            await invoker.InvokeAsync().ContinueWith(task =&gt;
+<br>
+            {
+<br>
+                if (task.IsFaulted)
+<br>
+                {
+<br>
+                    content = task.Exception.Message;
+<br>
+                }
+<br>
+                else if (task.IsCompleted)
+<br>
+                {
+<br>
+                    newHttpContext.Response.Body.Position = 0;
+<br>
+                    using (var reader = new StreamReader(newHttpContext.Response.Body))
+<br>
+                        content = reader.ReadToEnd();
+<br>
+                }
+<br>
+            });
+<br>
+
+<br>
+            return new HtmlString(content);
+<br>
+        }
+<br>
+
+<br>
+        private static TService GetServiceOrFail&lt;TService&gt;(HttpContext httpContext)
+<br>
+        {
+<br>
+            if (httpContext == null)
+<br>
+                throw new ArgumentNullException(nameof(httpContext));
+<br>
+
+<br>
+            var service = httpContext.RequestServices.GetService(typeof(TService));
+<br>
+
+<br>
+            if (service == null)
+<br>
+                throw new InvalidOperationException($"Could not locate service: {nameof(TService)}");
+<br>
+
+<br>
+            return (TService)service;
+<br>
+        }
+<br>
+    }
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+- Tại Views Layout trong mục Shared :
+<br>
+
+<br>
+&commat;using WebBanSach.Extension_Method;
+<br>
+
+<br>
+// Đặt ở đâu đó tuỳ bạn...
+<br>
+ &commat;Html.Action("GiohangPartial","Giohang")
+<br>
+
+<br>
+- Tại Views Giỏ hàng.cshtml :
+<br>
+
+<br>
+&lt;a href="&commat;Url.Action("GioHang","Giohang")"&gt;
+<br>
+    &lt;img src="~/images/Giohang.png" width="20" /&gt; Giỏ hàng (&commat;ViewBag.Tongsoluong)
+<br>
+&lt;/a&gt;
+<br>
+
+<br>
+- Tại controller :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+        public ActionResult GiohangPartial()
+<br>
+        {
+<br>
+            ViewBag.Tongsoluong = TongSoLuong();
+<br>
+            return PartialView();
+<br>
+        }
+<br>
+
+<br>
+        private int TongSoLuong()
+<br>
+        {
+<br>
+            int iTongSoLuong = 0;
+<br>
+            List&lt;Giohang&gt; lstGiohang = HttpContext.Session.GetObject&lt;List&lt;Giohang&gt;&gt;("Giohang");
+<br>
+            if (lstGiohang != null)
+<br>
+            {
+<br>
+                iTongSoLuong = lstGiohang.Sum(n =&gt; n.iSoluong);
+<br>
+            }
+<br>
+            return iTongSoLuong;
+<br>
+        }
+<br>
+
+<br>
+... ... ...
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+...[TỰ TÌM HIỂU THÊM VỀ GIỎ HÀNG]...
+<br>
+
+<br>
+# Ví dụ về Partial View có CSDL :
+<br>
+
+<br>
+- Sử dụng lại class Extension đã tạo phía trên.
+<br>
+
+<br>
+- Tại Views và chỗ bất kỳ :
+<br>
+
+<br>
+&commat;using WebBanSach.Extension_Method;
+<br>
+
+<br>
+...
+<br>
+
+<br>
+              &lt;div class="col-md-3"&gt;
+<br>
+
+<br>
+                &lt;p class="lead"&gt;CHỦ ĐỀ SÁCH&lt;/p&gt;
+<br>
+                &commat;Html.Action("Chude")
+<br>
+
+<br>
+            &lt;/div&gt;
+<br>
+
+<br>
+- Tại Controller :
+<br>
+
+<br>
+        public ActionResult Chude()
+<br>
+        {
+<br>
+            var chude = data.ChuDes.ToList();
+<br>
+            return PartialView(chude);
+<br>
+        }
+<br>
+
+<br>
+# Mã hoá MD5 của chuỗi :
+<br>
+
+<br>
+- Tạo folder ... và class như sau (chuỗi gì cũng đc - ví dụ mã hoá chuỗi là mật khẩu) :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+ public static class MD5_Encrypt
+<br>
+    {
+<br>
+        public static string MD5_Password(string password)
+<br>
+        {
+<br>
+            //Tạo MD5 
+<br>
+            MD5 mh = MD5.Create();
+<br>
+            //Chuyển kiểu chuổi thành kiểu byte
+<br>
+            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(password);
+<br>
+            //mã hóa chuỗi đã chuyển
+<br>
+            byte[] hash = mh.ComputeHash(inputBytes);
+<br>
+            //tạo đối tượng StringBuilder (làm việc với kiểu dữ liệu lớn)
+<br>
+            StringBuilder sb = new StringBuilder();
+<br>
+
+<br>
+            for (int i = 0; i &lt; hash.Length; i++)
+<br>
+            {
+<br>
+                sb.Append(hash[i].ToString("x2"));
+<br>
+            }
+<br>
+
+<br>
+            return sb.ToString(); // Trả về chuỗi đã mã hoá
+<br>
+        }
+<br>
+    }
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+# Dán JavaScript hoặc CSS vào Views :
+<br>
+
+<br>
+- Các file này cũng được lưu trong folder css hoặc js tại mục wwwroot.
+<br>
+
+<br>
+- Tại mục View, trong code bất kỳ (thường là views Layout trong Views/Shared) :
+<br>
+
+<br>
+----------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+&lt;!DOCTYPE html&gt;
+<br>
+&lt;html lang="en"&gt;
+<br>
+
+<br>
+&lt;head&gt;
+<br>
+
+<br>
+    &lt;meta charset="utf-8"&gt;
+<br>
+    &lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+<br>
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+<br>
+    &lt;meta name="description" content=""&gt;
+<br>
+    &lt;meta name="author" content=""&gt;
+<br>
+
+<br>
+    &lt;title&gt;_Tên Trang Web_&lt;/title&gt;
+<br>
+
+<br>
+    &lt;!-- Link file CSS --&gt;
+<br>
+
+<br>
+    &lt;link href="~/css/_FILE CSS_" rel="stylesheet" /&gt;
+<br>
+
+<br>
+    &lt;!-- Link web file JS --&gt;
+<br>
+
+<br>
+    &lt;script src="https://_WEB FILE JS_/_FILE JS.js"&gt;&lt;/script&gt;
+<br>
+
+<br>
+&lt;/head&gt;
+<br>
+
+<br>
+&lt;body&gt;
+<br>
+
+<br>
+...
+<br>
+
+<br>
+&commat;RenderBody()
+<br>
+
+<br>
+...
+<br>
+
+<br>
+    &lt;!-- Link file JS --&gt;
+<br>
+    &lt;script src="~/js/_FILE JS_"&gt;&lt;/script&gt;
+<br>
+
+<br>
+&lt;/body&gt;
+<br>
+
+<br>
+&lt;/html&gt;
+<br>
+
+<br>
+------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+# SESSION :
+<br>
+
+<br>
+- File Program.cs gõ thêm đoạn sau :
+<br>
+
+<br>
+builder.Services.AddSession();
+<br>
+
+<br>
+...
+<br>
+
+<br>
+app.UseSession();
+<br>
+
+<br>
+- Tạo thư mục Extensions và tạo class phương thức mở rộng như sau :
+<br>
+
+<br>
+----------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+public static class SessionExtensions
+<br>
+    {
+<br>
+        public static void SetObject(this ISession session, string key, object value)
+<br>
+        {
+<br>
+            session.SetString(key, JsonConvert.SerializeObject(value));
+<br>
+        }
+<br>
+
+<br>
+        public static T GetObject&lt;T&gt;(this ISession session, string key)
+<br>
+        {
+<br>
+            var value = session.GetString(key);
+<br>
+            return value == null ? default(T) : JsonConvert.DeserializeObject&lt;T&gt;(value);
+<br>
+        }
+<br>
+    }
+<br>
+
+<br>
+----------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+- Tại controller :
+<br>
+
+<br>
++ Lấy giá trị Session : HttpContext.Session.GetObject&lt;_CLASS OBJECT MODEL_&gt;("_TÊN SESSION_")
+<br>
+
+<br>
++ Gán giá trị Session : HttpContext.Session.SetObject("_TÊN SESSION_", _VALUE_);
+<br>
+
+<br>
+# Upload file ảnh lên Server :
+<br>
+
+<br>
+- Tại Views (ví dụ) :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+&commat;using (Html.BeginForm("_Tên Views_", "_Tên Controller_", FormMethod.Post, new { &commat;enctype = "multipart/form-data" }))
+<br>
+
+<br>
+{
+<br>
+    &commat;Html.AntiForgeryToken()
+<br>
+    
+<br>
+        &lt;hr /&gt;
+<br>
+        &commat;Html.ValidationSummary(true, "", new { &commat;class = "text-danger" })
+<br>
+
+<br>
+    ...
+<br>
+
+<br>
+    &lt;div class="form-horizontal"&gt;
+<br>
+        &lt;hr /&gt;
+<br>
+        &commat;Html.ValidationSummary(true, "", new { &commat;class = "text-danger" })
+<br>
+
+<br>
+        &lt;div class="form-group"&gt;
+<br>
+            &commat;Html.LabelFor(model =&gt; model.AnhBia, htmlAttributes: new { &commat;class = "control-label col-md-2" })
+<br>
+            &lt;div class="col-md-10"&gt;
+<br>
+                &lt;input type="file" name="fileUpload" /&gt;
+<br>
+                &commat;ViewBag.Thongbao
+<br>
+            &lt;/div&gt;
+<br>
+        &lt;/div&gt;
+<br>
+
+<br>
+      ...
+<br>
+}
+<br>
+
+<br>
+...
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+- Tại controller (ví dụ) :
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+       private readonly IWebHostEnvironment _webHostEnvironment;
+<br>
+
+<br>
+        public QuanLy_SachController(IWebHostEnvironment webHostEnvironment)
+<br>
+        {
+<br>
+             ...
+<br>
+            _webHostEnvironment = webHostEnvironment;
+<br>
+        }
+<br>
+
+<br>
+         public ActionResult ThemmoiSach(Sach sach, IFormFile fileUpload)
+<br>
+        {
+<br>
+            if (HttpContext.Session.GetObject&lt;Admin&gt;("Taikhoanadmin") == null)
+<br>
+                return RedirectToAction("Login", "Admin");
+<br>
+            else
+<br>
+            {
+<br>
+                // Kiểm tra đường dẫn file (nếu trống)
+<br>
+                if (fileUpload == null || fileUpload != null && fileUpload.FileName.Length == 0)
+<br>
+                {
+<br>
+                    ViewBag.Thongbao = "Vui lòng chọn ảnh bìa";
+<br>
+                    return View();
+<br>
+                }
+<br>
+                //Thêm ảnh đã Upload vào Server
+<br>
+                else
+<br>
+                {
+<br>
+ 
+<br>
+                   // Lấy tên file đã Upload trên View
+<br>
+                    var fileName = Path.GetFileName(fileUpload.FileName);
+<br>
+
+<br>
+	   // Đưa file đã upload thêm vào folder images của mục wwwroot (lưu ý đây chỉ mới là link - còn ảnh chưa lưu thực sự)
+<br>
+                    var path = Path.Combine(_webHostEnvironment.WebRootPath, "iamges",  fileName);
+<br>
+
+<br>
+                   // Kiểm tra file ảnh đã tồn tại trong wwwroot/images chưa?
+<br>
+                    if (System.IO.File.Exists(path))
+<br>
+                   {
+<br>
+                        ViewBag.Thongbao = "Hình ảnh đã tồn tại";
+<br>
+		
+<br>
+		// Trường hợp bạn muốn xoá file đã tồn tại trong wwwroot (không thì bỏ qua)
+<br>
+		
+<br>
+		FileInfo f = new FileInfo(path);
+<br>
+                                f.Delete();
+<br>
+                    }
+<br>
+                    else
+<br>
+                    {
+<br>
+                        // Lưu hình ảnh vào Server Project thực sự
+<br>
+                        using (Stream fileStream = new FileStream(path, FileMode.Create))
+<br>
+                        {
+<br>
+                            fileUpload.CopyTo(fileStream);
+<br>
+                        }
+<br>
+                        ...    
+<br>
+                }
+<br>
+
+<br>
+...
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+# Dropdown trong Views từ CSDL :
+<br>
+
+<br>
+- Tại Views (ví dụ - giá trị hiển thị trên web là tên chủ đề sách nhưng giá trị thật sự ẩn trong code là mã của chủ đề sách) :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+&commat;using (Html.BeginForm("_Tên Views_", "_Tên Controller_", FormMethod.Post, new { &commat;enctype = "multipart/form-data" }))
+<br>
+
+<br>
+{
+<br>
+    &commat;Html.AntiForgeryToken()
+<br>
+
+<br>
+         &lt;hr /&gt;
+<br>
+        &commat;Html.ValidationSummary(true, "", new { &commat;class = "text-danger" })
+<br>
+
+<br>
+    ...
+<br>
+
+<br>
+    &lt;div class="form-group"&gt;
+<br>
+            &commat;Html.LabelFor(model =&gt; model.MaChuDe, htmlAttributes: new { &commat;class = "control-label col-md-2" })
+<br>
+            &lt;div class="col-md-10"&gt;
+<br>
+                &commat;Html.DropDownList("MaCD")
+<br>
+            &lt;/div&gt;
+<br>
+        &lt;/div&gt;
+<br>
+
+<br>
+      ...
+<br>
+}
+<br>
+
+<br>
+...
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+- Tại controller (ví dụ - giá trị hiển thị trên web là tên chủ đề sách nhưng giá trị thật sự ẩn trong code là mã chủ đề sách - tuỳ tên cột trong class CSDL) :
+<br>
+
+<br>
+ViewBag.MaCD = new SelectList(dbContext.ChuDes.ToList().OrderBy(n =&gt; n.TenChuDe).ToList(), "MaChuDe", "TenChuDe");
+<br>
+
+<br>
+- Tại controller, ví dụ lấy giá trị đã chọn trong Dropdown trên web :
+<br>
+
+<br>
+IFormCollection f;
+<br>
+
+<br>
+// Lưu ý mặc dù giá trị bạn nhìn thấy và chọn Dropdown trên web là tên chủ đề nhưng code dưới đây sẽ được gán bằng mã chủ đề đó
+<br>
+var MaChuDe = f["MaCD"].ToString();
+<br>
+
+<br>
+# Gửi Email (GMAIL) :
+<br>
+
+<br>
+- Tạo folder ... và class như sau :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+public static class SendEmail
+<br>
+    {
+<br>
+        public static void SendMail2Step(string From, string To, string Subject, string Body, string password)
+<br>
+        {
+<br>
+	// Ví dụ tài khoản Gmail của bạn đăng ký với tên Nguyễn Văn A, nhưng bạn lại sử dụng địa chỉ email này code C# để gửi tự động
+<br>
+                   // email cho ai đó và họ sẽ thấy tên mới bạn đặt khi nhận thư của bạn (ví dụ Web Bán Sách) ...
+<br>
+            var fromAddress = new MailAddress(From, "_TÊN USER EMAIL CỦA MÌNH MUỐN HIỂN THỊ_");
+<br>
+
+<br>
+            var toAddress = new MailAddress(To, To);
+<br>
+            var smtp = new SmtpClient
+<br>
+            {
+<br>
+                Host = "smtp.gmail.com",
+<br>
+                Port = 587,
+<br>
+                EnableSsl = true,
+<br>
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+<br>
+                Credentials = new NetworkCredential(From, password),
+<br>
+                Timeout = 20000
+<br>
+            };
+<br>
+            using (var message = new MailMessage(fromAddress, toAddress)
+<br>
+            {
+<br>
+                Subject = Subject,
+<br>
+                Body = Body
+<br>
+            })
+<br>
+            {
+<br>
+                smtp.Send(message);
+<br>
+            }
+<br>
+        }
+<br>
+    }
+<br>
+
+<br>
+----------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+- Tại controller :
+<br>
+
+<br>
+SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi EMAIL Cho Người Khác",
+<br>
+             "ĐỊA CHỈ EMAIL CẦN NHẬN", "Tittle Của Email", "Nội Dung Email Cần Gửi", "PASSWORD SECURE");
+<br>
+
+<br>
+// Hướng dẫn cách lấy PASSWORD SECURE trên Gmail :
+<br>
+
+<br>
++ Trước tiên, bật xác minh 2 bước cho tài khoản Gmail mà bạn sẽ dùng để code C# gửi email.
+<br>
+
+<br>
++ Tại Google, phần tiện ích mở rộng chọn mục quản lý Tài khoản (Google Account)
+<br>
+
+<br>
++ Security -&gt; Bên kia tại phần Signing in to Google, nhấn vào App Passwords
+<br>
+
+<br>
++ Dropdown Select app (chọn Orther) -&gt; VÀ ĐẶT TÊN TUỲ Ý -&gt; Generate -&gt; Copy PASSWORD này và đưa vào code C#.
+<br>
+
+<br>
+...
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+********************************************************************************************************
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+# Ví dụ Views hiển thị danh sách sản phẩm (Quản Lý Bán Sách) :
+<br>
+
+<br>
+- Tại controller (ví dụ) :
+<br>
+
+<br>
+         public ActionResult Sach()
+<br>
+        {
+<br>
+                return View(data.Sachs.ToList());
+<br>
+        }
+<br>
+
+<br>
+- Tại Views (ví dụ) : 
+<br>
+
+<br>
+-----------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+&commat;model List&lt;Sach&gt;
+<br>
+
+<br>
+&commat;{
+<br>
+    ViewBag.Title = "Sach";
+<br>
+    Layout = "~/Views/Shared/_Layout.cshtml";
+<br>
+}
+<br>
+
+<br>
+&lt;h2&gt;QUẢN LÝ DANH MỤC SÁCH&lt;/h2&gt;
+<br>
+
+<br>
+&lt;p&gt;
+<br>
+    &commat;Html.ActionLink("THÊM SÁCH MỚI", "_TÊN VIEW CỦA THÊM MỚI SÁCH_")
+<br>
+&lt;/p&gt;
+<br>
+&lt;table class="table"&gt;
+<br>
+    &lt;tr&gt;
+<br>
+        &lt;th width="250"&gt;
+<br>
+            TÊN SÁCH
+<br>
+        &lt;/th&gt;
+<br>
+
+<br>
+          &lt;th width="200"&gt;
+<br>
+            ẢNH BÌA
+<br>
+        &lt;/th&gt;
+<br>
+        
+<br>
+        &lt;th width="200"&gt;
+<br>
+            NGÀY CẬP NHẬT
+<br>
+        &lt;/th&gt;
+<br>
+
+<br>
+    &lt;/tr&gt;
+<br>
+
+<br>
+    &commat;foreach (var item in Model)
+<br>
+    {
+<br>
+        &lt;tr&gt;
+<br>
+            &lt;td&gt;
+<br>
+                &commat;Html.DisplayFor(modelItem =&gt; item.TenSach)
+<br>
+            &lt;/td&gt;
+<br>
+            
+<br>
+            &lt;td&gt;
+<br>
+                &lt;img width="200" src="~/Hinhsanpham/&commat;item.AnhBia" /&gt;
+<br>
+            &lt;/td&gt;
+<br>
+
+<br>
+            &lt;td&gt;
+<br>
+                &commat;String.Format("{0:dd/MM/yyyy}", item.NgayCapNhat)
+<br>
+            &lt;/td&gt;
+<br>
+
+<br>
+            &lt;td&gt;
+<br>
+                &commat;Html.ActionLink("Sửa", "_TÊN VIEW CỦA SỬA SÁCH_" ,new { id = item.MaSach }) |
+<br>
+                &commat;Html.ActionLink("Chi tiết", "_TÊN VIEW CỦA CHI TIẾT SÁCH_", new { id = item.MaSach }) |
+<br>
+                &commat;Html.ActionLink("Xóa", "_TÊN VIEW CỦA XOÁ SÁCH_", new { id = item.MaSach })
+<br>
+            &lt;/td&gt;
+<br>
+        &lt;/tr&gt;
+<br>
+    }
+<br>
+
+<br>
+&lt;/table&gt;
+<br>
+
+<br>
+&lt;style&gt;
+<br>
+    .Menutran li {
+<br>
+        display: inline
+<br>
+    }
+<br>
+&lt;/style&gt;
+<br>
+
+<br>
+-------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+# Ví dụ Views thêm 1 sản phẩm (Quản Lý Bán Sách) :
+<br>
+
+<br>
+- Tại controller (ví dụ) :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+        [HttpGet]
+<br>
+        public ActionResult Themmoisach()
+<br>
+        {
+<br>
+            // Nếu admin chưa đăng nhập (thông tin Login hiện chưa lưu trong Session)
+<br>
+            if (HttpContext.Session.GetObject&lt;Admin&gt;("Taikhoanadmin") == null)
+<br>
+                return RedirectToAction("Login", "Admin");
+<br>
+            else
+<br>
+            {
+<br>
+                // Khởi động lại các Dropdown trong Views :))
+<br>
+                ViewBag.MaCD = new SelectList(data.ChuDes.ToList().OrderBy(n =&gt; n.TenChuDe).ToList(), "MaChuDe", "TenChuDe");
+<br>
+                ViewBag.MaNXB = new SelectList(data.NhaXuatBans.ToList().OrderBy(n =&gt; n.TenNXB).ToList(), "MaNXB", "TenNXB");
+<br>
+                return View();
+<br>
+            }
+<br>
+        }
+<br>
+
+<br>
+        [HttpPost]
+<br>
+        public ActionResult ThemmoiSach(Sach sach, IFormFile fileUpload, IFormCollection f)
+<br>
+        {
+<br>
+            if (HttpContext.Session.GetObject&lt;Admin&gt;("Taikhoanadmin") == null)
+<br>
+                return RedirectToAction("Login", "Admin");
+<br>
+            else
+<br>
+            {
+<br>
+                //Kiem tra duong dan file
+<br>
+                if (fileUpload == null || fileUpload != null && fileUpload.FileName.Length == 0)
+<br>
+                {
+<br>
+                    ViewBag.Thongbao = "Vui lòng chọn ảnh bìa";
+<br>
+                    ViewBag.MaCD = new SelectList(data.ChuDes.ToList().OrderBy(n =&gt; n.TenChuDe).ToList(), "MaChuDe", "TenChuDe");
+<br>
+                    ViewBag.MaNXB = new SelectList(data.NhaXuatBans.ToList().OrderBy(n =&gt; n.TenNXB).ToList(), "MaNXB", "TenNXB");
+<br>
+                    return View();
+<br>
+                }
+<br>
+                //Them vao CSDL
+<br>
+                else
+<br>
+                {
+<br>
+                    //Luu ten fie, luu y bo sung thu vien using System.IO;
+<br>
+                    var fileName = Path.GetFileName(fileUpload.FileName);
+<br>
+                    //Luu duong dan cua file
+<br>
+                    var path = Path.Combine(_webHostEnvironment.WebRootPath, "Hinhsanpham", fileName);
+<br>
+                    //Kiem tra hình anh ton tai chua?
+<br>
+                    if (System.IO.File.Exists(path))
+<br>
+                        ViewBag.Thongbao = "Hình ảnh đã tồn tại";
+<br>
+                    else
+<br>
+                    {
+<br>
+                        //Luu hinh anh vao duong dan
+<br>
+                        using (Stream fileStream = new FileStream(path, FileMode.Create))
+<br>
+                        {
+<br>
+                            fileUpload.CopyTo(fileStream);
+<br>
+                        }
+<br>
+                        sach.AnhBia = fileName;
+<br>
+
+<br>
+                        sach.MaChuDe = Guid.Parse(f["MaCD"].ToString());
+<br>
+                        sach.MaNXB = Guid.Parse(f["MaNXB"].ToString());
+<br>
+
+<br>
+                        //Luu vao CSDL
+<br>
+                        data.Sachs.Add(sach);
+<br>
+                        data.SaveChanges();
+<br>
+                    }
+<br>
+                }
+<br>
+                return RedirectToAction("Sach", "QuanLy_Sach");
+<br>
+            }
+<br>
+        }
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+- Tại Views (ví dụ) :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+&commat;model WebBanSach.Models.Sach
+<br>
+
+<br>
+&commat;{
+<br>
+    ViewBag.Title = "Themoisach";
+<br>
+    Layout = "~/Views/Shared/_Layout.cshtml";
+<br>
+}
+<br>
+
+<br>
+&lt;h2&gt;THÊM MỚI SÁCH&lt;/h2&gt;
+<br>
+
+<br>
+&commat;using (Html.BeginForm("_TÊN VIEW_", "_TÊN CONTROLLER_", FormMethod.Post, new { &commat;enctype = "multipart/form-data" }))
+<br>
+
+<br>
+{
+<br>
+    &commat;Html.AntiForgeryToken()
+<br>
+
+<br>
+    &lt;div class="form-horizontal"&gt;
+<br>
+        &lt;hr /&gt;
+<br>
+
+<br>
+        &commat;Html.ValidationSummary(true, "", new { &commat;class = "text-danger" })
+<br>
+        &lt;div class="form-group"&gt;
+<br>
+            &commat;Html.LabelFor(model =&gt; model.TenSach, htmlAttributes: new { &commat;class = "control-label col-md-2" })
+<br>
+            &lt;div class="col-md-10"&gt;
+<br>
+                &commat;Html.EditorFor(model =&gt; model.TenSach, new { htmlAttributes = new { &commat;class = "form-control" } })
+<br>
+                &commat;Html.ValidationMessageFor(model =&gt; model.TenSach, "", new { &commat;class = "text-danger" })
+<br>
+            &lt;/div&gt;
+<br>
+        &lt;/div&gt;
+<br>
+
+<br>
+        ...
+<br>
+
+<br>
+        &lt;div class="form-group"&gt;
+<br>
+            &commat;Html.LabelFor(model =&gt; model.AnhBia, htmlAttributes: new { &commat;class = "control-label col-md-2" })
+<br>
+            &lt;div class="col-md-10"&gt;
+<br>
+                &lt;input type="file" name="fileUpload" /&gt;
+<br>
+                &commat;ViewBag.Thongbao
+<br>
+            &lt;/div&gt;
+<br>
+        &lt;/div&gt;
+<br>
+
+<br>
+        &lt;div class="form-group"&gt;
+<br>
+            &commat;Html.LabelFor(model =&gt; model.NgayCapNhat, htmlAttributes: new { &commat;class = "control-label col-md-2" })
+<br>
+            &lt;div class="col-md-10"&gt;
+<br>
+                &lt;input type="date" name="Ngaycapnhat" /&gt;
+<br>
+            &lt;/div&gt;
+<br>
+        &lt;/div&gt;
+<br>
+
+<br>
+        &lt;div class="form-group"&gt;
+<br>
+            &commat;Html.LabelFor(model =&gt; model.MaChuDe, htmlAttributes: new { &commat;class = "control-label col-md-2" })
+<br>
+            &lt;div class="col-md-10"&gt;
+<br>
+                &commat;Html.DropDownList("MaCD")
+<br>
+            &lt;/div&gt;
+<br>
+        &lt;/div&gt;
+<br>
+
+<br>
+        ...
+<br>
+
+<br>
+        &lt;/div&gt;
+<br>
+
+<br>
+        &lt;div class="form-group"&gt;
+<br>
+            &lt;div class="col-md-offset-2 col-md-10"&gt;
+<br>
+                &lt;input type="submit" value="LƯU" class="btn btn-default" /&gt;
+<br>
+            &lt;/div&gt;
+<br>
+        &lt;/div&gt;
+<br>
+    &lt;/div&gt;
+<br>
+}
+<br>
+
+<br>
+&lt;div&gt;
+<br>
+    &commat;Html.ActionLink("Trở về", "_TÊN VIEW HIỂN THỊ SÁCH_")
+<br>
+&lt;/div&gt;
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+# Ví dụ Views Chi Tiết Sản Phẩm (Quản Lý Bán Sách) :
+<br>
+
+<br>
+- Tại controller (ví dụ) :
+<br>
+
+<br>
+public ActionResult Chitietsach(Guid id)
+<br>
+        {
+<br>
+            if (HttpContext.Session.GetObject&lt;Admin&gt;("Taikhoanadmin") == null)
+<br>
+                return RedirectToAction("Login", "Admin");
+<br>
+            else
+<br>
+            {
+<br>
+                var sach = from s in data.Sachs where s.MaSach == id select s;
+<br>
+                return View(sach.SingleOrDefault());
+<br>
+            }
+<br>
+        }
+<br>
+
+<br>
+- Tại views (ví dụ ) :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+&commat;model WebBanSach.Models.Sach
+<br>
+
+<br>
+&commat;{
+<br>
+    ViewBag.Title = "Chitietsach";
+<br>
+    Layout = "~/Views/Shared/_Layout.cshtml";
+<br>
+}
+<br>
+
+<br>
+&lt;div&gt;
+<br>
+    &lt;h4&gt;THÔNG TIN CHI TIẾT SÁCH&lt;/h4&gt;
+<br>
+    &lt;hr /&gt;
+<br>
+    &lt;dl class="dl-horizontal"&gt;
+<br>
+        &lt;dt&gt;
+<br>
+            &commat;Html.DisplayNameFor(model =&gt; model.TenSach)
+<br>
+        &lt;/dt&gt;
+<br>
+
+<br>
+        &lt;dd&gt;
+<br>
+            &commat;Html.DisplayFor(model =&gt; model.TenSach)
+<br>
+        &lt;/dd&gt;
+<br>
+        
+<br>
+        &lt;dt&gt;
+<br>
+            &commat;Html.DisplayNameFor(model =&gt; model.AnhBia)
+<br>
+        &lt;/dt&gt;
+<br>
+
+<br>
+        &lt;dd&gt;
+<br>
+
+<br>
+            &lt;img src="&commat;Url.Content("~/Hinhsanpham/"+  Model.AnhBia)" width="120px" /&gt;
+<br>
+        &lt;/dd&gt;
+<br>
+
+<br>
+        &lt;dt&gt;
+<br>
+            &commat;Html.DisplayNameFor(model =&gt; model.NgayCapNhat)
+<br>
+        &lt;/dt&gt;
+<br>
+
+<br>
+        &lt;dd&gt;
+<br>
+            &commat;String.Format("{0:dd/MM/yyy}", Model.NgayCapNhat)
+<br>
+
+<br>
+        &lt;/dd&gt;
+<br>
+
+<br>
+	...
+<br>
+
+<br>
+        &lt;dt&gt;
+<br>
+            &commat;Html.DisplayNameFor(model =&gt; model.ChuDe.TenChuDe)
+<br>
+        &lt;/dt&gt;
+<br>
+
+<br>
+        &lt;dd&gt;
+<br>
+            &commat;Html.DisplayFor(modelItem =&gt; Model.ChuDe.TenChuDe) // Khoá ngoại của bảng Sách là mã chủ đề từ bảng Chủ Đề (muốn lấy tên)
+<br>
+        &lt;/dd&gt;
+<br>
+
+<br>
+    &lt;/dl&gt;
+<br>
+&lt;/div&gt;
+<br>
+&lt;p&gt;
+<br>
+    &commat;Html.ActionLink("Sửa", "_TÊN VIEW SỬA SÁCH_", new { id = Model.MaSach }) |
+<br>
+    &commat;Html.ActionLink("Trở về", "_TÊN VIEW HIỂN THỊ SÁCH_")
+<br>
+&lt;/p&gt;
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+# Ví dụ Views chỉnh sửa một sản phẩm (Quản Lý Bán Sách) :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+         public ActionResult Suasach(Guid id)
+<br>
+        {
+<br>
+            if (HttpContext.Session.GetObject&lt;Admin&gt;("Taikhoanadmin") == null)
+<br>
+                return RedirectToAction("Login", "Admin");
+<br>
+            else
+<br>
+            {
+<br>
+                Sach sach = data.Sachs.SingleOrDefault(n =&gt; n.MaSach == id);
+<br>
+
+<br>
+                //Lay du liệu từ table Chude để đổ vào Dropdownlist... 
+<br>
+                ViewBag.MaCD = new SelectList(data.ChuDes.ToList().OrderBy(n =&gt; n.TenChuDe).ToList(), "MaChuDe", "TenChuDe", sach.MaChuDe);
+<br>
+                ViewBag.MaNXB = new SelectList(data.NhaXuatBans.ToList().OrderBy(n =&gt; n.TenNXB).ToList(), "MaNXB", "TenNXB", sach.MaNXB);
+<br>
+                return View(sach);
+<br>
+            }
+<br>
+        }
+<br>
+
+<br>
+        private void UpdateModel_Sach (Sach sach, IFormCollection fo, IFormFile Anhbia)
+<br>
+        {
+<br>
+            // Tìm tên file ảnh bìa cũ để xoá
+<br>
+
+<br>
+            Sach s = data.Sachs.FirstOrDefault(p =&gt; p.MaSach == sach.MaSach);
+<br>
+
+<br>
+            if (Anhbia != null && Anhbia.FileName.Length &gt; 0)
+<br>
+            {
+<br>
+                // Xoá ảnh cũ ...
+<br>
+
+<br>
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "Hinhsanpham", s.AnhBia);
+<br>
+                FileInfo f = new FileInfo(path);
+<br>
+                f.Delete();
+<br>
+
+<br>
+                // Cài thêm ảnh mới khác...
+<br>
+
+<br>
+                var fileName = Path.GetFileName(Anhbia.FileName);
+<br>
+                var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "Hinhsanpham", fileName);
+<br>
+                using (Stream fileStream = new FileStream(path2, FileMode.Create))
+<br>
+                {
+<br>
+                    Anhbia.CopyTo(fileStream);
+<br>
+                }
+<br>
+                s.AnhBia = fileName;
+<br>
+            }
+<br>
+
+<br>
+            // Cập nhật thông tin khác cho sách...
+<br>
+            s.TenSach = sach.TenSach;
+<br>
+            s.NgayCapNhat = sach.NgayCapNhat;
+<br>
+            s.GiaBan = sach.GiaBan;
+<br>
+            s.MoTa = sach.MoTa;
+<br>
+            s.SoLuongTon = sach.SoLuongTon;
+<br>
+
+<br>
+           // Khoá ngoại mã chủ đề của bảng Sách từ bảng Chủ Đề...
+<br>
+            s.MaChuDe = Guid.Parse(fo["MaCD"].ToString());
+<br>
+            s.MaNXB = Guid.Parse(fo["MaNXB"].ToString());
+<br>
+
+<br>
+            //Luu vao CSDL
+<br>
+            data.Sachs.Update(s);
+<br>
+            data.SaveChanges();
+<br>
+        }
+<br>
+
+<br>
+        [HttpPost, ActionName("Suasach")]
+<br>
+        public ActionResult Xacnhansua_Sach(Sach sach, IFormCollection f, IFormFile Anhbia)
+<br>
+        {
+<br>
+            if (HttpContext.Session.GetObject&lt;Admin&gt;("Taikhoanadmin") == null)
+<br>
+                return RedirectToAction("Login", "Admin");
+<br>
+            else
+<br>
+            {
+<br>
+                UpdateModel_Sach(sach, f, Anhbia);
+<br>
+                return RedirectToAction("Sach", "QuanLy_Sach");
+<br>
+            }
+<br>
+        }
+<br>
+    }
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+- Tại Views (ví dụ) :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+&commat;model WebBanSach.Models.Sach
+<br>
+
+<br>
+&commat;{
+<br>
+    ViewBag.Title = "Suasach";
+<br>
+    Layout = "~/Views/Shared/_Layout.cshtml";
+<br>
+}
+<br>
+
+<br>
+&lt;h2&gt;ĐIỀU CHỈNH THÔNG TIN SÁCH&lt;/h2&gt;
+<br>
+
+<br>
+&commat;using (Html.BeginForm("Suasach", "QuanLy_Sach", FormMethod.Post, new { &commat;enctype = "multipart/form-data" }))
+<br>
+{
+<br>
+    &commat;Html.AntiForgeryToken()
+<br>
+
+<br>
+    &lt;div class="form-horizontal"&gt;
+<br>
+        &lt;hr /&gt;
+<br>
+        &commat;Html.ValidationSummary(true, "", new { &commat;class = "text-danger" })
+<br>
+
+<br>
+        &commat;Html.HiddenFor(model =&gt; model.MaSach)
+<br>
+
+<br>
+        &lt;div class="form-group"&gt;
+<br>
+            &commat;Html.LabelFor(model =&gt; model.TenSach, htmlAttributes: new { &commat;class = "control-label col-md-2" })
+<br>
+            &lt;div class="col-md-10"&gt;
+<br>
+                &commat;Html.EditorFor(model =&gt; model.TenSach, new { htmlAttributes = new { &commat;class = "form-control" } })
+<br>
+                &commat;Html.ValidationMessageFor(model =&gt; model.TenSach, "", new { &commat;class = "text-danger" })
+<br>
+            &lt;/div&gt;
+<br>
+        &lt;/div&gt;
+<br>
+
+<br>
+        &lt;div class="form-group"&gt;
+<br>
+            &commat;Html.LabelFor(model =&gt; model.MoTa, htmlAttributes: new { &commat;class = "control-label col-md-2" })
+<br>
+            &lt;div class="col-md-10"&gt;
+<br>
+
+<br>
+                &lt;textarea cols="40" rows="10" name="Mota"&gt; &commat;Model.MoTa &lt;/textarea&gt;
+<br>
+            &lt;/div&gt;
+<br>
+        &lt;/div&gt;
+<br>
+
+<br>
+        &lt;div class="form-group"&gt;
+<br>
+            &commat;Html.LabelFor(model =&gt; model.AnhBia, htmlAttributes: new { &commat;class = "control-label col-md-2" })
+<br>
+            &lt;div class="col-md-10"&gt;
+<br>
+                &lt;img src="~/Hinhsanpham/&commat;Model.AnhBia" /&gt; &commat;Model.AnhBia
+<br>
+                &lt;input type="file" name="Anhbia" /&gt;
+<br>
+            &lt;/div&gt;
+<br>
+        &lt;/div&gt;
+<br>
+
+<br>
+        &lt;div class="form-group"&gt;
+<br>
+            &commat;Html.LabelFor(model =&gt; model.NgayCapNhat, htmlAttributes: new { &commat;class = "control-label col-md-2" })
+<br>
+            &lt;div class="col-md-10"&gt;
+<br>
+                &commat;String.Format("{0:dd/MM/yyyy}", Model.NgayCapNhat)
+<br>
+                &lt;input type="date" name="Ngaycapnhat" /&gt;
+<br>
+
+<br>
+            &lt;/div&gt;
+<br>
+        &lt;/div&gt;
+<br>
+
+<br>
+        &lt;div class="form-group"&gt;
+<br>
+            &commat;Html.LabelFor(model =&gt; model.MaNXB, htmlAttributes: new { &commat;class = "control-label col-md-2" })
+<br>
+            &lt;div class="col-md-10"&gt;
+<br>
+                &commat;Html.DropDownList("MaNXB")
+<br>
+            &lt;/div&gt;
+<br>
+        &lt;/div&gt;
+<br>
+
+<br>
+        &lt;div class="form-group"&gt;
+<br>
+            &lt;div class="col-md-offset-2 col-md-10"&gt;
+<br>
+                &lt;input type="submit" value="LƯU" class="btn btn-default" /&gt;
+<br>
+            &lt;/div&gt;
+<br>
+        &lt;/div&gt;
+<br>
+    &lt;/div&gt;
+<br>
+}
+<br>
+
+<br>
+&lt;div&gt;
+<br>
+    &commat;Html.ActionLink("Trở về", "_TÊN VIEW HIỂN THỊ SÁCH_")
+<br>
+&lt;/div&gt;
+<br>
+
+<br>
+
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+# Ví dụ Views xoá 1 sản phẩm (Quản Lý Bán Sách) : 
+<br>
+
+<br>
+- Tại controller (ví dụ) :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+        [HttpGet]
+<br>
+        public ActionResult Xoasach(Guid id)
+<br>
+        {
+<br>
+            if (HttpContext.Session.GetObject&lt;Admin&gt;("Taikhoanadmin") == null)
+<br>
+                return RedirectToAction("Login", "Admin");
+<br>
+            else
+<br>
+            {
+<br>
+                var sach = from s in data.Sachs where s.MaSach == id select s;
+<br>
+                return View(sach.SingleOrDefault());
+<br>
+            }
+<br>
+        }
+<br>
+
+<br>
+        [HttpPost, ActionName("Xoasach")]
+<br>
+        public ActionResult Xacnhanxoa_Sach(Guid id)
+<br>
+        {
+<br>
+            if (HttpContext.Session.GetObject&lt;Admin&gt;("Taikhoanadmin") == null)
+<br>
+                return RedirectToAction("Login", "Admin");
+<br>
+            else
+<br>
+            {
+<br>
+                Sach sach = data.Sachs.SingleOrDefault(n =&gt; n.MaSach == id);
+<br>
+
+<br>
+                // Xoá CSDL đồng nghĩa xoá luôn file sách đó trong wwwroot
+<br>
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "Hinhsanpham", sach.AnhBia);
+<br>
+                FileInfo f = new FileInfo(path);
+<br>
+                f.Delete();
+<br>
+
+<br>
+                data.Sachs.Remove(sach);
+<br>
+
+<br>
+                data.SaveChanges();
+<br>
+                return RedirectToAction("Sach", "QuanLy_Sach");
+<br>
+            }
+<br>
+        }
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+- Tại Views (ví dụ) :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+&commat;model WebBanSach.Models.Sach
+<br>
+
+<br>
+&commat;{
+<br>
+    ViewBag.Title = "Xoasach";
+<br>
+    Layout = "~/Views/Shared/_Layout.cshtml";
+<br>
+}
+<br>
+
+<br>
+&lt;h2&gt;XÁC NHẬN THÔNG TIN XÓA&lt;/h2&gt;
+<br>
+
+<br>
+&lt;h4 style="color:red; font-style:italic"&gt;Bạn có chắc chắn muốn xóa quyển sách này?&lt;/h4&gt;
+<br>
+&lt;div&gt;
+<br>
+    &lt;hr /&gt;
+<br>
+    &lt;dl class="dl-horizontal"&gt;
+<br>
+        &lt;dt&gt;
+<br>
+            &commat;Html.DisplayNameFor(model =&gt; model.TenSach)
+<br>
+        &lt;/dt&gt;
+<br>
+
+<br>
+        &lt;dd&gt;
+<br>
+            &commat;Html.DisplayFor(model =&gt; model.TenSach)
+<br>
+        &lt;/dd&gt;
+<br>
+
+<br>
+        &lt;dt&gt;
+<br>
+            &commat;Html.DisplayNameFor(model =&gt; model.AnhBia)
+<br>
+        &lt;/dt&gt;
+<br>
+
+<br>
+        &lt;dd&gt;
+<br>
+
+<br>
+            &lt;img src="&commat;Url.Content("~/Hinhsanpham/"+  Model.AnhBia)" width="120px" /&gt;
+<br>
+        &lt;/dd&gt;
+<br>
+
+<br>
+        &lt;dt&gt;
+<br>
+            &commat;Html.DisplayNameFor(model =&gt; model.NgayCapNhat)
+<br>
+        &lt;/dt&gt;
+<br>
+
+<br>
+        &lt;dd&gt;
+<br>
+            &commat;String.Format("{0:dd/MM/yyy}", Model.NgayCapNhat)
+<br>
+
+<br>
+        &lt;/dd&gt;
+<br>
+
+<br>
+       ...
+<br>
+
+<br>
+        &lt;dt&gt;
+<br>
+            &commat;Html.DisplayNameFor(model =&gt; model.MaChuDe)
+<br>
+        &lt;/dt&gt;
+<br>
+
+<br>
+        &lt;dd&gt;
+<br>
+            &commat;Html.DisplayFor(modelItem =&gt; Model.ChuDe.TenChuDe) // Khoá ngoại của bảng Sách là mã chủ đề từ bảng Chủ Đề (muốn lấy tên)
+<br>
+        &lt;/dd&gt;
+<br>
+
+<br>
+    &lt;/dl&gt;
+<br>
+
+<br>
+    &commat;using (Html.BeginForm())
+<br>
+    {
+<br>
+        &commat;Html.AntiForgeryToken()
+<br>
+
+<br>
+        &lt;div class="form-actions no-color"&gt;
+<br>
+            &lt;input type="submit" value="Xóa" class="btn btn-default" /&gt; |
+<br>
+            &commat;Html.ActionLink("Trở về", "_TÊN VIEW HIỂN THỊ SÁCH_")
+<br>
+        &lt;/div&gt;
+<br>
+    }
+<br>
+&lt;/div&gt;
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+# Ví dụ về Views đăng ký tài khoản :
+<br>
+
+<br>
+- Tại controller :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+        [HttpGet]
+<br>
+        public ActionResult Dangky()
+<br>
+        {
+<br>
+            return View();
+<br>
+        }
+<br>
+
+<br>
+        [HttpPost]
+<br>
+        public ActionResult Dangky(IFormCollection collection, KhachHang kh)
+<br>
+        {
+<br>
+            // Gán các giá trị người dùng nhập liệu trong Views cho các biến 
+<br>
+            var hoten = collection["HotenKH"];
+<br>
+            ...
+<br>
+            var ngaysinh = String.Format("{0:MM/dd/yyyy}", collection["Ngaysinh"]);
+<br>
+
+<br>
+            if (String.IsNullOrEmpty(hoten))
+<br>
+            {
+<br>
+                ViewData["Loi1"] = "Họ tên khách hàng không được để trống";
+<br>
+            }
+<br>
+            else if ...
+<br>
+            else
+<br>
+            {
+<br>
+                //Gán giá trị cho đối tượng được tạo mới (kh)
+<br>
+
+<br>
+                kh.MaKH = new Guid();
+<br>
+                kh.HoTen = hoten;
+<br>
+                ...
+<br>
+                kh.MatKhau = MD5_Encrypt.MD5_Encrypt.MD5_Password(matkhau); // mã hoá MD5 cho mật khẩu
+<br>
+                ...
+<br>
+                kh.NgaySinh = DateTime.Parse(ngaysinh);
+<br>
+
+<br>
+                db.KhachHangs.Add(kh);
+<br>
+                db.SaveChanges();
+<br>
+                
+<br>
+                // Sau khi đăng ký thành công, chuyển hướng sang trang Login
+<br>
+                return RedirectToAction("Dangnhap", "Nguoidung");
+<br>
+            }
+<br>
+            return this.Dangky();
+<br>
+        }
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+- Tại Views :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+&lt;table align="center"&gt;
+<br>
+    &lt;h2 style="text-align:center"&gt;ĐĂNG KÝ THÀNH VIÊN&lt;/h2&gt;
+<br>
+    &commat;using (Html.BeginForm())
+<br>
+    {
+<br>
+        &commat;Html.ValidationSummary(true)
+<br>
+
+<br>
+        &lt;tr style="height:40px"&gt;
+<br>
+            &lt;td&gt; Họ tên khách hàng:&lt;/td&gt;
+<br>
+            &lt;td&gt;
+<br>
+                &commat;Html.TextBox("HotenKH")
+<br>
+                &lt;span style="color:red; font-style:italic"&gt; &commat;ViewData["Loi1"] &lt;/span&gt;
+<br>
+            &lt;/td&gt;
+<br>
+       &lt;/tr&gt;
+<br>
+
+<br>
+        &lt;tr style="height:40px"&gt;
+<br>
+            &lt;td&gt;  Mật khẩu:&lt;/td&gt;
+<br>
+            &lt;td&gt;
+<br>
+                &commat;Html.Password("Matkhau")
+<br>
+                &commat;ViewData["Loi3"]
+<br>
+            &lt;/td&gt;
+<br>
+        &lt;/tr&gt;
+<br>
+       
+<br>
+        &lt;tr style="height:40px"&gt;
+<br>
+            &lt;td&gt; Ngày sinh :&lt;/td&gt;
+<br>
+            &lt;td&gt;
+<br>
+                &lt;input type="date" name="Ngaysinh" /&gt;
+<br>
+            &lt;/td&gt;
+<br>
+        &lt;/tr&gt;
+<br>
+
+<br>
+        &lt;tr style="height:40px"&gt;
+<br>
+            &lt;td&gt;&lt;/td&gt;
+<br>
+            &lt;td&gt;
+<br>
+                &lt;input type="Submit" value="Đăng ký" /&gt;
+<br>
+            &lt;/td&gt;
+<br>
+        &lt;/tr&gt;
+<br>
+    }
+<br>
+&lt;/table&gt;
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+# Ví dụ về Views đăng nhập tài khoản :
+<br>
+
+<br>
+- Tại controller :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+        [HttpGet]
+<br>
+        public ActionResult Dangnhap()
+<br>
+        {
+<br>
+            return View();
+<br>
+        }
+<br>
+
+<br>
+        [HttpPost]
+<br>
+        public ActionResult Dangnhap(IFormCollection f)
+<br>
+        {
+<br>
+            string tendn = f["TenDN"];
+<br>
+            string matkhau = MD5_Encrypt.MD5_Encrypt.MD5_Password(f["Matkhau"]);
+<br>
+
+<br>
+            if (String.IsNullOrEmpty(tendn))
+<br>
+                ViewData["Loi1"] = "Vui lòng nhập tên đăng nhập";
+<br>
+            else if ...
+<br>
+            else
+<br>
+            {
+<br>
+                
+<br>
+                var kh = db.KhachHangs.SingleOrDefault(n =&gt; n.TaiKhoan == tendn && n.MatKhau == matkhau);
+<br>
+
+<br>
+	// Lưu thông tin đăng nhập vào Session khi Login thành công!
+<br>
+                if (kh != null)
+<br>
+                {
+<br>
+                    //Session["Taikhoan"] = kh;
+<br>
+                   HttpContext.Session.SetObject("Taikhoan", kh);
+<br>
+                    
+<br>
+                    return RedirectToAction("Index", "BookStore");
+<br>
+                }
+<br>
+                else
+<br>
+                    ViewBag.Thongbao = "Tên đăng nhập hoặc mật khẩu không hợp lệ";
+<br>
+            }
+<br>
+
+<br>
+            return View();
+<br>
+        }
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+- Tại Views :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+    &lt;table align="center"&gt;
+<br>
+    &lt;h2 style="text-align:center"&gt;ĐĂNG NHẬP&lt;/h2&gt;
+<br>
+    &lt;h4 style="color:red; text-align:center; font-style:italic"&gt; &commat;ViewBag.Thongbao &lt;/h4&gt;
+<br>
+    &commat;using (Html.BeginForm())
+<br>
+    {
+<br>
+        &commat;Html.ValidationSummary(true)
+<br>
+
+<br>
+        &lt;tr style="height:40px"&gt;
+<br>
+            &lt;td&gt; Tên đăng nhập:&lt;/td&gt;
+<br>
+            &lt;td&gt;
+<br>
+                &commat;Html.TextBox("TenDN")
+<br>
+                &commat;ViewData["Loi1"]
+<br>
+            &lt;/td&gt;
+<br>
+        &lt;/tr&gt;
+<br>
+
+<br>
+        &lt;tr style="height:40px"&gt;
+<br>
+            &lt;td&gt;  Mật khẩu:&lt;/td&gt;
+<br>
+            &lt;td&gt;
+<br>
+                &commat;Html.Password("Matkhau")
+<br>
+                &commat;ViewData["Loi2"]
+<br>
+            &lt;/td&gt;
+<br>
+        &lt;/tr&gt;
+<br>
+
+<br>
+        &lt;tr style="height:40px"&gt;
+<br>
+            &lt;td&gt;&lt;/td&gt;
+<br>
+            &lt;td&gt;
+<br>
+                &lt;input type="Submit" value="Đăng nhập" /&gt;
+<br>
+            &lt;/td&gt;
+<br>
+        &lt;/tr&gt;
+<br>
+    }
+<br>
+&lt;/table&gt;
+<br>
+
+<br>
+&lt;div&gt;
+<br>
+    &commat;Html.ActionLink("Quên mật khẩu?", "ForgetPassword")
+<br>
+&lt;/div&gt;
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+# Ví dụ về quên mật khẩu tài khoản (gửi mã qua Email - Gmail để xác minh) :
+<br>
+
+<br>
+- Tại controller (Views quên mật khẩu) :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+        [HttpGet]
+<br>
+        public ActionResult ForgetPassWord()
+<br>
+        {
+<br>
+            return View();
+<br>
+        }
+<br>
+
+<br>
+        [HttpPost]
+<br>
+        public ActionResult ForgetPassWord(IFormCollection f)
+<br>
+        {
+<br>
+            var confirm = f["ConfirmEmail"];
+<br>
+            if (String.IsNullOrEmpty(confirm))
+<br>
+            {
+<br>
+                ViewData["Loi1"] = "Email khôi phục không được để trống";
+<br>
+            }
+<br>
+            else if (db.KhachHangs.FirstOrDefault(p =&gt; p.Email == confirm.ToString()) == null)
+<br>
+            {
+<br>
+                ViewData["Loi1"] = "Email này chưa liên kết tài khoản nào";
+<br>
+            }
+<br>
+            else
+<br>
+            {
+<br>
+                Random r = new Random();
+<br>
+                var x = r.Next(12345, 98765); // tạo mã xác minh bí mật bất kỳ
+<br>
+
+<br>
+	// Gửi email nội dung - ví dụ khôi phục password...
+<br>
+                SendEmail.SendMail2Step("bvanluat2000&commat;gmail.com",
+<br>
+             confirm.ToString(), "Web Ban Sach - Reset Password", "Your code to reset your password is " + x.ToString() + ". Please return and use this code to enter !", "pkzrigpkwkrffyet");
+<br>
+                
+<br>
+	// Lưu mã xác minh để áp dụng sang Views khác (cụ thể để USER nhập mã này sau khi nhận đc mail)
+<br>
+              TempData["Code"] = x.ToString();
+<br>
+
+<br>
+                return RedirectToAction("ConfirmEmail", "Nguoidung", new {email = confirm});
+<br>
+            }
+<br>
+            return this.ForgetPassWord();
+<br>
+        }
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+- Tại Views (Quên mật khẩu) :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+&lt;h2&gt;Khôi phục mật khẩu của bạn&lt;/h2&gt;
+<br>
+
+<br>
+&lt;table align="center"&gt;
+<br>
+    &commat;using (Html.BeginForm())
+<br>
+    {
+<br>
+        &commat;Html.ValidationSummary(true)
+<br>
+
+<br>
+        &lt;tr style="height:40px"&gt;
+<br>
+            &lt;td&gt; Nhập Email liên kết tài khoản của bạn : &lt;/td&gt;
+<br>
+            &lt;td&gt;
+<br>
+                &commat;Html.TextBox("ConfirmEmail")
+<br>
+                &lt;span style="color:red; font-style:italic"&gt; &commat;ViewData["Loi1"] &lt;/span&gt;
+<br>
+            &lt;/td&gt;
+<br>
+        &lt;/tr&gt;
+<br>
+
+<br>
+        &lt;tr style="height:40px"&gt;
+<br>
+            &lt;td&gt;&lt;/td&gt;
+<br>
+            &lt;td&gt;
+<br>
+                &lt;input type="Submit" value="Gửi xác minh" /&gt;
+<br>
+            &lt;/td&gt;
+<br>
+        &lt;/tr&gt;
+<br>
+    }
+<br>
+&lt;/table&gt;
+<br>
+
+<br>
+&lt;div&gt;
+<br>
+    &commat;Html.ActionLink("Trở về", "_TÊN VIEW ĐĂNG NHẬP_")
+<br>
+&lt;/div&gt;
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+###
+<br>
+
+<br>
+- Tại controller (View nhập mã xác minh sau khi nhận được mail) :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+        [HttpGet]
+<br>
+        public ActionResult ConfirmEmail (string email)
+<br>
+        {
+<br>
+            ViewBag.Email = email; // để hiển thị lên Views email mà người dùng đã nhập cần khôi phục Password...
+<br>
+
+<br>
+            // Lấy và lưu trữ lại mã xác minh cũ (đã gửi trong email trước đó)
+<br>
+            ViewBag.Code = TempData["Code"];
+<br>
+            TempData["Code"] = ViewBag.Code;
+<br>
+
+<br>
+            if (db.KhachHangs.FirstOrDefault(p =&gt; p.Email == email) == null)
+<br>
+            {
+<br>
+                ViewData["Loi1"] = "Email này chưa liên kết tài khoản nào";
+<br>
+                return this.ForgetPassWord();
+<br>
+            }
+<br>
+            return View();
+<br>
+        }
+<br>
+
+<br>
+        [HttpPost]
+<br>
+        public ActionResult ConfirmEmail(IFormCollection f, string email)
+<br>
+        {
+<br>
+            string codeResult = TempData["Code"].ToString();
+<br>
+
+<br>
+            var confirm = f["EmailConfirm"];
+<br>
+            if (String.IsNullOrEmpty(confirm))
+<br>
+            {
+<br>
+                ViewData["Loi1"] = "Mã xác minh không được trống";
+<br>
+            }
+<br>
+            else if (String.Compare(confirm, codeResult, false) != 0) // Mã xác minh phân biệt hoa thường
+<br>
+            {
+<br>
+                ViewData["Loi1"] = "Mã xác minh không đúng";
+<br>
+            }
+<br>
+            else
+<br>
+            {
+<br>
+                return RedirectToAction("ChangePassword", "Nguoidung", new { email = email });
+<br>
+            }
+<br>
+            return this.ConfirmEmail(email);
+<br>
+        }
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+- Tại Views (nhập mã xác minh sau khi nhận được email) :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+&lt;h2&gt;Khôi phục mật khẩu của bạn&lt;/h2&gt;
+<br>
+&lt;hr /&gt;
+<br>
+&lt;h2&gt;Hệ thống đã gửi một mã xác minh đến email &commat;ViewBag.Email để giúp bạn khôi phục mật khẩu. Kiểm tra Email và xác nhận.&lt;/h2&gt;
+<br>
+
+<br>
+&lt;table align="center"&gt;
+<br>
+    &commat;using (Html.BeginForm())
+<br>
+    {
+<br>
+        &commat;Html.ValidationSummary(true)
+<br>
+        &lt;tr style="height:40px"&gt;
+<br>
+            &lt;td&gt; Nhập mã xác minh : &lt;/td&gt;
+<br>
+            &lt;td&gt;
+<br>
+                &commat;Html.TextBox("EmailConfirm")
+<br>
+                &lt;span style="color:red; font-style:italic"&gt; &commat;ViewData["Loi1"] &lt;/span&gt;
+<br>
+            &lt;/td&gt;
+<br>
+        &lt;/tr&gt;
+<br>
+        &lt;tr style="height:40px"&gt;
+<br>
+            &lt;td&gt;&lt;/td&gt;
+<br>
+            &lt;td&gt;
+<br>
+                &lt;input type="Submit" value="Xác minh" /&gt;
+<br>
+            &lt;/td&gt;
+<br>
+        &lt;/tr&gt;
+<br>
+    }
+<br>
+&lt;/table&gt;
+<br>
+&lt;div&gt;
+<br>
+    &commat;Html.ActionLink("Trở về", "_TÊN VIEW ĐĂNG NHẬP_")
+<br>
+&lt;/div&gt;
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+###
+<br>
+
+<br>
+- Tại controller (đổi mật khẩu mới sau khi xác minh) :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+        [HttpGet]
+<br>
+        public ActionResult ChangePassword(string email)
+<br>
+        {
+<br>
+            ViewBag.Email = email;
+<br>
+            return View();
+<br>
+        }
+<br>
+
+<br>
+        [HttpPost]
+<br>
+        public ActionResult ChangePassword(IFormCollection f, string email)
+<br>
+        {
+<br>
+            var pass = f["Password"];
+<br>
+            var confirm = f["PasswordConfirm"];
+<br>
+            if (String.IsNullOrEmpty(pass))
+<br>
+            {
+<br>
+                ViewData["Loi1"] = "Trường này không được trống";
+<br>
+            }
+<br>
+            else if ...
+<br>
+            else if (String.Compare(confirm, pass, false) != 0)
+<br>
+            {
+<br>
+                ViewData["Loi2"] = "Mật khẩu xác nhận không trùng khớp";
+<br>
+            }
+<br>
+            else
+<br>
+            {
+<br>
+                KhachHang kh = db.KhachHangs.FirstOrDefault(p =&gt; p.Email == email);
+<br>
+                kh.MatKhau = MD5_Encrypt.MD5_Encrypt.MD5_Password(pass);
+<br>
+                db.KhachHangs.Update(kh);
+<br>
+                db.SaveChanges();
+<br>
+
+<br>
+                return RedirectToAction("Dangnhap");
+<br>
+            }
+<br>
+            return this.ChangePassword(email);
+<br>
+        }
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+- Tại Views (đổi mật khẩu mới sau khi xác minh) :
+<br>
+
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+&lt;h2&gt;Thay đổi mật khẩu - &commat;ViewBag.Email&lt;/h2&gt;
+<br>
+&lt;hr /&gt;
+<br>
+
+<br>
+&lt;table align="center"&gt;
+<br>
+    &commat;using (Html.BeginForm())
+<br>
+    {
+<br>
+        &commat;Html.ValidationSummary(true)
+<br>
+
+<br>
+        &lt;tr style="height:40px"&gt;
+<br>
+            &lt;td&gt; Nhập mật khẩu mới : &lt;/td&gt;
+<br>
+            &lt;td&gt;
+<br>
+                &commat;Html.Password("Password")
+<br>
+                &lt;span style="color:red; font-style:italic"&gt; &commat;ViewData["Loi1"] &lt;/span&gt;
+<br>
+            &lt;/td&gt;
+<br>
+        &lt;/tr&gt;
+<br>
+             &lt;tr style="height:40px"&gt;
+<br>
+            &lt;td&gt; Xác nhận mật khẩu mới : &lt;/td&gt;
+<br>
+            &lt;td&gt;
+<br>
+                &commat;Html.Password("PasswordConfirm")
+<br>
+                &lt;span style="color:red; font-style:italic"&gt; &commat;ViewData["Loi2"] &lt;/span&gt;
+<br>
+            &lt;/td&gt;
+<br>
+        &lt;/tr&gt;
+<br>
+        &lt;tr style="height:40px"&gt;
+<br>
+            &lt;td&gt;&lt;/td&gt;
+<br>
+            &lt;td&gt;
+<br>
+                &lt;input type="Submit" value="Đổi mật khẩu" /&gt;
+<br>
+            &lt;/td&gt;
+<br>
+        &lt;/tr&gt;
+<br>
+    }
+<br>
+&lt;/table&gt;
+<br>
+
+<br>
+&lt;div&gt;
+<br>
+    &commat;Html.ActionLink("Trở về", "_TÊN VIEW ĐĂNG NHẬP_")
+<br>
+&lt;/div&gt;
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+# Phân Trang : 
+<br>
+
+<br>
+- Tại Views/Shared, tạo và copy nội dung file _Paging.cshtml : 
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+&commat;*
+<br>
+    Model:
+<br>
+      - currentPage:int - Trang hiện tại
+<br>
+      - countPages:int - tổng số trang
+<br>
+      - generateUrl:delegate Func&lt;int?, string&gt; trả về URL tương ứng với trang p (1,2,3 ...)
+<br>
+*&commat;
+<br>
+
+<br>
+&commat;model dynamic
+<br>
+&commat;{
+<br>
+    int currentPage = ViewBag.TrangHienTai;
+<br>
+    int countPages = ViewBag.TongSoTrang;
+<br>
+    var generateUrl = ViewBag.SetLink;
+<br>
+
+<br>
+    if (currentPage &gt; countPages)
+<br>
+        currentPage = countPages;
+<br>
+
+<br>
+    if (countPages &lt;= 1) return;
+<br>
+
+<br>
+
+<br>
+    int? preview = null;
+<br>
+    int? next = null;
+<br>
+
+<br>
+    if (currentPage &gt; 1)
+<br>
+        preview = currentPage - 1;
+<br>
+
+<br>
+    if (currentPage &lt; countPages)
+<br>
+        next = currentPage + 1;
+<br>
+
+<br>
+    // Các trang hiện thị trong điều hướng
+<br>
+    List&lt;int&gt; pagesRanges = new List&lt;int&gt;();
+<br>
+
+<br>
+
+<br>
+    int delta = 5;             // Số trang mở rộng về mỗi bên trang hiện tại
+<br>
+    int remain = delta * 2;     // Số trang hai bên trang hiện tại
+<br>
+
+<br>
+    pagesRanges.Add(currentPage);
+<br>
+    // Các trang phát triển về hai bên trang hiện tại
+<br>
+    for (int i = 1; i &lt;= delta; i++)
+<br>
+    {
+<br>
+        if (currentPage + i &lt;= countPages)
+<br>
+        {
+<br>
+            pagesRanges.Add(currentPage + i);
+<br>
+            remain--;
+<br>
+        }
+<br>
+
+<br>
+        if (currentPage - i &gt;= 1)
+<br>
+        {
+<br>
+            pagesRanges.Insert(0, currentPage - i);
+<br>
+            remain--;
+<br>
+        }
+<br>
+
+<br>
+    }
+<br>
+    // Xử lý thêm vào các trang cho đủ remain
+<br>
+    //(xảy ra ở đầu mút của khoảng trang không đủ trang chèn  vào)
+<br>
+    if (remain &gt; 0)
+<br>
+    {
+<br>
+        if (pagesRanges[0] == 1)
+<br>
+        {
+<br>
+            for (int i = 1; i &lt;= remain; i++)
+<br>
+            {
+<br>
+                if (pagesRanges.Last() + 1 &lt;= countPages)
+<br>
+                {
+<br>
+                    pagesRanges.Add(pagesRanges.Last() + 1);
+<br>
+                }
+<br>
+            }
+<br>
+        }
+<br>
+        else
+<br>
+        {
+<br>
+            for (int i = 1; i &lt;= remain; i++)
+<br>
+            {
+<br>
+                if (pagesRanges.First() - 1 &gt; 1)
+<br>
+                {
+<br>
+                    pagesRanges.Insert(0, pagesRanges.First() - 1);
+<br>
+                }
+<br>
+            }
+<br>
+        }
+<br>
+    }
+<br>
+
+<br>
+}
+<br>
+
+<br>
+&commat;* PHÁT SINH HTML*&commat;
+<br>
+
+<br>
+&lt;ul class="pagination"&gt;
+<br>
+    &lt;!-- Previous page link --&gt;
+<br>
+    &commat;if (preview != null)
+<br>
+    {
+<br>
+        &lt;li class="page-item"&gt;
+<br>
+            &lt;a class="page-link" href="&commat;generateUrl&commat;preview"&gt;Trang trước&lt;/a&gt;
+<br>
+        &lt;/li&gt;
+<br>
+    }
+<br>
+    else
+<br>
+    {
+<br>
+        &lt;li class="page-item disabled"&gt;
+<br>
+            &lt;a class="page-link" href="#" tabindex="-1" aria-disabled="true"&gt;Trang trước&lt;/a&gt;
+<br>
+        &lt;/li&gt;
+<br>
+    }
+<br>
+
+<br>
+    &lt;!-- Numbered page links --&gt;
+<br>
+    &commat;foreach (var pageitem in pagesRanges)
+<br>
+    {
+<br>
+        if (pageitem != currentPage)
+<br>
+        {
+<br>
+            &lt;li class="page-item"&gt;
+<br>
+                &lt;a class="page-link" href=&commat;generateUrl&commat;pageitem&gt;
+<br>
+                    &commat;pageitem
+<br>
+                &lt;/a&gt;
+<br>
+            &lt;/li&gt;
+<br>
+        }
+<br>
+        else
+<br>
+        {
+<br>
+            &lt;li class="page-item active" aria-current="page"&gt;
+<br>
+                &lt;a class="page-link" href="#"&gt;&commat;pageitem &lt;span class="sr-only"&gt;(current)&lt;/span&gt;&lt;/a&gt;
+<br>
+            &lt;/li&gt;
+<br>
+        }
+<br>
+    }
+<br>
+    
+<br>
+
+<br>
+    &lt;!-- Next page link --&gt;
+<br>
+    &commat;if (next != null)
+<br>
+    {
+<br>
+        &lt;li class="page-item"&gt;
+<br>
+            &lt;a class="page-link" href=&commat;generateUrl&commat;next&gt;Trang sau&lt;/a&gt;
+<br>
+        &lt;/li&gt;
+<br>
+    }
+<br>
+    else
+<br>
+    {
+<br>
+        &lt;li class="page-item disabled"&gt;
+<br>
+            &lt;a class="page-link" href="#" tabindex="-1" aria-disabled="true"&gt;Trang sau&lt;/a&gt;
+<br>
+        &lt;/li&gt;
+<br>
+    }
+<br>
+&lt;/ul&gt;
+<br>
+
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+- Tại controller nào đó - VD : BookStoreController, sửa những Action có dạng View trả về danh sách, chỉnh lại code ví dụ như sau :
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+ public ActionResult Sachtheochude(Guid id, int pageNumber)
+<br>
+        {
+<br>
+            List&lt;Sach&gt; products = data.Sachs.Where(p =&gt; p.MaChuDe == id).ToList();
+<br>
+
+<br>
+            // Lấy tổng số dòng dữ liệu
+<br>
+            var totalItems = products.Count();
+<br>
+
+<br>
+            int ITEMS_PER_PAGE = 10;
+<br>
+
+<br>
+            // Tính số trang hiện thị (mỗi trang hiện thị ITEMS_PER_PAGE mục do bạn cấu hình = 10, 20 ...)
+<br>
+            int totalPages = (int)Math.Ceiling((double)totalItems / ITEMS_PER_PAGE);
+<br>
+            // Lấy phần tử trong  hang hiện tại (pageNumber là trang hiện tại - thường Binding từ route)
+<br>
+            List&lt;Sach&gt; pros = products.Skip(ITEMS_PER_PAGE * (pageNumber - 1)).Take(ITEMS_PER_PAGE).ToList();
+<br>
+            ViewBag.TrangHienTai = pageNumber;
+<br>
+            ViewBag.TongSoTrang = totalPages;
+<br>
+            ViewBag.SetLink = "/BookStore/Sachtheochude?id="+id+"&&pageNumber=";
+<br>
+            return View(pros);
+<br>
+        }
+<br>
+
+<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+
+<br>
+- Tại View nào đó ấy - VD như trên là Sachtheochude.cshtml, thêm patial vào ở đâu đó để thêm thanh ngang phân trang :
+<br>
+
+<br>
+&lt;partial name="_Paging" /&gt;
+<br>
+
+</h4>

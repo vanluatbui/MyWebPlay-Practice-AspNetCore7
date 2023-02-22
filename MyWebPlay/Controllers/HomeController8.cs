@@ -161,7 +161,7 @@ namespace MyWebPlay.Controllers
         //----------------------------------------------------------------
 
 
-        public ActionResult ChuTrinhEuler()
+        public ActionResult Euler_X()
         {
             return View();
         }
@@ -182,6 +182,26 @@ namespace MyWebPlay.Controllers
                     return 0;
             }
             return 1;
+        }
+
+        int timdinhbacle_X(int[,] g)
+        {
+            int dem = 0;
+            for (int i = 0; i < g.GetLength(0); i++)
+            {
+                int d = 0;
+                for (int j = 0; j < g.GetLength(1); j++)
+                {
+                    if (g[i, j] != 0)
+                        d++;
+                }
+                if (d % 2 != 0)
+                    dem++;
+            }
+
+            if (dem == 2)
+                return 1;
+            return 0;
         }
 
         int KiemTraDuongDi(int[,] g)
@@ -234,14 +254,23 @@ namespace MyWebPlay.Controllers
 
 
         [HttpPost]
-        public ActionResult ChuTrinhEuler(IFormCollection f)
+        public ActionResult Euler_X(IFormCollection f)
         {
             string chuoi = f["Chuoi"].ToString();
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi"] = "Trường này không được để trống!";
-                return this.ChuTrinhEuler();
+                return this.Euler_X();
             }
+
+            string dukien = f["DuKien"].ToString();
+            if (string.IsNullOrEmpty(chuoi))
+            {
+                ViewData["Loi2"] = "Trường này không được để trống!";
+                return this.Euler_X();
+            }
+
+            int chon = int.Parse(dukien);
 
             string[] s = chuoi.Split('\n');
             DS = new int[s.Length, s[0].Split(' ').Length];
@@ -261,17 +290,25 @@ namespace MyWebPlay.Controllers
 
             string ketqua = "";
 
-            if (timdinhbacle(DS) == 0)
+            if (chon ==1 && timdinhbacle(DS) == 0)
             {
                 ketqua = "\r\n--> Đồ thị không có chu trình Euler!";
                 ViewBag.Ketqua = ketqua;
                 return View();
             }
+            else
+                if (chon == 2 && timdinhbacle_X(DS) == 0)
+            {
+                ketqua = "\r\n--> Đồ thị không có đường đi Euler!";
+                ViewBag.Ketqua = ketqua;
+                return View();
+            }
+
             //chọn đỉnh x có bậc >0 để xuất phát
             int x = dinhxuatphat(DS);
             if (x == -1)
             {
-                ketqua = "\r\n--> Đồ thị không có chu trình Euler!";
+                ketqua = "\r\n--> Đồ thị không có chu trình/đường đi Euler!";
                 ViewBag.Ketqua = ketqua;
                 return View();
             }
@@ -285,20 +322,33 @@ namespace MyWebPlay.Controllers
             //Trong đồ thị copy bây giờ không được tồn tại đường đi nào sau sự khám phá trên...
             if (KiemTraDuongDi(t) == 0)
             {
-                ketqua = "\r\n--> Đồ thị không có chu trình Euler!";
+                ketqua = "\r\n--> Đồ thị không có chu trình/đường đi Euler!";
                 ViewBag.Ketqua = ketqua;
                 return View();
             }
 
             //đỉnh đầu (xuất phát) và đỉnh cuối (điểm dừng) trong Stack phải trùng nhau mới được gọi là chu trình Euler...
-            if (Euler.ElementAt(Euler.Count-1) != Euler.ElementAt(0))
+            if (chon ==1 && Euler.ElementAt(Euler.Count-1) != Euler.ElementAt(0))
             {
                 ketqua = "\r\n--> Đồ thị không có chu trình Euler!";
                 ViewBag.Ketqua = ketqua;
                 return View();
             }
 
+            // HOẶC : --- đỉnh đầu (xuất phát) và đỉnh cuối (điểm dừng) trong Stack phải khác nhau mới được gọi là đường đi Euler...
+            if (chon ==2 && Euler.ElementAt(Euler.Count - 1) == Euler.ElementAt(0))
+            {
+                ketqua = "\r\n--> Đồ thị không có đường đi Euler!";
+                ViewBag.Ketqua = ketqua;
+                return View();
+            }
+
+            if (chon ==1)
             ketqua = "\r\n--> Chu trình Euler xuất phát từ đỉnh "+x+" là : ";
+            else
+                if (chon == 2)
+                ketqua = "\r\n--> Đường đi Euler xuất phát từ đỉnh " + x + " là : ";
+
             while (Euler.Count != 0)
             {
                 int xx = Euler.Pop();

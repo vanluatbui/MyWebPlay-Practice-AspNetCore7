@@ -258,11 +258,6 @@ namespace MyWebPlay.Controllers
                 return this.Cxap_InsertValueClass();
             }
 
-            if (string.IsNullOrEmpty(tenclass))
-            {
-                ViewData["Loi1"] = "Trường này không được để trống!";
-                return this.Cxap_InsertValueClass();
-            }
             if (string.IsNullOrEmpty(dukien1))
             {
                 ViewData["Loi2"] = "Trường này không được để trống!";
@@ -273,7 +268,7 @@ namespace MyWebPlay.Controllers
                 ViewData["Loi3"] = "Trường này không được để trống!";
                 return this.Cxap_InsertValueClass();
             }
-            if (string.IsNullOrEmpty(tenclass))
+            if (string.IsNullOrEmpty(dulieu))
             {
                 ViewData["Loi4"] = "Trường này không được để trống!";
                 return this.Cxap_InsertValueClass();

@@ -1,0 +1,31 @@
+﻿<table align="center">
+    <h2 style="text-align:center">DOWNLOAD YOUR FILE ON SERVER</h2>
+
+    <h3 style="color:blue">@Html.Raw(@ViewBag.KetQua)</h3>
+
+
+    @using (Html.BeginForm("DownloadFile", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        @Html.ValidationSummary(true)
+
+
+                    <tr style="height:40px">
+                            <td> Nhập tên file kèm theo extension của file cần tìm để download trên Server : </td>
+                            <td>
+                                <input type="text" size="50" name="TenFile">
+                                <br>
+                                <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+                            </td>
+                        </tr>
+                        <br />
+
+                    <br />
+
+                    <tr style="height:40px">
+                        <td></td>
+                        <td>
+                            <input type="Submit" value="OK DOWNLOAD" />
+                        </td>
+                    </tr>
+    }
+</table>

@@ -1,0 +1,57 @@
+﻿<script>
+    function xoaallfile(){
+        
+        var check = prompt('Để xác nhận xoá tất cả các file trên Server, admin nhập đúng mật mã : ');
+        
+        if (check!=null && check != "admin")
+        {
+            alert('Mật mã xác nhận xử lý không chính xác!')
+        }
+
+         window.location.href = "/Home/XoaAllFile?password="+check;
+    }
+</script>
+
+<table align="center">
+    <h2 style="text-align:center">UPLOAD YOUR FILE</h2>
+
+    <h3 style="color:blue">@Html.Raw(@ViewBag.KetQua)</h3>
+    
+    <button style="color:purple" onclick="xoaallfile()">Xoá tất cả các file trên Server (dành cho admin)</button>
+
+    @using (Html.BeginForm("UploadFile", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        @Html.ValidationSummary(true)
+
+            <tr style="height:40px">
+                <td> Upload 1 file của bạn : </td>
+                <td>
+                    <input type="file" name="fileUpload">
+                    <br>
+                    <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+                </td>
+            </tr>
+            <br />
+
+        <br />
+
+            <tr style="height:40px">
+                    <td> Đặt tên file tuỳ bạn gợi nhớ : </td>
+                    <td>
+                        <input type="text" size="50" name="TenFile">
+                        <br>
+                        <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+                    </td>
+                </tr>
+                <br />
+
+            <br />
+            
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                    <input type="Submit" value="OK UPLOAD" />
+                </td>
+            </tr>
+    }
+</table>

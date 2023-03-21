@@ -1,4 +1,5 @@
 ﻿using AppFindMainKey_CSDL;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using MyWebPlay.Models;
 using System.Diagnostics;
@@ -12,10 +13,12 @@ namespace MyWebPlay.Controllers
     public partial class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IWebHostEnvironment webHostEnvironment)
         {
             _logger = logger;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public ActionResult Index()

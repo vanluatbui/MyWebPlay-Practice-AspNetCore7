@@ -79,7 +79,7 @@ TempData["_TÊN""]
 <br>
         {
 <br>
-            // fetching required services for invocation
+            &#47;&#47; fetching required services for invocation
 <br>
             var currentHttpContext = helper.ViewContext.HttpContext;
 <br>
@@ -91,7 +91,7 @@ TempData["_TÊN""]
 <br>
 
 <br>
-            // creating new action invocation context
+            &#47;&#47; creating new action invocation context
 <br>
             var routeData = new RouteData();
 <br>
@@ -125,7 +125,7 @@ TempData["_TÊN""]
 <br>
 
 <br>
-            // invoke action and retreive the response body
+            &#47;&#47; invoke action and retreive the response body
 <br>
             var invoker = actionInvokerFactory.CreateInvoker(actionContext);
 <br>
@@ -207,7 +207,7 @@ TempData["_TÊN""]
 <br>
 
 <br>
-// Đặt ở đâu đó tuỳ bạn...
+&#47;&#47; Đặt ở đâu đó tuỳ bạn...
 <br>
  &commat;Html.Action("GiohangPartial","Giohang")
 <br>
@@ -219,9 +219,9 @@ TempData["_TÊN""]
 <br>
 &lt;a href="&commat;Url.Action("GioHang","Giohang")"&gt;
 <br>
-    &lt;img src="~/images/Giohang.png" width="20" /&gt; Giỏ hàng (&commat;ViewBag.Tongsoluong)
+    &lt;img src="~&#47;images&#47;Giohang.png" width="20" &#47;&gt; Giỏ hàng (&commat;ViewBag.Tongsoluong)
 <br>
-&lt;/a&gt;
+&lt;&#47;a&gt;
 <br>
 
 <br>
@@ -303,13 +303,13 @@ TempData["_TÊN""]
 <br>
 
 <br>
-                &lt;p class="lead"&gt;CHỦ ĐỀ SÁCH&lt;/p&gt;
+                &lt;p class="lead"&gt;CHỦ ĐỀ SÁCH&lt;&#47;p&gt;
 <br>
                 &commat;Html.Action("Chude")
 <br>
 
 <br>
-            &lt;/div&gt;
+            &lt;&#47;div&gt;
 <br>
 
 <br>
@@ -349,19 +349,19 @@ TempData["_TÊN""]
 <br>
         {
 <br>
-            //Tạo MD5 
+            &#47;&#47;Tạo MD5 
 <br>
             MD5 mh = MD5.Create();
 <br>
-            //Chuyển kiểu chuổi thành kiểu byte
+            &#47;&#47;Chuyển kiểu chuổi thành kiểu byte
 <br>
             byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(password);
 <br>
-            //mã hóa chuỗi đã chuyển
+            &#47;&#47;mã hóa chuỗi đã chuyển
 <br>
             byte[] hash = mh.ComputeHash(inputBytes);
 <br>
-            //tạo đối tượng StringBuilder (làm việc với kiểu dữ liệu lớn)
+            &#47;&#47;tạo đối tượng StringBuilder (làm việc với kiểu dữ liệu lớn)
 <br>
             StringBuilder sb = new StringBuilder();
 <br>
@@ -377,7 +377,7 @@ TempData["_TÊN""]
 <br>
 
 <br>
-            return sb.ToString(); // Trả về chuỗi đã mã hoá
+            return sb.ToString(); &#47;&#47; Trả về chuỗi đã mã hoá
 <br>
         }
 <br>
@@ -397,7 +397,7 @@ TempData["_TÊN""]
 <br>
 
 <br>
-- Tại mục View, trong code bất kỳ (thường là views Layout trong Views/Shared) :
+- Tại mục View, trong code bất kỳ (thường là views Layout trong Views&#47;Shared) :
 <br>
 
 <br>
@@ -427,7 +427,7 @@ TempData["_TÊN""]
 <br>
 
 <br>
-    &lt;title&gt;_Tên Trang Web_&lt;/title&gt;
+    &lt;title&gt;_Tên Trang Web_&lt;&#47;title&gt;
 <br>
 
 <br>
@@ -435,7 +435,7 @@ TempData["_TÊN""]
 <br>
 
 <br>
-    &lt;link href="~/css/_FILE CSS_" rel="stylesheet" /&gt;
+    &lt;link href="~&#47;css&#47;_FILE CSS_" rel="stylesheet" &#47;&gt;
 <br>
 
 <br>
@@ -443,11 +443,11 @@ TempData["_TÊN""]
 <br>
 
 <br>
-    &lt;script src="https://_WEB FILE JS_/_FILE JS.js"&gt;&lt;/script&gt;
+    &lt;script src="https:&#47;&#47;_WEB FILE JS_&#47;_FILE JS.js"&gt;&lt;&#47;script&gt;
 <br>
 
 <br>
-&lt;/head&gt;
+&lt;&#47;head&gt;
 <br>
 
 <br>
@@ -469,15 +469,15 @@ TempData["_TÊN""]
 <br>
     &lt;!-- Link file JS --&gt;
 <br>
-    &lt;script src="~/js/_FILE JS_"&gt;&lt;/script&gt;
+    &lt;script src="~&#47;js&#47;_FILE JS_"&gt;&lt;&#47;script&gt;
 <br>
 
 <br>
-&lt;/body&gt;
+&lt;&#47;body&gt;
 <br>
 
 <br>
-&lt;/html&gt;
+&lt;&#47;html&gt;
 <br>
 
 <br>
@@ -569,7 +569,7 @@ public static class SessionExtensions
 <br>
 
 <br>
-&commat;using (Html.BeginForm("_Tên Views_", "_Tên Controller_", FormMethod.Post, new { &commat;enctype = "multipart/form-data" }))
+&commat;using (Html.BeginForm("_Tên Views_", "_Tên Controller_", FormMethod.Post, new { &commat;enctype = "multipart&#47;form-data" }))
 <br>
 
 <br>
@@ -579,7 +579,7 @@ public static class SessionExtensions
 <br>
     
 <br>
-        &lt;hr /&gt;
+        &lt;hr &#47;&gt;
 <br>
         &commat;Html.ValidationSummary(true, "", new { &commat;class = "text-danger" })
 <br>
@@ -591,7 +591,7 @@ public static class SessionExtensions
 <br>
     &lt;div class="form-horizontal"&gt;
 <br>
-        &lt;hr /&gt;
+        &lt;hr &#47;&gt;
 <br>
         &commat;Html.ValidationSummary(true, "", new { &commat;class = "text-danger" })
 <br>
@@ -603,13 +603,13 @@ public static class SessionExtensions
 <br>
             &lt;div class="col-md-10"&gt;
 <br>
-                &lt;input type="file" name="fileUpload" /&gt;
+                &lt;input type="file" name="fileUpload" &#47;&gt;
 <br>
                 &commat;ViewBag.Thongbao
 <br>
-            &lt;/div&gt;
+            &lt;&#47;div&gt;
 <br>
-        &lt;/div&gt;
+        &lt;&#47;div&gt;
 <br>
 
 <br>
@@ -663,7 +663,7 @@ public static class SessionExtensions
 <br>
             {
 <br>
-                // Kiểm tra đường dẫn file (nếu trống)
+                &#47;&#47; Kiểm tra đường dẫn file (nếu trống)
 <br>
                 if (fileUpload == null || fileUpload != null && fileUpload.FileName.Length == 0)
 <br>
@@ -675,7 +675,7 @@ public static class SessionExtensions
 <br>
                 }
 <br>
-                //Thêm ảnh đã Upload vào Server
+                &#47;&#47;Thêm ảnh đã Upload vào Server
 <br>
                 else
 <br>
@@ -683,19 +683,19 @@ public static class SessionExtensions
 <br>
  
 <br>
-                   // Lấy tên file đã Upload trên View
+                   &#47;&#47; Lấy tên file đã Upload trên View
 <br>
                     var fileName = Path.GetFileName(fileUpload.FileName);
 <br>
 
 <br>
-	   // Đưa file đã upload thêm vào folder images của mục wwwroot (lưu ý đây chỉ mới là link - còn ảnh chưa lưu thực sự)
+	   &#47;&#47; Đưa file đã upload thêm vào folder images của mục wwwroot (lưu ý đây chỉ mới là link - còn ảnh chưa lưu thực sự)
 <br>
                     var path = Path.Combine(_webHostEnvironment.WebRootPath, "iamges",  fileName);
 <br>
 
 <br>
-                   // Kiểm tra file ảnh đã tồn tại trong wwwroot/images chưa?
+                   &#47;&#47; Kiểm tra file ảnh đã tồn tại trong wwwroot&#47;images chưa?
 <br>
                     if (System.IO.File.Exists(path))
 <br>
@@ -705,7 +705,7 @@ public static class SessionExtensions
 <br>
 		
 <br>
-		// Trường hợp bạn muốn xoá file đã tồn tại trong wwwroot (không thì bỏ qua)
+		&#47;&#47; Trường hợp bạn muốn xoá file đã tồn tại trong wwwroot (không thì bỏ qua)
 <br>
 		
 <br>
@@ -719,7 +719,7 @@ public static class SessionExtensions
 <br>
                     {
 <br>
-                        // Lưu hình ảnh vào Server Project thực sự
+                        &#47;&#47; Lưu hình ảnh vào Server Project thực sự
 <br>
                         using (Stream fileStream = new FileStream(path, FileMode.Create))
 <br>
@@ -732,38 +732,42 @@ public static class SessionExtensions
                         ...    
 <br>
                 }
-<br />
-<br />
+<br &#47;>
+<br &#47;>
 <br>
 --------------------------------------------------------------------------------------------------------------------------------------------
 <br>
-<br />
-<p style="color:red" >Tới đây coi như cũng đã xong phần upload file lên Server rồi, tuy nhiên </p> nếu bạn upload file có dung lượng lớn sẽ gặp phải vấn đề. Vì vậy hãy tiếp tục thực hiện các công việc sau :
+<br &#47;>
+<p style="color:red" >Tới đây coi như cũng đã xong phần upload file lên Server rồi, tuy nhiên</p> nếu bạn upload file có dung lượng lớn sẽ gặp phải vấn đề. Vì vậy hãy tiếp tục thực hiện các công việc sau :
 <br>
-<br />
+<br &#47;>
 Click chuột phải vào project, chọn Add - New Item - Ở mục C# và chọn sổ xuống AspNetCore sau đó chọn vào Web...
 <br>
 Ở phía bên phải, thanh Search bạn tìm và chọn Web Configuration File và đặt tên mặc định là web.config...
 <br>
 File web.config được tạo ra, ở file này bạn copy thêm hiệu chỉnh code như sau :
-<br />
+<br &#47;>
 <br>
 --------------------------------------------------------------------------------------------------------------------------------------------
 <br>
-<br />
+<br &#47;>
 
-&lt;?xml version="1.0" encoding="utf-8"?&gt;<br>&lt;configuration&gt;<br>    &lt;system.webServer&gt;<br>        &lt;security&gt;<br>            &lt;requestFiltering&gt;<br>                &lt;requestLimits maxAllowedContentLength="104857600" /&gt;<br>            &lt;/requestFiltering&gt;<br>        &lt;/security&gt;<br>    &lt;/system.webServer&gt;<br>&lt;/configuration&gt;
+&lt;?xml version="1.0" encoding="utf-8"?&gt;<br>&lt;configuration&gt;<br>    &lt;system.webServer&gt;<br>        &lt;security&gt;<br>            &lt;requestFiltering&gt;<br>                &lt;requestLimits maxAllowedContentLength="104857600" &#47;&gt;<br>            &lt;&#47;requestFiltering&gt;<br>        &lt;&#47;security&gt;<br>    &lt;&#47;system.webServer&gt;<br>&lt;&#47;configuration&gt;
 
-<br/>
+<br&#47;>
 
-<br/>
+<br&#47;>
 
 --------------------------------------------------------------------------------------------------------------------------------------------
-<br/>
-<br />
+<br&#47;>
+<br &#47;>
 ...
+Lấy địa chỉ link hiện tại trên thanh địa chỉ của trình duyệt (nơi trang web bạn đang đứng)
 <br>
-
+<br>
+string? httpReferrer = this.HttpContext.GetServerVariable("HTTP_REFERER");<br>            if (httpReferrer == null)<br>            {<br>                httpReferrer = this.HttpContext.GetServerVariable("REMOTE_HOST");<br>                if (httpReferrer == null)<br>                {<br>                    httpReferrer = this.HttpContext.GetServerVariable("REMOTE_ADDR");<br>                }<br>            }
+<br>
+<br>
 <br>
 ---------------------------------------------------------------------------------------------------------------------------------------------
 <br>
@@ -781,7 +785,7 @@ File web.config được tạo ra, ở file này bạn copy thêm hiệu chỉnh
 <br>
 
 <br>
-&commat;using (Html.BeginForm("_Tên Views_", "_Tên Controller_", FormMethod.Post, new { &commat;enctype = "multipart/form-data" }))
+&commat;using (Html.BeginForm("_Tên Views_", "_Tên Controller_", FormMethod.Post, new { &commat;enctype = "multipart&#47;form-data" }))
 <br>
 
 <br>
@@ -791,7 +795,7 @@ File web.config được tạo ra, ở file này bạn copy thêm hiệu chỉnh
 <br>
 
 <br>
-         &lt;hr /&gt;
+         &lt;hr &#47;&gt;
 <br>
         &commat;Html.ValidationSummary(true, "", new { &commat;class = "text-danger" })
 <br>
@@ -809,9 +813,9 @@ File web.config được tạo ra, ở file này bạn copy thêm hiệu chỉnh
 <br>
                 &commat;Html.DropDownList("MaCD")
 <br>
-            &lt;/div&gt;
+            &lt;&#47;div&gt;
 <br>
-        &lt;/div&gt;
+        &lt;&#47;div&gt;
 <br>
 
 <br>
@@ -845,13 +849,13 @@ IFormCollection f;
 <br>
 
 <br>
-// Lưu ý mặc dù giá trị bạn nhìn thấy và chọn Dropdown trên web là tên chủ đề nhưng code dưới đây sẽ được gán bằng mã chủ đề đó
+&#47;&#47; Lưu ý mặc dù giá trị bạn nhìn thấy và chọn Dropdown trên web là tên chủ đề nhưng code dưới đây sẽ được gán bằng mã chủ đề đó
 <br>
 var MaChuDe = f["MaCD"].ToString();
 <br>
 
 <br>
-# Gửi Email (GMAIL) :
+# Gửi Email (GMAIL) <a target="_blank" href="https://codewithmukesh.com/blog/send-emails-with-aspnet-core">Xem hướng dẫn mới (gmail có gửi kèm file tại đây)</a> và hoặc <a target="_blank" href="https://blog.christian-schou.dk/send-emails-with-asp-net-core-with-mailkit/">tại đây</a> :  
 <br>
 
 <br>
@@ -871,9 +875,9 @@ public static class SendEmail
 <br>
         {
 <br>
-	// Ví dụ tài khoản Gmail của bạn đăng ký với tên Nguyễn Văn A, nhưng bạn lại sử dụng địa chỉ email này code C# để gửi tự động
+	&#47;&#47; Ví dụ tài khoản Gmail của bạn đăng ký với tên Nguyễn Văn A, nhưng bạn lại sử dụng địa chỉ email này code C# để gửi tự động
 <br>
-                   // email cho ai đó và họ sẽ thấy tên mới bạn đặt khi nhận thư của bạn (ví dụ Web Bán Sách) ...
+                   &#47;&#47; email cho ai đó và họ sẽ thấy tên mới bạn đặt khi nhận thư của bạn (ví dụ Web Bán Sách) ...
 <br>
             var fromAddress = new MailAddress(From, "_TÊN USER EMAIL CỦA MÌNH MUỐN HIỂN THỊ_");
 <br>
@@ -935,7 +939,7 @@ SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi 
 <br>
 
 <br>
-// Hướng dẫn cách lấy PASSWORD SECURE trên Gmail :
+&#47;&#47; Hướng dẫn cách lấy PASSWORD SECURE trên Gmail :
 <br>
 
 <br>
@@ -1055,13 +1059,13 @@ SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi 
 <br>
     ViewBag.Title = "Sach";
 <br>
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~&#47;Views&#47;Shared&#47;_Layout.cshtml";
 <br>
 }
 <br>
 
 <br>
-&lt;h2&gt;QUẢN LÝ DANH MỤC SÁCH&lt;/h2&gt;
+&lt;h2&gt;QUẢN LÝ DANH MỤC SÁCH&lt;&#47;h2&gt;
 <br>
 
 <br>
@@ -1069,7 +1073,7 @@ SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi 
 <br>
     &commat;Html.ActionLink("THÊM SÁCH MỚI", "_TÊN VIEW CỦA THÊM MỚI SÁCH_")
 <br>
-&lt;/p&gt;
+&lt;&#47;p&gt;
 <br>
 &lt;table class="table"&gt;
 <br>
@@ -1079,7 +1083,7 @@ SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi 
 <br>
             TÊN SÁCH
 <br>
-        &lt;/th&gt;
+        &lt;&#47;th&gt;
 <br>
 
 <br>
@@ -1087,7 +1091,7 @@ SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi 
 <br>
             ẢNH BÌA
 <br>
-        &lt;/th&gt;
+        &lt;&#47;th&gt;
 <br>
         
 <br>
@@ -1095,11 +1099,11 @@ SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi 
 <br>
             NGÀY CẬP NHẬT
 <br>
-        &lt;/th&gt;
+        &lt;&#47;th&gt;
 <br>
 
 <br>
-    &lt;/tr&gt;
+    &lt;&#47;tr&gt;
 <br>
 
 <br>
@@ -1113,23 +1117,23 @@ SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi 
 <br>
                 &commat;Html.DisplayFor(modelItem =&gt; item.TenSach)
 <br>
-            &lt;/td&gt;
+            &lt;&#47;td&gt;
 <br>
             
 <br>
             &lt;td&gt;
 <br>
-                &lt;img width="200" src="~/Hinhsanpham/&commat;item.AnhBia" /&gt;
+                &lt;img width="200" src="~&#47;Hinhsanpham&#47;&commat;item.AnhBia" &#47;&gt;
 <br>
-            &lt;/td&gt;
+            &lt;&#47;td&gt;
 <br>
 
 <br>
             &lt;td&gt;
 <br>
-                &commat;String.Format("{0:dd/MM/yyyy}", item.NgayCapNhat)
+                &commat;String.Format("{0:dd&#47;MM&#47;yyyy}", item.NgayCapNhat)
 <br>
-            &lt;/td&gt;
+            &lt;&#47;td&gt;
 <br>
 
 <br>
@@ -1141,15 +1145,15 @@ SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi 
 <br>
                 &commat;Html.ActionLink("Xóa", "_TÊN VIEW CỦA XOÁ SÁCH_", new { id = item.MaSach })
 <br>
-            &lt;/td&gt;
+            &lt;&#47;td&gt;
 <br>
-        &lt;/tr&gt;
+        &lt;&#47;tr&gt;
 <br>
     }
 <br>
 
 <br>
-&lt;/table&gt;
+&lt;&#47;table&gt;
 <br>
 
 <br>
@@ -1161,7 +1165,7 @@ SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi 
 <br>
     }
 <br>
-&lt;/style&gt;
+&lt;&#47;style&gt;
 <br>
 
 <br>
@@ -1187,7 +1191,7 @@ SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi 
 <br>
         {
 <br>
-            // Nếu admin chưa đăng nhập (thông tin Login hiện chưa lưu trong Session)
+            &#47;&#47; Nếu admin chưa đăng nhập (thông tin Login hiện chưa lưu trong Session)
 <br>
             if (HttpContext.Session.GetObject&lt;Admin&gt;("Taikhoanadmin") == null)
 <br>
@@ -1197,7 +1201,7 @@ SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi 
 <br>
             {
 <br>
-                // Khởi động lại các Dropdown trong Views :))
+                &#47;&#47; Khởi động lại các Dropdown trong Views :))
 <br>
                 ViewBag.MaCD = new SelectList(data.ChuDes.ToList().OrderBy(n =&gt; n.TenChuDe).ToList(), "MaChuDe", "TenChuDe");
 <br>
@@ -1225,7 +1229,7 @@ SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi 
 <br>
             {
 <br>
-                //Kiem tra duong dan file
+                &#47;&#47;Kiem tra duong dan file
 <br>
                 if (fileUpload == null || fileUpload != null && fileUpload.FileName.Length == 0)
 <br>
@@ -1241,21 +1245,21 @@ SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi 
 <br>
                 }
 <br>
-                //Them vao CSDL
+                &#47;&#47;Them vao CSDL
 <br>
                 else
 <br>
                 {
 <br>
-                    //Luu ten fie, luu y bo sung thu vien using System.IO;
+                    &#47;&#47;Luu ten fie, luu y bo sung thu vien using System.IO;
 <br>
                     var fileName = Path.GetFileName(fileUpload.FileName);
 <br>
-                    //Luu duong dan cua file
+                    &#47;&#47;Luu duong dan cua file
 <br>
                     var path = Path.Combine(_webHostEnvironment.WebRootPath, "Hinhsanpham", fileName);
 <br>
-                    //Kiem tra hình anh ton tai chua?
+                    &#47;&#47;Kiem tra hình anh ton tai chua?
 <br>
                     if (System.IO.File.Exists(path))
 <br>
@@ -1265,7 +1269,7 @@ SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi 
 <br>
                     {
 <br>
-                        //Luu hinh anh vao duong dan
+                        &#47;&#47;Luu hinh anh vao duong dan
 <br>
                         using (Stream fileStream = new FileStream(path, FileMode.Create))
 <br>
@@ -1285,7 +1289,7 @@ SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi 
 <br>
 
 <br>
-                        //Luu vao CSDL
+                        &#47;&#47;Luu vao CSDL
 <br>
                         data.Sachs.Add(sach);
 <br>
@@ -1323,17 +1327,17 @@ SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi 
 <br>
     ViewBag.Title = "Themoisach";
 <br>
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~&#47;Views&#47;Shared&#47;_Layout.cshtml";
 <br>
 }
 <br>
 
 <br>
-&lt;h2&gt;THÊM MỚI SÁCH&lt;/h2&gt;
+&lt;h2&gt;THÊM MỚI SÁCH&lt;&#47;h2&gt;
 <br>
 
 <br>
-&commat;using (Html.BeginForm("_TÊN VIEW_", "_TÊN CONTROLLER_", FormMethod.Post, new { &commat;enctype = "multipart/form-data" }))
+&commat;using (Html.BeginForm("_TÊN VIEW_", "_TÊN CONTROLLER_", FormMethod.Post, new { &commat;enctype = "multipart&#47;form-data" }))
 <br>
 
 <br>
@@ -1345,7 +1349,7 @@ SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi 
 <br>
     &lt;div class="form-horizontal"&gt;
 <br>
-        &lt;hr /&gt;
+        &lt;hr &#47;&gt;
 <br>
 
 <br>
@@ -1361,9 +1365,9 @@ SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi 
 <br>
                 &commat;Html.ValidationMessageFor(model =&gt; model.TenSach, "", new { &commat;class = "text-danger" })
 <br>
-            &lt;/div&gt;
+            &lt;&#47;div&gt;
 <br>
-        &lt;/div&gt;
+        &lt;&#47;div&gt;
 <br>
 
 <br>
@@ -1377,13 +1381,13 @@ SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi 
 <br>
             &lt;div class="col-md-10"&gt;
 <br>
-                &lt;input type="file" name="fileUpload" /&gt;
+                &lt;input type="file" name="fileUpload" &#47;&gt;
 <br>
                 &commat;ViewBag.Thongbao
 <br>
-            &lt;/div&gt;
+            &lt;&#47;div&gt;
 <br>
-        &lt;/div&gt;
+        &lt;&#47;div&gt;
 <br>
 
 <br>
@@ -1393,11 +1397,11 @@ SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi 
 <br>
             &lt;div class="col-md-10"&gt;
 <br>
-                &lt;input type="date" name="Ngaycapnhat" /&gt;
+                &lt;input type="date" name="Ngaycapnhat" &#47;&gt;
 <br>
-            &lt;/div&gt;
+            &lt;&#47;div&gt;
 <br>
-        &lt;/div&gt;
+        &lt;&#47;div&gt;
 <br>
 
 <br>
@@ -1409,9 +1413,9 @@ SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi 
 <br>
                 &commat;Html.DropDownList("MaCD")
 <br>
-            &lt;/div&gt;
+            &lt;&#47;div&gt;
 <br>
-        &lt;/div&gt;
+        &lt;&#47;div&gt;
 <br>
 
 <br>
@@ -1419,7 +1423,7 @@ SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi 
 <br>
 
 <br>
-        &lt;/div&gt;
+        &lt;&#47;div&gt;
 <br>
 
 <br>
@@ -1427,13 +1431,13 @@ SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi 
 <br>
             &lt;div class="col-md-offset-2 col-md-10"&gt;
 <br>
-                &lt;input type="submit" value="LƯU" class="btn btn-default" /&gt;
+                &lt;input type="submit" value="LƯU" class="btn btn-default" &#47;&gt;
 <br>
-            &lt;/div&gt;
+            &lt;&#47;div&gt;
 <br>
-        &lt;/div&gt;
+        &lt;&#47;div&gt;
 <br>
-    &lt;/div&gt;
+    &lt;&#47;div&gt;
 <br>
 }
 <br>
@@ -1443,7 +1447,7 @@ SendEmail.SendMail2Step("Địa Chỉ Email Của Bạn Cần Dùng Để Gửi 
 <br>
     &commat;Html.ActionLink("Trở về", "_TÊN VIEW HIỂN THỊ SÁCH_")
 <br>
-&lt;/div&gt;
+&lt;&#47;div&gt;
 <br>
 
 <br>
@@ -1497,7 +1501,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
     ViewBag.Title = "Chitietsach";
 <br>
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~&#47;Views&#47;Shared&#47;_Layout.cshtml";
 <br>
 }
 <br>
@@ -1505,9 +1509,9 @@ public ActionResult Chitietsach(Guid id)
 <br>
 &lt;div&gt;
 <br>
-    &lt;h4&gt;THÔNG TIN CHI TIẾT SÁCH&lt;/h4&gt;
+    &lt;h4&gt;THÔNG TIN CHI TIẾT SÁCH&lt;&#47;h4&gt;
 <br>
-    &lt;hr /&gt;
+    &lt;hr &#47;&gt;
 <br>
     &lt;dl class="dl-horizontal"&gt;
 <br>
@@ -1515,7 +1519,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
             &commat;Html.DisplayNameFor(model =&gt; model.TenSach)
 <br>
-        &lt;/dt&gt;
+        &lt;&#47;dt&gt;
 <br>
 
 <br>
@@ -1523,7 +1527,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
             &commat;Html.DisplayFor(model =&gt; model.TenSach)
 <br>
-        &lt;/dd&gt;
+        &lt;&#47;dd&gt;
 <br>
         
 <br>
@@ -1531,7 +1535,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
             &commat;Html.DisplayNameFor(model =&gt; model.AnhBia)
 <br>
-        &lt;/dt&gt;
+        &lt;&#47;dt&gt;
 <br>
 
 <br>
@@ -1539,9 +1543,9 @@ public ActionResult Chitietsach(Guid id)
 <br>
 
 <br>
-            &lt;img src="&commat;Url.Content("~/Hinhsanpham/"+  Model.AnhBia)" width="120px" /&gt;
+            &lt;img src="&commat;Url.Content("~&#47;Hinhsanpham&#47;"+  Model.AnhBia)" width="120px" &#47;&gt;
 <br>
-        &lt;/dd&gt;
+        &lt;&#47;dd&gt;
 <br>
 
 <br>
@@ -1549,17 +1553,17 @@ public ActionResult Chitietsach(Guid id)
 <br>
             &commat;Html.DisplayNameFor(model =&gt; model.NgayCapNhat)
 <br>
-        &lt;/dt&gt;
+        &lt;&#47;dt&gt;
 <br>
 
 <br>
         &lt;dd&gt;
 <br>
-            &commat;String.Format("{0:dd/MM/yyy}", Model.NgayCapNhat)
+            &commat;String.Format("{0:dd&#47;MM&#47;yyy}", Model.NgayCapNhat)
 <br>
 
 <br>
-        &lt;/dd&gt;
+        &lt;&#47;dd&gt;
 <br>
 
 <br>
@@ -1571,21 +1575,21 @@ public ActionResult Chitietsach(Guid id)
 <br>
             &commat;Html.DisplayNameFor(model =&gt; model.ChuDe.TenChuDe)
 <br>
-        &lt;/dt&gt;
+        &lt;&#47;dt&gt;
 <br>
 
 <br>
         &lt;dd&gt;
 <br>
-            &commat;Html.DisplayFor(modelItem =&gt; Model.ChuDe.TenChuDe) // Khoá ngoại của bảng Sách là mã chủ đề từ bảng Chủ Đề (muốn lấy tên)
+            &commat;Html.DisplayFor(modelItem =&gt; Model.ChuDe.TenChuDe) &#47;&#47; Khoá ngoại của bảng Sách là mã chủ đề từ bảng Chủ Đề (muốn lấy tên)
 <br>
-        &lt;/dd&gt;
+        &lt;&#47;dd&gt;
 <br>
 
 <br>
-    &lt;/dl&gt;
+    &lt;&#47;dl&gt;
 <br>
-&lt;/div&gt;
+&lt;&#47;div&gt;
 <br>
 &lt;p&gt;
 <br>
@@ -1593,7 +1597,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
     &commat;Html.ActionLink("Trở về", "_TÊN VIEW HIỂN THỊ SÁCH_")
 <br>
-&lt;/p&gt;
+&lt;&#47;p&gt;
 <br>
 
 <br>
@@ -1625,7 +1629,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
 
 <br>
-                //Lay du liệu từ table Chude để đổ vào Dropdownlist... 
+                &#47;&#47;Lay du liệu từ table Chude để đổ vào Dropdownlist... 
 <br>
                 ViewBag.MaCD = new SelectList(data.ChuDes.ToList().OrderBy(n =&gt; n.TenChuDe).ToList(), "MaChuDe", "TenChuDe", sach.MaChuDe);
 <br>
@@ -1643,7 +1647,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
         {
 <br>
-            // Tìm tên file ảnh bìa cũ để xoá
+            &#47;&#47; Tìm tên file ảnh bìa cũ để xoá
 <br>
 
 <br>
@@ -1655,7 +1659,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
             {
 <br>
-                // Xoá ảnh cũ ...
+                &#47;&#47; Xoá ảnh cũ ...
 <br>
 
 <br>
@@ -1667,7 +1671,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
 
 <br>
-                // Cài thêm ảnh mới khác...
+                &#47;&#47; Cài thêm ảnh mới khác...
 <br>
 
 <br>
@@ -1689,7 +1693,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
 
 <br>
-            // Cập nhật thông tin khác cho sách...
+            &#47;&#47; Cập nhật thông tin khác cho sách...
 <br>
             s.TenSach = sach.TenSach;
 <br>
@@ -1703,7 +1707,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
 
 <br>
-           // Khoá ngoại mã chủ đề của bảng Sách từ bảng Chủ Đề...
+           &#47;&#47; Khoá ngoại mã chủ đề của bảng Sách từ bảng Chủ Đề...
 <br>
             s.MaChuDe = Guid.Parse(fo["MaCD"].ToString());
 <br>
@@ -1711,7 +1715,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
 
 <br>
-            //Luu vao CSDL
+            &#47;&#47;Luu vao CSDL
 <br>
             data.Sachs.Update(s);
 <br>
@@ -1767,17 +1771,17 @@ public ActionResult Chitietsach(Guid id)
 <br>
     ViewBag.Title = "Suasach";
 <br>
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~&#47;Views&#47;Shared&#47;_Layout.cshtml";
 <br>
 }
 <br>
 
 <br>
-&lt;h2&gt;ĐIỀU CHỈNH THÔNG TIN SÁCH&lt;/h2&gt;
+&lt;h2&gt;ĐIỀU CHỈNH THÔNG TIN SÁCH&lt;&#47;h2&gt;
 <br>
 
 <br>
-&commat;using (Html.BeginForm("Suasach", "QuanLy_Sach", FormMethod.Post, new { &commat;enctype = "multipart/form-data" }))
+&commat;using (Html.BeginForm("Suasach", "QuanLy_Sach", FormMethod.Post, new { &commat;enctype = "multipart&#47;form-data" }))
 <br>
 {
 <br>
@@ -1787,7 +1791,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
     &lt;div class="form-horizontal"&gt;
 <br>
-        &lt;hr /&gt;
+        &lt;hr &#47;&gt;
 <br>
         &commat;Html.ValidationSummary(true, "", new { &commat;class = "text-danger" })
 <br>
@@ -1807,9 +1811,9 @@ public ActionResult Chitietsach(Guid id)
 <br>
                 &commat;Html.ValidationMessageFor(model =&gt; model.TenSach, "", new { &commat;class = "text-danger" })
 <br>
-            &lt;/div&gt;
+            &lt;&#47;div&gt;
 <br>
-        &lt;/div&gt;
+        &lt;&#47;div&gt;
 <br>
 
 <br>
@@ -1821,11 +1825,11 @@ public ActionResult Chitietsach(Guid id)
 <br>
 
 <br>
-                &lt;textarea cols="40" rows="10" name="Mota"&gt; &commat;Model.MoTa &lt;/textarea&gt;
+                &lt;textarea cols="40" rows="10" name="Mota"&gt; &commat;Model.MoTa &lt;&#47;textarea&gt;
 <br>
-            &lt;/div&gt;
+            &lt;&#47;div&gt;
 <br>
-        &lt;/div&gt;
+        &lt;&#47;div&gt;
 <br>
 
 <br>
@@ -1835,13 +1839,13 @@ public ActionResult Chitietsach(Guid id)
 <br>
             &lt;div class="col-md-10"&gt;
 <br>
-                &lt;img src="~/Hinhsanpham/&commat;Model.AnhBia" /&gt; &commat;Model.AnhBia
+                &lt;img src="~&#47;Hinhsanpham&#47;&commat;Model.AnhBia" &#47;&gt; &commat;Model.AnhBia
 <br>
-                &lt;input type="file" name="Anhbia" /&gt;
+                &lt;input type="file" name="Anhbia" &#47;&gt;
 <br>
-            &lt;/div&gt;
+            &lt;&#47;div&gt;
 <br>
-        &lt;/div&gt;
+        &lt;&#47;div&gt;
 <br>
 
 <br>
@@ -1851,15 +1855,15 @@ public ActionResult Chitietsach(Guid id)
 <br>
             &lt;div class="col-md-10"&gt;
 <br>
-                &commat;String.Format("{0:dd/MM/yyyy}", Model.NgayCapNhat)
+                &commat;String.Format("{0:dd&#47;MM&#47;yyyy}", Model.NgayCapNhat)
 <br>
-                &lt;input type="date" name="Ngaycapnhat" /&gt;
+                &lt;input type="date" name="Ngaycapnhat" &#47;&gt;
 <br>
 
 <br>
-            &lt;/div&gt;
+            &lt;&#47;div&gt;
 <br>
-        &lt;/div&gt;
+        &lt;&#47;div&gt;
 <br>
 
 <br>
@@ -1871,9 +1875,9 @@ public ActionResult Chitietsach(Guid id)
 <br>
                 &commat;Html.DropDownList("MaNXB")
 <br>
-            &lt;/div&gt;
+            &lt;&#47;div&gt;
 <br>
-        &lt;/div&gt;
+        &lt;&#47;div&gt;
 <br>
 
 <br>
@@ -1881,13 +1885,13 @@ public ActionResult Chitietsach(Guid id)
 <br>
             &lt;div class="col-md-offset-2 col-md-10"&gt;
 <br>
-                &lt;input type="submit" value="LƯU" class="btn btn-default" /&gt;
+                &lt;input type="submit" value="LƯU" class="btn btn-default" &#47;&gt;
 <br>
-            &lt;/div&gt;
+            &lt;&#47;div&gt;
 <br>
-        &lt;/div&gt;
+        &lt;&#47;div&gt;
 <br>
-    &lt;/div&gt;
+    &lt;&#47;div&gt;
 <br>
 }
 <br>
@@ -1897,7 +1901,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
     &commat;Html.ActionLink("Trở về", "_TÊN VIEW HIỂN THỊ SÁCH_")
 <br>
-&lt;/div&gt;
+&lt;&#47;div&gt;
 <br>
 
 <br>
@@ -1963,7 +1967,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
 
 <br>
-                // Xoá CSDL đồng nghĩa xoá luôn file sách đó trong wwwroot
+                &#47;&#47; Xoá CSDL đồng nghĩa xoá luôn file sách đó trong wwwroot
 <br>
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "Hinhsanpham", sach.AnhBia);
 <br>
@@ -2007,21 +2011,21 @@ public ActionResult Chitietsach(Guid id)
 <br>
     ViewBag.Title = "Xoasach";
 <br>
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~&#47;Views&#47;Shared&#47;_Layout.cshtml";
 <br>
 }
 <br>
 
 <br>
-&lt;h2&gt;XÁC NHẬN THÔNG TIN XÓA&lt;/h2&gt;
+&lt;h2&gt;XÁC NHẬN THÔNG TIN XÓA&lt;&#47;h2&gt;
 <br>
 
 <br>
-&lt;h4 style="color:red; font-style:italic"&gt;Bạn có chắc chắn muốn xóa quyển sách này?&lt;/h4&gt;
+&lt;h4 style="color:red; font-style:italic"&gt;Bạn có chắc chắn muốn xóa quyển sách này?&lt;&#47;h4&gt;
 <br>
 &lt;div&gt;
 <br>
-    &lt;hr /&gt;
+    &lt;hr &#47;&gt;
 <br>
     &lt;dl class="dl-horizontal"&gt;
 <br>
@@ -2029,7 +2033,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
             &commat;Html.DisplayNameFor(model =&gt; model.TenSach)
 <br>
-        &lt;/dt&gt;
+        &lt;&#47;dt&gt;
 <br>
 
 <br>
@@ -2037,7 +2041,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
             &commat;Html.DisplayFor(model =&gt; model.TenSach)
 <br>
-        &lt;/dd&gt;
+        &lt;&#47;dd&gt;
 <br>
 
 <br>
@@ -2045,7 +2049,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
             &commat;Html.DisplayNameFor(model =&gt; model.AnhBia)
 <br>
-        &lt;/dt&gt;
+        &lt;&#47;dt&gt;
 <br>
 
 <br>
@@ -2053,9 +2057,9 @@ public ActionResult Chitietsach(Guid id)
 <br>
 
 <br>
-            &lt;img src="&commat;Url.Content("~/Hinhsanpham/"+  Model.AnhBia)" width="120px" /&gt;
+            &lt;img src="&commat;Url.Content("~&#47;Hinhsanpham&#47;"+  Model.AnhBia)" width="120px" &#47;&gt;
 <br>
-        &lt;/dd&gt;
+        &lt;&#47;dd&gt;
 <br>
 
 <br>
@@ -2063,17 +2067,17 @@ public ActionResult Chitietsach(Guid id)
 <br>
             &commat;Html.DisplayNameFor(model =&gt; model.NgayCapNhat)
 <br>
-        &lt;/dt&gt;
+        &lt;&#47;dt&gt;
 <br>
 
 <br>
         &lt;dd&gt;
 <br>
-            &commat;String.Format("{0:dd/MM/yyy}", Model.NgayCapNhat)
+            &commat;String.Format("{0:dd&#47;MM&#47;yyy}", Model.NgayCapNhat)
 <br>
 
 <br>
-        &lt;/dd&gt;
+        &lt;&#47;dd&gt;
 <br>
 
 <br>
@@ -2085,19 +2089,19 @@ public ActionResult Chitietsach(Guid id)
 <br>
             &commat;Html.DisplayNameFor(model =&gt; model.MaChuDe)
 <br>
-        &lt;/dt&gt;
+        &lt;&#47;dt&gt;
 <br>
 
 <br>
         &lt;dd&gt;
 <br>
-            &commat;Html.DisplayFor(modelItem =&gt; Model.ChuDe.TenChuDe) // Khoá ngoại của bảng Sách là mã chủ đề từ bảng Chủ Đề (muốn lấy tên)
+            &commat;Html.DisplayFor(modelItem =&gt; Model.ChuDe.TenChuDe) &#47;&#47; Khoá ngoại của bảng Sách là mã chủ đề từ bảng Chủ Đề (muốn lấy tên)
 <br>
-        &lt;/dd&gt;
+        &lt;&#47;dd&gt;
 <br>
 
 <br>
-    &lt;/dl&gt;
+    &lt;&#47;dl&gt;
 <br>
 
 <br>
@@ -2111,15 +2115,15 @@ public ActionResult Chitietsach(Guid id)
 <br>
         &lt;div class="form-actions no-color"&gt;
 <br>
-            &lt;input type="submit" value="Xóa" class="btn btn-default" /&gt; |
+            &lt;input type="submit" value="Xóa" class="btn btn-default" &#47;&gt; |
 <br>
             &commat;Html.ActionLink("Trở về", "_TÊN VIEW HIỂN THỊ SÁCH_")
 <br>
-        &lt;/div&gt;
+        &lt;&#47;div&gt;
 <br>
     }
 <br>
-&lt;/div&gt;
+&lt;&#47;div&gt;
 <br>
 
 <br>
@@ -2157,13 +2161,13 @@ public ActionResult Chitietsach(Guid id)
 <br>
         {
 <br>
-            // Gán các giá trị người dùng nhập liệu trong Views cho các biến 
+            &#47;&#47; Gán các giá trị người dùng nhập liệu trong Views cho các biến 
 <br>
             var hoten = collection["HotenKH"];
 <br>
             ...
 <br>
-            var ngaysinh = String.Format("{0:MM/dd/yyyy}", collection["Ngaysinh"]);
+            var ngaysinh = String.Format("{0:MM&#47;dd&#47;yyyy}", collection["Ngaysinh"]);
 <br>
 
 <br>
@@ -2181,7 +2185,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
             {
 <br>
-                //Gán giá trị cho đối tượng được tạo mới (kh)
+                &#47;&#47;Gán giá trị cho đối tượng được tạo mới (kh)
 <br>
 
 <br>
@@ -2191,7 +2195,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
                 ...
 <br>
-                kh.MatKhau = MD5_Encrypt.MD5_Encrypt.MD5_Password(matkhau); // mã hoá MD5 cho mật khẩu
+                kh.MatKhau = MD5_Encrypt.MD5_Encrypt.MD5_Password(matkhau); &#47;&#47; mã hoá MD5 cho mật khẩu
 <br>
                 ...
 <br>
@@ -2205,7 +2209,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
                 
 <br>
-                // Sau khi đăng ký thành công, chuyển hướng sang trang Login
+                &#47;&#47; Sau khi đăng ký thành công, chuyển hướng sang trang Login
 <br>
                 return RedirectToAction("Dangnhap", "Nguoidung");
 <br>
@@ -2231,7 +2235,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
 &lt;table align="center"&gt;
 <br>
-    &lt;h2 style="text-align:center"&gt;ĐĂNG KÝ THÀNH VIÊN&lt;/h2&gt;
+    &lt;h2 style="text-align:center"&gt;ĐĂNG KÝ THÀNH VIÊN&lt;&#47;h2&gt;
 <br>
     &commat;using (Html.BeginForm())
 <br>
@@ -2243,23 +2247,23 @@ public ActionResult Chitietsach(Guid id)
 <br>
         &lt;tr style="height:40px"&gt;
 <br>
-            &lt;td&gt; Họ tên khách hàng:&lt;/td&gt;
+            &lt;td&gt; Họ tên khách hàng:&lt;&#47;td&gt;
 <br>
             &lt;td&gt;
 <br>
                 &commat;Html.TextBox("HotenKH")
 <br>
-                &lt;span style="color:red; font-style:italic"&gt; &commat;ViewData["Loi1"] &lt;/span&gt;
+                &lt;span style="color:red; font-style:italic"&gt; &commat;ViewData["Loi1"] &lt;&#47;span&gt;
 <br>
-            &lt;/td&gt;
+            &lt;&#47;td&gt;
 <br>
-       &lt;/tr&gt;
+       &lt;&#47;tr&gt;
 <br>
 
 <br>
         &lt;tr style="height:40px"&gt;
 <br>
-            &lt;td&gt;  Mật khẩu:&lt;/td&gt;
+            &lt;td&gt;  Mật khẩu:&lt;&#47;td&gt;
 <br>
             &lt;td&gt;
 <br>
@@ -2267,41 +2271,41 @@ public ActionResult Chitietsach(Guid id)
 <br>
                 &commat;ViewData["Loi3"]
 <br>
-            &lt;/td&gt;
+            &lt;&#47;td&gt;
 <br>
-        &lt;/tr&gt;
+        &lt;&#47;tr&gt;
 <br>
        
 <br>
         &lt;tr style="height:40px"&gt;
 <br>
-            &lt;td&gt; Ngày sinh :&lt;/td&gt;
+            &lt;td&gt; Ngày sinh :&lt;&#47;td&gt;
 <br>
             &lt;td&gt;
 <br>
-                &lt;input type="date" name="Ngaysinh" /&gt;
+                &lt;input type="date" name="Ngaysinh" &#47;&gt;
 <br>
-            &lt;/td&gt;
+            &lt;&#47;td&gt;
 <br>
-        &lt;/tr&gt;
+        &lt;&#47;tr&gt;
 <br>
 
 <br>
         &lt;tr style="height:40px"&gt;
 <br>
-            &lt;td&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;&#47;td&gt;
 <br>
             &lt;td&gt;
 <br>
-                &lt;input type="Submit" value="Đăng ký" /&gt;
+                &lt;input type="Submit" value="Đăng ký" &#47;&gt;
 <br>
-            &lt;/td&gt;
+            &lt;&#47;td&gt;
 <br>
-        &lt;/tr&gt;
+        &lt;&#47;tr&gt;
 <br>
     }
 <br>
-&lt;/table&gt;
+&lt;&#47;table&gt;
 <br>
 
 <br>
@@ -2361,13 +2365,13 @@ public ActionResult Chitietsach(Guid id)
 <br>
 
 <br>
-	// Lưu thông tin đăng nhập vào Session khi Login thành công!
+	&#47;&#47; Lưu thông tin đăng nhập vào Session khi Login thành công!
 <br>
                 if (kh != null)
 <br>
                 {
 <br>
-                    //Session["Taikhoan"] = kh;
+                    &#47;&#47;Session["Taikhoan"] = kh;
 <br>
                    HttpContext.Session.SetObject("Taikhoan", kh);
 <br>
@@ -2405,9 +2409,9 @@ public ActionResult Chitietsach(Guid id)
 <br>
     &lt;table align="center"&gt;
 <br>
-    &lt;h2 style="text-align:center"&gt;ĐĂNG NHẬP&lt;/h2&gt;
+    &lt;h2 style="text-align:center"&gt;ĐĂNG NHẬP&lt;&#47;h2&gt;
 <br>
-    &lt;h4 style="color:red; text-align:center; font-style:italic"&gt; &commat;ViewBag.Thongbao &lt;/h4&gt;
+    &lt;h4 style="color:red; text-align:center; font-style:italic"&gt; &commat;ViewBag.Thongbao &lt;&#47;h4&gt;
 <br>
     &commat;using (Html.BeginForm())
 <br>
@@ -2419,7 +2423,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
         &lt;tr style="height:40px"&gt;
 <br>
-            &lt;td&gt; Tên đăng nhập:&lt;/td&gt;
+            &lt;td&gt; Tên đăng nhập:&lt;&#47;td&gt;
 <br>
             &lt;td&gt;
 <br>
@@ -2427,15 +2431,15 @@ public ActionResult Chitietsach(Guid id)
 <br>
                 &commat;ViewData["Loi1"]
 <br>
-            &lt;/td&gt;
+            &lt;&#47;td&gt;
 <br>
-        &lt;/tr&gt;
+        &lt;&#47;tr&gt;
 <br>
 
 <br>
         &lt;tr style="height:40px"&gt;
 <br>
-            &lt;td&gt;  Mật khẩu:&lt;/td&gt;
+            &lt;td&gt;  Mật khẩu:&lt;&#47;td&gt;
 <br>
             &lt;td&gt;
 <br>
@@ -2443,27 +2447,27 @@ public ActionResult Chitietsach(Guid id)
 <br>
                 &commat;ViewData["Loi2"]
 <br>
-            &lt;/td&gt;
+            &lt;&#47;td&gt;
 <br>
-        &lt;/tr&gt;
+        &lt;&#47;tr&gt;
 <br>
 
 <br>
         &lt;tr style="height:40px"&gt;
 <br>
-            &lt;td&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;&#47;td&gt;
 <br>
             &lt;td&gt;
 <br>
-                &lt;input type="Submit" value="Đăng nhập" /&gt;
+                &lt;input type="Submit" value="Đăng nhập" &#47;&gt;
 <br>
-            &lt;/td&gt;
+            &lt;&#47;td&gt;
 <br>
-        &lt;/tr&gt;
+        &lt;&#47;tr&gt;
 <br>
     }
 <br>
-&lt;/table&gt;
+&lt;&#47;table&gt;
 <br>
 
 <br>
@@ -2471,7 +2475,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
     &commat;Html.ActionLink("Quên mật khẩu?", "ForgetPassword")
 <br>
-&lt;/div&gt;
+&lt;&#47;div&gt;
 <br>
 
 <br>
@@ -2533,11 +2537,11 @@ public ActionResult Chitietsach(Guid id)
 <br>
                 Random r = new Random();
 <br>
-                var x = r.Next(12345, 98765); // tạo mã xác minh bí mật bất kỳ
+                var x = r.Next(12345, 98765); &#47;&#47; tạo mã xác minh bí mật bất kỳ
 <br>
 
 <br>
-	// Gửi email nội dung - ví dụ khôi phục password...
+	&#47;&#47; Gửi email nội dung - ví dụ khôi phục password...
 <br>
                 SendEmail.SendMail2Step("bvanluat2000&commat;gmail.com",
 <br>
@@ -2545,7 +2549,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
                 
 <br>
-	// Lưu mã xác minh để áp dụng sang Views khác (cụ thể để USER nhập mã này sau khi nhận đc mail)
+	&#47;&#47; Lưu mã xác minh để áp dụng sang Views khác (cụ thể để USER nhập mã này sau khi nhận đc mail)
 <br>
               TempData["Code"] = x.ToString();
 <br>
@@ -2573,7 +2577,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
 
 <br>
-&lt;h2&gt;Khôi phục mật khẩu của bạn&lt;/h2&gt;
+&lt;h2&gt;Khôi phục mật khẩu của bạn&lt;&#47;h2&gt;
 <br>
 
 <br>
@@ -2589,35 +2593,35 @@ public ActionResult Chitietsach(Guid id)
 <br>
         &lt;tr style="height:40px"&gt;
 <br>
-            &lt;td&gt; Nhập Email liên kết tài khoản của bạn : &lt;/td&gt;
+            &lt;td&gt; Nhập Email liên kết tài khoản của bạn : &lt;&#47;td&gt;
 <br>
             &lt;td&gt;
 <br>
                 &commat;Html.TextBox("ConfirmEmail")
 <br>
-                &lt;span style="color:red; font-style:italic"&gt; &commat;ViewData["Loi1"] &lt;/span&gt;
+                &lt;span style="color:red; font-style:italic"&gt; &commat;ViewData["Loi1"] &lt;&#47;span&gt;
 <br>
-            &lt;/td&gt;
+            &lt;&#47;td&gt;
 <br>
-        &lt;/tr&gt;
+        &lt;&#47;tr&gt;
 <br>
 
 <br>
         &lt;tr style="height:40px"&gt;
 <br>
-            &lt;td&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;&#47;td&gt;
 <br>
             &lt;td&gt;
 <br>
-                &lt;input type="Submit" value="Gửi xác minh" /&gt;
+                &lt;input type="Submit" value="Gửi xác minh" &#47;&gt;
 <br>
-            &lt;/td&gt;
+            &lt;&#47;td&gt;
 <br>
-        &lt;/tr&gt;
+        &lt;&#47;tr&gt;
 <br>
     }
 <br>
-&lt;/table&gt;
+&lt;&#47;table&gt;
 <br>
 
 <br>
@@ -2625,7 +2629,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
     &commat;Html.ActionLink("Trở về", "_TÊN VIEW ĐĂNG NHẬP_")
 <br>
-&lt;/div&gt;
+&lt;&#47;div&gt;
 <br>
 
 <br>
@@ -2651,11 +2655,11 @@ public ActionResult Chitietsach(Guid id)
 <br>
         {
 <br>
-            ViewBag.Email = email; // để hiển thị lên Views email mà người dùng đã nhập cần khôi phục Password...
+            ViewBag.Email = email; &#47;&#47; để hiển thị lên Views email mà người dùng đã nhập cần khôi phục Password...
 <br>
 
 <br>
-            // Lấy và lưu trữ lại mã xác minh cũ (đã gửi trong email trước đó)
+            &#47;&#47; Lấy và lưu trữ lại mã xác minh cũ (đã gửi trong email trước đó)
 <br>
             ViewBag.Code = TempData["Code"];
 <br>
@@ -2699,7 +2703,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
             }
 <br>
-            else if (String.Compare(confirm, codeResult, false) != 0) // Mã xác minh phân biệt hoa thường
+            else if (String.Compare(confirm, codeResult, false) != 0) &#47;&#47; Mã xác minh phân biệt hoa thường
 <br>
             {
 <br>
@@ -2733,11 +2737,11 @@ public ActionResult Chitietsach(Guid id)
 <br>
 
 <br>
-&lt;h2&gt;Khôi phục mật khẩu của bạn&lt;/h2&gt;
+&lt;h2&gt;Khôi phục mật khẩu của bạn&lt;&#47;h2&gt;
 <br>
-&lt;hr /&gt;
+&lt;hr &#47;&gt;
 <br>
-&lt;h2&gt;Hệ thống đã gửi một mã xác minh đến email &commat;ViewBag.Email để giúp bạn khôi phục mật khẩu. Kiểm tra Email và xác nhận.&lt;/h2&gt;
+&lt;h2&gt;Hệ thống đã gửi một mã xác minh đến email &commat;ViewBag.Email để giúp bạn khôi phục mật khẩu. Kiểm tra Email và xác nhận.&lt;&#47;h2&gt;
 <br>
 
 <br>
@@ -2751,39 +2755,39 @@ public ActionResult Chitietsach(Guid id)
 <br>
         &lt;tr style="height:40px"&gt;
 <br>
-            &lt;td&gt; Nhập mã xác minh : &lt;/td&gt;
+            &lt;td&gt; Nhập mã xác minh : &lt;&#47;td&gt;
 <br>
             &lt;td&gt;
 <br>
                 &commat;Html.TextBox("EmailConfirm")
 <br>
-                &lt;span style="color:red; font-style:italic"&gt; &commat;ViewData["Loi1"] &lt;/span&gt;
+                &lt;span style="color:red; font-style:italic"&gt; &commat;ViewData["Loi1"] &lt;&#47;span&gt;
 <br>
-            &lt;/td&gt;
+            &lt;&#47;td&gt;
 <br>
-        &lt;/tr&gt;
+        &lt;&#47;tr&gt;
 <br>
         &lt;tr style="height:40px"&gt;
 <br>
-            &lt;td&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;&#47;td&gt;
 <br>
             &lt;td&gt;
 <br>
-                &lt;input type="Submit" value="Xác minh" /&gt;
+                &lt;input type="Submit" value="Xác minh" &#47;&gt;
 <br>
-            &lt;/td&gt;
+            &lt;&#47;td&gt;
 <br>
-        &lt;/tr&gt;
+        &lt;&#47;tr&gt;
 <br>
     }
 <br>
-&lt;/table&gt;
+&lt;&#47;table&gt;
 <br>
 &lt;div&gt;
 <br>
     &commat;Html.ActionLink("Trở về", "_TÊN VIEW ĐĂNG NHẬP_")
 <br>
-&lt;/div&gt;
+&lt;&#47;div&gt;
 <br>
 
 <br>
@@ -2881,9 +2885,9 @@ public ActionResult Chitietsach(Guid id)
 <br>
 
 <br>
-&lt;h2&gt;Thay đổi mật khẩu - &commat;ViewBag.Email&lt;/h2&gt;
+&lt;h2&gt;Thay đổi mật khẩu - &commat;ViewBag.Email&lt;&#47;h2&gt;
 <br>
-&lt;hr /&gt;
+&lt;hr &#47;&gt;
 <br>
 
 <br>
@@ -2899,47 +2903,47 @@ public ActionResult Chitietsach(Guid id)
 <br>
         &lt;tr style="height:40px"&gt;
 <br>
-            &lt;td&gt; Nhập mật khẩu mới : &lt;/td&gt;
+            &lt;td&gt; Nhập mật khẩu mới : &lt;&#47;td&gt;
 <br>
             &lt;td&gt;
 <br>
                 &commat;Html.Password("Password")
 <br>
-                &lt;span style="color:red; font-style:italic"&gt; &commat;ViewData["Loi1"] &lt;/span&gt;
+                &lt;span style="color:red; font-style:italic"&gt; &commat;ViewData["Loi1"] &lt;&#47;span&gt;
 <br>
-            &lt;/td&gt;
+            &lt;&#47;td&gt;
 <br>
-        &lt;/tr&gt;
+        &lt;&#47;tr&gt;
 <br>
              &lt;tr style="height:40px"&gt;
 <br>
-            &lt;td&gt; Xác nhận mật khẩu mới : &lt;/td&gt;
+            &lt;td&gt; Xác nhận mật khẩu mới : &lt;&#47;td&gt;
 <br>
             &lt;td&gt;
 <br>
                 &commat;Html.Password("PasswordConfirm")
 <br>
-                &lt;span style="color:red; font-style:italic"&gt; &commat;ViewData["Loi2"] &lt;/span&gt;
+                &lt;span style="color:red; font-style:italic"&gt; &commat;ViewData["Loi2"] &lt;&#47;span&gt;
 <br>
-            &lt;/td&gt;
+            &lt;&#47;td&gt;
 <br>
-        &lt;/tr&gt;
+        &lt;&#47;tr&gt;
 <br>
         &lt;tr style="height:40px"&gt;
 <br>
-            &lt;td&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;&#47;td&gt;
 <br>
             &lt;td&gt;
 <br>
-                &lt;input type="Submit" value="Đổi mật khẩu" /&gt;
+                &lt;input type="Submit" value="Đổi mật khẩu" &#47;&gt;
 <br>
-            &lt;/td&gt;
+            &lt;&#47;td&gt;
 <br>
-        &lt;/tr&gt;
+        &lt;&#47;tr&gt;
 <br>
     }
 <br>
-&lt;/table&gt;
+&lt;&#47;table&gt;
 <br>
 
 <br>
@@ -2947,7 +2951,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
     &commat;Html.ActionLink("Trở về", "_TÊN VIEW ĐĂNG NHẬP_")
 <br>
-&lt;/div&gt;
+&lt;&#47;div&gt;
 <br>
 
 <br>
@@ -2959,7 +2963,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
 
 <br>
-- Tại Views/Shared, tạo và copy nội dung file _Paging.cshtml : 
+- Tại Views&#47;Shared, tạo và copy nội dung file _Paging.cshtml : 
 <br>
 
 <br>
@@ -3023,7 +3027,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
 
 <br>
-    // Các trang hiện thị trong điều hướng
+    &#47;&#47; Các trang hiện thị trong điều hướng
 <br>
     List&lt;int&gt; pagesRanges = new List&lt;int&gt;();
 <br>
@@ -3031,15 +3035,15 @@ public ActionResult Chitietsach(Guid id)
 <br>
 
 <br>
-    int delta = 5;             // Số trang mở rộng về mỗi bên trang hiện tại
+    int delta = 5;             &#47;&#47; Số trang mở rộng về mỗi bên trang hiện tại
 <br>
-    int remain = delta * 2;     // Số trang hai bên trang hiện tại
+    int remain = delta * 2;     &#47;&#47; Số trang hai bên trang hiện tại
 <br>
 
 <br>
     pagesRanges.Add(currentPage);
 <br>
-    // Các trang phát triển về hai bên trang hiện tại
+    &#47;&#47; Các trang phát triển về hai bên trang hiện tại
 <br>
     for (int i = 1; i &lt;= delta; i++)
 <br>
@@ -3071,9 +3075,9 @@ public ActionResult Chitietsach(Guid id)
 <br>
     }
 <br>
-    // Xử lý thêm vào các trang cho đủ remain
+    &#47;&#47; Xử lý thêm vào các trang cho đủ remain
 <br>
-    //(xảy ra ở đầu mút của khoảng trang không đủ trang chèn  vào)
+    &#47;&#47;(xảy ra ở đầu mút của khoảng trang không đủ trang chèn  vào)
 <br>
     if (remain &gt; 0)
 <br>
@@ -3141,9 +3145,9 @@ public ActionResult Chitietsach(Guid id)
 <br>
         &lt;li class="page-item"&gt;
 <br>
-            &lt;a class="page-link" href="&commat;generateUrl&commat;preview"&gt;Trang trước&lt;/a&gt;
+            &lt;a class="page-link" href="&commat;generateUrl&commat;preview"&gt;Trang trước&lt;&#47;a&gt;
 <br>
-        &lt;/li&gt;
+        &lt;&#47;li&gt;
 <br>
     }
 <br>
@@ -3153,9 +3157,9 @@ public ActionResult Chitietsach(Guid id)
 <br>
         &lt;li class="page-item disabled"&gt;
 <br>
-            &lt;a class="page-link" href="#" tabindex="-1" aria-disabled="true"&gt;Trang trước&lt;/a&gt;
+            &lt;a class="page-link" href="#" tabindex="-1" aria-disabled="true"&gt;Trang trước&lt;&#47;a&gt;
 <br>
-        &lt;/li&gt;
+        &lt;&#47;li&gt;
 <br>
     }
 <br>
@@ -3177,9 +3181,9 @@ public ActionResult Chitietsach(Guid id)
 <br>
                     &commat;pageitem
 <br>
-                &lt;/a&gt;
+                &lt;&#47;a&gt;
 <br>
-            &lt;/li&gt;
+            &lt;&#47;li&gt;
 <br>
         }
 <br>
@@ -3189,9 +3193,9 @@ public ActionResult Chitietsach(Guid id)
 <br>
             &lt;li class="page-item active" aria-current="page"&gt;
 <br>
-                &lt;a class="page-link" href="#"&gt;&commat;pageitem &lt;span class="sr-only"&gt;(current)&lt;/span&gt;&lt;/a&gt;
+                &lt;a class="page-link" href="#"&gt;&commat;pageitem &lt;span class="sr-only"&gt;(current)&lt;&#47;span&gt;&lt;&#47;a&gt;
 <br>
-            &lt;/li&gt;
+            &lt;&#47;li&gt;
 <br>
         }
 <br>
@@ -3209,9 +3213,9 @@ public ActionResult Chitietsach(Guid id)
 <br>
         &lt;li class="page-item"&gt;
 <br>
-            &lt;a class="page-link" href=&commat;generateUrl&commat;next&gt;Trang sau&lt;/a&gt;
+            &lt;a class="page-link" href=&commat;generateUrl&commat;next&gt;Trang sau&lt;&#47;a&gt;
 <br>
-        &lt;/li&gt;
+        &lt;&#47;li&gt;
 <br>
     }
 <br>
@@ -3221,13 +3225,13 @@ public ActionResult Chitietsach(Guid id)
 <br>
         &lt;li class="page-item disabled"&gt;
 <br>
-            &lt;a class="page-link" href="#" tabindex="-1" aria-disabled="true"&gt;Trang sau&lt;/a&gt;
+            &lt;a class="page-link" href="#" tabindex="-1" aria-disabled="true"&gt;Trang sau&lt;&#47;a&gt;
 <br>
-        &lt;/li&gt;
+        &lt;&#47;li&gt;
 <br>
     }
 <br>
-&lt;/ul&gt;
+&lt;&#47;ul&gt;
 <br>
 
 <br>
@@ -3253,7 +3257,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
 
 <br>
-            // Lấy tổng số dòng dữ liệu
+            &#47;&#47; Lấy tổng số dòng dữ liệu
 <br>
             var totalItems = products.Count();
 <br>
@@ -3263,11 +3267,11 @@ public ActionResult Chitietsach(Guid id)
 <br>
 
 <br>
-            // Tính số trang hiện thị (mỗi trang hiện thị ITEMS_PER_PAGE mục do bạn cấu hình = 10, 20 ...)
+            &#47;&#47; Tính số trang hiện thị (mỗi trang hiện thị ITEMS_PER_PAGE mục do bạn cấu hình = 10, 20 ...)
 <br>
-            int totalPages = (int)Math.Ceiling((double)totalItems / ITEMS_PER_PAGE);
+            int totalPages = (int)Math.Ceiling((double)totalItems &#47; ITEMS_PER_PAGE);
 <br>
-            // Lấy phần tử trong  hang hiện tại (pageNumber là trang hiện tại - thường Binding từ route)
+            &#47;&#47; Lấy phần tử trong  hang hiện tại (pageNumber là trang hiện tại - thường Binding từ route)
 <br>
             List&lt;Sach&gt; pros = products.Skip(ITEMS_PER_PAGE * (pageNumber - 1)).Take(ITEMS_PER_PAGE).ToList();
 <br>
@@ -3275,7 +3279,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
             ViewBag.TongSoTrang = totalPages;
 <br>
-            ViewBag.SetLink = "/BookStore/Sachtheochude?id="+id+"&&pageNumber=";
+            ViewBag.SetLink = "&#47;BookStore&#47;Sachtheochude?id="+id+"&&pageNumber=";
 <br>
             return View(pros);
 <br>
@@ -3291,7 +3295,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
 
 <br>
-&lt;partial name="_Paging" /&gt;
+&lt;partial name="_Paging" &#47;&gt;
 <br>
 
-</h4>
+<&#47;h4>

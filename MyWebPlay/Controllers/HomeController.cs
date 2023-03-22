@@ -1,6 +1,7 @@
 ﻿using AppFindMainKey_CSDL;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using MyWebPlay.Extension;
 using MyWebPlay.Models;
 using System.Diagnostics;
 using System.Security.Cryptography;
@@ -12,13 +13,15 @@ namespace MyWebPlay.Controllers
 {
     public partial class HomeController : Controller
     {
+        private readonly IMailService _mailService;
         private readonly ILogger<HomeController> _logger;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public HomeController(ILogger<HomeController> logger, IWebHostEnvironment webHostEnvironment)
+        public HomeController(ILogger<HomeController> logger, IWebHostEnvironment webHostEnvironment, IMailService mailService)
         {
             _logger = logger;
             _webHostEnvironment = webHostEnvironment;
+            _mailService = mailService;
         }
 
         public ActionResult Index()

@@ -1,7 +1,38 @@
-﻿<table align="center">
+﻿<script>
+   function xoaallfile(){
+
+        var check = prompt('Để xác nhận xoá tất cả các file trên Server, admin nhập đúng mật mã : ');
+
+        if (check!=null)
+        {
+            if (check != "admin")
+           {
+            alert('Mật mã xác nhận xử lý không chính xác!')
+            }
+           else{
+            alert('Thành công! Tác vụ sẽ tiến hành chuẩn bị xử lý...')
+             }
+
+         window.location.href = "/Home/XoaAllFile?password="+check;
+        }
+    }
+
+    function uploadfile()
+    {
+        window.location.href = "/Home/UploadFile";
+    }
+
+</script>
+
+<table align="center">
     <h2 style="text-align:center">DOWNLOAD YOUR FILE ON SERVER</h2>
 
     <h3 style="color:blue">@Html.Raw(@ViewBag.KetQua)</h3>
+
+    <button style="color:purple" onclick="xoaallfile()">Xoá tất cả các file trên Server (dành cho admin)</button>
+    <br />
+    <br />
+    <button style="color:blueviolet" onclick="uploadfile()">Bạn chưa đăng tải file trên hệ thống trước đó?</button>
 
 
     @using (Html.BeginForm("DownloadFile", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))

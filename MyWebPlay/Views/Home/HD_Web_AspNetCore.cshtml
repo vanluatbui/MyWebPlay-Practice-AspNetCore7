@@ -732,9 +732,35 @@ public static class SessionExtensions
                         ...    
 <br>
                 }
+<br />
+<br />
 <br>
+--------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+<br />
+<p style="color:red" >Tới đây coi như cũng đã xong phần upload file lên Server rồi, tuy nhiên </p> nếu bạn upload file có dung lượng lớn sẽ gặp phải vấn đề. Vì vậy hãy tiếp tục thực hiện các công việc sau :
+<br>
+<br />
+Click chuột phải vào project, chọn Add - New Item - Ở mục C# và chọn sổ xuống AspNetCore sau đó chọn vào Web...
+<br>
+Ở phía bên phải, thanh Search bạn tìm và chọn Web Configuration File và đặt tên mặc định là web.config...
+<br>
+File web.config được tạo ra, ở file này bạn copy thêm hiệu chỉnh code như sau :
+<br />
+<br>
+--------------------------------------------------------------------------------------------------------------------------------------------
+<br>
+<br />
 
-<br>
+&lt;?xml version="1.0" encoding="utf-8"?&gt;<br>&lt;configuration&gt;<br>    &lt;system.webServer&gt;<br>        &lt;security&gt;<br>            &lt;requestFiltering&gt;<br>                &lt;requestLimits maxAllowedContentLength="104857600" /&gt;<br>            &lt;/requestFiltering&gt;<br>        &lt;/security&gt;<br>    &lt;/system.webServer&gt;<br>&lt;/configuration&gt;
+
+<br/>
+
+<br/>
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+<br/>
+<br />
 ...
 <br>
 

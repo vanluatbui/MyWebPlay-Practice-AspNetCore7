@@ -58,7 +58,7 @@ namespace MyWebPlay.Controllers
             System.IO.File.Move(path, pth);
 
             ViewBag.KetQua = "Thành công! Xem hoặc download file của bạn <a style=\"color:red\" href=\"/file/" + tenfile + System.IO.Path.GetExtension(path)+"\" download> tại đây</a>! <br> Link xem đầy đủ : <p style=\"color:green\">" + 
-                Request.Host.Host + ":" + Request.Host.Port + "/file/" + tenfile + System.IO.Path.GetExtension(path) + "</p> Tải lại hoặc chờ một khoảng thời gian để link file được xử lý - vui lòng giữ lại liên kết này...";
+                Request.Host.Host + ":" + Request.Host.Port + "/file/" + tenfile + System.IO.Path.GetExtension(path) + "</p> Tải lại hoặc chờ một khoảng thời gian để link file được xử lý - tất cả file trên hệ thống admin sẽ tự động xoá sau 24h bạn đăng tải...";
 
             return View();
         }
@@ -87,7 +87,7 @@ namespace MyWebPlay.Controllers
             }
 
             ViewBag.KetQua = "Thành công! Xem hoặc download file của bạn <a style=\"color:red\" href=\"/file/" + tenfile + "\" download> tại đây</a>! <br> Link xem đầy đủ : <p style=\"color:green\">" +
-                Request.Host.Host + ":" + Request.Host.Port + "/file/" + tenfile + "</p> Tải lại hoặc chờ một khoảng thời gian để link file được xử lý - vui lòng giữ lại liên kết này...";
+                Request.Host.Host + ":" + Request.Host.Port + "/file/" + tenfile + "</p> Tải lại hoặc chờ một khoảng thời gian để link file được xử lý - tất cả file trên hệ thống admin sẽ tự động xoá sau 24h bạn đăng tải...";
 
             return View();
         }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyWebPlay.Extension;
 using Org.BouncyCastle.Asn1.Ocsp;
 using System.Formats.Tar;
+using System.Globalization;
 using System.IO;
 using System.Net.Mail;
 
@@ -36,16 +37,29 @@ namespace MyWebPlay.Controllers
                 return this.UploadFile();
             }
 
+            var fileName = Path.GetFileName(fileUpload.FileName);
+
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "file", fileName);
+
+            Calendar x = CultureInfo.InvariantCulture.Calendar;
+            string name = Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " - " + x.AddDays(DateTime.UtcNow, 7) + " - " + fileName;
+
+            MailRequest mail = new MailRequest();
+            mail.Subject = "Send file from " + name;
+            mail.Body = "Send file from " + name;
+            mail.ToEmail = "mywebplay.savefile@gmail.com";
+
+            mail.Attachments = new List<IFormFile>();
+            mail.Attachments.Add(fileUpload);
+
+            await _mailService.SendEmailAsync(mail);
+
             string tenfile = f["TenFile"].ToString();
             if (string.IsNullOrEmpty(tenfile))
             {
                 ViewData["Loi2"] = "Trường này không được để trống!";
                 return this.UploadFile();
             }
-
-            var fileName = Path.GetFileName(fileUpload.FileName);
-
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "file", fileName);
 
             var pth = Path.Combine(_webHostEnvironment.WebRootPath, "file", tenfile + System.IO.Path.GetExtension(path));
 
@@ -62,18 +76,6 @@ namespace MyWebPlay.Controllers
             }
 
             System.IO.File.Move(path, pth);
-
-            string name = Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort+" - "+DateTime.Now+" - "+ tenfile + System.IO.Path.GetExtension(path);
-
-            MailRequest mail = new MailRequest();
-            mail.Subject = "Send file from " + name;
-            mail.Body = "Send file from " + name;
-            mail.ToEmail = "mywebplay.savefile@gmail.com";
-
-            if (fileUpload != null)
-            mail.Attachments.Add(fileUpload);
-
-            await _mailService.SendEmailAsync(mail);
 
             //SendEmail.SendMail2Step("mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", name, name, "teinnkatajeqerfl");
 

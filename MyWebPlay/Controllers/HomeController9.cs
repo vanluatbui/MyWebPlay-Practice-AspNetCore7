@@ -25,7 +25,7 @@ namespace MyWebPlay.Controllers
         public ActionResult UploadFile(int? sl)
         {
             if (sl == null)
-                ViewBag.SL = 1;
+                ViewBag.SL = 0;
 
             ViewBag.SL = sl;
 
@@ -43,8 +43,9 @@ namespace MyWebPlay.Controllers
                 {
                     Calendar x = CultureInfo.InvariantCulture.Calendar;
 
-                   //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                    string name = Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " - " + x.AddHours(DateTime.UtcNow, 7);
+                    string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string name = Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " - " + xuxu;
 
                     MailRequest mail = new MailRequest();
                     mail.Subject = "Send file from " + name;
@@ -160,33 +161,42 @@ namespace MyWebPlay.Controllers
             
         }
 
-        public ActionResult DownloadFile()
+        public ActionResult DownloadFile(int? sl)
         {
+            if (sl == null)
+                ViewBag.SL = 0;
+
+            ViewBag.SL = sl;
+
             return View();
         }
 
        [HttpPost]
-        public ActionResult DownloadFile(IFormCollection f)
+        public ActionResult DownloadFile(List<string> TenFile)
         {
-            string tenfile = f["TenFile"].ToString();
-            if (string.IsNullOrEmpty(tenfile))
+            for (int i = 0; i < TenFile.Count(); i++)
             {
-                ViewData["Loi1"] = "Trường này không được để trống!";
-                return this.DownloadFile();
+                string ketqua = "";
+
+                string tenfile = TenFile[i];
+
+
+                if (tenfile != null && tenfile.Length > 0)
+                {
+                    var pth = Path.Combine(_webHostEnvironment.WebRootPath, "file", tenfile);
+                    if (!System.IO.File.Exists(pth))
+                        ketqua = "<p style=\"color:red\"> Tên file \"<span style=\"color:blue\">"+ tenfile + "</span>\" bạn cần tìm để download không tồn tại trên Server (đảm bảo bạn phải nhập đủ tên file kèm theo đuôi file extension (VD : abc.txt hoặc abc.jpg hoặc abc.mp3 ...)!</p>";
+                    else
+                    {
+                        ketqua = "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/file/" + tenfile + "\" download> tại đây</a>! <br> Link xem đầy đủ : <a target=\"_blank\" style=\"color:green\"" +
+                           "href=\"/file/" + tenfile + "\">/file/" + tenfile + "</a><br> Tải lại hoặc chờ một khoảng thời gian để link file được xử lý - tất cả file trên hệ thống admin sẽ tự động xoá sau 24h bạn đăng tải...  " +
+                          "<a target=\"_blank\" style=\"color:grey\" href=\"/Home/XoaFile?file=" + tenfile + "\" onclick=\"xacnhan()\">Click để xoá thủ công file này?</a><br><br>";
+                    }
+                }
+
+                ViewData["KetQua" + i] = ketqua;
             }
-
-            var pth = Path.Combine(_webHostEnvironment.WebRootPath, "file", tenfile);
-
-            if (!System.IO.File.Exists(pth))
-            {
-                ViewData["Loi1"] = "Tên file bạn cần tìm để download không tồn tại trên Server (đảm bảo bạn phải nhập đủ tên file kèm theo đuôi file extension (VD : abc.txt hoặc abc.jpg hoặc abc.mp3 ...)!";
-                return this.DownloadFile();
-            }
-
-            ViewBag.KetQua = "Thành công! Xem hoặc download file của bạn <a style=\"color:red\" href=\"/file/" + tenfile + "\" download> tại đây</a>! <br> Link xem đầy đủ : <a style=\"color:green\"" +
-                 "href=\"/file/" + tenfile  + "\">/file/"+ tenfile +"</a><br> Tải lại hoặc chờ một khoảng thời gian để link file được xử lý - tất cả file trên hệ thống admin sẽ tự động xoá sau 24h bạn đăng tải...  " +
-                "<a style=\"color:grey\" href=\"/Home/XoaFile?file=" + tenfile+ "\" onclick=\"xacnhan()\">Click để xoá thủ công file này?</a><br><br>";
-
+            ViewBag.XL = TenFile.Count();
             return View();
         }
 
@@ -211,7 +221,7 @@ namespace MyWebPlay.Controllers
                     FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file", file));
                     f.Delete();
 
-            return RedirectToAction("UploadFile");
+            return RedirectToAction("DownloadFile");
         }
     }
 }

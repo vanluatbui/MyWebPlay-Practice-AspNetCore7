@@ -19,7 +19,7 @@
 
     function xacnhan()
     {
-        alert('Thành công! File của bạn đã bị xoá khỏi Server hệ thống...')
+        alert('Thành công! File của bạn đã bị xoá khỏi Server hệ thống...\nReload hoặc cập nhật lại trang web để xem kết quả!')
     }
 
     function uploadfile()
@@ -27,41 +27,63 @@
         window.location.href = "/Home/UploadFile";
     }
 
+    function soluongfile()
+    {
+        window.location.href = "/Home/DownloadFile?sl="+document.getElementById("SL").value;
+    }
+
 </script>
 
 <table align="center">
     <h2 style="text-align:center">DOWNLOAD YOUR FILE ON SERVER</h2>
 
-    <h3 style="color:blue">@Html.Raw(@ViewBag.KetQua)</h3>
+    @for (int i = 0; i < ViewBag.XL; i++)
+    {
+            <b> KẾT QUẢ FILE THỨ @(i+1) CỦA BẠN : </b>
+                <br />
+    <h3 style="color:blue">@Html.Raw(@ViewData["KetQua"+i])</h3>
+    <br />
+    <br />
+    }
 
+    <hr />
     <button style="color:purple" onclick="xoaallfile()">Xoá tất cả các file trên Server (dành cho admin)</button>
     <br />
     <br />
     <button style="color:blueviolet" onclick="uploadfile()">Bạn chưa đăng tải file trên hệ thống trước đó?</button>
+
+    <br />
+    <br />
+    <b>Nhập số lượng file mà bạn muốn download : </b> <input type="number" id="SL" value="@ViewBag.SL" min="1"/>
+    <button onclick="soluongfile()">OK</button>
 
 
     @using (Html.BeginForm("DownloadFile", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
         @Html.ValidationSummary(true)
 
+        @for (int i = 0; i < ViewBag.SL; i++)
+        {
+            <tr style="height:40px">
+                <td> Nhập tên file kèm theo extension của file cần tìm để download trên Server : </td>
+                <td>
+                    <input type="text" size="50" name="TenFile">
+                </td>
+            </tr>
+            <br />
 
-                    <tr style="height:40px">
-                            <td> Nhập tên file kèm theo extension của file cần tìm để download trên Server : </td>
+            <br />
+        }
+
+
+        @if (ViewBag.SL > 0)
+        {
+                        <tr style="height:40px">
+                            <td></td>
                             <td>
-                                <input type="text" size="50" name="TenFile">
-                                <br>
-                                <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+                                        <input style="font-weight:bolder" type="Submit" value="OK DOWNLOAD" />
                             </td>
                         </tr>
-                        <br />
-
-                    <br />
-
-                    <tr style="height:40px">
-                        <td></td>
-                        <td>
-                            <input type="Submit" value="OK DOWNLOAD" />
-                        </td>
-                    </tr>
+        }
     }
 </table>

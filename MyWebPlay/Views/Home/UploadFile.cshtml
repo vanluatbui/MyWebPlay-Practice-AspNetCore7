@@ -27,10 +27,15 @@
         window.location.href = "/Home/DownloadFile";
     }
 
+    function soluongfile()
+    {
+        window.location.href = "/Home/UploadFile?sl="+document.getElementById("SL").value;
+    }
+
 </script>
 
 <table align="center">
-    <h2 style="text-align:center">UPLOAD YOUR FILE</h2>
+    <h2 style="text-align:center">UPLOAD YOUR FILE - lưu ý nếu thao tác bạn thực hiện đã xảy ra lỗi (mặc dù các thông tin của bạn cung cấp đúng và đầy đủ), tuy nhiên một số trường hợp các file của bạn vẫn có thể upload lên Server thành công bằng một cách kỳ diệu nào đó :)) - vì vậy bạn có thể kiểm tra tồn tại file của bạn đã được đăng tải hoặc thử lại sau :v</h2>
 
     <h3 style="color:blue">@Html.Raw(@ViewBag.KetQua)</h3>
     
@@ -38,40 +43,47 @@
     <br />
     <br />
     <button style="color:blueviolet" onclick="downloadfile()">Bạn đã có file trên hệ thống trước đó?</button>
+    <br />
+    <br />
+    <b>Nhập số lượng file mà bạn muốn đăng tải : </b> <input type="number" id="SL" value="@ViewBag.SL" min="1"/>
+    <button onclick="soluongfile()">OK</button>
 
     @using (Html.BeginForm("UploadFile", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
         @Html.ValidationSummary(true)
 
+        <br />
+            <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
+            <br />
+
+        @for (int i = 0; i < ViewBag.SL; i++)
+        {
             <tr style="height:40px">
-                <td> Upload 1 file của bạn (nếu quá nhiều hãy nén tất cả file đó) : </td>
+                <td> Upload 1 file của bạn : </td>
                 <td>
                     <input type="file" name="fileUpload">
                     <br>
-                    <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
                 </td>
             </tr>
             <br />
 
-        <br />
-
             <tr style="height:40px">
-                    <td> Đặt tên file tuỳ bạn gợi nhớ : </td>
-                    <td>
-                        <input type="text" size="50" name="TenFile">
-                        <br>
-                        <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
-                    </td>
-                </tr>
-                <br />
-
-            <br />
+                <td> Đặt tên file tuỳ bạn gợi nhớ : </td>
+                <td>
+                    <input type="text" size="50" name="TenFile">
+                    <br>
+                </td>
+            </tr>
+        }
             
+        @if(ViewBag.SL > 0)
+        {
             <tr style="height:40px">
                 <td></td>
                 <td>
-                    <input type="Submit" value="OK UPLOAD" />
+                    <input style="font-weight:bolder" type="Submit" value="OK UPLOAD" />
                 </td>
             </tr>
+        }
     }
 </table>

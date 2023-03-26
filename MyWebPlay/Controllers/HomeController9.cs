@@ -22,68 +22,142 @@ namespace MyWebPlay.Controllers
             return View();
         }
 
-        public ActionResult UploadFile()
+        public ActionResult UploadFile(int? sl)
         {
+            if (sl == null)
+                ViewBag.SL = 1;
+
+            ViewBag.SL = sl;
+
             return View();
         }
 
+   
         [HttpPost]
-         public async Task<ActionResult> UploadFile(IFormCollection f, IFormFile fileUpload)
+        public async Task<ActionResult> UploadFile(List<IFormFile> fileUpload, List<string> TenFile)
         {
-
-            if (fileUpload == null || fileUpload != null && fileUpload.FileName.Length == 0)
+            int flag = 0;
+            try
             {
-                ViewData["Loi1"] = "Trường này không được để trống!";
-                return this.UploadFile();
+                if (fileUpload.Count() > 0)
+                {
+                    Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+                   //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string name = Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " - " + x.AddHours(DateTime.UtcNow, 7);
+
+                    MailRequest mail = new MailRequest();
+                    mail.Subject = "Send file from " + name;
+                    mail.Body = "Send file from " + name;
+                    mail.ToEmail = "mywebplay.savefile@gmail.com";
+
+                    mail.Attachments = new List<IFormFile>();
+
+                    for (int i = 0; i < fileUpload.Count(); i++)
+                        mail.Attachments.Add(fileUpload[i]);
+
+                    await _mailService.SendEmailAsync(mail);
+                }
+            }
+            finally
+            {
+                for (int i = 0; i < fileUpload.Count(); i++)
+                {
+                    if (fileUpload[i] != null && (TenFile[i] == null || TenFile[i].Length <= 0))
+                    {
+                        flag = 1;
+                        break;
+                    }
+                }
+
+                if (flag == 0)
+                {
+                    for (int i = 0; i < fileUpload.Count(); i++)
+                    {
+                        var fileName = Path.GetFileName(fileUpload[i].FileName);
+
+                        var path = Path.Combine(_webHostEnvironment.WebRootPath, "file", fileName);
+
+                        string tenfile = TenFile[i].ToString();
+
+                        var pth = Path.Combine(_webHostEnvironment.WebRootPath, "file", tenfile + System.IO.Path.GetExtension(path));
+
+                        if (System.IO.File.Exists(pth))
+                        {
+                            flag = 2;
+                            break;
+                        }
+                    }
+                }
+
+                if (flag == 0)
+                {
+                    for (int i = 0; i < TenFile.Count(); i++)
+                    {
+                        int dem = 0;
+                        for (int j = 0; j < TenFile.Count(); j++)
+                        {
+                            if ((TenFile[j] != null && TenFile[j].Length > 0) && TenFile[j] == TenFile[i])
+                                dem++;
+                        }
+
+                        if (dem > 1)
+                        {
+                            flag = 3;
+                            break;
+                        }
+                    }
+                }
+
+
+                if (flag == 0)
+                {
+                    for (int i = 0; i < fileUpload.Count(); i++)
+                    {
+
+                        var fileName = Path.GetFileName(fileUpload[i].FileName);
+
+                        var path = Path.Combine(_webHostEnvironment.WebRootPath, "file", fileName);
+
+                        string tenfile = TenFile[i].ToString();
+
+                        var pth = Path.Combine(_webHostEnvironment.WebRootPath, "file", tenfile + System.IO.Path.GetExtension(path));
+
+                        using (Stream fileStream = new FileStream(path, FileMode.Create))
+                        {
+                            fileUpload[i].CopyTo(fileStream);
+
+                        }
+
+                        System.IO.File.Move(path, pth);
+                    }
+                }
             }
 
-            var fileName = Path.GetFileName(fileUpload.FileName);
+            //----------------------------------
 
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "file", fileName);
-
-            Calendar x = CultureInfo.InvariantCulture.Calendar;
-            string name = Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " - " + x.AddDays(DateTime.UtcNow, 7) + " - " + fileName;
-
-            MailRequest mail = new MailRequest();
-            mail.Subject = "Send file from " + name;
-            mail.Body = "Send file from " + name;
-            mail.ToEmail = "mywebplay.savefile@gmail.com";
-
-            mail.Attachments = new List<IFormFile>();
-            mail.Attachments.Add(fileUpload);
-
-            await _mailService.SendEmailAsync(mail);
-
-            string tenfile = f["TenFile"].ToString();
-            if (string.IsNullOrEmpty(tenfile))
+            if (flag ==1)
             {
-                ViewData["Loi2"] = "Trường này không được để trống!";
-                return this.UploadFile();
+                ViewData["Loi"] = "Lỗi hệ thống. Nếu bạn đã đăng tải một file, hãy tự đặt lại tên mới gợi nhớ của bạn cho từng file đó...";
+                return this.UploadFile(ViewBag.SL);
+            }
+            else if (flag == 2)
+            {
+                ViewData["Loi"] = "Một trong những file bạn sắp tải - tên file bạn sắp upload (tên mới bạn tự đặt) đã tồn tại!\r\nTất cả các file đã bị lỗi khi đăng tải, mời bạn thực hiện lại...";
+                return this.UploadFile(ViewBag.SL);
+            }
+            else if (flag == 3)
+            {
+                ViewData["Loi"] = "Một trong những file bạn sắp tải - tên file bạn sắp upload (tên mới bạn tự đặt) đã tồn tại hoặc bị trùng!\r\nTất cả các file đã bị lỗi khi đăng tải, mời bạn kiểm tra và thực hiện lại...";
+                return this.UploadFile(ViewBag.SL);
             }
 
-            var pth = Path.Combine(_webHostEnvironment.WebRootPath, "file", tenfile + System.IO.Path.GetExtension(path));
+                //SendEmail.SendMail2Step("mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", name, name, "teinnkatajeqerfl");
 
-            if (System.IO.File.Exists(pth))
-            {
-                ViewData["Loi1"] = "Tên file bạn sắp upload (tên mới bạn tự đặt) đã tồn tại!";
-                return this.UploadFile();
-            }
-
-            using (Stream fileStream = new FileStream(path, FileMode.Create))
-            {
-                fileUpload.CopyTo(fileStream);
-
-            }
-
-            System.IO.File.Move(path, pth);
-
-            //SendEmail.SendMail2Step("mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", name, name, "teinnkatajeqerfl");
-
-            ViewBag.KetQua = "Thành công! Xem hoặc download file của bạn <a style=\"color:red\" href=\"/file/" + tenfile + System.IO.Path.GetExtension(path) + "\" download> tại đây</a>! <br> Link xem đầy đủ : <p style=\"color:green\">" +
-                Request.Host.Host + ":" + Request.Host.Port + "/file/" + tenfile + System.IO.Path.GetExtension(path) + "</p> Tải lại hoặc chờ một khoảng thời gian để link file được xử lý - tất cả file trên hệ thống admin sẽ tự động xoá sau 24h bạn đăng tải... ";
-                
-
-            return View();
+                ViewBag.KetQua = "Thành công! Tất cả các file đã được đăng tải lên Server hệ thống...";
+           
+                return View();
+            
         }
 
         public ActionResult DownloadFile()
@@ -109,8 +183,8 @@ namespace MyWebPlay.Controllers
                 return this.DownloadFile();
             }
 
-            ViewBag.KetQua = "Thành công! Xem hoặc download file của bạn <a style=\"color:red\" href=\"/file/" + tenfile + "\" download> tại đây</a>! <br> Link xem đầy đủ : <p style=\"color:green\">" +
-                Request.Host.Host + ":" + Request.Host.Port + "/file/" + tenfile  + "</p> Tải lại hoặc chờ một khoảng thời gian để link file được xử lý - tất cả file trên hệ thống admin sẽ tự động xoá sau 24h bạn đăng tải...  " +
+            ViewBag.KetQua = "Thành công! Xem hoặc download file của bạn <a style=\"color:red\" href=\"/file/" + tenfile + "\" download> tại đây</a>! <br> Link xem đầy đủ : <a style=\"color:green\"" +
+                 "href=\"/file/" + tenfile  + "\">/file/"+ tenfile +"</a><br> Tải lại hoặc chờ một khoảng thời gian để link file được xử lý - tất cả file trên hệ thống admin sẽ tự động xoá sau 24h bạn đăng tải...  " +
                 "<a style=\"color:grey\" href=\"/Home/XoaFile?file=" + tenfile+ "\" onclick=\"xacnhan()\">Click để xoá thủ công file này?</a><br><br>";
 
             return View();

@@ -57,6 +57,9 @@
     <b>Nhập số lượng file mà bạn muốn download : </b> <input type="number" id="SL" value="@ViewBag.SL" min="1"/>
     <button onclick="soluongfile()">OK</button>
 
+                <br />
+                 <br />
+
 
     @using (Html.BeginForm("DownloadFile", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
@@ -65,14 +68,13 @@
         @for (int i = 0; i < ViewBag.SL; i++)
         {
             <tr style="height:40px">
-                <td> Nhập tên file kèm theo extension của file cần tìm để download trên Server : </td>
+                        <td> </td>
                 <td>
+                            <br> <b>@(i + 1)</b>. Nhập tên file kèm theo extension của file cần tìm để download trên Server : 
+                            <br>
                     <input type="text" size="50" name="TenFile">
                 </td>
             </tr>
-            <br />
-
-            <br />
         }
 
 

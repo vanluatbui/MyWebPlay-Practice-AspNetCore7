@@ -1,0 +1,78 @@
+﻿
+<script>
+
+    function xoaallfile(){
+
+        var check = prompt('Để xác nhận xoá tất cả các file trên Server, admin nhập đúng mật mã : ');
+
+        if (check!=null)
+        {
+            if (check != "admin")
+        {
+            alert('Mật mã xác nhận xử lý không chính xác!')
+        }
+        else{
+            alert('Thành công! Tác vụ sẽ tiến hành chuẩn bị xử lý...')
+        }
+
+         window.location.href = "/Home/XoaAllFile_X?password="+check;
+        }
+    }
+
+</script>
+
+<table align="center">
+    <h2 style="text-align:center">Play Test Trắc Nghiệm</h2>
+
+        <button style="color:purple" onclick="xoaallfile()">Xoá tất cả các file trên Server (dành cho admin)</button>
+    <br />
+
+    @using (Html.BeginForm("TracNghiem", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        @Html.ValidationSummary(true)
+
+            <tr style="height:40px">
+                <td> </td>
+                <td>
+                    <br>
+                        <b> Tải file trắc nghiệm của bạn (đã xử lý) : </b>
+                    <br>
+                        <input type="file" name="txtFile"/>  <b>@Html.ActionLink("Bạn chưa có file trắc nghiệm?","CreateFile_TracNghiem")</b>
+                    <br>
+                    <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+                </td>
+            </tr>
+
+            <tr style="height:40px">
+                <td> </td>
+                <td>
+                    <br>
+                        <b>Số câu cần làm :</b>
+                    <br>
+                    <input type="number" name="txtSoCau" min="1">
+                        <br>
+                        <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+                </td>
+            </tr>
+
+                  <tr style="height:40px">
+                    <td></td>
+                    <td>
+                        <br>
+                            <b>Thời gian làm bài (phút) : </b>
+                        <br>
+                        <input type="number" name="txtTime" min="1">
+                            <br>
+                            <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
+                    </td>
+                </tr>
+
+
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                        <input style="font-weight:bolder" type="Submit" value="Bắt đầu làm bài" />
+                </td>
+            </tr>
+    }
+</table>

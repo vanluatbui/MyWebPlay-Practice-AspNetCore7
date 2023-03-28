@@ -8,8 +8,11 @@
         @Html.ValidationSummary(true)
 
         <tr style="height:40px">
-            <td> Tên Table : </td>
+            <td> </td>
             <td>
+                <br>
+                    <b>Tên Table : </b>
+                <br>
                 <input type="text" size="50" name="Table" value="SinhVien">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
@@ -17,17 +20,23 @@
         </tr>
         <br /><br />
         <tr style="height:40px">
-            <td> Nhập trạng thái theo mẫu - Nhập ví dụ theo từng phần (VD : 3-1-3-1-2 # nếu một doc SQL có 5 cột)... - Với # 1 : Kiểu số, 2 : Kiểu chuỗi, 3 : Kiểu DateTime/Char </td>
+            <td> </td>
             <td>
-                <input type="text" size="50" name="TrangThai" value="3-2-1-3">
+                <br>
+                    <b>Nhập trạng thái theo mẫu - Nhập ví dụ theo từng phần (VD : 3-1-3-1-2 # nếu một doc SQL có 5 cột)... - Với # 1 : Kiểu số, 2 : Kiểu chuỗi, 3 : Kiểu DateTime/Char </b>
+               <br>
+                    <input type="text" size="50" name="TrangThai" value="3-2-1-3">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
             </td>
         </tr>
         <br /><br />
         <tr style="height:40px">
-            <td> Nhập dãy dữ liệu theo mẫu (VD - nếu mỗi doc SQL có 5 cột/ mỗi col cách nhau bởi # - mỗi doc cách nhau bởi Enter)... </td>
+            <td> </td>
             <td>
+                <br>
+                    <b>Nhập dãy dữ liệu theo mẫu (VD - nếu mỗi doc SQL có 5 cột/ mỗi col cách nhau bởi # - mỗi doc cách nhau bởi Enter)... </b>
+                <br>
                 <textarea name="DuLieu" cols="100" rows="50">SV001#Bùi Văn Luật#10#20/06/2000
 SV002#Nguyễn Văn Đạt#9.5#15/08/2001
 SV003#Trần Chí Khôi#2.5#29/07/1990

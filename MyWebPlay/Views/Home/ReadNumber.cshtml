@@ -8,10 +8,22 @@
         @Html.ValidationSummary(true)
 
         <tr style="height:40px">
-            <td> Chuỗi dãy số của bạn (mỗi phần tử cách nhau bởi Enter) : </td>
-            <br>
+            <td> </td>
             <td>
-                <textarea rows="20" cols="150" name="Chuoi" autofocus></textarea>
+                <br>
+                    <b>Chuỗi dãy số của bạn (mỗi phần tử cách nhau bởi Enter) : </b>
+                <br>
+                <textarea rows="20" cols="150" name="Chuoi" autofocus>0
+100
+15
+20
+1001
+2000
+12345
+12345678
+2023
+1005008
+5000</textarea>
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
             </td>

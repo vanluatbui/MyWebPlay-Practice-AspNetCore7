@@ -38,8 +38,11 @@
         @Html.ValidationSummary(true)
 
         <tr style="height:40px">
-            <td> Nhập các thuộc tính đơn ban đầu - số lượng x (ví dụ) : </td>
+            <td></td>
             <td>
+                <br>
+                    <b>Nhập các thuộc tính đơn ban đầu - số lượng x (ví dụ) : </b>
+                    <br>
                 <input type="text" size="50" name="ThuocTinh" value="A-B">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
@@ -49,9 +52,12 @@
         <br /><br />
 
         <tr style="height:40px">
-            <td> Dán đề bài (không quan trọng - chỉ là để tự mò dò xét trường điền bên dưới dễ hơn :)) - ví dụ)  : </td>
+            <td> </td>
             <td>
-                <input type="text" name="Chuoi1" size="100" value="#[ A ∨ B ] →  B">
+                <br>
+                    <b>Dán đề bài (không quan trọng - chỉ là để tự mò dò xét trường điền bên dưới dễ hơn :)) - ví dụ)  : </b>
+                <br>
+                    <input type="text" name="Chuoi1" size="100" value="#[ A ∨ B ] →  B">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
             </td>
@@ -74,8 +80,11 @@
                </select>
             </td>
             <br>
-            <td> Dán lại các thành phần đề bài (dựa vào trên nhưng bây giờ tự mò dò theo index - ngoại trừ các thuộc tính đơn ban đầu (start in 1 (but number again this start in x + 1 - possible - understand ??? !!! :)) ) - ví dụ bên dưới)  : </td>
+            <td> </td>
             <td>
+                <br>
+                    <b>Dán lại các thành phần đề bài (dựa vào trên nhưng bây giờ tự mò dò theo index - ngoại trừ các thuộc tính đơn ban đầu (start in 1 (but number again this start in x + 1 - possible - understand ??? !!! :)) ) - ví dụ bên dưới)</b>
+                <br>
                 <textarea rows="20" cols="30" name="Chuoi" id="ChuoiX" autofocus>1∨2
 #3
 4→2</textarea>

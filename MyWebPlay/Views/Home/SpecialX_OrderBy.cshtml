@@ -8,8 +8,11 @@
         @Html.ValidationSummary(true)
 
         <tr style="height:40px">
-            <td> Dữ kiện thứ tự sắp xếp và ưu tiên (index mỗi từ) : </td>
+            <td></td>
             <td>
+                <br>
+                    <b>Dữ kiện thứ tự sắp xếp và ưu tiên (index mỗi từ) : </b>
+                    <br>
                 <input type="text" size="50" name="SapXep" value="N-1=N-2=0=1">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
@@ -19,8 +22,11 @@
         <br />
 
         <tr style="height:40px">
-            <td> Chuỗi của bạn : </td>
+            <td> </td>
             <td>
+                <br>
+                    <b>Chuỗi của bạn : </b>
+                <br>
                 <textarea rows="20" cols="150" name="Chuoi" autofocus>@ViewBag.ChuoiViDu</textarea>
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
@@ -29,8 +35,11 @@
         <br /><br />
 
         <tr style="height:40px">
-            <td> Với 0 là sắp tăng và 1 là sắp giảm </td>
+            <td></td>
             <td>
+                <br>
+                    <b> Với 0 là sắp tăng và 1 là sắp giảm </b>
+                    <br>
                 <input type="number" size="50" name="TangGiam" value="0" max="1" min="0">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
@@ -40,8 +49,11 @@
         <br />
 
                 <tr style="height:40px">
-            <td> Nhập số ô cần xác định sắp xếp (index start in 1) </td>
+            <td></td>
             <td>
+                      <br>
+                                    <b> Nhập số ô cần xác định sắp xếp (index start in 1)  </b>
+                        <br>
                 <input type="number" size="50" name="CoDinh" value="2" min="1">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi4"] </span>

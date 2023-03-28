@@ -8,10 +8,13 @@
         @Html.ValidationSummary(true)
 
         <tr style="height:40px">
-            <td> Chuỗi đề bài của bạn : </td>
-            Lưu ý kiểm tra kỹ các thành phần tham gia phải đủ! (VD nhập : AB>C,C>BD,BE>A,A>C)
+            <td> </td>
             <td>
-                <input type="text" name="Chuoi" size="100">
+                <br>
+                    <b>Chuỗi đề bài của bạn : <br>
+                Lưu ý kiểm tra kỹ các thành phần tham gia phải đủ! (VD nhập : AB>C,C>BD,BE>A,A>C)</b>
+                <br>
+                    <input type="text" name="Chuoi" size="100" value="AB>C,C>BD,BE>A,A>C" />
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
             </td>

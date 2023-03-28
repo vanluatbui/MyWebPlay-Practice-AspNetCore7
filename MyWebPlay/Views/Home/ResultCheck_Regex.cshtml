@@ -8,8 +8,11 @@
         @Html.ValidationSummary(true)
 
         <tr style="height:40px">
-            <td> Chuỗi của bạn : </td>
+            <td> </td>
             <td>
+                <br>
+                    <b>Chuỗi của bạn : </b>
+                <br>
                 <textarea rows="20" cols="150" name="Chuoi" autofocus>@ViewBag.ViDu</textarea>
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
@@ -20,8 +23,11 @@
         <br />
 
         <tr style="height:40px">
-            <td> Pattern cần kiểm tra : </td>
+            <td></td>
             <td>
+                <br>
+                    <b>Pattern cần kiểm tra : </b>
+                <br>
                 <input type="text" size="100" name="Pattern">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
@@ -33,8 +39,11 @@
         <br />
 
         <tr style="height:40px">
-            <td> Nhập lựa chọn khi xuất kết quả (Với 1 : Đầy đủ và chi tiết, 2 : Chỉ kết quả) </td>
+            <td></td>
             <td>
+                <br>
+                    <b>Nhập lựa chọn khi xuất kết quả (Với 1 : Đầy đủ và chi tiết, 2 : Chỉ kết quả) </b>
+                    <br>
                 <input type="number" min="1" max="2" name="DuKien2" value="1">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi4"] </span>

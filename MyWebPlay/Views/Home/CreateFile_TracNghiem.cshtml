@@ -1,0 +1,133 @@
+﻿
+<script>
+
+    function xoaallfile(){
+
+        var check = prompt('Để xác nhận xoá tất cả các file trên Server, admin nhập đúng mật mã : ');
+
+        if (check!=null)
+        {
+            if (check != "admin")
+        {
+            alert('Mật mã xác nhận xử lý không chính xác!')
+        }
+        else{
+            alert('Thành công! Tác vụ sẽ tiến hành chuẩn bị xử lý...')
+        }
+
+         window.location.href = "/Home/XoaAllFile_X?password="+check;
+        }
+    }
+
+</script>
+<table align="center">
+    <h2 style="text-align:center">Create File Trắc Nghiệm Theo Hệ Thống - <span style="color:red; font-weight:bold">70%</span></h2>
+
+    <h3 style="color:blue">@Html.Raw(ViewBag.KetQua)</h3>
+
+    <button style="color:purple" onclick="xoaallfile()">Xoá tất cả các file trên Server (dành cho admin)</button>
+    <br />
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                    <br>
+                        <b>Dán bài trắc nghiệm của bạn tại đây (xem ví dụ tương đương) :</b>
+                        <br>
+                    <textarea rows="20" cols="150" name="txtChuoi" autofocus>@ViewBag.ChuoiVD</textarea>
+                </td>
+            </tr
+
+
+               <tr style="height:40px">
+                    <td></td>
+                    <td>
+                        <input type="text" name="txtNum" value="1-3.7-8" size="20" placeholder="Liệt kê các câu hỏi (index)">
+                    </td>
+                </tr>
+
+                <tr style="height:40px">
+                    <td></td>
+                          <td><b><u>Xem lại nội dung bài trắc nghiệm của bạn để tự tìm và đánh giá phân tách phù hợp (xem ví dụ)...</u></b></td>
+                    </tr>
+
+   
+                     <tr style="height:40px">
+                        <td></td>
+                        <td>
+                            <input type="text" name="txtX" value="Câu số " size="25" placeholder="Split câu hỏi - After Number">
+                                <span style="color:red; font-weight:bold">Number</span>
+                                        <input type="text" name="txtXX" value=". " size="25" placeholder="Split câu hỏi - Before Number">
+                        </td>
+                    </tr>
+
+                         <tr style="height:40px">
+                        <td></td>
+                        <td>
+                                <input type="text" name="txtA" value="A. " size="10" placeholder="Split đáp án A">
+                        </td>
+                    </tr>
+
+                        <tr style="height:40px">
+                            <td></td>
+                            <td>
+                                    <input type="text" name="txtB" value="B. " size="10"  placeholder="Split đáp án B">
+                            </td>
+                        </tr>
+
+                            <tr style="height:40px">
+                            <td></td>
+                            <td>
+                                    <input type="text" name="txtC" value="C. " size="10"  placeholder="Split đáp án C">
+                            </td>
+                        </tr>
+
+                            <tr style="height:40px">
+                            <td></td>
+                            <td>
+                                    <input type="text" name="txtD" value="D. " size="10"  placeholder="Split đáp án D">
+                            </td>
+                        </tr>
+
+                                            <tr style="height:40px">
+                        <td></td>
+                              <td><b>--------------------------------------------------------------------------------------------------------------------------------------------------------------------------</b></td>
+                        </tr>
+
+                            <tr style="height:40px">
+                                <td></td>
+                            <td>
+                                <br>
+                                   <b>Chọn những câu không cần hoán vị đáp án - theo index hệ thống (xem ví dụ) : </b>
+                                   <br>
+                                <input type="text" name="txtNoSwap" value="1.5" size="10">
+                            </td>
+                        </tr>
+
+                             <tr style="height:40px">
+                    <td> </td>
+                    <td>
+                        <br>
+                            <b>Tự đánh đáp án thích hợp cho từng câu - phải dựa vào index bạn đã thiết đặt ở trên? (xem ví dụ tương đương) : </b>
+                            <br>
+                        <textarea rows="20" cols="150" name="txtDapAn" autofocus>B
+C
+C
+A
+D</textarea>
+                    </td>
+                </tr>
+
+
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                    <input type="Submit" value="Kết Quả" />
+                </td>
+            </tr>
+    }
+</table>

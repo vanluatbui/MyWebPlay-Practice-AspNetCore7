@@ -1,0 +1,101 @@
+﻿@model MyWebPlay.Model.TracNghiem
+
+<script>
+
+</script>
+
+<table align="center">
+    <h2 style="text-align:center;color:purple">Play Test Trắc Nghiệm</h2>
+
+    <h3 style="color:blue">@ViewBag.KetQuaDung</h3>
+    <h3 style="color:blue">@ViewBag.KetQuaSai</h3>
+    <h2 style="color:darkred">@ViewBag.KetQuaDiem</h2>
+
+
+    @using (Html.BeginForm("PlayTracNghiem", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        @Html.ValidationSummary(true)
+
+            <br />
+        <br />
+        <b>Tổng số câu cần làm : @Model.gioihancau/@Model.tongsocau</b>
+        <br />
+        <b>Thời gian làm bài : @Model.timelambai phút</b>
+        <br />
+        <br />
+        <hr />
+
+        @for (int i = 0; i < @Model.gioihancau; i++)
+        {
+            <tr style="height:40px">
+                <td></td>
+                        <td> <b> <b style="color:blue">Câu số @(i + 1)</b>. @Html.Raw(Model.ch[@i]) : </b></td>
+            </tr>
+
+            <tr style="height:40px">
+                <td></td>
+                                <td><b> A. @Html.Raw(Model.a[@i])</b> </td>
+            </tr>
+
+                     <tr style="height:40px">
+                         <td></td>
+                                                <td><b> B. @Html.Raw(Model.b[@i])</b> </td>
+                    </tr>
+
+                             <tr style="height:40px">
+                                          <td></td>
+                                                <td><b> C. @Html.Raw(Model.c[@i])</b> </td>
+                    </tr>
+
+                             <tr style="height:40px">
+                                          <td></td>
+                                                <td><b> D. @Html.Raw(Model.d[@i])</b> </td>
+                    </tr>
+
+                    @if(ViewData["dapandachon-"+@i] ==  null)
+                    {
+                                <tr style="height:40px">
+                                                 <td></td>
+                                    <td><b style="color:deeppink"> Chọn đáp án của bạn : </b>
+  <select name="dapan-@i">
+          <option>A</option>
+          <option>B</option>
+          <option>C</option>
+          <option>D</option>
+        </select> 
+        </td>
+                            </tr>
+                    }
+                    else
+                    {
+ <tr style="height:40px">
+                  <td></td>
+     <td>
+         @Html.Raw(ViewData["ketqua-"+@i])
+                        @Html.Raw(ViewData["dapandachon-"+@i])
+                        <br>
+                        @Html.Raw(ViewData["dapandung-"+@i])
+                </td>
+     </tr>
+                    }
+
+        }
+
+        @if (ViewBag.KetQuaDung == "")
+        {
+                <tr style="height:40px">
+                    <td></td>
+                    <td>
+                        <input style="font-weight:bolder" type="Submit" value="Đánh Giá Bài Làm" />
+                        <br>
+                            <p style="color:red">Lưu ý : kiểm tra thật kỹ toàn bộ bài làm trước khi xem kết quả!</p>
+                    </td>
+            </tr>
+        }
+        else
+        {
+           <h3>@Html.ActionLink("Thực hiện bài test trắc nghiệm mới", "TracNghiem")</h3>
+           <br />
+        }
+    }
+</table>

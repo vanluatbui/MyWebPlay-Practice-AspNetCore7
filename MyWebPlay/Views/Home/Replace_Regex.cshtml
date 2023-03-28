@@ -8,8 +8,11 @@
         @Html.ValidationSummary(true)
 
         <tr style="height:40px">
-            <td> Chuỗi của bạn : </td>
+            <td></td>
             <td>
+                <br>
+                    <b>Chuỗi của bạn : </b>
+                <br>
                 <textarea rows="20" cols="150" name="Chuoi" autofocus></textarea>
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
@@ -20,8 +23,10 @@
         <br />
 
         <tr style="height:40px">
-            <td> Nhập pattern-input cần thay đổi : </td>
+            <td> </td>
             <td>
+                <br>
+                <br>
                 <textarea rows="10" cols="100" name="Input" autofocus></textarea>
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
@@ -32,8 +37,11 @@
         <br />
 
              <tr style="height:40px">
-                <td> Nhập pattern-output sẽ được thay thế thành : </td>
+                <td></td>
             <td>
+                <br>
+                    <b> Nhập pattern-output sẽ được thay thế thành : </b>
+                <br>
                 <textarea rows="10" cols="100" name="Output" autofocus></textarea>
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
@@ -44,8 +52,11 @@
             <br />
 
                 <tr style="height:40px">
-                <td> Mời bạn lựa chọn áp dụng Regex (Với 1 : Áp dụng Regex, 2 : Không áp dụng Regex) </td>
+                <td> </td>
             <td>
+                <br>
+                    <b>Mời bạn lựa chọn áp dụng Regex (Với 1 : Áp dụng Regex, 2 : Không áp dụng Regex)</b>
+                    <br>
                 <input type="number" min="1" max="2" name="DuKien1" value="1">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi4"] </span>
@@ -57,8 +68,11 @@
         <br />
 
         <tr style="height:40px">
-            <td> Nhập số lượng thay thế kết quả áp dụng - [Chú ý nếu đã chọn không áp dụng Regex thì nó sẽ áp dụng tất cả...] (ưu tiên các kết quả đầu tiên) # Có thể nhập -1 để áp dụng tất cả...</td>
+            <td> </td>
             <td>
+                <br>
+                    <b>Nhập số lượng thay thế kết quả áp dụng - [Chú ý nếu đã chọn không áp dụng Regex thì nó sẽ áp dụng tất cả...] (ưu tiên các kết quả đầu tiên) # Có thể nhập -1 để áp dụng tất cả...</b>
+                    <br>
                 <input type="number" min="-1" name="DuKien2" value="-1">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi5"] </span>

@@ -8,8 +8,11 @@
         @Html.ValidationSummary(true)
 
         <tr style="height:40px">
-            <td> Chuỗi của bạn : </td>
+            <td></td>
             <td>
+                    <br>
+                        <b> Chuỗi của bạn :</b>
+                    <br>
                 <textarea rows="20" cols="150" name="Chuoi" autofocus></textarea>
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
@@ -19,9 +22,12 @@
         <br /><br />
 
         <tr style="height:40px">
-            <td> Mời bạn lựa chọn áp dụng Regex (Với 1 : Áp dụng Regex, 2 : Không áp dụng Regex) </td>
+            <td></td>
             <td>
-                <input type="number" min="1" max="2" name="DuKien1" value="1">
+                <br>
+                    <b>Mời bạn lựa chọn áp dụng Regex (Với 1 : Áp dụng Regex, 2 : Không áp dụng Regex) </b>
+              <br>
+                    <input type="number" min="1" max="2" name="DuKien1" value="1">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
             </td>
@@ -30,8 +36,11 @@
         <br /><br />
 
         <tr style="height:40px">
-            <td> Nhập pattern hoặc dấu hiệu cần tách </td>
+            <td></td>
             <td>
+                <br>
+                    <b>Nhập pattern hoặc dấu hiệu cần tách </b>
+                    <br>
                 <input type="text" size="50" name="Pattern" value="">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
@@ -40,9 +49,12 @@
 
         <br /><br />
         <tr style="height:40px">
-            <td> Mời bạn lựa chọn dạng tách (Với 1 : X -> N(Y), 2 : 0 + X -> N - Y, 3 : X, 4 : Y) </td>
+            <td></td>
             <td>
-                <input type="number" min="1" max="4" name="DuKien2" value="1">
+                <br>
+                    <b>Mời bạn lựa chọn dạng tách (Với 1 : X -> N(Y), 2 : 0 + X -> N - Y, 3 : X, 4 : Y) </b>
+               <br>
+                    <input type="number" min="1" max="4" name="DuKien2" value="1">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi4"] </span>
             </td>
@@ -51,8 +63,11 @@
         <br /><br />
 
             <tr style="height:40px">
-            <td> Nhập X </td>
+            <td> </td>
             <td>
+                    <br>
+                        <b> Nhập X :</b>
+                    <br>
                 <input type="text" size="50" name="X" value="">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi5"] </span>
@@ -63,8 +78,11 @@
         <br />
 
         <tr style="height:40px">
-            <td> Nhập Y </td>
+            <td></td>
             <td>
+                    <br>
+                        <b> Nhập Y :</b>
+                    <br>
                 <input type="text" size="50" name="Y" value="">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi6"] </span>

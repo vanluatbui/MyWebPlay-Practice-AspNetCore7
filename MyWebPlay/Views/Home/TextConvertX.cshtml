@@ -8,8 +8,11 @@
         @Html.ValidationSummary(true)
 
         <tr style="height:40px">
-            <td> Chuỗi của bạn (mỗi phần tử cách nhau bởi Enter) :</td>
+            <td></td>
             <td>
+                <br>
+                    <b>Chuỗi của bạn (mỗi phần tử cách nhau bởi Enter) :</b>
+                <br>
                 <textarea rows="20" cols="150" name="Chuoi" autofocus></textarea>
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
@@ -17,15 +20,21 @@
         </tr>
 
         <tr style="height:40px">
-            <td> START : </td>
+            <td></td>
             <td>
+                    <br>
+                        <b> START_X :</b>
+                    <br>
                 <input type="text" name="Start" size="100">
             </td>
         </tr>
 
         <tr style="height:40px">
-            <td> END : </td>
+            <td></td>
             <td>
+                    <br>
+                        <b> END_Y :</b>
+                    <br>
                 <input type="text" name="End" size="100">
             </td>
         </tr>

@@ -48,6 +48,8 @@
     <b>Nhập số lượng file mà bạn muốn đăng tải : </b> <input type="number" id="SL" value="@ViewBag.SL" min="1"/>
     <button onclick="soluongfile()">OK</button>
 
+                <br />
+
     @using (Html.BeginForm("UploadFile", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
         @Html.ValidationSummary(true)
@@ -59,17 +61,22 @@
         @for (int i = 0; i < ViewBag.SL; i++)
         {
             <tr style="height:40px">
-                <td> Upload 1 file của bạn : </td>
+                        <td></td>
                 <td>
+                    <br>
+                           <b>@(i + 1).1</b> Upload 1 file của bạn :
+                    <br>
                     <input type="file" name="fileUpload">
                     <br>
                 </td>
             </tr>
-            <br />
 
             <tr style="height:40px">
-                <td> Đặt lại tên file ngắn gọn tuỳ bạn gợi nhớ (file được lưu trữ trên Server sẽ mang tên này) : </td>
+                   <td> </td>
                 <td>
+                    <br>
+                            <b>@(i + 1).2</b> Đặt lại tên file ngắn gọn tuỳ bạn gợi nhớ (file được lưu trữ trên Server sẽ mang tên này) :
+                            <br>
                     <input type="text" size="50" name="TenFile">
                     <br>
                 </td>

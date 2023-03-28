@@ -8,8 +8,11 @@
         @Html.ValidationSummary(true)
 
         <tr style="height:40px">
-            <td> Chuỗi của bạn : </td>
+            <td></td>
             <td>
+                <br>
+                    <b>Chuỗi của bạn : </b>
+                <br>
                 <input type="text" size="100" name="Chuoi">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
@@ -20,8 +23,11 @@
         <br />
 
         <tr style="height:40px">
-            <td> Pattern cần kiểm tra : </td>
+            <td></td>
             <td>
+                <br>
+                    <b>Pattern cần kiểm tra : </b>
+                <br>
                 <input type="text" size="100" name="Pattern">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>

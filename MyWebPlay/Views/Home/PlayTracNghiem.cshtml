@@ -2,6 +2,50 @@
 
 <script>
 
+    var timeX = '@ViewBag.TimeLamBai' * 60;
+
+    var id = setInterval(myAlert, 1000);
+
+    function myAlert() {
+
+        if ('@ViewBag.TimeLamBai' != "")
+        {
+       var t = document.getElementById("Time");
+
+       var h = Math.floor(timeX / 3600);
+       var m = Math.floor((timeX / 60) % 60) ;
+       var s = timeX % 60;
+
+        if (h< 10 && m < 10 && s < 10)
+                t.innerHTML = "0" + h + " : 0" + m + " : 0" + s;
+            if (h < 10 && m < 10 && s >= 10)
+                t.innerHTML = "0" + h + " : 0" + m + " : " + s;
+            if (h < 10 && m >= 10 && s < 10)
+                t.innerHTML = "0" + h + " : " + m + " : 0" + s;
+            if (h < 10 && m >= 10 && s >= 10)
+                t.innerHTML = "0" + h + " : " + m + " : " + s;
+            if (h >= 10 && m < 10 && s < 10)
+                t.innerHTML = "" + h + " : 0" + m + " : 0" + s;
+            if (h >= 10 && m < 10 && s >= 10)
+                t.innerHTML = "" + h + " : 0" + m + " : " + s;
+            if (h >= 10 && m >= 10 && s < 10)
+                t.innerHTML = "" + h + " : " + m + " : 0" + s;
+            if (h >=10 && m >= 10 && s >= 10)
+                t.innerHTML = "" + h + " : " + m + " : " + s;
+
+            timeX--;
+
+            if (timeX == -1)
+            {
+                alert('Đã hết thời gian làm bài...\nBài kiểm tra của bạn sẽ tự động được nộp đánh giá sau đó!');
+                clearInterval(id);
+
+                var ok = document.getElementById("OKX");
+                ok.click();
+            }
+         }
+    }
+
 </script>
 
 <table align="center">
@@ -18,9 +62,17 @@
 
             <br />
         <br />
+            <b>Tên môn học/kỳ kiểm tra : @Model.tenmon</b>
+            <br />
         <b>Tổng số câu cần làm : @Model.gioihancau/@Model.tongsocau</b>
         <br />
-        <b>Thời gian làm bài : @Model.timelambai phút</b>
+            <b>Thời gian làm bài : @Model.timelambai phút
+                     @if (ViewBag.TimeLamBai != null)
+                     {
+                <span style="color:red">
+                <h2 id="Time">00 : 00 : 00</h2></span>
+                     }
+                </b>
         <br />
         <br />
         <hr />
@@ -86,7 +138,7 @@
                 <tr style="height:40px">
                     <td></td>
                     <td>
-                        <input style="font-weight:bolder" type="Submit" value="Đánh Giá Bài Làm" />
+                        <input style="font-weight:bolder" id="OKX" type="Submit" value="Đánh Giá Bài Làm" />
                         <br>
                             <p style="color:red">Lưu ý : kiểm tra thật kỹ toàn bộ bài làm trước khi xem kết quả!</p>
                     </td>

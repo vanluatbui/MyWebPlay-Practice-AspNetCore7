@@ -31,10 +31,18 @@ namespace MyWebPlay.Controllers
         {
             string txtSoCau = f["txtSoCau"].ToString();
             string txtTime = f["txtTime"].ToString();
+            string txtMon = f["txtMon"].ToString();
+           
 
             if (txtFile == null || txtFile.FileName.Length == 0)
             {
                 ViewData["Loi1"] = "Mời bạn chọn file TXT trắc nghiệm...";
+                return this.TracNghiem();
+            }
+
+            if (string.IsNullOrEmpty(txtMon))
+            {
+                ViewData["Loi"] = "Không được bỏ trống trường này";
                 return this.TracNghiem();
             }
 
@@ -242,6 +250,9 @@ namespace MyWebPlay.Controllers
             tn.tongsocau = n9;
            tn.gioihancau = int.Parse(txtSoCau);
             tn.timelambai = int.Parse(txtTime);
+            tn.tenmon = txtMon;
+
+            ViewBag.TimeLamBai = tn.timelambai;
 
             HttpContext.Session.SetObject("TracNghiem", tn);
             ViewBag.KetQuaDung = "";
@@ -285,7 +296,7 @@ namespace MyWebPlay.Controllers
                 }
                 else if (da == "B")
                 {
-                    ViewData["dapandachon-" + i] = "<b><span style=\"color:orange\">Đáp án bạn đã chọn</span> : B. " + tn.b[i] + "</b>";
+                    ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Đáp án bạn đã chọn</span> : B. " + tn.b[i] + "</b>";
 
                     if (tn.dung[i] == tn.b[i])
                     {
@@ -301,7 +312,7 @@ namespace MyWebPlay.Controllers
                 }
                 else if (da == "C")
                 {
-                    ViewData["dapandachon-" + i] = "<b><span style=\"color:orange\">Đáp án bạn đã chọn</span> : C. " + tn.c[i] + "</b>";
+                    ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Đáp án bạn đã chọn</span> : C. " + tn.c[i] + "</b>";
 
                     if (tn.dung[i] == tn.c[i])
                     {

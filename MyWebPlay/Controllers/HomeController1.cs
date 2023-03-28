@@ -167,7 +167,7 @@ namespace MyWebPlay.Controllers
 
             ViewBag.ChuoiVD = "Câu số 1. 1 + 1 = ?\r\nA. 1\r\nB. 2\r\nC. 3\r\nD. 4\r\nCâu số 2. Lan có 5 quả cam, Lan cho Hà 3 quả. Hỏi <span style=\"color:red\">Lan</span> còn lại bao nhiêu quả cam?\r\nA. 4 quả\r\nB. 5 quả\r\nC. 2 quả\r\nD. 1 quả\r\nCâu số 3. Tìm x biết x - 10 = 20?\r\nA. x = 50\r\nB. x = 60\r\nC. x = <span style=\"green\"> 30\r\nD. x = 0\r\nCâu số 7. Hạnh phúc là gì?\r\nA. Là niềm vui\r\nB. Là hạnh phúc\r\nC. Là nụ cười\r\nD. Là tình yêu\r\nCâu số 8. Tính diện tích hình vuông có cạnh là 5 cm?\r\nA. 5 cm<sup>2</sup>\r\nB. 10 cm<sup>2</sup>\r\nC. 15 cm<sup>2</sup>\r\nD. 25 cm<sup>2</sup>";
 
-            ViewBag.KetQua = "<p style=\"color:blue\">Thành công, một file TXT trắc nghiệm của bạn đã được xử lý...</p><a href=\"/tracnghiem/" + fi + "\" download>Click vào đây để tải về</a><br><p style=\"color:red\">Lưu ý : File trắc nghiệm này hệ thống sẽ tự động xoá tất cả trong vòng 24h...</p>";
+            ViewBag.KetQua = "<p style=\"color:blue\">Thành công, một file TXT trắc nghiệm của bạn đã được xử lý...</p><a href=\"/tracnghiem/" + fi + "\" download>Click vào đây để tải về</a><br><p style=\"color:red\">Lưu ý : File trắc nghiệm này của bạn hệ thống sẽ tự động xoá tất cả các file trong vòng 24h...</p>";
             
             return View();
         }

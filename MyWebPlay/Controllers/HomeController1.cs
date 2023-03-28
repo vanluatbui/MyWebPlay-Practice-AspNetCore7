@@ -44,6 +44,19 @@ namespace MyWebPlay.Controllers
 
             string d = f["txtDapAn"].ToString();
 
+            string[] DX = d.Split('\n');
+
+            for (int i = 0; i < DX.Length; i++)
+            {
+                if (DX[i].ToCharArray()[0] < 'A' || DX[i].ToCharArray()[0] > 'D')
+                {
+                    ViewBag.KetQua = "<span style=\"color:red\">Đáp án của bạn cho từng câu hỏi chỉ được cung cấp trong khoảng A,B,C,D...</span>";
+                    //this.Close();
+
+                    return this.CreateFile_TracNghiem();
+                }
+            }
+
             d = d.Replace("A", "1");
             d = d.Replace("B", "2");
             d = d.Replace("C", "3");
@@ -86,8 +99,9 @@ namespace MyWebPlay.Controllers
 
             if (dulieu.Length / 5 != dapan.Length)
             {
-                ViewBag.KetQua = "<span style=\"color:red\">Số lượng câu hỏi của bạn trong dữ liệu không khớp với đáp án của bạn (lỗi do thiếu hoặc dư)...\n\n+ Số lượng dữ liệu : " + dulieu.Length / 5 + "\n Số lượng đáp án : " + dapan.Length+"</span>";
+                ViewBag.KetQua = "<span style=\"color:red\">Số lượng câu hỏi của bạn trong dữ liệu không khớp với đáp án của bạn (lỗi do thiếu hoặc dư)...\r\n\r\n+ Số lượng dữ liệu : " + dulieu.Length / 5 + "\r\n Số lượng đáp án : " + dapan.Length+"</span>";
                 //this.Close();
+
                 return this.CreateFile_TracNghiem();
             }
 

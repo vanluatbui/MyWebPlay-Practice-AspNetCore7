@@ -81,40 +81,42 @@
         {
             <tr style="height:40px">
                 <td></td>
-                        <td> <b> <b style="color:yellow">Câu số @(i + 1)</b>. @Html.Raw(Model.ch[@i]) : </b></td>
+                        <td><h4><b style="color:yellow">Câu số @(i + 1)</b>. @Html.Raw(Model.ch[@i]) : </h4></td>
             </tr>
 
             <tr style="height:40px">
                 <td></td>
-                                <td><b> A. @Html.Raw(Model.a[@i])</b> </td>
+                                <td><h4><b> A. @Html.Raw(Model.a[@i])</b></h4> </td>
             </tr>
 
                      <tr style="height:40px">
                          <td></td>
-                                                <td><b> B. @Html.Raw(Model.b[@i])</b> </td>
+                                                <td><h4><b> B. @Html.Raw(Model.b[@i])</b></h4> </td>
                     </tr>
 
                              <tr style="height:40px">
                                           <td></td>
-                                                <td><b> C. @Html.Raw(Model.c[@i])</b> </td>
+                                                <td><h4><b> C. @Html.Raw(Model.c[@i])</b></h4> </td>
                     </tr>
 
                              <tr style="height:40px">
                                           <td></td>
-                                                <td><b> D. @Html.Raw(Model.d[@i])</b> </td>
+                                                <td><h4><b> D. @Html.Raw(Model.d[@i])</b></h4> </td>
                     </tr>
 
                     @if(ViewData["dapandachon-"+@i] ==  null)
                     {
                                 <tr style="height:40px">
                                                  <td></td>
-                                    <td><b style="color:deeppink"> Chọn đáp án của bạn : </b>
-  <select name="dapan-@i">
+                                    <td><h4><b style="color:deeppink"> Chọn đáp án cho câu @(i+1) của bạn : </b></h4>
+  <h3><select name="dapan-@i">
+      <b>
           <option>A</option>
           <option>B</option>
           <option>C</option>
           <option>D</option>
-        </select> 
+          </b>
+        </select> </h3><br>
         </td>
                             </tr>
                     }
@@ -124,9 +126,9 @@
                   <td></td>
      <td>
          @Html.Raw(ViewData["ketqua-"+@i])
-                        @Html.Raw(ViewData["dapandachon-"+@i])
+                       <h4>@Html.Raw(ViewData["dapandachon-"+@i])</h4> 
+                        <h4>@Html.Raw(ViewData["dapandung-"+@i])</h4>
                         <br>
-                        @Html.Raw(ViewData["dapandung-"+@i])
                 </td>
      </tr>
                     }
@@ -140,7 +142,7 @@
                     <td>
                         <input style="font-weight:bolder" id="OKX" type="Submit" value="Đánh Giá Bài Làm" />
                         <br>
-                            <p style="color:red">Lưu ý : kiểm tra thật kỹ toàn bộ bài làm trước khi xem kết quả!</p>
+                            <p style="color:orange">Lưu ý : kiểm tra thật kỹ toàn bộ bài làm trước khi xem kết quả!</p>
                     </td>
             </tr>
         }

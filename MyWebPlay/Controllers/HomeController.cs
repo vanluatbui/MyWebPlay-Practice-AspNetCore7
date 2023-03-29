@@ -179,7 +179,7 @@ namespace MyWebPlay.Controllers
             s = s.Replace(" }", "}");
             s = s.Replace(" ]", "]");
             s = s.Replace(" )", ")");
-            s = s.Replace(" \"", "\"");
+            //s = s.Replace(" \"", "\"");
 
             s = s.Replace(" .", ".");
             s = s.Replace(" ,", ",");
@@ -195,6 +195,12 @@ namespace MyWebPlay.Controllers
 
             while (s.Contains(" \r\n") == true)
                 s = s.Replace(" \r\n", "\r\n");
+
+            while (s.Contains("  ") == true)
+                s = s.Replace("  ", " ");
+
+            while (s.Contains("\t\t") == true)
+                s = s.Replace("\t\t", "\t");
 
             TextCopy.ClipboardService.SetText(s);
 
@@ -379,7 +385,7 @@ namespace MyWebPlay.Controllers
             result = "\r\n" + result+"\r\n\r\n"+re;
             result = result.Replace("\r\n", "<br>");
 
-            result = "<p style=\"color:blue\"" + result + "</p>";
+            result = "<p style=\"color:yellow\"" + result + "</p>";
 
             ViewBag.Result = result;
 

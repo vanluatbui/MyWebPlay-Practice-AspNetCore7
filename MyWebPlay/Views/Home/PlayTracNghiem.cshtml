@@ -49,11 +49,11 @@
 </script>
 
 <table align="center">
-    <h2 style="text-align:center;color:purple">Play Test Trắc Nghiệm</h2>
+    <h2 style="text-align:center;color:lightsalmon">Play Test Trắc Nghiệm</h2>
 
-    <h3 style="color:blue">@ViewBag.KetQuaDung</h3>
-    <h3 style="color:blue">@ViewBag.KetQuaSai</h3>
-    <h2 style="color:darkred">@ViewBag.KetQuaDiem</h2>
+    <h3 style="color:aqua">@ViewBag.KetQuaDung</h3>
+    <h3 style="color:aqua">@ViewBag.KetQuaSai</h3>
+    <h2 style="color:lightgreen">@ViewBag.KetQuaDiem</h2>
 
 
     @using (Html.BeginForm("PlayTracNghiem", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
@@ -81,7 +81,7 @@
         {
             <tr style="height:40px">
                 <td></td>
-                        <td> <b> <b style="color:blue">Câu số @(i + 1)</b>. @Html.Raw(Model.ch[@i]) : </b></td>
+                        <td> <b> <b style="color:yellow">Câu số @(i + 1)</b>. @Html.Raw(Model.ch[@i]) : </b></td>
             </tr>
 
             <tr style="height:40px">

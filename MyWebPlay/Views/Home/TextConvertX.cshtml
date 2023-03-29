@@ -1,7 +1,7 @@
 ﻿<table align="center">
     <h2 style="text-align:center">Text Convert X ???</h2>
 
-    <h3 style="color:blue" onclick="muaxuan()">@ViewBag.KetQua</h3>
+    <h3 style="color:yellow" onclick="muaxuan()">@ViewBag.KetQua</h3>
 
     @using (Html.BeginForm())
     {
@@ -13,7 +13,12 @@
                 <br>
                     <b>Chuỗi của bạn (mỗi phần tử cách nhau bởi Enter) :</b>
                 <br>
-                <textarea rows="20" cols="150" name="Chuoi" autofocus></textarea>
+                    <textarea rows="20" cols="150" name="Chuoi" autofocus>Bùi Văn Luật
+Lê Xuân Thảo
+Trần Thị Mỹ Anh
+Dương Hoàng Ngọc Mỹ
+Lê Thị Cẩm Tiên
+Nguyễn Minh Đức</textarea>
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
             </td>
@@ -25,7 +30,7 @@
                     <br>
                         <b> START_X :</b>
                     <br>
-                <input type="text" name="Start" size="100">
+                <input type="text" name="Start" size="100" value="(...">
             </td>
         </tr>
 
@@ -35,7 +40,7 @@
                     <br>
                         <b> END_Y :</b>
                     <br>
-                <input type="text" name="End" size="100">
+                <input type="text" name="End" size="100" value="...);">
             </td>
         </tr>
 

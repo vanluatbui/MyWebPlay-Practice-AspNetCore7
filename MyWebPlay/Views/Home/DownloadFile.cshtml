@@ -35,6 +35,7 @@
 
 </script>
 
+
 <table align="center">
     <h2 style="text-align:center">DOWNLOAD YOUR FILE ON SERVER</h2>
 
@@ -42,7 +43,7 @@
     {
             <b> KẾT QUẢ FILE THỨ @(i+1) CỦA BẠN : </b>
                 <br />
-    <h3 style="color:blue">@Html.Raw(@ViewData["KetQua"+i])</h3>
+    <h3 style="color:yellow">@Html.Raw(@ViewData["KetQua"+i])</h3>
     <br />
     <br />
     }
@@ -56,7 +57,7 @@
     <br />
     <br />
     <b>Nhập số lượng file mà bạn muốn download : </b> <input type="number" id="SL" value="@ViewBag.SL" min="1"/>
-    <button onclick="soluongfile()">OK</button>
+    <button id="okX" onclick="soluongfile()">OK</button>
 
                 <br />
                  <br />

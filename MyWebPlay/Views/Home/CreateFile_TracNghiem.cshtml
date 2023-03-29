@@ -1,37 +1,10 @@
 ﻿
-<script>
-
-    function xoaallfile(){
-
-        var check = prompt('Để xác nhận xoá tất cả các file trên Server, admin nhập đúng mật mã : ');
-
-        if (check!=null)
-        {
-            if (check != "admin")
-        {
-            alert('Mật mã xác nhận xử lý không chính xác!')
-        }
-        else{
-            alert('Thành công! Tác vụ sẽ tiến hành chuẩn bị xử lý...')
-        }
-
-         window.location.href = "/Home/XoaAllFile_X?password="+check;
-        }
-    }
-
-    function xoa()
-    {
-        alert('VÀO');
-    }
-
-</script>
 
 <table align="center">
     <h2 style="text-align:center">File Trắc Nghiệm Theo Hệ Thống (dành cho admin hoặc các user hiểu biết chức năng)</h2>
 
     <h3 style="color:blue">@Html.Raw(ViewBag.KetQua)</h3>
 
-    <button style="color:purple" onclick="xoaallfile()">Xoá tất cả các file trên Server (dành cho admin)</button>
     <br />
 
     @using (Html.BeginForm())
@@ -44,6 +17,8 @@
                     <br>
                         <b>Dán bài trắc nghiệm của bạn tại đây (xem ví dụ tương đương) :</b>
                         <br>
+                            <b style="color:yellow">Để tránh trường hợp có thể xảy ra, tốt nhất bạn nên lưu và thực hiện nội dung trắc nghiệm đâu đó trên local và sao chép chúng thông qua vào trường điền dưới đây...</b>
+                            <br>
                     <textarea rows="20" cols="150" name="txtChuoi" autofocus>@ViewBag.ChuoiVD</textarea>
                 </td>
             </tr

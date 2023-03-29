@@ -1,7 +1,7 @@
 ﻿<table align="center">
     <h2 style="text-align:center">Read Number</h2>
 
-    <h3 style="color:blue">@ViewBag.KetQua</h3>
+    <h3 style="color:blue" onclick="muaxuan()">@ViewBag.KetQua</h3>
 
     @using (Html.BeginForm())
     {
@@ -44,4 +44,6 @@
 <br />
 <br />
 
-@Html.Raw(ViewBag.Result)
+<div id="hihi">
+    @Html.Raw(ViewBag.Result)
+</div>

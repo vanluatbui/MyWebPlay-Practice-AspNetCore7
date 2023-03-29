@@ -1,7 +1,7 @@
 ﻿<table align="center">
     <h2 style="text-align:center">Reverse String 2 - Ví dụ : 1 2 3 | 4 5 6 | 7 8 9 --> 3 2 1 | 6 5 4 | 9 8 7</h2>
 
-    <h3 style="color:blue">@ViewBag.KetQua</h3>
+    <h3 style="color:blue" onclick="muaxuan()">@ViewBag.KetQua</h3>
 
     @using (Html.BeginForm())
     {
@@ -39,4 +39,6 @@ X Y Z</textarea>
 <br />
 <br />
 
-@Html.Raw(ViewBag.Result)
+<div id="hihi">
+    @Html.Raw(ViewBag.Result)
+</div>

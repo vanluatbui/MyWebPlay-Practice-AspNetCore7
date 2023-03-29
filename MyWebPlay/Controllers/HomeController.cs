@@ -26,6 +26,13 @@ namespace MyWebPlay.Controllers
 
         public ActionResult Index()
         {
+            var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
+
+            foreach (var file in listFile)
+            {
+                FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", file));
+                f.Delete();
+            }
             return View();
         }
 
@@ -346,6 +353,7 @@ namespace MyWebPlay.Controllers
 
             string[] number = Regex.Split(chuoi, "\r\n");
             string result = "";
+            string re = "";
             for (int i = 0; i < number.Length; i++)
             {
                 if (long.Parse(number[i]) < 0 || number[i].Length > 12)
@@ -355,14 +363,20 @@ namespace MyWebPlay.Controllers
                 }
 
                 if (long.Parse(number[i]) == 0)
+                {
                     result += "0 : Không\r\n";
+                    re += "Không\r\n";
+                }
                 else
-                    result +=  number[i]+" : "+Models.ReadNumber.hienthicachdocso(long.Parse(number[i])) + "\r\n";
-            }
+                {
+                    result += number[i] + " : " + Models.ReadNumber.hienthicachdocso(long.Parse(number[i])) + "\r\n";
+                    re += Models.ReadNumber.hienthicachdocso(long.Parse(number[i])) + "\r\n";
+                }
+              }
 
             TextCopy.ClipboardService.SetText(result);
 
-            result = "\r\n" + result;
+            result = "\r\n" + result+"\r\n\r\n"+re;
             result = result.Replace("\r\n", "<br>");
 
             result = "<p style=\"color:blue\"" + result + "</p>";

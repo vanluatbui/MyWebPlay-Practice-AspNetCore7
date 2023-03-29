@@ -1,4 +1,6 @@
 ﻿<!DOCTYPE html>
+@using MyWebPlay.Model;
+
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -8,11 +10,33 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body style="background-color:black">
+    <script>
+        function muaxuan()
+        {
+            document.location.href= "#hihi";
+        }
+
+        var tim = 15;
+        var idX = setInterval(myFay, 1000);
+
+        function myFay()
+        {
+            var va = document.getElementById("thoigian");
+            va.innerHTML = tim;
+            tim--;
+            if (va.innerText == 0)
+            {
+                clearInterval(idX);
+                window.location.href="/Home/XoaAllFile_X";
+            }
+        }
+
+        </script>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-black border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MyWebPlay</a>
+                <a style="color:white" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MyWebPlay</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,111 +45,115 @@
                     <ul class="navbar-nav flex-grow-1">
        
                          <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="HD_API">HD_API</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="HD_API">HD_API</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="HD_Web_AspNetCore">HD_Web_AspNetCore</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="HD_Web_AspNetCore">HD_Web_AspNetCore</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CheckText">CheckText</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="CheckText">CheckText</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="TextToColumn1">TextToColumn-X1</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="TextToColumn2">TextToColumn-X2</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="TextToColumn1">TextToColumn-X1</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ReadNumber">ReadNumber</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="TextToColumn2">TextToColumn-X2</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="TextConvertX">Text-ConvertX</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="ReadNumber">ReadNumber</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="CSDL_MainKey">CSDL_MainKey</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="TextConvertX">Text-ConvertX</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SQL_InsertDoc">SQL_InsertDoc</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="CSDL_MainKey">CSDL_MainKey</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="JSON_InsertDoc">JSON_InsertDoc</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="SQL_InsertDoc">SQL_InsertDoc</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SQL_CreateTable">SQL_CreateTable</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="JSON_InsertDoc">JSON_InsertDoc</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Cxap_CreateClass">Cxap_CreateClass</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="SQL_CreateTable">SQL_CreateTable</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Cxap_CreateClass">Cxap_CreateClass</a>
                         </li>
      
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Cxap_InsertValueClass">Cxap_InsertValueClass</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Cxap_InsertValueClass">Cxap_InsertValueClass</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="String_Reverse">String_Reverse 1</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="String_Reverse">String_Reverse 1</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="String_Reverse2">String_Reverse 2</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="String_Reverse2">String_Reverse 2</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Special_OrderBy">Special_OrderBy</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Special_OrderBy">Special_OrderBy</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SpecialX_OrderBy">SpecialX_OrderBy</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="SpecialX_OrderBy">SpecialX_OrderBy</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="String_Split_Regex">String_Split_Regex</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="String_Split_Regex">String_Split_Regex</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Check_Regex">Check_Regex</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Check_Regex">Check_Regex</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ResultCheck_Regex">ResultCheck_Regex</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="ResultCheck_Regex">ResultCheck_Regex</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Replace_Regex">Replace_Regex</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Replace_Regex">Replace_Regex</a>
                         </li>
 
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="BangChanTri">Bảng Chân Trị</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="BangChanTri">Bảng Chân Trị</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="TronMau">Trộn Màu</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="TronMau">Trộn Màu</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Euler_X">Euler - Đồ thị</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Euler_X">Euler - Đồ thị</a>
                         </li>
 
                          <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="UploadFile">Upload File</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="UploadFile">Upload File</a>
                         </li>
 
                          <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="DownloadFile">Download File</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="DownloadFile">Download File</a>
                         </li>
 
                          <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="TracNghiem">Play Trắc Nghiệm</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="TracNghiem">Play Trắc Nghiệm</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Regex_Replace_Multiple">Regex_Replace_Multiple</a>
                         </li>
 
                     </ul>
@@ -135,7 +163,9 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+           <div style="color:white">
             @RenderBody()
+            </div>
         </main>
     </div>
 

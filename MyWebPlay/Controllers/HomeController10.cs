@@ -83,7 +83,7 @@ namespace MyWebPlay.Controllers
 
             if (ND_file.Length == 0)
             {
-                ViewData["Loi1"] = "Bài kiểm tra hay file văn bản của bạn hiện chưa có câu hỏi nào!";
+                ViewData["Loi1"] = "Bài kiểm tra hay file văn bản của bạn hiện chưa có nội dung nào!";
                 return this.TracNghiem();
             }
 
@@ -96,8 +96,8 @@ namespace MyWebPlay.Controllers
                 if (t2.Length != 6)
                 {
 
-                    string err = "WRONG QUESTION TO\n[" + t2[0] + "]\n\n";
-                    err += "Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi, còn $ dùng đế xác định câu hỏi không cần hoán vị đáp án. Xin lỗi vì sự bất tiện này! ]";
+                    string err = "WRONG INDEX QUESTION : " + t2[0] + "";
+                    //err += "Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi, còn $ dùng đế xác định câu hỏi không cần hoán vị đáp án. Xin lỗi vì sự bất tiện này! ]";
                     ViewData["Loi1"] = err;
                     return this.TracNghiem();
                 }
@@ -105,8 +105,8 @@ namespace MyWebPlay.Controllers
                 char[] t2_x = t2[5].ToCharArray();
                 if (t2_x[0] != '[' || t2_x[t2[5].Length - 1] != ']')
                 {
-                    string err = "WRONG QUESTION TO\n[" + t2[0] + "]\n\n";
-                    err += "Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi, còn $ dùng đế xác định câu hỏi không cần hoán vị đáp án. Xin lỗi vì sự bất tiện này! ]";
+                    string err = "WRONG INDEX QUESTION : " + t2[0] + "";
+                    //err += "Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi, còn $ dùng đế xác định câu hỏi không cần hoán vị đáp án. Xin lỗi vì sự bất tiện này! ]";
 
                     ViewData["Loi1"] = err;
                     return this.TracNghiem();
@@ -132,7 +132,7 @@ namespace MyWebPlay.Controllers
                 if (flag == 0)
                 {
                     //MessageBox.Show("Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi.\nXin lỗi vì sự bất tiện này! ]");
-                     ViewData["Loi1"] = "WRONG ANSWER TO\n[" + t2[0] + "]\n";
+                     ViewData["Loi1"] = "WRONG INDEX ANSWER OF QUESTION : " + t2[0] + "";
                     return this.TracNghiem();
                 }
             }

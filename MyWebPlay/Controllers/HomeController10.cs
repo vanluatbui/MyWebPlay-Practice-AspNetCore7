@@ -252,7 +252,7 @@ namespace MyWebPlay.Controllers
             tn.timelambai = int.Parse(txtTime);
             tn.tenmon = txtMon;
 
-            ViewBag.TimeLamBai = tn.timelambai;
+           ViewBag.TimeLamBai = tn.timelambai;
 
             HttpContext.Session.SetObject("TracNghiem", tn);
             ViewBag.KetQuaDung = "";

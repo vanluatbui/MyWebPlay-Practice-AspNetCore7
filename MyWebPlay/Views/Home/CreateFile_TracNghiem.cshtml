@@ -1,4 +1,10 @@
-﻿
+﻿<script>
+    function check()
+    {
+        var dapan = document.getElementById("DapAn").value.split(/\r|\n/);
+        alert("X-Answer of you recent is "+dapan.length);
+    }
+</script>
 
 <table align="center">
     <h2 style="text-align:center">File Trắc Nghiệm Theo Hệ Thống (dành cho admin hoặc các user hiểu biết chức năng)</h2>
@@ -7,6 +13,7 @@
 
     <br />
 
+   
     @using (Html.BeginForm())
     {
         @Html.ValidationSummary(true)
@@ -95,11 +102,13 @@
                         <br>
                             <b>Tự đánh đáp án thích hợp cho từng câu - phải dựa vào index bạn đã thiết đặt ở trên? (xem ví dụ tương đương) : </b>
                             <br>
-                        <textarea rows="20" cols="150" name="txtDapAn" autofocus>B
+                        <textarea rows="20" cols="150" id="DapAn" name="txtDapAn" autofocus>B
 C
 C
 A
 D</textarea>
+<br>
+ <input type="radio" onclick="check()" checked /><b>⬅️ Click here to check X-Answer</b>
                     </td>
                 </tr>
 
@@ -111,4 +120,5 @@ D</textarea>
                 </td>
             </tr>
     }
+
 </table>

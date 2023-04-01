@@ -9,7 +9,36 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult CreateFile_TracNghiem()
         {
-            ViewBag.ChuoiVD = "Câu số 1. 1 + 1 = ?\r\nA. 1\r\nB. 2\r\nC. 3\r\nD. 4\r\nCâu số 2. Lan có 5 quả cam, Lan cho Hà 3 quả. Hỏi <span style=\"color:red\">Lan</span> còn lại bao nhiêu quả cam?\r\nA. 4 quả\r\nB. 5 quả\r\nC. 2 quả\r\nD. 1 quả\r\nCâu số 3. Tìm x biết x - 10 = 20?\r\nA. x = 50\r\nB. x = 60\r\nC. x = <span style=\"color:green\"> 30</span>\r\nD. x = 0\r\nCâu số 7. Hạnh phúc là gì?<br><br><img src=\"https://thegioisofa.com/wp-content/uploads/2022/07/Cung-song-tu.jpg\" alt=\"Image Error\"><br>\r\nA. Là niềm vui\r\nB. Là hạnh phúc\r\nC. Là nụ cười\r\nD. Là tình yêu\r\nCâu số 8. Tính diện tích hình vuông có cạnh là 5 cm?\r\nA. 5 cm<sup>2</sup>\r\nB. 10 cm<sup>2</sup>\r\nC. 15 cm<sup>2</sup>\r\nD. 25 cm<sup>2</sup>";
+            if (ViewBag.ChuoiVD == null)
+            ViewBag.ChuoiVD = "Câu số 1. 1 + 1 = ?\r\nChọn đáp án đúng :\r\nA. 1\r\nB. 2\r\nC. 3\r\nD. 4\r\nCâu số 2. Lan có 5 quả cam, Lan cho Hà 3 quả. Hỏi <span style=\"color:red\">Lan</span> còn lại bao nhiêu quả cam?\r\nA. 4 quả\r\nB. 5 quả\r\nC. 2 quả\r\nD. 1 quả\r\nCâu số 3. Tìm x biết x - 10 = 20?\r\nA. x = 50\r\nB. x = 60\r\nC. x = <span style=\"color:green\"> 30</span>\r\nD. x = 0\r\nCâu số 7. Hạnh phúc là gì?<br><br><img src=\"https://thegioisofa.com/wp-content/uploads/2022/07/Cung-song-tu.jpg\" alt=\"Image Error\"><br>\r\nA. Là niềm vui\r\nLà tất cả\r\nLà nụ cườiB. Là hạnh phúc\r\n\r\nLà sự bình yênC. Là nụ cười\r\nD. Là tình yêu\r\nCâu số 8. Tính diện tích hình vuông có cạnh là 5 cm?\r\nA. 5 cm<sup>2</sup>\r\nB. 10 cm<sup>2</sup>\r\nC. 15 cm<sup>2</sup>\r\nD. 25 cm<sup>2</sup>";
+
+            if (ViewBag.CH_VD == null)
+                ViewBag.CH_VD = "1-3.7-8";
+
+            if (ViewBag.XCH_VD == null)
+                ViewBag.XCH_VD = "Câu số ";
+
+            if (ViewBag.CHX_VD == null)
+                ViewBag.CHX_VD = ". ";
+
+            if (ViewBag.A_VD == null)
+                ViewBag.A_VD = "A. ";
+
+            if (ViewBag.B_VD == null)
+                ViewBag.B_VD = "B. ";
+
+            if (ViewBag.C_VD == null)
+                ViewBag.C_VD = "C. ";
+
+            if (ViewBag.D_VD == null)
+                ViewBag.D_VD = "D. ";
+
+            if (ViewBag.NoSwap_VD == null)
+                ViewBag.NoSwap_VD = "2.5";
+
+            if (ViewBag.DapAn_VD == null)
+                ViewBag.DapAn_VD = "B\r\nC\r\nC\r\nA\r\nD";
+
             return View();
         }
 
@@ -62,6 +91,26 @@ namespace MyWebPlay.Controllers
                 {
                     ViewBag.KetQua = "<span style=\"color:red\">Đáp án của bạn cho từng câu hỏi chỉ được cung cấp trong khoảng A,B,C,D...</span>";
                     //this.Close();
+
+                    ViewBag.ChuoiVD = f["txtChuoi"].ToString();
+
+                    ViewBag.CH_VD = f["txtNum"].ToString();
+
+                    ViewBag.XCH_VD = f["txtX"].ToString();
+
+                    ViewBag.CHX_VD = f["txtXX"].ToString();
+
+                    ViewBag.A_VD = f["txtA"].ToString();
+
+                    ViewBag.B_VD = f["txtB"].ToString();
+
+                    ViewBag.C_VD = f["txtC"].ToString();
+
+                    ViewBag.D_VD = f["txtD"].ToString();
+
+                    ViewBag.NoSwap_VD = f["txtNoSwap"].ToString();
+
+                    ViewBag.DapAn_VD = f["txtDapAn"].ToString();
 
                     return this.CreateFile_TracNghiem();
                 }
@@ -122,17 +171,69 @@ namespace MyWebPlay.Controllers
 
             string[] dulieu = Regex.Split(s,"\r\n");
 
-            //if (dulieu.Length / 5 != dapan.Length)
-            //{
-            //    ViewBag.KetQua = "<span style=\"color:red\">Số lượng câu hỏi của bạn trong dữ liệu không khớp với đáp án của bạn (lỗi do thiếu hoặc dư)...\r\n\r\n+ Số lượng dữ liệu : " + dulieu.Length / 5 + "\r\n Số lượng đáp án : " + dapan.Length+"</span>";
-            //    //this.Close();
+            if (dulieu.Length / 5 != dapan.Length)
+            {
+                ViewBag.KetQua = "<span style=\"color:red\">Số lượng câu hỏi của bạn trong dữ liệu không khớp với đáp án của bạn (lỗi do thiếu hoặc dư)...\r\n\r\n+ Số lượng dữ liệu câu hỏi : " + dulieu.Length / 5 + "\r\n+ Số lượng đáp án : " + dapan.Length + "</span>";
+                //this.Close();
 
-            //    return this.CreateFile_TracNghiem();
-            //}
+                ViewBag.ChuoiVD = f["txtChuoi"].ToString();
+
+                ViewBag.CH_VD = f["txtNum"].ToString();
+
+                ViewBag.XCH_VD = f["txtX"].ToString();
+
+                ViewBag.CHX_VD = f["txtXX"].ToString();
+
+                ViewBag.A_VD = f["txtA"].ToString();
+
+                ViewBag.B_VD = f["txtB"].ToString();
+
+                ViewBag.C_VD = f["txtC"].ToString();
+
+                ViewBag.D_VD = f["txtD"].ToString();
+
+                ViewBag.NoSwap_VD = f["txtNoSwap"].ToString();
+
+                ViewBag.DapAn_VD = f["txtDapAn"].ToString();
+
+                return this.CreateFile_TracNghiem();
+            }
 
             // Phân tích những câu không cần hoán vị...
 
             string[] notSwap = f["txtNoSwap"].ToString().Split('.');
+
+            for (int i = 0; i<notSwap.Length;i++)
+            {
+                if (int.Parse(notSwap[i]) < 1 || int.Parse(notSwap[i]) > dapan.Length)
+                {
+                    ViewBag.KetQua = "<span style=\"color:red\">Một trong những câu hỏi bạn cho là không cần hoán vị đáp án đã xảy ra lỗi index...</span>";
+                    //this.Close();
+
+                    ViewBag.ChuoiVD = f["txtChuoi"].ToString();
+
+                    ViewBag.CH_VD = f["txtNum"].ToString();
+
+                    ViewBag.XCH_VD = f["txtX"].ToString();
+
+                    ViewBag.CHX_VD = f["txtXX"].ToString();
+
+                    ViewBag.A_VD = f["txtA"].ToString();
+
+                    ViewBag.B_VD = f["txtB"].ToString();
+
+                    ViewBag.C_VD = f["txtC"].ToString();
+
+                    ViewBag.D_VD = f["txtD"].ToString();
+
+                    ViewBag.NoSwap_VD = f["txtNoSwap"].ToString();
+
+                    ViewBag.DapAn_VD = f["txtDapAn"].ToString();
+
+                    return this.CreateFile_TracNghiem();
+                }
+            }
+
             int[] hv = new int[dapan.Length];
             for (int i = 0; i < dapan.Length; i++)
                 hv[i] = 0;
@@ -190,7 +291,28 @@ namespace MyWebPlay.Controllers
 
            System.IO.File.WriteAllText(path, copy);
 
-            ViewBag.ChuoiVD = "Câu số 1. 1 + 1 = ?\r\nA. 1\r\nB. 2\r\nC. 3\r\nD. 4\r\nCâu số 2. Lan có 5 quả cam, Lan cho Hà 3 quả. Hỏi <span style=\"color:red\">Lan</span> còn lại bao nhiêu quả cam?\r\nA. 4 quả\r\nB. 5 quả\r\nC. 2 quả\r\nD. 1 quả\r\nCâu số 3. Tìm x biết x - 10 = 20?\r\nA. x = 50\r\nB. x = 60\r\nC. x = <span style=\"color:green\"> 30</span>\r\nD. x = 0\r\nCâu số 7. Hạnh phúc là gì?<br><br><img src=\"https://thegioisofa.com/wp-content/uploads/2022/07/Cung-song-tu.jpg\" alt=\"Image Error\"><br>\r\nA. Là niềm vui\r\nB. Là hạnh phúc\r\nC. Là nụ cười\r\nD. Là tình yêu\r\nCâu số 8. Tính diện tích hình vuông có cạnh là 5 cm?\r\nA. 5 cm<sup>2</sup>\r\nB. 10 cm<sup>2</sup>\r\nC. 15 cm<sup>2</sup>\r\nD. 25 cm<sup>2</sup>";
+            //------------------------------------
+
+            ViewBag.ChuoiVD = "Câu số 1. 1 + 1 = ?\r\nChọn đáp án đúng :\r\nA. 1\r\nB. 2\r\nC. 3\r\nD. 4\r\nCâu số 2. Lan có 5 quả cam, Lan cho Hà 3 quả. Hỏi <span style=\"color:red\">Lan</span> còn lại bao nhiêu quả cam?\r\nA. 4 quả\r\nB. 5 quả\r\nC. 2 quả\r\nD. 1 quả\r\nCâu số 3. Tìm x biết x - 10 = 20?\r\nA. x = 50\r\nB. x = 60\r\nC. x = <span style=\"color:green\"> 30</span>\r\nD. x = 0\r\nCâu số 7. Hạnh phúc là gì?<br><br><img src=\"https://thegioisofa.com/wp-content/uploads/2022/07/Cung-song-tu.jpg\" alt=\"Image Error\"><br>\r\nA. Là niềm vui\r\nLà tất cả\r\nLà nụ cườiB. Là hạnh phúc\r\n\r\nLà sự bình yênC. Là nụ cười\r\nD. Là tình yêu\r\nCâu số 8. Tính diện tích hình vuông có cạnh là 5 cm?\r\nA. 5 cm<sup>2</sup>\r\nB. 10 cm<sup>2</sup>\r\nC. 15 cm<sup>2</sup>\r\nD. 25 cm<sup>2</sup>";
+
+            ViewBag.CH_VD = "1-3.7-8";
+
+                ViewBag.XCH_VD = "Câu số ";
+
+                ViewBag.CHX_VD = ". ";
+
+                ViewBag.A_VD = "A. ";
+
+                ViewBag.B_VD = "B. ";
+
+                ViewBag.C_VD = "C. ";
+
+                ViewBag.D_VD = "D. ";
+
+                ViewBag.NoSwap_VD = "2.5";
+
+                ViewBag.DapAn_VD = "B\r\nC\r\nC\r\nA\r\nD";
+
 
             ViewBag.KetQua = "<p style=\"color:blue\">Thành công, một file TXT trắc nghiệm của bạn đã được xử lý...</p><a href=\"/tracnghiem/" + fi + "\" download>Click vào đây để tải về</a><br><p style=\"color:red\">Hãy nhanh tay tải về vì sau <span style=\"color:yellow\" id=\"thoigian\" class=\"thoigian\">20</span> giây nữa, file này sẽ bị xoá hoặc sẽ bị lỗi nếu có!<br>Nếu file tải về của bạn bị lỗi hoặc chưa kịp tải về, hãy refresh/quay lại trang này và thử lại...<br><span style=\"color:aqua\">Mặc dù file này đã được thông qua một số xử lý, tuy nhiên nó vẫn có thể xảy ra lỗi và sai sót không mong muốn. Vì vậy tạm thời bạn cứ tải file này về, sử dụng file này để làm bài trắc nghiệm và hệ thống sẽ thông báo vị trí của câu hỏi đang bị nghi ngờ là lỗi, bạn hãy mở file này và Ctrl +F để tìm câu hỏi đó, quan sát xung quanh tương tự và tự chỉnh sửa file thủ công sao cho thích hợp nhé!</span></p>";
 

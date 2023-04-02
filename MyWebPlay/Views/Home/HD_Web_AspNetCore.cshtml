@@ -225,6 +225,12 @@ TempData["_TÊN""]
 <br>
 
 <br>
+Tại GiohangPartial.cshtml ta có :
+<br />
+<br />
+lt;br&gt;lt;a href="&commat;Url.Action("GioHang","Giohang")"&gt;lt;br&gt;    lt;img src="~/images/Giohang.png" width="20" /&gt; Giỏ hàng (&commat;ViewBag.Tongsoluong)lt;br&gt;lt;/a&gt;
+<br />
+<br />
 - Tại controller :
 <br>
 
@@ -275,7 +281,9 @@ TempData["_TÊN""]
 <br>
 
 <br>
-...[TỰ TÌM HIỂU THÊM VỀ GIỎ HÀNG]...
+<p style="color:green">...[TỰ TÌM HIỂU THÊM VỀ GIỎ HÀNG]...</p>
+<br />
+<h3 style="color:red"><a target="_blank" href="https://github.com/vanluatbui/WebBanSach_AspNetCore_MVC">Link xem project mẫu tất cả [HD]</a></h3>
 <br>
 
 <br>
@@ -287,7 +295,7 @@ TempData["_TÊN""]
 <br>
 
 <br>
-- Tại Views và chỗ bất kỳ :
+- Tại Views và chỗ bất kỳ (thường là Views Shared Layout??) :
 <br>
 
 <br>
@@ -329,6 +337,12 @@ TempData["_TÊN""]
 <br>
 
 <br>
+Tại Chude.cshtml ta có :
+<br />
+<br />
+&lt;div class="list-group"&gt;<br>    &commat;foreach (var chude in Model)<br>    {<br>        &lt;a href="&commat;Url.Action("Sachtheochude","BookStore", new {id = chude.MaChuDe})" class="list-group-item"&gt; &commat;chude.TenChuDe&lt;/a&gt;<br>    }<br>&lt;/div&gt;
+<br />
+<br />
 # Mã hoá MD5 của chuỗi :
 <br>
 

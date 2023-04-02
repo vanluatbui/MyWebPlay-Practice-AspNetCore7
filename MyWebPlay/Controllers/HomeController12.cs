@@ -304,5 +304,10 @@ namespace MyWebPlay.Controllers
 
             return View("PlayTracNghiem", tnX);
         }
+
+        public ActionResult HD_Web_AspNet()
+        {
+            return View();
+        }
     }
 }

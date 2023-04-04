@@ -272,6 +272,7 @@ namespace MyWebPlay.Controllers
 
             int dung = 0;
             int sai = 0;
+            int chualam = 0;
 
             for (int i = 0; i < tn.gioihancau; i++)
             {
@@ -280,18 +281,9 @@ namespace MyWebPlay.Controllers
                 int flag = 0;
                 if (da == "")
                 {
+                    chualam++;
                     ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Đáp án bạn đã chọn</span> : [NULL]</b>";
-                    if (tn.dung[i] == tn.a[i])
-                    {
-                        dung++;
-                        flag = 1;
-                        ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG</h2>";
-                    }
-                    else
-                    {
-                        ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI</h2>";
-                        sai++;
-                    }
+                        ViewData["KetQua-" + i] = "<h2 style=\"color:orange\">THIẾU</h2>";
                 }
                 else if (da == "A")
                 {
@@ -374,6 +366,7 @@ namespace MyWebPlay.Controllers
 
             ViewBag.KetQuaDung = "Số câu đúng : " + dung;
             ViewBag.KetQuaSai= "Số câu sai : " + sai;
+            ViewBag.KetQuaChuaLam = "Số câu chưa làm : " + chualam;
 
             double diem = ((double)10 / (double)tn.gioihancau) * dung;
 

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using MyWebPlay.Extension;
 using Org.BouncyCastle.Asn1.Ocsp;
+using System.Diagnostics.Eventing.Reader;
 using System.Formats.Tar;
 using System.Globalization;
 using System.IO;
@@ -22,10 +23,20 @@ namespace MyWebPlay.Controllers
             return View();
         }
 
-        public ActionResult UploadFile(int? sl)
+        public ActionResult UploadFile(int? sl = 1, int? name = 0, int? upload =0)
         {
             if (sl == null)
                 ViewBag.SL = 0;
+
+            if (name == 0)
+                ViewBag.X = 0;
+            else
+            ViewBag.X = 1;
+
+            if (upload == 0)
+                ViewBag.Y = 0;
+            else
+                ViewBag.Y = 1;
 
             ViewBag.SL = sl;
 
@@ -37,6 +48,12 @@ namespace MyWebPlay.Controllers
         public async Task<ActionResult> UploadFile(List<IFormFile> fileUpload, List<string> TenFile)
         {
             int flag = 0;
+            if (TenFile.Count() > 0)
+            {
+                ViewBag.X = 1;
+                ViewBag.Y = 1;
+            }
+
             try
             {
                 if (fileUpload.Count() > 0)
@@ -62,95 +79,101 @@ namespace MyWebPlay.Controllers
             }
             finally
             {
-                for (int i = 0; i < fileUpload.Count(); i++)
-                {
-                    if (fileUpload[i] != null && (TenFile[i] == null || TenFile[i].Length <= 0))
-                    {
-                        flag = 1;
-                        break;
-                    }
-                }
-
-                if (flag == 0)
+                if (ViewBag.X == 1 && ViewBag.Y == 1)
                 {
                     for (int i = 0; i < fileUpload.Count(); i++)
                     {
-                        var fileName = Path.GetFileName(fileUpload[i].FileName);
-
-                        var path = Path.Combine(_webHostEnvironment.WebRootPath, "file", fileName);
-
-                        string tenfile = TenFile[i].ToString();
-
-                        var pth = Path.Combine(_webHostEnvironment.WebRootPath, "file", tenfile + System.IO.Path.GetExtension(path));
-
-                        if (System.IO.File.Exists(pth))
+                        if (fileUpload[i] != null && (TenFile[i] == null || TenFile[i].Length <= 0))
                         {
-                            flag = 2;
+                            flag = 1;
                             break;
                         }
                     }
-                }
 
-                if (flag == 0)
-                {
-                    for (int i = 0; i < TenFile.Count(); i++)
+                    if (flag == 0)
                     {
-                        int dem = 0;
-                        for (int j = 0; j < TenFile.Count(); j++)
+                        for (int i = 0; i < fileUpload.Count(); i++)
                         {
-                            if ((TenFile[j] != null && TenFile[j].Length > 0) && TenFile[j] == TenFile[i])
-                                dem++;
-                        }
+                            var fileName = Path.GetFileName(fileUpload[i].FileName);
 
-                        if (dem > 1)
-                        {
-                            flag = 3;
-                            break;
+                            var path = Path.Combine(_webHostEnvironment.WebRootPath, "file", fileName);
+
+                            string tenfile = TenFile[i].ToString();
+
+                            var pth = Path.Combine(_webHostEnvironment.WebRootPath, "file", tenfile + System.IO.Path.GetExtension(path));
+
+                            if (System.IO.File.Exists(pth))
+                            {
+                                flag = 2;
+                                break;
+                            }
                         }
                     }
-                }
 
-
-                if (flag == 0)
-                {
-                    for (int i = 0; i < fileUpload.Count(); i++)
+                    if (flag == 0)
                     {
-
-                        var fileName = Path.GetFileName(fileUpload[i].FileName);
-
-                        var path = Path.Combine(_webHostEnvironment.WebRootPath, "file", fileName);
-
-                        string tenfile = TenFile[i].ToString();
-
-                        var pth = Path.Combine(_webHostEnvironment.WebRootPath, "file", tenfile + System.IO.Path.GetExtension(path));
-
-                        using (Stream fileStream = new FileStream(path, FileMode.Create))
+                        for (int i = 0; i < TenFile.Count(); i++)
                         {
-                            fileUpload[i].CopyTo(fileStream);
+                            int dem = 0;
+                            for (int j = 0; j < TenFile.Count(); j++)
+                            {
+                                if ((TenFile[j] != null && TenFile[j].Length > 0) && TenFile[j] == TenFile[i])
+                                    dem++;
+                            }
 
+                            if (dem > 1)
+                            {
+                                flag = 3;
+                                break;
+                            }
                         }
+                    }
 
-                        System.IO.File.Move(path, pth);
+
+                    if (flag == 0)
+                    {
+                        for (int i = 0; i < fileUpload.Count(); i++)
+                        {
+
+                            var fileName = Path.GetFileName(fileUpload[i].FileName);
+
+                            var path = Path.Combine(_webHostEnvironment.WebRootPath, "file", fileName);
+
+                            string tenfile = TenFile[i].ToString();
+
+                            var pth = Path.Combine(_webHostEnvironment.WebRootPath, "file", tenfile + System.IO.Path.GetExtension(path));
+
+                            using (Stream fileStream = new FileStream(path, FileMode.Create))
+                            {
+                                fileUpload[i].CopyTo(fileStream);
+
+                            }
+
+                            System.IO.File.Move(path, pth);
+                        }
                     }
                 }
             }
 
             //----------------------------------
 
-            if (flag ==1)
+            if (ViewBag.X == 1 && ViewBag.Y == 1)
             {
-                ViewData["Loi"] = "Lỗi hệ thống. Nếu bạn đã đăng tải một file, hãy tự đặt lại tên mới gợi nhớ của bạn cho từng file đó...";
-                return this.UploadFile(ViewBag.SL);
-            }
-            else if (flag == 2)
-            {
-                ViewData["Loi"] = "Một trong những file bạn sắp tải - tên file bạn sắp upload (tên mới bạn tự đặt) đã tồn tại!\r\nTất cả các file đã bị lỗi khi đăng tải, mời bạn thực hiện lại...";
-                return this.UploadFile(ViewBag.SL);
-            }
-            else if (flag == 3)
-            {
-                ViewData["Loi"] = "Một trong những file bạn sắp tải - tên file bạn sắp upload (tên mới bạn tự đặt) đã tồn tại hoặc bị trùng!\r\nTất cả các file đã bị lỗi khi đăng tải, mời bạn kiểm tra và thực hiện lại...";
-                return this.UploadFile(ViewBag.SL);
+                if (flag == 1)
+                {
+                    ViewData["Loi"] = "Lỗi hệ thống. Nếu bạn đã đăng tải một file, hãy tự đặt lại tên mới gợi nhớ của bạn cho từng file đó...";
+                    return this.UploadFile(1, 0, 0);
+                }
+                else if (flag == 2)
+                {
+                    ViewData["Loi"] = "Một trong những file bạn sắp tải - tên file bạn sắp upload (tên mới bạn tự đặt) đã tồn tại!\r\nTất cả các file đã bị lỗi khi đăng tải, mời bạn thực hiện lại...";
+                    return this.UploadFile(1, 0, 0);
+                }
+                else if (flag == 3)
+                {
+                    ViewData["Loi"] = "Một trong những file bạn sắp tải - tên file bạn sắp upload (tên mới bạn tự đặt) đã tồn tại hoặc bị trùng!\r\nTất cả các file đã bị lỗi khi đăng tải, mời bạn kiểm tra và thực hiện lại...";
+                    return this.UploadFile(1, 0, 0);
+                }
             }
 
                 //SendEmail.SendMail2Step("mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", name, name, "teinnkatajeqerfl");
@@ -161,12 +184,39 @@ namespace MyWebPlay.Controllers
             
         }
 
-        public ActionResult DownloadFile(int? sl)
+        public ActionResult DownloadFile(int? sl, int? all = 0)
         {
             if (sl == null)
                 ViewBag.SL = 0;
 
             ViewBag.SL = sl;
+
+            if (all == 0)
+                ViewBag.All = 0;
+            else
+                ViewBag.All = 1;
+
+            string ketqua = "";
+
+            if (ViewBag.All == 1)
+            {
+                ketqua = "";
+                int k = 0;
+                var listFile = new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file")).GetFiles();
+                foreach (var item in listFile)
+                {
+ 
+                    ketqua = "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/file/" + item.Name + "\" download> tại đây</a>! <br> Link xem đầy đủ : <a target=\"_blank\" style=\"color:green\"" +
+                   "href=\"/file/" + item.Name + "\">/file/" + item.Name + "</a><br> Tải lại hoặc chờ một khoảng thời gian để link file được xử lý - tất cả file trên hệ thống admin sẽ tự động xoá sau 24h bạn đăng tải...  " +
+                  "<a target=\"_blank\" style=\"color:grey\" href=\"/Home/XoaFile?file=" + item.Name + "\" onclick=\"xacnhan()\">Click để xoá thủ công file này?</a><br><br>";
+                    ketqua += "<br><br>";
+                    ViewBag.XL = listFile.Count();
+                    ViewData["KetQua" + k] = ketqua;
+                    ketqua = "";
+                    k++;
+                }
+               
+            }
 
             return View();
         }
@@ -174,6 +224,7 @@ namespace MyWebPlay.Controllers
        [HttpPost]
         public ActionResult DownloadFile(List<string> TenFile)
         {
+
             for (int i = 0; i < TenFile.Count(); i++)
             {
                 string ketqua = "";
@@ -185,9 +236,10 @@ namespace MyWebPlay.Controllers
                 {
                     var pth = Path.Combine(_webHostEnvironment.WebRootPath, "file", tenfile);
                     if (!System.IO.File.Exists(pth))
-                        ketqua = "<p style=\"color:red\"> Tên file \"<span style=\"color:blue\">"+ tenfile + "</span>\" bạn cần tìm để download không tồn tại trên Server (đảm bảo bạn phải nhập đủ tên file kèm theo đuôi file extension (VD : abc.txt hoặc abc.jpg hoặc abc.mp3 ...)!</p>";
+                        ketqua = "<p style=\"color:red\"> Tên file \"<span style=\"color:blue\">" + tenfile + "</span>\" bạn cần tìm để download không tồn tại trên Server (đảm bảo bạn phải nhập đủ tên file kèm theo đuôi file extension (VD : abc.txt hoặc abc.jpg hoặc abc.mp3 ...)!</p>";
                     else
                     {
+                        ViewBag.XL = TenFile.Count();
                         ketqua = "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/file/" + tenfile + "\" download> tại đây</a>! <br> Link xem đầy đủ : <a target=\"_blank\" style=\"color:green\"" +
                            "href=\"/file/" + tenfile + "\">/file/" + tenfile + "</a><br> Tải lại hoặc chờ một khoảng thời gian để link file được xử lý - tất cả file trên hệ thống admin sẽ tự động xoá sau 24h bạn đăng tải...  " +
                           "<a target=\"_blank\" style=\"color:grey\" href=\"/Home/XoaFile?file=" + tenfile + "\" onclick=\"xacnhan()\">Click để xoá thủ công file này?</a><br><br>";
@@ -195,8 +247,7 @@ namespace MyWebPlay.Controllers
                 }
 
                 ViewData["KetQua" + i] = ketqua;
-            }
-            ViewBag.XL = TenFile.Count();
+            }      
             return View();
         }
 

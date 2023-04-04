@@ -33,6 +33,11 @@
         window.location.href = "/Home/DownloadFile?sl="+document.getElementById("SL").value;
     }
 
+    function downall()
+    {
+        window.location.href = "/Home/DownloadFile?all=1";
+    }
+
 </script>
 
 
@@ -55,6 +60,12 @@
     <button style="color:blueviolet" onclick="uploadfile()">Bạn chưa đăng tải file trên hệ thống trước đó?</button>
 
     <br />
+
+    <br />
+    <button style="color:blue" onclick="downall()">ALL DOWNLOAD SERVER</button>
+
+    <br />
+
     <br />
     <b>Nhập số lượng file mà bạn muốn download : </b> <input type="number" id="SL" value="@ViewBag.SL" min="1"/>
     <button id="okX" onclick="soluongfile()">OK</button>
@@ -85,7 +96,7 @@
                         <tr style="height:40px">
                             <td></td>
                             <td>
-                                        <input style="font-weight:bolder" type="Submit" value="OK DOWNLOAD" />
+                                        <input id="OKX" style="font-weight:bolder" type="Submit" value="OK DOWNLOAD" />
                             </td>
                         </tr>
         }

@@ -278,7 +278,22 @@ namespace MyWebPlay.Controllers
                 string da = f["dapan-" + i].ToString();
 
                 int flag = 0;
-                if (da == "A")
+                if (da == "")
+                {
+                    ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Đáp án bạn đã chọn</span> : [NULL]</b>";
+                    if (tn.dung[i] == tn.a[i])
+                    {
+                        dung++;
+                        flag = 1;
+                        ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG</h2>";
+                    }
+                    else
+                    {
+                        ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI</h2>";
+                        sai++;
+                    }
+                }
+                else if (da == "A")
                 {
                     ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Đáp án bạn đã chọn</span> : A. " + tn.a[i] + "</b>";
 

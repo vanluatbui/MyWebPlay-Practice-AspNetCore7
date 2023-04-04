@@ -32,6 +32,21 @@
         window.location.href = "/Home/UploadFile?sl="+document.getElementById("SL").value;
     }
 
+     function ABC()
+    {
+        window.location.href = "/Home/UploadFile?sl="+document.getElementById("SL").value+"&&name=1&&upload=1";
+    }
+
+    function DEF()
+    {
+        window.location.href = "/Home/UploadFile?sl="+document.getElementById("SL").value+"&&name=0&&&upload=0";
+    }
+
+    function XYZ()
+    {
+         window.location.href = "/Home/UploadFile?sl="+document.getElementById("SL").value+"&&name=0&&y=upload=1";
+    }
+
 </script>
 
 <table align="center">
@@ -47,8 +62,15 @@
     <br />
     <b>Nhập số lượng file mà bạn muốn đăng tải : </b> <input type="number" id="SL" value="@ViewBag.SL" min="1"/>
     <button onclick="soluongfile()">OK</button>
+    <br />
+    <br />
+    <button style="color:blue" onclick="ABC()">Have u (Have name - one file)</button>
+    <br />
+    <br />
+    <button style="color:blue" onclick="DEF()">No u (No name - multiple file)</button>
+    <br />
+    <br />
 
-                <br />
 
     @using (Html.BeginForm("UploadFile", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
@@ -66,13 +88,22 @@
                     <br>
                            <b>@(i + 1).1</b> Upload 1 file của bạn :
                     <br>
-                    <input type="file" name="fileUpload">
+                     @if (ViewBag.X == 0)
+                     {
+                        <input type="file" name="fileUpload" multiple>
+                    }
+                    else
+                    {
+                         <input type="file" name="fileUpload">
+                    }
                     <br>
                 </td>
             </tr>
 
-            <tr style="height:40px">
-                   <td> </td>
+            @if (ViewBag.X != 0)
+            {
+                <tr style="height:40px">
+                    <td> </td>
                 <td>
                     <br>
                             <b>@(i + 1).2</b> Đặt lại tên file ngắn gọn tuỳ bạn gợi nhớ (file được lưu trữ trên Server sẽ mang tên này) :
@@ -81,6 +112,7 @@
                     <br>
                 </td>
             </tr>
+            }
         }
             
         @if(ViewBag.SL > 0)

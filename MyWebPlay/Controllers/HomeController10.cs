@@ -282,8 +282,8 @@ namespace MyWebPlay.Controllers
                 if (da == "")
                 {
                     chualam++;
-                    ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Đáp án bạn đã chọn</span> : [NULL]</b>";
-                        ViewData["KetQua-" + i] = "<h2 style=\"color:orange\">THIẾU</h2>";
+                   
+                        ViewData["KetQua-" + i] = "<h2 style=\"color:orange\">CHƯA TRẢ LỜI</h2>";
                 }
                 else if (da == "A")
                 {

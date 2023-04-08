@@ -1,0 +1,71 @@
+﻿
+
+<table align="center">
+    <h2 style="text-align:center">Play Test X Trắc Nghiệm - Multiple</h2>
+
+    <br />
+
+        @using (Html.BeginForm("TracNghiemX_Multiple", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+            @Html.ValidationSummary(true)
+
+            <input type="text" name="txtSoluong" value="@ViewBag.SL" hidden/>
+
+            <tr style="height:40px">
+                <td> </td>
+                <td>
+                    <br>
+                    <b> Nhập tên môn học/tên kỳ kiểm tra : </b>
+                    <br>
+                    <input type="text" name="txtMon" size="50"/>
+                    <br>
+                    <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
+                </td>
+            </tr>
+
+            <tr style="height:40px">
+                <td> </td>
+                <td>
+                    <br>
+                    <b>Số câu cần làm :</b>
+                    <br>
+                    <input type="number" name="txtSoCau" min="1">
+                    <br>
+                    <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+                </td>
+            </tr>
+
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                    <br>
+                    <b>Thời gian làm bài (phút) : </b>
+                    <br>
+                    <input type="number" name="txtTime" min="1">
+                    <br>
+                    <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
+                </td>
+            </tr>
+
+                <tr style="height:40px">
+                    <td> </td>
+                <td>
+                    <br>
+                    <b> Đưa tất cả các file trắc nghiệm (chương bài học) của bạn vào cùng 1 thư mục sau đó sẽ dễ dàng kéo tất cả các file vào đây...</b>
+                    <br>
+                    <input type="file" name="txtFile" multiple/>  <b>@Html.ActionLink("Bạn chưa có file trắc nghiệm?","CreateFile_TracNghiem")</b>
+                   <br>
+                    <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+                </td>
+            </tr>
+
+
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                    <input style="font-weight:bolder" type="Submit" value="Bắt đầu làm bài" />
+                </td>
+            </tr>
+
+    }
+</table>

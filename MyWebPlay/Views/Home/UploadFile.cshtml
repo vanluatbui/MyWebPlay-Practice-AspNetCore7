@@ -78,7 +78,20 @@
 
         <br />
             <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
+        <br />
+
+        @if (ViewBag.SL > 0)
+        {
+            <tr style="height:40px">
+                <td> </td>
+                <td>
+                    <br>
+                    <textarea name="Text" cols="100" rows="5" placeholder="Không cần nhập gì ở đây :)) (hoặc nếu bạn muốn ghi chú cho vui)"></textarea>
+                    <br>
+                </td>
+            </tr>
             <br />
+        }
 
         @for (int i = 0; i < ViewBag.SL; i++)
         {

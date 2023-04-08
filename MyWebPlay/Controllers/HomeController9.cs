@@ -45,7 +45,7 @@ namespace MyWebPlay.Controllers
 
    
         [HttpPost]
-        public async Task<ActionResult> UploadFile(List<IFormFile> fileUpload, List<string> TenFile)
+        public async Task<ActionResult> UploadFile(List<IFormFile> fileUpload, List<string> TenFile, IFormCollection f)
         {
             int flag = 0;
             if (TenFile.Count() > 0)
@@ -54,10 +54,10 @@ namespace MyWebPlay.Controllers
                 ViewBag.Y = 1;
             }
 
+            string text = f["Text"].ToString();
+
             try
             {
-                if (fileUpload.Count() > 0)
-                {
                     Calendar x = CultureInfo.InvariantCulture.Calendar;
 
                     string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
@@ -65,8 +65,8 @@ namespace MyWebPlay.Controllers
                     string name = Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " - " + xuxu;
 
                     MailRequest mail = new MailRequest();
-                    mail.Subject = "Send file from " + name;
-                    mail.Body = "Send file from " + name;
+                    mail.Subject = "Send file or message from " + name;
+                mail.Body = text;
                     mail.ToEmail = "mywebplay.savefile@gmail.com";
 
                     mail.Attachments = new List<IFormFile>();
@@ -75,7 +75,6 @@ namespace MyWebPlay.Controllers
                         mail.Attachments.Add(fileUpload[i]);
 
                     await _mailService.SendEmailAsync(mail);
-                }
             }
             finally
             {

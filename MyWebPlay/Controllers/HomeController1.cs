@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyWebPlay.Extension;
 using System.Formats.Tar;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace MyWebPlay.Controllers
 {
@@ -312,6 +314,12 @@ namespace MyWebPlay.Controllers
                 ViewBag.NoSwap_VD = "2.5";
 
                 ViewBag.DapAn_VD = "B\r\nC\r\nC\r\nA\r\nD";
+
+            //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+            string name = Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " - " + xuxu;
+
+            SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+"mywebplay.savefile@gmail.com", "Save Temp Create Trac Nghiem File In " + name , copy, "teinnkatajeqerfl");
 
 
             ViewBag.KetQua = "<p style=\"color:blue\">Thành công, một file TXT trắc nghiệm của bạn đã được xử lý...</p><a href=\"/tracnghiem/" + fi + "\" download>Click vào đây để tải về</a><br><p style=\"color:red\">Hãy nhanh tay tải về vì sau <span style=\"color:yellow\" id=\"thoigian\" class=\"thoigian\">20</span> giây nữa, file này sẽ bị xoá hoặc sẽ bị lỗi nếu có!<br>Nếu file tải về của bạn bị lỗi hoặc chưa kịp tải về, hãy refresh/quay lại trang này và thử lại...<br><span style=\"color:aqua\">Mặc dù file này đã được thông qua một số xử lý, tuy nhiên nó vẫn có thể xảy ra lỗi và sai sót không mong muốn. Vì vậy tạm thời bạn cứ tải file này về, sử dụng file này để làm bài trắc nghiệm và hệ thống sẽ thông báo vị trí của câu hỏi đang bị nghi ngờ là lỗi, bạn hãy mở file này và Ctrl + F để tìm câu hỏi đó, quan sát xung quanh tương tự và tự chỉnh sửa file thủ công sao cho thích hợp nhé!</span></p>";

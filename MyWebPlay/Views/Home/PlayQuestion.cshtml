@@ -1,0 +1,129 @@
+﻿@model MyWebPlay.Model.TracNghiem
+
+<script>
+
+    var timeX = '@ViewBag.TimeLamBai' * 60;
+
+    var id = setInterval(myAlert, 1000);
+
+    function myAlert() {
+
+        if ('@ViewBag.TimeLamBai' != "")
+        {
+       var t = document.getElementById("Time");
+
+       var h = Math.floor(timeX / 3600);
+       var m = Math.floor((timeX / 60) % 60) ;
+       var s = timeX % 60;
+
+        if (h< 10 && m < 10 && s < 10)
+                t.innerHTML = "0" + h + " : 0" + m + " : 0" + s;
+            if (h < 10 && m < 10 && s >= 10)
+                t.innerHTML = "0" + h + " : 0" + m + " : " + s;
+            if (h < 10 && m >= 10 && s < 10)
+                t.innerHTML = "0" + h + " : " + m + " : 0" + s;
+            if (h < 10 && m >= 10 && s >= 10)
+                t.innerHTML = "0" + h + " : " + m + " : " + s;
+            if (h >= 10 && m < 10 && s < 10)
+                t.innerHTML = "" + h + " : 0" + m + " : 0" + s;
+            if (h >= 10 && m < 10 && s >= 10)
+                t.innerHTML = "" + h + " : 0" + m + " : " + s;
+            if (h >= 10 && m >= 10 && s < 10)
+                t.innerHTML = "" + h + " : " + m + " : 0" + s;
+            if (h >=10 && m >= 10 && s >= 10)
+                t.innerHTML = "" + h + " : " + m + " : " + s;
+
+            timeX--;
+
+            if (timeX == -1)
+            {
+                alert('Đã hết thời gian làm bài...\nBài kiểm tra của bạn sẽ tự động được nộp đánh giá sau đó!');
+                clearInterval(id);
+
+                var ok = document.getElementById("OKX");
+                ok.click();
+            }
+         }
+    }
+
+</script>
+
+<table align="center">
+    <h2 style="text-align:center;color:lightsalmon">Play Test Trắc Nghiệm</h2>
+
+    <h3 style="color:aqua">@ViewBag.KetQuaDung</h3>
+    <h3 style="color:aqua">@ViewBag.KetQuaSai</h3>
+    <h3 style="color:aqua">@ViewBag.KetQuaChuaLam</h3>
+    <h2 style="color:lightgreen">@ViewBag.KetQuaDiem</h2>
+
+
+    @using (Html.BeginForm("PlayQuestion", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        @Html.ValidationSummary(true)
+
+            <br />
+        <br />
+            <b>Tên môn học/kỳ kiểm tra : @Model.tenmon</b>
+            <br />
+        <b>Tổng số câu cần làm : @Model.gioihancau/@Model.tongsocau</b>
+        <br />
+            <b>Thời gian làm bài : @Model.timelambai phút
+                     @if (ViewBag.TimeLamBai != null)
+                     {
+                <span style="color:red">
+                <h2 id="Time">00 : 00 : 00</h2></span>
+                     }
+                </b>
+        <br />
+        <br />
+        <hr />
+
+        @for (int i = 0; i < @Model.gioihancau; i++)
+        {
+            <tr style="height:40px">
+                <td></td>
+                        <td><h4><b style="color:yellow">Câu số @(i + 1)</b>. @Html.Raw(Model.ch[@i])</h4></td>
+            </tr>
+
+                    @if(ViewData["KetQua-"+@i] ==  null)
+                    {
+                                <tr style="height:40px">
+                                                 <td></td>
+                                    <td><h4><b style="color:deeppink"> Nhập answer cho câu @(i+1) của bạn : </b></h4>
+  <h3><input type="text" name="dapan-@i" size="80" /></h3><br>
+        </td>
+                            </tr>
+                    }
+                    else
+                    {
+ <tr style="height:40px">
+                  <td></td>
+     <td>
+         @Html.Raw(ViewData["ketqua-"+@i])
+                       <h4>@Html.Raw(ViewData["dapandachon-"+@i])</h4> 
+                        <h4>@Html.Raw(ViewData["dapandung-"+@i])</h4>
+                        <br>
+                </td>
+     </tr>
+                    }
+
+        }
+
+        @if (ViewBag.KetQuaDung == "")
+        {
+                <tr style="height:40px">
+                    <td></td>
+                    <td>
+                        <input style="font-weight:bolder" id="OKX" type="Submit" value="Đánh Giá Bài Làm" />
+                        <br>
+                            <p style="color:orange">Lưu ý : kiểm tra thật kỹ toàn bộ bài làm trước khi xem kết quả!</p>
+                    </td>
+            </tr>
+        }
+        else
+        {
+           <h3>@Html.ActionLink("Thực hiện bài test [text question/answer] mới", "PlayQuestion_Multiple")</h3>
+           <br />
+        }
+    }
+</table>

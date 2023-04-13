@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\file\" />
+    <Folder Include="wwwroot\note\" />
     <Folder Include="wwwroot\tracnghiem\" />
   </ItemGroup>
 	

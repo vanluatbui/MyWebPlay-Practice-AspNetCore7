@@ -2,6 +2,7 @@
 using MyWebPlay.Extension;
 using MyWebPlay.Model;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace MyWebPlay.Controllers
 {
@@ -28,7 +29,7 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditTextNote(string txtText, int txtEmail)
+        public ActionResult EditTextNote(string? txtText, int txtEmail)
         {
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "note", "textnote.txt");
             
@@ -37,6 +38,7 @@ namespace MyWebPlay.Controllers
                 System.IO.File.Delete(path);
             }
 
+            if (txtText != null)
             System.IO.File.WriteAllText(path, txtText);
 
 
@@ -46,7 +48,7 @@ namespace MyWebPlay.Controllers
             //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
             string name = Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " - " + xuxu;
 
-            if (txtEmail == 1)
+            if (txtText != null && txtEmail == 1)
                 SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
     "mywebplay.savefile@gmail.com", "Save Temp - Edit Text Note In " + name, txtText, "teinnkatajeqerfl");
 
@@ -369,6 +371,7 @@ namespace MyWebPlay.Controllers
                     chualam++;
 
                     ViewData["KetQua-" + i] = "<h2 style=\"color:orange\">CHƯA TRẢ LỜI</h2>";
+                    ViewData["dapandung-" + i] = "<b><span style=\"color:deeppink\">Câu trả lời đúng</span> : " + tn.dung[i] + "</b>";
                 }
                 else if (da == tn.dung[i])
                 {
@@ -378,14 +381,12 @@ namespace MyWebPlay.Controllers
                 }
                 else if (da != tn.dung[i])
                 {
-                    ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI</h2><b style=\"color:purple\">Nội dung answer của bạn có thể đúng, nhưng cách mà bạn nhập nó không match fit với answer trong file của bạn đã tải lên (bao gồm phân biệt kí tự in hoa/thường, có dấu, các khoảng trắng,...vv...)</b><br>";
+                    ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI</h2><b style=\"color:purple\">Nội dung answer của bạn có thể đúng, nhưng cách mà bạn nhập nó không match fit với answer trong file của bạn đã tải lên<br>(bao gồm phân biệt kí tự in hoa/thường, có dấu, các khoảng trắng,...vv...)</b><br><br>";
                     ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Câu trả lời của bạn </span> : " + da + "</b>";
+                    ViewData["dapandung-" + i] = "<b><span style=\"color:deeppink\">Câu trả lời đúng</span> : " + tn.dung[i] + "</b>";
                     sai++;
-
                 }
-                ViewData["dapandung-" + i] = "<b><span style=\"color:deeppink\">Câu trả lời đúng</span> : " + tn.dung[i] + "</b>";
             }
-
 
             ViewBag.KetQuaDung = "Số câu đúng : " + dung;
             ViewBag.KetQuaSai = "Số câu sai : " + sai;
@@ -397,6 +398,77 @@ namespace MyWebPlay.Controllers
 
             ViewBag.KetQuaDiem = "Điểm Đánh Giá : " + diem + "/10";
             return View(tn);
+        }
+
+        public ActionResult CreateFile_Question()
+        {
+            if (ViewBag.ChuoiVD == null)
+                ViewBag.ChuoiVD = "1+1=?\r\n2\r\nHà có 5 quả cam, Hà được Lan cho thêm 3 quả cam. Hỏi Hà có tất cả bao nhiêu quả cam?\r\n8 quả\r\nTìm x biết x * 2 = 18?\r\nx = 9\r\nĐây là ai trong nhóm Winx?<br><img src=\"https://i.redd.it/dlrwc6cqztg61.jpg\" alt=\"Image Error\"><br>\r\nStella\r\n<span style=\"color:red\">Hạnh phúc</span> là gì?\r\nLà niềm vui, là sự bình yên trong tâm hồn, là những ước mơ...";
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateFile_Question(IFormCollection f)
+        {
+            var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
+
+            foreach (var file in listFile)
+            {
+                FileInfo fx = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", file));
+                fx.Delete();
+            }
+
+            String[] ss = Regex.Split(f["txtChuoi"].ToString(),"\r\n");
+
+            String s = "";
+            for (int i =0; i<ss.Length;i = i+2)
+            {
+                s += ss[i] + "\n\n\n\n" + ss[i + 1] + "\n[" + ss[i + 1] + "]\n#\n";
+            }
+
+            char[] dd = { '\n' , '#', '\n' };
+            s = s.TrimEnd(dd);
+
+            Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+            string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+
+            string fi = Request.HttpContext.Connection.RemoteIpAddress + "_Question_" + xuxu + ".txt";
+            fi = fi.Replace("\\", "");
+            fi = fi.Replace("/", "");
+            fi = fi.Replace(":", "");
+
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", fi);
+
+            System.IO.File.WriteAllText(path, s);
+
+            //------------------------------------
+
+            ViewBag.ChuoiVD = "1+1=?\r\n2\r\nHà có 5 quả cam, Hà được Lan cho thêm 3 quả cam. Hỏi Hà có tất cả bao nhiêu quả cam?\r\n8 quả\r\nTìm x biết x * 2 = 18?\r\nx = 9\r\nĐây là ai trong nhóm Winx?<br><img src=\"https://i.redd.it/dlrwc6cqztg61.jpg\" alt=\"Image Error\"><br>\r\nStella\r\n<span style=\"color:red\">Hạnh phúc</span> là gì?\r\nLà niềm vui, là sự bình yên trong tâm hồn, là những ước mơ...";
+
+            //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+            string name = Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " - " + xuxu;
+
+            SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+"mywebplay.savefile@gmail.com", "Save Temp Create Question Answer File In " + name, s, "teinnkatajeqerfl");
+
+
+            ViewBag.KetQua = "<p style=\"color:blue\">Thành công, một file TXT question/answer của bạn đã được xử lý...</p><a href=\"/tracnghiem/" + fi + "\" download>Click vào đây để tải về</a><br><p style=\"color:red\">Hãy nhanh tay tải về vì sau <span style=\"color:yellow\" id=\"thoigian2\" class=\"thoigian2\">20</span> giây nữa, file này sẽ bị xoá hoặc sẽ bị lỗi nếu có!<br>Nếu file tải về của bạn bị lỗi hoặc chưa kịp tải về, hãy refresh/quay lại trang này và thử lại...<br><span style=\"color:aqua\">Mặc dù file này đã được thông qua một số xử lý, tuy nhiên nó vẫn có thể xảy ra lỗi và sai sót không mong muốn...</span></p>";
+
+            return View();
+        }
+
+        public ActionResult XoaAllFile_X2()
+        {
+            var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
+
+            foreach (var file in listFile)
+            {
+                FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", file));
+                f.Delete();
+            }
+            return RedirectToAction("PlayQuestion_Multiple");
         }
     }
 }

@@ -17,18 +17,33 @@
             document.location.href= "#hihi";
         }
 
-        var tim = 20;
-        var idX = setInterval(myFay, 1000);
+        var tim1 = 20;
+        var idX1 = setInterval(myFay1, 1000);
 
-        function myFay()
+        function myFay1()
         {
-            var va = document.getElementById("thoigian");
-            va.innerHTML = tim;
-            tim--;
+            var va = document.getElementById("thoigian1");
+            va.innerHTML = tim1;
+            tim1--;
             if (va.innerText == 0)
             {
-                clearInterval(idX);
-                window.location.href="/Home/XoaAllFile_X";
+                clearInterval(idX1);
+                window.location.href="/Home/XoaAllFile_X1";
+            }
+        }
+
+         var tim2 = 20;
+        var idX2 = setInterval(myFay2, 1000);
+
+        function myFay2()
+        {
+            var va = document.getElementById("thoigian2");
+            va.innerHTML = tim2;
+            tim2--;
+            if (va.innerText == 0)
+            {
+                clearInterval(idX2);
+                window.location.href="/Home/XoaAllFile_X2";
             }
         }
 

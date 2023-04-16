@@ -1,4 +1,26 @@
-﻿<table align="center">
+﻿<script>
+    function TabChuoi()
+    {
+        var chuoi = document.getElementById("Chuoi");
+        
+        chuoi.value += "\t";
+    }
+
+    function TabInput()
+    {
+        var input = document.getElementById("Input");
+        
+        input.value += "\t";
+    }
+
+    function TabOutput()
+    {
+        var output = document.getElementById("Output");
+        
+        output.value += "\t";
+    }
+</script>
+<table align="center">
     <h2 style="text-align:center">Replace - Regex</h2>
 
     <h3 style="color:yellow" onclick="muaxuan()">@ViewBag.KetQua</h3>
@@ -13,7 +35,9 @@
                 <br>
                     <b>Chuỗi của bạn : </b>
                 <br>
-                <textarea rows="20" cols="150" name="Chuoi" autofocus></textarea>
+                <input type="radio" onclick="TabChuoi()" checked><b>Click để thêm [TAB] vào cuối</b>
+                <br>
+                <textarea rows="20" cols="150" name="Chuoi" id="Chuoi" autofocus></textarea>
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
             </td>
@@ -26,9 +50,11 @@
             <td> </td>
             <td>
                 <br>
+                <input type="radio" onclick="TabInput()" checked><b>Click để thêm [TAB] vào cuối</b>
+                <br>
                     <b> Nhập pattern-input cần được thay thế : </b>
                 <br>
-                <textarea rows="10" cols="100" name="Input" autofocus></textarea>
+                <textarea rows="10" cols="100" name="Input" id="Input" autofocus></textarea>
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
             </td>
@@ -41,9 +67,11 @@
                 <td></td>
             <td>
                 <br>
+                <input type="radio" onclick="TabOutput()" checked><b>Click để thêm [TAB] vào cuối</b>
+                <br>
                     <b> Nhập pattern-output sẽ được thay thế thành : </b>
                 <br>
-                <textarea rows="10" cols="100" name="Output" autofocus></textarea>
+                <textarea rows="10" cols="100" name="Output" id="Output" autofocus></textarea>
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
             </td>
@@ -58,7 +86,7 @@
                 <br>
                     <b>Mời bạn lựa chọn áp dụng Regex (Với 1 : Áp dụng Regex, 2 : Không áp dụng Regex)</b>
                     <br>
-                <input type="number" min="1" max="2" name="DuKien1" value="1">
+                <input type="number" min="1" max="2" name="DuKien1" value="2">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi4"] </span>
             </td>
@@ -77,6 +105,21 @@
                 <input type="number" min="-1" name="DuKien2" value="-1">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi5"] </span>
+            </td>
+        </tr>
+
+        <br />
+        <br />
+
+        <tr style="height:40px">
+            <td> </td>
+            <td>
+                <br>
+                    <b>Nhập số lượng lần lặp cần thay thế (với 0 là tất cả mãi mãi)</b>
+                    <br>
+                <input type="number" min="0" name="DuKien3" value="0">
+                <br>
+                <span style="color:red; font-style:italic">@ViewData["Loi6"] </span>
             </td>
         </tr>
 

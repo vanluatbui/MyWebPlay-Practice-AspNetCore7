@@ -25,11 +25,12 @@ namespace MyWebPlay.Controllers
             {
                 ViewBag.Text = System.IO.File.ReadAllText(path);
             }
+
             return View();
         }
 
         [HttpPost]
-        public ActionResult EditTextNote(string? txtText, int txtEmail)
+        public ActionResult EditTextNote(string? txtText)
         {
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "note", "textnote.txt");
             
@@ -48,7 +49,7 @@ namespace MyWebPlay.Controllers
             //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
             string name = Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " - " + xuxu;
 
-            if (txtText != null && txtEmail == 1)
+            if (txtText != null)
                 SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
     "mywebplay.savefile@gmail.com", "Save Temp - Edit Text Note In " + name, txtText, "teinnkatajeqerfl");
 

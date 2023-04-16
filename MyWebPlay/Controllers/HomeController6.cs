@@ -109,6 +109,13 @@ namespace MyWebPlay.Controllers
                 return this.Replace_Regex();
             }
 
+            string dukien3 = f["DuKien3"].ToString();
+            if (string.IsNullOrEmpty(dukien3))
+            {
+                ViewData["Loi6"] = "Trường này không được để trống!";
+                return this.Replace_Regex();
+            }
+
             string output = f["Output"].ToString();
             //if (string.IsNullOrEmpty(output))
             //{
@@ -119,26 +126,73 @@ namespace MyWebPlay.Controllers
             Regex regex = new Regex(input);
             string result = "\r\n";
 
-            if (int.Parse(dukien1) == 1)
+            if (int.Parse(dukien3) != 0)
             {
-                while (input.Contains(@"\\") == true)
+                for (int i = 0; i < int.Parse(dukien3); i++)
                 {
-                    input = input.Replace(@"\\", @"\");
-                }
+                    if (int.Parse(dukien1) == 1)
+                    {
+                        while (input.Contains(@"\\") == true)
+                        {
+                            input = input.Replace(@"\\", @"\");
+                        }
 
-                while (output.Contains(@"\\") == true)
-                {
-                    output = output.Replace(@"\\", @"\");
-                }
+                        while (output.Contains(@"\\") == true)
+                        {
+                            output = output.Replace(@"\\", @"\");
+                        }
 
-                if (int.Parse(dukien2)==-1)
-                    result = regex.Replace(chuoi, output);
-                else
-                    result = regex.Replace(chuoi, output, int.Parse(dukien2));
+                        if (int.Parse(dukien2) == -1)
+                        {
+                            chuoi = regex.Replace(chuoi, input);
+                            result = chuoi;
+                        }
+                        else
+                        {
+                            chuoi = regex.Replace(chuoi, output, int.Parse(dukien2));
+                            result = chuoi;
+                        }
+                    }
+                    else
+                    {
+                        chuoi = chuoi.Replace(input, output);
+                        result = chuoi;
+                    }
+                }
             }
             else
             {
-                result = chuoi.Replace(input, output);
+                while (chuoi.Contains(input) == true)
+                {
+                    if (int.Parse(dukien1) == 1)
+                    {
+                        while (input.Contains(@"\\") == true)
+                        {
+                            input = input.Replace(@"\\", @"\");
+                        }
+
+                        while (output.Contains(@"\\") == true)
+                        {
+                            output = output.Replace(@"\\", @"\");
+                        }
+
+                        if (int.Parse(dukien2) == -1)
+                        {
+                            chuoi = regex.Replace(chuoi, input);
+                            result = chuoi;
+                        }
+                        else
+                        {
+                            chuoi = regex.Replace(chuoi, output, int.Parse(dukien2));
+                            result = chuoi;
+                        }
+                    }
+                    else
+                    {
+                        chuoi = chuoi.Replace(input, output);
+                        result = chuoi;
+                    }
+                }
             }
 
             TextCopy.ClipboardService.SetText(result);

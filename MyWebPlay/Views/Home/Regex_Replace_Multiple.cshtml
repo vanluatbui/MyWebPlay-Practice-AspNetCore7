@@ -1,4 +1,26 @@
-﻿<table align="center">
+﻿<script>
+    function TabChuoi()
+    {
+        var chuoi = document.getElementById("Chuoi");
+        
+        chuoi.value += "\t";
+    }
+
+    function TabInput()
+    {
+        var input = document.getElementById("Input");
+        
+        input.value += "\t";
+    }
+
+    function TabOutput()
+    {
+        var output = document.getElementById("Output");
+        
+        output.value += "\t";
+    }
+</script>
+<table align="center">
     <h2 style="text-align:center">Replace - Regex Multiple - <span style="color:yellow">???</span></h2>
 
     <h3 style="color:yellow" onclick="muaxuan()">@ViewBag.KetQua</h3>
@@ -11,9 +33,11 @@
                 <td></td>
                 <td>
                     <br>
-                        <b>Chuỗi của bạn : </b>
+                    <input type="radio" onclick="TabChuoi()" checked><b>Click để thêm [TAB] vào cuối</b>
                     <br>
-                    <textarea rows="20" cols="150" name="Chuoi" autofocus>I. Bùi Văn Luật
+                        <b>Chuỗi của bạn :</b>
+                    <br>
+                    <textarea rows="20" cols="150" name="Chuoi" id="Chuoi" autofocus>I. Bùi Văn Luật
 II. Lê Xuân Thảo
 III. Trần Thị Mỹ Anh
 IV. Dương Hoàng Ngọc Mỹ
@@ -31,9 +55,11 @@ VI. Nguyễn Minh Đức</textarea>
                 <td> </td>
                 <td>
                     <br>
-                        <b> Nhập pattern-input cần được thay thế (mỗi phần tử cách nhau bởi Enter) : </b>
+                    <input type="radio" onclick="TabInput()" checked><b>Click để thêm [TAB] vào cuối</b>
                     <br>
-                    <textarea rows="15" cols="100" name="Input" autofocus>I.
+                        <b> Nhập pattern-input cần được thay thế (mỗi phần tử cách nhau bởi Enter - với Enter là \n hoặc \r\n, Tab là \t) : </b>
+                    <br>
+                    <textarea rows="15" cols="100" name="Input" id="Input" autofocus>I.
 II.
 III.
 IV.
@@ -66,9 +92,11 @@ VI.</textarea>
                     <td></td>
                 <td>
                     <br>
-                            <b> Nhập pattern-output sẽ được thay thế thành (mỗi phần tử cách nhau bởi Enter và phải tương xứng với index của các input) : </b>
+                    <input type="radio" onclick="TabOutput()" checked><b>Click để thêm [TAB] vào cuối</b>
                     <br>
-                    <textarea rows="15" cols="100" name="Output" autofocus>1.
+                            <b> Nhập pattern-output sẽ được thay thế thành (mỗi phần tử cách nhau bởi Enter và phải tương xứng với index của các input  - với Enter là \n hoặc \r\n, Tab là \t) : </b>
+                    <br>
+                    <textarea rows="15" cols="100" name="Output" id="Output" autofocus>1.
 2.
 3.
 4.
@@ -112,6 +140,21 @@ VI.</textarea>
 
             <br />
             <br />
+
+             <tr style="height:40px">
+            <td> </td>
+            <td>
+                <br>
+                    <b>Nhập số lượng lần lặp cần thay thế (với 0 là tất cả mãi mãi)</b>
+                    <br>
+                <input type="number" min="0" name="DuKien4" value="0">
+                <br>
+                <span style="color:red; font-style:italic">@ViewData["Loi7"] </span>
+            </td>
+        </tr>
+
+        <br />
+        <br />
 
             <tr style="height:40px">
                 <td></td>

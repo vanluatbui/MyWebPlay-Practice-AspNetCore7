@@ -49,6 +49,13 @@ namespace MyWebPlay.Controllers
                 return this.Regex_Replace_Multiple();
             }
 
+            string dukien4 = f["DuKien4"].ToString();
+            if (string.IsNullOrEmpty(dukien4))
+            {
+                ViewData["Loi7"] = "Trường này không được để trống!";
+                return this.Regex_Replace_Multiple();
+            }
+
             string output = f["Output"].ToString();
             //if (string.IsNullOrEmpty(output))
             //{
@@ -87,37 +94,97 @@ namespace MyWebPlay.Controllers
 
             string result = "\r\n";
 
-            for (int i = 0; i < listInput.Length; i++)
+            if (int.Parse(dukien4) != 0)
             {
-                Regex regex = new Regex(listInput[i]);
+                    for (int i = 0; i < listInput.Length; i++)
+                    {
+                      for (int k = 0; k < int.Parse(dukien4); k++)
+                      {
+                        listInput[i] = listInput[i].Replace("\\n", "\n");
+                        listInput[i] = listInput[i].Replace("\\r\\n", "\r\n");
+                        listInput[i] = listInput[i].Replace("\\t", "\t");
 
-                if (int.Parse(dukien1) == 1)
-                {
-                    while (listInput[i].Contains(@"\\") == true)
-                    {
-                        listInput[i] = listInput[i].Replace(@"\\", @"\");
-                    }
+                        listOutput[i] = listOutput[i].Replace("\\n", "\n");
+                        listOutput[i] = listOutput[i].Replace("\\r\\n", "\r\n");
+                        listOutput[i] = listOutput[i].Replace("\\t", "\t");
 
-                    while (listOutput[i].Contains(@"\\") == true)
-                    {
-                        listOutput[i] = listOutput[i].Replace(@"\\", @"\");
-                    }
+                        Regex regex = new Regex(listInput[i]);
 
-                    if (int.Parse(dukien2) == -1)
-                    {
-                        result = regex.Replace(chuoi, listOutput[i]);
-                        chuoi = regex.Replace(chuoi, listOutput[i]);
-                    }
-                    else
-                    {
-                        result = regex.Replace(chuoi, listOutput[i], int.Parse(dukien2));
-                        chuoi = regex.Replace(chuoi, listOutput[i], int.Parse(dukien2));
+                        if (int.Parse(dukien1) == 1)
+                        {
+                            while (listInput[i].Contains(@"\\") == true)
+                            {
+                                listInput[i] = listInput[i].Replace(@"\\", @"\");
+                            }
+
+                            while (listOutput[i].Contains(@"\\") == true)
+                            {
+                                listOutput[i] = listOutput[i].Replace(@"\\", @"\");
+                            }
+
+                            if (int.Parse(dukien2) == -1)
+                            {
+                                chuoi = regex.Replace(chuoi, listOutput[i]);
+                                result = chuoi;
+                            }
+                            else
+                            {
+                                chuoi = regex.Replace(chuoi, listOutput[i], int.Parse(dukien2));
+                                result = chuoi;
+                            }
+                        }
+                        else
+                        {
+                            chuoi = chuoi.Replace(listInput[i], listOutput[i]);
+                            result = chuoi;
+                        }
                     }
                 }
-                else
-                {
-                    result = chuoi.Replace(listInput[i], listOutput[i]);
-                    chuoi = chuoi.Replace(listInput[i], listOutput[i]);
+            }
+            else
+            {
+                    for (int i = 0; i < listInput.Length; i++)
+                    {
+                      while (chuoi.Contains(listInput[i]) == true)
+                       {
+                        listInput[i] = listInput[i].Replace("\\n", "\n");
+                        listInput[i] = listInput[i].Replace("\\r\\n", "\r\n");
+                        listInput[i] = listInput[i].Replace("\\t", "\t");
+
+                        listOutput[i] = listOutput[i].Replace("\\n", "\n");
+                        listOutput[i] = listOutput[i].Replace("\\r\\n", "\r\n");
+                        listOutput[i] = listOutput[i].Replace("\\t", "\t");
+                        Regex regex = new Regex(listInput[i]);
+
+                        if (int.Parse(dukien1) == 1)
+                        {
+                            while (listInput[i].Contains(@"\\") == true)
+                            {
+                                listInput[i] = listInput[i].Replace(@"\\", @"\");
+                            }
+
+                            while (listOutput[i].Contains(@"\\") == true)
+                            {
+                                listOutput[i] = listOutput[i].Replace(@"\\", @"\");
+                            }
+
+                            if (int.Parse(dukien2) == -1)
+                            {
+                                chuoi = regex.Replace(chuoi, listOutput[i]);
+                                result = chuoi;
+                            }
+                            else
+                            {
+                                chuoi = regex.Replace(chuoi, listOutput[i], int.Parse(dukien2));
+                                result = chuoi;
+                            }
+                        }
+                        else
+                        {
+                            chuoi = chuoi.Replace(listInput[i], listOutput[i]);
+                            result = chuoi;
+                        }
+                    }
                 }
             }
 
@@ -125,7 +192,7 @@ namespace MyWebPlay.Controllers
 
             result = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
 
-            ViewBag.Result = result + " - " + listInput[0] + " - " + listInput[1] ;
+            ViewBag.Result = result;
 
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
 

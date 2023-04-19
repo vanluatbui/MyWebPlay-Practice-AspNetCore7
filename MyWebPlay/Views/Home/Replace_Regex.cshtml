@@ -1,4 +1,17 @@
 ﻿<script>
+
+     function PlayChon1()
+    {
+        var DK2 = document.getElementById("DK1");
+        var chon2 = document.getElementById("chon1").options;
+
+        if (chon2.selectedIndex == 0)
+        DK2.value = 2;
+        else
+        if (chon2.selectedIndex == 1)
+        DK2.value = 1;
+    }
+
     function TabChuoi()
     {
         var chuoi = document.getElementById("Chuoi");
@@ -86,7 +99,11 @@
                 <br>
                     <b>Mời bạn lựa chọn áp dụng Regex (Với 1 : Áp dụng Regex, 2 : Không áp dụng Regex)</b>
                     <br>
-                <input type="number" min="1" max="2" name="DuKien1" value="2">
+                  <select id="chon1" onchange="PlayChon1()">
+                        <option>Không áp dụng Regex</option>
+                        <option>Áp dụng Regex</option>
+                    </select>
+                <input type="number" min="1" max="2" name="DuKien1" id="DK1" value="2">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi4"] </span>
             </td>

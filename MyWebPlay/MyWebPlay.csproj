@@ -14,7 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\file\" />
+    <Folder Include="wwwroot\file\A\C\" />
+    <Folder Include="wwwroot\file\A\D\E\" />
+    <Folder Include="wwwroot\file\B\" />
     <Folder Include="wwwroot\note\" />
     <Folder Include="wwwroot\tracnghiem\" />
   </ItemGroup>

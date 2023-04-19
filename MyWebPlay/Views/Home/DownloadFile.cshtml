@@ -35,15 +35,15 @@
 
     function downall()
     {
-        window.location.href = "/Home/DownloadFile?all=1";
+        window.location.href = "/Home/DownloadFile?all=1&&folder="+document.getElementById("Folder").value;
     }
 
 </script>
 
 
 <table align="center">
-    <h2 style="text-align:center">DOWNLOAD YOUR FILE ON SERVER</h2>
-
+    <h2 style="text-align:center">DOWNLOAD YOUR FILE ON SERVER</h2><br /><br />
+    <h3 style="color:red">@ViewBag.KQF</h3> <br /><br />
     @for (int i = 0; i < ViewBag.XL; i++)
     {
             <b> KẾT QUẢ FILE THỨ @(i+1) CỦA BẠN : </b>
@@ -54,7 +54,7 @@
     }
 
     <hr />
-    <button style="color:purple" onclick="xoaallfile()">Xoá tất cả các file trên Server (dành cho admin)</button>
+    <button style="color:purple" onclick="xoaallfile()">Xoá tất cả các file trên Server - toàn bộ (dành cho admin)</button>
     <br />
     <br />
     <button style="color:blueviolet" onclick="uploadfile()">Bạn chưa đăng tải file trên hệ thống trước đó?</button>
@@ -62,12 +62,13 @@
     <br />
 
     <br />
-    <button style="color:blue" onclick="downall()">ALL DOWNLOAD SERVER</button>
+    <b>Nhập chính xác path folder để truy xuất các file (không bao gồm các folder con) để download - nếu để trống mặc định là ROOT : </b><input id="Folder" type="text" size="50" value="/Folder1/Folder2" />
+    <button style="color:blue;font-weight:bold" onclick="downall()">ALL DOWNLOAD SERVER IN THIS FOLDER</button>
 
     <br />
 
     <br />
-    <b>Nhập số lượng file mà bạn muốn download : </b> <input type="number" id="SL" value="@ViewBag.SL" min="1"/>
+    <b>Nhập số lượng file mà bạn muốn download (ROOT) : </b> <input type="number" id="SL" value="@ViewBag.SL" min="1"/>
     <button id="okX" onclick="soluongfile()">OK</button>
 
                 <br />

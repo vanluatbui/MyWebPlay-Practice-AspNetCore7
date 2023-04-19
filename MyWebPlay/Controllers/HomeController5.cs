@@ -43,18 +43,18 @@ namespace MyWebPlay.Controllers
             }
 
             string X = f["X"].ToString();
-            if (string.IsNullOrEmpty(X))
-            {
-                ViewData["Loi5"] = "Trường này không được để trống!";
-                return this.String_Split_Regex();
-            }
+            //if (string.IsNullOrEmpty(X))
+            //{
+            //    ViewData["Loi5"] = "Trường này không được để trống!";
+            //    return this.String_Split_Regex();
+            //}
 
             string Y = f["Y"].ToString();
-            if (string.IsNullOrEmpty(Y))
-            {
-                ViewData["Loi6"] = "Trường này không được để trống!";
-                return this.String_Split_Regex();
-            }
+            //if (string.IsNullOrEmpty(Y))
+            //{
+            //    ViewData["Loi6"] = "Trường này không được để trống!";
+            //    return this.String_Split_Regex();
+            //}
 
             string[] DS = Regex.Split(chuoi, "\r\n");
             Regex regex = new Regex(pattern);

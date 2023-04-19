@@ -1,4 +1,15 @@
 ﻿<script>
+    function PlayChon2()
+    {
+        var DK2 = document.getElementById("DK2");
+        var chon2 = document.getElementById("chon2").options;
+
+        if (chon2.selectedIndex == 0)
+        DK2.value = 2;
+        else
+        if (chon2.selectedIndex == 1)
+        DK2.value = 1;
+    }
     function xoaallfile(){
         
         var check = prompt('Để xác nhận xoá tất cả các file trên Server, admin nhập đúng mật mã : ');
@@ -47,6 +58,38 @@
          window.location.href = "/Home/UploadFile?sl="+document.getElementById("SL").value+"&&name=0&&y=upload=1";
     }
 
+    function ChonLoai()
+    {
+        var chon = document.getElementById("chon").options;
+        var num = document.getElementById("DKX");
+        if (chon.selectedIndex == 0)
+        num.value = "1";
+        else  if (chon.selectedIndex == 1)
+        num.value = "2";
+         else if (chon.selectedIndex == 2)
+        num.value = "3";
+        else if (chon.selectedIndex == 3)
+        num.value = "4";
+    }
+
+    function XoaFolder()
+    {
+        var con = confirm('Bạn có chắc chắc muốn xoá tất cả thành phần trong thư mục mà bạn đã chỉ định không (tuỳ vào lựa chọn của bạn)?');
+        var folder = document.getElementById("FDX").value;
+        var chon = document.getElementById("DKX").value;
+        if (con == true)
+        {
+             alert('Thành công, tác vụ đang được xử lý...');
+            window.location.href = "/Home/XoaFolder?folder="+folder+"&&chon="+chon;
+        }
+    }
+
+    function XoaFileX()
+    {
+        alert('Thành công, tác vụ đang được xử lý...');
+        window.location.href = "/Home/XoaFileX?file="+document.getElementById("File");
+    }
+
 </script>
 
 <table align="center">
@@ -54,9 +97,22 @@
 
     <h3 style="color:yellow">@Html.Raw(@ViewBag.KetQua)</h3>
     
-    <button style="color:purple" onclick="xoaallfile()">Xoá tất cả các file trên Server (dành cho admin)</button>
+    <button style="color:purple" onclick="xoaallfile()">Xoá tất cả các file và folder trên Server - toàn bộ (dành cho admin)</button>
     <br />
     <br />
+     <b>Xoá tất cả các file hoặc folder chỉ định tại path thư mục (nếu để trống mặc định chỉ folder ROOT) : </b><br />
+     <input size="50" id="FDX" type="text" value="\Folder1\Folder2" />
+
+     <select id="chon" onchange="ChonLoai()">
+         <option>Xoá toàn bộ và cả chính thư mục đã chỉ định</option>
+         <option>Chỉ xoá các thư mục (&con) trong Folder chỉ định</option>
+         <option>Chỉ xoá các file trong Folder chỉ định</option>
+         <option>chỉ xoá tất cả - toàn bộ các file và thư mục (&con) trong Folder chỉ định</option>
+     </select><input type="text" id="DKX" value="1" hidden/><button onclick="XoaFolder()" style="color:purple;font-weight:bolder">XOÁ FOLDER HOẶC FILE</button>
+    <br />
+    <br />
+    <b>Nhập chính xác path folder kèm theo tên file (extension) mà bạn muốn xoá - nếu nhập /filename.extension là chỉ file trong ROOT : </b><input id="File" type="text" size="50" value="/Folder1/Folder2/myfile.txt" /><button onclick="XoaFileX()" style="color:purple;font-weight:bolder">XOÁ FILE</button>
+    <br /><br />
     <button style="color:blueviolet" onclick="downloadfile()">Bạn đã có file trên hệ thống trước đó?</button>
     <br />
     <br />
@@ -86,10 +142,44 @@
                 <td> </td>
                 <td>
                     <br>
-                    <textarea name="Text" cols="100" rows="5" placeholder="Không cần nhập gì ở đây :)) (hoặc nếu bạn muốn ghi chú cho vui)"></textarea>
+                    <textarea name="Text" cols="100" rows="5" placeholder="Không cần nhập gì ở đây :)) (hoặc nếu bạn muốn ghi chú cho vui - mà kể cũng thiệt :v)"></textarea>
                     <br>
                 </td>
             </tr>
+            <br />
+        }
+
+        @if (ViewBag.X != 0)
+        {
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                    <br>
+                    <b>Nhập tên thư mục (nếu bạn muốn upload các file của bạn phân biệt vào Folder này) - nếu bỏ trống mặc định các file của bạn sẽ upload vào thư mục gốc ROOT của Server * XIN HÃY GHI NHỚ...</b>
+                    <br>
+                    <input type="text" name="Folder" size="50" value="\Folder1\Folder2"/>
+                    <br>
+                     <span style="color:red; font-style:italic">@ViewData["LoiX"] </span>
+        <br />
+                </td>
+            </tr>
+            <br />
+            <br />
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                    <br>
+                    <b>Mời bạn lựa chọn (1 : Nếu thư mục đã tồn tại, tiếp tục upload các file mới vào _ tự động mà không báo trước | 2 : Nếu thư mục đã tồn tại, hãy thông báo cho tôi biết và tôi sẽ nhập lại tên thư mục khác) - Chỉ áp dụng khi bạn có nhập dữ liệu cho trường Input trên</b>
+                    <br>
+                     <select id="chon2" onchange="PlayChon2()">
+                          <option>Nếu thư mục đã tồn tại, hãy thông báo cho tôi biết và tôi sẽ nhập lại tên thư mục khác</option>
+                        <option>Nếu thư mục đã tồn tại, tiếp tục upload các file mới vào</option>
+                    </select>
+                    <input type="number" name="DuKien" min="1" max="2" id="DK2" value="2"/>
+                    <br>
+                </td>
+            </tr>
+            <br />
             <br />
         }
 

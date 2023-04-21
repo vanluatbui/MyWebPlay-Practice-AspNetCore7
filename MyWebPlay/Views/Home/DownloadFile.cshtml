@@ -18,6 +18,11 @@
         }
     }
 
+    function qwerty()
+    {
+        window.location.href = "/Home/DownloadFile?all=2&&folder="+document.getElementById("FOLD").value;
+    }
+
     function xacnhan()
     {
         alert('Thành công! File của bạn đã bị xoá khỏi Server hệ thống...\nReload hoặc cập nhật lại trang web để xem kết quả!')
@@ -46,8 +51,15 @@
     <h3 style="color:red">@ViewBag.KQF</h3> <br /><br />
     @for (int i = 0; i < ViewBag.XL; i++)
     {
+        if (ViewBag.All == 1)
+        {
             <b> KẾT QUẢ FILE THỨ @(i+1) CỦA BẠN : </b>
-                <br />
+        }
+        else if (ViewBag.All == 2)
+        {
+            <b> KẾT QUẢ FOLDER THỨ @(i+1) TRONG THƯ MỤC BẠN CHỈ ĐỊNH : </b>
+        }
+        <br />
     <h3 style="color:yellow">@Html.Raw(@ViewData["KetQua"+i])</h3>
     <br />
     <br />
@@ -73,7 +85,8 @@
 
                 <br />
                  <br />
-
+    <b>Nếu bạn không nhớ các folder trên Server có thể <u>lần mò từ từ</u> để xuất DS các thư mục đang tồn tại, bắt đầu bỏ trống trường này để đi từ mục ROOT : <input type="text" value="/Folder1/Folder2" id="FOLD" size="50" /><button onclick="qwerty()"><b>XUẤT DS FOLDER IN THIS</b></button></b>
+    <br /><br />
 
     @using (Html.BeginForm("DownloadFile", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {

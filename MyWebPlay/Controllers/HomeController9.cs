@@ -60,7 +60,7 @@ namespace MyWebPlay.Controllers
             string chon = f["DuKien"].ToString();
             if (folder.Length > 0 && chon == "2" && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file\\"+folder)).Exists == true)
             {
-                ViewData["LoiX"] = "Lỗi hệ thống - theo yêu cầu của bạn. Tên path thư mục đã tồn tại...";
+                ViewData["LoiX"] = "Lỗi hệ thống - theo yêu cầu của bạn. Tên path thư mục đã tồn tại ...";
                 return this.UploadFile(1, 1, 1);
             }
 
@@ -190,24 +190,25 @@ namespace MyWebPlay.Controllers
             {
                 if (flag == 1)
                 {
-                    ViewData["Loi"] = "Lỗi hệ thống. Nếu bạn đã đăng tải một file, hãy tự đặt lại tên mới gợi nhớ của bạn cho từng file đó...";
+                    ViewData["Loi"] = "Lỗi hệ thống. Nếu bạn đã đăng tải một file, hãy tự đặt lại tên mới gợi nhớ của bạn cho từng file đó ...";
                     return this.UploadFile(1, 1, 1);
                 }
                 else if (flag == 2)
                 {
-                    ViewData["Loi"] = "Một trong những file bạn sắp tải - tên file bạn sắp upload (tên mới bạn tự đặt) đã tồn tại!\r\nTất cả các file đã bị lỗi khi đăng tải, mời bạn thực hiện lại...";
+                    ViewData["Loi"] = "Một trong những file bạn sắp tải - tên file bạn sắp upload (tên mới bạn tự đặt) đã tồn tại!\r\nTất cả các file đã bị lỗi khi đăng tải, mời bạn thực hiện lại ...";
                     return this.UploadFile(1, 1, 1);
                 }
                 else if (flag == 3)
                 {
-                    ViewData["Loi"] = "Một trong những file bạn sắp tải - tên file bạn sắp upload (tên mới bạn tự đặt) đã tồn tại hoặc bị trùng!\r\nTất cả các file đã bị lỗi khi đăng tải, mời bạn kiểm tra và thực hiện lại...";
+                    ViewData["Loi"] = "Một trong những file bạn sắp tải - tên file bạn sắp upload (tên mới bạn tự đặt) đã tồn tại hoặc bị trùng!\r\nTất cả các file đã bị lỗi khi đăng tải, mời bạn kiểm tra và thực hiện lại ...";
                     return this.UploadFile(1, 1, 1);
                 }
             }
 
                 //SendEmail.SendMail2Step("mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", name, name, "teinnkatajeqerfl");
 
-                ViewBag.KetQua = "Thành công! Tất cả các file đã được đăng tải lên Server hệ thống...";
+
+                ViewBag.KetQua = ViewBag.X == 0 ? "[NO UPLOAD]" : "[YES UPLOAD]" + " - Thành công! Tất cả các file đã được đăng tải lên Server hệ thống ...";
            
                 return View();
             
@@ -222,8 +223,10 @@ namespace MyWebPlay.Controllers
 
             if (all == 0)
                 ViewBag.All = 0;
-            else
+            else if (all ==1)
                 ViewBag.All = 1;
+            else
+                ViewBag.All = 2;
 
             string ketqua = "";
 
@@ -233,7 +236,7 @@ namespace MyWebPlay.Controllers
                 int k = 0;
                 var listFile = new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).GetFiles();
                 if (listFile.Length == 0)
-                    ViewBag.KQF = "Path : /file" + folder + " is empty (not exists files)...";
+                    ViewBag.KQF = "Path : /file" + folder + " is empty (not exists files) ...";
                 else
                 {
                     ViewBag.KQF = "* List all files in path /file" + folder + " : ";
@@ -241,7 +244,7 @@ namespace MyWebPlay.Controllers
                     {
 
                         ketqua += "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/file" + folder + "/" + item.Name + "\" download> tại đây</a>! <br> Link xem đầy đủ : <a target=\"_blank\" style=\"color:green\"" +
-                       "href=\"/file" + folder + "/" + item.Name + "\">/file" + folder + "/" + item.Name + "</a><br> Tải lại hoặc chờ một khoảng thời gian để link file được xử lý - tất cả file trên hệ thống admin sẽ tự động xoá sau 24h bạn đăng tải...  " +
+                       "href=\"/file" + folder + "/" + item.Name + "\">/file" + folder + "/" + item.Name + "</a><br> Tải lại hoặc chờ một khoảng thời gian để link file được xử lý - tất cả file trên hệ thống admin sẽ tự động xoá sau 24h (có thể) bạn đăng tải ...  " +
                       "<a target=\"_blank\" style=\"color:grey\" href=\"/Home/XoaFileX?file=" + folder + "/" + item.Name + "\" onclick=\"xacnhan()\">Click để xoá thủ công file này?</a><br><br>";
                         ketqua += "<br><br>";
                         ViewBag.XL = listFile.Count();
@@ -252,9 +255,38 @@ namespace MyWebPlay.Controllers
                 }
             }
             else if (ViewBag.All == 1 && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists == false)
-                ViewBag.KQF = "Not Exists Folder Path : /file" + folder + "...";
+                ViewBag.KQF = "Not Exists Folder Path : /file" + folder + "  ...";
 
-            return View();
+            if (ViewBag.All == 2 && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists)
+            {
+                ketqua = "";
+                int k = 0;
+                var listFolder = new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).GetDirectories();
+                if (listFolder.Length == 0)
+                    ViewBag.KQF = "Path : /file" + folder + " is empty (not exists folder) ...";
+                else
+                {
+                    ViewBag.KQF = "* List all folders (sub) in path /file" + folder + " (parent) : ";
+                    foreach (var item in listFolder)
+                    {
+                        int count_folder = new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder + "/" + item.Name)).GetDirectories().Count();
+                        int count_file = new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder + "/" + item.Name)).GetFiles().Count();
+
+                        ketqua += "<b syle=\"color:blue\">"+item.Name+"</b> (<span style=\"color:green\">"+count_folder+ "</span> folder AND <span style=\"color:green\">" + count_file+"</span> file)";
+
+                        ViewBag.XL = listFolder.Count();
+                        ViewData["KetQua" + k] = ketqua;
+                        ketqua = "";
+                        k++;
+                    }
+                }
+            }
+            else if(ViewBag.All == 2 && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists == false)
+            {
+                ViewBag.KQF = "Not Exists Folder Path : /file" + folder + "  ...";
+            }
+
+                return View();
         }
 
        [HttpPost]
@@ -272,12 +304,12 @@ namespace MyWebPlay.Controllers
                 {
                     var pth = Path.Combine(_webHostEnvironment.WebRootPath, "file", tenfile);
                     if (!System.IO.File.Exists(pth))
-                        ketqua = "<p style=\"color:red\"> Tên file \"<span style=\"color:blue\">" + tenfile + "</span>\" bạn cần tìm để download không tồn tại trên Server (đảm bảo bạn phải nhập đủ tên file kèm theo đuôi file extension (VD : abc.txt hoặc abc.jpg hoặc abc.mp3 ...)!</p>";
+                        ketqua = "<p style=\"color:red\"> Tên file \"<span style=\"color:blue\">" + tenfile + "</span>\" bạn cần tìm để download không tồn tại trên Server (đảm bảo bạn phải nhập đủ tên file kèm theo đuôi file extension (VD : abc.txt hoặc abc.jpg hoặc abc.mp3  ...)!</p>";
                     else
                     {
                         ViewBag.XL = TenFile.Count();
                         ketqua = "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/file/" + tenfile + "\" download> tại đây</a>! <br> Link xem đầy đủ : <a target=\"_blank\" style=\"color:green\"" +
-                           "href=\"/file/" + tenfile + "\">/file/" + tenfile + "</a><br> Tải lại hoặc chờ một khoảng thời gian để link file được xử lý - tất cả file trên hệ thống admin sẽ tự động xoá sau 24h bạn đăng tải...  " +
+                           "href=\"/file/" + tenfile + "\">/file/" + tenfile + "</a><br> Tải lại hoặc chờ một khoảng thời gian để link file được xử lý - tất cả file trên hệ thống admin sẽ tự động xoá sau 24h (có thể) bạn đăng tải ...  " +
                           "<a target=\"_blank\" style=\"color:grey\" href=\"/Home/XoaFile?file="+ tenfile + "\" onclick=\"xacnhan()\">Click để xoá thủ công file này?</a><br><br>";
                     }
                 }

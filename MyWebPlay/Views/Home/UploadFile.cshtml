@@ -101,13 +101,13 @@
     <br />
     <br />
      <b>Xoá tất cả các file hoặc folder chỉ định tại path thư mục (nếu để trống mặc định chỉ folder ROOT) : </b><br />
-     <input size="50" id="FDX" type="text" value="\Folder1\Folder2" />
+     <input size="50" id="FDX" type="text" value="/Folder1/Folder2" />
 
      <select id="chon" onchange="ChonLoai()">
          <option>Xoá toàn bộ và cả chính thư mục đã chỉ định</option>
          <option>Chỉ xoá các thư mục (&con) trong Folder chỉ định</option>
          <option>Chỉ xoá các file trong Folder chỉ định</option>
-         <option>chỉ xoá tất cả - toàn bộ các file và thư mục (&con) trong Folder chỉ định</option>
+         <option>Chỉ xoá tất cả - toàn bộ các file và thư mục (&con) trong Folder chỉ định</option>
      </select><input type="text" id="DKX" value="1" hidden/><button onclick="XoaFolder()" style="color:purple;font-weight:bolder">XOÁ FOLDER HOẶC FILE</button>
     <br />
     <br />
@@ -136,7 +136,16 @@
             <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
         <br />
 
-        @if (ViewBag.SL > 0)
+        if (ViewBag.X == 0)
+        {
+            <h3 style="color:red">NO UPLOAD SERVER</h3>
+        }
+        else
+        {
+            <h3 style="color:red">YES UPLOAD SERVER</h3>
+        }
+
+        @if (ViewBag.SL > 0 && ViewBag.X == 0)
         {
             <tr style="height:40px">
                 <td> </td>
@@ -157,7 +166,7 @@
                     <br>
                     <b>Nhập tên thư mục (nếu bạn muốn upload các file của bạn phân biệt vào Folder này) - nếu bỏ trống mặc định các file của bạn sẽ upload vào thư mục gốc ROOT của Server * XIN HÃY GHI NHỚ...</b>
                     <br>
-                    <input type="text" name="Folder" size="50" value="\Folder1\Folder2"/>
+                    <input type="text" name="Folder" size="50" value="/Folder1/Folder2"/>
                     <br>
                      <span style="color:red; font-style:italic">@ViewData["LoiX"] </span>
         <br />
@@ -189,8 +198,16 @@
                         <td></td>
                 <td>
                     <br>
-                           <b>@(i + 1).1</b> Upload 1 file của bạn :
-                    <br>
+                           @if (ViewBag.X == 0)
+                           {
+                        <b>@(i + 1).1</b> <span>Upload 1 hay nhiều file của bạn :</span>
+                    }
+                    else
+                    {
+                        <b>@(i + 1).1</b> <span>Upload 1 file của bạn :</span>
+                    }
+
+                         <br>
                      @if (ViewBag.X == 0)
                      {
                         <input type="file" name="fileUpload" multiple>

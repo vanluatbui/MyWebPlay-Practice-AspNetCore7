@@ -30,7 +30,12 @@
 
     function xacnhan()
     {
-        alert('Thành công! File của bạn đã bị xoá khỏi Server hệ thống...')
+          var con = confirm('Bạn có chắc chắn muốn xoá vĩnh viễn file này khỏi lưu trữ Server hệ thống không?');
+        if (con == true)
+        {
+            alert("Thành công, tác vụ hiện đang được xử lý...");
+            window.location.href="/Home/XoaFile?file="+file;
+        }
     }
 
     function downloadfile()
@@ -87,7 +92,7 @@
     function XoaFileX()
     {
         alert('Thành công, tác vụ đang được xử lý...');
-        window.location.href = "/Home/XoaFileX?file="+document.getElementById("File");
+        window.location.href = "/Home/XoaFileX?file="+document.getElementById("FileXY").value;
     }
 
 </script>
@@ -111,7 +116,7 @@
      </select><input type="text" id="DKX" value="1" hidden/><button onclick="XoaFolder()" style="color:purple;font-weight:bolder">XOÁ FOLDER HOẶC FILE</button>
     <br />
     <br />
-    <b>Nhập chính xác path folder kèm theo tên file (extension) mà bạn muốn xoá - nếu nhập /filename.extension là chỉ file trong ROOT : </b><input id="File" type="text" size="50" value="/Folder1/Folder2/myfile.txt" /><button onclick="XoaFileX()" style="color:purple;font-weight:bolder">XOÁ FILE</button>
+    <b>Nhập chính xác path folder kèm theo tên file (extension) mà bạn muốn xoá - nếu nhập /filename.extension là chỉ file trong ROOT : </b><input id="FileXY" type="text" size="50" value="/Folder1/Folder2/myfile.txt" /><button onclick="XoaFileX()" style="color:purple;font-weight:bolder">XOÁ FILE</button>
     <br /><br />
     <button style="color:blueviolet" onclick="downloadfile()">Bạn đã có file trên hệ thống trước đó?</button>
     <br />

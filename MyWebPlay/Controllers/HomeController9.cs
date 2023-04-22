@@ -242,10 +242,11 @@ namespace MyWebPlay.Controllers
                     ViewBag.KQF = "* List all files in path /file" + folder + " : ";
                     foreach (var item in listFile)
                     {
+                        string file = folder + "/" + item.Name;
 
                         ketqua += "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/file" + folder + "/" + item.Name + "\" download> tại đây</a>! <br> Link xem đầy đủ : <a target=\"_blank\" style=\"color:green\"" +
                        "href=\"/file" + folder + "/" + item.Name + "\">/file" + folder + "/" + item.Name + "</a><br> Tải lại hoặc chờ một khoảng thời gian để link file được xử lý - tất cả file trên hệ thống admin sẽ tự động xoá sau 24h (có thể) bạn đăng tải ...  " +
-                      "<a target=\"_blank\" style=\"color:grey\" href=\"/Home/XoaFileX?file=" + folder + "/" + item.Name + "\" onclick=\"xacnhan()\">Click để xoá thủ công file này?</a><br><br>";
+                      "<button style=\"color:blue\" onclick=\"xacnhan('"+ file + "')\">Click để xoá thủ công file này?</button><br><br>";
                         ketqua += "<br><br>";
                         ViewBag.XL = listFile.Count();
                         ViewData["KetQua" + k] = ketqua;
@@ -307,10 +308,12 @@ namespace MyWebPlay.Controllers
                         ketqua = "<p style=\"color:red\"> Tên file \"<span style=\"color:blue\">" + tenfile + "</span>\" bạn cần tìm để download không tồn tại trên Server (đảm bảo bạn phải nhập đủ tên file kèm theo đuôi file extension (VD : abc.txt hoặc abc.jpg hoặc abc.mp3  ...)!</p>";
                     else
                     {
+                        string file = "/" + tenfile;
+
                         ViewBag.XL = TenFile.Count();
                         ketqua = "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/file/" + tenfile + "\" download> tại đây</a>! <br> Link xem đầy đủ : <a target=\"_blank\" style=\"color:green\"" +
                            "href=\"/file/" + tenfile + "\">/file/" + tenfile + "</a><br> Tải lại hoặc chờ một khoảng thời gian để link file được xử lý - tất cả file trên hệ thống admin sẽ tự động xoá sau 24h (có thể) bạn đăng tải ...  " +
-                          "<a target=\"_blank\" style=\"color:grey\" href=\"/Home/XoaFile?file="+ tenfile + "\" onclick=\"xacnhan()\">Click để xoá thủ công file này?</a><br><br>";
+                          "<button style=\"color:blue\" onclick=\"xacnhan('"+file+"')\">Click để xoá thủ công file này?</button><br><br>";
                     }
                 }
 
@@ -337,7 +340,10 @@ namespace MyWebPlay.Controllers
             if (chon == "1")
             {
                 if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists)
-               new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Delete(true);          
+               new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Delete(true);
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file")).Exists == false)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file")).Create();
             }
             else if (chon == "2")
             {
@@ -374,17 +380,18 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XoaFile(string file)
         {
-                    FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file", file));
-                    f.Delete();
+             FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file"+file));
+            if (f.Exists)
+            f.Delete();
 
             return RedirectToAction("DownloadFile");
         }
 
         public ActionResult XoaFileX(string file)
         {
-            if (new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + file)).Exists)
+            if (new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file"+file)).Exists)
             {
-                FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + file));
+                FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file"+file));
                 f.Delete();
             }
 

@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\file\A\**" />
+    <Compile Remove="wwwroot\file\B\**" />
+    <Content Remove="wwwroot\file\A\**" />
+    <Content Remove="wwwroot\file\B\**" />
+    <EmbeddedResource Remove="wwwroot\file\A\**" />
+    <EmbeddedResource Remove="wwwroot\file\B\**" />
+    <None Remove="wwwroot\file\A\**" />
+    <None Remove="wwwroot\file\B\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MailKit" Version="3.6.0" />
     <PackageReference Include="MimeKit" Version="3.6.1" />
     <PackageReference Include="NestedJsonParser" Version="1.0.6" />
@@ -14,9 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\file\A\C\" />
-    <Folder Include="wwwroot\file\A\D\E\" />
-    <Folder Include="wwwroot\file\B\" />
+    <Folder Include="wwwroot\file\" />
     <Folder Include="wwwroot\note\" />
     <Folder Include="wwwroot\tracnghiem\" />
   </ItemGroup>

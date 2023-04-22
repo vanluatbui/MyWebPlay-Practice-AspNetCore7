@@ -23,9 +23,14 @@
         window.location.href = "/Home/DownloadFile?all=2&&folder="+document.getElementById("FOLD").value;
     }
 
-    function xacnhan()
+    function xacnhan(file)
     {
-        alert('Thành công! File của bạn đã bị xoá khỏi Server hệ thống...\nReload hoặc cập nhật lại trang web để xem kết quả!')
+        var con = confirm('Bạn có chắc chắn muốn xoá vĩnh viễn file này khỏi lưu trữ Server hệ thống không?');
+        if (con == true)
+        {
+            alert("Thành công, tác vụ hiện đang được xử lý...");
+            window.location.href="/Home/XoaFile?file="+file;
+        }
     }
 
     function uploadfile()

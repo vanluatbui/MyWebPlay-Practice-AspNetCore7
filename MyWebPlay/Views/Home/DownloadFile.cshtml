@@ -85,39 +85,12 @@
     <br />
 
     <br />
-    <b>Nhập số lượng file mà bạn muốn download (ROOT) : </b> <input type="number" id="SL" value="@ViewBag.SL" min="1"/>
-    <button id="okX" onclick="soluongfile()">OK</button>
+    @*<b>Nhập số lượng file mà bạn muốn download (ROOT) : </b>*@ <input hidden type="number" id="SL" value="@ViewBag.SL" min="1"/>
+   @* <button id="okX" onclick="soluongfile()">OK</button>*@
 
                 <br />
                  <br />
     <b>Nếu bạn không nhớ các folder trên Server có thể <u>lần mò từ từ</u> để xuất DS các thư mục đang tồn tại, bắt đầu bỏ trống trường này để đi từ mục ROOT : <input type="text" value="/Folder1/Folder2" id="FOLD" size="50" /><button onclick="qwerty()"><b>XUẤT DS FOLDER IN THIS</b></button></b>
     <br /><br />
-
-    @using (Html.BeginForm("DownloadFile", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
-    {
-        @Html.ValidationSummary(true)
-
-        @for (int i = 0; i < ViewBag.SL; i++)
-        {
-            <tr style="height:40px">
-                        <td> </td>
-                <td>
-                            <br> <b>@(i + 1)</b>. Nhập tên file kèm theo extension của file cần tìm để download trên Server : 
-                            <br>
-                    <input type="text" size="50" name="TenFile">
-                </td>
-            </tr>
-        }
-
-
-        @if (ViewBag.SL > 0)
-        {
-                        <tr style="height:40px">
-                            <td></td>
-                            <td>
-                                        <input id="OKX" style="font-weight:bolder" type="Submit" value="OK DOWNLOAD" />
-                            </td>
-                        </tr>
-        }
-    }
+ 
 </table>

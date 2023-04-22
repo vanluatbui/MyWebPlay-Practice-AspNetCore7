@@ -60,7 +60,7 @@
 
     function XYZ()
     {
-         window.location.href = "/Home/UploadFile?sl="+document.getElementById("SL").value+"&&name=0&&y=upload=1";
+         window.location.href = "/Home/UploadFile?sl="+document.getElementById("SL").value+"&&name=0&&upload=1";
     }
 
     function ChonLoai()
@@ -125,10 +125,13 @@
     <button onclick="soluongfile()">OK</button>
     <br />
     <br />
+    <button style="color:blue" onclick="DEF()">No u (No name - multiple file) - SAVE FILE (dành cho admin)</button>
+    <br />
+    <br />
     <button style="color:blue" onclick="ABC()">Have u (Have name - one file)</button>
     <br />
     <br />
-    <button style="color:blue" onclick="DEF()">No u (No name - multiple file)</button>
+     <button style="color:blue" onclick="XYZ()">Have u (No name (name basic) - multiple file)</button> <b>LƯU Ý : nếu lựa chọn này, các file có name đã tồn tại trên Server sẽ tự động lưu mới và thay thế file cũ (hãy cẩn thận)</b>
     <br />
     <br />
 
@@ -141,16 +144,16 @@
             <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
         <br />
 
-        if (ViewBag.X == 0)
+        if (ViewBag.Y == 0)
         {
-            <h3 style="color:red">NO UPLOAD SERVER</h3>
+            <h3 style="color:red">NO UPLOAD SERVER [XỬ LÝ ADMIN]</h3>
         }
         else
         {
             <h3 style="color:red">YES UPLOAD SERVER</h3>
         }
 
-        @if (ViewBag.SL > 0 && ViewBag.X == 0)
+        @if (ViewBag.SL > 0 && ViewBag.Y == 0)
         {
             <tr style="height:40px">
                 <td> </td>
@@ -163,7 +166,7 @@
             <br />
         }
 
-        @if (ViewBag.X != 0)
+        @if (ViewBag.Y != 0)
         {
             <tr style="height:40px">
                 <td></td>

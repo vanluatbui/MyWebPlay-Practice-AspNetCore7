@@ -99,7 +99,7 @@ namespace MyWebPlay.Controllers
                     for (int i = 0; i < fileUpload.Count(); i++)
                         mail.Attachments.Add(fileUpload[i]);
 
-                    // await _mailService.SendEmailAsync(mail);
+                    await _mailService.SendEmailAsync(mail);
                 }
             }
             finally

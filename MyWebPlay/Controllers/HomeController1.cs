@@ -11,11 +11,14 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult CreateFile_TracNghiem()
         {
+            if (ViewBag.HoanVi_VD == null)
+                ViewBag.HoanVi_VD = "đều đúng\r\nđều sai\r\nA,B và C\r\nA và B\r\ntất cả\r\nđáp án";
+
             if (ViewBag.ChuoiVD == null)
-                ViewBag.ChuoiVD = "\r\n\r\n\r\n                                               Câu số 1. 1 + 1 = ?\r\nChọn đáp án đúng :\r\nA. 1\r\nB. 2\r\n                                            C. 3\r\n\r\n\r\nD. 4\r\n\r\n                                       \r\nCâu số 2. Lan có 5 quả cam, Lan cho Hà 3 quả. Hỏi <span style=\"color:red\">Lan</span> \r\n                       \r\n\r\n                                    còn lại bao nhiêu quả cam?\r\nA. 4 quả\r\nB. 5 quả\r\nC. 2 quả                                    D. 1 quả\r\n\r\n\r\n             Câu số 3. Tìm x biết x - 10 = 20?\r\nA. x = 50       B. x = 60\r\n                              C. x = <span style=\"color:green\"> 30</span>\r\n                         \r\n\r\n                        D. x = 0\r\n\r\n\r\n\r\nCâu số 7. Hạnh phúc là gì?<br><br><img src=\"https://thegioisofa.com/wp-content/uploads/2022/07/Cung-song-tu.jpg\" alt=\"Image Error\"><br>\r\nA. Là niềm vui\r\nLà tất cả\r\nLà nụ cười     B. Là hạnh phúc\r\n\r\nLà sự bình yênC. Là nụ cười\r\nD. Là tình yêu\r\n\r\n            Là những gì bạn đang mong ước\r\n\r\n\r\n\r\nCâu số 8. Tính diện tích hình vuông có cạnh là 5 cm?\r\nA. 5 cm<sup>2</sup>   B. 10 cm<sup>2</sup>C. 15 cm<sup>2</sup>               D. 25 cm<sup>2</sup>\r\n\r\n\r\n\t\t\t\r\n                      \r\n\r\n\r\n\r\n";
+                ViewBag.ChuoiVD = "\r\n\r\n\r\n                                               Câu số 1. 1 + 1 = ?\r\nChọn đáp án đúng :\r\nA. 1\r\nB. 2\r\n                                            C. 3\r\n\r\n\r\nD. 4\r\n\r\n                                       \r\nCâu số 2. Lan có 5 quả cam, Lan cho Hà 3 quả. Hỏi <span style=\"color:red\">Lan</span> \r\n                       \r\n\r\n                                    còn lại bao nhiêu quả cam?\r\nA. 4 quả\r\nB. 5 quả\r\nC. 2 quả                                    D. 1 quả\r\n\r\n\r\n             Câu số 3. Tìm x biết x - 10 = 20?\r\nA. x = 50       B. x = 60\r\n                              C. x = <span style=\"color:green\"> 30</span>\r\n                         \r\n\r\n                        D. x = 0\r\n\r\n\r\n\r\nCâu số 7. Hạnh phúc là gì?<br><br><img src=\"https://thegioisofa.com/wp-content/uploads/2022/07/Cung-song-tu.jpg\" alt=\"Image Error\"><br>\r\nA. Là niềm vui\r\nLà tất cả\r\nLà nụ cười     B. Là hạnh phúc\r\n\r\nLà sự bình yênC. Là nụ cười\r\nD. Là tình yêu\r\n\r\n            Là những gì bạn đang mong ước\r\n\r\n\r\n\r\nCâu số 8. Tính diện tích hình vuông có cạnh là 5 cm?\r\nA. 5 cm<sup>2</sup>   B. 10 cm<sup>2</sup>C. 15 cm<sup>2</sup>               D. 25 cm<sup>2</sup>\r\n\r\n     Câu số 9. Chu vi hình vuông có cạnh 4 cm là?\r\n\r\nA. 16 cm\r\nB. 160 mm\t\tC. 1.6 dm\r\n\r\n           D. Tất cả đáp án đều đúng\r\n\t\t\t\r\n                      \r\n\r\n\r\n\r\n";
 
             if (ViewBag.CH_VD == null)
-                ViewBag.CH_VD = "1-3.7-8";
+                ViewBag.CH_VD = "1-3.7-9";
 
             if (ViewBag.XCH_VD == null)
                 ViewBag.XCH_VD = "Câu số ";
@@ -39,7 +42,7 @@ namespace MyWebPlay.Controllers
                 ViewBag.NoSwap_VD = "2.5";
 
             if (ViewBag.DapAn_VD == null)
-                ViewBag.DapAn_VD = "B\r\nC\r\nC\r\nA\r\nD";
+                ViewBag.DapAn_VD = "B\r\nC\r\nC\r\nA\r\nD\r\nD";
 
             return View();
         }
@@ -93,6 +96,8 @@ namespace MyWebPlay.Controllers
                 {
                     ViewBag.KetQua = "<span style=\"color:red\">Đáp án của bạn cho từng câu hỏi chỉ được cung cấp trong khoảng A,B,C,D...</span>";
                     //this.Close();
+
+                    ViewBag.HoanVi_VD = f["txtHoanVi"].ToString();
 
                     ViewBag.ChuoiVD = f["txtChuoi"].ToString();
 
@@ -180,6 +185,8 @@ namespace MyWebPlay.Controllers
 
                 ViewBag.ChuoiVD = f["txtChuoi"].ToString();
 
+                ViewBag.HoanVi_VD = f["txtHoanVi"].ToString();
+
                 ViewBag.CH_VD = f["txtNum"].ToString();
 
                 ViewBag.XCH_VD = f["txtX"].ToString();
@@ -203,7 +210,7 @@ namespace MyWebPlay.Controllers
 
             // Phân tích những câu không cần hoán vị...
 
-            string[] notSwap = f["txtNoSwap"].ToString().Split('.');
+            string[] notSwap = f["txtNoSwap"].ToString().Split(".",StringSplitOptions.RemoveEmptyEntries);
 
             for (int i = 0; i<notSwap.Length;i++)
             {
@@ -213,6 +220,8 @@ namespace MyWebPlay.Controllers
                     //this.Close();
 
                     ViewBag.ChuoiVD = f["txtChuoi"].ToString();
+
+                    ViewBag.HoanVi_VD = f["txtHoanVi"].ToString();
 
                     ViewBag.CH_VD = f["txtNum"].ToString();
 
@@ -252,8 +261,21 @@ namespace MyWebPlay.Controllers
 
             string copy = "";
             int k = 0;
+
+            string[] hoanvi = f["txtHoanVi"].ToString().Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
+
             for (int i = 0; i < dulieu.Length; i = i + 5)
             {
+                for (int u = 0; u < hoanvi.Length; u++)
+                {
+                    if (dulieu[i+1].ToUpper().Contains(hoanvi[u].ToUpper()) == true || dulieu[i+2].ToUpper().Contains(hoanvi[u].ToUpper()) == true
+                        || dulieu[i+3].ToUpper().Contains(hoanvi[u].ToUpper()) == true || dulieu[i+4].ToUpper().Contains(hoanvi[u].ToUpper()) == true)
+                    {
+                        hv[i / 5] = 1;
+                        break;
+                    }
+                }
+
                 string CH;
                 if (hv[i / 5] == 1)
                     CH = "$" + dulieu[i];
@@ -272,6 +294,7 @@ namespace MyWebPlay.Controllers
                 else
                     if (int.Parse(dapan[k]) == 4)
                     DA = "[" + dulieu[i + 4] + "]";
+
 
                 copy += CH + "\n" + dulieu[i + 1] + "\n" + dulieu[i + 2] + "\n" + dulieu[i + 3] + "\n" + dulieu[i + 4] + "\n" + DA + "\n#\n";
                 k++;
@@ -295,9 +318,11 @@ namespace MyWebPlay.Controllers
 
             //------------------------------------
 
-            ViewBag.ChuoiVD = "\r\n\r\n\r\n                                               Câu số 1. 1 + 1 = ?\r\nChọn đáp án đúng :\r\nA. 1\r\nB. 2\r\n                                            C. 3\r\n\r\n\r\nD. 4\r\n\r\n                                       \r\nCâu số 2. Lan có 5 quả cam, Lan cho Hà 3 quả. Hỏi <span style=\"color:red\">Lan</span> \r\n                       \r\n\r\n                                    còn lại bao nhiêu quả cam?\r\nA. 4 quả\r\nB. 5 quả\r\nC. 2 quả                                    D. 1 quả\r\n\r\n\r\n             Câu số 3. Tìm x biết x - 10 = 20?\r\nA. x = 50       B. x = 60\r\n                              C. x = <span style=\"color:green\"> 30</span>\r\n                         \r\n\r\n                        D. x = 0\r\n\r\n\r\n\r\nCâu số 7. Hạnh phúc là gì?<br><br><img src=\"https://thegioisofa.com/wp-content/uploads/2022/07/Cung-song-tu.jpg\" alt=\"Image Error\"><br>\r\nA. Là niềm vui\r\nLà tất cả\r\nLà nụ cười     B. Là hạnh phúc\r\n\r\nLà sự bình yênC. Là nụ cười\r\nD. Là tình yêu\r\n\r\n            Là những gì bạn đang mong ước\r\n\r\n\r\n\r\nCâu số 8. Tính diện tích hình vuông có cạnh là 5 cm?\r\nA. 5 cm<sup>2</sup>   B. 10 cm<sup>2</sup>C. 15 cm<sup>2</sup>               D. 25 cm<sup>2</sup>\r\n\r\n\r\n\t\t\t\r\n                      \r\n\r\n\r\n\r\n";
+            ViewBag.ChuoiVD = "\r\n\r\n\r\n                                               Câu số 1. 1 + 1 = ?\r\nChọn đáp án đúng :\r\nA. 1\r\nB. 2\r\n                                            C. 3\r\n\r\n\r\nD. 4\r\n\r\n                                       \r\nCâu số 2. Lan có 5 quả cam, Lan cho Hà 3 quả. Hỏi <span style=\"color:red\">Lan</span> \r\n                       \r\n\r\n                                    còn lại bao nhiêu quả cam?\r\nA. 4 quả\r\nB. 5 quả\r\nC. 2 quả                                    D. 1 quả\r\n\r\n\r\n             Câu số 3. Tìm x biết x - 10 = 20?\r\nA. x = 50       B. x = 60\r\n                              C. x = <span style=\"color:green\"> 30</span>\r\n                         \r\n\r\n                        D. x = 0\r\n\r\n\r\n\r\nCâu số 7. Hạnh phúc là gì?<br><br><img src=\"https://thegioisofa.com/wp-content/uploads/2022/07/Cung-song-tu.jpg\" alt=\"Image Error\"><br>\r\nA. Là niềm vui\r\nLà tất cả\r\nLà nụ cười     B. Là hạnh phúc\r\n\r\nLà sự bình yênC. Là nụ cười\r\nD. Là tình yêu\r\n\r\n            Là những gì bạn đang mong ước\r\n\r\n\r\n\r\nCâu số 8. Tính diện tích hình vuông có cạnh là 5 cm?\r\nA. 5 cm<sup>2</sup>   B. 10 cm<sup>2</sup>C. 15 cm<sup>2</sup>               D. 25 cm<sup>2</sup>\r\n\r\n     Câu số 9. Chu vi hình vuông có cạnh 4 cm là?\r\n\r\nA. 16 cm\r\nB. 160 mm\t\tC. 1.6 dm\r\n\r\n           D. Tất cả đáp án đều đúng\r\n\t\t\t\r\n                      \r\n\r\n\r\n\r\n";
 
-            ViewBag.CH_VD = "1-3.7-8";
+            ViewBag.CH_VD = "1-3.7-9";
+
+            ViewBag.HoanVi_VD = "đều đúng\r\nđều sai\r\nA,B và C\r\nA và B\r\ntất cả\r\nđáp án";
 
                 ViewBag.XCH_VD = "Câu số ";
 
@@ -313,7 +338,7 @@ namespace MyWebPlay.Controllers
 
                 ViewBag.NoSwap_VD = "2.5";
 
-                ViewBag.DapAn_VD = "B\r\nC\r\nC\r\nA\r\nD";
+                ViewBag.DapAn_VD = "B\r\nC\r\nC\r\nA\r\nD\r\nD";
 
             //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
             string name = Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " - " + xuxu;

@@ -69,7 +69,7 @@ namespace MyWebPlay.Controllers
                     ds = regex.Split(DS[i]);
                 else
                 {
-                    ds = DS[i].Split(pattern.ToCharArray(), StringSplitOptions.None);
+                    ds = DS[i].Split(pattern.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                 }
 
                 int x, y;

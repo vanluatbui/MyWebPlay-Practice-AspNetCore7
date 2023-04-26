@@ -295,14 +295,13 @@ namespace MyWebPlay.Controllers
             tnX.dung = new String[int.Parse(txtSoCau)];
 
             tnX.tongsocau = n9_S;
-            tnX.gioihancau = int.Parse(txtSoCau);
-
 
             if (txtSoCau.Length > 0 && int.Parse(txtSoCau) > n9_S)
             {
-                ViewData["Loi2"] = "Giới hạn số câu bạn cần làm của vượt quá số lượng tất cả mà đang hiện có...";
-                return this.TracNghiem_Multiple(ViewBag.SL);
+                txtSoCau = n9_S.ToString();
             }
+
+            tnX.gioihancau = int.Parse(txtSoCau);
 
             int[][] chuaxetX = new int[sl][];
 

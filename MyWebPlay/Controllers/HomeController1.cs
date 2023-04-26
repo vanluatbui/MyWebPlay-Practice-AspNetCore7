@@ -9,8 +9,25 @@ namespace MyWebPlay.Controllers
 {
     public partial class HomeController : Controller
     {
-        public ActionResult CreateFile_TracNghiem()
+        public ActionResult CreateFile_TracNghiem(string? answer)
         {
+            if (answer != null)
+                ViewBag.SAVE_ANSWER = answer;
+
+            int s = 0;
+
+            if (answer != null)
+            {
+                string[] listAnswer = ViewBag.SAVE_ANSWER.Split('.', StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < listAnswer.Length; i++)
+                {
+                    string[] listDA = listAnswer[i].Split('-', StringSplitOptions.RemoveEmptyEntries);
+                    s += int.Parse(listDA[1]) - int.Parse(listDA[0]) + 1;
+                }
+             }
+
+            ViewBag.TongDapAn = s;
+
             if (ViewBag.HoanVi_VD == null)
                 ViewBag.HoanVi_VD = "đều đúng\r\nđều sai\r\nA,B và C\r\nA và B\r\ntất cả\r\nđáp án";
 
@@ -43,6 +60,9 @@ namespace MyWebPlay.Controllers
 
             if (ViewBag.DapAn_VD == null)
                 ViewBag.DapAn_VD = "B\r\nC\r\nC\r\nA\r\nD\r\nD";
+
+            if (ViewBag.Answer == null)
+                ViewBag.Answer = "1-3.7-9";
 
             return View();
         }
@@ -119,7 +139,9 @@ namespace MyWebPlay.Controllers
 
                     ViewBag.DapAn_VD = f["txtDapAn"].ToString();
 
-                    return this.CreateFile_TracNghiem();
+                    ViewBag.Answer = f["txtAnswer"].ToString();
+
+                    return this.CreateFile_TracNghiem(ViewBag.Answer);
                 }
             }
 
@@ -205,7 +227,9 @@ namespace MyWebPlay.Controllers
 
                 ViewBag.DapAn_VD = f["txtDapAn"].ToString();
 
-                return this.CreateFile_TracNghiem();
+                ViewBag.Answer = f["txtAnswer"].ToString();
+
+                return this.CreateFile_TracNghiem(ViewBag.Answer);
             }
 
             // Phân tích những câu không cần hoán vị...
@@ -241,7 +265,9 @@ namespace MyWebPlay.Controllers
 
                     ViewBag.DapAn_VD = f["txtDapAn"].ToString();
 
-                    return this.CreateFile_TracNghiem();
+                    ViewBag.Answer = f["txtAnswer"].ToString();
+
+                    return this.CreateFile_TracNghiem(ViewBag.Answer);
                 }
             }
 
@@ -339,6 +365,8 @@ namespace MyWebPlay.Controllers
                 ViewBag.NoSwap_VD = "2.5";
 
                 ViewBag.DapAn_VD = "B\r\nC\r\nC\r\nA\r\nD\r\nD";
+
+                ViewBag.Answer = "1-3.7-9";
 
             //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
             string name = Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " - " + xuxu;

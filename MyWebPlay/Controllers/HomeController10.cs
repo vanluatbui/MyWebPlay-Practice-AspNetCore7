@@ -144,8 +144,7 @@ namespace MyWebPlay.Controllers
 
             if (txtSoCau.Length > 0 && int.Parse(txtSoCau) > n9)
             {
-                ViewData["Loi2"] = "Giới hạn số câu bạn cần làm vượt quá số lượng tất cả mà đang hiện có...";
-                return this.TracNghiem();
+                txtSoCau = n9.ToString();
             }
 
             TracNghiem tn = new TracNghiem();

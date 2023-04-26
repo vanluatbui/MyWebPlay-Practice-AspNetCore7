@@ -102,6 +102,10 @@ namespace MyWebPlay.Controllers
                     await _mailService.SendEmailAsync(mail);
                 }
             }
+            catch
+            {
+                return RedirectToAction("Index");
+            }
             finally
             {
                 if (ViewBag.Y == 1)

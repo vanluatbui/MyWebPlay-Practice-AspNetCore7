@@ -5,6 +5,38 @@
         alert("X-Answer of you recent is "+dapan.length);
     }
 
+    function upAnswer()
+    {
+        window.location.href = "/Home/CreateFile_TracNghiem?answer="+document.getElementById("txAnswer").value;
+    }
+
+    function downAnswer()
+    {
+        var dapan = document.getElementById("DapAn");
+        dapan.value = "";
+        
+        var s = "";
+
+        for(var i =0; i< new Number('@ViewBag.TongDapAn'); i++)
+        {
+            var chon = document.getElementsByName("HasAnswer")[i].options;
+
+            if (chon.selectedIndex == 0)
+            s += "A";
+            else if (chon.selectedIndex == 1)
+            s += "B";
+            else if (chon.selectedIndex == 2)
+            s += "C";
+            else if (chon.selectedIndex == 3)
+            s += "D";
+
+            if (i < new Number('@ViewBag.TongDapAn') -1)
+            s += "\r\n";
+        }
+
+        dapan.value = s;
+    }
+
      function checkX()
     {
         var dapan = document.getElementById("DapAn").value.split(/\r|\n/);
@@ -132,11 +164,69 @@
                             </td>
                         </tr>
 
+
+                         <tr style="height:40px">
+                                <td><h4><u style="color:red">NẠP TẢI ĐÁP ÁN CHO TỪNG CÂU HỎI</u></h4></td>
+                            <td>
+                                <br>
+                                   <b></b>
+                                   <br>
+                                <input type="text" name="txtAnswer" id="txAnswer" value="@ViewBag.Answer" size="80"/> <input type="radio" onclick="upAnswer()" checked /> <b> ⬅️ Click để bắt đầu nạp tải đáp án</b>
+                            </td>
+                        </tr>
+
+                         @if (ViewBag.SAVE_ANSWER != null)
+        {
+            string[] listAnswer = ViewBag.SAVE_ANSWER.ToString().Split(".", StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < listAnswer.Length; i++)
+            {
+                string[] listDapan = listAnswer[i].Split("-", StringSplitOptions.RemoveEmptyEntries);
+                for (int j = int.Parse(listDapan[0]); j<= int.Parse(listDapan[1]);j++)
+                {
+                     <tr style="height:40px">
+                                <td></td>
+                            <td>
+                                <br>
+                                   <b></b>
+                                   <br>
+                               <b style="color:yellow">ĐÁP ÁN CÂU @j : </b>
+                               <select name="HasAnswer">
+                                   <option>A</option>
+                                   <option>B</option>
+                                   <option>C</option>
+                                   <option>D</option>
+                               </select>
+                            </td>
+                        </tr>
+                }
+               <tr style="height:40px">
+                                <td></td>
+                            <td>
+                                <br>
+                                   <b></b>
+                                   <br>
+                                  <hr>
+                                  <br>
+                            </td>
+                        </tr>
+            }
+            <tr style="height:40px">
+                                <td></td>
+                            <td>
+                                   <b></b>
+                                   <input type="radio" onclick="downAnswer()" checked /><b style="color:aqua"> ⬅️ Click để nạp tải đáp án</b>
+                                  <br>
+                            </td>
+                        </tr>
+        }
+
+
+
                              <tr style="height:40px">
                     <td> </td>
                     <td>
                         <br>
-                            <b>Tự đánh đáp án thích hợp cho từng câu - phải dựa vào index bạn đã thiết đặt ở trên? (xem ví dụ tương đương) : </b>
+                            <b>Tự đánh đáp án (hoặc nhờ sự nạp tải ở trên) thích hợp cho từng câu - phải dựa vào index bạn đã thiết đặt ở trên? (xem ví dụ tương đương) : </b>
                             <br>
                         <textarea rows="20" cols="150" id="DapAn" name="txtDapAn" autofocus>@ViewBag.DapAn_VD</textarea>
 <br>
@@ -146,6 +236,7 @@
                     </td>
                 </tr>
 
+       
 
             <tr style="height:40px">
                 <td></td>

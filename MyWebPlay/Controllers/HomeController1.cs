@@ -398,7 +398,24 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-                ViewBag.KetQua += "<br><br><h3 style=\"color:aqua\">[ERROR] </h3><h3 style=\"color:pink\"> --> Trượt đến tận cuối trang để có thể xem thử lại bản nháp đã phân tích hiện tại (nếu muốn)...</h3><br><br>";
+                string find_Error = "<br><br><h3 style=\"color:aqua\">[ERROR] </h3><br><h3 style=\"color:red\">HỆ THỐNG GỢI Ý CHO BẠN NHỮNG CÂU HỎI/ĐÁP ÁN CÓ THỂ GÂY RA LỖI SẼ GIÚP BẠN XÁC ĐỊNH VÀ CHỈNH SỬA THỦ CÔNG (bằng cách Ctrl + F) - THỰC HIỆN LẠI (Nếu vẫn chưa giải quyết được vấn đề, bạn có thể xem thử bản nháp đã được phân tích hiện tại ở cuối trang web)... </h3>";
+
+                for (int i = 0; i < err_s.Length; i = i + 5)
+                {
+                    if (i + 1 >= err_s.Length || i + 2 >= err_s.Length || i + 3 >= err_s.Length || i + 4 >= err_s.Length)
+                        find_Error += "<br> + Câu hỏi/Đáp án Error :  " + err_s[i] + "<br><br>";
+                    else
+                    if ((err_s[i + 1].Contains("?") || err_s[i + 1].Contains(":")) ||
+                        (err_s[i + 2].Contains("?") || err_s[i + 2].Contains(":")) ||
+                        (err_s[i + 3].Contains("?") || err_s[i + 3].Contains(":")) ||
+                        (err_s[i + 4].Contains("?") || err_s[i + 4].Contains(":")))
+                    {
+                        find_Error += "<br> + Câu hỏi/Đáp án Error :  " + err_s[i] + "<br><br>";
+                    }
+                }
+
+                ViewBag.KetQua += find_Error;
+                    ViewBag.KetQua += "<h3 style=\"color:pink\"> --> Trượt đến tận cuối trang để có thể xem thử lại bản nháp đã phân tích hiện tại (nếu muốn)...</h3><br><br>";
                 ViewBag.Temp_TN = "<h3 style=\"color:aqua\">[ERROR] </h3><br><h4 style=\"color:red\">LƯU Ý : Đây chỉ là bản nháp mà file trắc nghiệm đã phân tích được ở thời điểm hiện tại, việc phân tích của hệ thống dù thành công hay thất bại..., tại đây bạn có thể tự kiểm tra lại và thực hiện chỉnh sửa thủ công sau!</h4><br><p style=\"color:orange\">Lưu ý thêm : Dữ liệu này chỉ là bản nháp để giúp bạn có thể kiểm tra và xác định câu hỏi đang bị lỗi và bạn sẽ tự chỉnh sửa thủ công --> Không sử dụng lại dữ liệu này để phân tích lại file trắc nghiệm của bạn...</p><br><br><textarea cols=\"150\" rows=\"200\" readonly>" + s_err + "</textarea>";
             }
             finally
@@ -420,6 +437,23 @@ namespace MyWebPlay.Controllers
                         }
                     }
 
+                    string find_Error = "<br><br><h3 style=\"color:aqua\">[ERROR] </h3><br><h3 style=\"color:red\">HỆ THỐNG GỢI Ý CHO BẠN NHỮNG CÂU HỎI/ĐÁP ÁN CÓ THỂ GÂY RA LỖI SẼ GIÚP BẠN XÁC ĐỊNH VÀ CHỈNH SỬA THỦ CÔNG (bằng cách Ctrl + F) - THỰC HIỆN LẠI (Nếu vẫn chưa giải quyết được vấn đề, bạn có thể xem thử bản nháp đã được phân tích hiện tại ở cuối trang web)... </h3>";
+
+                    for (int i = 0; i < err_s.Length; i = i + 5)
+                    {
+                        if (i +1 >= err_s.Length || i + 2 >= err_s.Length || i + 3 >= err_s.Length || i + 4 >= err_s.Length)
+                            find_Error += "<br> + Câu hỏi/Đáp án Error :  " + err_s[i] + "<br><br>";
+                        else
+                        if ((err_s[i + 1].Contains("?") || err_s[i + 1].Contains(":")) ||
+                            (err_s[i + 2].Contains("?") || err_s[i + 2].Contains(":")) ||
+                            (err_s[i + 3].Contains("?") || err_s[i + 3].Contains(":")) ||
+                            (err_s[i + 4].Contains("?") || err_s[i + 4].Contains(":")))
+                        {
+                            find_Error += "<br> + Câu hỏi/Đáp án Error :  " + err_s[i] + "<br><br>";
+                        }
+                    }
+
+                    ViewBag.KetQua += find_Error;
                     ViewBag.KetQua += "<br><br><h3 style=\"color:aqua\">[ERROR] </h3><h3 style=\"color:pink\"> --> Trượt đến tận cuối trang để có thể xem thử lại bản nháp đã phân tích hiện tại (nếu muốn)...</h3><br><br>";
                     ViewBag.Temp_TN = "<h3 style=\"color:aqua\">[ERROR] </h3><br><h4 style=\"color:red\">LƯU Ý : Đây chỉ là bản nháp mà file trắc nghiệm đã phân tích được ở thời điểm hiện tại, việc phân tích của hệ thống dù thành công hay thất bại..., tại đây bạn có thể tự kiểm tra lại và thực hiện chỉnh sửa thủ công sau!</h4><br><p style=\"color:orange\">Lưu ý thêm : Dữ liệu này chỉ là bản nháp để giúp bạn có thể kiểm tra và xác định câu hỏi đang bị lỗi và bạn sẽ tự chỉnh sửa thủ công --> Không sử dụng lại dữ liệu này để phân tích lại file trắc nghiệm của bạn...</p><br><br><textarea cols=\"150\" rows=\"200\" readonly>" + s_err + "</textarea>";
                 }

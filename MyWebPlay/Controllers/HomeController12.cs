@@ -7,6 +7,14 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult TracNghiem_Multiple(int? sl)
         {
+            var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
+
+            foreach (var file in listFile)
+            {
+                FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", file));
+                f.Delete();
+            }
+
             if (sl == null)
                 ViewBag.SL = 0;
 
@@ -17,6 +25,14 @@ namespace MyWebPlay.Controllers
 
         public ActionResult TracNghiemX_Multiple()
         {
+            var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
+
+            foreach (var file in listFile)
+            {
+                FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", file));
+                f.Delete();
+            }
+
             return View();
         }
 

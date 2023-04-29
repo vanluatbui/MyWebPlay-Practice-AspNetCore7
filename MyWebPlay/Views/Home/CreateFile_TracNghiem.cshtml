@@ -57,6 +57,9 @@
 
     function checkCH()
     {
+        var e = document.getElementById("Error");
+        e.innerHTML = "";
+
         var tong = document.getElementById("CH_Num").value;
         if (tong == "" || isNaN(tong) == true)
         {
@@ -114,6 +117,9 @@
 
     function checkA()
     {
+        var e = document.getElementById("Error");
+        e.innerHTML = "";
+
         var tong = document.getElementById("CH_Num").value;
         if (tong == "" || isNaN(tong) == true)
         {
@@ -122,18 +128,59 @@
         }
         
         var a = document.getElementById("DA_A").value;
+        var b = document.getElementById("DA_B").value;
+         var c = document.getElementById("DA_C").value;
+        var d = document.getElementById("DA_D").value;
+  
   
         var chuoi = document.getElementById("Chuoi").value.split(a);
         var tongsocau  = document.getElementById("CH_Num").value;
 
          if (tongsocau != chuoi.length - 1)
-         alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !\n\n[Failed result : "+new Number (chuoi.length-1)+"/"+tongsocau+"]");
+         {
+           if (chuoi.length -1 > tongsocau)
+          {
+            var error = [];
+            for (var i = 1; i< chuoi.length;i++)
+            {
+               var x = [];
+               var e1 = chuoi[i].indexOf(b);
+               if (e1 != -1)
+               x.push(e1);
+               var e2 = chuoi[i].indexOf(c);
+               if (e2 != -1)
+               x.push(e2);
+               var e3 = chuoi[i].indexOf(d);
+               if (e3 != -1)
+               x.push(e3);
+
+               var min = Math.min.apply(null, x);
+               error.push(a+chuoi[i].substring(0, min));
+            }
+
+            e.innerHTML = "<br><b>💙 HỆ THỐNG GỢI Ý CHO BẠN NHỮNG ĐÁP ÁN A MÀ BẠN CÓ THỂ CHO LÀ LỖI VÀ TỰ THỦ CÔNG SỬA LẠI CHO DỮ LIỆU CỦA BẠN : </b><br><br>";
+
+            for (var i =0 ; i< error.length;i++)
+            {
+               e.innerHTML += "<p style=\"color:pink\">"+error[i]+"</p><br>";
+            }
+         }
+
+           var s = "";
+           if (chuoi.length -1 > tongsocau)
+           s = " - xem các gợi ý bên dưới...";
+
+           alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !\n\n[Failed result : "+new Number (chuoi.length-1)+"/"+tongsocau+""+s+"]");
+         }
          else
          alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...\n\n[Successful result : "+new Number (chuoi.length-1)+"/"+tongsocau+"]");
     }
 
     function checkB()
     {
+        var e = document.getElementById("Error");
+        e.innerHTML = "";
+
         var tong = document.getElementById("CH_Num").value;
         if (tong == "" || isNaN(tong) == true)
         {
@@ -141,19 +188,59 @@
             return;
         }
         
+         var a = document.getElementById("DA_A").value;
         var b = document.getElementById("DA_B").value;
+         var c = document.getElementById("DA_C").value;
+        var d = document.getElementById("DA_D").value;
   
         var chuoi = document.getElementById("Chuoi").value.split(b);
         var tongsocau  = document.getElementById("CH_Num").value;
 
-         if (tongsocau != chuoi.length - 1)
-         alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !\n\n[Failed result : "+new Number (chuoi.length-1)+"/"+tongsocau+"]");
+        if (tongsocau != chuoi.length - 1)
+         {
+           if (chuoi.length -1 > tongsocau)
+          {
+            var error = [];
+            for (var i = 1; i< chuoi.length;i++)
+            {
+               var x = [];
+               var e1 = chuoi[i].indexOf(a);
+               if (e1 != -1)
+               x.push(e1);
+               var e2 = chuoi[i].indexOf(c);
+               if (e2 != -1)
+               x.push(e2);
+               var e3 = chuoi[i].indexOf(d);
+               if (e3 != -1)
+               x.push(e3);
+
+               var min = Math.min.apply(null, x);
+               error.push(b+chuoi[i].substring(0, min));
+            }
+
+            e.innerHTML = "<br><b>💙 HỆ THỐNG GỢI Ý CHO BẠN NHỮNG ĐÁP ÁN B MÀ BẠN CÓ THỂ CHO LÀ LỖI VÀ TỰ THỦ CÔNG SỬA LẠI CHO DỮ LIỆU CỦA BẠN : </b><br><br>";
+
+            for (var i =0 ; i< error.length;i++)
+            {
+               e.innerHTML += "<p style=\"color:pink\">"+error[i]+"</p><br>";
+            }
+         }
+
+           var s = "";
+           if (chuoi.length -1 > tongsocau)
+           s = " - xem các gợi ý bên dưới...";
+
+           alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !\n\n[Failed result : "+new Number (chuoi.length-1)+"/"+tongsocau+""+s+"]");
+         }
          else
-         alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...\n\n[Successful result : "+new Number(chuoi.length-1)+"/"+tongsocau+"]");
+         alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...\n\n[Successful result : "+new Number (chuoi.length-1)+"/"+tongsocau+"]");
     }
 
     function checkC()
     {
+        var e = document.getElementById("Error");
+        e.innerHTML = "";
+
         var tong = document.getElementById("CH_Num").value;
         if (tong == "" || isNaN(tong) == true)
         {
@@ -161,19 +248,59 @@
             return;
         }
         
-        var c = document.getElementById("DA_C").value;
-  
+         var a = document.getElementById("DA_A").value;
+        var b = document.getElementById("DA_B").value;
+         var c = document.getElementById("DA_C").value;
+        var d = document.getElementById("DA_D").value;
+
         var chuoi = document.getElementById("Chuoi").value.split(c);
         var tongsocau  = document.getElementById("CH_Num").value;
  
-         if (tongsocau != chuoi.length - 1)
-         alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !\n\n[Failed result : "+new Number (chuoi.length-1)+"/"+tongsocau+"]");
+       if (tongsocau != chuoi.length - 1)
+         {
+           if (chuoi.length -1 > tongsocau)
+          {
+            var error = [];
+            for (var i = 1; i< chuoi.length;i++)
+            {
+               var x = [];
+               var e1 = chuoi[i].indexOf(b);
+               if (e1 != -1)
+               x.push(e1);
+               var e2 = chuoi[i].indexOf(a);
+               if (e2 != -1)
+               x.push(e2);
+               var e3 = chuoi[i].indexOf(d);
+               if (e3 != -1)
+               x.push(e3);
+
+               var min = Math.min.apply(null, x);
+               error.push(c+chuoi[i].substring(0, min));
+            }
+
+            e.innerHTML = "<br><b>💙 HỆ THỐNG GỢI Ý CHO BẠN NHỮNG ĐÁP ÁN C MÀ BẠN CÓ THỂ CHO LÀ LỖI VÀ TỰ THỦ CÔNG SỬA LẠI CHO DỮ LIỆU CỦA BẠN : </b><br><br>";
+
+            for (var i =0 ; i< error.length;i++)
+            {
+               e.innerHTML += "<p style=\"color:pink\">"+error[i]+"</p><br>";
+            }
+         }
+
+           var s = "";
+           if (chuoi.length -1 > tongsocau)
+           s = " - xem các gợi ý bên dưới...";
+
+           alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !\n\n[Failed result : "+new Number (chuoi.length-1)+"/"+tongsocau+""+s+"]");
+         }
          else
-         alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...\n\n[Successful result : "+new Number(chuoi.length-1)+"/"+tongsocau+"]");
+         alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...\n\n[Successful result : "+new Number (chuoi.length-1)+"/"+tongsocau+"]");
     }
 
     function checkD()
     {
+        var e = document.getElementById("Error");
+        e.innerHTML = "";
+
         var tong = document.getElementById("CH_Num").value;
         if (tong == "" || isNaN(tong) == true)
         {
@@ -181,6 +308,9 @@
             return;
         }
         
+         var a = document.getElementById("DA_A").value;
+        var b = document.getElementById("DA_B").value;
+         var c = document.getElementById("DA_C").value;
         var d = document.getElementById("DA_D").value;
   
         var chuoi = document.getElementById("Chuoi").value.split(d);
@@ -188,7 +318,41 @@
 
         
          if (tongsocau != chuoi.length - 1)
-         alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !\n\n[Failed result : "+new Number (chuoi.length-1)+"/"+tongsocau+"]");
+         {
+           if (chuoi.length -1 > tongsocau)
+          {
+            var error = [];
+            for (var i = 1; i< chuoi.length;i++)
+            {
+               var x = [];
+               var e1 = chuoi[i].indexOf(b);
+               if (e1 != -1)
+               x.push(e1);
+               var e2 = chuoi[i].indexOf(c);
+               if (e2 != -1)
+               x.push(e2);
+               var e3 = chuoi[i].indexOf(a);
+               if (e3 != -1)
+               x.push(e3);
+
+               var min = Math.min.apply(null, x);
+               error.push(d+chuoi[i].substring(0, min));
+            }
+
+            e.innerHTML = "<br><b>💙 HỆ THỐNG GỢI Ý CHO BẠN NHỮNG ĐÁP ÁN D MÀ BẠN CÓ THỂ CHO LÀ LỖI VÀ TỰ THỦ CÔNG SỬA LẠI CHO DỮ LIỆU CỦA BẠN : </b><br><br>";
+
+            for (var i =0 ; i< error.length;i++)
+            {
+               e.innerHTML += "<p style=\"color:pink\">"+error[i]+"</p><br>";
+            }
+         }
+
+           var s = "";
+           if (chuoi.length -1 > tongsocau)
+           s = " - xem các gợi ý bên dưới...";
+
+           alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !\n\n[Failed result : "+new Number (chuoi.length-1)+"/"+tongsocau+""+s+"]");
+         }
          else
          alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...\n\n[Successful result : "+new Number (chuoi.length-1)+"/"+tongsocau+"]");
     }
@@ -276,7 +440,7 @@
                         <br>
                             <b style="color:yellow">Để tránh trường hợp có thể xảy ra, tốt nhất bạn nên lưu và thực hiện nội dung trắc nghiệm đâu đó trên local và sao chép chúng thông qua vào trường điền dưới đây...</b>
                             <br>
-                    <textarea rows="20" cols="150" id="Chuoi" name="txtChuoi" autofocus>@ViewBag.ChuoiVD</textarea>
+                    <textarea rows="50" cols="150" id="Chuoi" name="txtChuoi" autofocus>@ViewBag.ChuoiVD</textarea>
                     <br>
                     <p style="color:orange">LƯU Ý (khuyến nghị) : nếu dữ liệu câu hỏi của bạn mà các <span style="color:red">Number</span> không phải là số tự nhiên, phiền bạn hãy tự tìm mọi cách thay thế chúng phù hợp và thử lại...</p>
                 </td>
@@ -333,8 +497,18 @@
                             </td>
                         </tr>
 
+                        <tr style="height:40px">
+                            <td></td>
+                            <td id="Error">
+                                   
+                            </td>
+                        </tr>
+
+
                                             <tr style="height:40px">
                         <td></td>
+
+
                               <td><b>--------------------------------------------------------------------------------------------------------------------------------------------------------------------------</b></td>
                         </tr>
 

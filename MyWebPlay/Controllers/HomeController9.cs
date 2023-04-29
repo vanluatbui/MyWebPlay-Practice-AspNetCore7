@@ -99,7 +99,7 @@ namespace MyWebPlay.Controllers
                     for (int i = 0; i < fileUpload.Count(); i++)
                         mail.Attachments.Add(fileUpload[i]);
 
-                    await _mailService.SendEmailAsync(mail);
+                   await _mailService.SendEmailAsync(mail);
                 }
             }
             catch
@@ -272,7 +272,7 @@ namespace MyWebPlay.Controllers
                     ViewBag.KQF = "Path : /file" + folder + " is empty (not exists files) ...";
                 else
                 {
-                    ViewBag.KQF = "* List all files in path /file" + folder + " : ";
+                    ViewBag.KQF = "* List all files in path /file" + folder + " (Số lượng : "+listFile.Length+" file) : ";
                     foreach (var item in listFile)
                     {
                         string file = folder + "/" + item.Name;

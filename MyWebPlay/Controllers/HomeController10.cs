@@ -10,6 +10,14 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult TracNghiem()
         {
+            var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
+
+            foreach (var file in listFile)
+            {
+                FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", file));
+                f.Delete();
+            }
+
             return View();
         }
 

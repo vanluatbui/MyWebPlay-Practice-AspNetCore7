@@ -105,10 +105,11 @@
              }
          }
 
+        
          if (tongsocau != dem)
-         alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !");
+         alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !\n\n[Failed result : "+dem+"/"+tongsocau+"]");
          else
-         alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...");
+         alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...\n\n[Successful result : "+dem+"/"+tongsocau+"]");
     }
 
     function checkA()
@@ -126,9 +127,9 @@
         var tongsocau  = document.getElementById("CH_Num").value;
 
          if (tongsocau != chuoi.length - 1)
-         alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !");
+         alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !\n\n[Failed result : "+new Number (chuoi.length-1)+"/"+tongsocau+"]");
          else
-         alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...");
+         alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...\n\n[Successful result : "+new Number (chuoi.length-1)+"/"+tongsocau+"]");
     }
 
     function checkB()
@@ -146,9 +147,9 @@
         var tongsocau  = document.getElementById("CH_Num").value;
 
          if (tongsocau != chuoi.length - 1)
-         alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !");
+         alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !\n\n[Failed result : "+new Number (chuoi.length-1)+"/"+tongsocau+"]");
          else
-         alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...");
+         alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...\n\n[Successful result : "+new Number(chuoi.length-1)+"/"+tongsocau+"]");
     }
 
     function checkC()
@@ -164,11 +165,11 @@
   
         var chuoi = document.getElementById("Chuoi").value.split(c);
         var tongsocau  = document.getElementById("CH_Num").value;
-
+ 
          if (tongsocau != chuoi.length - 1)
-         alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !");
+         alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !\n\n[Failed result : "+new Number (chuoi.length-1)+"/"+tongsocau+"]");
          else
-         alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...");
+         alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...\n\n[Successful result : "+new Number(chuoi.length-1)+"/"+tongsocau+"]");
     }
 
     function checkD()
@@ -185,10 +186,11 @@
         var chuoi = document.getElementById("Chuoi").value.split(d);
         var tongsocau  = document.getElementById("CH_Num").value;
 
+        
          if (tongsocau != chuoi.length - 1)
-         alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !");
+         alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !\n\n[Failed result : "+new Number (chuoi.length-1)+"/"+tongsocau+"]");
          else
-         alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...");
+         alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...\n\n[Successful result : "+new Number (chuoi.length-1)+"/"+tongsocau+"]");
     }
 
     function upAnswer()

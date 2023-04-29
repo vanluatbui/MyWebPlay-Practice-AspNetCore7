@@ -170,7 +170,7 @@ namespace MyWebPlay.Controllers
                         s = s.Replace(f["txtX"].ToString() + (j).ToString() + f["txtXX"].ToString(), "\r\n");
                 }
 
-                s = s.Replace("#3275#", " ");
+                        s = s.Replace("#3275#", " ");
 
                 // xoá các Enter thừa của dữ liệu
 
@@ -374,8 +374,8 @@ namespace MyWebPlay.Controllers
                 //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
                 string name = Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " - " + xuxu;
 
-                SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
-    "mywebplay.savefile@gmail.com", "Save Temp Create Trac Nghiem File In " + name, copy, "teinnkatajeqerfl");
+              //  SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+   // "mywebplay.savefile@gmail.com", "Save Temp Create Trac Nghiem File In " + name, copy, "teinnkatajeqerfl");
 
                 err = false;
 
@@ -402,15 +402,18 @@ namespace MyWebPlay.Controllers
 
                 for (int i = 0; i < err_s.Length; i = i + 5)
                 {
+                    if (i % 5 == 0)
+                        err_s[i] = Regex.Replace(err_s[i], "[0-9]", "?");
+
                     if (i + 1 >= err_s.Length || i + 2 >= err_s.Length || i + 3 >= err_s.Length || i + 4 >= err_s.Length)
-                        find_Error += "<br> + Câu hỏi/Đáp án Error :  " + err_s[i] + "<br><br>";
+                        find_Error += "<br> + Câu hỏi/Đáp án Error (copy 1 phần) :  " + err_s[i] + "<br><br>";
                     else
                     if ((err_s[i + 1].Contains("?") || err_s[i + 1].Contains(":")) ||
                         (err_s[i + 2].Contains("?") || err_s[i + 2].Contains(":")) ||
                         (err_s[i + 3].Contains("?") || err_s[i + 3].Contains(":")) ||
                         (err_s[i + 4].Contains("?") || err_s[i + 4].Contains(":")))
                     {
-                        find_Error += "<br> + Câu hỏi/Đáp án Error :  " + err_s[i] + "<br><br>";
+                        find_Error += "<br> + Câu hỏi/Đáp án Error (copy 1 phần) :  " + err_s[i] + "<br><br>";
                     }
                 }
 
@@ -441,15 +444,18 @@ namespace MyWebPlay.Controllers
 
                     for (int i = 0; i < err_s.Length; i = i + 5)
                     {
+                        if (i % 5 == 0)
+                            err_s[i] = Regex.Replace(err_s[i], "[0-9]", "?");
+
                         if (i +1 >= err_s.Length || i + 2 >= err_s.Length || i + 3 >= err_s.Length || i + 4 >= err_s.Length)
-                            find_Error += "<br> + Câu hỏi/Đáp án Error :  " + err_s[i] + "<br><br>";
+                            find_Error += "<br> + Câu hỏi/Đáp án Error (copy 1 phần) :  " + err_s[i] + "<br><br>";
                         else
                         if ((err_s[i + 1].Contains("?") || err_s[i + 1].Contains(":")) ||
                             (err_s[i + 2].Contains("?") || err_s[i + 2].Contains(":")) ||
                             (err_s[i + 3].Contains("?") || err_s[i + 3].Contains(":")) ||
                             (err_s[i + 4].Contains("?") || err_s[i + 4].Contains(":")))
                         {
-                            find_Error += "<br> + Câu hỏi/Đáp án Error :  " + err_s[i] + "<br><br>";
+                            find_Error += "<br> + Câu hỏi/Đáp án Error (copy 1 phần) :  " + err_s[i] + "<br><br>";
                         }
                     }
 

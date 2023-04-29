@@ -5,14 +5,31 @@
         alert("X-Answer of you recent is "+dapan.length);
     }
 
+    function checkNum()
+    {
+        var s_num = document.getElementById("Num").value.split(".");
+         var tong = new Number(0);
+
+        for (var i = 0; i< s_num.length; i++)
+        {
+            var num_s = s_num[i].split("-");
+            tong += new Number(num_s[1]) - new Number(num_s[0]) + 1;
+        }
+        
+        var check = document.getElementById("CH_Num");
+        check.value = tong;
+
+        alert("Hệ thống đã tự động điền tổng số câu hỏi (dựa vào dữ liệu của bạn) - nếu bạn muốn dùng để check thử data...\nNhưng bạn cũng nên kiểm tra lại hoặc thủ công để đảm bảo chính xác !");
+    }
+
     function xuatAnswer()
     {
-        if ('@ViewBag.SAVE_ANSWER' == ""){
+        if ('@ViewBag.SAVE_ANSWER' == "")
+        {
             alert('Mời bạn sử dụng chức năng để nạp tải đáp án và thử lại !');
             return;
         }
         
-
         var dapan = document.getElementById("DapAn").value.split(/\r|\n/);
         for (var i =0; i< dapan.length;i++)
         {
@@ -38,9 +55,145 @@
         alert("Thành công, mời bạn trượt lên mục dropdown Answer có thể kiểm tra lại...");
     }
 
+    function checkCH()
+    {
+        var tong = document.getElementById("CH_Num").value;
+        if (tong == "" || isNaN(tong) == true)
+        {
+            alert("Nếu bạn muốn kiểm tra thử dữ liệu, mời bạn nhập lại chính xác tổng số câu hỏi của trường data input phía trên hoặc click button để cập nhật tự động và thử lại...");
+            return;
+        }
+
+        var tongsocau  = document.getElementById("CH_Num").value;
+
+       var ch_front =  document.getElementById("CH_Front").value;
+        var ch_back = document.getElementById("CH_Back").value;
+
+        var s_num = document.getElementById("Num").value.split(".");
+         var dem = new Number(0);
+
+         var arr = [];
+
+        for (var i = 0; i< s_num.length; i++)
+        {
+            var num_s = s_num[i].split("-");
+            arr.push(num_s[0]);
+            arr.push(num_s[1]);
+        }
+
+        var min = Math.min.apply(null,arr);
+        var max = Math.max.apply(null,arr);
+
+        var checkX = [];
+
+         for (var i = min ; i <= max ;i++)
+         checkX.push(0);
+        
+        for (var i = 0; i< s_num.length; i++)
+        {
+            var num_s = s_num[i].split("-");
+           for (var j = num_s[0]; j<= num_s[1]; j++)
+           checkX[j] = 1;
+        }
+
+         for (var i = min ; i <= max ;i++)
+         {
+             if (checkX[i] == 1)
+             {
+                 var chuoi = document.getElementById("Chuoi").value.split(ch_front + i + ch_back);
+                 dem += new Number(chuoi.length) - 1;
+             }
+         }
+
+         if (tongsocau != dem)
+         alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !");
+         else
+         alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...");
+    }
+
+    function checkA()
+    {
+        var tong = document.getElementById("CH_Num").value;
+        if (tong == "" || isNaN(tong) == true)
+        {
+            alert("Nếu bạn muốn kiểm tra thử dữ liệu, mời bạn nhập lại chính xác tổng số câu hỏi của trường data input phía trên hoặc click button để cập nhật tự động và thử lại...");
+            return;
+        }
+        
+        var a = document.getElementById("DA_A").value;
+  
+        var chuoi = document.getElementById("Chuoi").value.split(a);
+        var tongsocau  = document.getElementById("CH_Num").value;
+
+         if (tongsocau != chuoi.length - 1)
+         alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !");
+         else
+         alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...");
+    }
+
+    function checkB()
+    {
+        var tong = document.getElementById("CH_Num").value;
+        if (tong == "" || isNaN(tong) == true)
+        {
+            alert("Nếu bạn muốn kiểm tra thử dữ liệu, mời bạn nhập lại chính xác tổng số câu hỏi của trường data input phía trên hoặc click button để cập nhật tự động và thử lại...");
+            return;
+        }
+        
+        var b = document.getElementById("DA_B").value;
+  
+        var chuoi = document.getElementById("Chuoi").value.split(b);
+        var tongsocau  = document.getElementById("CH_Num").value;
+
+         if (tongsocau != chuoi.length - 1)
+         alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !");
+         else
+         alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...");
+    }
+
+    function checkC()
+    {
+        var tong = document.getElementById("CH_Num").value;
+        if (tong == "" || isNaN(tong) == true)
+        {
+            alert("Nếu bạn muốn kiểm tra thử dữ liệu, mời bạn nhập lại chính xác tổng số câu hỏi của trường data input phía trên hoặc click button để cập nhật tự động và thử lại...");
+            return;
+        }
+        
+        var c = document.getElementById("DA_C").value;
+  
+        var chuoi = document.getElementById("Chuoi").value.split(c);
+        var tongsocau  = document.getElementById("CH_Num").value;
+
+         if (tongsocau != chuoi.length - 1)
+         alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !");
+         else
+         alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...");
+    }
+
+    function checkD()
+    {
+        var tong = document.getElementById("CH_Num").value;
+        if (tong == "" || isNaN(tong) == true)
+        {
+            alert("Nếu bạn muốn kiểm tra thử dữ liệu, mời bạn nhập lại chính xác tổng số câu hỏi của trường data input phía trên hoặc click button để cập nhật tự động và thử lại...");
+            return;
+        }
+        
+        var d = document.getElementById("DA_D").value;
+  
+        var chuoi = document.getElementById("Chuoi").value.split(d);
+        var tongsocau  = document.getElementById("CH_Num").value;
+
+         if (tongsocau != chuoi.length - 1)
+         alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !");
+         else
+         alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...");
+    }
+
     function upAnswer()
     {
-        var con = confirm("Xin lỗi vì sự bất tiện này!\nXin vui lòng save lại tất cả dữ liệu (temp) của bạn đã nhập trên các input data ở đây dưới dạng lưu trữ offline/local của bạn để tránh mất dữ liệu.\nHành động này sẽ hoàn tác/làm mất đi dữ liệu của bạn hiện tại.\nNếu bạn tiếp tục, vui lòng kiểm tra và nhập lại tất cả dữ liệu từ đầu...\n\nBạn đã hiểu và chắc chắn muốn tiếp tục?");
+        var con = confirm("Xin lỗi vì sự bất tiện này!\n\nXin vui lòng save lại tất cả dữ liệu (temp) của bạn đã nhập trên các input data ở đây dưới dạng lưu trữ offline/local của bạn để tránh mất dữ liệu. Hành động này sẽ hoàn tác/làm mất đi dữ liệu của bạn hiện tại.\nNếu bạn tiếp tục, vui lòng kiểm tra và nhập lại tất cả dữ liệu từ đầu...\n\nBạn đã hiểu và chắc chắn muốn tiếp tục?");
         if (con == true)
         window.location.href = "/Home/CreateFile_TracNghiem?answer="+document.getElementById("txAnswer").value;
     }
@@ -121,15 +274,17 @@
                         <br>
                             <b style="color:yellow">Để tránh trường hợp có thể xảy ra, tốt nhất bạn nên lưu và thực hiện nội dung trắc nghiệm đâu đó trên local và sao chép chúng thông qua vào trường điền dưới đây...</b>
                             <br>
-                    <textarea rows="20" cols="150" name="txtChuoi" autofocus>@ViewBag.ChuoiVD</textarea>
+                    <textarea rows="20" cols="150" id="Chuoi" name="txtChuoi" autofocus>@ViewBag.ChuoiVD</textarea>
+                    <br>
+                    <p style="color:orange">LƯU Ý (khuyến nghị) : nếu dữ liệu câu hỏi của bạn mà các <span style="color:red">Number</span> không phải là số tự nhiên, phiền bạn hãy tự tìm mọi cách thay thế chúng phù hợp và thử lại...</p>
                 </td>
-            </tr
+            </tr>
 
 
                <tr style="height:40px">
                     <td></td>
                     <td>
-                        <input type="text" name="txtNum" value="@ViewBag.CH_VD" size="20" placeholder="Liệt kê các câu hỏi (index)">
+                        <input type="text" name="txtNum" id="Num" value="@ViewBag.CH_VD" size="20" placeholder="Liệt kê các câu hỏi (index)"> <input type="text" id="CH_Num" placeholder="Nhập tổng số câu hỏi - dùng để kiểm tra dữ liệu data (hoặc bạn có thể bỏ qua)" size="80" /> <input type="radio" onclick="checkNum()" checked> <b style="color:purple"> ⬅️ Click để cập nhật tự động</b>
                     </td>
                 </tr>
 
@@ -142,37 +297,37 @@
                      <tr style="height:40px">
                         <td></td>
                         <td>
-                            <input type="text" name="txtX" value="@ViewBag.XCH_VD" size="25" placeholder="Split câu hỏi - After Number">
+                            <input type="text" id="CH_Front" name="txtX" value="@ViewBag.XCH_VD" size="25" placeholder="Split câu hỏi - After Number">
                                 <span style="color:red; font-weight:bold">Number</span>
-                                        <input type="text" name="txtXX" value="@ViewBag.CHX_VD" size="25" placeholder="Split câu hỏi - Before Number">
+                                        <input type="text" id="CH_Back" name="txtXX" value="@ViewBag.CHX_VD" size="25" placeholder="Split câu hỏi - Before Number"> <input type="radio" onclick="checkCH()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
                         </td>
                     </tr>
 
                          <tr style="height:40px">
                         <td></td>
                         <td>
-                                <input type="text" name="txtA" value="@ViewBag.A_VD" size="10" placeholder="Split đáp án A">
+                                <input type="text" id="DA_A" name="txtA" value="@ViewBag.A_VD" size="10" placeholder="Split đáp án A"> <input type="radio" onclick="checkA()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
                         </td>
                     </tr>
 
                         <tr style="height:40px">
                             <td></td>
                             <td>
-                                    <input type="text" name="txtB" value="@ViewBag.B_VD" size="10"  placeholder="Split đáp án B">
+                                    <input type="text" id="DA_B"  name="txtB" value="@ViewBag.B_VD" size="10"  placeholder="Split đáp án B"> <input type="radio" onclick="checkB()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
                             </td>
                         </tr>
 
                             <tr style="height:40px">
                             <td></td>
                             <td>
-                                    <input type="text" name="txtC" value="@ViewBag.C_VD" size="10"  placeholder="Split đáp án C">
+                                    <input type="text" id="DA_C" name="txtC" value="@ViewBag.C_VD" size="10"  placeholder="Split đáp án C"> <input type="radio" onclick="checkC()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
                             </td>
                         </tr>
 
                             <tr style="height:40px">
                             <td></td>
                             <td>
-                                    <input type="text" name="txtD" value="@ViewBag.D_VD" size="10"  placeholder="Split đáp án D">
+                                    <input type="text" id="DA_D" name="txtD" value="@ViewBag.D_VD" size="10"  placeholder="Split đáp án D"> <input type="radio" onclick="checkD()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
                             </td>
                         </tr>
 

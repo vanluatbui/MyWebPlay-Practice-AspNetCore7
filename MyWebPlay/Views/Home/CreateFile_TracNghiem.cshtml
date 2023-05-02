@@ -23,13 +23,7 @@
     }
 
     function xuatAnswer()
-    {
-        if ('@ViewBag.SAVE_ANSWER' == "")
-        {
-            alert('Mời bạn sử dụng chức năng để nạp tải đáp án và thử lại !');
-            return;
-        }
-        
+    {   
         var dapan = document.getElementById("DapAn").value.split(/\r|\n/);
         for (var i =0; i< dapan.length;i++)
         {
@@ -69,8 +63,15 @@
 
         var tongsocau  = document.getElementById("CH_Num").value;
 
-       var ch_front =  document.getElementById("CH_Front").value;
+        var ch_front =  document.getElementById("CH_Front").value;
         var ch_back = document.getElementById("CH_Back").value;
+
+        var chuoiX = document.getElementById("Chuoi").value.split(ch_front);
+        if (chuoiX.length -1 != tongsocau)
+        {
+         alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !\n\n[Failed result : "+new Number(chuoiX.length-1)+"/"+tongsocau+"]");
+         return;
+        }
 
         var s_num = document.getElementById("Num").value.split(".");
          var dem = new Number(0);
@@ -359,19 +360,41 @@
 
     function upAnswer()
     {
-        var con = confirm("Xin lỗi vì sự bất tiện này!\n\nXin vui lòng save lại tất cả dữ liệu (temp) của bạn đã nhập trên các input data ở đây dưới dạng lưu trữ offline/local của bạn để tránh mất dữ liệu. Hành động này sẽ hoàn tác/làm mất đi dữ liệu của bạn hiện tại.\nNếu bạn tiếp tục, vui lòng kiểm tra và nhập lại tất cả dữ liệu từ đầu...\n\nBạn đã hiểu và chắc chắn muốn tiếp tục?");
-        if (con == true)
-        window.location.href = "/Home/CreateFile_TracNghiem?answer="+document.getElementById("txAnswer").value;
+        var s_num = document.getElementById("Num").value.split(".");
+        var s = "";
+
+        for (var i = 0; i< s_num.length; i++)
+        {
+            var num_s = s_num[i].split("-");
+            for (var j = num_s[0]; j <= num_s[1]; j++)
+            {
+                s += "<tr style=\"height:40px\">                                 <td></td>                             <td>                                 <br>                                    <b></b>                                    <br>                                <b style=\"color:yellow\">ĐÁP ÁN CÂU "+j+" : </b>                                <select name=\"HasAnswer\">                                    <option>A</option>                                    <option>B</option>                                    <option>C</option>                                    <option>D</option>                                </select>                             </td>                         </tr>";
+            }
+
+            s += " <tr style=\"height:40px\">                                 <td></td>                             <td>                                 <br>                                    <b></b>                                    <br>                                   <hr>                                   <br>                             </td>                         </tr>";
+        }
+
+        s += "<tr style=\"height:40px\">                                 <td></td>                             <td>                                    <b></b>                                    <input type=\"radio\" onclick=\"downAnswer()\" checked /><b style=\"color:aqua\"> ⬅️ Click để nạp tải đáp án</b>                                   <br>                             </td>                         </tr>";
+
+        var answer = document.getElementById("setupAnswer");
+        answer.innerHTML = s;
     }
 
     function downAnswer()
     {
+         var tong = document.getElementById("CH_Num").value;
+        if (tong == "" || isNaN(tong) == true)
+        {
+            alert("Để sử dụng tính năng này, mời bạn nhập lại chính xác tổng số câu hỏi của trường data input phía trên hoặc click button để cập nhật tự động và thử lại...");
+            return;
+        }
+
         var dapan = document.getElementById("DapAn");
         dapan.value = "";
         
         var s = "";
 
-        for(var i =0; i< new Number('@ViewBag.TongDapAn'); i++)
+        for(var i =0; i< new Number(tong); i++)
         {
             var chon = document.getElementsByName("HasAnswer")[i].options;
 
@@ -384,7 +407,7 @@
             else if (chon.selectedIndex == 3)
             s += "D";
 
-            if (i < new Number('@ViewBag.TongDapAn') -1)
+            if (i < new Number(tong) -1)
             s += "\r\n";
         }
 
@@ -536,59 +559,17 @@
                          <tr style="height:40px">
                                 <td><h4><u style="color:red">NẠP TẢI ĐÁP ÁN CHO TỪNG CÂU HỎI</u></h4></td>
                             <td>
-                                <br>
-                                   <b></b>
-                                   <br>
-                                <input type="text" name="txtAnswer" id="txAnswer" value="@ViewBag.Answer" size="80"/> <input type="radio" onclick="upAnswer()" checked /> <b> ⬅️ Click để bắt đầu nạp tải đáp án</b>
+                      <input type="radio" onclick="upAnswer()" checked /> <b style="color:orchid"> ⬅️ Click để bắt đầu nạp tải đáp án</b>
                             </td>
                         </tr>
-
-                         @if (ViewBag.SAVE_ANSWER != null)
-        {
-            string[] listAnswer = ViewBag.SAVE_ANSWER.ToString().Split(".", StringSplitOptions.RemoveEmptyEntries);
-            for (int i = 0; i < listAnswer.Length; i++)
-            {
-                string[] listDapan = listAnswer[i].Split("-", StringSplitOptions.RemoveEmptyEntries);
-                for (int j = int.Parse(listDapan[0]); j<= int.Parse(listDapan[1]);j++)
-                {
-                     <tr style="height:40px">
+                    
+                        <tr style="height:40px">
                                 <td></td>
-                            <td>
-                                <br>
-                                   <b></b>
-                                   <br>
-                               <b style="color:yellow">ĐÁP ÁN CÂU @j : </b>
-                               <select name="HasAnswer">
-                                   <option>A</option>
-                                   <option>B</option>
-                                   <option>C</option>
-                                   <option>D</option>
-                               </select>
+                            <td id="setupAnswer">
+                    
                             </td>
                         </tr>
-                }
-               <tr style="height:40px">
-                                <td></td>
-                            <td>
-                                <br>
-                                   <b></b>
-                                   <br>
-                                  <hr>
-                                  <br>
-                            </td>
-                        </tr>
-            }
-            <tr style="height:40px">
-                                <td></td>
-                            <td>
-                                   <b></b>
-                                   <input type="radio" onclick="downAnswer()" checked /><b style="color:aqua"> ⬅️ Click để nạp tải đáp án</b>
-                                  <br>
-                            </td>
-                        </tr>
-        }
-
-
+                      
 
                              <tr style="height:40px">
                     <td> </td>

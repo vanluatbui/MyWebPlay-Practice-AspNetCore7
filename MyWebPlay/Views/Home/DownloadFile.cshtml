@@ -25,7 +25,7 @@
 
     function xacnhan(file)
     {
-        var con = confirm('Bạn có chắc chắn muốn xoá vĩnh viễn file này khỏi lưu trữ Server hệ thống không?');
+        var con = confirm('Bạn có chắc chắn muốn xoá vĩnh viễn file này khỏi lưu trữ Server hệ thống không? - '+file);
         if (con == true)
         {
             alert("Thành công, tác vụ hiện đang được xử lý...");
@@ -46,6 +46,11 @@
     function downall()
     {
         window.location.href = "/Home/DownloadFile?all=1&&folder="+document.getElementById("Folder").value;
+    }
+
+    function alldown()
+    {
+        window.location.href = "/Home/DownloadFile?all=3";
     }
 
 </script>
@@ -82,6 +87,10 @@
     <b>Nhập chính xác path folder để truy xuất các file (không bao gồm các folder con) để download - nếu để trống mặc định là ROOT : </b><input id="Folder" type="text" size="50" value="/Folder1/Folder2" />
     <button style="color:blue;font-weight:bold" onclick="downall()">ALL DOWNLOAD SERVER IN THIS FOLDER</button>
 
+    <br />
+
+    <br />
+    <button style="color:brown;font-weight:bold" onclick="alldown()">ALL DOWNLOAD (TOÀN BỘ)</button>
     <br />
 
     <br />

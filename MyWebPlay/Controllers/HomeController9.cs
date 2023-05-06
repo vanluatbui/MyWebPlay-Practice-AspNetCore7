@@ -256,8 +256,10 @@ namespace MyWebPlay.Controllers
                 ViewBag.All = 0;
             else if (all ==1)
                 ViewBag.All = 1;
-            else
+            else if (all == 2)
                 ViewBag.All = 2;
+            else
+                ViewBag.All = 3;
 
             ViewBag.Folder = folder;
 
@@ -320,47 +322,82 @@ namespace MyWebPlay.Controllers
                 ViewBag.KQF = "Not Exists Folder Path : /file" + folder + "  ...";
             }
 
-            TempData["All"] = ViewBag.All;
+            if (ViewBag.All == 3)
+            {
+                int k = 0;
+                ListFileDirectory("file", ref k);
+                ViewBag.XL = k;
+                ViewBag.KQF = "* Download list all file Server (toàn bộ - hiện tại có : "+k+" file)";
+            }
+
+                TempData["All"] = ViewBag.All;
             TempData["Folder"] = ViewBag.Folder;
 
                 return View();
         }
 
-       //[HttpPost]
-       // public ActionResult DownloadFile(List<string> TenFile)
-       // {
-       //     ViewBag.All = TempData["All"];
-       //     ViewBag.Folder = TempData["Folder"];
-       //     TempData["Folder"] = ViewBag.Folder;
-       //     TempData["All"] = ViewBag.All;
+        private void ListFileDirectory(string path, ref int k)
+        {
+            var listFile = new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, path)).GetFiles();
+            string ketqua = "";
+            foreach (var item in listFile)
+            {
+                string file = "/" + path + "/" +item.Name;
 
-       //     for (int i = 0; i < TenFile.Count(); i++)
-       //     {
-       //         string ketqua = "";
+                if (new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, file.TrimStart("/".ToCharArray()))).Exists)
+                {
+                    ketqua += "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/" + path + "/" + item.Name + "\" download> tại đây</a>! <br> Link xem đầy đủ : <a target=\"_blank\" style=\"color:green\"" +
+                   "href=\"/" + path + "/" + item.Name + "\">/" + path + "/" + item.Name + "</a><br> Tải lại hoặc chờ một khoảng thời gian để link file được xử lý - tất cả file trên hệ thống admin sẽ tự động xoá sau 24h (có thể) bạn đăng tải ...  " +
+                  "<button style=\"color:blue\" onclick=\"xacnhan('" + file.Replace("/file","") + "')\">Click để xoá thủ công file này?</button><br><br>";
+                    ketqua += "<br><br>";
+                    ViewData["KetQua" + k] = ketqua;
+                    ketqua = "";
+                    k++;
+                }
+            }
 
-       //         string tenfile = TenFile[i];
+            var listFolder = new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, path)).GetDirectories();
+            foreach(var item in listFolder)
+            {
+                ListFileDirectory(path + "/" + item.Name, ref k);
+            }
+        }
+
+        //[HttpPost]
+        // public ActionResult DownloadFile(List<string> TenFile)
+        // {
+        //     ViewBag.All = TempData["All"];
+        //     ViewBag.Folder = TempData["Folder"];
+        //     TempData["Folder"] = ViewBag.Folder;
+        //     TempData["All"] = ViewBag.All;
+
+        //     for (int i = 0; i < TenFile.Count(); i++)
+        //     {
+        //         string ketqua = "";
+
+        //         string tenfile = TenFile[i];
 
 
-       //         if (tenfile != null && tenfile.Length > 0)
-       //         {
-       //             var pth = Path.Combine(_webHostEnvironment.WebRootPath, "file", tenfile);
-       //             if (!System.IO.File.Exists(pth))
-       //                 ketqua = "<p style=\"color:red\"> Tên file \"<span style=\"color:blue\">" + tenfile + "</span>\" bạn cần tìm để download không tồn tại trên Server (đảm bảo bạn phải nhập đủ tên file kèm theo đuôi file extension (VD : abc.txt hoặc abc.jpg hoặc abc.mp3  ...)!</p>";
-       //             else
-       //             {
-       //                 string file = "/" + tenfile;
+        //         if (tenfile != null && tenfile.Length > 0)
+        //         {
+        //             var pth = Path.Combine(_webHostEnvironment.WebRootPath, "file", tenfile);
+        //             if (!System.IO.File.Exists(pth))
+        //                 ketqua = "<p style=\"color:red\"> Tên file \"<span style=\"color:blue\">" + tenfile + "</span>\" bạn cần tìm để download không tồn tại trên Server (đảm bảo bạn phải nhập đủ tên file kèm theo đuôi file extension (VD : abc.txt hoặc abc.jpg hoặc abc.mp3  ...)!</p>";
+        //             else
+        //             {
+        //                 string file = "/" + tenfile;
 
-       //                 ViewBag.XL = TenFile.Count();
-       //                 ketqua = "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/file/" + tenfile + "\" download> tại đây</a>! <br> Link xem đầy đủ : <a target=\"_blank\" style=\"color:green\"" +
-       //                    "href=\"/file/" + tenfile + "\">/file/" + tenfile + "</a><br> Tải lại hoặc chờ một khoảng thời gian để link file được xử lý - tất cả file trên hệ thống admin sẽ tự động xoá sau 24h (có thể) bạn đăng tải ...  " +
-       //                   "<button style=\"color:blue\" onclick=\"xacnhan('"+file+"')\">Click để xoá thủ công file này?</button><br><br>";
-       //             }
-       //         }
+        //                 ViewBag.XL = TenFile.Count();
+        //                 ketqua = "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/file/" + tenfile + "\" download> tại đây</a>! <br> Link xem đầy đủ : <a target=\"_blank\" style=\"color:green\"" +
+        //                    "href=\"/file/" + tenfile + "\">/file/" + tenfile + "</a><br> Tải lại hoặc chờ một khoảng thời gian để link file được xử lý - tất cả file trên hệ thống admin sẽ tự động xoá sau 24h (có thể) bạn đăng tải ...  " +
+        //                   "<button style=\"color:blue\" onclick=\"xacnhan('"+file+"')\">Click để xoá thủ công file này?</button><br><br>";
+        //             }
+        //         }
 
-       //         ViewData["KetQua" + i] = ketqua;
-       //     }      
-       //     return View("DownloadFile",new {all =  ViewBag.All, folder = ViewBag.Folder});
-       // }
+        //         ViewData["KetQua" + i] = ketqua;
+        //     }      
+        //     return View("DownloadFile",new {all =  ViewBag.All, folder = ViewBag.Folder});
+        // }
 
         public ActionResult XoaAllFile(string password)
         {

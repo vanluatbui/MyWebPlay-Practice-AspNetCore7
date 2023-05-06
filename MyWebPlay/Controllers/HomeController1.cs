@@ -4,6 +4,7 @@ using System.Formats.Tar;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MyWebPlay.Controllers
 {
@@ -51,7 +52,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult CreateFile_TracNghiem(IFormCollection f)
         {
-            String s = "\r\n" + f["txtChuoi"].ToString();
+            string s = "\r\n" + f["txtChuoi"].ToString();
             bool err = true;
             try
             {
@@ -450,6 +451,11 @@ namespace MyWebPlay.Controllers
                     f.Delete();
                 }
             return RedirectToAction("TracNghiemX_Multiple");
+        }
+
+        public ActionResult Menu()
+        {
+            return PartialView();
         }
     }
 }

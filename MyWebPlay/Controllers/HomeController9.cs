@@ -4,10 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using MyWebPlay.Extension;
 using Org.BouncyCastle.Asn1.Ocsp;
 using Org.BouncyCastle.Asn1.X509;
+using Org.BouncyCastle.Utilities;
 using System.Diagnostics.Eventing.Reader;
 using System.Formats.Tar;
 using System.Globalization;
 using System.IO;
+using System.IO.Compression;
 using System.Net.Mail;
 
 namespace MyWebPlay.Controllers
@@ -40,6 +42,18 @@ namespace MyWebPlay.Controllers
                 ViewBag.Y = 0;
             else
                 ViewBag.Y = 1;
+
+            if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Exists == true)
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Delete(true);
+
+            if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Exists == true)
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Delete(true);
+
+            if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Exists == false)
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Create();
+
+            if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Exists == false)
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Create();
 
             TempData["Y"] = ViewBag.Y;
 
@@ -89,17 +103,76 @@ namespace MyWebPlay.Controllers
                     //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
                     string name = Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " - " + xuxu;
 
-                    MailRequest mail = new MailRequest();
-                    mail.Subject = "Send file or message from " + name;
-                    mail.Body = text;
-                    mail.ToEmail = "mywebplay.savefile@gmail.com";
 
-                    mail.Attachments = new List<IFormFile>();
+                    x = CultureInfo.InvariantCulture.Calendar;
 
-                    for (int i = 0; i < fileUpload.Count(); i++)
-                        mail.Attachments.Add(fileUpload[i]);
+                   xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
 
-                   await _mailService.SendEmailAsync(mail);
+                    string fi = Request.HttpContext.Connection.RemoteIpAddress + "_ZipFile_" + xuxu;
+                    fi = fi.Replace("\\", "");
+                    fi = fi.Replace("/", "");
+                    fi = fi.Replace(":", "");
+
+                    if (!new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail", fi)).Exists)
+                        new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail", fi)).Create();
+
+                    for (int i = 0; i < fileUpload.Count(); i++)                  
+                    {
+                        var fileName = Path.GetFileName(fileUpload[i].FileName);
+
+                        var path = Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail", fi, fileName);
+
+                        using (Stream fileStream = new FileStream(path, FileMode.Create))
+                        {
+                            fileUpload[i].CopyTo(fileStream);
+                        }
+                    }
+
+                    ZipFile.CreateFromDirectory(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail", fi), Path.Combine(_webHostEnvironment.WebRootPath, "zip-result", fi+".zip"));
+
+                   // IFormFile formFile = null;
+
+                   //byte[] file = System.IO.File.ReadAllBytes(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result", fi + ".zip"));
+
+                   // MemoryStream ms = new MemoryStream(file);
+                   // formFile = new FormFile(ms, 0, ms.Length, null, fi + ".zip")
+                   // {
+                   //     Headers = new HeaderDictionary(),
+                   //     ContentType = "application/zip"
+                   // };
+
+                    if (Math.Ceiling((decimal)new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result", fi + ".zip")).Length) / 1024 <= 20)
+                    {
+                        //mail.Attachments.Add(formFile);
+                        //await _mailService.SendEmailAsync(mail);
+
+                        MailRequest mail = new MailRequest();
+                        mail.Subject = "Send file or message from " + name;
+                        mail.Body = text;
+                        mail.ToEmail = "mywebplay.savefile@gmail.com";
+
+                        mail.Attachments = new List<IFormFile>();
+
+                        for (int i = 0; i < fileUpload.Count(); i++)
+                        {
+                            mail.Attachments.Add(fileUpload[i]);
+                        }
+                        await _mailService.SendEmailAsync(mail);
+                    }
+                    else
+                    {
+                        for (int i = 0; i < fileUpload.Count(); i++)
+                        {
+                            MailRequest mail = new MailRequest();
+                            mail.Body = text;
+                            mail.ToEmail = "mywebplay.savefile@gmail.com";
+
+                            mail.Attachments = new List<IFormFile>();
+                            mail.Subject = "[PART " + (i + 1) + "] Send file or message from " + name;
+                            mail.Attachments.Add(fileUpload[i]);
+                            _mailService.SendEmailAsync(mail);
+                        }
+                    }
                 }
             }
             catch
@@ -242,13 +315,17 @@ namespace MyWebPlay.Controllers
 
                 ViewBag.KetQua = ViewBag.Y == 0 ? "[NO UPLOAD] - Thành công (xử lý admin) !" : "[YES UPLOAD]" + " - Thành công! Tất cả các file đã được đăng tải lên Server hệ thống ...";
            
-                return View("UploadFile", new {sl = ViewBag.SL, name = ViewBag.X, upload = ViewBag.Y});           
+
+            return View("UploadFile", new {sl = ViewBag.SL, name = ViewBag.X, upload = ViewBag.Y});           
         }
 
         public ActionResult DownloadFile(int? sl, int? all = 0, string? folder = "")
         {
             if (sl == null)
                 ViewBag.SL = 0;
+
+            if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Exists == true)
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Delete(true);
 
             ViewBag.SL = sl;
 
@@ -258,12 +335,54 @@ namespace MyWebPlay.Controllers
                 ViewBag.All = 1;
             else if (all == 2)
                 ViewBag.All = 2;
-            else
+            else if (all == 3)
                 ViewBag.All = 3;
+            else
+                ViewBag.All = 4;
 
             ViewBag.Folder = folder;
 
             string ketqua = "";
+
+            if (ViewBag.All == 4 && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists)
+            {
+                ketqua = "";
+                int k = 0;
+                var listFile = new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).GetFiles();
+                if (listFile.Length == 0)
+                    ViewBag.KQF = "Path : /file" + folder + " is empty (not exists files) ...";
+                else
+                {
+                    Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+                    string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string name = Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " - " + xuxu;
+
+
+                    x = CultureInfo.InvariantCulture.Calendar;
+
+                    xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+
+                    string fi = Request.HttpContext.Connection.RemoteIpAddress + "_ZipFile_" + folder + "_" + xuxu;
+                    fi = fi.Replace("\\", "");
+                    fi = fi.Replace("/", "");
+                    fi = fi.Replace(":", "");
+
+                    ViewBag.KQF = "Path : /file" + folder + " (nén các file trong folder thành zip) : ";
+
+                    ZipFile.CreateFromDirectory(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder), Path.Combine(_webHostEnvironment.WebRootPath, "zip-result", fi + ".zip"));
+
+                    ketqua += "Thành công! Xem hoặc download file của bạn (đã nén all thành 1 zip) <a style=\"color:purple\" href=\"/zip-result/" + fi + ".zip" + "\" download> tại đây</a>! ";
+                    ketqua += "<br><br>";
+                    ViewBag.XL = 1;
+                    ViewData["KetQua" + k] = ketqua;
+                    ketqua = "";
+                }
+            }
+            else if (ViewBag.All == 4 && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists == false)
+                ViewBag.KQF = "Not Exists Folder Path : /file" + folder + "  ...";
+
 
             if (ViewBag.All == 1 && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists)
             {

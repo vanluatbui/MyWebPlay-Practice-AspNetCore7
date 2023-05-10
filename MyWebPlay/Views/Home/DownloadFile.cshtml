@@ -48,6 +48,11 @@
         window.location.href = "/Home/DownloadFile?all=1&&folder="+document.getElementById("Folder").value;
     }
 
+    function downall1()
+    {
+        window.location.href = "/Home/DownloadFile?all=4&&folder="+document.getElementById("Folder").value;
+    }
+
     function alldown()
     {
         window.location.href = "/Home/DownloadFile?all=3";
@@ -86,7 +91,7 @@
     <br />
     <b>Nhập chính xác path folder để truy xuất các file (không bao gồm các folder con) để download - nếu để trống mặc định là ROOT : </b><input id="Folder" type="text" size="50" value="/Folder1/Folder2" />
     <button style="color:blue;font-weight:bold" onclick="downall()">ALL DOWNLOAD SERVER IN THIS FOLDER</button>
-
+    <button style="color:blue;font-weight:bold" onclick="downall1()">ALL DOWNLOAD SERVER IN THIS FOLDER (NÉN ALL ZIP)</button>
     <br />
 
     <br />

@@ -43,6 +43,12 @@
         window.location.href = "/Home/DownloadFile";
     }
 
+    function hanhphuc(event)
+    {
+        if (event.keyCode == 13)
+        soluongfile();
+    }
+
     function soluongfile()
     {
         window.location.href = "/Home/UploadFile?sl="+document.getElementById("SL").value;
@@ -121,7 +127,7 @@
     <button style="color:blueviolet" onclick="downloadfile()">Bạn đã có file trên hệ thống trước đó?</button>
     <br />
     <br />
-    <b>Nhập số lượng file mà bạn muốn đăng tải : </b> <input type="number" id="SL" value="@ViewBag.SL" min="1"/>
+    <b>Nhập số lượng file mà bạn muốn đăng tải : </b> <input onkeydown="return hanhphuc(event)" type="number" id="SL" value="@ViewBag.SL" min="1"/>
     <button onclick="soluongfile()">OK</button>
     <br />
     <br />

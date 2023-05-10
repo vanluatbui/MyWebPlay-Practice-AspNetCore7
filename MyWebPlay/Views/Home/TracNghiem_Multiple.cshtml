@@ -4,6 +4,12 @@
         var sl = document.getElementById("txtSL").value;
         window.location.href = "/Home/TracNghiem_Multiple?sl="+sl;
     }
+
+    function hanhphuc(event)
+    {
+        if (event.keyCode == 13)
+        soluong();
+    }
 </script>
 
  <h2>@Html.ActionLink("Phiên bản này đã quá cũ, đi đến trải nghiệm phiên bản mới?", "TracNghiemX_Multiple")</h2>
@@ -20,7 +26,7 @@
                     <br>
                     <b> Nhập số lượng chương bài học : </b>
                     <br>
-                    <input type="number" id="txtSL" value="@ViewBag.SL"/><button onclick="soluong()">OK</button>
+                    <input type="number" id="txtSL" onkeydown="return hanhphuc(event)" value="@ViewBag.SL"/><button onclick="soluong()">OK</button>
                 </td>
             </tr>
 

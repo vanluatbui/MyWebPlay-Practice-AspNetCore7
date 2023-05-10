@@ -1,0 +1,252 @@
+﻿<meta charset="ISO-8859-1">
+<script>
+
+    var you = false;
+
+    function PlayKaraoke()
+    {
+        you = true;
+    }
+
+    function StopKaraoke()
+    {
+        window.location.href="/Home/XoaKaraoke";
+    }
+
+        var t=1;
+        var time_xuathien = [];
+        var time_luuvet = [];
+        var n = 0;
+        var kf = 0;
+        var h_xh = [];
+        var h_le = [];
+        var kk = 0;
+        var empty = -1;
+
+        var flag = 0;
+
+        var LBH;
+
+                    var id = setInterval(myAlert, 100);
+
+                    function myAlert()
+                    {
+                        
+                        if (flag == 0)
+                        {
+                            LBH = document.getElementById("txtKara").value.split(/\r|\n/);
+
+                    var k = 0;
+                    for (var i = 0; i < LBH.length; i++)
+                    {
+                        var ss = LBH[i].split("#");
+                        time_xuathien[k] = new Number(ss[0]);
+                        LBH[k] = ss[1];
+                        if (ss[1] != "[Empty]" && ss[1] != "[Empty-X]")
+                        {
+                            time_luuvet[k] = ss[2];
+                        }
+                        k++;
+                    }
+                    flag = 1;
+                        }
+
+                         if (you == false)
+                        return;
+              
+                        t++;
+
+            if (t == time_xuathien[n])
+            {
+                h_xh = [];
+                h_le = [];
+
+                if (LBH[n] != "[Empty]" && LBH[n] != "[Empty-X]")
+                {
+                    var s = time_luuvet[n].split(",");
+
+                    for (var i = 0; i < s.length; i++)
+                    {
+                        var ss = s[i].split("-");
+                        h_xh[kk] = new Number(ss[0]);
+                        h_le[kk] = new Number(ss[1]);
+                        kk++;
+                    }
+                }
+
+                if (LBH[n] == "[Empty]" || LBH[n] == "[Empty-X]")
+                {
+                    document.getElementById("txtKaraoke1").innerHTML = "";
+                    document.getElementById("txtKaraoke2").innerHTML = "";
+                    document.getElementById("txtKara1").value = "";
+                    document.getElementById("txtKara2").value = "";
+                }
+                else
+                {
+                    var sing = LBH[n].split("*");
+                   document.getElementById("txtKaraoke1").innerHTML = new String(sing[0]).toUpperCase().replace("UNDEFINED","");
+
+                   document.getElementById("txtKaraoke2").innerHTML = new String(sing[1]).toUpperCase().replace("UNDEFINED","");;
+
+                    document.getElementById("txtKara1").value = sing[0];
+                    document.getElementById("txtKara2").value = sing[1];
+
+                }
+
+                //txtKaraoke1.Select(0, LBH[n].Length + 1);
+                //txtKaraoke1.SelectionColor = Color.White;
+                //txtKaraoke2.Select(0, LBH[n].Length + 1);
+                //txtKaraoke2.SelectionColor = Color.White;
+                n++;
+            }
+
+            if (n > 1 && LBH[n - 1] == "[Empty]" && empty == -1)
+            {
+                empty = kf;
+            }
+
+            if (h_xh != null && (t == h_xh[0] - 8 || empty != -1 && t == h_xh[empty] - 8))
+            {
+               document.getElementById("number").innerHTML = "1";
+            }
+
+            if (h_xh != null && (t == h_xh[0] - 18 || empty != -1 && t == h_xh[empty] - 18))
+            {
+               document.getElementById("number").innerHTML = "2";
+            }
+
+            if (h_xh != null && (t == h_xh[0] - 28 || empty != -1 && t == h_xh[empty] - 28))
+            {
+               document.getElementById("number").innerHTML = "3";
+            }
+
+
+            var xinloi = document.getElementById("txtKara1").value.split(" ");
+
+            var kara1 = document.getElementById("txtKara1").value;
+            var kara2 = document.getElementById("txtKara2").value;  
+
+            if (h_xh != null && t == h_xh[kf])
+            {
+                if (h_le[kf] <= kara1.length + xinloi[xinloi.length - 1].length)
+                {
+                    var ct1 = kara1.substring(0,h_le[kf]).toUpperCase().replace("UNDEFINED","");
+                    var ct2 = kara1.substring(h_le[kf], kara1.length).toUpperCase().replace("UNDEFINED","");
+                    document.getElementById("txtKaraoke1").innerHTML = "<span style=\"color:yellow\">"+ct1+"</span><span>"+ct2+"</span>"
+                }
+                else
+                {
+                    var ct1 = kara2.substring(0, h_le[kf] - kara1.length - 2).toUpperCase().replace("UNDEFINED","");
+                    var ct2 = kara2.substring(h_le[kf] - kara1.length - 2, kara2.length).toUpperCase().replace("UNDEFINED","");
+                   document.getElementById("txtKaraoke2").innerHTML = "<span style=\"color:yellow\">"+ct1+"</span><span>"+ct2+"</span>"
+                }
+                kf++;
+
+                 document.getElementById("number").innerHTML = "";
+           }
+     }
+
+</script>
+
+<audio autoplay hidden onplay="PlayKaraoke()" onpause="StopKaraoke()">
+    <source src="@ViewBag.Music" type="audio/mpeg">
+</audio>
+
+<textarea id="txtKara" hidden>@ViewBag.Karaoke</textarea>
+
+@if (ViewBag.Music == "")
+{
+    <table align="center">
+    <h2 style="text-align:center">Play Your Karaoke - Online</h2>
+
+    <br />
+
+    @using (Html.BeginForm("PlayKaraoke", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        @Html.ValidationSummary(true)
+
+            <tr style="height:40px">
+                <td> </td>
+                <td>
+                    <br>
+                        <b> Tải file TXT karaoke (đã xử lý) : </b>
+                    <br>
+                        <input type="file" name="txtKaraoke"/>  <b>@Html.ActionLink("Bạn chưa có file text karaoke?","CreateFile_Karaoke")</b>
+                    <br>
+                </td>
+            </tr>
+
+             <tr style="height:40px">
+                <td> </td>
+                <td>
+                    <br>
+                        <b> Tải file MP3 karaoke (đã xử lý) : </b>
+                    <br>
+                        <input type="file" name="txtMusic"/>
+                    <br>
+                </td>
+            </tr>
+
+             <tr style="height:40px">
+                    <td> </td>
+                    <td>
+                        <br>
+                        <h5 style="color:yellow">
+                - Sử dụng các app/web bên ngoài để giúp tách nhạc và giọng ca sĩ (nếu bạn không có bản nhạc Karaoke)
+                <br>
+                - Sử dụng các app/web bên ngoài để tăng âm lượng cho âm thanh.
+                <br>
+                - Ngoài ra bạn có thể áp dụng sự hiểu biết về photoshop/hiệu chỉnh âm thanh khác cho thích hợp nhất!
+            </h5>
+                    </td>
+                </tr>
+
+
+                 <tr style="height:40px">
+                    <td> </td>
+                    <td>
+                        <br>
+                            <b> Nhập tên bài hát - tên ca sĩ (VD : Lời Ca Khúc Dễ Thương - Ánh Xuân) : </b>
+                        <br>
+                            <input type="text" name="txtBH" size="50"/>
+                        <br>
+                    </td>
+                </tr>
+
+
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                        <input style="font-weight:bolder" type="Submit" value="Bắt Đầu" />
+                </td>
+            </tr>
+    }
+</table>
+}
+else
+{
+    <table align="center">
+    <h2 style="text-align:center;color:palevioletred">@ViewBag.Text</h2>
+
+    <br />
+
+    <br>
+
+    <br>
+    <input type="text" id="txtKara1" hidden>
+    <input type="text" id="txtKara2" hidden>
+
+    <tr style="height:40px">
+                <td></td>
+                <td>
+                        <span id="number" style="color:green; font-size:70px"></span>
+                        <br>
+                          <span id="txtKaraoke1" style="font-size:100px"></span>
+                          <br>
+                          <span id="txtKaraoke2" style="font-size:100px"></span>
+                </td>
+            </tr>
+                        
+    
+</table>
+}

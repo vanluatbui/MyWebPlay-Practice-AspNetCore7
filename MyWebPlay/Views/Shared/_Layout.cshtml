@@ -48,6 +48,21 @@
             }
         }
 
+         var tim3 = 30;
+        var idX3 = setInterval(myFay3, 1000);
+
+        function myFay3()
+        {
+            var va = document.getElementById("thoigian3");
+            va.innerHTML = tim3;
+            tim3--;
+            if (va.innerText == 0)
+            {
+                clearInterval(idX3);
+                window.location.href="/Home/XoaKaraoke";
+            }
+        }
+
         </script>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-black border-bottom box-shadow mb-3">
@@ -186,6 +201,10 @@
 
                          <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="ViewNoteFile">ViewNoteFile</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="PlayKaraoke">Play-Karaoke</a>
                         </li>
 
                     </ul>

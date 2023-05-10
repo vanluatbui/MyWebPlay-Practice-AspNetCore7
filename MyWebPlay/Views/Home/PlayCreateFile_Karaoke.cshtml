@@ -1,0 +1,167 @@
+﻿<script>
+        var LBH= [];
+        var time_XuatHien= [];
+        var time_LuuVet= [];
+        var n = 0;
+        var nn = 0;
+        var k = 0;
+        var t = 0;
+
+        var id;
+
+   function PlayKaraoke()
+   {
+       var music = document.getElementById("music");
+       music.style.display = "none";
+
+       var xong = document.getElementById("xong");
+       xong.style.display = "block";
+
+       document.getElementById("txtVD").focus();
+
+       t = 0;
+               
+                //--------------------------------
+
+                LBH = document.getElementById("Lyric").value.split(/\r|\n/);
+                time_XuatHien = [];
+                time_LuuVet = [];
+                n = 0;
+                k = 0;
+                nn = 0;
+                
+                 id = setInterval(myAlert, 100);
+   }
+
+   function myAlert()
+   {
+       t++;
+   }
+
+   function xulyKaraoke()
+   {
+       var ss = "";
+            for (var i = 0; i<LBH.length;i++)
+            {
+                if (LBH[i] != "[Empty]")
+                {
+
+                         var lbh = LBH[i].split(' ');
+                            var kk = "";
+                            for (var j = 0; j< lbh.length;j++)
+                            {
+                                kk += lbh[j];
+                                if (j < lbh.length - 1 && j != (lbh.length / 2) - 1)
+                                    kk += " ";
+                                if (j == (lbh.length / 2) - 1)
+                                    kk += "*";
+                            }
+                            ss += time_XuatHien[i] + "#" + kk + "#" + time_LuuVet[i];
+                }
+                else
+                    ss += time_XuatHien[i] + "#" + LBH[i];
+                if (i < LBH.length - 1)
+                    ss += "\n";
+            }
+            clearInterval(id);
+            document.getElementById("Lyrix").value = ss;
+            var xong = document.getElementById("xong");
+       xong.style.display = "none";
+            alert("Đã xử lý thành công nội dung text Karaoke cho mp3 của bạn đã phân tích. Cuối cùng, bạn click nút Hoàn tất!")
+   }
+
+       function KeyPlay(event)
+       {
+           document.getElementById("txtVD").value = "";
+
+           if (event.keyCode == 13)
+           {
+             var lbh = document.getElementById("BH2").value.split(' ');
+                nn += lbh[k].length + 1;
+
+                document.getElementById("LBH1").innerHTML = new String (document.getElementById("BH2").value).substring(0,nn).toUpperCase();
+                document.getElementById("LBH2").innerHTML = new String (document.getElementById("BH2").value).substring(nn,document.getElementById("BH2").value.length).toUpperCase();
+
+                time_LuuVet[n-1] += t + "-" + nn;
+                if (k < lbh.length - 1)
+                    time_LuuVet[n - 1] += ",";
+                    k++;
+           }
+           else if (event.keyCode == 32)
+           {
+                k = 0;
+                nn = 0;
+                document.getElementById("LBH2").innerHTML = new String(LBH[n]).toUpperCase();
+               document.getElementById("LBH1").innerHTML = "";
+
+                document.getElementById("BH2").value = LBH[n];
+                document.getElementById("BH1").value = "";
+
+                time_XuatHien[n] = t;
+                n++;
+           }
+       }
+
+
+ </script>
+
+ <h3 style="color:yellow">@Html.Raw(@ViewBag.FileKaraoke)</h3>
+
+<br /><br />
+
+
+<table align="center">
+    <h2 style="text-align:center">Create File Your Karaoke - Online</h2>
+
+    <br />
+    <h2 style="color:red">HƯỚNG DẪN THỰC HIỆN - VUI LÒNG ĐỌC KỸ TRƯỚC KHI THỰC HIỆN</h2>
+- Sẵn sàng nghe nhạc mp3 của bạn cùng ca sĩ hát để xác định thời điểm của mỗi khúc lyric mà ca sĩ sẽ hát.
+<br>
+- Nếu bạn đã chuẩn bị sẵn sàng, nhấn nút Play và nghe bản nhạc của bạn tại controls bên dưới. Trong khi đang nghe, bạn sẽ vừa thao tác để tiến hành tạo file Karaoke của bạn.
+<br>
+- Cách thực hiện : vừa nghe nhạc, đồng thời hai ngón tay của bạn luôn giữ phím <b>Enter</b> và Space để thao tác trong suốt quá trình.
+<br>
++ Nếu ca sĩ sắp hát đến đoạn lyric nào, hãy nhấn Enter (đoạn lyric đó sẽ xuất hiện - ca sĩ sắp hát đến đoạn đó (nên dành thời gian 1-3 giây hoặc từ 5-8 giây (nếu sau nhạc dạo)).
+<br>
++ Nếu ca sĩ đang hát đến từ nào trong đoạn lyric, hãy nhấn phím <b>Space</b> (màu chữ của từ đó sẽ được tô)
+<br>
++ Và thực hiện tương tự cho đến khi hết bài hát!
+<br />
+LƯU Ý : trong suốt quá trình thực hiện, bạn không nên có bất kỳ thao tác nào khác ngoài việc bạn chỉ cần giữ và canh gõ 2 phím : <b>Enter</b> và <b>Space</b> - đảm bảo tại textbox này luôn được trạng thái focus chuột : <input id="txtVD" onkeydown="return KeyPlay(event)" type="text" size="1" autofocus/><br />
+XIN LỖI VÌ SỰ BẤT TIỆN : mọi thao tác sai, bạn phải thực hiện lại từ đầu :)) - khi dò xét mỗi đoạn lyric mà đoạn đó có bao nhiêu từ thì bạn chỉ gõ đúng số lần đó (VD : đoạn lyric có 5 từ sẽ tương ứng chỉ đủ 5 lần gõ phím <b>Enter</b> của bạn [tô màu đủ số từ đang hiển thị]  tại đoạn Lyric đang dò xét đó - không nên nhấn lố hay thiếu (hãy cẩn thận)) ... Chúc bạn thành công!
+<br />
+<br />
+<h3 style="color:yellow">Nếu bạn đã hiểu và sẵn sàng, nhấn nút PLAY MP3 và bắt đầu nghe nhạc của bạn : </h3>
+<br /><br />
+<audio id="music" onplay="PlayKaraoke()" controls>
+    <source src="@TempData["Music"]" type="audio/mpeg">
+</audio><button style="display:none" id="xong" onclick="xulyKaraoke()"><b>XONG - XỬ LÝ FILE KARAOKE (sau khi xong bạn phải nhấn nút này trước)</b></button>
+
+<br /><br />
+<textarea rows="30" cols="50" id="Lyric" hidden>@TempData["Lyric"]</textarea>
+<input type="text" id="BH1" hidden />
+<input type="text" id="BH2" hidden />
+
+<h1><span id="LBH1" style="color:blue"></span>
+                            <span id="LBH2" style="color:white"></span></h1>
+
+<br /><br />
+
+<p hidden>
+     @using (Html.BeginForm("PlayCreateFile_Karaoke", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        @Html.ValidationSummary(true)
+
+                        <textarea rows="30" cols="50" id="Lyrix" name="txtLyric"></textarea>
+
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                        <input id="ok" style="font-weight:bolder" type="Submit" value="HOÀN TẤT" />
+                        <br>
+                        <p style="color:orange">LƯU Ý : phải nhấn button xử lý file Karaoke ở trên trước rồi mới nhấn nút này để hoàn tất!</p>
+                </td>
+            </tr>
+    }
+    </p>
+    </table>

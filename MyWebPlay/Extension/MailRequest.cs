@@ -1,4 +1,6 @@
-﻿namespace MyWebPlay.Extension
+﻿using System.Net.Mail;
+
+namespace MyWebPlay.Extension
 {
     public class MailRequest
     {

@@ -130,18 +130,18 @@ namespace MyWebPlay.Controllers
 
                     ZipFile.CreateFromDirectory(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail", fi), Path.Combine(_webHostEnvironment.WebRootPath, "zip-result", fi+".zip"));
 
-                   // IFormFile formFile = null;
+                    // IFormFile formFile = null;
 
-                   //byte[] file = System.IO.File.ReadAllBytes(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result", fi + ".zip"));
+                    //byte[] file = System.IO.File.ReadAllBytes(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result", fi + ".zip"));
 
-                   // MemoryStream ms = new MemoryStream(file);
-                   // formFile = new FormFile(ms, 0, ms.Length, null, fi + ".zip")
-                   // {
-                   //     Headers = new HeaderDictionary(),
-                   //     ContentType = "application/zip"
-                   // };
+                    // MemoryStream ms = new MemoryStream(file);
+                    // formFile = new FormFile(ms, 0, ms.Length, null, fi + ".zip")
+                    // {
+                    //     Headers = new HeaderDictionary(),
+                    //     ContentType = "application/zip"
+                    // };
 
-                    if (Math.Ceiling((decimal)new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result", fi + ".zip")).Length) / 1024 <= 20)
+                    if ((Math.Ceiling((decimal)new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result", fi + ".zip")).Length) / 1024)/1024 <= 20)
                     {
                         //mail.Attachments.Add(formFile);
                         //await _mailService.SendEmailAsync(mail);
@@ -323,9 +323,6 @@ namespace MyWebPlay.Controllers
         {
             if (sl == null)
                 ViewBag.SL = 0;
-
-            if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Exists == true)
-                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Delete(true);
 
             ViewBag.SL = sl;
 

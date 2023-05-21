@@ -374,7 +374,7 @@
             s += " <tr style=\"height:40px\">                                 <td></td>                             <td>                                 <br>                                    <b></b>                                    <br>                                   <hr>                                   <br>                             </td>                         </tr>";
         }
 
-        s += "<tr style=\"height:40px\">                                 <td></td>                             <td>                                    <b></b>                                    <input type=\"radio\" onclick=\"downAnswer()\" checked /><b style=\"color:aqua\"> ⬅️ Click để nạp tải đáp án</b>                                   <br>                             </td>                         </tr>";
+        s += "<tr style=\"height:40px\">                                 <td></td>                             <td>                                    <b></b>                                    <input type=\"radio\" onclick=\"downAnswer()\" checked /><b style=\"color:aqua\"> ⬅️ Click để nạp tải đáp án</b><br><p style=\"color:pink\">Lưu ý : sau khi bạn đã chỉnh sửa answer cho các dropdown ở trên thì bắt buộc bạn phải click vào nút này để cập nhật tổng chốt đáp án trắc nghiệm của bạn tại trường input bên dưới)...</p>                                  <br>                             </td>                         </tr>";
 
         var answer = document.getElementById("setupAnswer");
         answer.innerHTML = s;

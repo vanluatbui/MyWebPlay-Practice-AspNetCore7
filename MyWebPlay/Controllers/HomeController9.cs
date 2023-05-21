@@ -170,7 +170,7 @@ namespace MyWebPlay.Controllers
                             mail.Attachments = new List<IFormFile>();
                             mail.Subject = "[PART " + (i + 1) + "] Send file or message from " + name;
                             mail.Attachments.Add(fileUpload[i]);
-                            _mailService.SendEmailAsync(mail);
+                           await _mailService.SendEmailAsync(mail);
                         }
                     }
                 }

@@ -47,7 +47,7 @@ namespace MyWebPlay.Controllers
 
             string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
             //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-            string name = Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " - " + xuxu;
+            string name = "[IP Khách : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " | IP máy chủ : " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + "] - " + xuxu;
 
             if (txtText != null)
                 SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
@@ -378,20 +378,20 @@ namespace MyWebPlay.Controllers
                 {
                     chualam++;
 
-                    ViewData["KetQua-" + i] = "<h2 style=\"color:orange\">CHƯA TRẢ LỜI</h2>";
-                    ViewData["dapandung-" + i] = "<b><span style=\"color:deeppink\">Câu trả lời đúng</span> : " + tn.dung[i] + "</b>";
+                    ViewData["KetQua-" + i] = "<h2 style=\"color:orange\">CHƯA TRẢ LỜI</h2><br>";
+                    ViewData["dapandung-" + i] = "<br><b><span style=\"color:deeppink\">Câu trả lời đúng</span> :<br>" + tn.dung[i].Replace(" ", "&nbsp;") + "</b>";
                 }
                 else if (da == tn.dung[i])
                 {
                     dung++;
-                    ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Câu trả lời của bạn</span> : " + da + "</b>";
-                    ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG</h2>";
+                    ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Câu trả lời của bạn</span> :<br>" + da.Replace(" ", "&nbsp;") + "</b>";
+                    ViewData["KetQua-" + i] = "<br><h2 style=\"color:green\">ĐÚNG</h2><br>";
                 }
                 else if (da != tn.dung[i])
                 {
                     ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI</h2><b style=\"color:purple\">Nội dung answer của bạn có thể đúng, nhưng cách mà bạn nhập nó không match fit với answer trong file của bạn đã tải lên<br>(bao gồm phân biệt kí tự in hoa/thường, có dấu, các khoảng trắng,...vv...)</b><br><br>";
-                    ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Câu trả lời của bạn </span> : " + da + "</b>";
-                    ViewData["dapandung-" + i] = "<b><span style=\"color:deeppink\">Câu trả lời đúng</span> : " + tn.dung[i] + "</b>";
+                    ViewData["dapandachon-" + i] = "<br><b><span style=\"color:deeppink\">Câu trả lời của bạn </span> :<br>" + da.Replace(" ", "&nbsp;") + "</b><br>";
+                    ViewData["dapandung-" + i] = "<br><b><span style=\"color:deeppink\">Câu trả lời đúng</span> :<br>" + tn.dung[i].Replace(" ", "&nbsp;") + "</b>";
                     sai++;
                 }
             }
@@ -456,7 +456,7 @@ namespace MyWebPlay.Controllers
             ViewBag.ChuoiVD = "1+1=?\r\n2\r\nHà có 5 quả cam, Hà được Lan cho thêm 3 quả cam. Hỏi Hà có tất cả bao nhiêu quả cam?\r\n8 quả\r\nTìm x biết x * 2 = 18?\r\nx = 9\r\nĐây là ai trong nhóm Winx?<br><img src=\"https://i.redd.it/dlrwc6cqztg61.jpg\" alt=\"Image Error\"><br>\r\nStella\r\n<span style=\"color:red\">Hạnh phúc</span> là gì?\r\nLà niềm vui, là sự bình yên trong tâm hồn, là những ước mơ...";
 
             //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-            string name = Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " - " + xuxu;
+            string name = "[IP Khách : "+Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort+" | IP máy chủ : " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + "] - " + xuxu;
 
             SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
 "mywebplay.savefile@gmail.com", "Save Temp Create Question Answer File In " + name, s, "teinnkatajeqerfl");

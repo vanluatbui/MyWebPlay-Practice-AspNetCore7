@@ -101,7 +101,7 @@ namespace MyWebPlay.Controllers
 
                     string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
                     //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                    string name = Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " - " + xuxu;
+                    string name = "[IP Khách : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " | IP máy chủ : " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + "] - " + xuxu; ;
 
 
                     x = CultureInfo.InvariantCulture.Calendar;
@@ -354,7 +354,7 @@ namespace MyWebPlay.Controllers
 
                     string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
                     //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                    string name = Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " - " + xuxu;
+                    string name = "[IP Khách : "+Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort+" | IP máy chủ : " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + "] - " + xuxu;
 
 
                     x = CultureInfo.InvariantCulture.Calendar;
@@ -370,7 +370,7 @@ namespace MyWebPlay.Controllers
 
                     ZipFile.CreateFromDirectory(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder), Path.Combine(_webHostEnvironment.WebRootPath, "zip-result", fi + ".zip"));
 
-                    ketqua += "Thành công! Xem hoặc download file của bạn (đã nén all thành 1 zip) <a style=\"color:purple\" href=\"/zip-result/" + fi + ".zip" + "\" download> tại đây</a>! ";
+                    ketqua += "Thành công! Xem hoặc download file của bạn (đã nén all thành 1 zip) <a style=\"color:purple\" href=\"/zip-result/" + fi + ".zip" + "\" download> tại đây</a>!<br>Hãy nhanh tải về trước khi file có thể bị xoá hoặc bị lỗi...";
                     ketqua += "<br><br>";
                     ViewBag.XL = 1;
                     ViewData["KetQua" + k] = ketqua;

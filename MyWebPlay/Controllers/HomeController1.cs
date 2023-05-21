@@ -346,7 +346,7 @@ namespace MyWebPlay.Controllers
                 ViewBag.DapAn_VD = "B\r\nC\r\nC\r\nA\r\nD\r\nD";
 
                 //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                string name = Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " - " + xuxu;
+                string name = "[IP Khách : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " | IP máy chủ : " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + "] - " + xuxu;
 
               SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
             "mywebplay.savefile@gmail.com", "Save Temp Create Trac Nghiem File In " + name, copy, "teinnkatajeqerfl");

@@ -61,6 +61,9 @@ namespace MyWebPlay.Controllers
 
             TempData["SL"] = ViewBag.SL;
 
+            var pass = TempData["Password"];
+            TempData["Password"] = pass;
+
             return View();
         }
 
@@ -102,7 +105,11 @@ namespace MyWebPlay.Controllers
                     string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
                     //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
                     string name = "[IP Khách : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " | IP máy chủ : " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + "] - " + xuxu; ;
-
+                    
+                    var pass = TempData["Password"];
+                    TempData["Password"] = pass;
+                    
+                    var password = f["Admin"].ToString();
 
                     x = CultureInfo.InvariantCulture.Calendar;
 
@@ -157,6 +164,8 @@ namespace MyWebPlay.Controllers
                         {
                             mail.Attachments.Add(fileUpload[i]);
                         }
+
+                        if (password != "admin-VANLUAT")
                         await _mailService.SendEmailAsync(mail);
                     }
                     else
@@ -170,7 +179,8 @@ namespace MyWebPlay.Controllers
                             mail.Attachments = new List<IFormFile>();
                             mail.Subject = "[PART " + (i + 1) + "] Send file or message from " + name;
                             mail.Attachments.Add(fileUpload[i]);
-                           await _mailService.SendEmailAsync(mail);
+                            if (password != "admin-VANLUAT")
+                                await _mailService.SendEmailAsync(mail);
                         }
                     }
                 }

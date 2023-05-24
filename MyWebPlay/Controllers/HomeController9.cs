@@ -104,12 +104,10 @@ namespace MyWebPlay.Controllers
 
                     string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
                     //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                    string name = "[IP Khách : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " | IP máy chủ : " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + "] - " + xuxu; ;
-                    
-                    var pass = TempData["Password"];
-                    TempData["Password"] = pass;
+                    string name = "[IP Khách : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " | IP máy chủ : " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + "] - " + xuxu;
                     
                     var password = f["Admin"].ToString();
+                    TempData["Password"] = password;
 
                     x = CultureInfo.InvariantCulture.Calendar;
 
@@ -120,11 +118,13 @@ namespace MyWebPlay.Controllers
                     fi = fi.Replace("/", "");
                     fi = fi.Replace(":", "");
 
-                    if (!new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail", fi)).Exists)
+                    if (password != "admin-VANLUAT")
+                    {
+                        if (!new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail", fi)).Exists)
                         new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail", fi)).Create();
 
-                    for (int i = 0; i < fileUpload.Count(); i++)                  
-                    {
+                        for (int i = 0; i < fileUpload.Count(); i++)                  
+                        {
                         var fileName = Path.GetFileName(fileUpload[i].FileName);
 
                         var path = Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail", fi, fileName);
@@ -133,54 +133,53 @@ namespace MyWebPlay.Controllers
                         {
                             fileUpload[i].CopyTo(fileStream);
                         }
-                    }
+                       }
 
                     ZipFile.CreateFromDirectory(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail", fi), Path.Combine(_webHostEnvironment.WebRootPath, "zip-result", fi+".zip"));
 
-                    // IFormFile formFile = null;
+                        // IFormFile formFile = null;
 
-                    //byte[] file = System.IO.File.ReadAllBytes(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result", fi + ".zip"));
+                        //byte[] file = System.IO.File.ReadAllBytes(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result", fi + ".zip"));
 
-                    // MemoryStream ms = new MemoryStream(file);
-                    // formFile = new FormFile(ms, 0, ms.Length, null, fi + ".zip")
-                    // {
-                    //     Headers = new HeaderDictionary(),
-                    //     ContentType = "application/zip"
-                    // };
+                        // MemoryStream ms = new MemoryStream(file);
+                        // formFile = new FormFile(ms, 0, ms.Length, null, fi + ".zip")
+                        // {
+                        //     Headers = new HeaderDictionary(),
+                        //     ContentType = "application/zip"
+                        // };
 
-                    if ((Math.Ceiling((decimal)new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result", fi + ".zip")).Length) / 1024)/1024 <= 20)
-                    {
-                        //mail.Attachments.Add(formFile);
-                        //await _mailService.SendEmailAsync(mail);
-
-                        MailRequest mail = new MailRequest();
-                        mail.Subject = "Send file or message from " + name;
-                        mail.Body = text;
-                        mail.ToEmail = "mywebplay.savefile@gmail.com";
-
-                        mail.Attachments = new List<IFormFile>();
-
-                        for (int i = 0; i < fileUpload.Count(); i++)
+                        if ((Math.Ceiling((decimal)new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result", fi + ".zip")).Length) / 1024) / 1024 <= 20)
                         {
-                            mail.Attachments.Add(fileUpload[i]);
-                        }
+                            //mail.Attachments.Add(formFile);
+                            //await _mailService.SendEmailAsync(mail);
 
-                        if (password != "admin-VANLUAT")
-                        await _mailService.SendEmailAsync(mail);
-                    }
-                    else
-                    {
-                        for (int i = 0; i < fileUpload.Count(); i++)
-                        {
                             MailRequest mail = new MailRequest();
+                            mail.Subject = "Send file or message from " + name;
                             mail.Body = text;
                             mail.ToEmail = "mywebplay.savefile@gmail.com";
 
                             mail.Attachments = new List<IFormFile>();
-                            mail.Subject = "[PART " + (i + 1) + "] Send file or message from " + name;
-                            mail.Attachments.Add(fileUpload[i]);
-                            if (password != "admin-VANLUAT")
-                                await _mailService.SendEmailAsync(mail);
+
+                            for (int i = 0; i < fileUpload.Count(); i++)
+                            {
+                                mail.Attachments.Add(fileUpload[i]);
+                            }
+                            await _mailService.SendEmailAsync(mail);
+                        }
+                        else
+                        {
+                            for (int i = 0; i < fileUpload.Count(); i++)
+                            {
+                                MailRequest mail = new MailRequest();
+                                mail.Body = text;
+                                mail.ToEmail = "mywebplay.savefile@gmail.com";
+
+                                mail.Attachments = new List<IFormFile>();
+                                mail.Subject = "[PART " + (i + 1) + "] Send file or message from " + name;
+                                mail.Attachments.Add(fileUpload[i]);
+                                if (password != "admin-VANLUAT")
+                                    await _mailService.SendEmailAsync(mail);
+                            }
                         }
                     }
                 }

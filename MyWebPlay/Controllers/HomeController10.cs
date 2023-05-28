@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyWebPlay.Extension;
 using MyWebPlay.Model;
 using Newtonsoft.Json.Linq;
 using System.Formats.Tar;
@@ -10,6 +11,8 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult TracNghiem()
         {
+            HttpContext.Session.Remove("TracNghiem");
+
             var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
 
             foreach (var file in listFile)
@@ -269,12 +272,16 @@ namespace MyWebPlay.Controllers
 
         public ActionResult PlayTracNghiem(TracNghiem tn)
         {
+            HttpContext.Session.SetObject("TracNghiem", tn);
             return View(tn);
         }
 
         [HttpPost, ActionName("PlayTracNghiem")]
         public ActionResult TracNghiemPlay(IFormCollection f)
         {
+            if (HttpContext.Session.GetObject<TracNghiem>("TracNghiem") == null)
+                return RedirectToAction("TracNghiemX_Multiple");
+
             TracNghiem tn = HttpContext.Session.GetObject<TracNghiem>("TracNghiem");
 
             int dung = 0;

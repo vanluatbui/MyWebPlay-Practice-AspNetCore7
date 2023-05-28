@@ -7,6 +7,8 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult TracNghiem_Multiple(int? sl)
         {
+            HttpContext.Session.Remove("TracNghiem");
+
             var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
 
             foreach (var file in listFile)
@@ -25,6 +27,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult TracNghiemX_Multiple()
         {
+            HttpContext.Session.Remove("TracNghiem");
             var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
 
             foreach (var file in listFile)

@@ -58,6 +58,8 @@ namespace MyWebPlay.Controllers
 
         public ActionResult PlayQuestion_Multiple()
         {
+            HttpContext.Session.Remove("TracNghiem");
+
             var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
 
             foreach (var file in listFile)
@@ -358,12 +360,16 @@ namespace MyWebPlay.Controllers
 
         public ActionResult PlayQuestion(TracNghiem tn)
         {
+            HttpContext.Session.SetObject("TracNghiem", tn);
             return View(tn);
         }
 
         [HttpPost]
         public ActionResult PlayQuestion(IFormCollection f)
         {
+            if (HttpContext.Session.GetObject<TracNghiem>("TracNghiem") == null)
+                return RedirectToAction("PlayQuestion_Multiple");
+
             TracNghiem tn = HttpContext.Session.GetObject<TracNghiem>("TracNghiem");
 
             int dung = 0;

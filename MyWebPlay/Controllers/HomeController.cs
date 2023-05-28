@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using MyWebPlay.Extension;
+using MyWebPlay.Model;
 using MyWebPlay.Models;
 using Org.BouncyCastle.Asn1.X509;
 using System.Diagnostics;
@@ -27,6 +28,8 @@ namespace MyWebPlay.Controllers
 
         public ActionResult Index()
         {
+            HttpContext.Session.Remove("TracNghiem");
+
             if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Exists == true)
               new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Delete(true);
 

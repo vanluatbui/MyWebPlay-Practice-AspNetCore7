@@ -1,4 +1,4 @@
-using MyWebPlay.Extension;
+﻿using MyWebPlay.Extension;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +7,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
 builder.Services.AddTransient<IMailService,MailService>();
 
-builder.Services.AddSession();
+builder.Services.AddDistributedMemoryCache();           // Đăng ký dịch vụ lưu cache trong bộ nhớ (Session sẽ sử dụng nó)
+builder.Services.AddSession(cfg => {                    // Đăng ký dịch vụ Session
+    cfg.Cookie.Name = "BuiVanLuat";             // Đặt tên Session - tên này sử dụng ở Browser (Cookie)
+    cfg.IdleTimeout = new TimeSpan(24, 0, 0);    // Thời gian tồn tại của Session
+});
 
 var app = builder.Build();
 

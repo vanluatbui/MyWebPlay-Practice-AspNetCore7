@@ -401,7 +401,7 @@ namespace MyWebPlay.Controllers
                 tn = HttpContext.Session.GetObject<TracNghiem>("TracNghiem");
 
             if (tn == null)
-                return RedirectToAction("PlayQuestion_Multiple");
+                return RedirectToAction("PlayQuestion");
 
             int dung = 0;
             int sai = 0;

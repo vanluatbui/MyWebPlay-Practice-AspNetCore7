@@ -323,6 +323,19 @@ namespace MyWebPlay.Controllers
            ViewBag.TimeLamBai = tnX.timelambai;
 
             HttpContext.Session.SetObject("TracNghiem", tnX);
+
+            ViewBag.TongSoCau = tnX.tongsocau;
+            ViewBag.GioiHanCau = tnX.gioihancau;
+            ViewBag.TimeLamBaiX = tnX.timelambai;
+            ViewBag.TenMon = tnX.tenmon;
+
+            ViewBag.CauHoi = String.Join("\n", tnX.ch);
+            ViewBag.A = String.Join("\n", tnX.a);
+            ViewBag.B = String.Join("\n", tnX.b);
+            ViewBag.C = String.Join("\n", tnX.c);
+            ViewBag.D = String.Join("\n", tnX.d);
+            ViewBag.Dung = String.Join("\n", tnX.dung);
+
             ViewBag.KetQuaDung = "";
 
             return View("PlayTracNghiem", tnX);
@@ -610,6 +623,19 @@ namespace MyWebPlay.Controllers
             ViewBag.TimeLamBai = tnX.timelambai;
 
             HttpContext.Session.SetObject("TracNghiem", tnX);
+
+            ViewBag.TongSoCau = tnX.tongsocau;
+            ViewBag.GioiHanCau = tnX.gioihancau;
+            ViewBag.TimeLamBaiX = tnX.timelambai;
+            ViewBag.TenMon = tnX.tenmon;
+
+            ViewBag.CauHoi = String.Join("\n", tnX.ch);
+            ViewBag.A = String.Join("\n", tnX.a);
+            ViewBag.B = String.Join("\n", tnX.b);
+            ViewBag.C = String.Join("\n", tnX.c);
+            ViewBag.D = String.Join("\n", tnX.d);
+            ViewBag.Dung = String.Join("\n", tnX.dung);
+
             ViewBag.KetQuaDung = "";
 
             return View("PlayTracNghiem", tnX);

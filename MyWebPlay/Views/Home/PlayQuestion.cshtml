@@ -61,6 +61,18 @@
     {
         @Html.ValidationSummary(true)
 
+        <input type="text" readonly name="TongSoCau" value="@ViewBag.TongSoCau" hidden />
+        <input type="text" readonly name="GioiHanCau" value="@ViewBag.GioiHanCau" hidden />
+        <input type="text" readonly name="TimeLamBai" value="@ViewBag.TimeLamBaiX" hidden />
+        <input type="text" readonly name="TenMon" value="@ViewBag.TenMon" hidden>
+
+        <textarea readonly name="CauHoi" hidden>@ViewBag.CauHoi</textarea>
+        <textarea readonly name="A" hidden>@ViewBag.A</textarea>
+        <textarea readonly name="B" hidden>@ViewBag.B</textarea>
+        <textarea readonly name="C" hidden>@ViewBag.C</textarea>
+        <textarea readonly name="D" hidden>@ViewBag.D</textarea>
+         <textarea readonly name="Dung" hidden>@ViewBag.Dung</textarea>
+
             <br />
         <br />
             <b>Tên môn học/kỳ kiểm tra : @Model.tenmon</b>

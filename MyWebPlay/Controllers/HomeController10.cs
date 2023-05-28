@@ -267,22 +267,54 @@ namespace MyWebPlay.Controllers
             HttpContext.Session.SetObject("TracNghiem", tn);
             ViewBag.KetQuaDung = "";
 
+            ViewBag.TongSoCau = tn.tongsocau;
+            ViewBag.GioiHanCau = tn.gioihancau;
+            ViewBag.TimeLamBaiX = tn.timelambai;
+            ViewBag.TenMon = tn.tenmon;
+
+            ViewBag.CauHoi = String.Join("\n", tn.ch);
+            ViewBag.A = String.Join("\n", tn.a);
+            ViewBag.B = String.Join("\n", tn.b);
+            ViewBag.C = String.Join("\n", tn.c);
+            ViewBag.D = String.Join("\n", tn.d);
+            ViewBag.Dung = String.Join("\n", tn.dung);
+
             return View("PlayTracNghiem", tn);
         }
 
         public ActionResult PlayTracNghiem(TracNghiem tn)
         {
             HttpContext.Session.SetObject("TracNghiem", tn);
+
             return View(tn);
         }
 
         [HttpPost, ActionName("PlayTracNghiem")]
         public ActionResult TracNghiemPlay(IFormCollection f)
         {
+            TracNghiem tn;
+
             if (HttpContext.Session.GetObject<TracNghiem>("TracNghiem") == null)
+            {
+                tn = new TracNghiem();
+                tn.tongsocau = int.Parse(f["TongSoCau"].ToString());
+                tn.gioihancau = int.Parse(f["GioiHanCau"].ToString());
+                tn.timelambai = int.Parse(f["TimeLamBai"].ToString());
+                tn.tenmon = f["TenMon"].ToString();
+
+                tn.ch = f["CauHoi"].ToString().Split("\n");
+                tn.a = f["A"].ToString().Split("\n");
+                tn.b = f["B"].ToString().Split("\n");
+                tn.c = f["C"].ToString().Split("\n");
+                tn.d = f["D"].ToString().Split("\n");
+                tn.dung = f["Dung"].ToString().Split("\n");
+            }
+            else
+            tn = HttpContext.Session.GetObject<TracNghiem>("TracNghiem");
+
+            if (tn == null)
                 return RedirectToAction("TracNghiemX_Multiple");
 
-            TracNghiem tn = HttpContext.Session.GetObject<TracNghiem>("TracNghiem");
 
             int dung = 0;
             int sai = 0;

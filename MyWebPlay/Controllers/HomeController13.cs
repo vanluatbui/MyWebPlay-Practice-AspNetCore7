@@ -353,6 +353,19 @@ namespace MyWebPlay.Controllers
             ViewBag.TimeLamBai = tnX.timelambai;
 
             HttpContext.Session.SetObject("TracNghiem", tnX);
+
+            ViewBag.TongSoCau = tnX.tongsocau;
+            ViewBag.GioiHanCau = tnX.gioihancau;
+            ViewBag.TimeLamBaiX = tnX.timelambai;
+            ViewBag.TenMon = tnX.tenmon;
+
+            ViewBag.CauHoi = String.Join("\n", tnX.ch);
+            ViewBag.A = String.Join("\n", tnX.a);
+            ViewBag.B = String.Join("\n", tnX.b);
+            ViewBag.C = String.Join("\n", tnX.c);
+            ViewBag.D = String.Join("\n", tnX.d);
+            ViewBag.Dung = String.Join("\n", tnX.dung);
+
             ViewBag.KetQuaDung = "";
 
             return View("PlayQuestion", tnX);
@@ -367,10 +380,28 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult PlayQuestion(IFormCollection f)
         {
-            if (HttpContext.Session.GetObject<TracNghiem>("TracNghiem") == null)
-                return RedirectToAction("PlayQuestion_Multiple");
+            TracNghiem tn;
 
-            TracNghiem tn = HttpContext.Session.GetObject<TracNghiem>("TracNghiem");
+            if (HttpContext.Session.GetObject<TracNghiem>("TracNghiem") == null)
+            {
+                tn = new TracNghiem();
+                tn.tongsocau = int.Parse(f["TongSoCau"].ToString());
+                tn.gioihancau = int.Parse(f["GioiHanCau"].ToString());
+                tn.timelambai = int.Parse(f["TimeLamBai"].ToString());
+                tn.tenmon = f["TenMon"].ToString();
+
+                tn.ch = f["CauHoi"].ToString().Split("\n");
+                tn.a = f["A"].ToString().Split("\n");
+                tn.b = f["B"].ToString().Split("\n");
+                tn.c = f["C"].ToString().Split("\n");
+                tn.d = f["D"].ToString().Split("\n");
+                tn.dung = f["Dung"].ToString().Split("\n");
+            }
+            else
+                tn = HttpContext.Session.GetObject<TracNghiem>("TracNghiem");
+
+            if (tn == null)
+                return RedirectToAction("PlayQuestion_Multiple");
 
             int dung = 0;
             int sai = 0;

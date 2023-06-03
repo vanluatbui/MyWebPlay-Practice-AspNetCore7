@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.60.0.3061" />
     <PackageReference Include="MailKit" Version="3.6.0" />
+    <PackageReference Include="MegaApiClient" Version="1.10.3" />
     <PackageReference Include="MimeKit" Version="3.6.1" />
     <PackageReference Include="NestedJsonParser" Version="1.0.6" />
     <PackageReference Include="TextCopy" Version="6.2.1" />

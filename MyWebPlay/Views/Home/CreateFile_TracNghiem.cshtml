@@ -360,6 +360,12 @@
 
     function upAnswer()
     {
+        var up = document.getElementById("upAnswex");
+        up.style.display = "none";
+
+        var upX = document.getElementById("upAns");
+        upX.innerText = " * Bắt đầu nạp tải đáp án của bạn : ";
+
         var s_num = document.getElementById("Num").value.split(".");
         var s = "";
 
@@ -559,7 +565,7 @@
                          <tr style="height:40px">
                                 <td><h4><u style="color:red">NẠP TẢI ĐÁP ÁN CHO TỪNG CÂU HỎI</u></h4></td>
                             <td>
-                      <input type="radio" onclick="upAnswer()" checked /> <b style="color:orchid"> ⬅️ Click để bắt đầu nạp tải đáp án</b>
+                      <input type="radio"id="upAnswex" onclick="upAnswer()" checked /> <b id="upAns" style="color:orchid"> ⬅️ Click để bắt đầu nạp tải đáp án</b>
                             </td>
                         </tr>
                     

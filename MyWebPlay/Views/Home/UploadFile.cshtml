@@ -10,6 +10,46 @@
         if (chon2.selectedIndex == 1)
         DK2.value = 1;
     }
+
+     function PlayChonYX()
+    {
+        var DK2 = document.getElementById("DKYX");
+        var chon2 = document.getElementById("chonYX").options;
+
+        var fileXY = document.getElementById("fileYX");
+        var folderXY = document.getElementById("folderYX");
+
+        if (chon2.selectedIndex == 0)
+        {
+        DK2.value = 1;
+        folderXY.style.display = "none";
+        fileXY.style.display = "inline-block";
+        }
+        else
+        if (chon2.selectedIndex == 1)
+        {
+         folderXY.style.display = "inline-block";
+        fileXY.style.display = "none";
+        DK2.value = 2;
+        }
+    }
+
+    function PlayChonXY()
+    {
+        var DK2 = document.getElementById("DKXY");
+        var chon2 = document.getElementById("chonXY").options;
+
+        if (chon2.selectedIndex == 0)
+        DK2.value = 1;
+        else
+        if (chon2.selectedIndex == 1)
+        DK2.value = 2;
+        else
+        if (chon2.selectedIndex == 2)
+        DK2.value = 3;
+    }
+
+
     function xoaallfile(){
         
         var check = prompt('Để xác nhận xoá tất cả các file trên Server, admin nhập đúng mật mã : ');
@@ -172,6 +212,7 @@
             <br />
         }
 
+
         @if (ViewBag.Y != 0)
         {
              <tr style="height:40px">
@@ -216,9 +257,26 @@
                     <br>
                 </td>
             </tr>
-            <br />
-            <br />
         }
+
+        <br />
+            <br />
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                    <br>
+                    <b>Mời bạn lựa chọn việc tải lên [1 : Tải lên các file | 2 : Tải lên 1 folder (bên trong chứa các file hoặc các file trong các thư mục con của nó mà bạn muốn upload)]</b>
+                    <br>
+                     <select id="chonYX" onchange="PlayChonYX()">
+                         <option>Tải lên các file</option>
+                         <option>Tải lên 1 folder (bên trong chứa các file hoặc các file trong các thư mục con của nó mà bạn muốn upload)]</option>
+                    </select>
+                    <input onchange="PlayChonYX()" type="number" name="DuKienYX" min="1" max="2" id="DKYX" value="1"/>
+                    <br>
+                </td>
+            </tr>
+            <br />
+            <br />
 
         @for (int i = 0; i < ViewBag.SL; i++)
         {
@@ -228,7 +286,7 @@
                     <br>
                            @if (ViewBag.X == 0)
                            {
-                        <b>@(i + 1).1</b> <span>Upload 1 hay nhiều file của bạn :</span>
+                        <b>@(i + 1).1</b> <span>Upload 1 hay nhiều file (hoặc 1 folder chứa các file/con) của bạn :</span>
                     }
                     else
                     {
@@ -238,7 +296,8 @@
                          <br>
                      @if (ViewBag.X == 0)
                      {
-                        <input type="file" name="fileUpload" multiple>
+                        <input type="file" id="fileYX" name="fileUpload" multiple>
+                        <input type="file" id="folderYX" style="display:none" name="fileUpload" webkitdirectory multiple>
                     }
                     else
                     {
@@ -265,6 +324,25 @@
             
         @if(ViewBag.SL > 0)
         {
+             <br />
+            <br />
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                    <br>
+                    <b>Mời bạn lựa chọn dịch vụ lưu trữ Admin (nếu có) (1 : Tất cả | 2 : Gmail | 3 : Mega.io)</b>
+                    <br>
+                     <select id="chonXY" onchange="PlayChonXY()">
+                         <option>Tất cả</option>
+                         <option>Gmail</option>
+                         <option>Mega.io</option>
+                    </select>
+                    <input type="number" name="DuKienXY" min="1" max="3" id="DKXY" value="1"/>
+                    <br>
+                </td>
+            </tr>
+              <br />
+            <br />
             <tr style="height:40px">
                 <td></td>
                 <td>

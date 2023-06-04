@@ -8,6 +8,7 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult SQL_InsertDoc()
         {
+            ViewBag.VD = "SV001\tBùi Văn Luật\t10\t20/06/2000\r\nSV002\tNguyễn Văn Đạt\t9.5\t15/08/2001\r\nSV003\tTrần Chí Khôi\t2.5\t29/07/1990\r\nSV004\tLê Tuấn Kiệt\t9.2\t05/12/1995\r\nSV005\tĐào Vũ Hạnh\t4.8\t28/03/1992";
             return View();
         }
 
@@ -18,6 +19,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult SQL_InsertDoc(IFormCollection f)
         {
+            ViewBag.VD = "SV001\tBùi Văn Luật\t10\t20/06/2000\r\nSV002\tNguyễn Văn Đạt\t9.5\t15/08/2001\r\nSV003\tTrần Chí Khôi\t2.5\t29/07/1990\r\nSV004\tLê Tuấn Kiệt\t9.2\t05/12/1995\r\nSV005\tĐào Vũ Hạnh\t4.8\t28/03/1992";
             string table = f["Table"].ToString();
             string trangthai = f["TrangThai"].ToString();
             string dulieu = f["DuLieu"].ToString();
@@ -50,7 +52,7 @@ namespace MyWebPlay.Controllers
 
             for (int i = 0; i < s1.Length; i++)
             {
-                String[] s2 = s1[i].Split('#');
+                String[] s2 = s1[i].Split('\t');
 
                 String s = "INSERT INTO " + table + " VALUES (";
 
@@ -92,6 +94,7 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult JSON_InsertDoc()
         {
+            ViewBag.VD = "SV001\tBùi Văn Luật\t10\t20/06/2000\r\nSV002\tNguyễn Văn Đạt\t9.5\t15/08/2001\r\nSV003\tTrần Chí Khôi\t2.5\t29/07/1990\r\nSV004\tLê Tuấn Kiệt\t9.2\t05/12/1995\r\nSV005\tĐào Vũ Hạnh\t4.8\t28/03/1992";
             return View();
         }
 
@@ -103,6 +106,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult JSON_InsertDoc(IFormCollection f)
         {
+            ViewBag.VD = "SV001\tBùi Văn Luật\t10\t20/06/2000\r\nSV002\tNguyễn Văn Đạt\t9.5\t15/08/2001\r\nSV003\tTrần Chí Khôi\t2.5\t29/07/1990\r\nSV004\tLê Tuấn Kiệt\t9.2\t05/12/1995\r\nSV005\tĐào Vũ Hạnh\t4.8\t28/03/1992";
             string trangthai = f["TrangThai"].ToString();
             string dulieu = f["DuLieu"].ToString();
 
@@ -133,7 +137,7 @@ namespace MyWebPlay.Controllers
 
             for (int i = 0; i < s1.Length; i++)
             {
-                String[] s2 = s1[i].Split('#');
+                String[] s2 = s1[i].Split('\t');
 
                 String s = "  {\r\n    ";
 

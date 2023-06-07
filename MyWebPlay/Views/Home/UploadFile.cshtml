@@ -1,4 +1,37 @@
 ﻿<script>
+    function changePass()
+    {
+        var hidePass = document.getElementById("hidePass");
+        var showPass = document.getElementById("showPass");
+
+        showPass.value = hidePass.value;
+    }
+
+    function checkShowPass()
+    {
+        var hidePass = document.getElementById("hidePass");
+        var showPass = document.getElementById("showPass");
+
+        if (hidePass.style.display == "none")
+        {
+            hidePass.style.display = "inline-block";
+            showPass.style.display = "none";
+        }
+        else
+        {
+            showPass.style.display = "inline-block";
+            hidePass.style.display = "none";
+        }
+    }
+
+     function changePassX()
+    {
+        var hidePass = document.getElementById("hidePass");
+        var showPass = document.getElementById("showPass");
+
+        hidePass.value = showPass.value;
+    }
+
     function PlayChon2()
     {
         var DK2 = document.getElementById("DK2");
@@ -221,7 +254,10 @@
                     <br>
                     <b>Nhập mật mã nếu muốn tắt chức năng lưu trữ hoặc bỏ qua (Admin)...</b>
                     <br>
-                    <input type="Password" name="Admin" size="50" value="@TempData["Password"]" />
+                    <input onchange="changePass()" id="hidePass" type="Password" name="Admin" size="50" value="@TempData["Password"]" />
+                    <input style="display:none" name="AdminX" id="showPass" onchange="changePassX()" type="text" size="50" value="@TempData["Password"]" />
+                    <input type="checkbox" onchange="checkShowPass()" value="Hiện mật khẩu"/>Hiện mật khẩu<br>
+
                     <br>
                     <p style="color:pink">Chỉ khi nhập đúng mật mã, chức năng lưu trữ Upload Admin sẽ được tắt!</p>
         <br />

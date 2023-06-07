@@ -16,6 +16,7 @@ using System.Net.Mail;
 using static System.Net.Mime.MediaTypeNames;
 using System.Xml.Linq;
 using System.Runtime.InteropServices;
+using Org.BouncyCastle.Security;
 
 namespace MyWebPlay.Controllers
 {
@@ -85,6 +86,8 @@ namespace MyWebPlay.Controllers
             TempData["X"] = ViewBag.X;
             TempData["Y"]  = ViewBag.Y;
 
+            var homePass = f["Admin"].ToString() != null ? f["Admin"].ToString() : f["AdminX"].ToString();
+
             string folder = f["Folder"].ToString();
             string chon = f["DuKien"].ToString();
             string chonXY = f["DuKienXY"].ToString();
@@ -112,7 +115,7 @@ namespace MyWebPlay.Controllers
                     //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
                     string name = "[IP Khách : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " | IP máy chủ : " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + "] - " + xuxu;
                     
-                    var password = f["Admin"].ToString();
+                    var password = homePass;
                     TempData["Password"] = password;
 
                     x = CultureInfo.InvariantCulture.Calendar;
@@ -398,12 +401,12 @@ namespace MyWebPlay.Controllers
                 }
             }
 
-                //SendEmail.SendMail2Step("mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", name, name, "teinnkatajeqerfl");
+            //SendEmail.SendMail2Step("mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", name, name, "teinnkatajeqerfl");
 
+            var xemPass = homePass == "admin-VANLUAT" ? " - OFF SAVE ADMIN IS CORRECT" : "";
 
-                ViewBag.KetQua = ViewBag.Y == 0 ? "[NO UPLOAD] - Thành công (xử lý admin) !" : "[YES UPLOAD]" + " - Thành công! Tất cả các file đã được đăng tải lên Server hệ thống ...";
+                ViewBag.KetQua = ViewBag.Y == 0 ? "[NO UPLOAD] - Thành công (xử lý admin) !" : "[YES UPLOAD"+xemPass+"]" + " - Thành công! Tất cả các file đã được đăng tải lên Server hệ thống ...";
            
-
             return View("UploadFile", new {sl = ViewBag.SL, name = ViewBag.X, upload = ViewBag.Y});           
         }
 

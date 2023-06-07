@@ -360,8 +360,18 @@
 
     function upAnswer()
     {
+         var tong = document.getElementById("CH_Num").value;
+        if (tong == "" || isNaN(tong) == true)
+        {
+            alert("Để sử dụng tính năng này, mời bạn nhập lại chính xác tổng số câu hỏi của trường data input phía trên hoặc click button để cập nhật tự động và thử lại...");
+            return;
+        }
+
         var up = document.getElementById("upAnswex");
         up.style.display = "none";
+
+         var datn = document.getElementById("datn");
+        datn.style.display = "inline-block";
 
         var upX = document.getElementById("upAns");
         upX.innerText = " * Bắt đầu nạp tải đáp án của bạn : ";
@@ -380,7 +390,7 @@
             s += " <tr style=\"height:40px\">                                 <td></td>                             <td>                                 <br>                                    <b></b>                                    <br>                                   <hr>                                   <br>                             </td>                         </tr>";
         }
 
-        s += "<tr style=\"height:40px\">                                 <td></td>                             <td>                                    <b></b>                                    <input type=\"radio\" onclick=\"downAnswer()\" checked /><b style=\"color:aqua\"> ⬅️ Click để nạp tải đáp án (cập nhật tổng chốt answer)</b><br><p style=\"color:pink\">Lưu ý : sau khi bạn đã chỉnh sửa answer cho các dropdown ở trên thì bắt buộc bạn phải click vào nút này để cập nhật tổng chốt đáp án trắc nghiệm của bạn tại trường input bên dưới)...</p>                                  <br>                             </td>                         </tr>";
+        s += "<tr style=\"height:40px\">                                 <td></td>                             <td>                                    <b></b>                                    <input type=\"radio\" onclick=\"downAnswer()\" checked /><b style=\"color:aqua\"> ⬅️ Click để nạp tải đáp án (cập nhật tổng chốt answer)</b><br><p style=\"color:pink\">Lưu ý : sau khi bạn đã chỉnh sửa answer cho các dropdown ở trên thì bắt buộc bạn phải click vào nút này để cập nhật tổng chốt đáp án trắc nghiệm của bạn tại trường input textbox bên dưới)...</p>                                  <br>                             </td>                         </tr>";
 
         var answer = document.getElementById("setupAnswer");
         answer.innerHTML = s;
@@ -430,6 +440,17 @@
 
         var x = new Number(winx.innerText) + 1;
         winx.innerHTML = x;
+
+        if (x % 2 == 0)
+        {
+             so.style.color = "lightcoral";
+          winx.style.color = "lightseagreen";
+        }
+        else
+        {
+          winx.style.color = "lightcoral";
+          so.style.color = "lightseagreen";
+        }
 
                 if (winx.innerText > dapan.length)
                 winx.innerHTML = 1; 
@@ -579,7 +600,7 @@
 
                              <tr style="height:40px">
                     <td> </td>
-                    <td>
+                    <td style="display:none" id="datn">
                         <br>
                             <b>Tự đánh đáp án (hoặc nhờ sự nạp tải ở trên) thích hợp cho từng câu - phải dựa vào index bạn đã thiết đặt ở trên? (xem ví dụ tương đương) : </b>
                             <br>

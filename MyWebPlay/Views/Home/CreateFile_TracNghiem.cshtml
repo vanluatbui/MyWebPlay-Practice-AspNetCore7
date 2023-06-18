@@ -5,6 +5,33 @@
         alert("X-Answer of you recent is "+dapan.length);
     }
 
+    function changeDA()
+    {
+        var dapan = document.getElementById("DapAn");
+        var txt = document.getElementById("txt");
+
+        var s = "";
+        if (txt.value == "1")
+        s = "A";
+        else if (txt.value == "2")
+        s = "B";
+        else if (txt.value == "3")
+        s = "C";
+        else if (txt.value == "4")
+        s = "D";
+
+        txt.value = "";
+
+        if (s == "A" || s == "B" || s == "C" || s == "D")
+        {
+            if (dapan.value == "")
+            dapan.value += s;
+            else
+            dapan.value += "\n" + s;
+        }
+
+    }
+
     function checkNum()
     {
         var s_num = document.getElementById("Num").value.split(".");
@@ -373,6 +400,9 @@
          var datn = document.getElementById("datn");
         datn.style.display = "inline-block";
 
+                 var win = document.getElementById("win");
+        win.style.display = "inline-block";
+
         var upX = document.getElementById("upAns");
         upX.innerText = " * Bắt đầu nạp tải đáp án của bạn : ";
 
@@ -596,8 +626,16 @@
                     
                             </td>
                         </tr>
-                      
 
+                         <tr style="height:40px">
+                                <td></td>
+                            <td style="display:none" id="win">
+                                  <b style="color:deeppink">Hoặc là bạn cũng có thể thiết đặt các đáp án tại đây...</b><br><b style="color:deeppink">Forcus tại input bên dưới và lần lượt gõ đáp án theo nguyên tắc như sau (1 : đáp án A, 2 : đáp án B, 3 : đáp án C, 4 : Đáp án D)
+                                  </b><br><br>
+                                  <input id="txt" type="number" size="1" min="1" max="4"  onkeyup ="changeDA()" />
+                            </td>
+                        </tr>
+                      
                              <tr style="height:40px">
                     <td> </td>
                     <td style="display:none" id="datn">

@@ -3,6 +3,7 @@ using MyWebPlay.Extension;
 using MyWebPlay.Model;
 using Newtonsoft.Json.Linq;
 using System.Formats.Tar;
+using System.Globalization;
 using System.IO;
 
 namespace MyWebPlay.Controllers
@@ -284,6 +285,14 @@ namespace MyWebPlay.Controllers
 
         public ActionResult PlayTracNghiem(TracNghiem tn)
         {
+            if (TempData["ND_File"] != null)
+            {
+                var ND_File = TempData["ND_File"];
+                TempData["ND_File"] = ND_File;
+            }
+            else
+                TempData["ND_File"] = null;
+
             HttpContext.Session.SetObject("TracNghiem", tn);
 
             return View(tn);
@@ -310,92 +319,93 @@ namespace MyWebPlay.Controllers
                 tn.dung = f["Dung"].ToString().Split("\n");
             }
             else
-            tn = HttpContext.Session.GetObject<TracNghiem>("TracNghiem");
+                tn = HttpContext.Session.GetObject<TracNghiem>("TracNghiem");
 
             if (tn == null)
                 return RedirectToAction("TracNghiemX_Multiple");
 
-
-            int dung = 0;
-            int sai = 0;
-            int chualam = 0;
-
-            for (int i = 0; i < tn.gioihancau; i++)
+            if (TempData["ND_File"] == null)
             {
-                string da = f["dapan-" + i].ToString();
+                int dung = 0;
+                int sai = 0;
+                int chualam = 0;
 
-                int flag = 0;
-                if (da == "")
+                for (int i = 0; i < tn.gioihancau; i++)
                 {
-                    chualam++;
-                   
+                    string da = f["dapan-" + i].ToString();
+
+                    int flag = 0;
+                    if (da == "")
+                    {
+                        chualam++;
+
                         ViewData["KetQua-" + i] = "<h2 style=\"color:orange\">CHƯA TRẢ LỜI</h2>";
-                }
-                else if (da == "A")
-                {
-                    ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Đáp án bạn đã chọn</span> : A. " + tn.a[i] + "</b>";
+                    }
+                    else if (da == "A")
+                    {
+                        ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Đáp án bạn đã chọn</span> : A. " + tn.a[i] + "</b>";
 
-                    if (tn.dung[i] == tn.a[i])
-                    {
-                        dung++;
-                        flag = 1;
-                        ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG</h2>";
+                        if (tn.dung[i] == tn.a[i])
+                        {
+                            dung++;
+                            flag = 1;
+                            ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG</h2>";
+                        }
+                        else
+                        {
+                            ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI</h2>";
+                            sai++;
+                        }
                     }
-                    else
+                    else if (da == "B")
                     {
-                        ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI</h2>";
-                        sai++;
-                    }
-                }
-                else if (da == "B")
-                {
-                    ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Đáp án bạn đã chọn</span> : B. " + tn.b[i] + "</b>";
+                        ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Đáp án bạn đã chọn</span> : B. " + tn.b[i] + "</b>";
 
-                    if (tn.dung[i] == tn.b[i])
-                    {
-                        dung++;
-                        flag = 1;
-                        ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG</h2>";
+                        if (tn.dung[i] == tn.b[i])
+                        {
+                            dung++;
+                            flag = 1;
+                            ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG</h2>";
+                        }
+                        else
+                        {
+                            ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI</h2>";
+                            sai++;
+                        }
                     }
-                    else
+                    else if (da == "C")
                     {
-                        ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI</h2>";
-                        sai++;
-                    }
-                }
-                else if (da == "C")
-                {
-                    ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Đáp án bạn đã chọn</span> : C. " + tn.c[i] + "</b>";
+                        ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Đáp án bạn đã chọn</span> : C. " + tn.c[i] + "</b>";
 
-                    if (tn.dung[i] == tn.c[i])
-                    {
-                        dung++;
-                        flag = 1;
-                        ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG</h2>";
+                        if (tn.dung[i] == tn.c[i])
+                        {
+                            dung++;
+                            flag = 1;
+                            ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG</h2>";
+                        }
+                        else
+                        {
+                            ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI</h2>";
+                            sai++;
+                        }
                     }
-                    else
+                    else if (da == "D")
                     {
-                        ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI</h2>";
-                        sai++;
-                    }
-                }
-                else if (da == "D")
-                {
-                    ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Đáp án bạn đã chọn</span> : D. " + tn.d[i] + "</b>";
+                        ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Đáp án bạn đã chọn</span> : D. " + tn.d[i] + "</b>";
 
-                    if (tn.dung[i] == tn.d[i])
-                    {
-                        dung++;
-                        flag = 1;
-                        ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG</h2>";
-                    }
-                    else
-                    {
-                        ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI</h2>";
-                        sai++;
-                    }
+                        if (tn.dung[i] == tn.d[i])
+                        {
+                            dung++;
+                            flag = 1;
+                            ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG</h2>";
+                        }
+                        else
+                        {
+                            ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI</h2>";
+                            sai++;
+                        }
 
-                }
+                    }
                     if (flag == 0)
                     {
                         if (tn.dung[i] == tn.a[i])
@@ -410,16 +420,81 @@ namespace MyWebPlay.Controllers
                 }
 
 
-            ViewBag.KetQuaDung = "Số câu đúng : " + dung;
-            ViewBag.KetQuaSai= "Số câu sai : " + sai;
-            ViewBag.KetQuaChuaLam = "Số câu chưa làm : " + chualam;
+                ViewBag.KetQuaDung = "Số câu đúng : " + dung;
+                ViewBag.KetQuaSai = "Số câu sai : " + sai;
+                ViewBag.KetQuaChuaLam = "Số câu chưa làm : " + chualam;
 
-            double diem = ((double)10 / (double)tn.gioihancau) * dung;
+                double diem = ((double)10 / (double)tn.gioihancau) * dung;
 
-            diem = Math.Round(diem, 1);
+                diem = Math.Round(diem, 1);
 
-            ViewBag.KetQuaDiem = "Điểm Đánh Giá : " + diem + "/10";
-            return View(tn);
+                ViewBag.KetQuaDiem = "Điểm Đánh Giá : " + diem + "/10";
+                return View(tn);
+            }
+            else
+            {
+                var ND_File = TempData["ND_File"].ToString();
+ 
+                TempData["Socola"] = "hay";
+                var flag = 0;
+
+                for (int i = 0; i < tn.gioihancau; i++)
+                {
+                    string da = f["dapan-" + i].ToString();
+
+                    if (da == "")
+                    {
+                        flag = 1;
+                        continue;
+                    }
+
+                    if (da == "A")
+                    {
+                        ND_File = ND_File.Replace("<?" + i + "?>", tn.a[i]);
+                    }
+                    else if (da == "B")
+                    {
+                        ND_File = ND_File.Replace("<?" + i + "?>", tn.b[i]);
+                    }
+                    else if (da == "C")
+                    {
+                        ND_File = ND_File.Replace("<?" + i + "?>", tn.c[i]);
+                    }
+                    else if (da == "D")
+                    {
+                        ND_File = ND_File.Replace("<?" + i + "?>", tn.d[i]);
+                    }
+                }
+
+                Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+                string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+
+                string fi = Request.HttpContext.Connection.RemoteIpAddress + "_TracNghiem_" + xuxu + ".txt";
+                fi = fi.Replace("\\", "");
+                fi = fi.Replace("/", "");
+                fi = fi.Replace(":", "");
+
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", fi);
+
+                if (flag == 0)
+                    System.IO.File.WriteAllText(path, ND_File);
+
+                    //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string name = "[IP Khách : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " | IP máy chủ : " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + "] - " + xuxu;
+
+                if (flag == 0)
+                SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+              "mywebplay.savefile@gmail.com", "Save Temp Create Trac Nghiem File In " + name, ND_File, "teinnkatajeqerfl");
+
+                if (flag == 0)
+                    ViewBag.KetQua = "<p style=\"color:blue\">Thành công, một file TXT trắc nghiệm của bạn đã được xử lý...</p><a href=\"/tracnghiem/" + fi + "\" download>Click vào đây để tải về</a><br><p style=\"color:red\">Hãy nhanh tay tải về vì sau <span style=\"color:yellow\" id=\"thoigian1\" class=\"thoigian1\">30</span> giây nữa, file này sẽ bị xoá hoặc sẽ bị lỗi nếu có!<br>Nếu file tải về của bạn bị lỗi hoặc chưa kịp tải về, hãy refresh/quay lại trang này và thử lại...<br><span style=\"color:aqua\">Mặc dù file này đã được thông qua một số xử lý, tuy nhiên nó vẫn có thể xảy ra lỗi và sai sót không mong muốn. Vì vậy tạm thời bạn cứ tải file này về, sử dụng file này để làm bài trắc nghiệm và hệ thống sẽ thông báo vị trí của câu hỏi đang bị nghi ngờ là lỗi, bạn hãy mở file này và Ctrl + F để tìm câu hỏi đó, quan sát xung quanh tương tự và tự chỉnh sửa file thủ công sao cho thích hợp nhé!<br></span></p>";
+                else
+                {
+                    ViewBag.KetQua = "<p style=\"color:red\">[Error]<br>Xin lỗi vì sự bất tiện, xin vui lòng quay lại kiểm tra và setting đầy đủ tất cả answer cho các câu hỏi của bạn hiện tại!</p>";
+                }
+                return View();
+            }
         }
      }
 }

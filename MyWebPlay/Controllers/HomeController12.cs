@@ -44,8 +44,8 @@ namespace MyWebPlay.Controllers
         {
             int sl = int.Parse(f["txtSoLuong"].ToString());
             ViewBag.SL = sl;
-
-            string txtSoCau = f["txtSoCau"].ToString();
+            
+           string txtSoCau = f["txtSoCau"].ToString();
             string txtTime = f["txtTime"].ToString();
             string txtMon = f["txtMon"].ToString();
 
@@ -345,42 +345,54 @@ namespace MyWebPlay.Controllers
         public ActionResult TracNghiemX_Multiple(IFormCollection f, List<IFormFile> txtFile)
         {
             int sl = txtFile.Count();
-            string txtSoCau = f["txtSoCau"].ToString();
+            var cFile = "";
+
+             string txtSoCau = f["txtSoCau"].ToString();
+            var tick = f["txtTick"].ToString();
+
             string txtTime = f["txtTime"].ToString();
             string txtMon = f["txtMon"].ToString();
 
-            if (string.IsNullOrEmpty(txtMon))
+            if (tick != "on" && string.IsNullOrEmpty(txtMon))
             {
                 ViewData["Loi"] = "Không được bỏ trống trường này";
                 return this.TracNghiemX_Multiple();
             }
 
-            if (string.IsNullOrEmpty(txtSoCau))
+            if (tick != "on" && string.IsNullOrEmpty(txtSoCau))
             {
                 ViewData["Loi2"] = "Không được bỏ trống trường này";
                 return this.TracNghiemX_Multiple();
             }
 
-            if (string.IsNullOrEmpty(txtTime))
+            if (tick != "on" &&  string.IsNullOrEmpty(txtTime))
             {
                 ViewData["Loi3"] = "Không được bỏ trống trường này";
                 return this.TracNghiemX_Multiple();
             }
 
-            int time = int.Parse(txtTime);
-            if (time < 1 || time > 1200)
+            if (tick != "on")
             {
-                ViewData["Loi3"] = "Thời gian làm bài phải tối thiểu 1 phút và không vượt quá 20 giờ...";
+                int time = int.Parse(txtTime);
+                if (time < 1 || time > 1200)
+                {
+                    ViewData["Loi3"] = "Thời gian làm bài phải tối thiểu 1 phút và không vượt quá 20 giờ...";
 
-                return this.TracNghiemX_Multiple();
+                    return this.TracNghiemX_Multiple();
+                }
             }
 
-            if (txtFile.Count() <= 0)
+            if (tick != "on" && txtFile.Count() <= 0)
             {
                 ViewData["Loi1"] = "Mời bạn chọn file TXT trắc nghiệm (có thể chọn nhiều file thể hiện một môn học trắc nghiệm có nhiều chương/mục/phần/bài)...";
                 return this.TracNghiemX_Multiple();
             }
 
+            if (tick == "on" && txtFile.Count() != 1)
+            {
+                ViewData["Loi1"] = "Xin lỗi nếu bạn sử dụng tính năng này để setting lại answer cho file trắc nghiệm của bạn, bạn chỉ có thể tải lên tương đương 1 file, vui lòng tải lên 1 file trắc nghiệm của bạn!";
+                return this.TracNghiemX_Multiple();
+            }
 
             int n9_S = 0;
 
@@ -401,6 +413,7 @@ namespace MyWebPlay.Controllers
                 }
 
                 String ND_file = docfile(path);
+                cFile = ND_file;
 
                 FileInfo fx = new FileInfo(path);
                 fx.Delete();
@@ -414,50 +427,53 @@ namespace MyWebPlay.Controllers
                 String[] split = { "\n#\n" };
                 String[] t1 = ND_file.Split(split, StringSplitOptions.RemoveEmptyEntries);
 
-                for (int i = 0; i < t1.Length; i++)
+                if (tick != "on")
                 {
-                    String[] t2 = t1[i].Split('\n');
-                    if (t2.Length != 6)
+                    for (int i = 0; i < t1.Length; i++)
                     {
-
-                        string err = "WRONG INDEX QUESTION [CHƯƠNG/FILE " + (i + 1) + "] : " + t2[0] + "";
-                        //err += "Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi, còn $ dùng đế xác định câu hỏi không cần hoán vị đáp án. Xin lỗi vì sự bất tiện này! ]";
-                        ViewData["Loi1"] = err;
-                        return this.TracNghiemX_Multiple();
-                    }
-
-                    char[] t2_x = t2[5].ToCharArray();
-                    if (t2_x[0] != '[' || t2_x[t2[5].Length - 1] != ']')
-                    {
-                        string err = "WRONG INDEX QUESTION [CHƯƠNG/FILE " + (i + 1) + "] : " + t2[0] + "";
-                        //err += "Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi, còn $ dùng đế xác định câu hỏi không cần hoán vị đáp án. Xin lỗi vì sự bất tiện này! ]";
-
-                        ViewData["Loi1"] = err;
-                        return this.TracNghiemX_Multiple();
-                    }
-                }
-
-                //-------------------
-
-                for (int i = 0; i < t1.Length; i++)
-                {
-                    String[] t2 = t1[i].Split('\n');
-                    int flag = 0;
-                    String DA = t2[t2.Length - 1].Replace("[", "");
-                    DA = DA.Replace("]", "");
-                    for (int j = t2.Length - 2; j > 0; j--)
-                    {
-                        if (DA.CompareTo(t2[j]) == 0)
+                        String[] t2 = t1[i].Split('\n');
+                        if (t2.Length != 6)
                         {
-                            flag = 1;
-                            break;
+
+                            string err = "WRONG INDEX QUESTION [CHƯƠNG/FILE " + (i + 1) + "] : " + t2[0] + "";
+                            //err += "Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi, còn $ dùng đế xác định câu hỏi không cần hoán vị đáp án. Xin lỗi vì sự bất tiện này! ]";
+                            ViewData["Loi1"] = err;
+                            return this.TracNghiemX_Multiple();
+                        }
+
+                        char[] t2_x = t2[5].ToCharArray();
+                        if (t2_x[0] != '[' || t2_x[t2[5].Length - 1] != ']')
+                        {
+                            string err = "WRONG INDEX QUESTION [CHƯƠNG/FILE " + (i + 1) + "] : " + t2[0] + "";
+                            //err += "Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi, còn $ dùng đế xác định câu hỏi không cần hoán vị đáp án. Xin lỗi vì sự bất tiện này! ]";
+
+                            ViewData["Loi1"] = err;
+                            return this.TracNghiemX_Multiple();
                         }
                     }
-                    if (flag == 0)
+
+                    //-------------------
+
+                    for (int i = 0; i < t1.Length; i++)
                     {
-                        //MessageBox.Show("Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi.\nXin lỗi vì sự bất tiện này! ]");
-                        ViewData["Loi1"] = "WRONG INDEX ANSWER OF QUESTION [CHƯƠNG/FILE " + (h + 1) + "] : " + t2[0] + "";
-                        return this.TracNghiem_Multiple(ViewBag.SL);
+                        String[] t2 = t1[i].Split('\n');
+                        int flag = 0;
+                        String DA = t2[t2.Length - 1].Replace("[", "");
+                        DA = DA.Replace("]", "");
+                        for (int j = t2.Length - 2; j > 0; j--)
+                        {
+                            if (DA.CompareTo(t2[j]) == 0)
+                            {
+                                flag = 1;
+                                break;
+                            }
+                        }
+                        if (flag == 0)
+                        {
+                            //MessageBox.Show("Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi.\nXin lỗi vì sự bất tiện này! ]");
+                            ViewData["Loi1"] = "WRONG INDEX ANSWER OF QUESTION [CHƯƠNG/FILE " + (h + 1) + "] : " + t2[0] + "";
+                            return this.TracNghiem_Multiple(ViewBag.SL);
+                        }
                     }
                 }
 
@@ -484,87 +500,114 @@ namespace MyWebPlay.Controllers
                 //=======
 
                 int dem = 0;
+                var ix = 0;
                 while (true)
                 {
                     if (dem == t1.Length)
                         break;
 
-
+                    double x = 0;
                     Random r = new Random();
-                    double x = r.Next(0, t1.Length);
+
+                    if (tick != "on")
+                    {
+                        x = r.Next(0, t1.Length);
+                    }
+                    else
+                    {
+                        x = ix;
+                        ix++;
+                    }
 
                     if (chuaxet_ch[int.Parse(x.ToString())] == 1)
                         continue;
 
                     chuaxet_ch[int.Parse(x.ToString())] = 1;
+
                     int i = int.Parse(x.ToString());
                     String[] t2 = t1[i].Split('\n');
 
                     char[] CH = t2[0].ToCharArray();
 
-                    if (CH[0] == '$')
-                    {
-                        t2[0].Remove(0, 1);
-                        tn[h].ch[dem] = t2[0].Replace("$", "");
-                        tn[h].a[dem] = t2[1];
-                        tn[h].b[dem] = t2[2];
-                        tn[h].c[dem] = t2[3];
-                        tn[h].d[dem] = t2[4];
-                        String DAx = t2[5].Replace("[", "");
-                        DAx = DAx.Replace("]", "");
-                        tn[h].dung[dem] = DAx;
-                    }
-                    else
-                    {
-                        int aa, bb, cc, dd;
-
-                        tn[h].ch[dem] = t2[0];
-
-                        do
+                        if (CH[0] == '$')
                         {
-                            aa = r.Next(1, 5);
+                            t2[0].Remove(0, 1);
+                            tn[h].ch[dem] = t2[0].Replace("$", "");
+                            tn[h].a[dem] = t2[1];
+                            tn[h].b[dem] = t2[2];
+                            tn[h].c[dem] = t2[3];
+                            tn[h].d[dem] = t2[4];
+                            String DAx = t2[5].Replace("[", "");
+                            DAx = DAx.Replace("]", "");
+                            tn[h].dung[dem] = DAx;
                         }
-                        while (chuaxet_da[dem][int.Parse(aa.ToString())] == 1);
-                        chuaxet_da[dem][int.Parse(aa.ToString())] = 1;
-
-
-                        tn[h].a[dem] = t2[aa];
-
-                        do
+                        else
                         {
-                            bb = r.Next(1, 5);
+                            int aa, bb, cc, dd;
+
+                            tn[h].ch[dem] = t2[0];
+
+                            do
+                            {
+                            if (tick != "on")
+                                aa = r.Next(1, 5);
+                            else
+                                aa = 1;
+                            }
+                            while (chuaxet_da[dem][int.Parse(aa.ToString())] == 1);
+                            chuaxet_da[dem][int.Parse(aa.ToString())] = 1;
+
+
+                            tn[h].a[dem] = t2[aa];
+
+                            do
+                            {
+                            if (tick != "on")
+                                bb = r.Next(1, 5);
+                            else
+                               bb = 2;
                         }
-                        while (chuaxet_da[dem][int.Parse(bb.ToString())] == 1);
-                        chuaxet_da[dem][int.Parse(bb.ToString())] = 1;
+                            while (chuaxet_da[dem][int.Parse(bb.ToString())] == 1);
+                            chuaxet_da[dem][int.Parse(bb.ToString())] = 1;
 
 
-                        tn[h].b[dem] = t2[bb];
+                            tn[h].b[dem] = t2[bb];
 
-                        do
-                        {
-                            cc = r.Next(1, 5);
+                            do
+                            {
+                            if (tick != "on")
+                                cc = r.Next(1, 5);
+                            else
+                                cc = 3;
                         }
-                        while (chuaxet_da[dem][int.Parse(cc.ToString())] == 1);
-                        chuaxet_da[dem][int.Parse(cc.ToString())] = 1;
+                            while (chuaxet_da[dem][int.Parse(cc.ToString())] == 1);
+                            chuaxet_da[dem][int.Parse(cc.ToString())] = 1;
 
-                        tn[h].c[dem] = t2[cc];
+                            tn[h].c[dem] = t2[cc];
 
-                        do
-                        {
-                            dd = r.Next(1, 5);
+                            do
+                            {
+                            if (tick != "on")
+                                dd = r.Next(1, 5);
+                            else
+                                dd = 4;
                         }
-                        while (chuaxet_da[dem][int.Parse(dd.ToString())] == 1);
-                        chuaxet_da[dem][int.Parse(dd.ToString())] = 1;
+                            while (chuaxet_da[dem][int.Parse(dd.ToString())] == 1);
+                            chuaxet_da[dem][int.Parse(dd.ToString())] = 1;
 
-                        tn[h].d[dem] = t2[dd];
-                        String DA = t2[5].Replace("[", "");
-                        DA = DA.Replace("]", "");
-                        tn[h].dung[dem] = DA;
-                    }
-                    dem++;
+                            tn[h].d[dem] = t2[dd];
+                            String DA = t2[5].Replace("[", "");
+                            DA = DA.Replace("]", "");
+                            tn[h].dung[dem] = DA;
+                        }
+                        dem++;
                 }
                 tn[h].tongsocau = n9;
             }
+
+
+            if (tick == "on")
+                txtSoCau = n9_S.ToString();
 
             TracNghiem tnX = new TracNghiem();
             tnX.ch = new String[int.Parse(txtSoCau)];
@@ -581,9 +624,12 @@ namespace MyWebPlay.Controllers
                 txtSoCau = n9_S.ToString();
             }
 
-            tnX.gioihancau = int.Parse(txtSoCau);
+            if (tick != "on")
+                tnX.gioihancau = int.Parse(txtSoCau);
+            else
+                tnX.gioihancau = n9_S;
 
-            int[][] chuaxetX = new int[sl][];
+           int[][] chuaxetX = new int[sl][];
 
             for (int i = 0; i < sl; i++)
             {
@@ -594,18 +640,27 @@ namespace MyWebPlay.Controllers
                 }
             }
 
-
+            int xx = 0;
             for (int i = 0; i < tnX.gioihancau; i++)
             {
-                Random r = new Random();
-                int chuong;
-                int soluong;
+                int chuong = 0;
+                int soluong= 0;
+                if (tick != "on")
+                {
+                    Random r = new Random();
+
                 do
                 {
                     chuong = r.Next(0, sl);
                     soluong = r.Next(0, tn[chuong].tongsocau);
                 }
                 while (chuaxetX[chuong][soluong] == 1);
+                }
+                else
+                {
+                    soluong = xx;
+                    xx++;
+                }    
 
                 chuaxetX[chuong][soluong] = 1;
 
@@ -617,9 +672,11 @@ namespace MyWebPlay.Controllers
                 tnX.dung[i] = tn[chuong].dung[soluong];
             }
 
+            if (tick  != "on")
             tnX.timelambai = int.Parse(txtTime);
             tnX.tenmon = txtMon;
 
+            if (tick != "on")
             ViewBag.TimeLamBai = tnX.timelambai;
 
             HttpContext.Session.SetObject("TracNghiem", tnX);
@@ -637,6 +694,11 @@ namespace MyWebPlay.Controllers
             ViewBag.Dung = String.Join("\n", tnX.dung);
 
             ViewBag.KetQuaDung = "";
+
+            if (tick == "on")
+                TempData["ND_File"] = cFile;
+            else
+                TempData["ND_File"] = null;
 
             return View("PlayTracNghiem", tnX);
         }

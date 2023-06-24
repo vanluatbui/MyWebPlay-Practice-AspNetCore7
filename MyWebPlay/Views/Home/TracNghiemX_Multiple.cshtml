@@ -1,4 +1,10 @@
-﻿
+﻿<script>
+    function xem()
+    {
+        if ( document.getElementById("ticky").checked)
+        alert("XIN LƯU Ý :\n\n- Đây không phải là một bài kiểm tra - thi - test\n\n- Hệ thống không quan tâm sự đúng sai các đáp án bạn tự đánh giá tại đây\n\n- Hiện tại file trắc nghiệm của bạn đang sử dụng chưa có đáp án, bạn đang sử dụng tính năng này để setting answer lại vào file của bạn (dựa vào answer bạn sẽ đánh giá ở đây)...\n\n- Bạn hãy tự quan tâm đến độ chính xác đáp án của bạn nhé!");
+    }
+</script>
 
 <table align="center">
     <h2 style="text-align:center">Play Test X Trắc Nghiệm - Multiple</h2>
@@ -59,10 +65,20 @@
                 </td>
             </tr>
 
+             <tr style="height:40px">
+                <td></td>
+                <td>
+                    <br>
+                    <input type="checkbox" name="txtTick" id="ticky" /> <b style="color:pink">File trắc nghiệm của tôi hiện chưa có đáp án</b>
+                    <br>
+                    <p style="color:lawngreen">Sử dụng tính năng này với mục đích setting answer trắc nghiệm vào file của bạn bằng cách chơi trực tiếp!</p>
+                </td>
+            </tr>
+
             <tr style="height:40px">
                 <td></td>
                 <td>
-                    <input style="font-weight:bolder" type="Submit" value="Bắt đầu làm bài" />
+                    <input style="font-weight:bolder" type="Submit" onclick="xem()" value="Bắt đầu làm bài" />
                 </td>
             </tr>
 

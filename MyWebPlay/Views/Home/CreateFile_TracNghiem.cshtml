@@ -1,4 +1,17 @@
 ﻿<script>
+
+    function setTicky()
+    {
+        if (document.getElementById("ticky0").checked)
+        {
+           // document.getElementById("ticky1").style.display = "none";
+            document.getElementById("ticky2").style.display = "none";
+        }
+        else{
+            // document.getElementById("ticky1").style.display = "inline-block";
+            document.getElementById("ticky2").style.display = "inline-block";
+        }
+    }
     function check()
     {
         var dapan = document.getElementById("DapAn").value.split(/\r|\n/);
@@ -394,6 +407,8 @@
             return;
         }
 
+        document.getElementById("ticky0").style.display = "none";
+         document.getElementById("tick0").style.display = "none";
         var up = document.getElementById("upAnswex");
         up.style.display = "none";
 
@@ -612,11 +627,19 @@
                             </td>
                         </tr>
 
+                             <tr style="height:40px">
+                                <td></td>
+                            <td>
+                               <input id="ticky0" onchange="setTicky()" type="checkbox" name="tick" /><b id="tick0" style="color:forestgreen">Hiện tại tôi không muốn đánh đáp án bây giờ</b>
+                               <br>
+                            </td>
+                        </tr>
+
 
                          <tr style="height:40px">
-                                <td><h4><u style="color:red">NẠP TẢI ĐÁP ÁN CHO TỪNG CÂU HỎI</u></h4></td>
-                            <td>
-                      <input type="radio"id="upAnswex" onclick="upAnswer()" checked /> <b id="upAns" style="color:orchid"> ⬅️ Click để bắt đầu nạp tải đáp án</b>
+                                <td id="ticky1"><h4><u style="color:red">NẠP TẢI ĐÁP ÁN CHO TỪNG CÂU HỎI</u></h4></td>
+                            <td id="ticky2">
+                      <input type="radio" id="upAnswex" onclick="upAnswer()" checked /> <b id="upAns" style="color:orchid"> ⬅️ Click để bắt đầu nạp tải đáp án</b>
                             </td>
                         </tr>
                     

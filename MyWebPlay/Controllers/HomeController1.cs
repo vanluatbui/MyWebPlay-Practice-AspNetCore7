@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using MyWebPlay.Extension;
 using System.Formats.Tar;
 using System.Globalization;
@@ -54,6 +55,7 @@ namespace MyWebPlay.Controllers
         {
             string s = "\r\n" + f["txtChuoi"].ToString();
             bool err = true;
+            var tick = f["Tick"].ToString();
             try
             {
                 var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
@@ -63,7 +65,6 @@ namespace MyWebPlay.Controllers
                     FileInfo fx = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", file));
                     fx.Delete();
                 }
-
 
                 // Xoá hết Enter... #3275#
 
@@ -183,34 +184,37 @@ namespace MyWebPlay.Controllers
 
                 string[] dulieu = Regex.Split(s, "\r\n");
 
-                if (dulieu.Length / 5 != dapan.Length)
+                if (tick != "on")
                 {
-                    ViewBag.KetQua = "<span style=\"color:red\">Số lượng câu hỏi của bạn trong dữ liệu không khớp với đáp án của bạn (lỗi do thiếu hoặc dư)...\r\n\r\n+ Số lượng dữ liệu câu hỏi : " + dulieu.Length / 5 + "\r\n+ Số lượng đáp án : " + dapan.Length + "</span>";
-                    //this.Close();
+                    if (dulieu.Length / 5 != dapan.Length)
+                    {
+                        ViewBag.KetQua = "<span style=\"color:red\">Số lượng câu hỏi của bạn trong dữ liệu không khớp với đáp án của bạn (lỗi do thiếu hoặc dư)...\r\n\r\n+ Số lượng dữ liệu câu hỏi : " + dulieu.Length / 5 + "\r\n+ Số lượng đáp án : " + dapan.Length + "</span>";
+                        //this.Close();
 
-                    ViewBag.ChuoiVD = f["txtChuoi"].ToString();
+                        ViewBag.ChuoiVD = f["txtChuoi"].ToString();
 
-                    ViewBag.HoanVi_VD = f["txtHoanVi"].ToString();
+                        ViewBag.HoanVi_VD = f["txtHoanVi"].ToString();
 
-                    ViewBag.CH_VD = f["txtNum"].ToString();
+                        ViewBag.CH_VD = f["txtNum"].ToString();
 
-                    ViewBag.XCH_VD = f["txtX"].ToString();
+                        ViewBag.XCH_VD = f["txtX"].ToString();
 
-                    ViewBag.CHX_VD = f["txtXX"].ToString();
+                        ViewBag.CHX_VD = f["txtXX"].ToString();
 
-                    ViewBag.A_VD = f["txtA"].ToString();
+                        ViewBag.A_VD = f["txtA"].ToString();
 
-                    ViewBag.B_VD = f["txtB"].ToString();
+                        ViewBag.B_VD = f["txtB"].ToString();
 
-                    ViewBag.C_VD = f["txtC"].ToString();
+                        ViewBag.C_VD = f["txtC"].ToString();
 
-                    ViewBag.D_VD = f["txtD"].ToString();
+                        ViewBag.D_VD = f["txtD"].ToString();
 
-                    ViewBag.NoSwap_VD = f["txtNoSwap"].ToString();
+                        ViewBag.NoSwap_VD = f["txtNoSwap"].ToString();
 
-                    ViewBag.DapAn_VD = f["txtDapAn"].ToString();
+                        ViewBag.DapAn_VD = f["txtDapAn"].ToString();
 
-                    return this.CreateFile_TracNghiem();
+                        return this.CreateFile_TracNghiem();
+                    }
                 }
 
                 // Phân tích những câu không cần hoán vị...
@@ -288,17 +292,24 @@ namespace MyWebPlay.Controllers
                         CH = dulieu[i];
 
                     string DA = "";
-                    if (int.Parse(dapan[k]) == 1)
-                        DA = "[" + dulieu[i + 1] + "]";
+                    if (tick != "on")
+                    {
+                        if (int.Parse(dapan[k]) == 1)
+                            DA = "[" + dulieu[i + 1] + "]";
+                        else
+                            if (int.Parse(dapan[k]) == 2)
+                            DA = "[" + dulieu[i + 2] + "]";
+                        else
+                            if (int.Parse(dapan[k]) == 3)
+                            DA = "[" + dulieu[i + 3] + "]";
+                        else
+                            if (int.Parse(dapan[k]) == 4)
+                            DA = "[" + dulieu[i + 4] + "]";
+                    }
                     else
-                        if (int.Parse(dapan[k]) == 2)
-                        DA = "[" + dulieu[i + 2] + "]";
-                    else
-                        if (int.Parse(dapan[k]) == 3)
-                        DA = "[" + dulieu[i + 3] + "]";
-                    else
-                        if (int.Parse(dapan[k]) == 4)
-                        DA = "[" + dulieu[i + 4] + "]";
+                    {
+                        DA = "[<?" + k + "?>]";
+                    }
 
 
                     copy += CH + "\n" + dulieu[i + 1] + "\n" + dulieu[i + 2] + "\n" + dulieu[i + 3] + "\n" + dulieu[i + 4] + "\n" + DA + "\n#\n";
@@ -345,59 +356,68 @@ namespace MyWebPlay.Controllers
 
                 ViewBag.DapAn_VD = "B\r\nC\r\nC\r\nA\r\nD\r\nD";
 
-                //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                string name = "[IP Khách : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " | IP máy chủ : " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + "] - " + xuxu;
+                if (tick != "on")
+                {
+                    //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string name = "[IP Khách : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " | IP máy chủ : " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + "] - " + xuxu;
 
-              SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
-            "mywebplay.savefile@gmail.com", "Save Temp Create Trac Nghiem File In " + name, copy, "teinnkatajeqerfl");
+                    SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+                  "mywebplay.savefile@gmail.com", "Save Temp Create Trac Nghiem File In " + name, copy, "teinnkatajeqerfl");
+                }
 
                 err = false;
 
-                ViewBag.KetQua = "<p style=\"color:blue\">Thành công, một file TXT trắc nghiệm của bạn đã được xử lý...</p><a href=\"/tracnghiem/" + fi + "\" download>Click vào đây để tải về</a><br><p style=\"color:red\">Hãy nhanh tay tải về vì sau <span style=\"color:yellow\" id=\"thoigian1\" class=\"thoigian1\">30</span> giây nữa, file này sẽ bị xoá hoặc sẽ bị lỗi nếu có!<br>Nếu file tải về của bạn bị lỗi hoặc chưa kịp tải về, hãy refresh/quay lại trang này và thử lại...<br><span style=\"color:aqua\">Mặc dù file này đã được thông qua một số xử lý, tuy nhiên nó vẫn có thể xảy ra lỗi và sai sót không mong muốn. Vì vậy tạm thời bạn cứ tải file này về, sử dụng file này để làm bài trắc nghiệm và hệ thống sẽ thông báo vị trí của câu hỏi đang bị nghi ngờ là lỗi, bạn hãy mở file này và Ctrl + F để tìm câu hỏi đó, quan sát xung quanh tương tự và tự chỉnh sửa file thủ công sao cho thích hợp nhé!</span></p>";
+                var so = "";
+                if (tick == "on")
+                    so = "Lưu ý : file trắc nghiệm của bạn hiện tại chưa có đáp án. Bạn có thể tự điều chỉnh lại đáp án của mình hoặc sử dụng tính năng cập nhật đáp án sau đó!";
+                ViewBag.KetQua = "<p style=\"color:blue\">Thành công, một file TXT trắc nghiệm của bạn đã được xử lý...</p><a href=\"/tracnghiem/" + fi + "\" download>Click vào đây để tải về</a><br><p style=\"color:red\">Hãy nhanh tay tải về vì sau <span style=\"color:yellow\" id=\"thoigian1\" class=\"thoigian1\">30</span> giây nữa, file này sẽ bị xoá hoặc sẽ bị lỗi nếu có!<br>Nếu file tải về của bạn bị lỗi hoặc chưa kịp tải về, hãy refresh/quay lại trang này và thử lại...<br><span style=\"color:aqua\">Mặc dù file này đã được thông qua một số xử lý, tuy nhiên nó vẫn có thể xảy ra lỗi và sai sót không mong muốn. Vì vậy tạm thời bạn cứ tải file này về, sử dụng file này để làm bài trắc nghiệm và hệ thống sẽ thông báo vị trí của câu hỏi đang bị nghi ngờ là lỗi, bạn hãy mở file này và Ctrl + F để tìm câu hỏi đó, quan sát xung quanh tương tự và tự chỉnh sửa file thủ công sao cho thích hợp nhé!<br></span><span style=\"color:pink\">"+so+"</span></p>";
             }
             catch
             {
-                string s_err = "";
-                string[] err_s = Regex.Split(s, "\r\n");
-
-                int dem = 0;
-                for (int i = 0; i <  err_s.Length; i++)
+                if (tick != "on")
                 {
-                    s_err += err_s[i]+"\r\n";
-                    dem++;
-                    if (dem == 5)
+                    string s_err = "";
+                    string[] err_s = Regex.Split(s, "\r\n");
+
+                    int dem = 0;
+                    for (int i = 0; i < err_s.Length; i++)
                     {
-                        dem = 0;
-                        s_err += "\r\n";
+                        s_err += err_s[i] + "\r\n";
+                        dem++;
+                        if (dem == 5)
+                        {
+                            dem = 0;
+                            s_err += "\r\n";
+                        }
                     }
-                }
 
-                string find_Error = "<br><br><h3 style=\"color:aqua\">[ERROR] </h3><br><h3 style=\"color:red\">HỆ THỐNG GỢI Ý CHO BẠN NHỮNG CÂU HỎI/ĐÁP ÁN CÓ THỂ GÂY RA LỖI SẼ GIÚP BẠN XÁC ĐỊNH VÀ CHỈNH SỬA THỦ CÔNG (bằng cách Ctrl + F) - THỰC HIỆN LẠI (Nếu vẫn chưa giải quyết được vấn đề, bạn có thể xem thử bản nháp đã được phân tích hiện tại ở cuối trang web)... </h3>";
+                    string find_Error = "<br><br><h3 style=\"color:aqua\">[ERROR] </h3><br><h3 style=\"color:red\">HỆ THỐNG GỢI Ý CHO BẠN NHỮNG CÂU HỎI/ĐÁP ÁN CÓ THỂ GÂY RA LỖI SẼ GIÚP BẠN XÁC ĐỊNH VÀ CHỈNH SỬA THỦ CÔNG (bằng cách Ctrl + F) - THỰC HIỆN LẠI (Nếu vẫn chưa giải quyết được vấn đề, bạn có thể xem thử bản nháp đã được phân tích hiện tại ở cuối trang web)... </h3>";
 
-                for (int i = 0; i < err_s.Length; i = i + 5)
-                {
-                    if (i % 5 == 0)
-                        err_s[i] = Regex.Replace(err_s[i], "[0-9]", "?");
-
-                    if (i + 1 >= err_s.Length || i + 2 >= err_s.Length || i + 3 >= err_s.Length || i + 4 >= err_s.Length)
-                        find_Error += "<br> + Câu hỏi/Đáp án Error (copy 1 phần) :  " + err_s[i] + "<br><br>";
-                    else
-                    if ((err_s[i + 1].Contains("?") || err_s[i + 1].Contains(":")) ||
-                        (err_s[i + 2].Contains("?") || err_s[i + 2].Contains(":")) ||
-                        (err_s[i + 3].Contains("?") || err_s[i + 3].Contains(":")) ||
-                        (err_s[i + 4].Contains("?") || err_s[i + 4].Contains(":")))
+                    for (int i = 0; i < err_s.Length; i = i + 5)
                     {
-                        find_Error += "<br> + Câu hỏi/Đáp án Error (copy 1 phần) :  " + err_s[i] + "<br><br>";
-                    }
-                }
+                        if (i % 5 == 0)
+                            err_s[i] = Regex.Replace(err_s[i], "[0-9]", "?");
 
-                ViewBag.KetQua += find_Error;
+                        if (i + 1 >= err_s.Length || i + 2 >= err_s.Length || i + 3 >= err_s.Length || i + 4 >= err_s.Length)
+                            find_Error += "<br> + Câu hỏi/Đáp án Error (copy 1 phần) :  " + err_s[i] + "<br><br>";
+                        else
+                        if ((err_s[i + 1].Contains("?") || err_s[i + 1].Contains(":")) ||
+                            (err_s[i + 2].Contains("?") || err_s[i + 2].Contains(":")) ||
+                            (err_s[i + 3].Contains("?") || err_s[i + 3].Contains(":")) ||
+                            (err_s[i + 4].Contains("?") || err_s[i + 4].Contains(":")))
+                        {
+                            find_Error += "<br> + Câu hỏi/Đáp án Error (copy 1 phần) :  " + err_s[i] + "<br><br>";
+                        }
+                    }
+
+                    ViewBag.KetQua += find_Error;
                     ViewBag.KetQua += "<h3 style=\"color:pink\"> --> Trượt đến tận cuối trang để có thể xem thử lại bản nháp đã phân tích hiện tại (nếu muốn)...</h3><br><br>";
-                ViewBag.Temp_TN = "<h3 style=\"color:aqua\">[ERROR] </h3><br><h4 style=\"color:red\">LƯU Ý : Đây chỉ là bản nháp mà file trắc nghiệm đã phân tích được ở thời điểm hiện tại, việc phân tích của hệ thống dù thành công hay thất bại..., tại đây bạn có thể tự kiểm tra lại và thực hiện chỉnh sửa thủ công sau!</h4><br><p style=\"color:orange\">Lưu ý thêm : Dữ liệu này chỉ là bản nháp để giúp bạn có thể kiểm tra và xác định câu hỏi đang bị lỗi và bạn sẽ tự chỉnh sửa thủ công --> Không sử dụng lại dữ liệu này để phân tích lại file trắc nghiệm của bạn...</p><br><br><textarea cols=\"150\" rows=\"200\" readonly>" + s_err + "</textarea>";
+                    ViewBag.Temp_TN = "<h3 style=\"color:aqua\">[ERROR] </h3><br><h4 style=\"color:red\">LƯU Ý : Đây chỉ là bản nháp mà file trắc nghiệm đã phân tích được ở thời điểm hiện tại, việc phân tích của hệ thống dù thành công hay thất bại..., tại đây bạn có thể tự kiểm tra lại và thực hiện chỉnh sửa thủ công sau!</h4><br><p style=\"color:orange\">Lưu ý thêm : Dữ liệu này chỉ là bản nháp để giúp bạn có thể kiểm tra và xác định câu hỏi đang bị lỗi và bạn sẽ tự chỉnh sửa thủ công --> Không sử dụng lại dữ liệu này để phân tích lại file trắc nghiệm của bạn...</p><br><br><textarea cols=\"150\" rows=\"200\" readonly>" + s_err + "</textarea>";
+                }
             }
             finally
             {
-                if (err == true)
+                if (err == true && tick != "on")
                 {
                     string s_err = "";
                     string[] err_s = Regex.Split(s, "\r\n");

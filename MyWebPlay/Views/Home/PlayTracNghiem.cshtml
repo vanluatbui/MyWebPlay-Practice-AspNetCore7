@@ -55,8 +55,14 @@
     <h3 style="color:aqua">@ViewBag.KetQuaSai</h3>
     <h3 style="color:aqua">@ViewBag.KetQuaChuaLam</h3>
     <h2 style="color:lightgreen">@ViewBag.KetQuaDiem</h2>
+   <br />
 
-
+   @if (TempData["Socola"] != null && TempData["Socola"].ToString() == "hay")
+   {
+        <h3 style="color:yellow">@Html.Raw(ViewBag.KetQua)</h3>
+    }
+    else
+    {
     @using (Html.BeginForm("PlayTracNghiem", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
         @Html.ValidationSummary(true)
@@ -165,5 +171,6 @@
            <h3>@Html.ActionLink("Thực hiện bài test trắc nghiệm mới", "TracNghiemX_Multiple")</h3>
            <br />
         }
+      }
     }
 </table>

@@ -434,7 +434,8 @@ namespace MyWebPlay.Controllers
             else
             {
                 var ND_File = TempData["ND_File"].ToString();
- 
+                TempData["ND_File"] = null;
+
                 TempData["Socola"] = "hay";
                 var flag = 0;
 
@@ -477,7 +478,6 @@ namespace MyWebPlay.Controllers
 
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", fi);
 
-                if (flag == 0)
                     System.IO.File.WriteAllText(path, ND_File);
 
                     //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
@@ -487,12 +487,8 @@ namespace MyWebPlay.Controllers
                 SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
               "mywebplay.savefile@gmail.com", "Save Temp Create Trac Nghiem File In " + name, ND_File, "teinnkatajeqerfl");
 
-                if (flag == 0)
                     ViewBag.KetQua = "<p style=\"color:blue\">Thành công, một file TXT trắc nghiệm của bạn đã được xử lý...</p><a href=\"/tracnghiem/" + fi + "\" download>Click vào đây để tải về</a><br><p style=\"color:red\">Hãy nhanh tay tải về vì sau <span style=\"color:yellow\" id=\"thoigian1\" class=\"thoigian1\">30</span> giây nữa, file này sẽ bị xoá hoặc sẽ bị lỗi nếu có!<br>Nếu file tải về của bạn bị lỗi hoặc chưa kịp tải về, hãy refresh/quay lại trang này và thử lại...<br><span style=\"color:aqua\">Mặc dù file này đã được thông qua một số xử lý, tuy nhiên nó vẫn có thể xảy ra lỗi và sai sót không mong muốn. Vì vậy tạm thời bạn cứ tải file này về, sử dụng file này để làm bài trắc nghiệm và hệ thống sẽ thông báo vị trí của câu hỏi đang bị nghi ngờ là lỗi, bạn hãy mở file này và Ctrl + F để tìm câu hỏi đó, quan sát xung quanh tương tự và tự chỉnh sửa file thủ công sao cho thích hợp nhé!<br></span></p>";
-                else
-                {
-                    ViewBag.KetQua = "<p style=\"color:red\">[Error]<br>Xin lỗi vì sự bất tiện, xin vui lòng quay lại kiểm tra và setting đầy đủ tất cả answer cho các câu hỏi của bạn hiện tại!</p>";
-                }
+             
                 return View();
             }
         }

@@ -390,7 +390,7 @@ namespace MyWebPlay.Controllers
 
             if (tick == "on" && txtFile.Count() != 1)
             {
-                ViewData["Loi1"] = "Xin lỗi nếu bạn sử dụng tính năng này để setting lại answer cho file trắc nghiệm của bạn, bạn chỉ có thể tải lên tương đương 1 file, vui lòng tải lên 1 file trắc nghiệm của bạn!";
+                ViewData["Loi1"] = "Xin lỗi nếu bạn sử dụng tính năng này để setting lại answer cho file trắc nghiệm của bạn, bạn chỉ có thể tải lên tương đương 1 file - vui lòng tải lên 1 file trắc nghiệm của bạn!";
                 return this.TracNghiemX_Multiple();
             }
 
@@ -699,6 +699,30 @@ namespace MyWebPlay.Controllers
                 TempData["ND_File"] = cFile;
             else
                 TempData["ND_File"] = null;
+
+            if (tick == "on")
+            {
+                txtSoCau = n9_S.ToString();
+                ViewBag.TongCau = n9_S;
+
+                var s = "";
+                for (int i = 0; i< tnX.tongsocau; i++)
+                {
+                    if (tnX.dung[i] == tnX.a[i])
+                        s += "1\n";
+                    else if (tnX.dung[i] == tnX.b[i])
+                        s += "2\n";
+                    else if (tnX.dung[i] == tnX.c[i])
+                        s += "3\n";
+                    else if (tnX.dung[i] == tnX.d[i])
+                        s += "4\n";
+                    else
+                        s += "0\n";
+                }
+
+                s = s.TrimEnd('\n');
+                ViewBag.SettingAnswer = s;
+            }
 
             return View("PlayTracNghiem", tnX);
         }

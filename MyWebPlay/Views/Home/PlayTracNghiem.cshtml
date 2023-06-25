@@ -2,6 +2,17 @@
 
 <script>
 
+    function loading()
+    {
+         var an = document.getElementById("answerX").value.split("\n");
+    for (var i =0 ; i< new Number('@ViewBag.TongCau'); i++)
+    {
+       var answer = new Number(an[i]);
+       document.getElementsByClassName("dapanX")[i].options.selectedIndex = answer;
+     }
+      alert("Thành công, mời bạn kiểm tra lại!");
+   }
+
     var timeX = '@ViewBag.TimeLamBai' * 60;
 
     var id = setInterval(myAlert, 1000);
@@ -47,6 +58,14 @@
     }
 
 </script>
+
+@if (TempData["ND_File"] != null)
+{
+    <button onclick="loading()"><b style="color:dodgerblue">Click vào đây để cập nhật các answer hiện có từ file của bạn</b></button>
+   <textarea hidden id="answerX">@ViewBag.SettingAnswer</textarea>
+           var ND_File = TempData["ND_File"];
+            TempData["ND_File"] = ND_File;
+}
 
 <table align="center">
     <h2 style="text-align:center;color:lightsalmon">Play Test Trắc Nghiệm</h2>
@@ -128,7 +147,7 @@
                                 <tr style="height:40px">
                                                  <td></td>
                                     <td><h4><b style="color:deeppink"> Chọn đáp án cho câu @(i+1) của bạn : </b></h4>
-  <h3><select name="dapan-@i">
+  <h3><select name="dapan-@i" class="dapanX">
       <b>
            <option></option>
           <option>A</option>
@@ -160,7 +179,7 @@
                 <tr style="height:40px">
                     <td></td>
                     <td>
-                        <input style="font-weight:bolder" id="OKX" type="Submit" value="Đánh Giá Bài Làm" />
+                        <input onclick="okroi()" style="font-weight:bolder" id="OKX" type="Submit" value="Đánh Giá Bài Làm" />
                         <br>
                             <p style="color:orange">Lưu ý : kiểm tra thật kỹ toàn bộ bài làm trước khi xem kết quả!</p>
                     </td>

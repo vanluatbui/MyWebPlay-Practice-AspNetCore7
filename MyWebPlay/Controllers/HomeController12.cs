@@ -696,9 +696,9 @@ namespace MyWebPlay.Controllers
             ViewBag.KetQuaDung = "";
 
             if (tick == "on")
-                TempData["ND_File"] = cFile;
+                ViewBag.ND_File = cFile;
             else
-                TempData["ND_File"] = null;
+                ViewBag.ND_File = null;
 
             if (tick == "on")
             {

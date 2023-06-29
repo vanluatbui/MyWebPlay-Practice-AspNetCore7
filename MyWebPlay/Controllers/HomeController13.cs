@@ -415,20 +415,20 @@ namespace MyWebPlay.Controllers
                 {
                     chualam++;
 
-                    ViewData["KetQua-" + i] = "<h2 style=\"color:orange\">CHƯA TRẢ LỜI</h2><br>";
-                    ViewData["dapandung-" + i] = "<br><b><span style=\"color:deeppink\">Câu trả lời đúng</span> :<br>" + tn.dung[i].Replace(" ", "&nbsp;") + "</b>";
+                    ViewData["KetQua-" + i] = "<h2 style=\"color:orange\">CHƯA TRẢ LỜI</h2>";
+                    ViewData["dapandung-" + i] = "<br><b><span style=\"color:deeppink\">Câu trả lời đúng</span> : <input type=\"text\" readonly size=\"100\" value=\"" +tn.dung[i].Replace(" ", "&nbsp;") + "\"></input></b>";
                 }
                 else if (da == tn.dung[i])
                 {
                     dung++;
-                    ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Câu trả lời của bạn</span> :<br>" + da.Replace(" ", "&nbsp;") + "</b>";
-                    ViewData["KetQua-" + i] = "<br><h2 style=\"color:green\">ĐÚNG</h2><br>";
+                    ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Câu trả lời của bạn</span> : <input type=\"text\" readonly size=\"100\" value=\"" + da.Replace(" ", "&nbsp;") + "\"></input></b>";
+                    ViewData["KetQua-" + i] = "<br><h2 style=\"color:green\">ĐÚNG RỒI</h2><br>";
                 }
                 else if (da != tn.dung[i])
                 {
-                    ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI</h2><b style=\"color:purple\">Nội dung answer của bạn có thể đúng, nhưng cách mà bạn nhập nó không match fit với answer trong file của bạn đã tải lên<br>(bao gồm phân biệt kí tự in hoa/thường, có dấu, các khoảng trắng,...vv...)</b><br><br>";
-                    ViewData["dapandachon-" + i] = "<br><b><span style=\"color:deeppink\">Câu trả lời của bạn </span> :<br>" + da.Replace(" ", "&nbsp;") + "</b><br>";
-                    ViewData["dapandung-" + i] = "<br><b><span style=\"color:deeppink\">Câu trả lời đúng</span> :<br>" + tn.dung[i].Replace(" ", "&nbsp;") + "</b>";
+                    ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI RỒI</h2><b style=\"color:purple\">Nội dung answer của bạn có thể đúng, nhưng cách mà bạn nhập nó không match fit với answer trong file của bạn đã tải lên<br>(bao gồm phân biệt kí tự in hoa/thường, có dấu, các khoảng trắng,...vv...)</b><br>";
+                    ViewData["dapandachon-" + i] = "<br><b><span style=\"color:deeppink\">Câu trả lời của bạn </span> : <input type=\"text\" readonly size=\"100\" value=\"" + da.Replace(" ", "&nbsp;") + "\"></input></b>";
+                    ViewData["dapandung-" + i] = "<br><b><span style=\"color:deeppink\">Câu trả lời đúng</span> : <input type=\"text\" readonly size=\"100\" value=\"" + tn.dung[i].Replace(" ", "&nbsp;") + "\" ></input></b>";
                     sai++;
                 }
             }

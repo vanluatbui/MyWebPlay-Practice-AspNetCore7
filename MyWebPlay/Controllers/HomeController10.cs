@@ -285,13 +285,13 @@ namespace MyWebPlay.Controllers
 
         public ActionResult PlayTracNghiem(TracNghiem tn)
         {
-            if (TempData["ND_File"] != null)
+            if (ViewBag.ND_File != null)
             {
-                var ND_File = TempData["ND_File"];
-                TempData["ND_File"] = ND_File;
+                var ND_File = ViewBag.ND_File;
+                ViewBag.ND_File = ND_File;
             }
             else
-                TempData["ND_File"] = null;
+                ViewBag.ND_File = null;
 
             HttpContext.Session.SetObject("TracNghiem", tn);
 
@@ -324,7 +324,7 @@ namespace MyWebPlay.Controllers
             if (tn == null)
                 return RedirectToAction("TracNghiemX_Multiple");
 
-            if (TempData["ND_File"] == null)
+            if (f["File_ND"] == "")
             {
                 int dung = 0;
                 int sai = 0;
@@ -349,11 +349,11 @@ namespace MyWebPlay.Controllers
                         {
                             dung++;
                             flag = 1;
-                            ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG</h2>";
+                            ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG RỒI</h2>";
                         }
                         else
                         {
-                            ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI</h2>";
+                            ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI RỒI</h2>";
                             sai++;
                         }
                     }
@@ -365,11 +365,11 @@ namespace MyWebPlay.Controllers
                         {
                             dung++;
                             flag = 1;
-                            ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG</h2>";
+                            ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG RỒI</h2>";
                         }
                         else
                         {
-                            ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI</h2>";
+                            ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI RỒI</h2>";
                             sai++;
                         }
                     }
@@ -381,11 +381,11 @@ namespace MyWebPlay.Controllers
                         {
                             dung++;
                             flag = 1;
-                            ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG</h2>";
+                            ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG RỒI</h2>";
                         }
                         else
                         {
-                            ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI</h2>";
+                            ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI RỒI</h2>";
                             sai++;
                         }
                     }
@@ -397,11 +397,11 @@ namespace MyWebPlay.Controllers
                         {
                             dung++;
                             flag = 1;
-                            ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG</h2>";
+                            ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG RỒI</h2>";
                         }
                         else
                         {
-                            ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI</h2>";
+                            ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI RỒI</h2>";
                             sai++;
                         }
 
@@ -433,8 +433,8 @@ namespace MyWebPlay.Controllers
             }
             else
             {
-                var ND_File = TempData["ND_File"].ToString();
-                TempData["ND_File"] = null;
+                var ND_File = f["File_ND"].ToString();
+                ViewBag.ND_File = null;
 
                 TempData["Socola"] = "hay";
                 var flag = 0;

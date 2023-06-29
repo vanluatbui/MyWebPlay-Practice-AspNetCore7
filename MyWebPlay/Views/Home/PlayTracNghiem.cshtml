@@ -59,12 +59,12 @@
 
 </script>
 
-@if (TempData["ND_File"] != null)
+@if (ViewBag.ND_File != null)
 {
     <button onclick="loading()"><b style="color:dodgerblue">Click vào đây để cập nhật các answer hiện có từ file của bạn</b></button>
    <textarea hidden id="answerX">@ViewBag.SettingAnswer</textarea>
-           var ND_File = TempData["ND_File"];
-            TempData["ND_File"] = ND_File;
+           var ND_File = ViewBag.ND_File;
+            ViewBag.ND_File = ND_File;
 }
 
 <table align="center">
@@ -91,6 +91,7 @@
         <input type="text" readonly name="TimeLamBai" value="@ViewBag.TimeLamBaiX" hidden />
         <input type="text" readonly name="TenMon" value="@ViewBag.TenMon" hidden>
 
+        <textarea name="File_ND" hidden>@ViewBag.ND_File</textarea>
         <textarea readonly name="CauHoi" hidden>@ViewBag.CauHoi</textarea>
         <textarea readonly name="A" hidden>@ViewBag.A</textarea>
         <textarea readonly name="B" hidden>@ViewBag.B</textarea>

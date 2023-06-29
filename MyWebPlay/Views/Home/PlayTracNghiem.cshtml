@@ -13,6 +13,16 @@
       alert("Thành công, mời bạn kiểm tra lại!");
    }
 
+   function refresh()
+    {
+    for (var i =0 ; i< new Number('@ViewBag.TongCau'); i++)
+    {
+       document.getElementsByClassName("dapanX")[i].options.selectedIndex = 0;
+     }
+      alert("Thành công, mời bạn kiểm tra lại!");
+   }
+
+
     var timeX = '@ViewBag.TimeLamBai' * 60;
 
     var id = setInterval(myAlert, 1000);
@@ -61,7 +71,8 @@
 
 @if (ViewBag.ND_File != null)
 {
-    <button onclick="loading()"><b style="color:dodgerblue">Click vào đây để cập nhật các answer hiện có từ file của bạn</b></button>
+    <button onclick="loading()"><b style="color:dodgerblue">Click vào đây để cập nhật các answer hiện có từ file của bạn</b></button><br /><br />
+     <button onclick="refresh()"><b style="color:darkred">Click to refresh all answer setting</b></button>
    <textarea hidden id="answerX">@ViewBag.SettingAnswer</textarea>
            var ND_File = ViewBag.ND_File;
             ViewBag.ND_File = ND_File;

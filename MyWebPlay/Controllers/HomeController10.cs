@@ -445,25 +445,25 @@ namespace MyWebPlay.Controllers
 
                     if (da == "")
                     {
+                        ND_File = ND_File.Replace("["+tn.dung[i]+"]", "[<?" + i + "?>]");
                         flag = 1;
-                        continue;
                     }
 
                     if (da == "A")
                     {
-                        ND_File = ND_File.Replace("<?" + i + "?>", tn.a[i]);
+                        ND_File = ND_File.Replace("<?" + i + "?>", tn.a[i]).Replace("[" + tn.dung[i] + "]", "["+tn.a[i]+"]");
                     }
                     else if (da == "B")
                     {
-                        ND_File = ND_File.Replace("<?" + i + "?>", tn.b[i]);
+                        ND_File = ND_File.Replace("<?" + i + "?>", tn.b[i]).Replace("[" + tn.dung[i] + "]", "[" + tn.b[i] + "]");
                     }
                     else if (da == "C")
                     {
-                        ND_File = ND_File.Replace("<?" + i + "?>", tn.c[i]);
+                        ND_File = ND_File.Replace("<?" + i + "?>", tn.c[i]).Replace("[" + tn.dung[i] + "]", "[" + tn.c[i] + "]");
                     }
                     else if (da == "D")
                     {
-                        ND_File = ND_File.Replace("<?" + i + "?>", tn.d[i]);
+                        ND_File = ND_File.Replace("<?" + i + "?>", tn.d[i]).Replace("[" + tn.dung[i] + "]", "[" + tn.d[i] + "]");
                     }
                 }
 
@@ -485,9 +485,9 @@ namespace MyWebPlay.Controllers
 
                 if (flag == 0)
                 SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
-              "mywebplay.savefile@gmail.com", "Save Temp Create Trac Nghiem File In " + name, ND_File, "teinnkatajeqerfl");
+              "mywebplay.savefile@gmail.com", "Save Temp Create/Update Trac Nghiem File In " + name, ND_File, "teinnkatajeqerfl");
 
-                    ViewBag.KetQua = "<p style=\"color:blue\">Thành công, một file TXT trắc nghiệm của bạn đã được xử lý...</p><a href=\"/tracnghiem/" + fi + "\" download>Click vào đây để tải về</a><br><p style=\"color:red\">Hãy nhanh tay tải về vì sau <span style=\"color:yellow\" id=\"thoigian1\" class=\"thoigian1\">30</span> giây nữa, file này sẽ bị xoá hoặc sẽ bị lỗi nếu có!<br>Nếu file tải về của bạn bị lỗi hoặc chưa kịp tải về, hãy refresh/quay lại trang này và thử lại...<br><span style=\"color:aqua\">Mặc dù file này đã được thông qua một số xử lý, tuy nhiên nó vẫn có thể xảy ra lỗi và sai sót không mong muốn. Vì vậy tạm thời bạn cứ tải file này về, sử dụng file này để làm bài trắc nghiệm và hệ thống sẽ thông báo vị trí của câu hỏi đang bị nghi ngờ là lỗi, bạn hãy mở file này và Ctrl + F để tìm câu hỏi đó, quan sát xung quanh tương tự và tự chỉnh sửa file thủ công sao cho thích hợp nhé!<br></span></p>";
+                    ViewBag.KetQua = "<p style=\"color:blue\">Thành công, một file TXT trắc nghiệm của bạn đã được xử lý/cập nhật...</p><a href=\"/tracnghiem/" + fi + "\" download>Click vào đây để tải về</a><br><p style=\"color:red\">Hãy nhanh tay tải về vì sau <span style=\"color:yellow\" id=\"thoigian1\" class=\"thoigian1\">30</span> giây nữa, file này sẽ bị xoá hoặc sẽ bị lỗi nếu có!<br>Nếu file tải về của bạn bị lỗi hoặc chưa kịp tải về, hãy refresh/quay lại trang này và thử lại...<br><span style=\"color:aqua\">Mặc dù file này đã được thông qua một số xử lý, tuy nhiên nó vẫn có thể xảy ra lỗi và sai sót không mong muốn. Vì vậy tạm thời bạn cứ tải file này về, sử dụng file này để làm bài trắc nghiệm và hệ thống sẽ thông báo vị trí của câu hỏi đang bị nghi ngờ là lỗi, bạn hãy mở file này và Ctrl + F để tìm câu hỏi đó, quan sát xung quanh tương tự và tự chỉnh sửa file thủ công sao cho thích hợp nhé!<br></span></p>";
              
                 return View();
             }

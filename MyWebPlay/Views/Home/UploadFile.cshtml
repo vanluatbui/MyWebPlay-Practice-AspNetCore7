@@ -170,8 +170,12 @@
 
     function XoaFileX()
     {
+        var con = confirm("Bạn có chắc chắn muốn tiếp tục xử lý tác vụ này? (bạn nên kiểm tra lại)");
+        if (con == true)
+        {
         alert('Thành công, tác vụ đang được xử lý...');
         window.location.href = "/Home/XoaFileX?file="+document.getElementById("FileXY").value;
+        }
     }
 
 </script>

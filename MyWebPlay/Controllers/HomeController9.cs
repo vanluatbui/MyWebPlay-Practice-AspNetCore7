@@ -486,7 +486,9 @@ namespace MyWebPlay.Controllers
                     {
                         string file = folder + "/" + item.Name;
 
-                        ketqua += "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/file" + folder + "/" + item.Name + "\" download> tại đây</a> <span style=\"color:pink\">("+item.LastWriteTime+")</span> <br> Link xem đầy đủ : <a target=\"_blank\" style=\"color:green\"" +
+                        Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+                        ketqua += "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/file" + folder + "/" + item.Name + "\" download> tại đây</a> <span style=\"color:pink\">("+ x.AddHours(item.LastWriteTime, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture)+")</span> <br> Link xem đầy đủ : <a target=\"_blank\" style=\"color:green\"" +
                        "href=\"/file" + folder + "/" + item.Name + "\">/file" + folder + "/" + item.Name + "</a><br> Tải lại hoặc chờ một khoảng thời gian để link file được xử lý - tất cả file trên hệ thống admin sẽ tự động xoá sau 24h (có thể) bạn đăng tải ...  " +
                       "<button style=\"color:blue\" onclick=\"xacnhan('"+ file + "')\">Click để xoá thủ công file này?</button><br><br>";
                         ketqua += "<br><br>";
@@ -553,7 +555,8 @@ namespace MyWebPlay.Controllers
 
                 if (new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, file.TrimStart("/".ToCharArray()))).Exists)
                 {
-                    ketqua += "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/" + path + "/" + item.Name + "\" download> tại đây</a> <span style=\"color:pink\">("+item.LastWriteTime+")</span> <br> Link xem đầy đủ : <a target=\"_blank\" style=\"color:green\"" +
+                    Calendar x = CultureInfo.InvariantCulture.Calendar;
+                    ketqua += "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/" + path + "/" + item.Name + "\" download> tại đây</a> <span style=\"color:pink\">("+ x.AddHours(item.LastWriteTime, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture) + ")</span> <br> Link xem đầy đủ : <a target=\"_blank\" style=\"color:green\"" +
                    "href=\"/" + path + "/" + item.Name + "\">/" + path + "/" + item.Name + "</a><br> Tải lại hoặc chờ một khoảng thời gian để link file được xử lý - tất cả file trên hệ thống admin sẽ tự động xoá sau 24h (có thể) bạn đăng tải ...  " +
                   "<button style=\"color:blue\" onclick=\"xacnhan('" + file.Replace("/file","") + "')\">Click để xoá thủ công file này?</button><br><br>";
                     ketqua += "<br><br>";

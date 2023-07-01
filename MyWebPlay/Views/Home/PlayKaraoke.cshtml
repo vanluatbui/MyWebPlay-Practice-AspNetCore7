@@ -5,10 +5,34 @@
     alert("Bạn nên trải nghiệm tính năng này trên máy tính (PC), laptop,... nhé 😄\nLưu ý : trong khi đang trải nghiệm Karaoke, bạn không nên refresh lại trang để tránh mất dữ liệu!");
 
     var you = false;
+    var youX = false;
 
     function PlayKaraoke()
     {
+        if (you == true)
+        return;
+
         you = true;
+
+        if (document.getElementById("musix").play() == false)
+        {
+        you = false;
+        document.getElementById("music").pause();
+        }
+    }
+
+    function PlayKaraokeX()
+    {
+        if (youX == true)
+        return;
+
+        youX = true;
+
+        if (document.getElementById("music").play() == false)
+        {
+        document.getElementById("musix").pause();
+        youX = false;
+        }
     }
 
     function changeKara()
@@ -70,7 +94,7 @@
                     flag = 1;
                         }
 
-                         if (you == false)
+                         if (you == false || youX == false)
                         return;
               
                         t++;
@@ -167,11 +191,11 @@
 
 </script>
 
-<audio id="music" autoplay hidden onplay="PlayKaraoke()" onpause="StopKaraoke()">
+<audio id="music" autoplay controls onplay="PlayKaraoke()" onpause="PlayKaraoke()" onended="StopKaraoke()">
     <source src="@ViewBag.Music" type="audio/mpeg">
 </audio>
 
-<audio id="musix" muted autoplay hidden>
+<audio id="musix" muted autoplay controls onplay="PlayKaraokeX()" onpause="PlayKaraokeX()">
     <source src="@ViewBag.Musix" type="audio/mpeg">
 </audio>
 

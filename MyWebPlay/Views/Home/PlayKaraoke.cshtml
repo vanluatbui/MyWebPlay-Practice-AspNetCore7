@@ -11,6 +11,22 @@
         you = true;
     }
 
+    function changeKara()
+    {
+        var chon = document.getElementById("chon").options.selectedIndex;
+
+        if (chon == 0)
+        {
+            document.getElementById("music").muted = false;
+            document.getElementById("musix").muted = true;
+        }
+        else
+        {
+            document.getElementById("music").muted = true;
+            document.getElementById("musix").muted = false;
+        }
+    }
+
     function StopKaraoke()
     {
         window.location.href="/Home/XoaKaraoke";
@@ -151,8 +167,12 @@
 
 </script>
 
-<audio autoplay hidden onplay="PlayKaraoke()" onpause="StopKaraoke()">
+<audio id="music" autoplay hidden onplay="PlayKaraoke()" onpause="StopKaraoke()">
     <source src="@ViewBag.Music" type="audio/mpeg">
+</audio>
+
+<audio id="musix" muted autoplay hidden>
+    <source src="@ViewBag.Musix" type="audio/mpeg">
 </audio>
 
 <textarea id="txtKara" hidden>@ViewBag.Karaoke</textarea>
@@ -183,7 +203,18 @@
                 <td> </td>
                 <td>
                     <br>
-                        <b> Tải file MP3 karaoke (đã xử lý) : </b>
+                        <b> Tải file MP3 karaoke - nhạc gốc có giọng ca sĩ (đã xử lý) : </b>
+                    <br>
+                        <input type="file" name="txtMusix"/>
+                    <br>
+                </td>
+            </tr>
+
+             <tr style="height:40px">
+                <td> </td>
+                <td>
+                    <br>
+                        <b> Tải file MP3 karaoke - nhạc beat tách giọng ca sĩ (đã xử lý) : </b>
                     <br>
                         <input type="file" name="txtMusic"/>
                     <br>
@@ -229,6 +260,10 @@
 else
 {
     <table align="center">
+    <select id="chon" onchange="changeKara()">
+        <option>Chế độ Karaoke</option>
+        <option>Chế độ Ca sĩ hát</option>
+    </select>
     <h2 style="text-align:center;color:palevioletred">@ViewBag.Text</h2>
 
     <br />

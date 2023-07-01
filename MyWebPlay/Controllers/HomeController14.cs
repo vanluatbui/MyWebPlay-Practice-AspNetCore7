@@ -11,6 +11,7 @@ namespace MyWebPlay.Controllers
         public ActionResult PlayKaraoke()
         {
             ViewBag.Music = "";
+            ViewBag.Musix = "";
 
             ViewBag.Karaoke = "karaoke";
 
@@ -24,20 +25,28 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult PlayKaraoke(IFormCollection f, IFormFile txtKaraoke, IFormFile txtMusic)
+        public ActionResult PlayKaraoke(IFormCollection f, IFormFile txtKaraoke, IFormFile txtMusic, IFormFile txtMusix)
         {
             var fileName = Path.GetFileName(txtMusic.FileName);
+            var nameFile = Path.GetFileName(txtMusix.FileName);
 
             ViewBag.Karaoke = "";
 
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", fileName);
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", nameFile);
 
             using (Stream fileStream = new FileStream(path, FileMode.Create))
             {
                 txtMusic.CopyTo(fileStream);
             }
 
+            using (Stream fileStream = new FileStream(pathX, FileMode.Create))
+            {
+                txtMusix.CopyTo(fileStream);
+            }
+
             ViewBag.Music = "/karaoke/music/" + fileName;
+            ViewBag.Musix = "/karaoke/music/" + nameFile;
             ViewBag.Text = f["txtBH"].ToString();
 
             fileName = Path.GetFileName(txtKaraoke.FileName);

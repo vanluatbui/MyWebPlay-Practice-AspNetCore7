@@ -9,30 +9,28 @@
 
     function PlayKaraoke()
     {
-        if (you == true)
-        return;
+        document.getElementById("musix").play();
 
         you = true;
-
-        if (document.getElementById("musix").play() == false)
-        {
-        you = false;
-        document.getElementById("music").pause();
-        }
     }
 
     function PlayKaraokeX()
     {
-        if (youX == true)
-        return;
-
+        document.getElementById("music").play();
         youX = true;
+    }
 
-        if (document.getElementById("music").play() == false)
-        {
+     function PlayXKaraoke()
+    {
         document.getElementById("musix").pause();
+
+        you = false;
+    }
+
+    function PlayXKaraokeX()
+    {
+        document.getElementById("music").pause();
         youX = false;
-        }
     }
 
     function changeKara()
@@ -191,11 +189,11 @@
 
 </script>
 
-<audio id="music" autoplay controls onplay="PlayKaraoke()" onpause="PlayKaraoke()" onended="StopKaraoke()">
+<audio id="music" autoplay hidden onplay="PlayKaraoke()" onpause="PlayXKaraoke()" onended="StopKaraoke()">
     <source src="@ViewBag.Music" type="audio/mpeg">
 </audio>
 
-<audio id="musix" muted autoplay controls onplay="PlayKaraokeX()" onpause="PlayKaraokeX()">
+<audio id="musix" autoplay muted hidden onplay="PlayKaraokeX()" onpause="PlayXKaraokeX()">
     <source src="@ViewBag.Musix" type="audio/mpeg">
 </audio>
 

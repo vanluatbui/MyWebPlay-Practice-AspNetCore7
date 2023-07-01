@@ -12,11 +12,6 @@
             document.getElementById("ticky2").style.display = "inline-block";
         }
     }
-    function check()
-    {
-        var dapan = document.getElementById("DapAn").value.split(/\r|\n/);
-        alert("X-Answer of you recent is "+dapan.length);
-    }
 
     function changeDA()
     {
@@ -58,8 +53,6 @@
         
         var check = document.getElementById("CH_Num");
         check.value = tong;
-
-        alert("Hệ thống đã tự động điền tổng số câu hỏi (dựa vào dữ liệu của bạn) - nếu bạn muốn dùng để check thử data...\nNhưng bạn cũng nên kiểm tra lại hoặc thủ công để đảm bảo chính xác !");
     }
 
     function xuatAnswer()
@@ -545,7 +538,9 @@
                <tr style="height:40px">
                     <td></td>
                     <td>
-                        <input type="text" name="txtNum" id="Num" value="@ViewBag.CH_VD" size="20" placeholder="Liệt kê các câu hỏi (index)"> <input type="text" id="CH_Num" placeholder="Nhập tổng số câu hỏi - dùng để kiểm tra dữ liệu data (hoặc bạn có thể bỏ qua)" size="80" /> <input type="radio" onclick="checkNum()" checked> <b style="color:purple"> ⬅️ Click để cập nhật tự động</b>
+                        <input type="text" name="txtNum" id="Num" value="@ViewBag.CH_VD" size="20" placeholder="Liệt kê các câu hỏi (index)"> <br>
+                        <input type="text" readonly name="txtNux" id="CH_Num" placeholder="Tổng số câu hỏi bài trắc nghiệm (bắt buộc)" size="80" /> <input type="radio" onclick="checkNum()" checked> <b style="color:purple"> ⬅️ Click để cập nhật tự động</b><br>
+                        <span style="color:red">@ViewData["Loi"]</span>
                     </td>
                 </tr>
 
@@ -613,7 +608,7 @@
                                 <br>
                                    <b>Chọn những câu không cần hoán vị đáp án - theo index hệ thống * start in 1 (xem ví dụ) : </b>
                                    <br>
-                                <input type="text" name="txtNoSwap" value="@ViewBag.NoSwap_VD" size="10">
+                                <input type="text" name="txtNoSwap" value="@ViewBag.NoSwap_VD" size="50">
                             </td>
                         </tr>
 
@@ -669,8 +664,6 @@
 <br>
  <input type="radio" onclick="xuatAnswer()" checked> <b style="color:lime">⬅️ Click here to upset Answer</b>
  <br><br>
- <input type="radio" onclick="check()" checked /><b>⬅️ Click here to check X-Answer</b>
- <br>
  <input style="font-size:40px" type="radio" onclick="checkXX()" checked /> <b>⬅️ Click here to reset to check</b> || <input style="font-size:40px" type="radio" onclick="checkX()" checked /> <b id="winx" style="color:lightcoral;font-size:40px">0</b> (index hệ thống) : <b style="color:lightseagreen;font-size:40px" id="socolar">[NULL]</b>
                     </td>
                 </tr>

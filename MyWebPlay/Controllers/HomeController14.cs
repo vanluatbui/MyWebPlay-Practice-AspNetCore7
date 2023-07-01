@@ -12,6 +12,8 @@ namespace MyWebPlay.Controllers
         {
             ViewBag.Music = "";
 
+            ViewBag.Karaoke = "karaoke";
+
             if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Exists)
                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Delete(true);
 
@@ -25,6 +27,8 @@ namespace MyWebPlay.Controllers
         public ActionResult PlayKaraoke(IFormCollection f, IFormFile txtKaraoke, IFormFile txtMusic)
         {
             var fileName = Path.GetFileName(txtMusic.FileName);
+
+            ViewBag.Karaoke = "";
 
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", fileName);
 

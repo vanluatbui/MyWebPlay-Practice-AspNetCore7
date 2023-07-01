@@ -1,7 +1,8 @@
 ﻿<meta charset="ISO-8859-1">
 <script>
 
-    alert("Bạn nên trải nghiệm tính năng này trên máy tính (PC), laptop,... nhé 😄");
+    if ('@ViewBag.Karaoke' == "karaoke")
+    alert("Bạn nên trải nghiệm tính năng này trên máy tính (PC), laptop,... nhé 😄\nLưu ý : trong khi đang trải nghiệm Karaoke, bạn không nên refresh lại trang để tránh mất dữ liệu!");
 
     var you = false;
 
@@ -15,7 +16,7 @@
         window.location.href="/Home/XoaKaraoke";
     }
 
-        var t=0;
+        var t=10;
         var time_xuathien = [];
         var time_luuvet = [];
         var n = 0;

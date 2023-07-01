@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyWebPlay.Extension;
 using System.Formats.Tar;
 using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -58,6 +59,9 @@ namespace MyWebPlay.Controllers
             var tick = f["Tick"].ToString();
             try
             {
+                if (string.IsNullOrEmpty(f["txtNux"].ToString()))
+                    ViewData["Loi"] = "Trường này là bắt buộc, bạn có thể click nút trên để xử lý...";
+
                 var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
 
                 foreach (var file in listFile)
@@ -88,14 +92,15 @@ namespace MyWebPlay.Controllers
                 //......................................................................
 
 
-                // s = s.Replace("#3275#", " ");
+                s = s.Replace("#3275#", " ");
 
                 // cập nhật txtDapAn...
 
                 string d = f["txtDapAn"].ToString();
+                d = d.TrimEnd("\r\n".ToCharArray()).TrimStart("\r\n".ToCharArray());
 
                 string[] DX = Regex.Split(d, "\r\n");
-
+        
                 for (int i = 0; i < DX.Length; i++)
                 {
                     if (DX[i].ToCharArray()[0] < 'A' || DX[i].ToCharArray()[0] > 'D')
@@ -127,6 +132,12 @@ namespace MyWebPlay.Controllers
 
                         return this.CreateFile_TracNghiem();
                     }
+                }
+
+                if (DX.Length < int.Parse(f["txtNux"].ToString()))
+                {
+                    for (int i = DX.Length; i < int.Parse(f["txtNux"].ToString()); i++)
+                        d += "\r\nA";
                 }
 
                 d = d.Replace("A", "1");
@@ -182,40 +193,40 @@ namespace MyWebPlay.Controllers
 
                 // Kiểm tra nếu dữ liệu không đủ hợp với đáp án :
 
+                s = s.Replace("#3275#", " ");
+
                 string[] dulieu = Regex.Split(s, "\r\n");
 
-                if (tick != "on")
-                {
-                    if (dulieu.Length / 5 != dapan.Length)
-                    {
-                        ViewBag.KetQua = "<span style=\"color:red\">Số lượng câu hỏi của bạn trong dữ liệu không khớp với đáp án của bạn (lỗi do thiếu hoặc dư)...\r\n\r\n+ Số lượng dữ liệu câu hỏi : " + dulieu.Length / 5 + "\r\n+ Số lượng đáp án : " + dapan.Length + "</span>";
-                        //this.Close();
+                //if (dulieu.Length / 5 != dapan.Length)
+                //{
+                //    ViewBag.KetQua = "<span style=\"color:red\">Số lượng câu hỏi của bạn trong dữ liệu không khớp với đáp án của bạn (lỗi do thiếu hoặc dư)...\r\n\r\n+ Số lượng dữ liệu câu hỏi : " + dulieu.Length / 5 + "\r\n+ Số lượng đáp án : " + dapan.Length + "</span>";
+                //    //this.Close();
 
-                        ViewBag.ChuoiVD = f["txtChuoi"].ToString();
+                //    ViewBag.ChuoiVD = f["txtChuoi"].ToString();
 
-                        ViewBag.HoanVi_VD = f["txtHoanVi"].ToString();
+                //    ViewBag.HoanVi_VD = f["txtHoanVi"].ToString();
 
-                        ViewBag.CH_VD = f["txtNum"].ToString();
+                //    ViewBag.CH_VD = f["txtNum"].ToString();
 
-                        ViewBag.XCH_VD = f["txtX"].ToString();
+                //    ViewBag.XCH_VD = f["txtX"].ToString();
 
-                        ViewBag.CHX_VD = f["txtXX"].ToString();
+                //    ViewBag.CHX_VD = f["txtXX"].ToString();
 
-                        ViewBag.A_VD = f["txtA"].ToString();
+                //    ViewBag.A_VD = f["txtA"].ToString();
 
-                        ViewBag.B_VD = f["txtB"].ToString();
+                //    ViewBag.B_VD = f["txtB"].ToString();
 
-                        ViewBag.C_VD = f["txtC"].ToString();
+                //    ViewBag.C_VD = f["txtC"].ToString();
 
-                        ViewBag.D_VD = f["txtD"].ToString();
+                //    ViewBag.D_VD = f["txtD"].ToString();
 
-                        ViewBag.NoSwap_VD = f["txtNoSwap"].ToString();
+                //    ViewBag.NoSwap_VD = f["txtNoSwap"].ToString();
 
-                        ViewBag.DapAn_VD = f["txtDapAn"].ToString();
+                //    ViewBag.DapAn_VD = f["txtDapAn"].ToString();
 
-                        return this.CreateFile_TracNghiem();
-                    }
-                }
+                //    return this.CreateFile_TracNghiem();
+                //}
+
 
                 // Phân tích những câu không cần hoán vị...
 
@@ -361,8 +372,8 @@ namespace MyWebPlay.Controllers
                     //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
                     string name = "[IP Khách : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " | IP máy chủ : " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + "] - " + xuxu;
 
-                    SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
-                  "mywebplay.savefile@gmail.com", "Save Temp Create Trac Nghiem File In " + name, copy, "teinnkatajeqerfl");
+                  SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+                 "mywebplay.savefile@gmail.com", "Save Temp Create Trac Nghiem File In " + name, copy, "teinnkatajeqerfl");
                 }
 
                 err = false;
@@ -374,9 +385,29 @@ namespace MyWebPlay.Controllers
             }
             catch
             {
-                if (tick != "on")
-                {
-                    string s_err = "";
+                ViewBag.ChuoiVD = f["txtChuoi"].ToString();
+
+                ViewBag.HoanVi_VD = f["txtHoanVi"].ToString();
+
+                ViewBag.CH_VD = f["txtNum"].ToString();
+
+                ViewBag.XCH_VD = f["txtX"].ToString();
+
+                ViewBag.CHX_VD = f["txtXX"].ToString();
+
+                ViewBag.A_VD = f["txtA"].ToString();
+
+                ViewBag.B_VD = f["txtB"].ToString();
+
+                ViewBag.C_VD = f["txtC"].ToString();
+
+                ViewBag.D_VD = f["txtD"].ToString();
+
+                ViewBag.NoSwap_VD = f["txtNoSwap"].ToString();
+
+                ViewBag.DapAn_VD = f["txtDapAn"].ToString();
+
+                string s_err = "";
                     string[] err_s = Regex.Split(s, "\r\n");
 
                     int dem = 0;
@@ -413,12 +444,34 @@ namespace MyWebPlay.Controllers
                     ViewBag.KetQua += find_Error;
                     ViewBag.KetQua += "<h3 style=\"color:pink\"> --> Trượt đến tận cuối trang để có thể xem thử lại bản nháp đã phân tích hiện tại (nếu muốn)...</h3><br><br>";
                     ViewBag.Temp_TN = "<h3 style=\"color:aqua\">[ERROR] </h3><br><h4 style=\"color:red\">LƯU Ý : Đây chỉ là bản nháp mà file trắc nghiệm đã phân tích được ở thời điểm hiện tại, việc phân tích của hệ thống dù thành công hay thất bại..., tại đây bạn có thể tự kiểm tra lại và thực hiện chỉnh sửa thủ công sau!</h4><br><p style=\"color:orange\">Lưu ý thêm : Dữ liệu này chỉ là bản nháp để giúp bạn có thể kiểm tra và xác định câu hỏi đang bị lỗi và bạn sẽ tự chỉnh sửa thủ công --> Không sử dụng lại dữ liệu này để phân tích lại file trắc nghiệm của bạn...</p><br><br><textarea cols=\"150\" rows=\"200\" readonly>" + s_err + "</textarea>";
-                }
+
             }
             finally
             {
-                if (err == true && tick != "on")
+                if (err == true)
                 {
+                    ViewBag.ChuoiVD = f["txtChuoi"].ToString();
+
+                    ViewBag.HoanVi_VD = f["txtHoanVi"].ToString();
+
+                    ViewBag.CH_VD = f["txtNum"].ToString();
+
+                    ViewBag.XCH_VD = f["txtX"].ToString();
+
+                    ViewBag.CHX_VD = f["txtXX"].ToString();
+
+                    ViewBag.A_VD = f["txtA"].ToString();
+
+                    ViewBag.B_VD = f["txtB"].ToString();
+
+                    ViewBag.C_VD = f["txtC"].ToString();
+
+                    ViewBag.D_VD = f["txtD"].ToString();
+
+                    ViewBag.NoSwap_VD = f["txtNoSwap"].ToString();
+
+                    ViewBag.DapAn_VD = f["txtDapAn"].ToString();
+
                     string s_err = "";
                     string[] err_s = Regex.Split(s, "\r\n");
 

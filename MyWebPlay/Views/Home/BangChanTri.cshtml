@@ -120,43 +120,81 @@
 <br>
 <br />
 
+<pre>
+
 * Bảng chân trị các BT luận lý cơ bản :
-<br>
-<br>1/ Phép hội ( A ^ B ) :
-<br>
-<br>   A    B   A ^ B
-<br><br><br> 0 <br><br> 0 <br><br>    0    <br><br>
-<br><br><br> 0 <br><br> 1 <br><br>    0    <br><br>
-<br><br><br> 1 <br><br> 0 <br><br>    0    <br><br>
-<br><br><br> 1 <br><br> 1 <br><br>    1    <br><br>
-<br>
-<br>2/ Phép tuyển ( A v B ) :
-<br>
-<br>   A    B   A v B
-<br><br><br> 0 <br><br> 0 <br><br>    0    <br><br>
-<br><br><br> 0 <br><br> 1 <br><br>    1    <br><br>
-<br><br><br> 1 <br><br> 0 <br><br>    1    <br><br>
-<br><br><br> 1 <br><br> 1 <br><br>    1    <br><br>
-<br>
-<br>3/ Phép kéo theo ( A -> B ) :
-<br>
-<br>   A    B   A -> B
-<br><br><br> 0 <br><br> 0 <br><br>     1    <br><br>
-<br><br><br> 0 <br><br> 1 <br><br>     1    <br><br>
-<br><br><br> 1 <br><br> 0 <br><br>     0    <br><br>
-<br><br><br> 1 <br><br> 1 <br><br>     1    <br><br>
-<br>
-<br>4/ Phép tương đương ( A <->
-    B ) :<br><br>   A    B  A <->
-        B <br><br><br> 0 <br><br> 0 <br><br>     1     <br><br><br><br><br> 0 <br><br> 1 <br><br>     0     <br><br><br><br><br> 1 <br><br> 0 <br><br>     0     <br><br><br><br><br> 1 <br><br> 1 <br><br>     1     <br><br> <br><br>5/ Phép phủ định ( - A ) :<br><br>   A    - A<br><br><br> 0 <br><br>    1   <br><br><br><br><br> 1 <br><br>    0   <br><br>"
 
+1/ Phép hội ( A ^ B ) :
 
-<br /><br />
+   A    B     A ^ B 
+|| 0 || 0 ||    0    ||
+|| 0 || 1 ||    0    ||
+|| 1 || 0 ||    0    ||
+|| 1 || 1 ||    1    ||
 
-        * Thiết lập bảng chân trị cho biểu thức luận lý như sau (cho ví dụ) :<br><br>BT = [ (A ^ B) -> (A v C) ] <->
-            [ - A ]<br><br>- Ta có : n = 3 phần tử là : A,B và C.Các phần tử cũng được xem là một biểu thức nhỏ trong biểu thức (BT) lớn...<br><br>- Ta có : sl = 5 biểu thức nhỏ tạo từ n phần tử hoặc từ các biểu thức nhỏ hơn kết hợp thành.Ta tiến hành tách chia các biểu thức nhỏ trong biểu thức lớn  (BT) như sau :<br><br>+ Biểu thức 1 (BT1) : A ^ B<br><br>+ Biểu thức 2 (BT2) : A v C<br><br>+ Biểu thức 3 (BT3) :  (A ^ B) -> (A v C)<br>                                     = BT1 -> BT2<br><br> + Biểu thức 4 (BT1) : - A<br><br>+ Biểu thức 5 : [ (A ^ B) -> (A v C) ] <->
-                [ - A ]<br>                          = BT3 <->
-                    BT4<br>=> Biểu thức 5 (BT5) là biểu thức lớn (BT) cần tìm theo yêu cầu đề bài...<br><br>* Lập bảng chân trị cho BT = BT5 :<br><br>    A       B      C     BT1  BT2  BT3  BT4    BT<br><br><br>  0   <br><br>  0   <br><br>  0   <br><br>  0   <br><br>  0   <br><br>  1   <br><br>  1   <br><br>  1<br><br><br>  0   <br><br>  0   <br><br>  1   <br><br>  0   <br><br>  1   <br><br>  1   <br><br>  1   <br><br>  1<br><br><br>  0   <br><br>  1   <br><br>  0   <br><br>  0   <br><br>  0   <br><br>  1   <br><br>  1   <br><br>  1<br><br><br>  0   <br><br>  1   <br><br>  1   <br><br>  0   <br><br>  1   <br><br>  1   <br><br>  1   <br><br>  1<br><br><br>  1   <br><br>  0   <br><br>  0   <br><br>  0   <br><br>  1   <br><br>  1   <br><br>  0   <br><br>  0<br><br><br>  1   <br><br>  0   <br><br>  1   <br><br>  0   <br><br>  1   <br><br>  1   <br><br>  0   <br><br>  0<br><br><br>  1   <br><br>  1   <br><br>  0   <br><br>  1   <br><br>  1   <br><br>  1   <br><br>  0   <br><br>  0<br><br><br>  1   <br><br>  1   <br><br>  1   <br><br>  1   <br><br>  1   <br><br>  1   <br><br>  0   <br><br>  0
+2/ Phép tuyển ( A v B ) :
+
+   A    B     A v B 
+|| 0 || 0 ||    0    ||
+|| 0 || 1 ||    1    ||
+|| 1 || 0 ||    1    ||
+|| 1 || 1 ||    1    ||
+
+3/ Phép kéo theo ( A -> B ) :
+
+   A    B      A -> B 
+|| 0 || 0 ||     1    ||
+|| 0 || 1 ||     1    ||
+|| 1 || 0 ||     0    ||
+|| 1 || 1 ||     1    ||
+
+4/ Phép tương đương ( A <-> B ) :
+
+   A    B     A <-> B 
+|| 0 || 0 ||     1     ||
+|| 0 || 1 ||     0     ||
+|| 1 || 0 ||     0     ||
+|| 1 || 1 ||     1     || 
+
+5/ Phép phủ định ( - A ) :
+
+   A      - A
+|| 0 ||    1   ||
+|| 1 ||    0   ||
+
+* Thiết lập bảng chân trị cho biểu thức luận lý như sau (cho ví dụ) :
+
+BT = [ (A ^ B) -> (A v C) ] <-> [ - A ]
+
+- Ta có : n = 3 phần tử là : A,B và C.Các phần tử cũng được xem là một biểu thức nhỏ trong biểu thức (BT) lớn...
+
+- Ta có : sl = 5 biểu thức nhỏ tạo từ n phần tử hoặc từ các biểu thức nhỏ hơn kết hợp thành.Ta tiến hành tách chia các biểu thức nhỏ trong biểu thức lớn  (BT) như sau :
+
++ Biểu thức 1 (BT1) : A ^ B
+
++ Biểu thức 2 (BT2) : A v C
+
++ Biểu thức 3 (BT3) :  (A ^ B) -> (A v C)
+                       = BT1 -> BT2
+
+ + Biểu thức 4 (BT1) : - A
+
++ Biểu thức 5 : [ (A ^ B) -> (A v C) ] <-> [ - A ]
+                = BT3 <-> BT4
+=> Biểu thức 5 (BT5) là biểu thức lớn (BT) cần tìm theo yêu cầu đề bài...
+
+* Lập bảng chân trị cho BT = BT5 :
+
+    A       B       C       BT1    BT2     BT3     BT4      BT
+||  0   ||  0   ||  0   ||  0   ||  0   ||  1   ||  1   ||  1
+||  0   ||  0   ||  1   ||  0   ||  1   ||  1   ||  1   ||  1
+||  0   ||  1   ||  0   ||  0   ||  0   ||  1   ||  1   ||  1
+||  0   ||  1   ||  1   ||  0   ||  1   ||  1   ||  1   ||  1
+||  1   ||  0   ||  0   ||  0   ||  1   ||  1   ||  0   ||  0
+||  1   ||  0   ||  1   ||  0   ||  1   ||  1   ||  0   ||  0
+||  1   ||  1   ||  0   ||  1   ||  1   ||  1   ||  0   ||  0
+||  1   ||  1   ||  1   ||  1   ||  1   ||  1   ||  0   ||  0
+ </pre>
 
 ******************************************************************************************************************************************************************************
 

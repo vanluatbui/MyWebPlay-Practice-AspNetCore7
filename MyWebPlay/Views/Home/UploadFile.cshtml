@@ -1,4 +1,34 @@
 ﻿<script>
+
+     function xemfile(event)
+    {
+        var ulx = document.getElementById("ulx");
+        var files = event.target.files;
+        ulx.innerHTML = "";
+
+        for (var i=0; i< files.length; i++)
+        {
+            var item = document.createElement("li");
+            item.innerHTML = files[i].name;
+            ulx.appendChild(item);
+        }
+
+   }
+
+     function xemfilex(event)
+    {
+        var ulx = document.getElementById("ulx1");
+        var files = event.target.files;
+        ulx.innerHTML = "";
+
+        for (var i=0; i< files.length; i++)
+        {
+            var item = document.createElement("li");
+            item.innerHTML = files[i].name;
+            ulx.appendChild(item);
+        }
+
+   }
     function changePass()
     {
         var hidePass = document.getElementById("hidePass");
@@ -52,15 +82,22 @@
         var fileXY = document.getElementById("fileYX");
         var folderXY = document.getElementById("folderYX");
 
+        var fileS = document.getElementById("fileS");
+        var fileSS = document.getElementById("fileSS");
+
         if (chon2.selectedIndex == 0)
         {
         DK2.value = 1;
         folderXY.style.display = "none";
         fileXY.style.display = "inline-block";
+        fileS.style.display = "inline-block";
+        fileSS.style.display = "none";
         }
         else
         if (chon2.selectedIndex == 1)
         {
+         fileS.style.display = "none";
+        fileSS.style.display = "inline-block";
          folderXY.style.display = "inline-block";
         fileXY.style.display = "none";
         DK2.value = 2;
@@ -256,7 +293,7 @@
                 <td></td>
                 <td>
                     <br>
-                    <b>Nhập mật mã nếu muốn tắt chức năng lưu trữ hoặc bỏ qua (Admin)...</b>
+                    <b>Nhập mật mã nếu muốn tắt chức năng/chế độ lưu trữ hoặc bỏ qua (Admin)...</b>
                     <br>
                     <input onchange="changePass()" id="hidePass" type="Password" name="Admin" size="50" value="@TempData["Password"]" />
                     <input style="display:none" name="AdminX" id="showPass" onchange="changePassX()" type="text" size="50" value="@TempData["Password"]" />
@@ -336,8 +373,23 @@
                          <br>
                      @if (ViewBag.X == 0)
                      {
-                        <input type="file" id="fileYX" name="fileUpload" multiple>
-                        <input type="file" id="folderYX" style="display:none" name="fileUpload" webkitdirectory multiple>
+                        <input onchange="return xemfile(event)" type="file" id="fileYX" name="fileUpload" multiple>
+                        <input onchange="return xemfilex(event)" type="file" id="folderYX" style="display:none" name="fileUpload" webkitdirectory multiple>
+                         <br><br>
+
+            <div id="fileS">
+                    <h4 style="color:pink">Danh sách các file bạn đã chọn :</h4>
+
+<ul id="ulx">
+</ul>
+</div>
+
+           <div id="fileSS" style="display:none">
+                    <h4 style="color:pink">Danh sách các file (all and sub folder) bạn đã chọn :</h4>
+
+<ul id="ulx1">
+</ul>
+</div>
                     }
                     else
                     {
@@ -370,7 +422,7 @@
                 <td></td>
                 <td>
                     <br>
-                    <b>Mời bạn lựa chọn dịch vụ lưu trữ Admin (nếu có) (1 : Tất cả | 2 : Gmail | 3 : Mega.io)</b>
+                    <b>Mời bạn lựa chọn dịch vụ lưu trữ Admin (nếu có - trừ khi bạn chọn tắt chế độ lưu trữ ở trên) [1 : Tất cả | 2 : Gmail | 3 : Mega.io]</b>
                     <br>
                      <select id="chonXY" onchange="PlayChonXY()">
                          <option>Tất cả</option>

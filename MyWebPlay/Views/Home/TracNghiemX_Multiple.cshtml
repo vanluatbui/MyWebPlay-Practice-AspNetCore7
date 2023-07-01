@@ -4,6 +4,22 @@
         if ( document.getElementById("ticky").checked)
         alert("XIN LƯU Ý :\n\n- Đây không phải là một bài kiểm tra - thi - test\n\n- Hệ thống không quan tâm sự đúng sai các đáp án bạn tự đánh giá tại đây\n\n- Hiện tại file trắc nghiệm của bạn đang sử dụng chưa có đáp án, bạn đang sử dụng tính năng này để setting answer lại vào file của bạn (dựa vào answer bạn sẽ đánh giá ở đây)...\n\n- Bạn hãy tự quan tâm đến độ chính xác đáp án của bạn nhé!");
     }
+
+     function xemfile(event)
+    {
+        var ulx = document.getElementById("ulx");
+        ulx.innerHTML = "";
+
+        var files = event.target.files;
+
+        for (var i=0; i< files.length; i++)
+        {
+            var item = document.createElement("li");
+            item.innerHTML = files[i].name;
+            ulx.appendChild(item);
+        }
+
+   }
 </script>
 
 <table align="center">
@@ -59,9 +75,14 @@
                     <br>
                     <b> Đưa tất cả các file trắc nghiệm (chương bài học) của bạn vào cùng 1 thư mục sau đó sẽ dễ dàng kéo tất cả các file vào đây...</b>
                     <br>
-                    <input type="file" name="txtFile" multiple/>  <b>@Html.ActionLink("Bạn chưa có file trắc nghiệm?","CreateFile_TracNghiem")</b>
+                    <input type="file" onchange="return xemfile(event)" name="txtFile" multiple/>  <b>@Html.ActionLink("Bạn chưa có file trắc nghiệm?","CreateFile_TracNghiem")</b>
                    <br>
                     <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+                     <br><br>
+                    <h4 style="color:pink">Danh sách các file bạn đã chọn :</h4>
+
+<ul id="ulx">
+</ul>
                 </td>
             </tr>
 
@@ -69,7 +90,7 @@
                 <td></td>
                 <td>
                     <br>
-                    <input type="checkbox" name="txtTick" id="ticky" /> <b style="color:pink">File trắc nghiệm của tôi hiện chưa có đáp án</b>
+                    <input type="checkbox" name="txtTick" id="ticky" /> <b style="color:yellow">File trắc nghiệm của tôi hiện chưa có đáp án</b>
                     <br>
                     <p style="color:lawngreen">Sử dụng tính năng này với mục đích setting/update answer trắc nghiệm vào file của bạn bằng cách chơi trực tiếp!</p>
                 </td>

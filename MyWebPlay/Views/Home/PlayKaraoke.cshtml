@@ -7,6 +7,18 @@
     var you = false;
     var youX = false;
 
+    function PlayY()
+    {
+        if (document.getElementById("music").currentTime != document.getElementById("musix").currentTime)
+        document.getElementById("music").currentTime = document.getElementById("musix").currentTime;
+    }
+
+     function PlayZ()
+    {
+        if (document.getElementById("music").currentTime != document.getElementById("musix").currentTime)
+        document.getElementById("musix").currentTime = document.getElementById("music").currentTime;
+    }
+
     function PlayKaraoke()
     {
         if (document.getElementById("music").currentTime != document.getElementById("musix").currentTime)
@@ -195,11 +207,11 @@
 
 </script>
 
-<audio id="music" autoplay hidden  onplay="PlayKaraoke()" onpause="PlayXKaraoke()" onended="StopKaraoke()">
+<audio id="music" autoplay hidden  onplay="PlayKaraoke()" onplaying="PlayY()" onpause="PlayXKaraoke()" onended="StopKaraoke()">
     <source src="@ViewBag.Music" type="audio/mpeg">
 </audio>
 
-<audio id="musix" autoplay hidden muted onplay="PlayKaraokeX()" onpause="PlayXKaraokeX()">
+<audio id="musix" autoplay hidden muted onplay="PlayKaraokeX()" onplaying="PlayZ()" onpause="PlayXKaraokeX()" onended="StopKaraoke()">
     <source src="@ViewBag.Musix" type="audio/mpeg">
 </audio>
 

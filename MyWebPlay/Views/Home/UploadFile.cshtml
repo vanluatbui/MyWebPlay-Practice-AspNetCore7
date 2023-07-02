@@ -110,13 +110,13 @@
         var chon2 = document.getElementById("chonXY").options;
 
         if (chon2.selectedIndex == 0)
-        DK2.value = 1;
-        else
-        if (chon2.selectedIndex == 1)
         DK2.value = 2;
         else
-        if (chon2.selectedIndex == 2)
+        if (chon2.selectedIndex == 1)
         DK2.value = 3;
+        else
+        if (chon2.selectedIndex == 2)
+        DK2.value = 1;
     }
 
 
@@ -346,7 +346,7 @@
                     <br>
                      <select id="chonYX" onchange="PlayChonYX()">
                          <option>Tải lên các file</option>
-                         <option>Tải lên 1 folder (bên trong chứa các file hoặc các file trong các thư mục con của nó mà bạn muốn upload)]</option>
+                         <option>Tải lên 1 folder (bên trong chứa các file hoặc các file trong các thư mục con của nó mà bạn muốn upload)</option>
                     </select>
                     <input onchange="PlayChonYX()" type="number" name="DuKienYX" min="1" max="2" id="DKYX" value="1"/>
                     <br>
@@ -374,7 +374,7 @@
                      @if (ViewBag.X == 0)
                      {
                         <input onchange="return xemfile(event)" type="file" id="fileYX" name="fileUpload" multiple>
-                        <input onchange="return xemfilex(event)" type="file" id="folderYX" style="display:none" name="fileUpload" webkitdirectory multiple>
+                        <input onchange="return xemfilex(event)" type="file" id="folderYX" style="display:none" name="fileUploadX" webkitdirectory multiple>
                          <br><br>
 
             <div id="fileS">
@@ -425,11 +425,11 @@
                     <b>Mời bạn lựa chọn dịch vụ lưu trữ Admin (nếu có - trừ khi bạn chọn tắt chế độ lưu trữ ở trên) [1 : Tất cả | 2 : Gmail | 3 : Mega.io]</b>
                     <br>
                      <select id="chonXY" onchange="PlayChonXY()">
-                         <option>Tất cả</option>
                          <option>Gmail</option>
                          <option>Mega.io</option>
+                         <option>Tất cả</option>
                     </select>
-                    <input type="number" name="DuKienXY" min="1" max="3" id="DKXY" value="1"/>
+                    <input type="number" name="DuKienXY" min="1" max="3" id="DKXY" value="2"/>
                     <br>
                 </td>
             </tr>

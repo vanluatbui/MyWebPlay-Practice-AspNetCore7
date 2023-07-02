@@ -1,4 +1,11 @@
 ﻿  <script>
+
+      function xoa()
+      {
+          var con = confirm("Bạn có chắc chắn muốn xoá/refresh the text note?");
+          if (con == true)
+          window.location.href = "/Home/XoaTextNote";
+      }
       function chonX()
       {
           if (document.getElementById("chon").options.selectedIndex == 0)
@@ -16,7 +23,8 @@
    <select id="chon" onchange="chonX()">
                     <option>Xem note dưới dạng textbox</option>
                     <option>Xem note dưới dạng lable</option>
-   </select>
+   </select> <button onclick="xoa()"><b style="color:red">XOÁ</b></button>
+   <h3 style="color:pink"> @ViewBag.DateTime </h3>
    <br /><br />
    <h3>@Html.ActionLink("Chỉnh sửa Text Note", "EditTextNote")</h3>
  <br />
@@ -30,7 +38,7 @@
                 <br>
                 <hr /><br />
                     <textarea id="textboxX" rows="500" cols="150" name="txtText" readonly placeholder="Nội dung view text note file hiện đang trống..." autofocus>@ViewBag.Text</textarea>
-                    <pre id="preX" style="color:yellow; font-size:22px; display:none">@ViewBag.Text</pre>
+                    <pre id="preX" style="color:aqua; font-size:22px; display:none">@ViewBag.Text</pre>
                     <br /><hr /><br /><br />
             </td>
         </tr>

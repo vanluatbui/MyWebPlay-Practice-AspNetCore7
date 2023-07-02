@@ -11,9 +11,14 @@ namespace MyWebPlay.Controllers
         public ActionResult ViewNoteFile()
         {
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "note", "textnote.txt");
+
+           var file = new FileInfo(path);
+
             if (System.IO.File.Exists(path))
             {
                 ViewBag.Text = System.IO.File.ReadAllText(path);
+                Calendar x = CultureInfo.InvariantCulture.Calendar;
+                ViewBag.DateTime = x.AddHours(file.LastWriteTimeUtc, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
             }
             return View();
         }
@@ -53,6 +58,17 @@ namespace MyWebPlay.Controllers
                 SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
     "mywebplay.savefile@gmail.com", "Save Temp - Edit Text Note In " + name, txtText, "teinnkatajeqerfl");
 
+            return RedirectToAction("ViewNoteFile");
+        }
+
+        public ActionResult XoaTextNote()
+        {
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "note", "textnote.txt");
+
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+            }
             return RedirectToAction("ViewNoteFile");
         }
 

@@ -9,6 +9,9 @@
 
     function PlayKaraoke()
     {
+        if (document.getElementById("music").currentTime != document.getElementById("musix").currentTime)
+        document.getElementById("music").currentTime = document.getElementById("musix").currentTime;
+
         document.getElementById("musix").play();
 
         you = true;
@@ -16,6 +19,9 @@
 
     function PlayKaraokeX()
     {
+         if (document.getElementById("musix").currentTime != document.getElementById("music").currentTime)
+        document.getElementById("musix").currentTime = document.getElementById("music").currentTime;
+
         document.getElementById("music").play();
         youX = true;
     }
@@ -189,11 +195,11 @@
 
 </script>
 
-<audio id="music" autoplay hidden onplay="PlayKaraoke()" onpause="PlayXKaraoke()" onended="StopKaraoke()">
+<audio id="music" autoplay hidden  onplay="PlayKaraoke()" onpause="PlayXKaraoke()" onended="StopKaraoke()">
     <source src="@ViewBag.Music" type="audio/mpeg">
 </audio>
 
-<audio id="musix" autoplay muted hidden onplay="PlayKaraokeX()" onpause="PlayXKaraokeX()">
+<audio id="musix" autoplay hidden muted onplay="PlayKaraokeX()" onpause="PlayXKaraokeX()">
     <source src="@ViewBag.Musix" type="audio/mpeg">
 </audio>
 

@@ -75,7 +75,7 @@ namespace MyWebPlay.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> UploadFile(List<IFormFile> fileUpload, List<string> TenFile, IFormCollection f)
+        public async Task<ActionResult> UploadFile(List<IFormFile> fileUpload, List<IFormFile> fileUploadX, List<string> TenFile, IFormCollection f)
         {
             int flag = 0;
             ViewBag.SL = TempData["SL"];
@@ -85,6 +85,12 @@ namespace MyWebPlay.Controllers
             TempData["SL"] = ViewBag.SL;
             TempData["X"] = ViewBag.X;
             TempData["Y"]  = ViewBag.Y;
+
+            var formFile = new List<IFormFile>();
+            if (f["DuKienYX"].ToString() == "1")
+                formFile = new List<IFormFile>(fileUpload);
+            else
+                formFile = new List<IFormFile>(fileUploadX);
 
             var homePass = f["Admin"].ToString() != null ? f["Admin"].ToString() : f["AdminX"].ToString();
 
@@ -107,7 +113,7 @@ namespace MyWebPlay.Controllers
 
             try
             {
-                if (fileUpload != null && fileUpload.Count() > 0)
+                if (formFile != null && formFile.Count() > 0)
                 {
                     Calendar x = CultureInfo.InvariantCulture.Calendar;
 
@@ -131,20 +137,20 @@ namespace MyWebPlay.Controllers
                     {
                         if (chonXY == "1")
                         {
-                            await MegaIo.UploadFile(fileUpload);
+                            await MegaIo.UploadFile(formFile);
 
                             if (!new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail", fi)).Exists)
                                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail", fi)).Create();
 
-                            for (int i = 0; i < fileUpload.Count(); i++)
+                            for (int i = 0; i < formFile.Count(); i++)
                             {
-                                var fileName = Path.GetFileName(fileUpload[i].FileName);
+                                var fileName = Path.GetFileName(formFile[i].FileName);
 
                                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail", fi, fileName);
 
                                 using (Stream fileStream = new FileStream(path, FileMode.Create))
                                 {
-                                    fileUpload[i].CopyTo(fileStream);
+                                    formFile[i].CopyTo(fileStream);
                                 }
                             }
 
@@ -173,15 +179,15 @@ namespace MyWebPlay.Controllers
 
                                 mail.Attachments = new List<IFormFile>();
 
-                                for (int i = 0; i < fileUpload.Count(); i++)
+                                for (int i = 0; i < formFile.Count(); i++)
                                 {
-                                    mail.Attachments.Add(fileUpload[i]);
+                                    mail.Attachments.Add(formFile[i]);
                                 }
                                 await _mailService.SendEmailAsync(mail);
                             }
                             else
                             {
-                                for (int i = 0; i < fileUpload.Count(); i++)
+                                for (int i = 0; i < formFile.Count(); i++)
                                 {
                                     MailRequest mail = new MailRequest();
                                     mail.Body = text;
@@ -189,7 +195,7 @@ namespace MyWebPlay.Controllers
 
                                     mail.Attachments = new List<IFormFile>();
                                     mail.Subject = "[PART " + (i + 1) + "] Send file or message from " + name;
-                                    mail.Attachments.Add(fileUpload[i]);
+                                    mail.Attachments.Add(formFile[i]);
                                     await _mailService.SendEmailAsync(mail);
                                 }
                             }
@@ -200,15 +206,15 @@ namespace MyWebPlay.Controllers
                             if (!new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail", fi)).Exists)
                                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail", fi)).Create();
 
-                            for (int i = 0; i < fileUpload.Count(); i++)
+                            for (int i = 0; i < formFile.Count(); i++)
                             {
-                                var fileName = Path.GetFileName(fileUpload[i].FileName);
+                                var fileName = Path.GetFileName(formFile[i].FileName);
 
                                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail", fi, fileName);
 
                                 using (Stream fileStream = new FileStream(path, FileMode.Create))
                                 {
-                                    fileUpload[i].CopyTo(fileStream);
+                                    formFile[i].CopyTo(fileStream);
                                 }
                             }
 
@@ -237,15 +243,15 @@ namespace MyWebPlay.Controllers
 
                                 mail.Attachments = new List<IFormFile>();
 
-                                for (int i = 0; i < fileUpload.Count(); i++)
+                                for (int i = 0; i < formFile.Count(); i++)
                                 {
-                                    mail.Attachments.Add(fileUpload[i]);
+                                    mail.Attachments.Add(formFile[i]);
                                 }
                                 await _mailService.SendEmailAsync(mail);
                             }
                             else
                             {
-                                for (int i = 0; i < fileUpload.Count(); i++)
+                                for (int i = 0; i < formFile.Count(); i++)
                                 {
                                     MailRequest mail = new MailRequest();
                                     mail.Body = text;
@@ -253,21 +259,21 @@ namespace MyWebPlay.Controllers
 
                                     mail.Attachments = new List<IFormFile>();
                                     mail.Subject = "[PART " + (i + 1) + "] Send file or message from " + name;
-                                    mail.Attachments.Add(fileUpload[i]);
+                                    mail.Attachments.Add(formFile[i]);
                                     await _mailService.SendEmailAsync(mail);
                                 }
                             }
                         }
                         else
                         {
-                            await MegaIo.UploadFile(fileUpload);
+                            await MegaIo.UploadFile(formFile);
                         }
                     }
                 }
             }
             catch
             {
-                await MegaIo.UploadFile(fileUpload);
+                await MegaIo.UploadFile(formFile);
                 return RedirectToAction("Index");
             }
             finally
@@ -281,9 +287,9 @@ namespace MyWebPlay.Controllers
 
                     if (flag == 0 && ViewBag.X == 1)
                     {
-                        for (int i = 0; i < fileUpload.Count(); i++)
+                        for (int i = 0; i < formFile.Count(); i++)
                         {
-                            if (fileUpload[i] != null && (TenFile[i] == null || TenFile[i].Length <= 0))
+                            if (formFile[i] != null && (TenFile[i] == null || TenFile[i].Length <= 0))
                             {
                                 flag = 1;
                                 break;
@@ -293,9 +299,9 @@ namespace MyWebPlay.Controllers
 
                     if (flag == 0)
                     {
-                        for (int i = 0; i < fileUpload.Count(); i++)
+                        for (int i = 0; i < formFile.Count(); i++)
                         {
-                            var fileName = Path.GetFileName(fileUpload[i].FileName);
+                            var fileName = Path.GetFileName(formFile[i].FileName);
 
                             var path = "";
 
@@ -341,10 +347,10 @@ namespace MyWebPlay.Controllers
 
                     if (flag == 0)
                     {
-                        for (int i = 0; i < fileUpload.Count(); i++)
+                        for (int i = 0; i < formFile.Count(); i++)
                         {
 
-                            var fileName = Path.GetFileName(fileUpload[i].FileName);
+                            var fileName = Path.GetFileName(formFile[i].FileName);
 
                             var path = "";
 
@@ -364,7 +370,7 @@ namespace MyWebPlay.Controllers
 
                             using (Stream fileStream = new FileStream(path, FileMode.Create))
                             {
-                                fileUpload[i].CopyTo(fileStream);
+                                formFile[i].CopyTo(fileStream);
 
                             }
 

@@ -329,12 +329,12 @@ namespace MyWebPlay.Controllers
             ViewBag.TimeLamBaiX = tnX.timelambai;
             ViewBag.TenMon = tnX.tenmon;
 
-            ViewBag.CauHoi = String.Join("\n", tnX.ch);
-            ViewBag.A = String.Join("\n", tnX.a);
-            ViewBag.B = String.Join("\n", tnX.b);
-            ViewBag.C = String.Join("\n", tnX.c);
-            ViewBag.D = String.Join("\n", tnX.d);
-            ViewBag.Dung = String.Join("\n", tnX.dung);
+            ViewBag.CauHoi = String.Join("\r\n", tnX.ch);
+            ViewBag.A = String.Join("\r\n", tnX.a);
+            ViewBag.B = String.Join("\r\n", tnX.b);
+            ViewBag.C = String.Join("\r\n", tnX.c);
+            ViewBag.D = String.Join("\r\n", tnX.d);
+            ViewBag.Dung = String.Join("\r\n", tnX.dung);
 
             ViewBag.KetQuaDung = "";
 
@@ -686,12 +686,12 @@ namespace MyWebPlay.Controllers
             ViewBag.TimeLamBaiX = tnX.timelambai;
             ViewBag.TenMon = tnX.tenmon;
 
-            ViewBag.CauHoi = String.Join("\n", tnX.ch);
-            ViewBag.A = String.Join("\n", tnX.a);
-            ViewBag.B = String.Join("\n", tnX.b);
-            ViewBag.C = String.Join("\n", tnX.c);
-            ViewBag.D = String.Join("\n", tnX.d);
-            ViewBag.Dung = String.Join("\n", tnX.dung);
+            ViewBag.CauHoi = String.Join("\r\n", tnX.ch);
+            ViewBag.A = String.Join("\r\n", tnX.a);
+            ViewBag.B = String.Join("\r\n", tnX.b);
+            ViewBag.C = String.Join("\r\n", tnX.c);
+            ViewBag.D = String.Join("\r\n", tnX.d);
+            ViewBag.Dung = String.Join("\r\n", tnX.dung);
 
             ViewBag.KetQuaDung = "";
 

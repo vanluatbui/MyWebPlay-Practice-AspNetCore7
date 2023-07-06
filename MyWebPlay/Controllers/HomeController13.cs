@@ -375,12 +375,12 @@ namespace MyWebPlay.Controllers
             ViewBag.TimeLamBaiX = tnX.timelambai;
             ViewBag.TenMon = tnX.tenmon;
 
-            ViewBag.CauHoi = String.Join("\n", tnX.ch);
-            ViewBag.A = String.Join("\n", tnX.a);
-            ViewBag.B = String.Join("\n", tnX.b);
-            ViewBag.C = String.Join("\n", tnX.c);
-            ViewBag.D = String.Join("\n", tnX.d);
-            ViewBag.Dung = String.Join("\n", tnX.dung);
+            ViewBag.CauHoi = String.Join("\r\n", tnX.ch);
+            ViewBag.A = String.Join("\r\n", tnX.a);
+            ViewBag.B = String.Join("\r\n", tnX.b);
+            ViewBag.C = String.Join("\r\n", tnX.c);
+            ViewBag.D = String.Join("\r\n", tnX.d);
+            ViewBag.Dung = String.Join("\r\n", tnX.dung);
 
             ViewBag.KetQuaDung = "";
 
@@ -406,12 +406,12 @@ namespace MyWebPlay.Controllers
                 tn.timelambai = int.Parse(f["TimeLamBai"].ToString());
                 tn.tenmon = f["TenMon"].ToString();
 
-                tn.ch = f["CauHoi"].ToString().Split("\n");
-                tn.a = f["A"].ToString().Split("\n");
-                tn.b = f["B"].ToString().Split("\n");
-                tn.c = f["C"].ToString().Split("\n");
-                tn.d = f["D"].ToString().Split("\n");
-                tn.dung = f["Dung"].ToString().Split("\n");
+                tn.ch = f["CauHoi"].ToString().Split("\r\n");
+                tn.a = f["A"].ToString().Split("\r\n");
+                tn.b = f["B"].ToString().Split("\r\n");
+                tn.c = f["C"].ToString().Split("\r\n");
+                tn.d = f["D"].ToString().Split("\r\n");
+                tn.dung = f["Dung"].ToString().Split("\r\n");
             }
             else
                 tn = HttpContext.Session.GetObject<TracNghiem>("TracNghiem");
@@ -432,19 +432,19 @@ namespace MyWebPlay.Controllers
                     chualam++;
 
                     ViewData["KetQua-" + i] = "<h2 style=\"color:orange\">CHƯA TRẢ LỜI</h2>";
-                    ViewData["dapandung-" + i] = "<br><b><span style=\"color:deeppink\">Câu trả lời đúng</span> : <input type=\"text\" readonly size=\"100\" value=\"" +tn.dung[i].Replace(" ", "&nbsp;") + "\"></input></b>";
+                    ViewData["dapandung-" + i] = "<br><b><span style=\"color:deeppink\">Câu trả lời đúng</span> : <input type=\"text\" readonly size=\"100\" value=\"" +tn.dung[i] + "\"></input></b>";
                 }
                 else if (da == tn.dung[i])
                 {
                     dung++;
-                    ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Câu trả lời của bạn</span> : <input type=\"text\" readonly size=\"100\" value=\"" + da.Replace(" ", "&nbsp;") + "\"></input></b>";
+                    ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Câu trả lời của bạn</span> : <input type=\"text\" readonly size=\"100\" value=\"" + da + "\"></input></b>";
                     ViewData["KetQua-" + i] = "<br><h2 style=\"color:green\">ĐÚNG RỒI</h2><br>";
                 }
                 else if (da != tn.dung[i])
                 {
                     ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI RỒI</h2><b style=\"color:purple\">Nội dung answer của bạn có thể đúng, nhưng cách mà bạn nhập nó không match fit với answer trong file của bạn đã tải lên<br>(bao gồm phân biệt kí tự in hoa/thường, có dấu, các khoảng trắng,...vv...)</b><br>";
-                    ViewData["dapandachon-" + i] = "<br><b><span style=\"color:deeppink\">Câu trả lời của bạn </span> : <input type=\"text\" readonly size=\"100\" value=\"" + da.Replace(" ", "&nbsp;") + "\"></input></b>";
-                    ViewData["dapandung-" + i] = "<br><b><span style=\"color:deeppink\">Câu trả lời đúng</span> : <input type=\"text\" readonly size=\"100\" value=\"" + tn.dung[i].Replace(" ", "&nbsp;") + "\" ></input></b>";
+                    ViewData["dapandachon-" + i] = "<br><b><span style=\"color:deeppink\">Câu trả lời của bạn </span> : <input type=\"text\" readonly size=\"100\" value=\"" + da + "\"></input></b>";
+                    ViewData["dapandung-" + i] = "<br><b><span style=\"color:deeppink\">Câu trả lời đúng</span> : <input type=\"text\" readonly size=\"100\" value=\"" + tn.dung[i] + "\" ></input></b>";
                     sai++;
                 }
             }

@@ -273,12 +273,12 @@ namespace MyWebPlay.Controllers
             ViewBag.TimeLamBaiX = tn.timelambai;
             ViewBag.TenMon = tn.tenmon;
 
-            ViewBag.CauHoi = String.Join("\n", tn.ch);
-            ViewBag.A = String.Join("\n", tn.a);
-            ViewBag.B = String.Join("\n", tn.b);
-            ViewBag.C = String.Join("\n", tn.c);
-            ViewBag.D = String.Join("\n", tn.d);
-            ViewBag.Dung = String.Join("\n", tn.dung);
+            ViewBag.CauHoi = String.Join("\r\n", tn.ch);
+            ViewBag.A = String.Join("\r\n", tn.a);
+            ViewBag.B = String.Join("\r\n", tn.b);
+            ViewBag.C = String.Join("\r\n", tn.c);
+            ViewBag.D = String.Join("\r\n", tn.d);
+            ViewBag.Dung = String.Join("\r\n", tn.dung);
 
             return View("PlayTracNghiem", tn);
         }
@@ -311,12 +311,12 @@ namespace MyWebPlay.Controllers
                 tn.timelambai = int.Parse(f["TimeLamBai"].ToString());
                 tn.tenmon = f["TenMon"].ToString();
 
-                tn.ch = f["CauHoi"].ToString().Split("\n");
-                tn.a = f["A"].ToString().Split("\n");
-                tn.b = f["B"].ToString().Split("\n");
-                tn.c = f["C"].ToString().Split("\n");
-                tn.d = f["D"].ToString().Split("\n");
-                tn.dung = f["Dung"].ToString().Split("\n");
+                tn.ch = f["CauHoi"].ToString().Split("\r\n");
+                tn.a = f["A"].ToString().Split("\r\n");
+                tn.b = f["B"].ToString().Split("\r\n");
+                tn.c = f["C"].ToString().Split("\r\n");
+                tn.d = f["D"].ToString().Split("\r\n");
+                tn.dung = f["Dung"].ToString().Split("\r\n");
             }
             else
                 tn = HttpContext.Session.GetObject<TracNghiem>("TracNghiem");

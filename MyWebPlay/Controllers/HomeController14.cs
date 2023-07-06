@@ -32,6 +32,8 @@ namespace MyWebPlay.Controllers
 
             ViewBag.Karaoke = "";
 
+            ViewBag.Show = "show";
+
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", fileName);
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", nameFile);
 

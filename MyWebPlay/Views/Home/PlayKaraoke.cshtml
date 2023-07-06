@@ -1,5 +1,70 @@
-﻿<meta charset="ISO-8859-1">
+﻿@if (ViewBag.Show != null && ViewBag.Show == "show")
+{
+    Layout = null;
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MyWebPlay</title>
+
+ <style>
+/* Safari syntax */
+:-webkit-full-screen {
+  background-color: white;
+}
+
+/* IE11 */
+:-ms-fullscreen {
+  background-color: white;
+}
+
+/* Standard syntax */
+:fullscreen {
+  background-color: white;
+}
+
+</style>
+</head>
+
+<body>
+<meta charset="ISO-8859-1">
 <script>
+
+     var elem = document.documentElement;
+
+        function loadsolar()
+        {
+            var xanh = document.getElementById("xanh");
+            if ('@ViewBag.Show' == "show")
+            {
+                if (xanh.innerHTML == "<b>FULL MÀN HÌNH - OFF</b>")
+                {
+                    if (elem.requestFullscreen)
+                    elem.requestFullscreen();
+                     else if (elem.webkitRequestFullscreen) /* Safari */
+                    elem.webkitRequestFullscreen();
+                   else if (elem.msRequestFullscreen) /* IE11 */
+                    elem.msRequestFullscreen();
+
+                    xanh.innerHTML = "<b>FULL MÀN HÌNH - ON</b>";
+                }
+                else 
+                {
+
+                    if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.webkitExitFullscreen) { /* Safari */
+    document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) { /* IE11 */
+    document.msExitFullscreen();
+  }
+
+                    xanh.innerHTML = "<b>FULL MÀN HÌNH - OFF</b>";
+                }
+            }
+        }
 
     if ('@ViewBag.Karaoke' == "karaoke")
     alert("Bạn nên trải nghiệm tính năng này trên máy tính (PC), laptop,... nhé 😄\nLưu ý : trong khi đang trải nghiệm Karaoke, bạn không nên refresh lại trang để tránh mất dữ liệu!");
@@ -191,13 +256,13 @@
                 {
                     var ct1 = kara1.substring(0,h_le[kf]).toUpperCase().replace("UNDEFINED","");
                     var ct2 = kara1.substring(h_le[kf], kara1.length).toUpperCase().replace("UNDEFINED","");
-                    document.getElementById("txtKaraoke1").innerHTML = "<span style=\"color:yellow\">"+ct1+"</span><span>"+ct2+"</span>"
+                    document.getElementById("txtKaraoke1").innerHTML = "<span style=\"color:red\">"+ct1+"</span><span>"+ct2+"</span>"
                 }
                 else
                 {
                     var ct1 = kara2.substring(0, h_le[kf] - kara1.length - 2).toUpperCase().replace("UNDEFINED","");
                     var ct2 = kara2.substring(h_le[kf] - kara1.length - 2, kara2.length).toUpperCase().replace("UNDEFINED","");
-                   document.getElementById("txtKaraoke2").innerHTML = "<span style=\"color:yellow\">"+ct1+"</span><span>"+ct2+"</span>"
+                   document.getElementById("txtKaraoke2").innerHTML = "<span style=\"color:red\">"+ct1+"</span><span>"+ct2+"</span>"
                 }
                 kf++;
 
@@ -299,14 +364,20 @@
 }
 else
 {
-    <table align="center">
+    <table align="center" onended="loadsolar()">
     <select id="chon" onchange="changeKara()">
         <option>Chế độ Karaoke</option>
         <option>Chế độ Ca sĩ hát</option>
     </select>
-    <h2 style="text-align:center;color:palevioletred">@ViewBag.Text</h2>
+    <br><br>
+    <button onclick="StopKaraoke()"><b style="color:darkgreen">THOÁT</b></button>&nbsp;&nbsp;<button style="color:brown" onclick="loadsolar()" id="xanh"><b>FULL MÀN HÌNH - OFF</b></button>
+    <h1 style="text-align:center;color:darkblue">@ViewBag.Text</h1>
 
     <br />
+
+    <br>
+
+    <br>
 
     <br>
 
@@ -320,7 +391,7 @@ else
                         <span id="number" style="color:green; font-size:70px"></span>
                         <br>
                           <span id="txtKaraoke1" style="font-size:100px"></span>
-                          <br>
+                          <br><br>
                           <span id="txtKaraoke2" style="font-size:100px"></span>
                 </td>
             </tr>
@@ -328,3 +399,5 @@ else
     
 </table>
 }
+</body>
+</html>

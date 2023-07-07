@@ -1,0 +1,157 @@
+﻿<script>
+
+    function changeSelect()
+    {
+        var selex = document.getElementById("selex").options.selectedIndex;
+        var shin = document.getElementById("shin");
+        var loai = document.getElementById("Loai");
+
+        if (selex == 0)
+        {
+        loai.value = "1";
+        shin.style.display = "inline-block";
+        }
+        else if (selex == 1)
+        {
+            shin.style.display = "none";
+        loai.value = "2";
+        }
+        else if (selex == 2)
+        {
+        loai.value = "3";
+        shin.style.display = "none";
+        }
+        else if (selex == 3)
+        {
+            shin.style.display = "inline-block";
+        loai.value = "4";
+        }
+        else if (selex == 4)
+        {
+            shin.style.display = "inline-block";
+        loai.value = "5";
+        }
+         else if (selex == 5)
+         {
+             shin.style.display = "inline-block";
+        loai.value = "6";
+         }
+    }
+
+     function changeSeles()
+    {
+        var selex = document.getElementById("seles").options.selectedIndex;
+        var loai = document.getElementById("Loas");
+
+        if (selex == 0)
+        {
+        loai.value = "1";
+        }
+        else if (selex == 1)
+        {        loai.value = "2";
+        }
+        else if (selex == 2)
+        {
+          loai.value = "3";
+        }
+        else if (selex == 3)
+        {
+           loai.value = "4";
+        }
+    }
+</script>
+
+<table align="center">
+    <h2 style="text-align:center">Find Value Check In SQL</h2>
+
+    <h3 style="color:yellow" onclick="muaxuan()">@ViewBag.KetQua</h3>
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <tr style="height:40px">
+            <td> </td>
+            <td>
+                <br>
+                    <b>Chuỗi các fields - kiểu dữ liệu của bạn (cách nhau bởi Enter và Tab) : <br>
+                    </b>
+                     <span style="color:red">LƯU Ý : hệ thống sẽ tự động phát hiện và phân lọc những fields không liên quan!</span>
+                     <br><br>
+                    <textarea cols="50" rows="12" name="txtFields">@ViewBag.ViDu</textarea>
+            </td>
+        </tr>
+
+        <tr style="height:40px">
+            <td> </td>
+            <td>
+                <br>
+                    <b>Nhập tên table hoặc view ... : <br>
+                    </b>
+                   <input type="text" name="txtTable" size="50" value="User"/>
+            </td>
+        </tr>
+
+        <tr style="height:40px">
+            <td> </td>
+            <td>
+                <br>
+                    <b>Nhập giá trị tìm kiếm : <br>
+                    </b>
+                   <input type="text" name="txtCheck" size="50" value="abc-xyz" />
+            </td>
+        </tr>
+
+         <tr style="height:40px">
+            <td> </td>
+            <td>
+                <br>
+                    <b>Mời bạn chọn phạm vi của giá trị tìm kiếm : <br>
+                    </b>
+                   <select id="selex" onchange="changeSelect()">
+                       <option>Chuỗi thường</option>
+                       <option>Dạng Số</option>
+                       <option>Date (dd/mm/yyyy)</option>
+                       <option>Chuỗi và số</option>
+                       <option>Chuỗi và ngày</option>
+                       <option>Chuỗi UTF8</option>
+                   </select>  
+                   <input type="number" value="1" min="1" max="6" name="txtLoai" id="Loai" />
+            </td>
+        </tr>
+
+         <tr style="height:40px">
+            <td> </td>
+            <td id="shin">
+                <br>
+                    <b>Mời bạn chọn kiểu so sánh phạm vi của giá trị tìm kiếm (chỉ áp dụng với kiểu chuỗi) : <br>
+                    </b>
+                   <select id="seles" onchange="changeSeles()">
+                       <option>Bằng đúng</option>
+                       <option>LIKE 'abc%'</option>
+                       <option>LIKE '%abc%'</option>
+                       <option>LIKE '%abc'</option>
+                   </select>  
+                   <input type="number" value="1" min="1" max="4" name="txtLoas" id="Loas" />
+            </td>
+        </tr>
+
+        <tr style="height:40px">
+            <td></td>
+            <td>
+                <input type="Submit" value="Kết Quả" />
+            </td>
+        </tr>
+    }
+</table>
+<br /><br />
+
+******************************************************************************************************************************************************************************
+
+<br />
+<br />
+<br />
+
+<div id="hihi">
+                @Html.Raw(ViewBag.Result)
+</div>

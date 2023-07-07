@@ -55,7 +55,14 @@
                                 kk += lbh[j];
                                 if (j < lbh.length - 1 && j != (lbh.length / 2) - 1)
                                     kk += " ";
-                                if (j == (lbh.length / 2) - 1)
+
+                                    var x = 0;
+                                    if (lbh.length % 2 != 0)
+                                    x = lbh.length + 1;
+                                    else
+                                    x = lbh.length;
+
+                                if (j == (x / 2) - 1)
                                     kk += "*";
                             }
                             ss += time_XuatHien[i] + "#" + kk + "#" + time_LuuVet[i];

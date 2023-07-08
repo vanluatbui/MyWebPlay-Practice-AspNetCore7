@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\karaoke\music\" />
+    <Folder Include="wwwroot\karaoke_Example\" />
     <Folder Include="wwwroot\zip-gmail\" />
   </ItemGroup>
 	

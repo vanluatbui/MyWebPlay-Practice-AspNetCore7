@@ -10,6 +10,42 @@
     <title>@ViewData["Title"] - MyWebPlay</title>
 
  <style>
+
+ .video-overlay{
+ position:absolute;
+z-index: 2;
+    position: relative;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial;
+  font-size: 17px;
+}
+
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%; 
+  min-height: 100%;
+}
+
+.content {
+  position: fixed;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+}
+
+/*---------------------------------------------*/
+
 /* Safari syntax */
 :-webkit-full-screen {
   background-color: white;
@@ -256,13 +292,13 @@
                 {
                     var ct1 = kara1.substring(0,h_le[kf]).toUpperCase().replace("UNDEFINED","");
                     var ct2 = kara1.substring(h_le[kf], kara1.length).toUpperCase().replace("UNDEFINED","");
-                    document.getElementById("txtKaraoke1").innerHTML = "<span style=\"color:red\">"+ct1+"</span><span>"+ct2+"</span>"
+                    document.getElementById("txtKaraoke1").innerHTML = "<span style=\"color:blue\">"+ct1+"</span><span>"+ct2+"</span>"
                 }
                 else
                 {
                     var ct1 = kara2.substring(0, h_le[kf] - kara1.length - 2).toUpperCase().replace("UNDEFINED","");
                     var ct2 = kara2.substring(h_le[kf] - kara1.length - 2, kara2.length).toUpperCase().replace("UNDEFINED","");
-                   document.getElementById("txtKaraoke2").innerHTML = "<span style=\"color:red\">"+ct1+"</span><span>"+ct2+"</span>"
+                   document.getElementById("txtKaraoke2").innerHTML = "<span style=\"color:blue\">"+ct1+"</span><span>"+ct2+"</span>"
                 }
                 kf++;
 
@@ -345,9 +381,9 @@
                     <td> </td>
                     <td>
                         <br>
-                            <b> Nhập tên bài hát - tên ca sĩ (VD : Lời Ca Khúc Dễ Thương - Ánh Xuân) : </b>
+                            <b> Tải lên video làm background karaoke của bạn (MP4 - nếu không sẽ lấy mặc định của hệ thống) : </b>
                         <br>
-                            <input type="text" name="txtBH" size="50"/>
+                            <input type="file" name="txtVideo" />
                         <br>
                     </td>
                 </tr>
@@ -364,14 +400,17 @@
 }
 else
 {
-    <table align="center" onended="loadsolar()">
+    <div  class="video-overlay">
+       <table align="center" onended="loadsolar()">
+ @*   <video autoplay muted loop id="myVideo">
+  <source src="~/karaoke_Example/XX.mp4" type="video/mp4">
+</video>*@
     <select id="chon" onchange="changeKara()">
         <option>Chế độ Karaoke</option>
         <option>Chế độ Ca sĩ hát</option>
     </select>&nbsp;&nbsp;&nbsp
     <button onclick="StopKaraoke()"><b style="color:darkgreen">THOÁT</b></button>&nbsp;&nbsp;&nbsp;<button style="color:brown" onclick="loadsolar()" id="xanh"><b>FULL MÀN HÌNH - OFF</b></button>
-    <h1 style="text-align:center;color:darkblue">@ViewBag.Text</h1>
-
+    
     <br />
 
     <br>
@@ -381,22 +420,56 @@ else
     <br>
 
     <br>
+    <br />
+
+    <br>
+    <br>
+
+    <br>
+
+    <br>
+
+    <br>
+    <br />
+
+    <br>
+
+    <br>
+    <br />
+        <br>
+    
+    <br>
+    <br />
+    <br>
+      <br />
+      <br>
+        <br>
+        <br>
+        <br>
+        <br>
     <input type="text" id="txtKara1" hidden>
     <input type="text" id="txtKara2" hidden>
 
     <tr style="height:40px">
                 <td></td>
                 <td>
-                        <span id="number" style="color:green; font-size:70px"></span>
+                       <span id="number" style="color:red; font-size:90px"></span>
                         <br>
-                          <span id="txtKaraoke1" style="font-size:100px"></span>
+                         <div style="text-align:center">
+                        <div style="display:inline-block">
+                          <span id="txtKaraoke1" style="font-size:100px;color:white"></span>
                           <br><br>
-                          <span id="txtKaraoke2" style="font-size:100px"></span>
+                        <span id="txtKaraoke2" style="font-size:100px;color:white;"></span>
+                        </div>
+                        </div>
                 </td>
-            </tr>
-                        
+            </tr>                     
     
 </table>
+</div>
+
+<video class="sqs-html5-video" muted autoplay id="myVideo">
+    <source src="@ViewBag.ViDeo" type="video/mp4"></video><div class="text-copy"></div>
 }
 </body>
 </html>

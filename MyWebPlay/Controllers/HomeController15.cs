@@ -26,7 +26,7 @@ namespace MyWebPlay.Controllers
 
             string[] listFields = txtFields.Split("\r\n");
 
-            string result = "";
+            string result = "PRINT N'* DANH SÁCH CÁC FIELDS CÓ KẾT QUẢ TÌM THẤY - " + txtTable + " :'+CHAR(10)\n\n";
 
             for (int i =0; i< listFields.Length; i++)
             {
@@ -89,7 +89,7 @@ namespace MyWebPlay.Controllers
                         && fix[1].Contains("identifier") == false && fix[1].Contains("var") == false && fix[1].Contains("char") == false && fix[1].Contains("text") == false && fix[1].Contains("binary") == false && fix[1].Contains("image") == false))
                         continue;
 
-                    result += "SELECT TOP 1 " + fix[0] + " FROM " + txtTable + " WHERE " + fields + value + "\n\n";
+                result += "IF ((SELECT COUNT(*) " + fix[0] + " FROM " + txtTable + " WHERE " + fields + value + ") >0)\nBEGIN\n\tPRINT '" + fix[0] + "'\nEND\n\n";
             }
 
             TextCopy.ClipboardService.SetText(result);

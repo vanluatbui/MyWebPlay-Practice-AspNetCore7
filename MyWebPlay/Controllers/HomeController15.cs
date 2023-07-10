@@ -104,5 +104,95 @@ namespace MyWebPlay.Controllers
 
             return View();
         }
+
+        public ActionResult FindCompareValueInSQL()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult FindCompareValueInSQL(IFormCollection f)
+        {
+            string txtFields = f["txtFields"].ToString().ToLower();
+            txtFields = txtFields.Replace(" ", "");
+            txtFields = txtFields.Replace("\t", "");
+            txtFields = txtFields.Replace(",", "");
+            txtFields = txtFields.Replace("[", "");
+            txtFields = txtFields.Replace("]", "");
+
+            var listFields = txtFields.Split("\r\n");
+
+            var listOld = f["txtOld"].ToString().Split("\r\n");
+
+            var listNew = f["txtNew"].ToString().Split("\r\n");
+
+            int dem = 1;
+            var listChangeOld = new List<string>();
+            var listChangeNew = new List<string>();
+
+            var listWhere = f["txtWhere"].ToString().ToLower().Split(",");
+
+            int[] whereX = new int[listWhere.Length];
+
+            var result = "* Các vị trí fields đang phát hiện sự thay đổi về giá trị :\n\n";
+
+            for (int i = 0; i < listWhere.Length; i++)
+            {
+                for (int j = 0; j < listFields.Length; j++)
+                {
+                    if (listWhere[i] == listFields[j])
+                    {
+                        whereX[i] = j;
+                        break;
+                    }
+                }
+            }
+
+            for (int i =0; i< listOld.Length; i++)
+            {
+                var oldX = listOld[i].Split("\t");
+                var newX = listNew[i].Split("\t");
+                int flag = 0;
+                for (int j =0; j < oldX.Length; j++)
+                {
+                    if (oldX[j] != newX[j])
+                    {
+                        if (flag == 0)
+                        {
+                            result += dem + ". Đặc điểm nhận dạng :\n\n";
+                            for (int u = 0; u < listWhere.Length; u++)
+                            {
+                                 result += "+ " + listWhere[u] + " : " + newX[whereX[u]] + "\n";
+                            }
+                            result += "\n";
+                        }
+                        flag = 1;
+                        result += "- Tên field : " + listFields[j] + "\n";
+                        result += "- Giá trị cũ : " + oldX[j] + "\n";
+                        result += "- Giá trị mới : " + newX[j] + "\n\n";
+                    }
+                }
+                if (flag == 1)
+                {
+                    result += "\n";
+                    dem++;
+                }
+            }
+
+            if (dem == 1)
+                result += "\n=> Không phát hiện các field trong dữ liệu của bạn có sự thay đổi giá trị!";
+
+            //TextCopy.ClipboardService.SetText(result);
+
+            // s = "<p style=\"color:blue\"" + s + "</p>";
+
+            result = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+
+            ViewBag.Result = result;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+
+            return View();
+        }
     }
 }

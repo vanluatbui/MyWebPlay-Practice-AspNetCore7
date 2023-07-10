@@ -1,0 +1,72 @@
+﻿<table align="center">
+    <h2 style="text-align:center">Find Compare Value In SQL</h2>
+
+    <h3 style="color:yellow" onclick="muaxuan()">@ViewBag.KetQua</h3>
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <tr style="height:40px">
+            <td> </td>
+            <td>
+                <br>
+                    <b>Chuỗi các fields của bạn (chú ý index - cách nhau bởi Enter) : <br>
+                    </b>
+                     <br>
+                    <textarea cols="50" rows="12" name="txtFields"></textarea>
+            </td>
+        </tr>
+
+         <tr style="height:40px">
+            <td> </td>
+            <td>
+                <br>
+                    <b>Chuỗi các giá trị cũ của dữ liệu (chú ý phải theo index - tách nhau bởi Enter và Tab) <br>
+                    </b>
+                     <br>
+                    <textarea cols="100" rows="12" name="txtOld"></textarea>
+            </td>
+        </tr>
+
+        <tr style="height:40px">
+            <td> </td>
+            <td>
+                <br>
+                    <b>Chuỗi các giá trị mới của dữ liệu (chú ý phải theo index - tách nhau bởi Enter và Tab) <br>
+                    </b>
+                     <br>
+                    <textarea cols="100" rows="12" name="txtNew"></textarea>
+            </td>
+        </tr>
+
+         <tr style="height:40px">
+            <td> </td>
+            <td>
+                <br>
+                    <b>Nhập các fields làm dữ kiện nhận dạng (cách nhau bởi dấu phẩy) <br>
+                    </b>
+                     <br>
+                    <input type="text" size="50" name="txtWhere" />
+            </td>
+        </tr>
+
+        <tr style="height:40px">
+            <td></td>
+            <td><br>
+                <input type="Submit" value="Kết Quả" />
+            </td>
+        </tr>
+    }
+</table>
+<br /><br />
+
+******************************************************************************************************************************************************************************
+
+<br />
+<br />
+<br />
+
+<div id="hihi">
+                @Html.Raw(ViewBag.Result)
+</div>

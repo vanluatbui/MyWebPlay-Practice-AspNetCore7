@@ -139,6 +139,33 @@ body {
         youX = true;
     }
 
+    var t=10;
+      var kk = 0;
+        var empty = -1;
+
+        var flag = 0;
+         var n = 0;
+        var kf = 0;
+
+    function resetKaraoke()
+    {
+         document.getElementById("musix").currentTime = 0;
+         document.getElementById("music").currentTime =0;
+         t = 10;
+          kk = 0;
+        empty = -1;
+
+        flag = 0;
+         n = 0;
+        kf = 0;
+          document.getElementById("txtKaraoke1").innerHTML = "";
+                    document.getElementById("txtKaraoke2").innerHTML = "";
+                    document.getElementById("txtKara1").value = "";
+                    document.getElementById("txtKara2").value = "";
+                    document.getElementById("number").innerHTML = "";
+
+    }
+
      function PlayXKaraoke()
     {
         document.getElementById("musix").pause();
@@ -173,17 +200,11 @@ body {
         window.location.href="/Home/XoaKaraoke";
     }
 
-        var t=10;
         var time_xuathien = [];
         var time_luuvet = [];
-        var n = 0;
-        var kf = 0;
+       
         var h_xh = [];
         var h_le = [];
-        var kk = 0;
-        var empty = -1;
-
-        var flag = 0;
 
         var LBH;
 
@@ -393,16 +414,10 @@ else
         <option>Chế độ Karaoke</option>
         <option>Chế độ Ca sĩ hát</option>
     </select>&nbsp;&nbsp;&nbsp
-    <button onclick="StopKaraoke()"><b style="color:darkgreen">THOÁT</b></button>&nbsp;&nbsp;&nbsp;<button style="color:brown" onclick="loadsolar()" id="xanh"><b>FULL MÀN HÌNH - OFF</b></button>
-    
-    <br />
-
-    <br>
-
-    <br>
-
-    <br>
-
+    <button style="color:brown" onclick="loadsolar()" id="xanh"><b>FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp;<button onclick="StopKaraoke()"><b style="color:darkgreen">THOÁT</b></button>
+    <br /><br /><b><span style="color:white">Xin lỗi, đôi khi vì sự cố kết nối mạng mà khiến cho chức năng Karaoke : nhạc và đoạn text lời xuất hiện không đồng nhất với nhau hay dữ liệu chưa được tải lên hết.
+        <br>Mỗi khi gặp sự cố này, phiền bạn hãy nhấn nút <button style="color:purple" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI</b></button> để tải lại dữ liệu cho đến khi một cách hoàn tất. Xin cảm ơn!</span></b>
+  <br>
     <br>
     <br />
 

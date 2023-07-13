@@ -194,5 +194,108 @@ namespace MyWebPlay.Controllers
 
             return View();
         }
+
+        public ActionResult XuLySQL1()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult XuLySQL1(IFormCollection f)
+        {
+            string txtTable = f["txtTables"].ToString();
+            ViewBag.Table = txtTable;
+            var listTable = txtTable.Split("\r\n");
+
+            var result = "CREATE PROC PROC_MYWEBPLAY\nAS\nBEGIN";
+
+            for (int i =0; i < listTable.Length;i++)
+            {
+                result += "\n\tDECLARE @" + listTable[i]+" INT = (SELECT COUNT(*) FROM " + listTable[i]+")\n\tPRINT @" + listTable[i];
+            }
+
+            result += "\nEND\n\n";
+
+            result += "--------------------SỬ DỤNG XONG HÃY NHỚ DROP PROC PROC_MYWEBPLAY---------------------\n\n\n";
+
+            result = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+
+            ViewBag.Result = result;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+
+            return View();
+        }
+
+        public ActionResult XuLySQL2()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult XuLySQL2(IFormCollection f)
+        {
+            string chon = f["txtChon"].ToString();
+            string txtTable = f["txtTable"].ToString();
+            ViewBag.Table = txtTable;
+
+            var listTable = txtTable.Split("\r\n");
+            var result = "";
+            if (chon != "on")
+            {
+                result += "CREATE TABLE TABLE_MYWEBPLAY\n(\n\tTableName nvarchar(100),\n\tXuLy nvarchar(100),\n\tNgayCapNhat DateTime\n)\n\n";
+                result += "-------------------------------------------------------------------------------------\n\n\n";
+
+                // INSERT
+                for (int i =0; i< listTable.Length; i++)
+                {
+                    result += "CREATE TRIGGER TRIGGER_INSERT_MYWEBPLAY_" + listTable[i].ToUpper() + " ON " + listTable[i] + "\nFOR INSERT\nAS\nBEGIN\n\tINSERT INTO TABLE_MYWEBPLAY VALUES ('" + listTable[i] + "', 'Insert', GETDATE())\nEND\n\n";
+                }
+
+                // UPDATE
+                for (int i = 0; i < listTable.Length; i++)
+                {
+                    result += "CREATE TRIGGER TRIGGER_UPDATE_MYWEBPLAY_" + listTable[i].ToUpper() + " ON " + listTable[i] + "\nFOR UPDATE\nAS\nBEGIN\n\tINSERT INTO TABLE_MYWEBPLAY VALUES ('" + listTable[i] + "', 'Update', GETDATE())\nEND\n\n";
+                }
+
+                // DELETE
+                for (int i = 0; i < listTable.Length; i++)
+                {
+                    result += "CREATE TRIGGER TRIGGER_DELETE_MYWEBPLAY_" + listTable[i].ToUpper() + " ON " + listTable[i] + "\nFOR DELETE\nAS\nBEGIN\n\tINSERT INTO TABLE_MYWEBPLAY VALUES ('" + listTable[i] + "', 'Delete', GETDATE())\nEND\n\n";
+                }
+            }
+            else
+            {
+                result += "DROP TABLE TABLE_MYWEBPLAY\n\n";
+                result += "-------------------------------------------------------------------------------------\n\n\n";
+
+                // INSERT
+                for (int i = 0; i < listTable.Length; i++)
+                {
+                    result += "DROP TRIGGER TRIGGER_INSERT_MYWEBPLAY_" + listTable[i].ToUpper()+"\n";
+                }
+
+                // UPDATE
+                for (int i = 0; i < listTable.Length; i++)
+                {
+                    result += "DROP TRIGGER TRIGGER_UPDATE_MYWEBPLAY_" + listTable[i].ToUpper() + "\n";
+                }
+
+                // DELETE
+                for (int i = 0; i < listTable.Length; i++)
+                {
+                    result += "DROP TRIGGER TRIGGER_DELETE_MYWEBPLAY_" + listTable[i].ToUpper() + "\n";
+                }
+            }
+
+            result = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+
+            ViewBag.Result = result;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+
+            return View();
+        }
+
     }
 }

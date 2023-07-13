@@ -3,6 +3,9 @@
 
     <h3 style="color:yellow" onclick="muaxuan()">@ViewBag.KetQua</h3>
 
+   <h3>@Html.ActionLink("Xử Lý SQL 1 ? (dành cho admin)","XuLySQL1")</h3>
+   <h3>@Html.ActionLink("Xử Lý SQL 2 ? (dành cho admin)","XuLySQL2")</h3>
+
     @using (Html.BeginForm())
     {
         @Html.ValidationSummary(true)

@@ -2,6 +2,11 @@
 
 <script>
 
+    function chondapan(i,s)
+    {
+        document.getElementById("ans-"+i).options.selectedIndex = s;
+    }
+
     function loading()
     {
          var an = document.getElementById("answerX").value.split("\n");
@@ -131,27 +136,55 @@
         {
             <tr style="height:40px">
                 <td></td>
-                        <td><h4><b style="color:yellow">Câu số @(i + 1)</b>. @Html.Raw(Model.ch[@i])</h4></td>
+                        <td><h4><b style="color:yellow" id="@i">Câu số @(i + 1)</b>. @Html.Raw(Model.ch[@i])</h4></td>
             </tr>
 
             <tr style="height:40px">
                 <td></td>
-                                <td><h4><b> A. @Html.Raw(Model.a[@i])</b></h4> </td>
+                @if(ViewData["KetQua-"+@i] ==  null)
+                {
+                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,1)">A. @Html.Raw(Model.a[@i])</a></b></h4> </td>
+                }
+                else
+                {
+                         <td><h4><b>A. @Html.Raw(Model.a[@i])</b></h4> </td>
+                }
             </tr>
 
                      <tr style="height:40px">
                          <td></td>
-                                                <td><h4><b> B. @Html.Raw(Model.b[@i])</b></h4> </td>
+                @if(ViewData["KetQua-"+@i] ==  null)
+                {
+                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,2)">B. @Html.Raw(Model.b[@i])</a></b></h4> </td>
+                }
+                else
+                {
+                         <td><h4><b>B. @Html.Raw(Model.b[@i])</b></h4> </td>
+                }
                     </tr>
 
                              <tr style="height:40px">
                                           <td></td>
-                                                <td><h4><b> C. @Html.Raw(Model.c[@i])</b></h4> </td>
+                @if(ViewData["KetQua-"+@i] ==  null)
+                {
+                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,3)">C. @Html.Raw(Model.c[@i])</a></b></h4> </td>
+                }
+                else
+                {
+                         <td><h4><b>C. @Html.Raw(Model.c[@i])</b></h4> </td>
+                }
                     </tr>
 
                              <tr style="height:40px">
                                           <td></td>
-                                                <td><h4><b> D. @Html.Raw(Model.d[@i])</b></h4> </td>
+                 @if(ViewData["KetQua-"+@i] ==  null)
+                {
+                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,4)">D. @Html.Raw(Model.d[@i])</a></b></h4> </td>
+                }
+                else
+                {
+                         <td><h4><b>D. @Html.Raw(Model.d[@i])</b></h4> </td>
+                }
                     </tr>
 
                     @if(ViewData["KetQua-"+@i] ==  null)
@@ -159,7 +192,7 @@
                                 <tr style="height:40px">
                                                  <td></td>
                                     <td><h4><b style="color:deeppink"> Chọn đáp án cho câu @(i+1) của bạn : </b></h4>
-  <h3><select name="dapan-@i" class="dapanX">
+  <h3><select name="dapan-@i" class="dapanX" id="ans-@i">
       <b>
            <option></option>
           <option>A</option>

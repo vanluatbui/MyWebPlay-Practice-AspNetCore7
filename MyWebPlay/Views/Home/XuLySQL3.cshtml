@@ -1,0 +1,39 @@
+﻿<table align="center">
+    <h2 style="text-align:center">Xử Lý SQL 3</h2>
+
+    <h3 style="color:yellow" onclick="muaxuan()">@ViewBag.KetQua</h3>
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <tr style="height:40px">
+            <td> </td>
+            <td>
+                <br>
+                    <b>Chuỗi xử lý (admin tự hiều :)) - mỗi thành phần tách nhau bởi \n#3275#\n) : <br>
+                    </b>
+                     <br>
+                    <textarea cols="100" rows="15" name="txtChuoi"></textarea>
+            </td>
+        </tr>
+      
+        <tr style="height:40px">
+            <td></td>
+            <td><br>
+                <input type="Submit" value="Kết Quả" />
+            </td>
+        </tr>
+    }
+</table>
+<br /><br />
+
+******************************************************************************************************************************************************************************
+
+<br />
+<br />
+<br />
+
+<div id="hihi">
+                @Html.Raw(ViewBag.Result)
+</div>

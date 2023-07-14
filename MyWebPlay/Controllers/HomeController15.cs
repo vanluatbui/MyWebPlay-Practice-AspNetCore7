@@ -297,5 +297,29 @@ namespace MyWebPlay.Controllers
             return View();
         }
 
+        public ActionResult XuLySQL3()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult XuLySQL3(IFormCollection f)
+        {
+            string chuoi = f["txtChuoi"].ToString();
+            var listCha = chuoi.Split("\r\n#3275#\r\n");
+            var phan1 = listCha[0].Replace(" ", "").Replace("\t", "").Replace(",", "").Replace("[", "").Replace("]", "").Replace("\r\n","\t");
+            var phan2 = listCha[1].Replace("\r\n", " ");
+            var phan3 = listCha[2].Replace("\r\n", " ");
+
+            var result = phan1 + "\n" + phan2 + "\n"+ phan3;
+
+            result = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+
+            ViewBag.Result = result;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+
+            return View();
+        }
     }
 }

@@ -5,6 +5,40 @@
     function chondapan(i,s)
     {
         document.getElementById("ans-"+i).options.selectedIndex = s;
+
+        var A = document.getElementById("dapanA-"+i);
+        var B = document.getElementById("dapanB-"+i);
+        var C = document.getElementById("dapanC-"+i);
+        var D = document.getElementById("dapanD-"+i);
+
+        if (s == 1)
+        {
+            A.style.color = "blue";
+            B.style.color = "white";
+            C.style.color = "white";
+            D.style.color = "white";
+        }
+        else if (s == 2)
+        {
+            A.style.color = "white";
+            B.style.color = "blue";
+            C.style.color = "white";
+            D.style.color = "white";
+        }
+        else if (s == 3)
+        {
+            A.style.color = "white";
+            B.style.color = "white";
+            C.style.color = "blue";
+            D.style.color = "white";
+        }
+        else if (s == 4)
+        {
+            A.style.color = "white";
+            B.style.color = "white";
+            C.style.color = "white";
+            D.style.color = "blue";
+        }
     }
 
     function loading()
@@ -136,14 +170,14 @@
         {
             <tr style="height:40px">
                 <td></td>
-                        <td><h4><b style="color:yellow" id="@i">Câu số @(i + 1)</b>. @Html.Raw(Model.ch[@i])</h4></td>
+                        <td><h4><b style="color:yellow">Câu số @(i + 1)</b>. @Html.Raw(Model.ch[@i])</h4></td>
             </tr>
 
             <tr style="height:40px">
                 <td></td>
                 @if(ViewData["KetQua-"+@i] ==  null)
                 {
-                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,1)">A. @Html.Raw(Model.a[@i])</a></b></h4> </td>
+                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,1)"><span id="dapanA-@i" style="color:white">A. @Html.Raw(Model.a[@i])</span></a></b></h4> </td>
                 }
                 else
                 {
@@ -155,7 +189,7 @@
                          <td></td>
                 @if(ViewData["KetQua-"+@i] ==  null)
                 {
-                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,2)">B. @Html.Raw(Model.b[@i])</a></b></h4> </td>
+                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,2)"><span id="dapanB-@i" style="color:white">B. @Html.Raw(Model.b[@i])</span></a></b></h4> </td>
                 }
                 else
                 {
@@ -167,7 +201,7 @@
                                           <td></td>
                 @if(ViewData["KetQua-"+@i] ==  null)
                 {
-                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,3)">C. @Html.Raw(Model.c[@i])</a></b></h4> </td>
+                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,3)"><span id="dapanC-@i" style="color:white">C. @Html.Raw(Model.c[@i])</span></a></b></h4> </td>
                 }
                 else
                 {
@@ -179,7 +213,7 @@
                                           <td></td>
                  @if(ViewData["KetQua-"+@i] ==  null)
                 {
-                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,4)">D. @Html.Raw(Model.d[@i])</a></b></h4> </td>
+                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,4)"><span id="dapanD-@i" style="color:white">D. @Html.Raw(Model.d[@i])</span></a></b></h4> </td>
                 }
                 else
                 {
@@ -191,8 +225,8 @@
                     {
                                 <tr style="height:40px">
                                                  <td></td>
-                                    <td><h4><b style="color:deeppink"> Chọn đáp án cho câu @(i+1) của bạn : </b></h4>
-  <h3><select name="dapan-@i" class="dapanX" id="ans-@i">
+                                    <td>
+  <h3><select name="dapan-@i" class="dapanX" id="ans-@i" style="display:none">
       <b>
            <option></option>
           <option>A</option>
@@ -216,7 +250,6 @@
                 </td>
      </tr>
                     }
-
         }
 
         @if (ViewBag.KetQuaDung == "")

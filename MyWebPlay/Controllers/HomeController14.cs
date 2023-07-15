@@ -27,9 +27,6 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult PlayKaraoke(IFormCollection f, IFormFile txtKaraoke, IFormFile txtMusic, IFormFile txtMusix)
         {
-            var fileName = Path.GetFileName(txtMusic.FileName);
-            var nameFile = Path.GetFileName(txtMusix.FileName);
-
             ViewBag.Karaoke = "";
 
             ViewBag.Show = "show";
@@ -37,35 +34,46 @@ namespace MyWebPlay.Controllers
             var r = new Random();
             int x = r.Next(10);
 
-            ViewBag.Background = "/karaoke_Example/background/"+(x+1)+".jpg";
+            ViewBag.Background = "/karaoke_Example/background/" + (x + 1) + ".jpg";
 
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", fileName);
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", nameFile);
-
-            using (Stream fileStream = new FileStream(path, FileMode.Create))
+            if (f["txtChon"].ToString() != "on")
             {
-                txtMusic.CopyTo(fileStream);
-            }
+                var fileName = Path.GetFileName(txtMusic.FileName);
+                var nameFile = Path.GetFileName(txtMusix.FileName);
 
-            using (Stream fileStream = new FileStream(pathX, FileMode.Create))
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", fileName);
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", nameFile);
+
+                using (Stream fileStream = new FileStream(path, FileMode.Create))
+                {
+                    txtMusic.CopyTo(fileStream);
+                }
+
+                using (Stream fileStream = new FileStream(pathX, FileMode.Create))
+                {
+                    txtMusix.CopyTo(fileStream);
+                }
+
+                ViewBag.Music = "/karaoke/music/" + fileName;
+                ViewBag.Musix = "/karaoke/music/" + nameFile;
+
+                fileName = Path.GetFileName(txtKaraoke.FileName);
+
+                path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text", fileName);
+
+                using (Stream fileStream = new FileStream(path, FileMode.Create))
+                {
+                    txtKaraoke.CopyTo(fileStream);
+                }
+
+                ViewBag.Karaoke = System.IO.File.ReadAllText(path);
+            }
+            else
             {
-                txtMusix.CopyTo(fileStream);
+                ViewBag.Karaoke = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "VongTayNguoiAy_Text.txt"));
+                ViewBag.Music = "/karaoke_Example/VongTayNguoiAy_Karaoke.mp3";
+                ViewBag.Musix = "/karaoke_Example/VongTayNguoiAy_Music.mp3";
             }
-
-            ViewBag.Music = "/karaoke/music/" + fileName;
-            ViewBag.Musix = "/karaoke/music/" + nameFile;
-            ViewBag.Text = f["txtBH"].ToString();
-
-            fileName = Path.GetFileName(txtKaraoke.FileName);
-
-            path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text", fileName);
-
-            using (Stream fileStream = new FileStream(path, FileMode.Create))
-            {
-                txtKaraoke.CopyTo(fileStream);
-            }
-
-            ViewBag.Karaoke = System.IO.File.ReadAllText(path);
 
             return View();
         }

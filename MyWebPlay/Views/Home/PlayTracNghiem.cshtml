@@ -2,6 +2,20 @@
 
 <script>
 
+    //---------------------------------------------------------
+    function themhinhanh(i)
+    {
+        if (document.getElementById("hinhanh-"+i).value == "")
+        return;
+
+        document.getElementById("anhX-"+i).value += document.getElementById("hinhanh-"+i).value +"\n";
+        document.getElementById("hinhanh-"+i).value = "";
+        alert("Một xử lý vừa thực hiện thành công!");
+
+        var x = new Number(document.getElementById("soluong-"+i).innerHTML);
+        document.getElementById("soluong-"+i).innerHTML = (x+1)+"";
+    }
+
     function chondapan(i,s)
     {
         document.getElementById("ans-"+i).options.selectedIndex = s;
@@ -44,20 +58,67 @@
     function loading()
     {
          var an = document.getElementById("answerX").value.split("\n");
+
     for (var i =0 ; i< new Number('@ViewBag.TongCau'); i++)
     {
+        var A = document.getElementById("dapanA-"+i);
+        var B = document.getElementById("dapanB-"+i);
+        var C = document.getElementById("dapanC-"+i);
+        var D = document.getElementById("dapanD-"+i);
+
        var answer = new Number(an[i]);
        document.getElementsByClassName("dapanX")[i].options.selectedIndex = answer;
+
+       if (answer == 1)
+       {
+             A.style.color = "blue";
+            B.style.color = "white";
+            C.style.color = "white";
+            D.style.color = "white";
+       }
+       else if (answer == 2)
+       {
+            A.style.color = "white";
+            B.style.color = "blue";
+            C.style.color = "white";
+            D.style.color = "white";
+       }
+        else if (answer == 3)
+       {
+            A.style.color = "white";
+            B.style.color = "white";
+            C.style.color = "blue";
+            D.style.color = "white";
+       }
+        else if (answer == 4)
+       {
+            A.style.color = "white";
+            B.style.color = "white";
+            C.style.color = "white";
+            D.style.color = "blue";
+       }
+
      }
       alert("Thành công, mời bạn kiểm tra lại!");
    }
 
    function refresh()
     {
+
     for (var i =0 ; i< new Number('@ViewBag.TongCau'); i++)
     {
        document.getElementsByClassName("dapanX")[i].options.selectedIndex = 0;
+        var A = document.getElementById("dapanA-"+i);
+        var B = document.getElementById("dapanB-"+i);
+        var C = document.getElementById("dapanC-"+i);
+        var D = document.getElementById("dapanD-"+i);
+
+          A.style.color = "white";
+            B.style.color = "white";
+            C.style.color = "white";
+            D.style.color = "white";
      }
+
       alert("Thành công, mời bạn kiểm tra lại!");
    }
 
@@ -173,6 +234,19 @@
                         <td><h4><b style="color:yellow">Câu số @(i + 1)</b>. @Html.Raw(Model.ch[@i])</h4></td>
             </tr>
 
+             @if (ViewBag.ND_File != null)
+                            {
+                                <tr style="height:40px">
+                  <td></td>
+     <td>
+                      <h4><input type="text" size="100" placeholder="Nhập link hình ảnh online cần thêm" id="hinhanh-@i" /> <textarea name="anh-@i" id="anhX-@i" style="display:none"></textarea> <a onclick="themhinhanh(@i)" href="#xuly">THÊM</a> <span id="soluong-@i" style="color:deeppink">0</span></h4>
+   
+    
+                </td>
+     </tr>
+                        
+                            }
+
             <tr style="height:40px">
                 <td></td>
                 @if(ViewData["KetQua-"+@i] ==  null)
@@ -185,6 +259,7 @@
                 }
             </tr>
 
+          
                      <tr style="height:40px">
                          <td></td>
                 @if(ViewData["KetQua-"+@i] ==  null)
@@ -197,6 +272,7 @@
                 }
                     </tr>
 
+      
                              <tr style="height:40px">
                                           <td></td>
                 @if(ViewData["KetQua-"+@i] ==  null)
@@ -208,6 +284,9 @@
                          <td><h4><b>C. @Html.Raw(Model.c[@i])</b></h4> </td>
                 }
                     </tr>
+
+                    
+              
 
                              <tr style="height:40px">
                                           <td></td>
@@ -221,12 +300,16 @@
                 }
                     </tr>
 
+                    
+             
+
                     @if(ViewData["KetQua-"+@i] ==  null)
                     {
                                 <tr style="height:40px">
                                                  <td></td>
                                     <td>
-  <h3><select name="dapan-@i" class="dapanX" id="ans-@i" style="display:none">
+  <h3>
+      <select name="dapan-@i" class="dapanX" id="ans-@i" style="display:none">
       <b>
            <option></option>
           <option>A</option>
@@ -234,7 +317,8 @@
           <option>C</option>
           <option>D</option>
           </b>
-        </select> </h3><br>
+                                    </select>                    
+                            </h3><br>
         </td>
                             </tr>
                     }

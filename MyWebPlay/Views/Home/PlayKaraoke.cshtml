@@ -313,13 +313,13 @@ body {
                 {
                     var ct1 = kara1.substring(0,h_le[kf]).toUpperCase().replace("UNDEFINED","");
                     var ct2 = kara1.substring(h_le[kf], kara1.length).toUpperCase().replace("UNDEFINED","");
-                    document.getElementById("txtKaraoke1").innerHTML = "<span style=\"color:red\">"+ct1+"</span><span>"+ct2+"</span>"
+                    document.getElementById("txtKaraoke1").innerHTML = "<span style=\"color:blue\">"+ct1+"</span><span>"+ct2+"</span>"
                 }
                 else
                 {
                     var ct1 = kara2.substring(0, h_le[kf] - kara1.length - 2).toUpperCase().replace("UNDEFINED","");
                     var ct2 = kara2.substring(h_le[kf] - kara1.length - 2, kara2.length).toUpperCase().replace("UNDEFINED","");
-                   document.getElementById("txtKaraoke2").innerHTML = "<span style=\"color:red\">"+ct1+"</span><span>"+ct2+"</span>"
+                   document.getElementById("txtKaraoke2").innerHTML = "<span style=\"color:blue\">"+ct1+"</span><span>"+ct2+"</span>"
                 }
                 kf++;
 
@@ -349,6 +349,15 @@ body {
     @using (Html.BeginForm("PlayKaraoke", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
         @Html.ValidationSummary(true)
+
+             <tr style="height:40px">
+                <td> </td>
+                <td>
+                    <br>
+                        <b style="color:pink"><input type="checkbox" name="txtChon" /> Tham khảo bản karaoke demo có sẵn trên hệ thống</b>
+                        <br>
+                </td>
+            </tr>
 
             <tr style="height:40px">
                 <td> </td>

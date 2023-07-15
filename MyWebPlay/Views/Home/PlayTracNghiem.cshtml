@@ -8,12 +8,33 @@
         if (document.getElementById("hinhanh-"+i).value == "")
         return;
 
+        if (document.getElementById("anhX-"+i).value.includes(document.getElementById("hinhanh-"+i).value) == true)
+        return;
+
+        var chon = document.getElementById("chonanh-"+i);
+        chon.innerHTML += "<option>"+ document.getElementById("hinhanh-"+i).value+"</option>";
+        chon.options.selectedIndex = 0;
+
         document.getElementById("anhX-"+i).value += document.getElementById("hinhanh-"+i).value +"\n";
         document.getElementById("hinhanh-"+i).value = "";
-        alert("Một xử lý vừa thực hiện thành công!");
 
         var x = new Number(document.getElementById("soluong-"+i).innerHTML);
         document.getElementById("soluong-"+i).innerHTML = (x+1)+"";
+    }
+
+    function xoahinhanh(i)
+    {
+        if (document.getElementById("chonanh-"+i).options.selectedIndex == 0)
+        return;
+
+         document.getElementById("anhX-"+i).value = document.getElementById("anhX-"+i).value.replaceAll(document.getElementById("chonanh-"+i).value+"\n","");
+
+        var chon = document.getElementById("chonanh-"+i);
+        chon.remove(chon.selectedIndex);
+
+        var x = new Number(document.getElementById("soluong-"+i).innerHTML);
+        document.getElementById("soluong-"+i).innerHTML = (x-1)+"";
+        chon.options.selectedIndex = 0;
     }
 
     function chondapan(i,s)
@@ -239,8 +260,10 @@
                                 <tr style="height:40px">
                   <td></td>
      <td>
-                      <h4><input type="text" size="100" placeholder="Nhập link hình ảnh online cần thêm" id="hinhanh-@i" /> <textarea name="anh-@i" id="anhX-@i" style="display:none"></textarea> <a onclick="themhinhanh(@i)" href="#xuly">THÊM</a> <span id="soluong-@i" style="color:deeppink">0</span></h4>
-   
+                      <h4><input type="text" size="100" placeholder="Nhập link hình ảnh online cần thêm" id="hinhanh-@i" /> <textarea cols="50" rows="20" name="anh-@i" id="anhX-@i" ></textarea> <a onclick="themhinhanh(@i)" href="#xuly">THÊM</a> <span id="soluong-@i" style="color:deeppink">0</span></h4>
+                      <h4><b><select id="chonanh-@i">
+                               <option></option> 
+                            </select></b> <a onclick="xoahinhanh(@i)" href="#xuly">XOÁ</a> || <a href="#" onClick="MyWindow=window.open(document.getElementById('chonanh-@i').value,'MyWindow','width=500,height=500'); return false;">XEM HÌNH ẢNH</a></h4> 
     
                 </td>
      </tr>
@@ -251,7 +274,9 @@
                 <td></td>
                 @if(ViewData["KetQua-"+@i] ==  null)
                 {
-                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,1)"><span id="dapanA-@i" style="color:white">A. @Html.Raw(Model.a[@i])</span></a></b></h4> </td>
+                        <td>
+                            <h4><b> <a href="#@(i+1)" onclick="chondapan(@i,1)"><span id="dapanA-@i" style="color:white">A. @Html.Raw(Model.a[@i])</span></a></b></h4> 
+                            </td>
                 }
                 else
                 {

@@ -379,7 +379,7 @@ namespace MyWebPlay.Controllers
 
                                 if (flay == 0)
                                 {
-                                    var result = path + "\t" + DateTime.Parse(f["txtHetHan"].ToString()).ToString("dd/MM/yyyy") + "\n";
+                                    var result = path + "\t" + DateTime.Parse(f["txtHetHan"].ToString()).ToString("dd/MM/yyyy")+"\n";
                                     System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile + result);
                                 }
                             }
@@ -653,6 +653,8 @@ namespace MyWebPlay.Controllers
                 fx.Delete(true);
 
                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file")).Create();
+
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), "");
             }
 
             return RedirectToAction("UploadFile");

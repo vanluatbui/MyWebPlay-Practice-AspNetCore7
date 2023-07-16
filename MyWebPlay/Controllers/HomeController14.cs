@@ -31,10 +31,28 @@ namespace MyWebPlay.Controllers
 
             ViewBag.Show = "show";
 
-            var r = new Random();
-            int x = r.Next(10);
+            var chon = f["KaraChon"].ToString();
 
-            ViewBag.Background = "/karaoke_Example/background/" + (x + 1) + ".jpg";
+            if (chon == "1")
+            {
+                var r = new Random();
+                int x = r.Next(10);
+
+                ViewBag.Background = "/karaoke_Example/background/" + (x + 1) + ".jpg";
+                ViewBag.SuDung = "";
+            }
+            else if (chon == "2")
+            {
+                var link = f["txtOnline"].ToString();
+                ViewBag.Background = link;
+                ViewBag.SuDung = "";
+            }
+            else if (chon == "3")
+            {
+                var link = f["txtOnline"].ToString();
+                ViewBag.Background = link;
+                ViewBag.SuDung = "Video";
+            }
 
             if (f["txtChon"].ToString() != "on")
             {
@@ -72,7 +90,7 @@ namespace MyWebPlay.Controllers
             {
                 ViewBag.Karaoke = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "VongTayNguoiAy_Text.txt"));
                 ViewBag.Music = "/karaoke_Example/VongTayNguoiAy_Karaoke.mp3";
-                ViewBag.Musix = "/karaoke_Example/VongTayNguoiAy_Music.mp3";
+                ViewBag.Musix = "/karaoke_Example/VongTayNguoiAy.mp3";
             }
 
             return View();

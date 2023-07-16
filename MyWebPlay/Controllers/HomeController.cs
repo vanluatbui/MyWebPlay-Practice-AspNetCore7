@@ -31,12 +31,12 @@ namespace MyWebPlay.Controllers
         private void RemoveFileDirectory(string path)
         {
             var listFile = new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, path)).GetFiles();
-  
             foreach (var item in listFile)
             {
                 string file = "/" + path + "/" + item.Name;
+                var goc = Path.Combine(_webHostEnvironment.WebRootPath, path, item.Name);
 
-                    Calendar x = CultureInfo.InvariantCulture.Calendar;
+                Calendar x = CultureInfo.InvariantCulture.Calendar;
 
                     string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
 
@@ -48,19 +48,13 @@ namespace MyWebPlay.Controllers
                         if (files[xx] == "") continue;
 
                         var fi = files[xx].Split("\t");
-                        if (new System.IO.FileInfo(fi[0]).Exists == true && DateTime.Parse(fi[1]) <= DateTime.Parse(xuxu))
-                        {
-                            System.IO.File.Delete(fi[0]);
-                            infoFile = infoFile.Replace(fi[0] + "\t" + fi[1] + "\n", "");
-                            System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile);
-                        }
-                        else
-                        if (new System.IO.FileInfo(fi[0]).Exists == false)
-                        {
+                    if (fi[0] == goc && new System.IO.FileInfo(goc).Exists == true && DateTime.Parse(fi[1]) <= DateTime.Parse(xuxu))
+                    {
+                        System.IO.File.Delete(goc);
                         infoFile = infoFile.Replace(fi[0] + "\t" + fi[1] + "\n", "");
                         System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile);
-                        }
                     }
+                }
             }
 
             var listFolder = new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, path)).GetDirectories();
@@ -73,7 +67,6 @@ namespace MyWebPlay.Controllers
         public ActionResult Index()
         {
             HttpContext.Session.Remove("TracNghiem");
-            RemoveFileDirectory("file");
 
             if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Exists == true)
               new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Delete(true);
@@ -109,6 +102,26 @@ namespace MyWebPlay.Controllers
 
             new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
             new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
+
+            var infoFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"));
+            var files = infoFile.Split("\n");
+
+            for (int xx = 0; xx < files.Length; xx++)
+            {
+                if (files[xx] == "") continue;
+
+                var fi = files[xx].Split("\t");
+
+                var sai = fi[0].Replace(Path.Combine(_webHostEnvironment.WebRootPath) + "\\", "");
+
+                if (new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath,sai)).Exists == false)
+                {
+                infoFile = infoFile.Replace(fi[0] + "\t" + fi[1] + "\n", "");
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile);
+                }
+            }
+
+          RemoveFileDirectory("file");
 
             return View();
         }

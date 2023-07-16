@@ -68,6 +68,45 @@ body {
 <meta charset="ISO-8859-1">
 <script>
 
+    function chonKaraHay()
+    {
+        var chon = document.getElementById("chonKara").options.selectedIndex;
+        var chonX = document.getElementById("chonKarax");
+        var online = document.getElementById("online");
+        if (chon == 0)
+        {
+            online.style.display = "none";
+        chonX.value = "1";
+        }
+        else if (chon == 1)
+        {
+        chonX.value = "2";
+        online.style.display = "inline-block";
+        }
+        else  if (chon == 2)
+        {
+        chonX.value = "3";
+         online.style.display = "inline-block";
+        }
+    }
+
+    function dongmomenu()
+    {
+        var menu = document.getElementById("menu");
+        var hienlinh = document.getElementById("hienlinh");
+        
+        if (menu.style.display == "inline-block")
+        {
+            menu.style.display = "none";
+            hienlinh.style.display = "inline-block";
+        }
+        else
+        {
+            menu.style.display = "inline-block";
+            hienlinh.style.display = "none";
+        }
+    }
+
      var elem = document.documentElement;
 
         function loadsolar()
@@ -206,6 +245,28 @@ body {
         var h_xh = [];
         var h_le = [];
 
+        var mau = "#2900f5";
+
+        function doimau()
+        {
+            mau = document.getElementById("mau").value;
+            document.getElementById("xemthumau").style.color = mau;
+        }
+
+         function doimauX()
+        {
+            document.getElementById("xemmauthu").style.color = document.getElementById("mauX").value;
+            document.getElementById("txtKaraoke1").style.color = document.getElementById("mauX").value;
+            document.getElementById("txtKaraoke2").style.color = document.getElementById("mauX").value;
+        }
+
+         function doimauY()
+        {
+            document.getElementById("xemmaudi").style.color = document.getElementById("mauY").value;
+            document.getElementById("number").style.color = document.getElementById("mauY").value;
+        }
+
+        var LBH;
         var LBH;
 
                     var id = setInterval(myAlert, 100);
@@ -271,7 +332,6 @@ body {
 
                     document.getElementById("txtKara1").value = sing[0];
                     document.getElementById("txtKara2").value = sing[1];
-
                 }
 
                 //txtKaraoke1.Select(0, LBH[n].Length + 1);
@@ -313,13 +373,13 @@ body {
                 {
                     var ct1 = kara1.substring(0,h_le[kf]).toUpperCase().replace("UNDEFINED","");
                     var ct2 = kara1.substring(h_le[kf], kara1.length).toUpperCase().replace("UNDEFINED","");
-                    document.getElementById("txtKaraoke1").innerHTML = "<span style=\"color:blue\">"+ct1+"</span><span>"+ct2+"</span>"
+                    document.getElementById("txtKaraoke1").innerHTML = "<span style=\"color:"+mau+"\">"+ct1+"</span><span>"+ct2+"</span>"
                 }
                 else
                 {
                     var ct1 = kara2.substring(0, h_le[kf] - kara1.length - 2).toUpperCase().replace("UNDEFINED","");
                     var ct2 = kara2.substring(h_le[kf] - kara1.length - 2, kara2.length).toUpperCase().replace("UNDEFINED","");
-                   document.getElementById("txtKaraoke2").innerHTML = "<span style=\"color:blue\">"+ct1+"</span><span>"+ct2+"</span>"
+                   document.getElementById("txtKaraoke2").innerHTML = "<span style=\"color:"+mau+"\">"+ct1+"</span><span>"+ct2+"</span>"
                 }
                 kf++;
 
@@ -406,9 +466,24 @@ body {
                     </td>
                 </tr>
 
+                 <tr style="height:40px">
+                <td></td>
+                <td>
+                      <select id="chonKara" onchange="chonKaraHay()">
+                          <option>Sử dụng ngẫu nhiên ảnh/background có sẵn trên hệ thống</option>
+                           <option>Sử dụng link ảnh/background online của bạn</option>
+                           <option>Sử dụng link video/background online của bạn</option>
+                      </select>
+                      <input type="number" hidden id="chonKarax" name="KaraChon" value="1" min="1" max="3" />
+                      <br><br>
+                      <input name="txtOnline" id="online" size="100" style="display:none" type="text" placeholder="Nhập link online background của bạn thực hiện karaoke..." /> 
+                </td>
+            </tr>
+
             <tr style="height:40px">
                 <td></td>
                 <td>
+                                     <br>
                         <input style="font-weight:bolder" type="Submit" value="Bắt Đầu" />
                 </td>
             </tr>
@@ -417,22 +492,33 @@ body {
 }
 else
 {
-    <div  class="video-overlay">
+    <div class="video-overlay" id="play">
        <table align="center" onended="loadsolar()">
+           <div id="hienlinh" style="display:none">
+               <br>
+               <br>
+               <br>
+               <br>
+               <br>
+           </div>
+           <b style="color:black; font-size:5px"><a style="color:black; font-size:5px" onclick="dongmomenu()" href="#xuly">...</a></b>
+                      &nbsp;&nbsp;&nbsp;<br><br>
+           <div id="menu" style="display:inline-block">
     <select id="chon" onchange="changeKara()">
         <option>Chế độ Karaoke</option>
         <option>Chế độ Ca sĩ hát</option>
     </select>&nbsp;&nbsp;&nbsp
-    <button style="color:brown" onclick="loadsolar()" id="xanh"><b>FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp;<button onclick="StopKaraoke()"><b style="color:darkgreen">THOÁT</b></button>
+    <button style="color:brown" onclick="loadsolar()" id="xanh"><b>FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp;<b id="xemthumau" style="color:#2900f5">Chọn màu tô điểm text</b> : <input type="color" onchange="doimau()" id="mau" value="#2900f5" />
+    &nbsp;&nbsp;&nbsp;<b id="xemmauthu" style="color:#efe6e6">Chọn màu đoạn text ban đầu</b> : <input type="color" onchange="doimauX()" id="mauX" value="#efe6e6" />
+     &nbsp;&nbsp;&nbsp;<b id="xemmaudi" style="color:#e3f207">Chọn màu cho time đếm ngược bắt đầu karaoke</b> : <input type="color" onchange="doimauY()" id="mauY" value="#e3f207" />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="StopKaraoke()"><b style="color:darkgreen">THOÁT</b></button>
     <br /><br /><b><span style="color:white">Xin lỗi, đôi khi vì sự cố kết nối mạng mà khiến cho chức năng Karaoke : nhạc và đoạn text lời xuất hiện không đồng nhất với nhau hay dữ liệu chưa được tải lên hết.
         <br>Mỗi khi gặp sự cố này, phiền bạn hãy nhấn nút <button style="color:purple" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI</b></button> để tải lại dữ liệu cho đến khi một cách hoàn tất. Xin cảm ơn!</span></b>
-  <br>
-    <br>
     <br />
+    </div>
 
     <br>
     <br>
-
     <br>
 
     <br>
@@ -461,13 +547,13 @@ else
     <tr style="height:40px">
                 <td></td>
                 <td>
-                       <span id="number" style="color:yellow; font-size:90px"></span>
+                       <span id="number" style="color:#e3f207; font-size:90px"></span>
                         <br>
                          <div style="text-align:center">
                         <div style="display:inline-block">
-                          <span id="txtKaraoke1" style="font-size:100px;color:white"></span>
+                          <span id="txtKaraoke1" style="font-size:100px;color:#efe6e6"></span>
                           <br><br>
-                        <span id="txtKaraoke2" style="font-size:100px;color:white;"></span>
+                        <span id="txtKaraoke2" style="font-size:100px;color:#efe6e6"></span>
                         </div>
                         </div>
                 </td>
@@ -476,7 +562,16 @@ else
 </table>
 </div>
 
+@if(ViewBag.SuDung == "")
+{
 <img src="@ViewBag.Background" id="myVideo" class="sqs-html5-video" />
+}
+else
+{
+<video muted loop autoplay id="myVideo" class="sqs-html5-video">
+  <source src="@ViewBag.Background" >
+</video>
+}
 }
 </body>
 </html>

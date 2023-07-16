@@ -1,10 +1,15 @@
 ﻿<script>
 
-     function xemfile(event)
+     function xemfile(event, ii, SL)
     {
-        var ulx = document.getElementById("ulx");
+        var ulx = document.getElementById("ulx-"+ii);
         var files = event.target.files;
-        ulx.innerHTML = "";
+        
+        for (var u = 0 ; u < new Number(SL); u++)
+        {
+            if (u !=ii) continue;
+            document.getElementById("ulx-"+u).innerHTML = "";
+        }
 
         for (var i=0; i< files.length; i++)
         {
@@ -15,11 +20,15 @@
 
    }
 
-     function xemfilex(event)
+     function xemfilex(event, ii, SL)
     {
-        var ulx = document.getElementById("ulx1");
+        var ulx = document.getElementById("ulx1-"+ii);
         var files = event.target.files;
-        ulx.innerHTML = "";
+          for (var u = 0 ; u < new Number(SL); u++)
+        {
+            if (u != ii) continue;
+            document.getElementById("ulx1-"+u).innerHTML = "";
+        }
 
         for (var i=0; i< files.length; i++)
         {
@@ -74,16 +83,18 @@
         DK2.value = 1;
     }
 
-     function PlayChonYX()
+     function PlayChonYX(SL)
     {
+        for (var i = 0; i < new Number(SL); i++)
+        {
         var DK2 = document.getElementById("DKYX");
         var chon2 = document.getElementById("chonYX").options;
 
-        var fileXY = document.getElementById("fileYX");
-        var folderXY = document.getElementById("folderYX");
+        var fileXY = document.getElementsByName("fileUpload")[i];
+        var folderXY = document.getElementsByName("fileUploadX")[i];
 
-        var fileS = document.getElementById("fileS");
-        var fileSS = document.getElementById("fileSS");
+        var fileS = document.getElementById("fileS-"+i);
+        var fileSS = document.getElementById("fileSS-"+i);
 
         if (chon2.selectedIndex == 0)
         {
@@ -102,6 +113,7 @@
         fileXY.style.display = "none";
         DK2.value = 2;
         }
+       }
     }
 
     function PlayChonXY()
@@ -293,7 +305,7 @@
                 <td></td>
                 <td>
                     <br>
-                    <b>Nhập mật mã nếu muốn tắt chức năng/chế độ lưu trữ hoặc bỏ qua (Admin)...</b>
+                    <b>Nhập mật mã nếu muốn tắt chức năng/chế độ lưu trữ & không giới hạn tồn tại file hoặc bỏ qua (chỉ với Admin)...</b>
                     <br>
                     <input onchange="changePass()" id="hidePass" type="Password" name="Admin" size="50" value="@TempData["Password"]" />
                     <input style="display:none" name="AdminX" id="showPass" onchange="changePassX()" type="text" size="50" value="@TempData["Password"]" />
@@ -339,8 +351,8 @@
                 <td></td>
                 <td>
                     <br />
-                    <b>Việc tải file của bạn lên hệ thống chỉ là tạm thời, vui lòng chọn ngày hết hạn mong muốn của các file này : </b>
-                    <input type="date" name="txtHetHan" /><br>
+                    <b>Việc tải file của bạn lên hệ thống chỉ là tạm thời, vui lòng chọn ngày hết hạn mong muốn của các file này (nếu bạn là admin thì các file được phép tồn tại không giới hạn) : </b>
+                    <input type="date" name="txtHetHan" value="@DateTime.Now.ToString("yyyy-MM-dd")"/><br>
                     <span style="color:yellow">Nếu đến ngày hết hạn bạn đã cài đặt, các file của bạn sẽ tự động xoá khỏi hệ thống (có thể sớm/trễ hơn dự kiến nhưng sẽ phạm vi trong ngày này).<br />
                         Ngoài ra bạn cũng có thể tự xoá file thủ công trước khi đến ngày hết hạn...<br />
                         <u>Lưu ý</u> : vui lòng tự ghi nhớ ngày hết hạn các file bạn sẽ cài đặt này, hệ thống sẽ tự động xoá các file mà không cần thông báo!</span>
@@ -358,7 +370,7 @@
                     <br>
                     <b>Mời bạn lựa chọn việc tải lên [1 : Tải lên các file | 2 : Tải lên 1 folder (bên trong chứa các file hoặc các file trong các thư mục con của nó mà bạn muốn upload)]</b>
                     <br>
-                     <select id="chonYX" onchange="PlayChonYX()">
+                     <select id="chonYX" onchange="PlayChonYX(@ViewBag.SL)">
                          <option>Tải lên các file</option>
                          <option>Tải lên 1 folder (bên trong chứa các file hoặc các file trong các thư mục con của nó mà bạn muốn upload)</option>
                     </select>
@@ -377,31 +389,31 @@
                     <br>
                            @if (ViewBag.X == 0)
                            {
-                        <b>@(i + 1).1</b> <span>Upload 1 hay nhiều file (hoặc 1 folder chứa các file/con) của bạn :</span>
+                        <b>@(i + 1).</b> <span>Upload 1 hay nhiều file (hoặc 1 folder chứa các file/con) của bạn :</span>
                     }
                     else
                     {
-                        <b>@(i + 1).1</b> <span>Upload 1 file của bạn :</span>
+                        <b>@(i + 1).</b> <span>Upload 1 file của bạn :</span>
                     }
 
                          <br>
                      @if (ViewBag.X == 0)
                      {
-                        <input onchange="return xemfile(event)" type="file" id="fileYX" name="fileUpload" multiple>
-                        <input onchange="return xemfilex(event)" type="file" id="folderYX" style="display:none" name="fileUploadX" webkitdirectory multiple>
+                        <input onchange="return xemfile(event,@i, @ViewBag.SL)" type="file" id="fileYX" name="fileUpload" multiple>
+                        <input onchange="return xemfilex(event,@i, @ViewBag.SL)" type="file" id="folderYX" style="display:none" name="fileUploadX" webkitdirectory multiple>
                          <br><br>
 
-            <div id="fileS">
+            <div id="fileS-@i">
                     <h4 style="color:pink">Danh sách các file bạn đã chọn :</h4>
 
-<ul id="ulx">
+<ul id="ulx-@i">
 </ul>
 </div>
 
-           <div id="fileSS" style="display:none">
+           <div id="fileSS-@i" style="display:none">
                     <h4 style="color:pink">Danh sách các file (all and sub folder) bạn đã chọn :</h4>
 
-<ul id="ulx1">
+<ul id="ulx1-@i">
 </ul>
 </div>
                     }
@@ -413,7 +425,7 @@
                 </td>
             </tr>
 
-            @if (ViewBag.X != 0)
+            @* @if (ViewBag.X != 0)
             {
                 <tr style="height:40px">
                     <td> </td>
@@ -425,7 +437,7 @@
                     <br>
                 </td>
             </tr>
-            }
+            }*@
         }
             
         @if(ViewBag.SL > 0)

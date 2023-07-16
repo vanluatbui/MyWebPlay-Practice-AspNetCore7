@@ -36,12 +36,15 @@ namespace MyWebPlay.Controllers
             {
                 string file = "/" + path + "/" + item.Name;
 
-                var homnay = MD5.CreateMD5(DateTime.Now.ToString("dd-MM-yyyy"))+ item.Extension;
-                var hanfile = item.Name.Split("_FileInWebPlay_")[1];
-
-                if (homnay == hanfile)
+                if (item.Name.Contains("_FileInWebPlay_"))
                 {
-                    System.IO.File.Delete(Path.Combine(_webHostEnvironment.WebRootPath, path, item.Name));
+                    var homnay = MD5.CreateMD5(DateTime.Now.ToString("dd-MM-yyyy")) + item.Extension;
+                    var hanfile = item.Name.Split("_FileInWebPlay_")[1];
+
+                    if (homnay == hanfile)
+                    {
+                        System.IO.File.Delete(Path.Combine(_webHostEnvironment.WebRootPath, path, item.Name));
+                    }
                 }
             }
 

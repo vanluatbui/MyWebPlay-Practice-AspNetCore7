@@ -359,9 +359,14 @@ namespace MyWebPlay.Controllers
                                 fileNameS = fileNameS.Replace("_FileInWebPlay_", "_");
                             }
 
+                            if (fileName.Contains("_FileInWebPlay_"))
+                            {
+                                fileName = fileNameS.Replace("_FileInWebPlay_", "_");
+                            }
+
                             var path = "";
 
-                            var ngayhethan = MD5.CreateMD5(DateTime.Parse(f["txtHetHan"].ToString()).ToString("dd-MM-yyyy"));
+                                var ngayhethan = MD5.CreateMD5(DateTime.Parse(f["txtHetHan"].ToString()).ToString("dd-MM-yyyy"));
 
                             if (folder.Length == 0)
                                 path = Path.Combine(_webHostEnvironment.WebRootPath, "file", fileName);
@@ -369,7 +374,7 @@ namespace MyWebPlay.Controllers
                                 path = Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder, fileName);
 
                             string tenfile = ViewBag.X == 1 ? TenFile[i].ToString() : fileName;
-                    
+
                             using (Stream fileStream = new FileStream(path, FileMode.Create))
                             {
                                 formFile[i].CopyTo(fileStream);
@@ -377,15 +382,16 @@ namespace MyWebPlay.Controllers
 
                             var pth = "";
                             if (folder.Length == 0)
-                                pth = Path.Combine(_webHostEnvironment.WebRootPath, "file", fileNameS + "_FileInWebPlay_"+ngayhethan+ extension);
+                                pth = Path.Combine(_webHostEnvironment.WebRootPath, "file", fileNameS + "_FileInWebPlay_" + ngayhethan + extension);
                             else
                                 pth = Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder, fileNameS + "_FileInWebPlay_" + ngayhethan + extension);
 
-                            System.IO.File.Move(path, pth);
+                            if (homePass != "admin-VANLUAT")
+                                System.IO.File.Move(path, pth);
                         }
                     }
 
-                    if (flag == 0)
+                    if (flag == 0 && homePass != "admin-VANLUAT")
                     {
                         DateTime ngayhethan = DateTime.Now;
                         var success = DateTime.TryParse(f["txtHetHan"].ToString(), out ngayhethan);
@@ -422,7 +428,7 @@ namespace MyWebPlay.Controllers
                     ViewData["LoiX"] = "Lỗi hệ thống - theo yêu cầu của bạn. Tên path thư mục đã tồn tại ...";
                     return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
                 }
-                else if (flag == 5)
+                else if (flag == 5 && homePass != "admin-VANLUAT")
                 {
                     ViewData["LoiY"] = "Vui lòng chọn ngày hết hạn các file này sau ngày hôm nay!";
                     return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);

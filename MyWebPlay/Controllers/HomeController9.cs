@@ -351,27 +351,38 @@ namespace MyWebPlay.Controllers
                         {
 
                             var fileName = Path.GetFileName(formFile[i].FileName);
-                            var fileNameS = Path.GetFileNameWithoutExtension(formFile[i].FileName);
-                            var extension = Path.GetExtension(formFile[i].FileName);
-
-                            if (fileNameS.Contains("_FileInWebPlay_"))
-                            {
-                                fileNameS = fileNameS.Replace("_FileInWebPlay_", "_");
-                            }
-
-                            if (fileName.Contains("_FileInWebPlay_"))
-                            {
-                                fileName = fileNameS.Replace("_FileInWebPlay_", "_");
-                            }
-
+             
                             var path = "";
-
-                                var ngayhethan = MD5.CreateMD5(DateTime.Parse(f["txtHetHan"].ToString()).ToString("dd-MM-yyyy"));
 
                             if (folder.Length == 0)
                                 path = Path.Combine(_webHostEnvironment.WebRootPath, "file", fileName);
                             else
                                 path = Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder, fileName);
+
+                            if (homePass != "admin-VANLUAT")
+                            {
+                                var infoFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"));
+                                var files = infoFile.Split("\n");
+
+                                int flay = 0;
+                                for (int x = 0; x < files.Length; x++)
+                                {
+                                    if (files[x] == "") continue;
+
+                                    var fi = files[x].Split("\t");
+                                    if (fi[0] == path)
+                                    {
+                                        flay = 1;
+                                        break;
+                                    }
+                                }
+
+                                if (flay == 0)
+                                {
+                                    var result = path + "\t" + DateTime.Parse(f["txtHetHan"].ToString()).ToString("dd/MM/yyyy") + "\n";
+                                    System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile + result);
+                                }
+                            }
 
                             string tenfile = ViewBag.X == 1 ? TenFile[i].ToString() : fileName;
 
@@ -379,15 +390,6 @@ namespace MyWebPlay.Controllers
                             {
                                 formFile[i].CopyTo(fileStream);
                             }
-
-                            var pth = "";
-                            if (folder.Length == 0)
-                                pth = Path.Combine(_webHostEnvironment.WebRootPath, "file", fileNameS + "_FileInWebPlay_" + ngayhethan + extension);
-                            else
-                                pth = Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder, fileNameS + "_FileInWebPlay_" + ngayhethan + extension);
-
-                            if (homePass != "admin-VANLUAT")
-                                System.IO.File.Move(path, pth);
                         }
                     }
 

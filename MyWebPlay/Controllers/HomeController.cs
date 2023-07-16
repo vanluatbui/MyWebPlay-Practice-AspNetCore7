@@ -36,16 +36,31 @@ namespace MyWebPlay.Controllers
             {
                 string file = "/" + path + "/" + item.Name;
 
-                if (item.Name.Contains("_FileInWebPlay_"))
-                {
-                    var homnay = MD5.CreateMD5(DateTime.Now.ToString("dd-MM-yyyy")) + item.Extension;
-                    var hanfile = item.Name.Split("_FileInWebPlay_")[1];
+                    Calendar x = CultureInfo.InvariantCulture.Calendar;
 
-                    if (homnay == hanfile)
+                    string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+                    var infoFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"));
+                    var files = infoFile.Split("\n");
+               
+                    for (int xx = 0; xx < files.Length; xx++)
                     {
-                        System.IO.File.Delete(Path.Combine(_webHostEnvironment.WebRootPath, path, item.Name));
+                        if (files[xx] == "") continue;
+
+                        var fi = files[xx].Split("\t");
+                        if (new System.IO.FileInfo(fi[0]).Exists == true && DateTime.Parse(fi[1]) <= DateTime.Parse(xuxu))
+                        {
+                            System.IO.File.Delete(fi[0]);
+                            infoFile = infoFile.Replace(fi[0] + "\t" + fi[1] + "\n", "");
+                            System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile);
+                        }
+                        else
+                        if (new System.IO.FileInfo(fi[0]).Exists == false)
+                        {
+                        infoFile = infoFile.Replace(fi[0] + "\t" + fi[1] + "\n", "");
+                        System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile);
+                        }
                     }
-                }
             }
 
             var listFolder = new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, path)).GetDirectories();

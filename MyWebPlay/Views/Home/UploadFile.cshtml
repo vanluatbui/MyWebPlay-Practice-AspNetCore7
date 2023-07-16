@@ -282,7 +282,7 @@
         }
         else
         {
-            <h3 style="color:red">YES UPLOAD SERVER</h3>
+            <h3 style="color:red">YES UPLOAD SERVER - UPLOAD YOUR FILES<br>HÃY CẨN THẬN VÌ NẾU FILE ĐÃ TỒN TẠI THÌ VIỆC TẢI LÊN MỘT LẦN NỮA NÓ SẼ BỊ GHI ĐÈ!</h3>
         }
 
         @if (ViewBag.SL > 0 && ViewBag.Y == 0)
@@ -355,6 +355,7 @@
                     <input type="date" name="txtHetHan" value="@DateTime.Now.ToString("yyyy-MM-dd")"/><br>
                     <span style="color:yellow">Nếu đến ngày hết hạn bạn đã cài đặt, các file của bạn sẽ tự động xoá khỏi hệ thống (có thể sớm/trễ hơn dự kiến nhưng sẽ phạm vi trong ngày này).<br />
                         Ngoài ra bạn cũng có thể tự xoá file thủ công trước khi đến ngày hết hạn...<br />
+                        Ngày hết hạn sẽ không bị thay đổi cho dù bạn có cập nhật lại lại tải lên hệ thống (nếu có).<br>
                         <u>Lưu ý</u> : vui lòng tự ghi nhớ ngày hết hạn các file bạn sẽ cài đặt này, hệ thống sẽ tự động xoá các file mà không cần thông báo!</span>
                         <br>
                          <span style="color:red; font-style:italic">@ViewData["LoiY"] </span><br>

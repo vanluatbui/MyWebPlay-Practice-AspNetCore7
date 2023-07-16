@@ -6,10 +6,12 @@ using MyWebPlay.Model;
 using MyWebPlay.Models;
 using Org.BouncyCastle.Asn1.X509;
 using System.Diagnostics;
+using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using static System.Net.Mime.MediaTypeNames;
+using MD5 = MyWebPlay.Extension.MD5;
 
 namespace MyWebPlay.Controllers
 {
@@ -26,9 +28,34 @@ namespace MyWebPlay.Controllers
             _mailService = mailService;
         }
 
+        private void RemoveFileDirectory(string path)
+        {
+            var listFile = new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, path)).GetFiles();
+  
+            foreach (var item in listFile)
+            {
+                string file = "/" + path + "/" + item.Name;
+
+                var homnay = MD5.CreateMD5(DateTime.Now.ToString("dd-MM-yyyy"))+ item.Extension;
+                var hanfile = item.Name.Split("_FileInWebPlay_")[1];
+
+                if (homnay == hanfile)
+                {
+                    System.IO.File.Delete(Path.Combine(_webHostEnvironment.WebRootPath, path, item.Name));
+                }
+            }
+
+            var listFolder = new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, path)).GetDirectories();
+            foreach (var item in listFolder)
+            {
+                RemoveFileDirectory(path + "/" + item.Name);
+            }
+        }
+
         public ActionResult Index()
         {
             HttpContext.Session.Remove("TracNghiem");
+            RemoveFileDirectory("file");
 
             if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Exists == true)
               new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Delete(true);

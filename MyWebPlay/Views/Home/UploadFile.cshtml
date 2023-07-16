@@ -251,7 +251,7 @@
    @* <button style="color:blue" onclick="ABC()">Have u (Have name - one file)</button>
     <br />
     <br />*@
-     <button style="color:blue" onclick="XYZ()">Have u (No name (name basic) - multiple file)</button> <b>LƯU Ý : nếu lựa chọn này, các file có name đã tồn tại trên Server sẽ tự động lưu mới và thay thế file cũ (hãy cẩn thận)</b>
+     <button style="color:blue" onclick="XYZ()">Have u (No name (name basic) - multiple file)</button>
     <br />
     <br />
 
@@ -332,6 +332,20 @@
                     </select>
                     <input type="number" name="DuKien" min="1" max="2" id="DK2" value="2"/>
                     <br>
+                </td>
+            </tr>
+            <br /><br />
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                    <br />
+                    <b>Việc tải file của bạn lên hệ thống chỉ là tạm thời, vui lòng chọn ngày hết hạn mong muốn của các file này : </b>
+                    <input type="date" name="txtHetHan" /><br>
+                    <span style="color:yellow">Nếu đến ngày hết hạn bạn đã cài đặt, các file của bạn sẽ tự động xoá khỏi hệ thống (có thể sớm/trễ hơn dự kiến nhưng sẽ phạm vi trong ngày này).<br />
+                        Ngoài ra bạn cũng có thể tự xoá file thủ công trước khi đến ngày hết hạn...<br />
+                        <u>Lưu ý</u> : vui lòng tự ghi nhớ ngày hết hạn các file bạn sẽ cài đặt này, hệ thống sẽ tự động xoá các file mà không cần thông báo!</span>
+                        <br>
+                         <span style="color:red; font-style:italic">@ViewData["LoiY"] </span><br>
                 </td>
             </tr>
         }

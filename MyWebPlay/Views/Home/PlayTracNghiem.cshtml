@@ -48,7 +48,7 @@
 
         if (s == 1)
         {
-            A.style.color = "blue";
+            A.style.color = "red";
             B.style.color = "white";
             C.style.color = "white";
             D.style.color = "white";
@@ -56,7 +56,7 @@
         else if (s == 2)
         {
             A.style.color = "white";
-            B.style.color = "blue";
+            B.style.color = "red";
             C.style.color = "white";
             D.style.color = "white";
         }
@@ -64,7 +64,7 @@
         {
             A.style.color = "white";
             B.style.color = "white";
-            C.style.color = "blue";
+            C.style.color = "red";
             D.style.color = "white";
         }
         else if (s == 4)
@@ -72,7 +72,7 @@
             A.style.color = "white";
             B.style.color = "white";
             C.style.color = "white";
-            D.style.color = "blue";
+            D.style.color = "red";
         }
     }
 
@@ -92,7 +92,7 @@
 
        if (answer == 1)
        {
-             A.style.color = "blue";
+             A.style.color = "red";
             B.style.color = "white";
             C.style.color = "white";
             D.style.color = "white";
@@ -100,7 +100,7 @@
        else if (answer == 2)
        {
             A.style.color = "white";
-            B.style.color = "blue";
+            B.style.color = "red";
             C.style.color = "white";
             D.style.color = "white";
        }
@@ -108,7 +108,7 @@
        {
             A.style.color = "white";
             B.style.color = "white";
-            C.style.color = "blue";
+            C.style.color = "red";
             D.style.color = "white";
        }
         else if (answer == 4)
@@ -116,7 +116,7 @@
             A.style.color = "white";
             B.style.color = "white";
             C.style.color = "white";
-            D.style.color = "blue";
+            D.style.color = "red";
        }
 
      }
@@ -260,10 +260,17 @@
                                 <tr style="height:40px">
                   <td></td>
      <td>
-                      <h4><input type="text" size="100" placeholder="Nhập link hình ảnh online cần thêm" id="hinhanh-@i" /> <textarea cols="50" rows="20" name="anh-@i" id="anhX-@i" ></textarea> <a onclick="themhinhanh(@i)" href="#xuly">THÊM</a> <span id="soluong-@i" style="color:deeppink">0</span></h4>
+                      <h4><input type="text" size="50" placeholder="Nhập link hình ảnh online cần thêm" id="hinhanh-@i" /> <textarea cols="50" rows="20" name="anh-@i" id="anhX-@i" style="display:none"></textarea>
+                          <select name="kichthuoc-@i">
+                              <option>100x100</option>
+                              <option>300x300</option>
+                              <option>500x500</option>
+                              <option>500x1000</option>
+                          </select> 
+                          <a onclick="themhinhanh(@i)" href="#xuly">THÊM</a> <span id="soluong-@i" style="color:deeppink">0</span></h4>
                       <h4><b><select id="chonanh-@i">
                                <option></option> 
-                            </select></b> <a onclick="xoahinhanh(@i)" href="#xuly">XOÁ</a> || <a href="#" onClick="MyWindow=window.open(document.getElementById('chonanh-@i').value,'MyWindow','width=500,height=500'); return false;">XEM HÌNH ẢNH</a></h4> 
+                            </select></b> <a onclick="xoahinhanh(@i)" href="#xuly">XOÁ</a> || <a href="#" onClick="MyWindow=window.open(document.getElementById('chonanh-@i').value,'MyWindow','width=500,height=500'); return false;">XEM HÌNH ẢNH</a></h4><br>
     
                 </td>
      </tr>

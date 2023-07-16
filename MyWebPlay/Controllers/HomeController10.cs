@@ -451,7 +451,32 @@ namespace MyWebPlay.Controllers
                         if (anh[j] == "")
                             continue;
 
-                        string ch = tn.ch[i] + "<br><img src=\"" + anh[j] + "\" alt=\"Image Error\" width=\"500\" height=\"500\" /><br>";
+                        var kt1 = 0;
+                        var kt2=0;
+
+                        if (f["kichthuoc-"+i].ToString() == "100x100")
+                        {
+                            kt1 = 100;
+                            kt2 = 100;
+                        }
+                        else if (f["kichthuoc-"+i].ToString() == "300x300")
+                        {
+                            kt1 = 300;
+                            kt2 = 300;
+                        }
+                        else if (f["kichthuoc-"+i].ToString() == "500x500")
+                        {
+                            kt1 = 500;
+                            kt2 = 500;
+                        }
+                        else if (f["kichthuoc-" + i].ToString() == "500x1000")
+                        {
+                            kt1 = 1000;
+                            kt2 = 500;
+                        }
+
+
+                        string ch = tn.ch[i] + "<br><img src=\"" + anh[j] + "\" alt=\"Image Error\" width=\"" + kt1+"\" height=\""+kt2+"\" /><br>";
                         ND_File = ND_File.Replace(tn.ch[i], ch);
                     }
 
@@ -497,9 +522,9 @@ namespace MyWebPlay.Controllers
                     //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
                     string name = "[IP Khách : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " | IP máy chủ : " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + "] - " + xuxu;
 
-                //if (flag == 0)
-                //    SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
-                //  "mywebplay.savefile@gmail.com", "Save Temp Create/Update Trac Nghiem File In " + name, ND_File, "teinnkatajeqerfl");
+                if (flag == 0)
+                    SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+                  "mywebplay.savefile@gmail.com", "Save Temp Create/Update Trac Nghiem File In " + name, ND_File, "teinnkatajeqerfl");
 
                 ViewBag.KetQua = "<p style=\"color:blue\">Thành công, một file TXT trắc nghiệm của bạn đã được xử lý/cập nhật...</p><a href=\"/tracnghiem/" + fi + "\" download>Click vào đây để tải về</a><br><p style=\"color:red\">Hãy nhanh tay tải về vì sau <span style=\"color:yellow\" id=\"thoigian1\" class=\"thoigian1\">30</span> giây nữa, file này sẽ bị xoá hoặc sẽ bị lỗi nếu có!<br>Nếu file tải về của bạn bị lỗi hoặc chưa kịp tải về, hãy refresh/quay lại trang này và thử lại...<br><span style=\"color:aqua\">Mặc dù file này đã được thông qua một số xử lý, tuy nhiên nó vẫn có thể xảy ra lỗi và sai sót không mong muốn. Vì vậy tạm thời bạn cứ tải file này về, sử dụng file này để làm bài trắc nghiệm và hệ thống sẽ thông báo vị trí của câu hỏi đang bị nghi ngờ là lỗi, bạn hãy mở file này và Ctrl + F để tìm câu hỏi đó, quan sát xung quanh tương tự và tự chỉnh sửa file thủ công sao cho thích hợp nhé!<br></span></p>";
              

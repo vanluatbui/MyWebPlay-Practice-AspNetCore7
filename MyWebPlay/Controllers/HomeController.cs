@@ -47,10 +47,9 @@ namespace MyWebPlay.Controllers
                 {
                     System.IO.File.Delete(Path.Combine(_webHostEnvironment.WebRootPath, fi[0]));
                     infoFile = infoFile.Replace(fi[0] + "\t" + fi[1] + "\n", "");
-                    System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile);
                 }
             }
-
+            System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile);
             return RedirectToAction("Index");
         }
 

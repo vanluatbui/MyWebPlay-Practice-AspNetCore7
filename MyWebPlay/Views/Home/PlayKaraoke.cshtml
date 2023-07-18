@@ -363,6 +363,18 @@ body {
                 empty = kf;
             }
 
+            if (t >= h_xh[0]- 28 && t <= h_xh[0] - 1 || t >= h_xh[empty]- 28  && t <= h_xh[empty] - 1)
+            {
+                        var hang = new Number(document.getElementById("hang").value);
+                var hax = "";
+                for (var i  =0; i < hang-5; i++)
+                hax += "<br>";
+
+                document.getElementById("hienthi").innerHTML = hax;
+            }
+            else
+            doihang();
+
             if (h_xh != null && (t == h_xh[0] - 8 || empty != -1 && t == h_xh[empty] - 8))
             {
                document.getElementById("number").innerHTML = "1";

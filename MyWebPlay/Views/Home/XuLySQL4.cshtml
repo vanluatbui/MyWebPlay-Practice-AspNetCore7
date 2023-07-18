@@ -1,0 +1,45 @@
+﻿<table align="center">
+    <h2 style="text-align:center">Xử Lý SQL 4</h2>
+
+    <h3 style="color:yellow" onclick="muaxuan()">@ViewBag.KetQua</h3>
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <tr style="height:40px">
+            <td> </td>
+            <td>
+                <b>Nhập tên table : </b>
+                <br>
+                <input type="text" name="txtTable" />
+                <br><br>
+                <b>Nhập nội dung được cho là đầy đủ (liệt kê tách bởi Enter và Tab) : </b>
+                <br>
+                <textarea name="txtDayDu" cols="100" rows="12"></textarea>
+                <br><br>
+                <b>Nhập tách bởi Enter các fields nghi là thiếu : </b>
+                <br>
+                <textarea name="txtThieu" cols="100" rows="12"></textarea>"
+            </td>
+        </tr>
+      
+        <tr style="height:40px">
+            <td></td>
+            <td><br>
+                <input type="Submit" value="Kết Quả" />
+            </td>
+        </tr>
+    }
+</table>
+<br /><br />
+
+******************************************************************************************************************************************************************************
+
+<br />
+<br />
+<br />
+
+<div id="hihi">
+                @Html.Raw(ViewBag.Result)
+</div>

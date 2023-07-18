@@ -3,6 +3,7 @@ using Microsoft.VisualBasic;
 using Org.BouncyCastle.Asn1.X509.Qualified;
 using System.Collections;
 using System.Data;
+using System.Numerics;
 
 namespace MyWebPlay.Controllers
 {
@@ -312,8 +313,8 @@ namespace MyWebPlay.Controllers
             string chuoi = f["txtChuoi"].ToString();
             var listCha = chuoi.Split("\r\n#3275#\r\n");
             var phan1 = listCha[0].Replace(" ", "").Replace("\t", "").Replace(",", "").Replace("[", "").Replace("]", "").Replace("\r\n","\t");
-            var phan2 = listCha[1].Replace("\r\n", " ");
-            var phan3 = listCha[2].Replace("\r\n", " ");
+            var phan2 = listCha[1].Replace("\r\n", "  ");
+            var phan3 = listCha[2].Replace("\r\n", "  ");
 
             var result = phan1 + "\n" + phan2 + "\n"+ phan3;
 
@@ -325,5 +326,43 @@ namespace MyWebPlay.Controllers
 
             return View();
         }
+
+        public ActionResult XuLySQL4()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult XuLySQL4(IFormCollection f)
+        {
+            var txtTable = f["txtTable"].ToString();
+            var thieus = f["txtThieu"].ToString().Split("\r\n");
+            var daydus = f["txtDayDu"].ToString().Split("\r\n");
+
+            var has = new Hashtable();
+            for (int i =0; i < daydus.Length;i++)
+            {
+                var duday = daydus[i].Split("\t");
+                has[duday[0]] = duday[1];
+            }
+
+            var result = "ALTER TABLE " + txtTable + " ADD\n";
+            for (int i=0;i< thieus.Length;i++)
+            {
+                if (has.ContainsKey(thieus[i]) == true)
+                    result += thieus[i] + " " + has[thieus[i]]+",\n";
+                else
+                    result += thieus[i] + " nvarchar(max),\n";
+            }
+
+            result = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+
+            ViewBag.Result = result;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+
+            return View();
+        }
     }
 }
+

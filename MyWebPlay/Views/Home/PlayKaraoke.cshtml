@@ -90,20 +90,30 @@ body {
         var chon = document.getElementById("chonKara").options.selectedIndex;
         var chonX = document.getElementById("chonKarax");
         var online = document.getElementById("online");
+        var help = document.getElementById("helpYoutube");
         if (chon == 0)
         {
             online.style.display = "none";
+            help.style.display = "none";
         chonX.value = "1";
         }
         else if (chon == 1)
         {
         chonX.value = "2";
         online.style.display = "inline-block";
+        help.style.display = "none";
         }
         else  if (chon == 2)
         {
         chonX.value = "3";
          online.style.display = "inline-block";
+         help.style.display = "none";
+        }
+        else  if (chon == 3)
+        {
+        chonX.value = "4";
+         online.style.display = "inline-block";
+         help.style.display = "inline-block";
         }
     }
 
@@ -502,10 +512,12 @@ body {
                           <option>Sử dụng ngẫu nhiên ảnh/background có sẵn trên hệ thống</option>
                            <option>Sử dụng link ảnh/background online của bạn</option>
                            <option>Sử dụng link video/background online của bạn</option>
+                            <option>Nhập ID của video Youtube online</option>
                       </select>
-                      <input type="number" hidden id="chonKarax" name="KaraChon" value="1" min="1" max="3" />
+                      <input type="number" hidden id="chonKarax" name="KaraChon" value="1" min="1" max="4" />
                       <br><br>
-                      <input name="txtOnline" id="online" size="100" style="display:none" type="text" placeholder="Nhập link online background của bạn thực hiện karaoke..." /> 
+                      <input name="txtOnline" id="online" size="100" style="display:none" type="text" placeholder="Nhập link online background của bạn thực hiện karaoke..." />
+                     <br><br> <span id="helpYoutube" style="color:white;display:none">Ví dụ link Youtube : <span style="color:aqua">https://www.youtube.com/watch?v=w4IWu-WEMj0</span> thì ID sẽ là <span style="color:yellow">w4IWu-WEMj0</span> (lưu ý : không nhập link Youtube đầy đủ)</span>
                 </td>
             </tr>
 
@@ -599,12 +611,18 @@ else
 {
 <img src="@ViewBag.Background" id="myVideo" class="sqs-html5-video" />
 }
-else
+else if (ViewBag.SuDung == "Video")
 {
 <video muted loop autoplay id="myVideo" class="sqs-html5-video">
   <source src="@ViewBag.Background" >
-</video>
-}
-}
+            </video>
+        }
+        else
+        {
+            <iframe id="myVideo"
+            src="@ViewBag.Background">
+           </iframe>
+        }
+    }
 </body>
 </html>

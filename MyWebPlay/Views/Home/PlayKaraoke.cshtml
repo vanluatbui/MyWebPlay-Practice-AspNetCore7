@@ -239,6 +239,20 @@ body {
         you = false;
     }
 
+    function xemplay()
+    {
+        if ('@ViewBag.SuDung' == "Youtube")
+        {
+        document.getElementById("phanphoi").innerHTML= "<iframe id=\"myVideo\" src=\""+'@ViewBag.Background'+"\"></iframe>";
+        }
+        else if ('@ViewBag.SuDung' == "Video")
+        {
+            document.getElementById("myVideo").currentTime = 0;
+        }
+        dongmomenu();
+        resetKaraoke();
+    }
+
     function PlayXKaraokeX()
     {
         document.getElementById("music").pause();
@@ -553,6 +567,7 @@ else
      &nbsp;&nbsp;&nbsp;<b id="xemmaudi" style="color:#e3f207">Chọn màu cho time đếm ngược bắt đầu karaoke</b> : <input type="color" onchange="doimauY()" id="mauY" value="#e3f207" />
        &nbsp;&nbsp;&nbsp; <input id="kichthuoc" type="number" min="0" value="100" onchange="doikichthuoc()"/>
         &nbsp;&nbsp;&nbsp; <input id="hang" type="number" min="0" value="18" onchange="doihang()"/>
+        &nbsp;&nbsp;&nbsp; <b style="color:aqua"><a onclick="xemplay()" href="#xuly">Restart & full screen</a></b>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="StopKaraoke()"><b style="color:darkgreen">THOÁT</b></button>
 
     <br /><br /><b><span style="color:white">Xin lỗi, đôi khi vì sự cố kết nối mạng mà khiến cho chức năng Karaoke : nhạc và đoạn text lời xuất hiện không đồng nhất với nhau hay dữ liệu chưa được tải lên hết.
@@ -606,7 +621,7 @@ else
     
 </table>
 </div>
-
+<div id="phanphoi">
 @if(ViewBag.SuDung == "")
 {
 <img src="@ViewBag.Background" id="myVideo" class="sqs-html5-video" />
@@ -623,6 +638,7 @@ else if (ViewBag.SuDung == "Video")
             src="@ViewBag.Background">
            </iframe>
         }
+        </div>
     }
 </body>
 </html>

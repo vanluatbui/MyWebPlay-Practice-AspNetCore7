@@ -4,6 +4,7 @@ using Org.BouncyCastle.Asn1.X509.Qualified;
 using System.Collections;
 using System.Data;
 using System.Numerics;
+using System.Text.RegularExpressions;
 
 namespace MyWebPlay.Controllers
 {
@@ -342,17 +343,17 @@ namespace MyWebPlay.Controllers
             var has = new Hashtable();
             for (int i =0; i < daydus.Length;i++)
             {
-                var duday = daydus[i].Split("\t");
+                var duday = Regex.Split(daydus[i], "\t| ");
                 has[duday[0]] = duday[1];
             }
 
-            var result = "ALTER TABLE " + txtTable + " ADD\n";
+            var result = "ALTER TABLE " + txtTable + " ADD";
             for (int i=0;i< thieus.Length;i++)
             {
                 if (has.ContainsKey(thieus[i]) == true)
-                    result += thieus[i] + " " + has[thieus[i]]+",\n";
+                    result += "\n\t"+thieus[i] + " " + has[thieus[i]]+",\n";
                 else
-                    result += thieus[i] + " nvarchar(max),\n";
+                    result += "\n\t" + thieus[i] + " nvarchar(max),\n";
             }
 
             result = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";

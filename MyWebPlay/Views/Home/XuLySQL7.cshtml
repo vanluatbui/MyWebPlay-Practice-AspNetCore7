@@ -1,0 +1,45 @@
+﻿<table align="center">
+    <h2 style="text-align:center">Xử Lý SQL 7</h2>
+
+    <h3 style="color:yellow" onclick="muaxuan()">@ViewBag.KetQua</h3>
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <tr style="height:40px">
+            <td> </td>
+            <td>
+                <b>Nhập tên table : </b>
+                <br>
+                <input type="text" name="txtTable" />
+                <br><br>
+                <b>Nhập nội dung được cho là đầy đủ (fileds - type) (liệt kê tách bởi Enter/sử dụng file SQL) : </b>
+                <br>
+                <textarea name="txtDayDu" cols="100" rows="12"></textarea>
+                <br><br>
+                <b>Nhập các fileds hiện có - tách bởi Enter (có thể dùng lệnh : SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'name') : </b>
+                <br>
+                <textarea name="txtHienTai" cols="100" rows="12"></textarea>"
+            </td>
+        </tr>
+      
+        <tr style="height:40px">
+            <td></td>
+            <td><br>
+                <input type="Submit" value="Kết Quả" />
+            </td>
+        </tr>
+    }
+</table>
+<br /><br />
+
+******************************************************************************************************************************************************************************
+
+<br />
+<br />
+<br />
+
+<div id="hihi">
+                @Html.Raw(ViewBag.Result)
+</div>

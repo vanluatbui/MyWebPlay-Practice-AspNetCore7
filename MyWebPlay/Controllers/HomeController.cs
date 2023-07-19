@@ -29,27 +29,36 @@ namespace MyWebPlay.Controllers
             _mailService = mailService;
         }
 
-        public ActionResult Refresh()
+        public ActionResult PlayRefresh()
         {
-            Calendar x = CultureInfo.InvariantCulture.Calendar;
-
-            string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
-
             var infoFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"));
-            var files = infoFile.Split("\n");
+            ViewBag.NoxDux = infoFile;
+            return View(); 
+        }
 
-            for (int xx = 0; xx < files.Length; xx++)
-            {
-                if (files[xx] == "") continue;
+        [HttpPost]
+        public ActionResult PlayRefresh (IFormCollection f)
+        {
+            var infoFile = f["locFile"].ToString();
+                var files = infoFile.Split("\n", StringSplitOptions.RemoveEmptyEntries);
 
-                var fi = files[xx].Split("\t");
-                if (DateTime.Parse(fi[1]) <= DateTime.Parse(xuxu) || new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0])).Exists == false)
+                Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+                string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+
+                for (int xx = 0; xx < files.Length; xx++)
                 {
-                    FileInfo f = new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0]));
-                    f.Delete();
-                    infoFile = infoFile.Replace(fi[0] + "\t" + fi[1] + "\n", "");
+                    if (files[xx] == "") continue;
+
+                    var fi = files[xx].Split("\t");
+                    if (DateTime.Parse(fi[1]) <= DateTime.Parse(xuxu) || new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0])).Exists == false)
+                    {
+                        FileInfo fx = new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0]));
+                        fx.Delete();
+                        infoFile = infoFile.Replace(fi[0] + "\t" + fi[1] + "\n", "");
+                    }
                 }
-            }
             System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile);
             return RedirectToAction("Index");
         }

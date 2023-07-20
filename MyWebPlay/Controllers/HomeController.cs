@@ -54,7 +54,7 @@ namespace MyWebPlay.Controllers
                     var fi = files[xx].Split("\t");
                     if (DateTime.Parse(fi[1]) <= DateTime.Parse(xuxu) || new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0])).Exists == false)
                     {
-                        FileInfo fx = new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0]));
+                        FileInfo fx = new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0].TrimStart('/')));
                         fx.Delete();
                         infoFile = infoFile.Replace(fi[0] + "\t" + fi[1] + "\n", "");
                     }

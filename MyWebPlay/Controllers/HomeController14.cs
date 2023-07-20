@@ -56,12 +56,20 @@ namespace MyWebPlay.Controllers
             else if (chon == "4")
             {
                 var link = f["txtOnline"].ToString();
+                link = link.Replace("&", "");
                 link = link.Replace("loop", "");
                 link = link.Replace("autoplay", "");
                 link = link.Replace("controls", "");
                 link = link.Replace("mute", "");
+                link = link.Replace("youtu.be/", "youtube.com/embed/");
+                link = link.Replace("youtube.com/watch?v=", "youtube.com/embed/");
 
-                ViewBag.Background = "https://www.youtube.com/embed/"+link+ "?autoplay=1&loop=1&controls=0&mute=1";
+                if (link.Contains("?"))
+                    link += "&autoplay=1&loop=1&controls=0&mute=1";
+                else
+                    link += "?autoplay=1&loop=1&controls=0&mute=1";
+
+                ViewBag.Background = link;
                 ViewBag.SuDung = "Youtube";
             }
 

@@ -1,5 +1,6 @@
 ﻿using AppFindMainKey_CSDL;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using MyWebPlay.Extension;
@@ -29,39 +30,28 @@ namespace MyWebPlay.Controllers
             _mailService = mailService;
         }
 
-        public ActionResult PlayRefresh()
+        int SoSanh2Ngay(int d1, int m1, int y1, int d2, int m2, int y2)
         {
-            var infoFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"));
-            ViewBag.NoxDux = infoFile;
-            return View(); 
-        }
+            if (d1 == d2 && m1 == m2 && y1 == y2)
+                return 0;
 
-        [HttpPost]
-        public ActionResult PlayRefresh (IFormCollection f)
-        {
-            var infoFile = f["locFile"].ToString();
-                var files = infoFile.Split("\n", StringSplitOptions.RemoveEmptyEntries);
+            if (y1 < y2)
+                return -1;
 
-                Calendar x = CultureInfo.InvariantCulture.Calendar;
-
-                string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
-
-
-                for (int xx = 0; xx < files.Length; xx++)
+            if (y1 == y2)
+            {
+                if (m1 == m2)
                 {
-                    if (files[xx] == "") continue;
-
-                    var fi = files[xx].Split("\t");
-                    if (DateTime.Parse(fi[1]) <= DateTime.Parse(xuxu) || new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0])).Exists == false)
-                    {
-                        FileInfo fx = new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0].TrimStart('/')));
-                        fx.Delete();
-                        infoFile = infoFile.Replace(fi[0] + "\t" + fi[1] + "\n", "");
-                    }
+                    if (d1 < d2)
+                        return -1;
                 }
-            System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile);
-            return RedirectToAction("Index");
+                else
+                if (m1 < m2)
+                    return -1;
+            }
+            return 1;
         }
+
 
         public ActionResult Index()
         {
@@ -101,6 +91,40 @@ namespace MyWebPlay.Controllers
 
             new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
             new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
+
+            var infoFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"));
+
+            var files = infoFile.Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
+
+            Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+            string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+            for (int xx = 0; xx < files.Length; xx++)
+            {
+                if (files[xx] == "") continue;
+
+                var fi = files[xx].Split("\t");
+
+                var today = xuxu.Split("/");
+                var hethan = fi[1].Split("/");
+
+                var d1 = int.Parse(today[0]);
+                var m1 = int.Parse(today[1]);
+                var y1 = int.Parse(today[2]);
+
+                var d2 = int.Parse(hethan[0]);
+                var m2 = int.Parse(hethan[1]);
+                var y2 = int.Parse(hethan[2]);
+
+                if (SoSanh2Ngay(d1, m1, y1, d2, m2, y2) >= 0 || new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0])).Exists == false)
+                {
+                    FileInfo fx = new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0].TrimStart('/')));
+                    fx.Delete();
+                    infoFile = infoFile.Replace(fi[0] + "\t" + fi[1] + "\r\n", "");
+                }
+            }
+            System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile);
 
             return View();
         }

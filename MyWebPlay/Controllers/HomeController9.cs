@@ -359,6 +359,12 @@ namespace MyWebPlay.Controllers
                             else
                                 path = Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder, fileName);
 
+                            var pao = "";
+                            if (folder.Length == 0)
+                                pao = "file/" + fileName;
+                            else
+                                pao = "file" + folder + "/" + fileName;
+
                             if (homePass != "admin-VANLUAT")
                             {
                                 var infoFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"));
@@ -379,7 +385,7 @@ namespace MyWebPlay.Controllers
 
                                 if (flay == 0)
                                 {
-                                    var result = path + "\t" + DateTime.Parse(f["txtHetHan"].ToString()).ToString("dd/MM/yyyy")+"\n";
+                                    var result = pao + "\t" + DateTime.Parse(f["txtHetHan"].ToString()).ToString("dd/MM/yyyy")+"\n";
                                     System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile + result);
                                 }
                             }

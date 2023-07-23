@@ -67,7 +67,24 @@ body {
 <body>
 <meta charset="ISO-8859-1">
 <script>
+    function doikichthuoc()
+    {
+        var kt = document.getElementById("kichthuoc").value + "px";
+        document.getElementById("txtKaraoke1").style.fontSize = kt; 
+     document.getElementById("txtKaraoke2").style.fontSize = kt; 
+     document.getElementById("number").style.fontSize = kt; 
+    }
 
+    function doihang()
+    {
+        var hang = new Number(document.getElementById("hang").value);
+        var hax = "";
+        for (var i  =0; i < hang; i++)
+        hax += "<br>";
+
+        document.getElementById("hienthi").innerHTML = hax;
+    }
+    
     function chonKaraHay()
     {
         var chon = document.getElementById("chonKara").options.selectedIndex;
@@ -499,7 +516,6 @@ else
                <br>
                <br>
                <br>
-               <br>
            </div>
            <b style="color:black; font-size:5px"><a style="color:black; font-size:5px" onclick="dongmomenu()" href="#xuly">...</a></b>
                       &nbsp;&nbsp;&nbsp;<br><br>
@@ -511,13 +527,16 @@ else
     <button style="color:brown" onclick="loadsolar()" id="xanh"><b>FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp;<b id="xemthumau" style="color:#2900f5">Chọn màu tô điểm text</b> : <input type="color" onchange="doimau()" id="mau" value="#2900f5" />
     &nbsp;&nbsp;&nbsp;<b id="xemmauthu" style="color:#efe6e6">Chọn màu đoạn text ban đầu</b> : <input type="color" onchange="doimauX()" id="mauX" value="#efe6e6" />
      &nbsp;&nbsp;&nbsp;<b id="xemmaudi" style="color:#e3f207">Chọn màu cho time đếm ngược bắt đầu karaoke</b> : <input type="color" onchange="doimauY()" id="mauY" value="#e3f207" />
+       &nbsp;&nbsp;&nbsp; <input id="kichthuoc" type="number" min="0" value="100" onchange="doikichthuoc()"/>
+        &nbsp;&nbsp;&nbsp; <input id="hang" type="number" min="0" value="18" onchange="doihang()"/>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="StopKaraoke()"><b style="color:darkgreen">THOÁT</b></button>
+
     <br /><br /><b><span style="color:white">Xin lỗi, đôi khi vì sự cố kết nối mạng mà khiến cho chức năng Karaoke : nhạc và đoạn text lời xuất hiện không đồng nhất với nhau hay dữ liệu chưa được tải lên hết.
         <br>Mỗi khi gặp sự cố này, phiền bạn hãy nhấn nút <button style="color:purple" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI</b></button> để tải lại dữ liệu cho đến khi một cách hoàn tất. Xin cảm ơn!</span></b>
     <br />
     </div>
 
-    <br>
+    <div id="hienthi">
     <br>
     <br>
 
@@ -541,13 +560,15 @@ else
         <br>
         <br>
         <br>
+        </div>
+
     <input type="text" id="txtKara1" hidden>
     <input type="text" id="txtKara2" hidden>
 
     <tr style="height:40px">
                 <td></td>
                 <td>
-                       <span id="number" style="color:#e3f207; font-size:90px"></span>
+                       <span id="number" style="color:#e3f207; font-size:100px"></span>
                         <br>
                          <div style="text-align:center">
                         <div style="display:inline-block">

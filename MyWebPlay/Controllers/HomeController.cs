@@ -1,6 +1,7 @@
 ﻿using AppFindMainKey_CSDL;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using MyWebPlay.Extension;
 using MyWebPlay.Model;
 using MyWebPlay.Models;
@@ -28,40 +29,29 @@ namespace MyWebPlay.Controllers
             _mailService = mailService;
         }
 
-        private void RemoveFileDirectory(string path)
+        public ActionResult Refresh()
         {
-            var listFile = new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, path)).GetFiles();
-            foreach (var item in listFile)
+            Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+            string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+            var infoFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"));
+            var files = infoFile.Split("\n");
+
+            for (int xx = 0; xx < files.Length; xx++)
             {
-                string file = "/" + path + "/" + item.Name;
-                var goc = Path.Combine(_webHostEnvironment.WebRootPath, path, item.Name);
+                if (files[xx] == "") continue;
 
-                Calendar x = CultureInfo.InvariantCulture.Calendar;
-
-                    string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
-
-                    var infoFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"));
-                    var files = infoFile.Split("\n");
-               
-                    for (int xx = 0; xx < files.Length; xx++)
-                    {
-                        if (files[xx] == "") continue;
-
-                        var fi = files[xx].Split("\t");
-                    if (fi[0] == goc && new System.IO.FileInfo(goc).Exists == true && DateTime.Parse(fi[1]) <= DateTime.Parse(xuxu))
-                    {
-                        System.IO.File.Delete(goc);
-                        infoFile = infoFile.Replace(fi[0] + "\t" + fi[1] + "\n", "");
-                        System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile);
-                    }
+                var fi = files[xx].Split("\t");
+                if (DateTime.Parse(fi[1]) <= DateTime.Parse(xuxu) || new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0])).Exists == false)
+                {
+                    System.IO.File.Delete(Path.Combine(_webHostEnvironment.WebRootPath, fi[0]));
+                    infoFile = infoFile.Replace(fi[0] + "\t" + fi[1] + "\n", "");
+                    System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile);
                 }
             }
 
-            var listFolder = new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, path)).GetDirectories();
-            foreach (var item in listFolder)
-            {
-                RemoveFileDirectory(path + "/" + item.Name);
-            }
+            return RedirectToAction("Index");
         }
 
         public ActionResult Index()
@@ -102,26 +92,6 @@ namespace MyWebPlay.Controllers
 
             new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
             new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
-
-            var infoFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"));
-            var files = infoFile.Split("\n");
-
-            for (int xx = 0; xx < files.Length; xx++)
-            {
-                if (files[xx] == "") continue;
-
-                var fi = files[xx].Split("\t");
-
-                var sai = fi[0].Replace(Path.Combine(_webHostEnvironment.WebRootPath) + "\\", "");
-
-                if (new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath,sai)).Exists == false)
-                {
-                infoFile = infoFile.Replace(fi[0] + "\t" + fi[1] + "\n", "");
-                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile);
-                }
-            }
-
-          RemoveFileDirectory("file");
 
             return View();
         }

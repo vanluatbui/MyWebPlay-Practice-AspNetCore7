@@ -1,4 +1,5 @@
-﻿<script>
+﻿@using System.Globalization;
+<script>
 
      function xemfile(event, ii, SL)
     {
@@ -229,6 +230,7 @@
 
 </script>
 
+<h1>@ViewBag.Xuan</h1>
 <table align="center">
     <h2 style="text-align:center">UPLOAD YOUR FILE - lưu ý nếu thao tác bạn thực hiện đã xảy ra lỗi (mặc dù các thông tin của bạn cung cấp đúng và đầy đủ), tuy nhiên một số trường hợp các file của bạn vẫn có thể upload lên Server thành công bằng một cách kỳ diệu nào đó :)) - vì vậy bạn có thể kiểm tra tồn tại file của bạn đã được đăng tải hoặc thử lại sau :v</h2>
 
@@ -326,6 +328,7 @@
                     <br>
                     <input type="text" name="Folder" size="50" value="/Folder1/Folder2"/>
                     <br>
+                     <span style="color:yellow; font-style:italic">Khuyến cáo bạn không nên tạo thư mục mà để nó bị trống quá lâu (không chứa file nào bên trong)!</span>
                      <span style="color:red; font-style:italic">@ViewData["LoiX"] </span>
         <br />
                 </td>
@@ -352,7 +355,7 @@
                 <td>
                     <br />
                     <b>Việc tải file của bạn lên hệ thống chỉ là tạm thời, vui lòng chọn ngày hết hạn mong muốn của các file này (nếu bạn là admin thì các file được phép tồn tại không giới hạn) : </b>
-                    <input type="date" name="txtHetHan" value="@DateTime.Now.ToString("yyyy-MM-dd")"/><br>
+                    <input type="date" name="txtHetHan" value="@CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)"/><br>
                     <span style="color:yellow">Nếu đến ngày hết hạn bạn đã cài đặt, các file của bạn sẽ tự động xoá khỏi hệ thống (có thể sớm/trễ hơn dự kiến nhưng sẽ phạm vi trong ngày này).<br />
                         Ngoài ra bạn cũng có thể tự xoá file thủ công trước khi đến ngày hết hạn...<br />
                         Ngày hết hạn sẽ không bị thay đổi cho dù bạn có cập nhật lại lại tải lên hệ thống (nếu có).<br>

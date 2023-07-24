@@ -30,7 +30,23 @@ namespace MyWebPlay.Controllers
             _mailService = mailService;
         }
 
-        int SoSanh2Ngay(int d1, int m1, int y1, int d2, int m2, int y2)
+        private void XoaDirectoryNull (string path)
+        {
+            var listFile = new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, path)).GetFiles();
+            var folders = new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, path)).GetDirectories();
+            if (listFile.Length == 0 && folders.Length == 0 && path != "file")
+            {
+                System.IO.Directory.Delete(path, true);
+            }
+
+            var listFolder = new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, path)).GetDirectories();
+            foreach (var item in listFolder)
+            {
+                XoaDirectoryNull(path + "/" + item.Name);
+            }
+        }
+
+            public int SoSanh2Ngay(int d1, int m1, int y1, int d2, int m2, int y2)
         {
             if (d1 == d2 && m1 == m2 && y1 == y2)
                 return 0;
@@ -94,7 +110,7 @@ namespace MyWebPlay.Controllers
 
             var infoFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"));
 
-            var files = infoFile.Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
+            var files = infoFile.Split("\n", StringSplitOptions.RemoveEmptyEntries);
 
             Calendar x = CultureInfo.InvariantCulture.Calendar;
 
@@ -106,26 +122,27 @@ namespace MyWebPlay.Controllers
 
                 var fi = files[xx].Split("\t");
 
-                var today = xuxu.Split("/");
-                var hethan = fi[1].Split("/");
+                    var today = xuxu.Split("/");
+                    var hethan = fi[1].Split("/");
 
-                var d1 = int.Parse(today[0]);
-                var m1 = int.Parse(today[1]);
-                var y1 = int.Parse(today[2]);
+                    var d1 = int.Parse(today[0]);
+                    var m1 = int.Parse(today[1]);
+                    var y1 = int.Parse(today[2]);
 
-                var d2 = int.Parse(hethan[0]);
-                var m2 = int.Parse(hethan[1]);
-                var y2 = int.Parse(hethan[2]);
+                    var d2 = int.Parse(hethan[0]);
+                    var m2 = int.Parse(hethan[1]);
+                    var y2 = int.Parse(hethan[2]);
 
-                if (SoSanh2Ngay(d1, m1, y1, d2, m2, y2) >= 0 || new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0])).Exists == false)
-                {
-                    FileInfo fx = new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0].TrimStart('/')));
-                    fx.Delete();
-                    infoFile = infoFile.Replace(fi[0] + "\t" + fi[1] + "\r\n", "");
-                }
+                    if (SoSanh2Ngay(d1, m1, y1, d2, m2, y2) >= 0 || new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0])).Exists == false)
+                    {
+                        FileInfo fx = new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0].TrimStart('/')));
+                        fx.Delete();
+                        infoFile = infoFile.Replace(fi[0] + "\t" + fi[1] + "\n", "");
+                    }
+
             }
             System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile);
-
+            XoaDirectoryNull("file");
             return View();
         }
 

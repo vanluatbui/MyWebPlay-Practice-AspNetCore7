@@ -1,0 +1,131 @@
+﻿<script>
+    function gansessionJS()
+    {
+        var session = document.getElementById("session").value;
+        var giatri = document.getElementById("giatri").value;
+
+        if (giatri != "")
+       sessionStorage.setItem(session, giatri);
+       else
+       sessionStorage.setItem(session, "Default Session Webplay");
+        
+        alert("Xử lý thành công!")
+    }
+
+    function docsessionJS()
+    {
+        var session = document.getElementById("session").value;
+    
+       document.getElementById("ketqua").value = sessionStorage.getItem(session);
+        
+        alert("Xử lý thành công!")
+
+        window.location.href="#ketqua";
+    }
+
+    function gansessionC()
+    {
+        document.getElementById("chon").value = 1;
+        document.getElementById("ok").click();
+        alert("Xử lý thành công!")
+    }
+
+    function docsessionC()
+    {
+       document.getElementById("chon").value = 2;
+       document.getElementById("ok").click();
+       alert("Xử lý thành công!")
+    }
+
+    function xoasessionJS()
+    {
+        var re = confirm("Bạn có chắc chắn muốn tiếp tục xử lý hành động này?");
+
+        if (re == true)
+        {
+           document.getElementById("ketqua").value = "";
+           sessionStorage.removeItem(document.getElementById("session").value);
+           alert("Xử lý thành công!")
+        }
+    }
+
+    function xoasessionC()
+    {
+        var re = confirm("Bạn có chắc chắn muốn tiếp tục xử lý hành động này?");
+
+        if (re == true)
+        {
+            document.getElementById("chon").value = 3;
+           document.getElementById("ok").click();
+           alert("Xử lý thành công!")
+        }   
+    }
+
+     function xoaallJS()
+    {
+        var re = confirm("Bạn có chắc chắn muốn tiếp tục xử lý hành động này?");
+
+        if (re == true)
+        {
+           document.getElementById("ketqua").value = "";
+           sessionStorage.clear();
+           alert("Xử lý thành công!")
+        }
+    }
+
+    function xoaallC()
+    {
+        var re = confirm("Bạn có chắc chắn muốn tiếp tục xử lý hành động này?");
+
+        if (re == true)
+        {
+            document.getElementById("chon").value = 4;
+           document.getElementById("ok").click();
+           alert("Xử lý thành công!")
+        }   
+    }
+
+
+</script>
+
+<table align="center">
+    <h2 style="text-align:center">Play Session</h2>
+    <h2 style="color:red">@Html.ActionLink("Reload this page?","SessionPlay")</h2>
+        <br />
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <tr style="height:40px">
+            <td> </td>
+            <td>
+                <input hidden id="chon" type="number" name="txtChon" value="0" />
+                <input type="text" name="txtSession" size="100" id="session" placeholder="Nhập tên session (lưu ý phân biệt hoa/thường)" value="@ViewBag.Session"/>
+                <br>
+                 <br>
+                <h1><a onclick="docsessionJS()" href="#xuly">Đọc giá trị bằng JS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="docsessionC()" href="#xuly">Đọc giá trị bằng C# (chờ xử lý)</a></h1>
+                <br>
+                <h1><a onclick="xoasessionJS()" href="#xuly">Xoá session bằng JS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="xoasessionC()" href="#xuly">Xoá session bằng C# (chờ xử lý)</a></h1>
+                <br>
+                <textarea cols="100" rows="12" name="txtGiaTri" id="giatri" placeholder="Nhập giá trị gán cho session (nếu có) - nếu để trống sẽ là mặc định 'Default Session Webplay' !">@ViewBag.GiaTri</textarea>
+                <br>
+                <h1><a onclick="gansessionJS()" href="#xuly">Gán bằng JS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="gansessionC()" href="#xuly">Gán bằng C# (chờ xử lý)</a></h1>
+                <h1><a onclick="xoaallJS()" href="#xuly">Xoá all session bằng JS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="xoaallC()" href="#xuly">Xoá all session bằng C# (chờ xử lý)</a></h1>
+                <br>
+                <h1 style="color:red">⬇</h1>
+                <br><br>
+                <textarea cols="100" rows="12" name="txtKetQua" id="ketqua" placeholder="Kết quả của Session sau khi xử lý sẽ xuất hiện tại đây (nếu có)!">@ViewBag.KetQua</textarea>
+                <br>
+            </td>
+        </tr>
+      
+        <tr style="height:40px">
+            <td></td>
+            <td><br>
+                <input hidden id="ok" type="Submit" value="Kết Quả" />
+            </td>
+        </tr>
+    }
+</table>
+<br /><br />
+

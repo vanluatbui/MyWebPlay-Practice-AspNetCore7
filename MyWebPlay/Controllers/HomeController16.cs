@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyWebPlay.Model;
 using System;
 using System.Collections;
 using System.Text.RegularExpressions;
@@ -98,6 +99,49 @@ namespace MyWebPlay.Controllers
             ViewBag.Result = result;
 
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+
+            return View();
+        }
+
+        public ActionResult SessionPlay()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SessionPlay(IFormCollection f)
+        {
+            var session = f["txtSession"].ToString();
+            var giatri = f["txtGiaTri"].ToString();
+            var chon = f["txtChon"].ToString();
+
+            ViewBag.Session = session;
+            ViewBag.GiaTri = giatri;
+
+            if (chon == "1")
+            {
+                if (giatri != "")
+                    HttpContext.Session.SetObject(session, giatri);
+                else
+                    HttpContext.Session.SetObject(session, "Default Session Webplay");
+            }
+            else
+            if (chon == "2")
+            {
+                ViewBag.KetQua = HttpContext.Session.GetObject<string>(session);
+            }
+            else
+            if (chon == "3")
+            {
+                ViewBag.KetQua = "";
+                HttpContext.Session.Remove(session);
+            }
+            else
+            if (chon == "4")
+            {
+                ViewBag.KetQua = "";
+                HttpContext.Session.Clear();
+            }
 
             return View();
         }

@@ -404,7 +404,18 @@ namespace MyWebPlay.Controllers
                         DateTime ngayhethan = DateTime.Now;
                         var success = DateTime.TryParse(f["txtHetHan"].ToString(), out ngayhethan);
 
-                        if (success == false || (success == true && ngayhethan <= DateTime.Now))
+                        var hethan = ngayhethan.ToString("dd/MM/yyyy").Split("/");
+                        var homnay = CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture).Split("/");
+   
+                        var d1 = int.Parse(hethan[0]);
+                        var m1 = int.Parse(hethan[1]);
+                        var y1 = int.Parse(hethan[2]);
+
+                        var d2 = int.Parse(homnay[0]);
+                        var m2 = int.Parse(homnay[1]);
+                        var y2 = int.Parse(homnay[2]);
+
+                        if (success == false || (success == true && SoSanh2Ngay(d1,m1,y1,d2,m2,y2) <= 0))
                         {
                             flag = 5;                     
                         }

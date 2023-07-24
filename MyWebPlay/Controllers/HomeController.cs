@@ -34,15 +34,16 @@ namespace MyWebPlay.Controllers
         {
             var listFile = new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, path)).GetFiles();
             var folders = new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, path)).GetDirectories();
-            if (listFile.Length == 0 && folders.Length == 0 && path != "file")
-            {
-                System.IO.Directory.Delete(path, true);
-            }
 
             var listFolder = new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, path)).GetDirectories();
             foreach (var item in listFolder)
             {
                 XoaDirectoryNull(path + "/" + item.Name);
+            }
+
+            if (listFile.Length == 0 && folders.Length == 0 && path != "file")
+            {
+                System.IO.Directory.Delete(Path.Combine(_webHostEnvironment.WebRootPath, path), true);
             }
         }
 
@@ -142,7 +143,15 @@ namespace MyWebPlay.Controllers
 
             }
             System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile);
-            XoaDirectoryNull("file");
+            try
+            {
+                XoaDirectoryNull("file");
+            }
+            catch(Exception ex)
+            {
+                ViewBag.Loi = "";
+                return View();
+            }
             return View();
         }
 

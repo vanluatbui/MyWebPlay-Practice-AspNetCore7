@@ -18,7 +18,12 @@
             item.innerHTML = files[i].name;
             ulx.appendChild(item);
         }
-
+        
+    //     var fr = new FileReader();
+    //fr.readAsText(files[0]);
+    //fr.onload = function () {
+    //  alert(fr.result);
+    };  
    }
 
      function xemfilex(event, ii, SL)
@@ -329,6 +334,7 @@
                     <input type="text" name="Folder" size="50" value="/Folder1/Folder2"/>
                     <br>
                      <span style="color:yellow; font-style:italic">Khuyến cáo bạn không nên tạo thư mục mà để nó bị trống quá lâu (không chứa file nào bên trong)!</span>
+                     <br>
                      <span style="color:red; font-style:italic">@ViewData["LoiX"] </span>
         <br />
                 </td>

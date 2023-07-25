@@ -145,5 +145,40 @@ namespace MyWebPlay.Controllers
 
             return View();
         }
+
+        public ActionResult XuLySQL8()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult XuLySQL8(IFormCollection f)
+        {
+            var table = f["txtTable"].ToString();
+            var fields = f["txtFields"].ToString().Split("\r\n");
+
+            var result = "";
+            for (int i = 0; i < fields.Length;i++)
+            {
+                while (fields[i].Contains("  "))
+                    fields[i] = fields[i].Replace("  ", " ");
+
+                fields[i] = fields[i].Replace("\t", "").Replace("[","").Replace("]","");
+
+                var fi = fields[i].Split(" ");
+
+                result += "\n\nIF NOT EXISTS( SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '"+table+"' AND COLUMN_NAME = '" + fi[0] +"')\r\nBEGIN\r\n\tALTER TABLE "+table+" ADD " + fields[i].Replace(",","")+"\r\nEND";
+            }
+
+            result += "\n\nPRINT N'XONG, QUÁ TRÌNH XỬ LÝ HOÀN TẤT!'";
+
+            result = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+
+            ViewBag.Result = result;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+
+            return View();
+        }
     }
 }

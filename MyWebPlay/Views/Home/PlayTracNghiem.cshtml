@@ -377,6 +377,7 @@
     <button onclick="loading()"><b style="color:dodgerblue">Click vào đây để cập nhật các answer/hình ảnh questions hiện có từ file của bạn</b></button><br><span style="color:saddlebrown">Khuyến nghị : Vui lòng ban đầu hãy click nút này để tải toàn bộ dữ liệu và đồng thời tránh lỗi/mất dữ liệu khi hoàn tất. Cảm ơn!</span><br /><br />
      <button onclick="refresh()"><b style="color:darkred">Click to refresh all answer/hình ảnh questions setting</b></button>
    <textarea hidden id="answerX">@ViewBag.SettingAnswer</textarea>
+    <textarea readonly id="listAnhCu" cols="100" rows="12" hidden>@ViewBag.HinhAnh.TrimStart("\n".ToCharArray()).TrimEnd("\n".ToCharArray())</textarea>
            var ND_File = ViewBag.ND_File;
             ViewBag.ND_File = ND_File;
 }
@@ -412,7 +413,6 @@
         <textarea readonly name="C" hidden>@ViewBag.C</textarea>
         <textarea readonly name="D" hidden>@ViewBag.D</textarea>
          <textarea readonly name="Dung" hidden>@ViewBag.Dung</textarea>
-         <textarea readonly id="listAnhCu" cols="100" rows="12" hidden>@ViewBag.HinhAnh.TrimStart("\n".ToCharArray()).TrimEnd("\n".ToCharArray())</textarea>
 
             <br />
         <br />

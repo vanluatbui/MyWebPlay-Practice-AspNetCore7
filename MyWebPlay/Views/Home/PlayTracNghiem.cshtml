@@ -191,7 +191,6 @@
         if (k < listAnhCu.length)
         {
         var anhH = listAnhCu[k].split("\n");
-        document.getElementById("soluong-"+i).innerHTML = anhH.length;
         if (anhH[0].includes("hinhcau"+i) == true)
         {
             for (var j =0 ; j < anhH.length; j++)
@@ -219,6 +218,7 @@
                 {
                 document.getElementById("anhX-"+i).value += anhH[j]+"\t"+ha+"\n";
                 chon.innerHTML += "<option>"+ anhH[j] +"</option>";
+                document.getElementById("soluong-"+i).innerHTML = new Number(document.getElementById("soluong-"+i).innerHTML) + 1;
                 }
             }
             k++;
@@ -412,7 +412,7 @@
         <textarea readonly name="C" hidden>@ViewBag.C</textarea>
         <textarea readonly name="D" hidden>@ViewBag.D</textarea>
          <textarea readonly name="Dung" hidden>@ViewBag.Dung</textarea>
-         <textarea readonly id="listAnhCu" hidden>@ViewBag.HinhAnh</textarea>
+         <textarea readonly id="listAnhCu" cols="100" rows="12" hidden>@ViewBag.HinhAnh.TrimStart("\n".ToCharArray()).TrimEnd("\n".ToCharArray())</textarea>
 
             <br />
         <br />

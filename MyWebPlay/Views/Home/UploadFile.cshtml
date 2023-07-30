@@ -1,6 +1,5 @@
 ﻿@using System.Globalization;
 <script>
-
      function xemfile(event, ii, SL)
     {
         var ulx = document.getElementById("ulx-"+ii);
@@ -291,6 +290,10 @@
         {
             <h3 style="color:red">YES UPLOAD SERVER - UPLOAD YOUR FILES<br>HÃY CẨN THẬN VÌ NẾU FILE ĐÃ TỒN TẠI THÌ VIỆC TẢI LÊN MỘT LẦN NỮA NÓ SẼ BỊ GHI ĐÈ!</h3>
         }
+
+        <span style="color:aqua">
+            <u>Xin lưu ý</u> : tính năng này không dành cho việc các file tải lên của bạn là riêng tư...<br>Hiện tại tất cả các file của bạn tải lên Server hệ thống bất kỳ ai cũng có thể truy cập (miễn là họ biết đường dẫn thư mục hoặc nơi truy cập của file đó).<br>Tất cả các file bạn tải lên tại đây đều có giới hạn thời gian sử dụng (tối đa là 7 ngày).<br>Vì vậy, hãy cẩn thận và tự quản lý/trách nhiệm khi lựa chọn tải các file của bạn tại đây. Tốt nhất bạn nên tự xoá thủ công các file/thư mục của bạn sau khi sử dụng xong!
+        </span>
 
         @if (ViewBag.SL > 0 && ViewBag.Y == 0)
         {

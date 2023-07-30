@@ -77,6 +77,24 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public async Task<ActionResult> UploadFile(List<IFormFile> fileUpload, List<IFormFile> fileUploadX, List<string> TenFile, IFormCollection f)
         {
+            DateTime ngayhethan = DateTime.Now;
+            var success = DateTime.TryParse(f["txtHetHan"].ToString(), out ngayhethan);
+
+            var hethan = ngayhethan.ToString("dd/MM/yyyy").Split("/");
+            var homnay = CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture).Split("/");
+            var kiemtra = CultureInfo.InvariantCulture.Calendar.AddDays(DateTime.UtcNow, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture).Split("/");
+            var d1 = int.Parse(hethan[0]);
+            var m1 = int.Parse(hethan[1]);
+            var y1 = int.Parse(hethan[2]);
+
+            var d2 = int.Parse(homnay[0]);
+            var m2 = int.Parse(homnay[1]);
+            var y2 = int.Parse(homnay[2]);
+
+            var d3 = int.Parse(kiemtra[0]);
+            var m3 = int.Parse(kiemtra[1]);
+            var y3 = int.Parse(kiemtra[2]);
+
             int flag = 0;
             ViewBag.SL = TempData["SL"];
             ViewBag.X = TempData["X"];
@@ -150,7 +168,7 @@ namespace MyWebPlay.Controllers
 
                                 using (Stream fileStream = new FileStream(path, FileMode.Create))
                                 {
-                                    formFile[i].CopyTo(fileStream);
+                                        formFile[i].CopyTo(fileStream);
                                 }
                             }
 
@@ -214,7 +232,7 @@ namespace MyWebPlay.Controllers
 
                                 using (Stream fileStream = new FileStream(path, FileMode.Create))
                                 {
-                                    formFile[i].CopyTo(fileStream);
+                                        formFile[i].CopyTo(fileStream);
                                 }
                             }
 
@@ -376,7 +394,7 @@ namespace MyWebPlay.Controllers
                                     if (files[x] == "") continue;
 
                                     var fi = files[x].Split("\t");
-                                    if (fi[0] == path)
+                                    if (fi[0] == pao)
                                     {
                                         flay = 1;
                                         break;
@@ -386,36 +404,26 @@ namespace MyWebPlay.Controllers
                                 if (flay == 0)
                                 {
                                     var result = pao + "\t" + DateTime.Parse(f["txtHetHan"].ToString()).ToString("dd/MM/yyyy")+"\n";
-                                    System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile + result);
+                                    if (homePass == "admin-VANLUAT" || success == true && SoSanh2Ngay(d1, m1, y1, d2, m2, y2) > 0 && SoSanh2Ngay(d1, m1, y1, d3, m3, y3) <= 0)
+                                        System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile + result);
                                 }
                             }
 
                             string tenfile = ViewBag.X == 1 ? TenFile[i].ToString() : fileName;
 
-                            using (Stream fileStream = new FileStream(path, FileMode.Create))
+                            if (homePass == "admin-VANLUAT" || success == true && SoSanh2Ngay(d1, m1, y1, d2, m2, y2) > 0 && SoSanh2Ngay(d1, m1, y1, d3, m3, y3) <= 0)
                             {
-                                formFile[i].CopyTo(fileStream);
+                                using (Stream fileStream = new FileStream(path, FileMode.Create))
+                                {
+                                    formFile[i].CopyTo(fileStream);
+                                }
                             }
                         }
                     }
 
                     if (flag == 0 && homePass != "admin-VANLUAT")
                     {
-                        DateTime ngayhethan = DateTime.Now;
-                        var success = DateTime.TryParse(f["txtHetHan"].ToString(), out ngayhethan);
-
-                        var hethan = ngayhethan.ToString("dd/MM/yyyy").Split("/");
-                        var homnay = CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture).Split("/");
-   
-                        var d1 = int.Parse(hethan[0]);
-                        var m1 = int.Parse(hethan[1]);
-                        var y1 = int.Parse(hethan[2]);
-
-                        var d2 = int.Parse(homnay[0]);
-                        var m2 = int.Parse(homnay[1]);
-                        var y2 = int.Parse(homnay[2]);
-
-                        if (success == false || (success == true && SoSanh2Ngay(d1,m1,y1,d2,m2,y2) <= 0))
+                        if (success == false || (success == true && (SoSanh2Ngay(d1,m1,y1,d2,m2,y2) <= 0 || SoSanh2Ngay(d1, m1, y1, d3, m3, y3) > 0)))
                         {
                             flag = 5;                     
                         }
@@ -449,7 +457,7 @@ namespace MyWebPlay.Controllers
                 }
                 else if (flag == 5 && homePass != "admin-VANLUAT")
                 {
-                    ViewData["LoiY"] = "Vui lòng chọn ngày hết hạn các file này sau ngày hôm nay!";
+                    ViewData["LoiY"] = "Vui lòng chọn ngày hết hạn các file này sau ngày hôm nay và thời hạn các file của bạn được phép tồn tại trên Server hệ thống là 7 ngày!";
                     return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
                 }
             }
@@ -541,7 +549,7 @@ namespace MyWebPlay.Controllers
 
                         Calendar x = CultureInfo.InvariantCulture.Calendar;
 
-                        ketqua += "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/file" + folder + "/" + item.Name + "\" download> tại đây</a> <span style=\"color:pink\">("+ x.AddHours(item.LastWriteTimeUtc, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture)+")</span> <br> Link xem đầy đủ : <a target=\"_blank\" style=\"color:green\"" +
+                        ketqua += "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/file" + folder + "/" + item.Name + "\" download> tại đây</a> <span style=\"color:pink\">("+ x.AddHours(item.LastWriteTimeUtc, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture)+")</span> <br> Link xem trực tiếp (nếu có thể) : <a target=\"_blank\" style=\"color:green\"" +
                        "href=\"/file" + folder + "/" + item.Name + "\">/file" + folder + "/" + item.Name + "</a><br><br>" +
                       "<button style=\"color:blue\" onclick=\"xacnhan('"+ file + "')\">Click để xoá thủ công file này?</button><br>";
                         ketqua += "<br><br>";
@@ -609,7 +617,7 @@ namespace MyWebPlay.Controllers
                 if (new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, file.TrimStart("/".ToCharArray()))).Exists)
                 {
                     Calendar x = CultureInfo.InvariantCulture.Calendar;
-                    ketqua += "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/" + path + "/" + item.Name + "\" download> tại đây</a> <span style=\"color:pink\">("+ x.AddHours(item.LastWriteTimeUtc, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture) + ")</span> <br> Link xem đầy đủ : <a target=\"_blank\" style=\"color:green\"" +
+                    ketqua += "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/" + path + "/" + item.Name + "\" download> tại đây</a> <span style=\"color:pink\">("+ x.AddHours(item.LastWriteTimeUtc, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture) + ")</span> <br> Link xem trực tiếp (nếu có thể) : <a target=\"_blank\" style=\"color:green\"" +
                    "href=\"/" + path + "/" + item.Name + "\">/" + path + "/" + item.Name + "</a><br><br>" +
                   "<button style=\"color:blue\" onclick=\"xacnhan('" + file.Replace("/file","") + "')\">Click để xoá thủ công file này?</button><br>";
                     ketqua += "<br><br>";
@@ -651,7 +659,7 @@ namespace MyWebPlay.Controllers
         //                 string file = "/" + tenfile;
 
         //                 ViewBag.XL = TenFile.Count();
-        //                 ketqua = "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/file/" + tenfile + "\" download> tại đây</a> <span style=\"color:pink\">("+item.LastWriteTime+")</span> <br> Link xem đầy đủ : <a target=\"_blank\" style=\"color:green\"" +
+        //                 ketqua = "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/file/" + tenfile + "\" download> tại đây</a> <span style=\"color:pink\">("+item.LastWriteTime+")</span> <br> Link xem trực tiếp (nếu có thể) : <a target=\"_blank\" style=\"color:green\"" +
         //                    "href=\"/file/" + tenfile + "\">/file/" + tenfile + "</a><br><br>" +
         //                   "<button style=\"color:blue\" onclick=\"xacnhan('"+file+"')\">Click để xoá thủ công file này?</button><br>";
         //             }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyWebPlay.Model;
+using System.Text.RegularExpressions;
 
 namespace MyWebPlay.Controllers
 {
@@ -705,9 +706,29 @@ namespace MyWebPlay.Controllers
                 txtSoCau = n9_S.ToString();
                 ViewBag.TongCau = n9_S;
 
-                var s = "";
+                Regex regExp = new Regex("<br><img.*/><br>");
+
+                ViewBag.HinhAnh = "";
+
+                for (int i = 0; i < tnX.tongsocau; i++)
+                {
+                    string result = "";
+                    foreach (Match match in regExp.Matches(tnX.ch[i]))
+                    {
+                        result += match.Value;
+                        break;
+                    }
+                    ViewBag.HinhAnh += String.Join("\r\n", result.Split("<br><br>")).Replace("<br>", "") + "\n\n";
+                }
+
+                ViewBag.HinhAnh = ViewBag.HinhAnh.TrimEnd("\n\n".ToCharArray());
+
+                    var s = "";
                 for (int i = 0; i< tnX.tongsocau; i++)
                 {
+                    tnX.ch[i] = Regex.Replace(tnX.ch[i], "<br><img name=\"hinhcau"+i+"\".*><br>", "");
+                    ViewBag.ND_File = Regex.Replace(ViewBag.ND_File, "<br><img name=\"hinhcau"+i+"\".*><br>", "");
+
                     if (tnX.dung[i] == tnX.a[i])
                         s += "1\n";
                     else if (tnX.dung[i] == tnX.b[i])

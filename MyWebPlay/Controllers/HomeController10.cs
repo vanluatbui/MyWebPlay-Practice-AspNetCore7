@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.FileSystemGlobbing.Internal;
 using MyWebPlay.Extension;
 using MyWebPlay.Model;
 using Newtonsoft.Json.Linq;
 using System.Formats.Tar;
 using System.Globalization;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace MyWebPlay.Controllers
 {
@@ -295,7 +297,13 @@ namespace MyWebPlay.Controllers
 
             HttpContext.Session.SetObject("TracNghiem", tn);
 
-            return View(tn);
+            for (int i = 0; i < tn.gioihancau; i++)
+            {
+
+                tn.ch[i] = Regex.Replace(tn.ch[i], "<br><img name=\"hinhcau"+i+"\".*><br>", "");
+            }
+
+                return View(tn);
         }
 
         [HttpPost, ActionName("PlayTracNghiem")]
@@ -441,42 +449,50 @@ namespace MyWebPlay.Controllers
 
                 for (int i = 0; i < tn.gioihancau; i++)
                 {
-                  
+
+                    tn.ch[i] = Regex.Replace(tn.ch[i], "<br><img.*><br>", "");
+
                     //---------------------------------------------------------------------------
 
                     var anh = f["anh-" + i].ToString().Split("\r\n");
 
                     for (int j = 0; j < anh.Length; j++)
                     {
-                        if (anh[j] == "")
+                        var ax = anh[j].Split("\t");
+                        if (ax[0] == "")
                             continue;
 
                         var kt1 = 0;
                         var kt2=0;
 
-                        if (f["kichthuoc-"+i].ToString() == "100x100")
+                        if (ax[1] == "0")
                         {
                             kt1 = 100;
                             kt2 = 100;
                         }
-                        else if (f["kichthuoc-"+i].ToString() == "300x300")
+                        else if (ax[1] == "1")
                         {
                             kt1 = 300;
                             kt2 = 300;
                         }
-                        else if (f["kichthuoc-"+i].ToString() == "500x500")
+                        else if (ax[1] == "2")
                         {
                             kt1 = 500;
                             kt2 = 500;
                         }
-                        else if (f["kichthuoc-" + i].ToString() == "500x1000")
+                        else if (ax[1] == "3")
                         {
                             kt1 = 1000;
                             kt2 = 500;
                         }
+                        else
+                        {
+                            kt1 = 300;
+                            kt2 = 500;
+                        }
 
 
-                        string ch = tn.ch[i] + "<br><img src=\"" + anh[j] + "\" alt=\"Image Error\" width=\"" + kt1+"\" height=\""+kt2+"\" /><br>";
+                        string ch = tn.ch[i] + "<br><img name=\"hinhcau"+i+"\" src=\"" + ax[0] + "\" alt=\"Image Error\" width=\"" + kt1+"\" height=\""+kt2+"\" /><br>";
                         ND_File = ND_File.Replace(tn.ch[i], ch);
                     }
 

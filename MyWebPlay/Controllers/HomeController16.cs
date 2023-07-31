@@ -16,7 +16,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult XuLySQL5(IFormCollection f)
         {
-            var listTable = f["txtKetQua"].ToString().Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
+            var listTable = f["txtKetQua"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r").Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
 
             var result = "CREATE PROC PROC_MYWEBPLAY\nAS\nBEGIN";
 
@@ -48,7 +48,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult XuLySQL6(IFormCollection f)
         {
-            var listTable = f["txtKetQua"].ToString().Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
+            var listTable = f["txtKetQua"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r").Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
 
             var result = "CREATE PROC PROC_MYWEBPLAY1\nAS\nBEGIN\n\nPRINT N'Danh sách các table chưa tồn tại : '+NCHAR(10)+NCHAR(10)\n";
 
@@ -83,6 +83,18 @@ namespace MyWebPlay.Controllers
             string table = f["txtTable"].ToString();
             var daydu = f["txtDayDu"].ToString();
             var hientai = f["txtHienTai"].ToString();
+
+            table = table.Replace("[TAB-TPLAY]", "\t");
+            table = table.Replace("[ENTER-NPLAY]", "\n");
+            table = table.Replace("[ENTER-RPLAY]", "\r");
+
+            daydu = daydu.Replace("[TAB-TPLAY]", "\t");
+            daydu = daydu.Replace("[ENTER-NPLAY]", "\n");
+            daydu = daydu.Replace("[ENTER-RPLAY]", "\r");
+
+            hientai = hientai.Replace("[TAB-TPLAY]", "\t");
+            hientai = hientai.Replace("[ENTER-NPLAY]", "\n");
+            hientai = hientai.Replace("[ENTER-RPLAY]", "\r");
 
             var listDayDu = daydu.Split("\r\n");
             var result = "ALTAR TABLE " + table + " ADD";
@@ -154,8 +166,8 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult XuLySQL8(IFormCollection f)
         {
-            var table = f["txtTable"].ToString();
-            var fields = f["txtFields"].ToString().Split("\r\n");
+            var table = f["txtTable"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r");
+            var fields = f["txtFields"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r").Split("\r\n");
 
             var result = "";
             for (int i = 0; i < fields.Length;i++)

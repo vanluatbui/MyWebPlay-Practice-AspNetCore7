@@ -42,6 +42,18 @@ namespace MyWebPlay.Controllers
                 return this.SQL_InsertDoc();
             }
 
+            table = table.Replace("[TAB-TPLAY]", "\t");
+            table = table.Replace("[ENTER-NPLAY]", "\n");
+            table = table.Replace("[ENTER-RPLAY]", "\r");
+
+            trangthai = trangthai.Replace("[TAB-TPLAY]", "\t");
+            trangthai = trangthai.Replace("[ENTER-NPLAY]", "\n");
+            trangthai = trangthai.Replace("[ENTER-RPLAY]", "\r");
+
+            dulieu = dulieu.Replace("[TAB-TPLAY]", "\t");
+            dulieu = dulieu.Replace("[ENTER-NPLAY]", "\n");
+            dulieu = dulieu.Replace("[ENTER-RPLAY]", "\r");
+
             string[] ds_trangthai = trangthai.Split('-');
             for (int i = 0; i < ds_trangthai.Length; i++)
                 listType[nx++] = int.Parse(ds_trangthai[i]);
@@ -121,6 +133,14 @@ namespace MyWebPlay.Controllers
                 ViewData["Loi3"] = "Trường này không được để trống!";
                 return this.JSON_InsertDoc();
             }
+
+            trangthai = trangthai.Replace("[TAB-TPLAY]", "\t");
+            trangthai = trangthai.Replace("[ENTER-NPLAY]", "\n");
+            trangthai = trangthai.Replace("[ENTER-RPLAY]", "\r");
+
+            dulieu = dulieu.Replace("[TAB-TPLAY]", "\t");
+            dulieu = dulieu.Replace("[ENTER-NPLAY]", "\n");
+            dulieu = dulieu.Replace("[ENTER-RPLAY]", "\r");
 
             string[] ds_trangthai = trangthai.Split(",");
 

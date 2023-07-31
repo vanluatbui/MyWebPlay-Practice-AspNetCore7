@@ -22,6 +22,9 @@ namespace MyWebPlay.Controllers
                 ViewData["Loi"] = "Trường này không được để trống!";
                 return this.String_Reverse();
             }
+            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
+            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
+            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
 
             string[] ds = Regex.Split(chuoi, "\r\n");
             List<string> s = new List<string>();
@@ -61,6 +64,9 @@ namespace MyWebPlay.Controllers
                 ViewData["Loi"] = "Trường này không được để trống!";
                 return this.String_Reverse2();
             }
+            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
+            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
+            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
 
             string[] ds = Regex.Split(chuoi, "\r\n");
             List<string> s = new List<string>();
@@ -102,8 +108,15 @@ namespace MyWebPlay.Controllers
                 ViewData["Loi"] = "Trường này không được để trống!";
                 return this.Special_OrderBy();
             }
+            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
+            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
+            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
 
             string sapxep = f["SapXep"].ToString();
+            sapxep = sapxep.Replace("[TAB-TPLAY]", "\t");
+            sapxep = sapxep.Replace("[ENTER-NPLAY]", "\n");
+            sapxep = sapxep.Replace("[ENTER-RPLAY]", "\r");
+
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi1"] = "Trường này không được để trống!";

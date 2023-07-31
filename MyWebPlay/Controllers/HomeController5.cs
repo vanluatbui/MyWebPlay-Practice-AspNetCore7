@@ -15,13 +15,21 @@ namespace MyWebPlay.Controllers
         public ActionResult String_Split_Regex(IFormCollection f)
         {
             string chuoi = f["Chuoi"].ToString();
+
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi1"] = "Trường này không được để trống!";
                 return this.String_Split_Regex();
             }
 
+            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
+            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
+            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
+
             string dukien1 = f["DuKien1"].ToString();
+            dukien1 = dukien1.Replace("[TAB-TPLAY]", "\t");
+            dukien1 = dukien1.Replace("[ENTER-NPLAY]", "\n");
+            dukien1 = dukien1.Replace("[ENTER-RPLAY]", "\r");
             if (string.IsNullOrEmpty(dukien1))
             {
                 ViewData["Loi2"] = "Trường này không được để trống!";
@@ -35,6 +43,10 @@ namespace MyWebPlay.Controllers
                 return this.String_Split_Regex();
             }
 
+            pattern = pattern.Replace("[TAB-TPLAY]", "\t");
+            pattern = pattern.Replace("[ENTER-NPLAY]", "\n");
+            pattern = pattern.Replace("[ENTER-RPLAY]", "\r");
+
             string dukien2 = f["DuKien2"].ToString();
             if (string.IsNullOrEmpty(dukien2))
             {
@@ -42,7 +54,15 @@ namespace MyWebPlay.Controllers
                 return this.String_Split_Regex();
             }
 
+            dukien2 = dukien2.Replace("[TAB-TPLAY]", "\t");
+            dukien2 = dukien2.Replace("[ENTER-NPLAY]", "\n");
+            dukien2 = dukien2.Replace("[ENTER-RPLAY]", "\r");
+
             string X = f["X"].ToString();
+
+            X = X.Replace("[TAB-TPLAY]", "\t");
+            X = X.Replace("[ENTER-NPLAY]", "\n");
+            X = X.Replace("[ENTER-RPLAY]", "\r");
             //if (string.IsNullOrEmpty(X))
             //{
             //    ViewData["Loi5"] = "Trường này không được để trống!";
@@ -50,6 +70,9 @@ namespace MyWebPlay.Controllers
             //}
 
             string Y = f["Y"].ToString();
+            Y = Y.Replace("[TAB-TPLAY]", "\t");
+            Y = Y.Replace("[ENTER-NPLAY]", "\n");
+            Y = Y.Replace("[ENTER-RPLAY]", "\r");
             //if (string.IsNullOrEmpty(Y))
             //{
             //    ViewData["Loi6"] = "Trường này không được để trống!";
@@ -160,8 +183,14 @@ namespace MyWebPlay.Controllers
                 ViewData["Loi1"] = "Trường này không được để trống!";
                 return this.Check_Regex();
             }
+            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
+            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
+            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
 
             string pattern = f["Pattern"].ToString();
+            pattern = pattern.Replace("[TAB-TPLAY]", "\t");
+            pattern = pattern.Replace("[ENTER-NPLAY]", "\n");
+            pattern = pattern.Replace("[ENTER-RPLAY]", "\r");
             if (string.IsNullOrEmpty(pattern))
             {
                 ViewData["Loi2"] = "Trường này không được để trống!";

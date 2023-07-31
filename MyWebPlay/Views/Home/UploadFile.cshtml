@@ -1,5 +1,10 @@
 ﻿@using System.Globalization;
 <script>
+
+    if ('@ViewBag.Y' == 0)
+    {
+        alert("Bạn hiện đang ở chế độ Admin (tính năng không dành cho khách hàng).\nVui lòng chuyển sang chế độ tính năng dành cho người dùng...");
+    }
      function xemfile(event, ii, SL)
     {
         var ulx = document.getElementById("ulx-"+ii);
@@ -263,13 +268,13 @@
     <button onclick="soluongfile()">OK</button>
     <br />
     <br />
-    <button style="color:blue" onclick="DEF()">No u (No name - multiple file) - SAVE FILE (dành cho admin)</button>
+    <button style="color:blue" onclick="DEF()">Chuyển sang chế độ Admin</button>
     <br />
     <br />
    @* <button style="color:blue" onclick="ABC()">Have u (Have name - one file)</button>
     <br />
     <br />*@
-     <button style="color:blue" onclick="XYZ()">Have u (No name (name basic) - multiple file)</button>
+     <button style="color:blue" onclick="XYZ()">Chuyển sang chế độ người dùng</button>
     <br />
     <br />
 
@@ -284,11 +289,11 @@
 
         if (ViewBag.Y == 0)
         {
-            <h3 style="color:red">NO UPLOAD SERVER [XỬ LÝ ADMIN]</h3>
+            <h3 style="color:red">NO UPLOAD SERVER [CHẾ ĐỘ ADMIN]</h3>
         }
         else
         {
-            <h3 style="color:red">YES UPLOAD SERVER - UPLOAD YOUR FILES<br>HÃY CẨN THẬN VÌ NẾU FILE ĐÃ TỒN TẠI THÌ VIỆC TẢI LÊN MỘT LẦN NỮA NÓ SẼ BỊ GHI ĐÈ!</h3>
+            <h3 style="color:red">YES UPLOAD SERVER - UPLOAD YOUR FILES [CHẾ ĐỘ USER]<br>HÃY CẨN THẬN VÌ NẾU FILE ĐÃ TỒN TẠI THÌ VIỆC TẢI LÊN MỘT LẦN NỮA NÓ SẼ BỊ GHI ĐÈ!</h3>
         }
 
         <span style="color:aqua">
@@ -315,14 +320,14 @@
                 <td></td>
                 <td>
                     <br>
-                    <b>Nhập mật mã nếu muốn tắt chức năng/chế độ lưu trữ & không giới hạn tồn tại file hoặc bỏ qua (chỉ với Admin)...</b>
+                    <b>Nhập mật mã hoặc nhận dạng Admin để có thể sử dụng các ưu đãi về tính năng nếu có (hoặc bạn bỏ qua bước này)</b>
                     <br>
                     <input onchange="changePass()" id="hidePass" type="Password" name="Admin" size="50" value="@TempData["Password"]" />
                     <input style="display:none" name="AdminX" id="showPass" onchange="changePassX()" type="text" size="50" value="@TempData["Password"]" />
-                    <input type="checkbox" onchange="checkShowPass()" value="Hiện mật khẩu"/>Hiện mật khẩu<br>
+                    <input type="checkbox" onchange="checkShowPass()" value="Hiện mật mã"/>Hiện mật mã<br>
 
                     <br>
-                    <p style="color:pink">Chỉ khi nhập đúng mật mã, chức năng lưu trữ Upload Admin sẽ được tắt!</p>
+                    <p style="color:pink">Chỉ khi nhập đúng mật mã, ưu đãi tính năng mới được áp dụng dành cho bạn!</p>
         <br />
                 </td>
             </tr>
@@ -348,7 +353,7 @@
                 <td></td>
                 <td>
                     <br>
-                    <b>Mời bạn lựa chọn (1 : Nếu thư mục đã tồn tại, tiếp tục upload các file mới vào _ tự động mà không báo trước | 2 : Nếu thư mục đã tồn tại, hãy thông báo cho tôi biết và tôi sẽ nhập lại tên thư mục khác) - Chỉ áp dụng khi bạn có nhập dữ liệu cho trường Input trên</b>
+                    <b>Mời bạn lựa chọn (1 : Nếu thư mục đã tồn tại, tiếp tục upload/update các file mới vào _ tự động mà không báo trước | 2 : Nếu thư mục đã tồn tại, hãy thông báo cho tôi biết và tôi sẽ nhập lại tên thư mục khác) - Chỉ áp dụng khi bạn có nhập dữ liệu cho trường Input trên</b>
                     <br>
                      <select id="chon2" onchange="PlayChon2()">
                           <option>Nếu thư mục đã tồn tại, hãy thông báo cho tôi biết và tôi sẽ nhập lại tên thư mục khác</option>
@@ -367,7 +372,6 @@
                     <input type="date" name="txtHetHan" value="@CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)"/><br>
                     <span style="color:yellow">Nếu đến ngày hết hạn bạn đã cài đặt, các file của bạn sẽ tự động xoá khỏi hệ thống (có thể sớm/trễ hơn dự kiến nhưng sẽ phạm vi trong ngày này).<br />
                         Ngoài ra bạn cũng có thể tự xoá file thủ công trước khi đến ngày hết hạn...<br />
-                        Ngày hết hạn sẽ không bị thay đổi cho dù bạn có cập nhật lại lại tải lên hệ thống (nếu có).<br>
                         <u>Lưu ý</u> : vui lòng tự ghi nhớ ngày hết hạn các file bạn sẽ cài đặt này, hệ thống sẽ tự động xoá các file mà không cần thông báo!</span>
                         <br>
                          <span style="color:red; font-style:italic">@ViewData["LoiY"] </span><br>
@@ -461,14 +465,16 @@
                 <td></td>
                 <td>
                     <br>
-                    <b>Mời bạn lựa chọn dịch vụ lưu trữ Admin (nếu có - trừ khi bạn chọn tắt chế độ lưu trữ ở trên) [1 : Tất cả | 2 : Gmail | 3 : Mega.io]</b>
+                    <b>Mời bạn lựa chọn Server xử lý (chỉ chuyển sử dụng Server khác nếu bạn gặp vấn đề khi tải lên các file, nếu không vui lòng bỏ qua bước này)</b>
                     <br>
                      <select id="chonXY" onchange="PlayChonXY()">
-                         <option>Gmail</option>
-                         <option>Mega.io</option>
-                         <option>Tất cả</option>
+                         <option>SERVER 1 (khuyến nghị)</option>
+                         <option>SERVER 2</option>
+                         <option>SERVER 3</option>
                     </select>
-                    <input type="number" name="DuKienXY" min="1" max="3" id="DKXY" value="2"/>
+                    <input type="number" name="DuKienXY" min="1" max="3" id="DKXY" value="2" hidden/>
+                    <br>
+                    <span style="color:yellow">Nếu tất cả Server áp dụng bạn đều gặp lỗi khi upload các file, hãy kiểm tra lại mặc dù kết quả không thành công nhưng rất có thể các file của bạn đã âm thầm upload lên hệ thống. Ngoài ra, bạn vui lòng thử lại vào dịp khác và khuyến cáo không nên thử lại quá nhiều lần thất bại!</span>
                     <br>
                 </td>
             </tr>

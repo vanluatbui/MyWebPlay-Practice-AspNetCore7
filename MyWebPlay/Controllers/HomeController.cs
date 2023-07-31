@@ -261,6 +261,10 @@ namespace MyWebPlay.Controllers
         public ActionResult CheckText(IFormCollection f)
         {
             string chuoi = f["Chuoi"].ToString();
+            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
+            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
+            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
+
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi"] = "Trường này không được để trống!";
@@ -355,6 +359,9 @@ namespace MyWebPlay.Controllers
             }
 
             string chuoi = f["Chuoi"].ToString();
+            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
+            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
+            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
             int n = int.Parse(f["Number"].ToString());
 
             string[] s = Regex.Split(chuoi, "\r\n");
@@ -417,6 +424,9 @@ namespace MyWebPlay.Controllers
             }
 
             string chuoi = f["Chuoi"].ToString();
+            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
+            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
+            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
             int n = int.Parse(f["Number"].ToString());
 
             string[] s = Regex.Split(chuoi, "\r\n");
@@ -475,6 +485,9 @@ namespace MyWebPlay.Controllers
                 ViewData["Loi"] = "Trường này không được để trống!";
                 return this.ReadNumber();
             }
+            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
+            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
+            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
 
             string[] number = Regex.Split(chuoi, "\r\n");
             string result = "";
@@ -523,8 +536,17 @@ namespace MyWebPlay.Controllers
         public ActionResult TextConvertX (IFormCollection f)
         {
             string chuoi = f["Chuoi"].ToString();
+            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
+            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
+            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
             string start = f["Start"].ToString();
+            start = start.Replace("[TAB-TPLAY]", "\t");
+            start = start.Replace("[ENTER-NPLAY]", "\n");
+            start = start.Replace("[ENTER-RPLAY]", "\r");
             string end = f["End"].ToString();
+            end = end.Replace("[TAB-TPLAY]", "\t");
+            end = end.Replace("[ENTER-NPLAY]", "\n");
+            end = end.Replace("[ENTER-RPLAY]", "\r");
 
             if (string.IsNullOrEmpty(chuoi))
             {
@@ -950,6 +972,9 @@ namespace MyWebPlay.Controllers
         public ActionResult CSDL_MainKey (IFormCollection f)
         {
             string chuoi = f["Chuoi"].ToString();
+            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
+            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
+            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
 
             if (string.IsNullOrEmpty(chuoi))
             {

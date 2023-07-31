@@ -112,6 +112,9 @@ namespace MyWebPlay.Controllers
         public ActionResult BangChanTri(IFormCollection f)
         {
             string bandau = f["ThuocTinh"].ToString();
+            bandau = bandau.Replace("[TAB-TPLAY]", "\t");
+            bandau = bandau.Replace("[ENTER-NPLAY]", "\n");
+            bandau = bandau.Replace("[ENTER-RPLAY]", "\r");
             if (string.IsNullOrEmpty(bandau))
             {
                 ViewData["Loi1"] = "Trường này không được để trống!";
@@ -119,6 +122,9 @@ namespace MyWebPlay.Controllers
             }
 
             string chuoi = f["Chuoi"].ToString();
+            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
+            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
+            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi3"] = "Trường này không được để trống!";

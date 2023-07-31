@@ -21,10 +21,19 @@ namespace MyWebPlay.Controllers
         {
             ViewBag.ViDu = "user_name\tvarchar(10)\r\nuser_birth\tdatetime\r\nuser_age\tint";
             string txtFields = f["txtFields"].ToString();
+            txtFields = txtFields.Replace("[TAB-TPLAY]", "\t");
+            txtFields = txtFields.Replace("[ENTER-NPLAY]", "\n");
+            txtFields = txtFields.Replace("[ENTER-RPLAY]", "\r");
 
             string txtTable = f["txtTable"].ToString();
+            txtTable = txtTable.Replace("[TAB-TPLAY]", "\t");
+            txtTable = txtTable.Replace("[ENTER-NPLAY]", "\n");
+            txtTable = txtTable.Replace("[ENTER-RPLAY]", "\r");
 
             string txtCheck = f["txtCheck"].ToString();
+            txtCheck = txtCheck.Replace("[TAB-TPLAY]", "\t");
+            txtCheck = txtCheck.Replace("[ENTER-NPLAY]", "\n");
+            txtCheck = txtCheck.Replace("[ENTER-RPLAY]", "\r");
 
             int txtLoai = int.Parse(f["txtLoai"].ToString());
 
@@ -120,6 +129,10 @@ namespace MyWebPlay.Controllers
         public ActionResult FindCompareValueInSQL(IFormCollection f)
         {
             string txtFields = f["txtFields"].ToString().ToLower();
+            txtFields = txtFields.Replace("[TAB-TPLAY]", "\t");
+            txtFields = txtFields.Replace("[ENTER-NPLAY]", "\n");
+            txtFields = txtFields.Replace("[ENTER-RPLAY]", "\r");
+
             txtFields = txtFields.Replace(" ", "");
             txtFields = txtFields.Replace("\t", "");
             txtFields = txtFields.Replace(",", "");
@@ -128,15 +141,15 @@ namespace MyWebPlay.Controllers
 
             var listFields = txtFields.Split("\r\n");
 
-            var listOld = f["txtOld"].ToString().Split("\r\n");
+            var listOld = f["txtOld"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r").Split("\r\n");
 
-            var listNew = f["txtNew"].ToString().Split("\r\n");
+            var listNew = f["txtNew"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r").Split("\r\n");
 
             int dem = 1;
             var listChangeOld = new List<string>();
             var listChangeNew = new List<string>();
 
-            var listWhere = f["txtWhere"].ToString().ToLower().Split(",");
+            var listWhere = f["txtWhere"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r").ToLower().Split(",");
 
             int[] whereX = new int[listWhere.Length];
 
@@ -210,6 +223,9 @@ namespace MyWebPlay.Controllers
         public ActionResult XuLySQL1(IFormCollection f)
         {
             string txtTable = f["txtTables"].ToString();
+            txtTable = txtTable.Replace("[TAB-TPLAY]", "\t");
+            txtTable = txtTable.Replace("[ENTER-NPLAY]", "\n");
+            txtTable = txtTable.Replace("[ENTER-RPLAY]", "\r");
             ViewBag.Table = txtTable;
             var listTable = txtTable.Split("\r\n");
 
@@ -243,6 +259,13 @@ namespace MyWebPlay.Controllers
         {
             string chon = f["txtChon"].ToString();
             string txtTable = f["txtTable"].ToString();
+            chon = chon.Replace("[TAB-TPLAY]", "\t");
+            chon = chon.Replace("[ENTER-NPLAY]", "\n");
+            chon = chon.Replace("[ENTER-RPLAY]", "\r");
+
+            txtTable = txtTable.Replace("[TAB-TPLAY]", "\t");
+            txtTable = txtTable.Replace("[ENTER-NPLAY]", "\n");
+            txtTable = txtTable.Replace("[ENTER-RPLAY]", "\r");
             ViewBag.Table = txtTable;
 
             var listTable = txtTable.Split("\r\n");
@@ -312,6 +335,9 @@ namespace MyWebPlay.Controllers
         public ActionResult XuLySQL3(IFormCollection f)
         {
             string chuoi = f["txtChuoi"].ToString();
+            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
+            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
+            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
             var listCha = chuoi.Split("\r\n#3275#\r\n");
             var phan1 = listCha[0].Replace(" ", "").Replace("\t", "").Replace(",", "").Replace("[", "").Replace("]", "").Replace("\r\n","\t");
             var phan2 = listCha[1].Replace("\r\n", "  ");
@@ -337,8 +363,12 @@ namespace MyWebPlay.Controllers
         public ActionResult XuLySQL4(IFormCollection f)
         {
             var txtTable = f["txtTable"].ToString();
-            var thieus = f["txtThieu"].ToString().Split("\r\n");
-            var daydus = f["txtDayDu"].ToString().Split("\r\n");
+            var thieus = f["txtThieu"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r").Split("\r\n");
+            var daydus = f["txtDayDu"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r").Split("\r\n");
+            txtTable = txtTable.Replace("[TAB-TPLAY]", "\t");
+            txtTable = txtTable.Replace("[ENTER-NPLAY]", "\n");
+            txtTable = txtTable.Replace("[ENTER-RPLAY]", "\r");
+
 
             var has = new Hashtable();
             for (int i =0; i < daydus.Length;i++)

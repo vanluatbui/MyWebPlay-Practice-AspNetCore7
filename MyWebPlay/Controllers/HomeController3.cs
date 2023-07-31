@@ -37,6 +37,18 @@ namespace MyWebPlay.Controllers
                 return this.SQL_CreateTable();
             }
 
+            dulieu = dulieu.Replace("[TAB-TPLAY]", "\t");
+            dulieu = dulieu.Replace("[ENTER-NPLAY]", "\n");
+            dulieu = dulieu.Replace("[ENTER-RPLAY]", "\r");
+
+            key = key.Replace("[TAB-TPLAY]", "\t");
+            key = key.Replace("[ENTER-NPLAY]", "\n");
+            key = key.Replace("[ENTER-RPLAY]", "\r");
+
+            tableX = tableX.Replace("[TAB-TPLAY]", "\t");
+            tableX = tableX.Replace("[ENTER-NPLAY]", "\n");
+            tableX = tableX.Replace("[ENTER-RPLAY]", "\r");
+
             string[] hx = Regex.Split(dulieu, "\r\n\r\n");
             string sql = "";
 
@@ -273,6 +285,22 @@ namespace MyWebPlay.Controllers
                 ViewData["Loi4"] = "Trường này không được để trống!";
                 return this.Cxap_InsertValueClass();
             }
+
+            tenclass = tenclass.Replace("[TAB-TPLAY]", "\t");
+            tenclass = tenclass.Replace("[ENTER-NPLAY]", "\n");
+            tenclass = tenclass.Replace("[ENTER-RPLAY]", "\r");
+
+            dulieu = dulieu.Replace("[TAB-TPLAY]", "\t");
+            dulieu = dulieu.Replace("[ENTER-NPLAY]", "\n");
+            dulieu = dulieu.Replace("[ENTER-RPLAY]", "\r");
+
+            dukien1 = dukien1.Replace("[TAB-TPLAY]", "\t");
+            dukien1 = dukien1.Replace("[ENTER-NPLAY]", "\n");
+            dukien1 = dukien1.Replace("[ENTER-RPLAY]", "\r");
+
+            dukien2 = dukien2.Replace("[TAB-TPLAY]", "\t");
+            dukien2 = dukien2.Replace("[ENTER-NPLAY]", "\n");
+            dukien2 = dukien2.Replace("[ENTER-RPLAY]", "\r");
 
             int d = 0;
             int c = 0;

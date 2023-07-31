@@ -15,6 +15,9 @@ namespace MyWebPlay.Controllers
         {
 
             string chuoi = f["Chuoi"].ToString();
+            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
+            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
+            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi1"] = "Trường này không được để trống!";
@@ -22,6 +25,9 @@ namespace MyWebPlay.Controllers
             }
 
             string dukien1 = f["DuKien1"].ToString();
+            dukien1 = dukien1.Replace("[TAB-TPLAY]", "\t");
+            dukien1 = dukien1.Replace("[ENTER-NPLAY]", "\n");
+            dukien1 = dukien1.Replace("[ENTER-RPLAY]", "\r");
             if (string.IsNullOrEmpty(dukien1))
             {
                 ViewData["Loi4"] = "Trường này không được để trống!";
@@ -29,6 +35,9 @@ namespace MyWebPlay.Controllers
             }
 
             string input = f["Input"].ToString();
+            input = input.Replace("[TAB-TPLAY]", "\t");
+            input = input.Replace("[ENTER-NPLAY]", "\n");
+            input = input.Replace("[ENTER-RPLAY]", "\r");
             if (string.IsNullOrEmpty(input))
             {
                 ViewData["Loi2"] = "Trường này không được để trống!";
@@ -36,6 +45,9 @@ namespace MyWebPlay.Controllers
             }
 
             string yes = f["DuKien3"].ToString();
+            yes = yes.Replace("[TAB-TPLAY]", "\t");
+            yes = yes.Replace("[ENTER-NPLAY]", "\n");
+            yes = yes.Replace("[ENTER-RPLAY]", "\r");
             if (string.IsNullOrEmpty(yes))
             {
                 ViewData["Loi6"] = "Trường này không được để trống!";
@@ -43,6 +55,9 @@ namespace MyWebPlay.Controllers
             }
 
             string dukien2 = f["DuKien2"].ToString();
+            dukien2 = dukien2.Replace("[TAB-TPLAY]", "\t");
+            dukien2 = dukien2.Replace("[ENTER-NPLAY]", "\n");
+            dukien2 = dukien2.Replace("[ENTER-RPLAY]", "\r");
             if (string.IsNullOrEmpty(dukien2))
             {
                 ViewData["Loi5"] = "Trường này không được để trống!";
@@ -50,6 +65,9 @@ namespace MyWebPlay.Controllers
             }
 
             string dukien4 = f["DuKien4"].ToString();
+            dukien4 = dukien4.Replace("[TAB-TPLAY]", "\t");
+            dukien4 = dukien4.Replace("[ENTER-NPLAY]", "\n");
+            dukien4 = dukien4.Replace("[ENTER-RPLAY]", "\r");
             if (string.IsNullOrEmpty(dukien4))
             {
                 ViewData["Loi7"] = "Trường này không được để trống!";
@@ -57,6 +75,9 @@ namespace MyWebPlay.Controllers
             }
 
             string output = f["Output"].ToString();
+            output = output.Replace("[TAB-TPLAY]", "\t");
+            output = output.Replace("[ENTER-NPLAY]", "\n");
+            output = output.Replace("[ENTER-RPLAY]", "\r");
             //if (string.IsNullOrEmpty(output))
             //{
             //    ViewData["Loi3"] = "Trường này không được để trống!";

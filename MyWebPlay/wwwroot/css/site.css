@@ -60,7 +60,7 @@ p {
 .word {
     position: relative;
     white-space: nowrap;
-    color: var(--colox, lightblue);
+    color: var(--colox, #efe6e6);
     text-shadow: 0 0 3px rgba(0,0,0,1);
 }
 
@@ -69,7 +69,7 @@ p {
         position: absolute;
         left: 0;
         top: 0;
-        color: var(--color, yellow);
+        color: var(--color, #2900f5);
         overflow: hidden;
         width: 100%;
         animation: run-text 5s infinite linear;
@@ -80,7 +80,7 @@ p {
 .work {
     position: relative;
     white-space: nowrap;
-    color: var(--colox, lightblue);
+    color: var(--colox, #efe6e6);
     text-shadow: 0 0 3px rgba(0,0,0,1);
 }
 
@@ -89,7 +89,7 @@ p {
         position: absolute;
         left: 0;
         top: 0;
-        color: var(--color);
+        color: var(--color, #2900f5);
         overflow: hidden;
         width: 100%;
         animation: run-text 5s infinite linear;

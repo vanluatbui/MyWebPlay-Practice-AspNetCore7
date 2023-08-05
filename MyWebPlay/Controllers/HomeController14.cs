@@ -181,5 +181,112 @@ namespace MyWebPlay.Controllers
             return RedirectToAction("PlayKaraoke");
         }
 
+        public ActionResult PlayKaraokeX()
+        {
+            ViewBag.Music = "";
+            ViewBag.Musix = "";
+
+            ViewBag.Karaoke = "karaoke";
+
+            if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Exists)
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Delete(true);
+
+            new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
+            new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult PlayKaraokeX (IFormCollection f, IFormFile txtKaraoke, IFormFile txtMusic, IFormFile txtMusix)
+        {
+            ViewBag.Karaoke = "";
+
+            ViewBag.Show = "show";
+
+            var chon = f["KaraChon"].ToString();
+
+            if (chon == "1")
+            {
+                var r = new Random();
+                int x = r.Next(10);
+
+                ViewBag.Background = "/karaoke_Example/background/" + (x + 1) + ".jpg";
+                ViewBag.SuDung = "";
+            }
+            else if (chon == "2")
+            {
+                var link = f["txtOnline"].ToString();
+                ViewBag.Background = link;
+                ViewBag.SuDung = "";
+            }
+            else if (chon == "3")
+            {
+                var link = f["txtOnline"].ToString();
+                ViewBag.Background = link;
+                ViewBag.SuDung = "Video";
+            }
+            else if (chon == "4")
+            {
+                var link = f["txtOnline"].ToString();
+                link = link.Replace("&", "");
+                link = link.Replace("loop", "");
+                link = link.Replace("autoplay", "");
+                link = link.Replace("controls", "");
+                link = link.Replace("mute", "");
+                link = link.Replace("youtu.be/", "youtube.com/embed/");
+                link = link.Replace("youtube.com/watch?v=", "youtube.com/embed/");
+
+                if (link.Contains("?"))
+                    link += "&autoplay=1&loop=1&controls=0&mute=1";
+                else
+                    link += "?autoplay=1&loop=1&controls=0&mute=1";
+
+                ViewBag.Background = link;
+                ViewBag.SuDung = "Youtube";
+            }
+
+            if (f["txtChon"].ToString() != "on")
+            {
+                var fileName = Path.GetFileName(txtMusic.FileName);
+                var nameFile = Path.GetFileName(txtMusix.FileName);
+
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", fileName);
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", nameFile);
+
+                using (Stream fileStream = new FileStream(path, FileMode.Create))
+                {
+                    txtMusic.CopyTo(fileStream);
+                }
+
+                using (Stream fileStream = new FileStream(pathX, FileMode.Create))
+                {
+                    txtMusix.CopyTo(fileStream);
+                }
+
+                ViewBag.Music = "/karaoke/music/" + fileName;
+                ViewBag.Musix = "/karaoke/music/" + nameFile;
+
+                fileName = Path.GetFileName(txtKaraoke.FileName);
+
+                path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text", fileName);
+
+                using (Stream fileStream = new FileStream(path, FileMode.Create))
+                {
+                    txtKaraoke.CopyTo(fileStream);
+                }
+
+                ViewBag.Karaoke = System.IO.File.ReadAllText(path);
+            }
+            else
+            {
+                ViewBag.Karaoke = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "VongTayNguoiAy_Text.txt"));
+                ViewBag.Music = "/karaoke_Example/VongTayNguoiAy_Karaoke.mp3";
+                ViewBag.Musix = "/karaoke_Example/VongTayNguoiAy.mp3";
+            }
+
+            return View();
+        }
+
     }
 }

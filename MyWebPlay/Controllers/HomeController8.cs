@@ -37,14 +37,14 @@ namespace MyWebPlay.Controllers
                 return this.Special_OrderBy();
             }
 
-            string tanggiam = f["TangGiam"].ToString();
+            string tanggiam = f["TangGiam"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r");
             if (string.IsNullOrEmpty(tanggiam))
             {
                 ViewData["Loi3"] = "Trường này không được để trống!";
                 return this.Special_OrderBy();
             }
 
-            string codinh = f["CoDinh"].ToString();
+            string codinh = f["CoDinh"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r");
             if (string.IsNullOrEmpty(codinh))
             {
                 ViewData["Loi4"] = "Trường này không được để trống!";

@@ -32,7 +32,7 @@ namespace MyWebPlay.Controllers
             return View();
         }
 
-        public ActionResult UploadFile(int? sl = 1, int? name = 0, int? upload =0)
+        public ActionResult UploadFile(int? sl = 1, int? name = 0, int? upload =1)
         {
             if (sl == null) 
                 ViewBag.SL = 0;

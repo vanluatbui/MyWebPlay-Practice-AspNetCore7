@@ -2,6 +2,111 @@
   font-size: 14px;
 }
 
+.video-overlay {
+    position: absolute;
+    z-index: 2;
+    position: relative;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial;
+    font-size: 17px;
+}
+
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.content {
+    position: fixed;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    width: 100%;
+    padding: 20px;
+}
+
+/*---------------------------------------------*/
+
+/* Safari syntax */
+:-webkit-full-screen {
+    background-color: white;
+}
+
+/* IE11 */
+:-ms-fullscreen {
+    background-color: white;
+}
+
+/* Standard syntax */
+:fullscreen {
+    background-color: white;
+}
+
+p {
+    font-weight: bold;
+    font-size: 5em;
+}
+
+.word {
+    position: relative;
+    white-space: nowrap;
+    color: var(--colox, lightblue);
+    text-shadow: 0 0 3px rgba(0,0,0,1);
+}
+
+    .word::after {
+        content: attr(data-content);
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--color, yellow);
+        overflow: hidden;
+        width: 100%;
+        animation: run-text 5s infinite linear;
+        animation-duration: var(--animation, 10s);
+        text-shadow: 0 0 3px rgba(255,255,255,1);
+    }
+
+.work {
+    position: relative;
+    white-space: nowrap;
+    color: var(--colox, lightblue);
+    text-shadow: 0 0 3px rgba(0,0,0,1);
+}
+
+    .work::after {
+        content: attr(data-content);
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--color);
+        overflow: hidden;
+        width: 100%;
+        animation: run-text 5s infinite linear;
+        animation-duration: var(--animation);
+        text-shadow: 0 0 3px rgba(255,255,255,1);
+    }
+
+@keyframes run-text {
+    from {
+        width: 0
+    }
+
+    to {
+        width: 100%
+    }
+}
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;

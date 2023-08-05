@@ -139,8 +139,8 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult Cxap_CreateClass(IFormCollection f)
         {
-            string tenclass = f["TenClass"].ToString();
-            string dulieu = f["DuLieu"].ToString();
+            string tenclass = f["TenClass"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r");
+            string dulieu = f["DuLieu"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r");
 
             if (string.IsNullOrEmpty(tenclass))
             {

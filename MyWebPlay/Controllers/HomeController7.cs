@@ -125,6 +125,12 @@ namespace MyWebPlay.Controllers
             chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
             chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
             chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
+            chuoi = chuoi.Replace("[PHU]", "#");
+            chuoi = chuoi.Replace("[HOI]", "Λ");
+            chuoi = chuoi.Replace("[TUYEN]", "∨");
+            chuoi = chuoi.Replace("[KEOTHEO]", "→");
+            chuoi = chuoi.Replace("[TUONGDUONG]", "⇔");
+
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi3"] = "Trường này không được để trống!";

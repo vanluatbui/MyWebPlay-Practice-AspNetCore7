@@ -7,6 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <title>@ViewData["Title"] - MyWebPlay</title>
 
  <style>
@@ -70,8 +71,8 @@ body {
     function doikichthuoc()
     {
         var kt = document.getElementById("kichthuoc").value + "px";
-        document.getElementById("txtKaraoke1").style.fontSize = kt; 
-     document.getElementById("txtKaraoke2").style.fontSize = kt; 
+       //-- document.getElementById("txtKaraoke1").style.fontSize = kt; 
+     //-- document.getElementById("txtKaraoke2").style.fontSize = kt; 
      document.getElementById("number").style.fontSize = kt; 
     }
 
@@ -168,9 +169,6 @@ body {
             }
         }
 
-    if ('@ViewBag.Karaoke' == "karaoke")
-    alert("Bạn nên trải nghiệm tính năng này trên máy tính (PC), laptop,... nhé 😄\nLưu ý : trong khi đang trải nghiệm Karaoke, bạn không nên refresh lại trang để tránh mất dữ liệu!");
-
     var you = false;
     var youX = false;
 
@@ -204,7 +202,7 @@ body {
         document.getElementById("music").play();
         youX = true;
     }
-
+  
     var t=10;
       var kk = 0;
         var empty = -1;
@@ -224,8 +222,8 @@ body {
         flag = 0;
          n = 0;
         kf = 0;
-          document.getElementById("txtKaraoke1").innerHTML = "";
-                    document.getElementById("txtKaraoke2").innerHTML = "";
+                   document.getElementById("xanhX1").innerHTML = "";
+                   document.getElementById("xanhX2").innerHTML = "";
                     document.getElementById("txtKara1").value = "";
                     document.getElementById("txtKara2").value = "";
                     document.getElementById("number").innerHTML = "";
@@ -286,6 +284,14 @@ body {
         var h_xh = [];
         var h_le = [];
 
+                              var so1 = 0;
+                        var so2 = 0;
+                         var so1X = 0;
+                        var so2X = 0;
+                          var soA = 0;
+                        var soB = 0;
+
+
         var mau = "#2900f5";
 
         function doimau()
@@ -297,8 +303,8 @@ body {
          function doimauX()
         {
             document.getElementById("xemmauthu").style.color = document.getElementById("mauX").value;
-            document.getElementById("txtKaraoke1").style.color = document.getElementById("mauX").value;
-            document.getElementById("txtKaraoke2").style.color = document.getElementById("mauX").value;
+           //-- document.getElementById("txtKaraoke1").style.color = document.getElementById("mauX").value;
+           //-- document.getElementById("txtKaraoke2").style.color = document.getElementById("mauX").value;
         }
 
          function doimauY()
@@ -308,13 +314,11 @@ body {
         }
 
         var LBH;
-        var LBH;
 
                     var id = setInterval(myAlert, 100);
 
                     function myAlert()
                     {
-                        
                         if (flag == 0)
                         {
                             LBH = document.getElementById("txtKara").value.split(/\r|\n/);
@@ -357,20 +361,40 @@ body {
                     }
                 }
 
+                  document.getElementById("txtKaraoke1").innerHTML = "<span id=\"xanhX1\" class=\"word\"></span>";
+                    document.getElementById("txtKaraoke2").innerHTML = "<span id=\"xanhX2\" class=\"work\"></span>";
+
+                         $('#xanhX2').addClass('work').attr('data-content',"");
+                        $('#xanhX1').addClass('word').attr('data-content',"");
+
                 if (LBH[n] == "[Empty]" || LBH[n] == "[Empty-X]")
                 {
-                    document.getElementById("txtKaraoke1").innerHTML = "";
-                    document.getElementById("txtKaraoke2").innerHTML = "";
+                   document.getElementById("xanhX1").innerHTML = "";
+                   document.getElementById("xanhX2").innerHTML = "";
                     document.getElementById("txtKara1").value = "";
                     document.getElementById("txtKara2").value = "";
                 }
                 else
                 {
                     var sing = LBH[n].split("*");
-                   document.getElementById("txtKaraoke1").innerHTML = new String(sing[0]).toUpperCase().replace("UNDEFINED","");
+                  //-- document.getElementById("txtKaraoke1").innerHTML = new String(sing[0]).toUpperCase().replace("UNDEFINED","");
 
-                   document.getElementById("txtKaraoke2").innerHTML = new String(sing[1]).toUpperCase().replace("UNDEFINED","");;
+                   //-- document.getElementById("txtKaraoke2").innerHTML = new String(sing[1]).toUpperCase().replace("UNDEFINED","");
 
+              var word1 = document.getElementById("xanhX1");
+              word1.style.setProperty("--colox", "lightblue");
+               word1.style.setProperty("--color", "lightblue");
+             var xuan1 = new String(sing[0]).toUpperCase().replace("UNDEFINED","");
+
+            word1.innerHTML = xuan1;
+
+              var word2 = document.getElementById("xanhX2");
+               word2.style.setProperty("--colox", "lightblue");
+                word2.style.setProperty("--colox", "lightblue");
+             var xuan2 = new String(sing[1]).toUpperCase().replace("UNDEFINED","");
+      
+            word2.innerHTML = xuan2;
+           
                     document.getElementById("txtKara1").value = sing[0];
                     document.getElementById("txtKara2").value = sing[1];
                 }
@@ -380,6 +404,15 @@ body {
                 //txtKaraoke2.Select(0, LBH[n].Length + 1);
                 //txtKaraoke2.SelectionColor = Color.White;
                 n++;
+
+                so1 = h_xh[kf];
+                so2 = h_xh[kf + (sing[0].split(' ').length -1)];
+                so1X = h_xh[kf + sing[0].split(' ').length];
+                //so2X = h_xh[kf + (sing[0].split(' ').length + sing[1].split(' ').length - 1)];
+                so2X = time_xuathien[n+1];
+
+                soA = (so2 - so1) / 3.2;
+                soB = (so2X - so1X) / (90/13);
             }
 
             if (n > 1 && LBH[n - 1] == "[Empty]" && empty == -1)
@@ -426,13 +459,33 @@ body {
                 {
                     var ct1 = kara1.substring(0,h_le[kf]).toUpperCase().replace("UNDEFINED","");
                     var ct2 = kara1.substring(h_le[kf], kara1.length).toUpperCase().replace("UNDEFINED","");
-                    document.getElementById("txtKaraoke1").innerHTML = "<span style=\"color:"+mau+"\">"+ct1+"</span><span>"+ct2+"</span>"
+                   document.getElementById("txtKaraoke1").innerHTML = "<span style=\"color:yellow\">"+ct1+"</span><span id=\"xanhX1\" class=\"word\">"+ct2+"</span>";
+      
+      var word1 = document.getElementById("xanhX1");
+
+    $('#xanhX1').addClass('word').attr('data-content', ct2);
+     $('#xanhX2').addClass('work').attr('data-content',"");
+
+            word1.style.setProperty("--color", "yellow");
+            word1.style.setProperty("--animation", soA+"s");
                 }
                 else
                 {
                     var ct1 = kara2.substring(0, h_le[kf] - kara1.length - 2).toUpperCase().replace("UNDEFINED","");
                     var ct2 = kara2.substring(h_le[kf] - kara1.length - 2, kara2.length).toUpperCase().replace("UNDEFINED","");
-                   document.getElementById("txtKaraoke2").innerHTML = "<span style=\"color:"+mau+"\">"+ct1+"</span><span>"+ct2+"</span>"
+                   document.getElementById("txtKaraoke2").innerHTML = "<span style=\"color:yellow\">"+ct1+"</span><span id=\"xanhX2\" class=\"work\">"+ct2+"</span>";
+
+                if (document.getElementById("xanhX2").innerHTML == "")
+                   {
+
+  var word1 = document.getElementById("xanhX2");
+
+    $('#xanhX2').addClass('work').attr('data-content', ct2);
+      $('#xanhX1').addClass('word').attr('data-content',"");
+
+            word1.style.setProperty("--color", "yellow");
+            word1.style.setProperty("--animation", soB+"s");
+            }
                 }
                 kf++;
 
@@ -454,15 +507,15 @@ body {
 
 @if (ViewBag.Music == "")
 {
-  <h2>@Html.ActionLink("Phiên bản này đã quá cũ, đi đến trải nghiệm phiên bản mới?", "PlayKaraokeX")</h2>
+  <h2>@Html.ActionLink("Bạn muốn trải nghiệm lại phiên bản cũ?", "PlayKaraoke")</h2>
 <br />
 <br />
     <table align="center">
-    <h2 style="text-align:center">Play Your Karaoke - Online</h2>
+    <h2 style="text-align:center">Play Your Karaoke - Online (phiên bản mới)</h2>
 
     <br />
 
-    @using (Html.BeginForm("PlayKaraoke", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("PlayKaraokeX", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
         @Html.ValidationSummary(true)
 
@@ -611,12 +664,11 @@ else
                 <td></td>
                 <td>
                        <span id="number" style="color:#e3f207; font-size:100px"></span>
-                        <br>
                          <div style="text-align:center">
                         <div style="display:inline-block">
-                          <span id="txtKaraoke1" style="font-size:100px;color:#efe6e6"></span>
-                          <br><br>
-                        <span id="txtKaraoke2" style="font-size:100px;color:#efe6e6"></span>
+                          <p id="txtKaraoke1"><span id="xanhX1" class="word"></span></p>
+                        <p id="txtKaraoke2"><span id="xanhX2" class="work"></span></p>
+                        <span id="xui"></span>
                         </div>
                         </div>
                 </td>
@@ -643,5 +695,8 @@ else if (ViewBag.SuDung == "Video")
         }
         </div>
     }
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
 </html>

@@ -52,9 +52,14 @@ body {
     background-color: white;
 }
 
-p {
+#txtKaraoke1 {
     font-weight: bold;
-    font-size: 5em;
+    font-size: 80px;
+}
+
+#txtKaraoke2 {
+    font-weight: bold;
+    font-size: 80px;
 }
 
 .word {

@@ -76,6 +76,19 @@ body {
      document.getElementById("number").style.fontSize = kt; 
     }
 
+    function doikichthuoc_Save()
+        {
+             if (localStorage.getItem("kichthuoc") == null)
+            return;
+
+            var kichthuoc = localStorage.getItem("kichthuoc");
+        var kt = kichthuoc + "px";
+        document.getElementById("kichthuoc").value = kichthuoc;
+       document.getElementById("txtKaraoke1").style.fontSize = kt; 
+     document.getElementById("txtKaraoke2").style.fontSize = kt; 
+     document.getElementById("number").style.fontSize = kt; 
+        }
+
     function doihang()
     {
         var hang = new Number(document.getElementById("hang").value);
@@ -85,6 +98,21 @@ body {
 
         document.getElementById("hienthi").innerHTML = hax;
     }
+
+    function doihang_Save()
+        {
+             if (localStorage.getItem("hang") == null)
+            return;
+
+             var hang = new Number(localStorage.getItem("hang"));
+             document.getElementById("hang").value = localStorage.getItem("hang");
+
+        var hax = "";
+        for (var i  =0; i < hang; i++)
+        hax += "<br>";
+
+        document.getElementById("hienthi").innerHTML = hax;
+        }
     
     function chonKaraHay()
     {
@@ -152,6 +180,7 @@ body {
                     elem.msRequestFullscreen();
 
                     xanh.innerHTML = "<b>FULL MÀN HÌNH - ON</b>";
+                    dongmomenu();
                 }
                 else 
                 {
@@ -231,6 +260,17 @@ body {
 
     }
 
+    function ghinho()
+    {
+        localStorage.setItem("mau", document.getElementById("mau").value);
+        localStorage.setItem("mauX", document.getElementById("mauX").value);
+        localStorage.setItem("mauY", document.getElementById("mauY").value);
+        localStorage.setItem("kichthuoc", document.getElementById("kichthuoc").value);
+        localStorage.setItem("hang", document.getElementById("hang").value);
+
+        alert("Các cài đặt Karaoke của bạn đã được ghi nhớ thành công!");
+    }
+
      function PlayXKaraoke()
     {
         document.getElementById("musix").pause();
@@ -249,6 +289,14 @@ body {
             document.getElementById("myVideo").currentTime = 0;
         }
         dongmomenu();
+        if (elem.requestFullscreen)
+                    elem.requestFullscreen();
+                     else if (elem.webkitRequestFullscreen) /* Safari */
+                    elem.webkitRequestFullscreen();
+                   else if (elem.msRequestFullscreen) /* IE11 */
+                    elem.msRequestFullscreen();
+
+                    xanh.innerHTML = "<b>FULL MÀN HÌNH - ON</b>";
         resetKaraoke();
     }
 
@@ -298,14 +346,51 @@ body {
             document.getElementById("xanhX2").style.setProperty("--color", mau);
         }
 
+        function doimau_Save()
+        {
+            if (localStorage.getItem("mau") == null)
+            return;
+
+             mau = localStorage.getItem("mau");
+             document.getElementById("mau").value = mau;
+
+            document.getElementById("xemthumau").style.color = mau;
+            document.getElementById("xanhX1").style.setProperty("--color", mau);
+            document.getElementById("xanhX2").style.setProperty("--color", mau);
+        }
+
          function doimauX()
         {
-             mauX = document.getElementById("mau").value;
+             mauX = document.getElementById("mauX").value;
             document.getElementById("xemmauthu").style.color = mauX;
            //-- document.getElementById("txtKaraoke1").style.color = document.getElementById("mauX").value;
            //-- document.getElementById("txtKaraoke2").style.color = document.getElementById("mauX").value;
                        document.getElementById("xanhX1").style.setProperty("--colox", mauX);
             document.getElementById("xanhX2").style.setProperty("--color", mauX);
+        }
+
+        function doimauX_Save()
+        {
+             if (localStorage.getItem("mauX") == null)
+            return;
+
+              mauX = localStorage.getItem("mauX");
+              document.getElementById("mauX").value = mauX;
+            document.getElementById("xemmauthu").style.color = mauX;
+           //-- document.getElementById("txtKaraoke1").style.color = document.getElementById("mauX").value;
+           //-- document.getElementById("txtKaraoke2").style.color = document.getElementById("mauX").value;
+                       document.getElementById("xanhX1").style.setProperty("--colox", mauX);
+            document.getElementById("xanhX2").style.setProperty("--color", mauX);
+        }
+
+        function doimauY_Save()
+        {
+             if (localStorage.getItem("mauY") == null)
+            return;
+
+            document.getElementById("mauY").value = localStorage.getItem("mauY");
+             document.getElementById("xemmaudi").style.color = localStorage.getItem("mauY");
+            document.getElementById("number").style.color = localStorage.getItem("mauY");
         }
 
          function doimauY()
@@ -315,6 +400,7 @@ body {
         }
 
         var LBH;
+        var flg = 0;
 
                     var id = setInterval(myAlert, 100);
 
@@ -341,7 +427,18 @@ body {
 
                          if (you == false || youX == false)
                         return;
-              
+
+                        // Thay doi tu cai dat da luu
+                        if (flg == 0)
+                        {
+                        doimau_Save();
+                        doimauX_Save();
+                        doimauY_Save();
+                        doihang_Save();
+                        doikichthuoc_Save();
+                        flg = 1;
+                        }
+           
                         t++;
 
                 //if (h_xh[kf] !== undefined)
@@ -397,14 +494,14 @@ body {
 
               var word1 = document.getElementById("xanhX1");
               word1.style.setProperty("--colox", mauX);
-               word1.style.setProperty("--color", mauX);
+               word1.style.setProperty("--color", mau);
              var xuan1 = new String(sing[0]).toUpperCase().replace("UNDEFINED","");
 
             word1.innerHTML = xuan1;
 
               var word2 = document.getElementById("xanhX2");
                word2.style.setProperty("--colox", mauX);
-                word2.style.setProperty("--color", mauX);
+                word2.style.setProperty("--color", mau);
              var xuan2 = new String(sing[1]).toUpperCase().replace("UNDEFINED","");
       
             word2.innerHTML = xuan2;
@@ -636,6 +733,7 @@ else
      &nbsp;&nbsp;&nbsp;<b id="xemmaudi" style="color:#e3f207">Chọn màu cho time đếm ngược bắt đầu karaoke</b> : <input type="color" onchange="doimauY()" id="mauY" value="#e3f207" />
       &nbsp;&nbsp;&nbsp; <input id="kichthuoc" type="number" min="0" value="80" onchange="doikichthuoc()"/>
         &nbsp;&nbsp;&nbsp; <input id="hang" type="number" min="0" value="7" onchange="doihang()"/>
+        &nbsp;&nbsp;&nbsp; <button onclick="ghinho()"><b style="color:lightcoral">Ghi nhớ các cài đặt</b></button>
         &nbsp;&nbsp;&nbsp; <b style="color:aqua"><a onclick="xemplay()" href="#xuly">Restart & full screen</a></b>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="StopKaraoke()"><b style="color:darkgreen">THOÁT</b></button>
 

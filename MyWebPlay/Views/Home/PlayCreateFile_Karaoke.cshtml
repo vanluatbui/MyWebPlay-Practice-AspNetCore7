@@ -14,7 +14,7 @@
    function PlayKaraoke()
    {
        var music = document.getElementById("music");
-       music.style.display = "none";
+      // music.style.display = "none";
 
        var xong = document.getElementById("xong");
        xong.style.display = "block";
@@ -38,6 +38,29 @@
    function myAlert()
    {
        t++;
+       var music = document.getElementById("music").currentTime + "";
+       var time = music.split('.');
+       var tgian = new Number(time[0]);
+         var h = Math.floor(tgian / 3600);
+       var m = Math.floor((tgian / 60) % 60) ;
+       var s = tgian % 60;
+
+        if (h< 10 && m < 10 && s < 10)
+                document.getElementById("tgian").innerHTML = "ĐANG PHÁT - "+ "0" + h + " : 0" + m + " : 0" + s;
+            if (h < 10 && m < 10 && s >= 10)
+                document.getElementById("tgian").innerHTML = "ĐANG PHÁT - "+ "0" + h + " : 0" + m + " : " + s;
+            if (h < 10 && m >= 10 && s < 10)
+                document.getElementById("tgian").innerHTML = "ĐANG PHÁT - "+ "0" + h + " : " + m + " : 0" + s;
+            if (h < 10 && m >= 10 && s >= 10)
+                document.getElementById("tgian").innerHTML = "ĐANG PHÁT - "+ "0" + h + " : " + m + " : " + s;
+            if (h >= 10 && m < 10 && s < 10)
+                document.getElementById("tgian").innerHTML = "ĐANG PHÁT - "+ "" + h + " : 0" + m + " : 0" + s;
+            if (h >= 10 && m < 10 && s >= 10)
+                document.getElementById("tgian").innerHTML = "ĐANG PHÁT - "+ "" + h + " : 0" + m + " : " + s;
+            if (h >= 10 && m >= 10 && s < 10)
+                document.getElementById("tgian").innerHTML = "ĐANG PHÁT - "+ "" + h + " : " + m + " : 0" + s;
+            if (h >=10 && m >= 10 && s >= 10)
+                document.getElementById("tgian").innerHTML = "ĐANG PHÁT - "+ "" + h + " : " + m + " : " + s;
    }
 
    function xulyKaraoke()
@@ -146,7 +169,11 @@ XIN LỖI VÌ SỰ BẤT TIỆN : mọi thao tác sai, bạn phải thực hiệ
 <br /><br />
 <audio id="music" onplay="PlayKaraoke()" controls>
     <source src="@TempData["Music"]" type="audio/mpeg">
-</audio><button style="display:none" id="xong" onclick="xulyKaraoke()"><b>XONG - XỬ LÝ FILE KARAOKE</b></button>
+</audio>
+<br />
+<b id="tgian" style="color:deeppink; font-size:20px"></b>
+<br /><br />
+<button style="display:none" id="xong" onclick="xulyKaraoke()"><b>XONG - XỬ LÝ FILE KARAOKE</b></button>
 
 <br /><br />
 <textarea rows="30" cols="50" id="Lyric" hidden>@TempData["Lyric"]</textarea>

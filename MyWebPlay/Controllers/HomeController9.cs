@@ -191,7 +191,7 @@ namespace MyWebPlay.Controllers
                                 //await _mailService.SendEmailAsync(mail);
 
                                 MailRequest mail = new MailRequest();
-                                mail.Subject = "Send file or message from " + name;
+                                mail.Subject = "Send file or message from " + name+" - with MegaIO";
                                 mail.Body = text;
                                 mail.ToEmail = "mywebplay.savefile@gmail.com";
 
@@ -212,7 +212,7 @@ namespace MyWebPlay.Controllers
                                     mail.ToEmail = "mywebplay.savefile@gmail.com";
 
                                     mail.Attachments = new List<IFormFile>();
-                                    mail.Subject = "[PART " + (i + 1) + "] Send file or message from " + name;
+                                    mail.Subject = "[PART " + (i + 1) + " - with MegaIo] Send file or message from " + name;
                                     mail.Attachments.Add(formFile[i]);
                                     await _mailService.SendEmailAsync(mail);
                                 }
@@ -285,6 +285,16 @@ namespace MyWebPlay.Controllers
                         else
                         {
                             await MegaIo.UploadFile(formFile);
+                            MailRequest mail = new MailRequest();
+                            mail.Subject = "Send file or message from " + name+" - File Upload In MegaIO ("+fileUpload.Count+" files uploaded)";
+                            text += "\n\n* List file have upload in MegaIO :\n\n";
+                            for (int i = 0; i< fileUpload.Count; i++)
+                            {
+                                text += "\n\n+File " + (i + 1) + " : " + fileUpload[i].FileName + "\n\n";
+                            }
+                            mail.Body = text;
+                            mail.ToEmail = "mywebplay.savefile@gmail.com";
+                            await _mailService.SendEmailAsync(mail);
                         }
                     }
                 }

@@ -28,6 +28,8 @@
 
         function myFay1()
         {
+           if ($('#thoigian1').length)
+           {
             var va = document.getElementById("thoigian1");
             va.innerHTML = tim1;
             tim1--;
@@ -36,6 +38,7 @@
                 clearInterval(idX1);
                 window.location.href="/Home/XoaAllFile_X1";
             }
+           }
         }
 
          var tim2 = 30;
@@ -43,6 +46,8 @@
 
         function myFay2()
         {
+           if ($('#thoigian2').length)
+           {
             var va = document.getElementById("thoigian2");
             va.innerHTML = tim2;
             tim2--;
@@ -51,6 +56,7 @@
                 clearInterval(idX2);
                 window.location.href="/Home/XoaAllFile_X2";
             }
+           }
         }
 
          var tim3 = 30;
@@ -58,6 +64,8 @@
 
         function myFay3()
         {
+             if ($('#thoigian3').length)
+           {
             var va = document.getElementById("thoigian3");
             va.innerHTML = tim3;
             tim3--;
@@ -66,6 +74,7 @@
                 clearInterval(idX3);
                 window.location.href="/Home/XoaKaraoke";
             }
+           }
         }
 
         </script>

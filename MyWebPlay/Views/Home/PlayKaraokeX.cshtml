@@ -213,6 +213,8 @@ body {
         document.getElementById("musix").currentTime = document.getElementById("music").currentTime;
     }
 
+    var flix = 0;
+
     function PlayKaraoke()
     {
         if (document.getElementById("music").currentTime != document.getElementById("musix").currentTime)
@@ -444,6 +446,14 @@ body {
            
                         t++;
 
+         if (t == 15 && flix == 0)
+        {
+            resetKaraoke();
+            resetKaraoke();
+            resetKaraoke();
+            flix = 1;
+        }
+
                 //if (h_xh[kf] !== undefined)
                 //{
                 //     if (h_xh[kf+1] === undefined)
@@ -527,6 +537,8 @@ body {
 
                //so = (h_xh[kf+1] - h_xh[kf])/2.8;
 
+              // var so0 = h_xh[kf-1];
+
                var so1 = h_xh[kf];
                var so2 = 0;
                if (h_xh[kf+1] === undefined || h_xh[kf+1] == null)
@@ -535,13 +547,33 @@ body {
                so2 = h_xh[kf+1];
 
               if (so2 - so1 < 3)
-               so = 0.6;
+               so = 0.5;
+               else
+               if (so2 - so1 < 7)
+               so = 1;
                else
                if (so2 - so1 < 10)
-               so = 1.8;
+               so = 1.5;
+                else
+               if (so2 - so1 < 13)
+               so = 2;
+                else
+               if (so2 - so1 < 16)
+               so = 2.5;
+                else
+               if (so2 - so1 < 19)
+               so = 3;
                else
-               if (so2 - so1 < 15)
-               so = 2.6;
+               if (so2 - so1 < 22)
+               so = 3.5;
+                else
+               if (so2 - so1 < 25)
+               so = 4;
+                else
+               if (so2 - so1 < 28)
+               so = 4.5;
+                else
+               so = 5;
 
                 //soA = (so2 - so1) / 3.2;
                 //soB = (so2X - so1X) / (90/13);
@@ -718,7 +750,7 @@ body {
                       <input type="number" hidden id="chonKarax" name="KaraChon" value="1" min="1" max="4" />
                       <br><br>
                       <input name="txtOnline" id="online" size="100" style="display:none" type="text" placeholder="Nhập link online background của bạn thực hiện karaoke..." />
-                     <br><span id="helpYoutube" style="color:red; display:none"><u>Lưu ý</u> : một số link Youtube có thể không khả dụng hoặc bạn nên cố gắng thử lại!</span>
+                     <br><span id="helpYoutube" style="color:red; display:none"><u>Lưu ý</u> : một số link Youtube có thể không khả dụng hoặc bạn nên cố gắng thử lại (và hãy tìm video youtube dài phút nhất có thể 😃)</span>
                 </td>
             </tr>
 

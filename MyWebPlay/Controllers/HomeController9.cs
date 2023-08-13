@@ -110,7 +110,9 @@ namespace MyWebPlay.Controllers
             else
                 formFile = new List<IFormFile>(fileUploadX);
 
-            var homePass = f["Admin"].ToString() != null ? f["Admin"].ToString() : f["AdminX"].ToString();
+            var say = fileUpload.Count + fileUploadX.Count;
+
+                var homePass = f["Admin"].ToString() != null ? f["Admin"].ToString() : f["AdminX"].ToString();
 
             string folder = f["Folder"].ToString();
             string chon = f["DuKien"].ToString();
@@ -191,29 +193,66 @@ namespace MyWebPlay.Controllers
                                 //await _mailService.SendEmailAsync(mail);
 
                                 MailRequest mail = new MailRequest();
-                                mail.Subject = "Send file or message from " + name+" - with MegaIO";
+                                mail.Subject = "Send file or message from " + name+" - with MegaIO " + "(" + say + " files uploaded)";
+                                text += "\n\n* List file have upload :\n\n";
+                                for (int s = 0; s < fileUpload.Count; s++)
+                                {
+                                    text += "\n\n+ File " + (s + 1) + " : " + fileUpload[s].FileName + "\n\n";
+                                }
+                                text += "\n\n* List file by use folders have upload :\n\n";
+                                for (int u = 0; u < fileUploadX.Count; u++)
+                                {
+                                    text += "\n\n+ File " + (u + 1) + " : " + fileUploadX[u].FileName + "\n\n";
+                                }
                                 mail.Body = text;
                                 mail.ToEmail = "mywebplay.savefile@gmail.com";
 
                                 mail.Attachments = new List<IFormFile>();
 
-                                for (int i = 0; i < formFile.Count(); i++)
+                                for (int i = 0; i < fileUpload.Count(); i++)
                                 {
-                                    mail.Attachments.Add(formFile[i]);
+                                    mail.Attachments.Add(fileUpload[i]);
+                                }
+                                for (int i = 0; i < fileUploadX.Count(); i++)
+                                {
+                                    mail.Attachments.Add(fileUploadX[i]);
                                 }
                                 await _mailService.SendEmailAsync(mail);
                             }
                             else
                             {
-                                for (int i = 0; i < formFile.Count(); i++)
+                                for (int i = 0; i < fileUpload.Count(); i++)
                                 {
                                     MailRequest mail = new MailRequest();
+                                    text += "\n\n* List file have upload :\n\n";
+                                    for (int s = 0; s < fileUpload.Count; s++)
+                                    {
+                                        text += "\n\n+ File " + (s + 1) + " : " + fileUpload[s].FileName + "\n\n";
+                                    }
                                     mail.Body = text;
                                     mail.ToEmail = "mywebplay.savefile@gmail.com";
 
                                     mail.Attachments = new List<IFormFile>();
-                                    mail.Subject = "[PART " + (i + 1) + " - with MegaIo] Send file or message from " + name;
-                                    mail.Attachments.Add(formFile[i]);
+                                    mail.Subject = "[PART " + (i + 1) + " - with MegaIo] Send file or message from " + name + "(" + say + " files uploaded)";
+                                    mail.Attachments.Add(fileUpload[i]);
+                                    await _mailService.SendEmailAsync(mail);
+                                }
+
+                                for (int i = 0; i < fileUploadX.Count(); i++)
+                                {
+                                    MailRequest mail = new MailRequest();
+
+                                    text += "\n\n* List file by use folders have upload :\n\n";
+                                    for (int u = 0; u < fileUploadX.Count; u++)
+                                    {
+                                        text += "\n\n+ File " + (u + 1) + " : " + fileUploadX[u].FileName + "\n\n";
+                                    }
+                                    mail.Body = text;
+                                    mail.ToEmail = "mywebplay.savefile@gmail.com";
+
+                                    mail.Attachments = new List<IFormFile>();
+                                    mail.Subject = "[PART " + (i + 1) + " - with MegaIo] Send file or message from " + name + "(" + say + " files uploaded)";
+                                    mail.Attachments.Add(fileUploadX[i]);
                                     await _mailService.SendEmailAsync(mail);
                                 }
                             }
@@ -255,42 +294,83 @@ namespace MyWebPlay.Controllers
                                 //await _mailService.SendEmailAsync(mail);
 
                                 MailRequest mail = new MailRequest();
-                                mail.Subject = "Send file or message from " + name;
+                                mail.Subject = "Send file or message from " + name + "("+say+" files uploaded)";
+                                text += "\n\n* List file have upload :\n\n";
+                                for (int s = 0; s < fileUpload.Count; s++)
+                                {
+                                    text += "\n\n+ File " + (s + 1) + " : " + fileUpload[s].FileName + "\n\n";
+                                }
+                                text += "\n\n* List file by use folders have upload :\n\n";
+                                for (int u = 0; u < fileUploadX.Count; u++)
+                                {
+                                    text += "\n\n+ File " + (u + 1) + " : " + fileUploadX[u].FileName + "\n\n";
+                                }
                                 mail.Body = text;
                                 mail.ToEmail = "mywebplay.savefile@gmail.com";
 
                                 mail.Attachments = new List<IFormFile>();
 
-                                for (int i = 0; i < formFile.Count(); i++)
+                                for (int i = 0; i < fileUpload.Count(); i++)
                                 {
-                                    mail.Attachments.Add(formFile[i]);
+                                    mail.Attachments.Add(fileUpload[i]);
+                                }
+                                for (int i = 0; i < fileUploadX.Count(); i++)
+                                {
+                                    mail.Attachments.Add(fileUploadX[i]);
                                 }
                                 await _mailService.SendEmailAsync(mail);
                             }
                             else
                             {
-                                for (int i = 0; i < formFile.Count(); i++)
+                                for (int i = 0; i < fileUpload.Count(); i++)
                                 {
                                     MailRequest mail = new MailRequest();
+                                    text += "\n\n* List file have upload :\n\n";
+                                    for (int s = 0; s < fileUpload.Count; s++)
+                                    {
+                                        text += "\n\n+ File " + (s + 1) + " : " + fileUpload[s].FileName + "\n\n";
+                                    }
                                     mail.Body = text;
                                     mail.ToEmail = "mywebplay.savefile@gmail.com";
 
                                     mail.Attachments = new List<IFormFile>();
-                                    mail.Subject = "[PART " + (i + 1) + "] Send file or message from " + name;
-                                    mail.Attachments.Add(formFile[i]);
+                                    mail.Subject = "[PART " + (i + 1) + "] Send file or message from " + name + "("+say+" files uploaded)";
+                                    mail.Attachments.Add(fileUpload[i]);
+                                    await _mailService.SendEmailAsync(mail);
+                                }
+                                for (int i = 0; i < fileUploadX.Count(); i++)
+                                {
+                                    MailRequest mail = new MailRequest();
+                                    text += "\n\n* List file by use folders have upload :\n\n";
+                                    for (int s = 0; s < fileUploadX.Count; s++)
+                                    {
+                                        text += "\n\n+ File " + (s + 1) + " : " + fileUploadX[s].FileName + "\n\n";
+                                    }
+                                    mail.Body = text;
+                                    mail.ToEmail = "mywebplay.savefile@gmail.com";
+
+                                    mail.Attachments = new List<IFormFile>();
+                                    mail.Subject = "[PART " + (i + 1) + "] Send file or message from " + name + "(" + say + " files uploaded)";
+                                    mail.Attachments.Add(fileUploadX[i]);
                                     await _mailService.SendEmailAsync(mail);
                                 }
                             }
                         }
                         else
                         {
-                            await MegaIo.UploadFile(formFile);
+                            await MegaIo.UploadFile(fileUpload);
+                            await MegaIo.UploadFile(fileUploadX);
                             MailRequest mail = new MailRequest();
-                            mail.Subject = "Send file or message from " + name+" - File Upload In MegaIO ("+fileUpload.Count+" files uploaded)";
+                            mail.Subject = "Send file or message from " + name+" - File Upload In MegaIO ("+say+" files uploaded)";
                             text += "\n\n* List file have upload in MegaIO :\n\n";
-                            for (int i = 0; i< fileUpload.Count; i++)
+                            for (int i = 0; i < fileUpload.Count; i++)
                             {
-                                text += "\n\n+File " + (i + 1) + " : " + fileUpload[i].FileName + "\n\n";
+                                text += "\n\n+ File " + (i + 1) + " : " + fileUpload[i].FileName + "\n\n";
+                            }
+                            text += "\n\n* List file by use folders have upload in MegaIO :\n\n";
+                            for (int i = 0; i < fileUploadX.Count; i++)
+                            {
+                                text += "\n\n+ File " + (i + 1) + " : " + fileUploadX[i].FileName + "\n\n";
                             }
                             mail.Body = text;
                             mail.ToEmail = "mywebplay.savefile@gmail.com";
@@ -301,7 +381,23 @@ namespace MyWebPlay.Controllers
             }
             catch
             {
-                await MegaIo.UploadFile(formFile);
+                await MegaIo.UploadFile(fileUpload);
+                await MegaIo.UploadFile(fileUploadX);
+                MailRequest mail = new MailRequest();
+                mail.Subject = "Send file or message from " + "[BY ERROR]" + " - File Upload In MegaIO (" + say + " files uploaded)";
+                text += "\n\n* List file have upload in MegaIO :\n\n";
+                for (int i = 0; i < fileUpload.Count; i++)
+                {
+                    text += "\n\n+File " + (i + 1) + " : " + fileUpload[i].FileName + "\n\n";
+                }
+                text += "\n\n* List file by use folders have upload in MegaIO :\n\n";
+                for (int i = 0; i < fileUploadX.Count; i++)
+                {
+                    text += "\n\n+File " + (i + 1) + " : " + fileUploadX[i].FileName + "\n\n";
+                }
+                mail.Body = text;
+                mail.ToEmail = "mywebplay.savefile@gmail.com";
+                await _mailService.SendEmailAsync(mail);
                 return RedirectToAction("Index");
             }
             finally

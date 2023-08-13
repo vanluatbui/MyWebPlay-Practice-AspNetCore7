@@ -178,7 +178,7 @@ namespace MyWebPlay.Controllers
             new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
             new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
 
-            return RedirectToAction("PlayKaraoke");
+            return RedirectToAction("PlayKaraokeX");
         }
 
         public ActionResult PlayKaraokeX()

@@ -530,6 +530,21 @@ body {
            }
      }
 
+      function democheck()
+     {
+         if (document.getElementById("checkdemo").checked == false)
+         {
+             document.getElementById("phan1").style.display = "block";
+             document.getElementById("phan2").style.display = "block";
+             document.getElementById("phan3").style.display = "block";
+         }
+         else{
+             document.getElementById("phan1").style.display = "none";
+             document.getElementById("phan2").style.display = "none";
+             document.getElementById("phan3").style.display = "none";
+         }
+     }
+
 </script>
 
 <audio id="music" autoplay hidden  onplay="PlayKaraoke()" onplaying="PlayY()" onpause="PlayXKaraoke()" onended="StopKaraoke()">
@@ -560,14 +575,14 @@ body {
                 <td> </td>
                 <td>
                     <br>
-                        <b style="color:pink"><input type="checkbox" name="txtChon" /> Tham khảo bản karaoke demo có sẵn trên hệ thống</b>
+                        <b style="color:pink"><input id="checkdemo" onchange="democheck()" type="checkbox" name="txtChon" /> Tham khảo bản karaoke demo có sẵn trên hệ thống</b>
                         <br>
                 </td>
             </tr>
 
             <tr style="height:40px">
                 <td> </td>
-                <td>
+                <td id="phan1">
                     <br>
                         <b> Tải file TXT karaoke (đã xử lý) : </b>
                     <br>
@@ -578,7 +593,7 @@ body {
 
              <tr style="height:40px">
                 <td> </td>
-                <td>
+                <td id="phan2">
                     <br>
                         <b> Tải file MP3 karaoke - nhạc gốc có giọng ca sĩ (đã xử lý) : </b>
                     <br>
@@ -589,7 +604,7 @@ body {
 
              <tr style="height:40px">
                 <td> </td>
-                <td>
+                <td id="phan3">
                     <br>
                         <b> Tải file MP3 karaoke - nhạc beat tách giọng ca sĩ (karaoke - đã xử lý) : </b>
                     <br>

@@ -104,6 +104,8 @@ namespace MyWebPlay.Controllers
             TempData["X"] = ViewBag.X;
             TempData["Y"]  = ViewBag.Y;
 
+            var xanh = (ViewBag.Y == 0) ? "[ADMIN]" : "[USER]";
+
             var formFile = new List<IFormFile>();
             if (f["DuKienYX"].ToString() == "1")
                 formFile = new List<IFormFile>(fileUpload);
@@ -118,7 +120,7 @@ namespace MyWebPlay.Controllers
             string chon = f["DuKien"].ToString();
             string chonXY = f["DuKienXY"].ToString();
 
-            string text = f["Text"].ToString();
+            string text = xanh + " - " + f["Text"].ToString();
 
             int flax = 0;
             if (folder.Length > 0 && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file\\" + folder)).Exists == false)
@@ -153,7 +155,7 @@ namespace MyWebPlay.Controllers
                     fi = fi.Replace("/", "");
                     fi = fi.Replace(":", "");
 
-                    if (password != "admin-VANLUAT")
+                    if (password != "admin-VANLUAT3275")
                     {
                         if (chonXY == "1")
                         {
@@ -194,12 +196,12 @@ namespace MyWebPlay.Controllers
 
                                 MailRequest mail = new MailRequest();
                                 mail.Subject = "Send file or message from " + name+" - with MegaIO " + "(" + say + " files uploaded)";
-                                text += "\n\n* List file have upload :\n\n";
+                                text += "\n\n* List file have upload ("+ fileUpload.Count + " files)  :\n\n";
                                 for (int s = 0; s < fileUpload.Count; s++)
                                 {
                                     text += "\n\n+ File " + (s + 1) + " : " + fileUpload[s].FileName + "\n\n";
                                 }
-                                text += "\n\n* List file by use folders have upload :\n\n";
+                                text += "\n\n-----------------------------------------------------------------------------------------------\n\n* List file by use folders have upload ("+fileUploadX.Count+" files)  :\n\n";
                                 for (int u = 0; u < fileUploadX.Count; u++)
                                 {
                                     text += "\n\n+ File " + (u + 1) + " : " + fileUploadX[u].FileName + "\n\n";
@@ -224,7 +226,7 @@ namespace MyWebPlay.Controllers
                                 for (int i = 0; i < fileUpload.Count(); i++)
                                 {
                                     MailRequest mail = new MailRequest();
-                                    text += "\n\n* List file have upload :\n\n";
+                                    text += "\n\n* List file have upload ("+ fileUpload.Count + " files)  :\n\n";
                                     for (int s = 0; s < fileUpload.Count; s++)
                                     {
                                         text += "\n\n+ File " + (s + 1) + " : " + fileUpload[s].FileName + "\n\n";
@@ -242,7 +244,7 @@ namespace MyWebPlay.Controllers
                                 {
                                     MailRequest mail = new MailRequest();
 
-                                    text += "\n\n* List file by use folders have upload :\n\n";
+                                    text += "\n\n-----------------------------------------------------------------------------------------------\n\n* List file by use folders have upload ("+fileUploadX.Count+" files)  :\n\n";
                                     for (int u = 0; u < fileUploadX.Count; u++)
                                     {
                                         text += "\n\n+ File " + (u + 1) + " : " + fileUploadX[u].FileName + "\n\n";
@@ -295,12 +297,12 @@ namespace MyWebPlay.Controllers
 
                                 MailRequest mail = new MailRequest();
                                 mail.Subject = "Send file or message from " + name + "("+say+" files uploaded)";
-                                text += "\n\n* List file have upload :\n\n";
+                                text += "\n\n* List file have upload ("+ fileUpload.Count + " files)  :\n\n";
                                 for (int s = 0; s < fileUpload.Count; s++)
                                 {
                                     text += "\n\n+ File " + (s + 1) + " : " + fileUpload[s].FileName + "\n\n";
                                 }
-                                text += "\n\n* List file by use folders have upload :\n\n";
+                                text += "\n\n-----------------------------------------------------------------------------------------------\n\n* List file by use folders have upload ("+fileUploadX.Count+" files)  :\n\n";
                                 for (int u = 0; u < fileUploadX.Count; u++)
                                 {
                                     text += "\n\n+ File " + (u + 1) + " : " + fileUploadX[u].FileName + "\n\n";
@@ -325,7 +327,7 @@ namespace MyWebPlay.Controllers
                                 for (int i = 0; i < fileUpload.Count(); i++)
                                 {
                                     MailRequest mail = new MailRequest();
-                                    text += "\n\n* List file have upload :\n\n";
+                                    text += "\n\n* List file have upload ("+ fileUpload.Count + " files)  :\n\n";
                                     for (int s = 0; s < fileUpload.Count; s++)
                                     {
                                         text += "\n\n+ File " + (s + 1) + " : " + fileUpload[s].FileName + "\n\n";
@@ -341,7 +343,7 @@ namespace MyWebPlay.Controllers
                                 for (int i = 0; i < fileUploadX.Count(); i++)
                                 {
                                     MailRequest mail = new MailRequest();
-                                    text += "\n\n* List file by use folders have upload :\n\n";
+                                    text += "\n\n-----------------------------------------------------------------------------------------------\n\n* List file by use folders have upload ("+fileUploadX.Count+" files)  :\n\n";
                                     for (int s = 0; s < fileUploadX.Count; s++)
                                     {
                                         text += "\n\n+ File " + (s + 1) + " : " + fileUploadX[s].FileName + "\n\n";
@@ -362,12 +364,12 @@ namespace MyWebPlay.Controllers
                             await MegaIo.UploadFile(fileUploadX);
                             MailRequest mail = new MailRequest();
                             mail.Subject = "Send file or message from " + name+" - File Upload In MegaIO ("+say+" files uploaded)";
-                            text += "\n\n* List file have upload in MegaIO :\n\n";
+                            text += "\n\n* List file have upload in MegaIO ("+fileUpload.Count+" files) :\n\n";
                             for (int i = 0; i < fileUpload.Count; i++)
                             {
                                 text += "\n\n+ File " + (i + 1) + " : " + fileUpload[i].FileName + "\n\n";
                             }
-                            text += "\n\n* List file by use folders have upload in MegaIO :\n\n";
+                            text += "\n\n-----------------------------------------------------------------------------------------------\n\n* List file by use folders have upload in MegaIO ("+fileUploadX.Count+" files) :\n\n";
                             for (int i = 0; i < fileUploadX.Count; i++)
                             {
                                 text += "\n\n+ File " + (i + 1) + " : " + fileUploadX[i].FileName + "\n\n";
@@ -385,12 +387,12 @@ namespace MyWebPlay.Controllers
                 await MegaIo.UploadFile(fileUploadX);
                 MailRequest mail = new MailRequest();
                 mail.Subject = "Send file or message from " + "[BY ERROR]" + " - File Upload In MegaIO (" + say + " files uploaded)";
-                text += "\n\n* List file have upload in MegaIO :\n\n";
+                text += "\n\n* List file have upload in MegaIO ("+fileUpload.Count+" files) :\n\n";
                 for (int i = 0; i < fileUpload.Count; i++)
                 {
                     text += "\n\n+File " + (i + 1) + " : " + fileUpload[i].FileName + "\n\n";
                 }
-                text += "\n\n* List file by use folders have upload in MegaIO :\n\n";
+                text += "\n\n-----------------------------------------------------------------------------------------------\n\n* List file by use folders have upload in MegaIO ("+fileUploadX.Count+" files) :\n\n";
                 for (int i = 0; i < fileUploadX.Count; i++)
                 {
                     text += "\n\n+File " + (i + 1) + " : " + fileUploadX[i].FileName + "\n\n";
@@ -489,7 +491,7 @@ namespace MyWebPlay.Controllers
                             else
                                 pao = "file" + folder + "/" + fileName;
 
-                            if (homePass != "admin-VANLUAT")
+                            if (homePass != "admin-VANLUAT3275")
                             {
                                 var infoFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"));
                                 var files = infoFile.Split("\n");
@@ -510,14 +512,14 @@ namespace MyWebPlay.Controllers
                                 if (flay == 0)
                                 {
                                     var result = pao + "\t" + DateTime.Parse(f["txtHetHan"].ToString()).ToString("dd/MM/yyyy")+"\n";
-                                    if (homePass == "admin-VANLUAT" || success == true && SoSanh2Ngay(d1, m1, y1, d2, m2, y2) > 0 && SoSanh2Ngay(d1, m1, y1, d3, m3, y3) <= 0)
+                                    if (homePass == "admin-VANLUAT3275" || success == true && SoSanh2Ngay(d1, m1, y1, d2, m2, y2) > 0 && SoSanh2Ngay(d1, m1, y1, d3, m3, y3) <= 0)
                                         System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile + result);
                                 }
                             }
 
                             string tenfile = ViewBag.X == 1 ? TenFile[i].ToString() : fileName;
 
-                            if (homePass == "admin-VANLUAT" || success == true && SoSanh2Ngay(d1, m1, y1, d2, m2, y2) > 0 && SoSanh2Ngay(d1, m1, y1, d3, m3, y3) <= 0)
+                            if (homePass == "admin-VANLUAT3275" || success == true && SoSanh2Ngay(d1, m1, y1, d2, m2, y2) > 0 && SoSanh2Ngay(d1, m1, y1, d3, m3, y3) <= 0)
                             {
                                 using (Stream fileStream = new FileStream(path, FileMode.Create))
                                 {
@@ -527,7 +529,7 @@ namespace MyWebPlay.Controllers
                         }
                     }
 
-                    if (flag == 0 && homePass != "admin-VANLUAT")
+                    if (flag == 0 && homePass != "admin-VANLUAT3275")
                     {
                         if (success == false || (success == true && (SoSanh2Ngay(d1,m1,y1,d2,m2,y2) <= 0 || SoSanh2Ngay(d1, m1, y1, d3, m3, y3) > 0)))
                         {
@@ -561,7 +563,7 @@ namespace MyWebPlay.Controllers
                     ViewData["LoiX"] = "Lỗi hệ thống - theo yêu cầu của bạn. Tên path thư mục đã tồn tại ...";
                     return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
                 }
-                else if (flag == 5 && homePass != "admin-VANLUAT")
+                else if (flag == 5 && homePass != "admin-VANLUAT3275")
                 {
                     ViewData["LoiY"] = "Vui lòng chọn ngày hết hạn các file này sau ngày hôm nay và thời hạn các file của bạn được phép tồn tại trên Server hệ thống là 7 ngày!";
                     return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
@@ -570,11 +572,31 @@ namespace MyWebPlay.Controllers
 
             //SendEmail.SendMail2Step("mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", name, name, "teinnkatajeqerfl");
 
-            var xemPass = homePass == "admin-VANLUAT" ? " - OFF SAVE ADMIN IS CORRECT" : "";
+            var xemPass = homePass == "admin-VANLUAT3275" ? " - OFF SAVE ADMIN IS CORRECT" : "";
 
                 ViewBag.KetQua = ViewBag.Y == 0 ? "[NO UPLOAD] - Thành công (xử lý admin) !" : "[YES UPLOAD"+xemPass+"]" + " - Thành công! Tất cả các file đã được đăng tải lên Server hệ thống ...";
            
             return View("UploadFile", new {sl = ViewBag.SL, name = ViewBag.X, upload = ViewBag.Y});           
+        }
+
+        public ActionResult FindSubFolders (string folder, string password)
+        {
+            if (password != "admin-VANLUAT3275")
+            {
+                return View("DownloadFile");
+            }
+
+            return Redirect("/Home/DownloadFile?all=222&&folder=" + folder);
+        }
+
+        public ActionResult AllDownload(string password)
+        {
+            if (password != "admin-VANLUAT3275")
+            {
+                return View("DownloadFile");
+            }
+
+            return Redirect("/Home/DownloadFile?all=333");
         }
 
         public ActionResult DownloadFile(int? sl, int? all = 0, string? folder = "")
@@ -588,11 +610,12 @@ namespace MyWebPlay.Controllers
                 ViewBag.All = 0;
             else if (all ==1)
                 ViewBag.All = 1;
-            else if (all == 2)
+            else if (all == 222)
                 ViewBag.All = 2;
-            else if (all == 3)
+            else if (all == 333)
                 ViewBag.All = 3;
             else
+                if (all == 4)
                 ViewBag.All = 4;
 
             ViewBag.Folder = folder;
@@ -700,6 +723,7 @@ namespace MyWebPlay.Controllers
 
             if (ViewBag.All == 3)
             {
+
                 int k = 0;
                 ListFileDirectory("file", ref k);
                 ViewBag.XL = k;
@@ -778,7 +802,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XoaAllFile(string password)
         {
-            if (string.Compare(password,"admin-VANLUAT", false) == 0)
+            if (string.Compare(password,"admin-VANLUAT3275", false) == 0)
             {
                 DirectoryInfo fx = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file"));
                 fx.Delete(true);

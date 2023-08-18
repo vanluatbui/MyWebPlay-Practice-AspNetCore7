@@ -49,11 +49,9 @@ namespace MyWebPlay.Controllers
            string txtSoCau = f["txtSoCau"].ToString();
             string txtTime = f["txtTime"].ToString();
             string txtMon = f["txtMon"].ToString();
-
-            if (string.IsNullOrEmpty(txtMon))
+            if (string.IsNullOrWhiteSpace(txtMon))
             {
-                ViewData["Loi"] = "Không được bỏ trống trường này";
-                return this.TracNghiem_Multiple(ViewBag.SL);
+                txtMon = txtFile[0].FileName;
             }
 
             if (string.IsNullOrEmpty(txtSoCau))
@@ -354,10 +352,9 @@ namespace MyWebPlay.Controllers
             string txtTime = f["txtTime"].ToString();
             string txtMon = f["txtMon"].ToString();
 
-            if (tick != "on" && string.IsNullOrEmpty(txtMon))
+            if (tick != "on" && string.IsNullOrWhiteSpace(txtMon))
             {
-                ViewData["Loi"] = "Không được bỏ trống trường này";
-                return this.TracNghiemX_Multiple();
+                txtMon = txtFile[0].FileName;
             }
 
             if (tick != "on" && string.IsNullOrEmpty(txtSoCau))

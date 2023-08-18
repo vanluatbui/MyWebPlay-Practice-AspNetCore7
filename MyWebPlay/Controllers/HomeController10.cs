@@ -53,11 +53,9 @@ namespace MyWebPlay.Controllers
                 ViewData["Loi1"] = "Mời bạn chọn file TXT trắc nghiệm...";
                 return this.TracNghiem();
             }
-
-            if (string.IsNullOrEmpty(txtMon))
+            if (string.IsNullOrWhiteSpace(txtMon))
             {
-                ViewData["Loi"] = "Không được bỏ trống trường này";
-                return this.TracNghiem();
+                txtMon = txtFile.FileName;
             }
 
             if (string.IsNullOrEmpty(txtSoCau) )

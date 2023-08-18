@@ -20,7 +20,9 @@
 
     function qwerty()
     {
-        window.location.href = "/Home/DownloadFile?all=2&&folder="+document.getElementById("FOLD").value;
+          var check = prompt('Tính năng hiện tại chỉ dành cho admin, admin nhập đúng mật mã để tiếp tục xử lý : ');
+
+        window.location.href = "/Home/FindSubFolders?folder="+document.getElementById("FOLD").value+"&password="+check;
     }
 
     function xacnhan(file)
@@ -55,7 +57,8 @@
 
     function alldown()
     {
-        window.location.href = "/Home/DownloadFile?all=3";
+         var check = prompt('Tính năng hiện tại chỉ dành cho admin, admin nhập đúng mật mã để tiếp tục xử lý : ');
+        window.location.href = "/Home/AllDownload?password="+check;
     }
 
 </script>

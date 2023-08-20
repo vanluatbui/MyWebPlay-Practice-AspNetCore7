@@ -145,19 +145,8 @@
     function xoaallfile(){
         
         var check = prompt('Để xác nhận xoá tất cả các file trên Server, admin nhập đúng mật mã : ');
-        
-        if (check!=null)
-        {
-            if (check != "admin")
-        {
-            alert('Mật mã xác nhận xử lý không chính xác!')
-        }
-        else{
-            alert('Thành công! Tác vụ sẽ tiến hành chuẩn bị xử lý...')
-        }
-
+         if (check != null && check != "")
          window.location.href = "/Home/XoaAllFile?password="+check;
-        }
     }
 
     function xacnhan()
@@ -297,7 +286,7 @@
         }
 
         <span style="color:aqua">
-            <u>Xin lưu ý</u> : tính năng này không dành cho việc các file tải lên của bạn là riêng tư...<br>Hiện tại tất cả các file của bạn tải lên Server hệ thống bất kỳ ai cũng có thể truy cập (miễn là họ biết đường dẫn thư mục hoặc nơi truy cập của file đó).<br>Tất cả các file bạn tải lên tại đây đều có giới hạn thời gian sử dụng (tối đa là 7 ngày).<br>Vì vậy, hãy cẩn thận và tự quản lý/trách nhiệm khi lựa chọn tải các file của bạn tại đây. Tốt nhất bạn nên tự xoá thủ công các file/thư mục của bạn sau khi sử dụng xong!
+            <u>Xin lưu ý</u> : tính năng này không dành cho việc các file tải lên của bạn là riêng tư...<br>Hiện tại tất cả các file của bạn tải lên Server hệ thống bất kỳ ai cũng có thể truy cập (miễn là họ biết đường dẫn thư mục hoặc nơi truy cập của file đó).<br>Tất cả các file bạn tải lên tại đây đều có giới hạn thời gian sử dụng (tối đa là 7 ngày).<br>Vì vậy, hãy cẩn thận và tự quản lý/trách nhiệm khi lựa chọn tải các file của bạn tại đây. Tốt nhất bạn nên tự xoá thủ công các file/thư mục của bạn sau khi sử dụng xong!<br><span style="color:purple">Gợi ý bạn nên đưa các file upload của bạn phân biệt vào các thư mục, mà tên thư mục này phải khó đoán và độc lập 🤣😃😅...</span>
         </span>
 
         @if (ViewBag.SL > 0 && ViewBag.Y == 0)

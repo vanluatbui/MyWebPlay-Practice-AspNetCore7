@@ -12,15 +12,21 @@
             <td>
                 <b>Nhập tên table : </b>
                 <br>
-                <input type="text" name="txtTable" />
+                <input type="text" name="txtTable" value="User" />
                 <br><br>
                 <b>Nhập nội dung được cho là đầy đủ (liệt kê tách bởi Enter và Tab) : </b>
                 <br>
-                <textarea name="txtDayDu" cols="100" rows="12"></textarea>
+                <textarea name="txtDayDu" cols="100" rows="12">Column1[TAB-TPLAY]nvarchar(10)
+Column2[TAB-TPLAY]int
+Column3[TAB-TPLAY]money
+Column4[TAB-TPLAY]varchar(5)
+Column5[TAB-TPLAY]datetime</textarea>
                 <br><br>
-                <b>Nhập tách bởi Enter các fields nghi là thiếu : </b>
+                <b>Nhập tách bởi Enter các fields nghi là thiếu [phải tồn tại column như input trên, nếu không type mặc định sẽ là nvarchar(max)] : </b>
                 <br>
-                <textarea name="txtThieu" cols="100" rows="12"></textarea>"
+                <textarea name="txtThieu" cols="100" rows="12">Column2
+Column6
+Column4</textarea>
             </td>
         </tr>
       

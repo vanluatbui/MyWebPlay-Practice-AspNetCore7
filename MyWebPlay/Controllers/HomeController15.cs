@@ -216,6 +216,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XuLySQL1()
         {
+            ViewBag.Table = "User\r\nProduct\r\nOrder";
             return View();
         }
 
@@ -251,6 +252,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XuLySQL2()
         {
+            ViewBag.Table = "User\r\nProduct\r\nOrder";
             return View();
         }
 
@@ -328,6 +330,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XuLySQL3()
         {
+            ViewBag.Chuoi = "Coumn1\r\nCoumn2\r\nCoumn3\r\n#3275#\r\nEm là hoa\r\nhồng\r\nnhỏ[TAB-TPLAY]12345[TAB-TPLAY]Em là búp\r\nmăng non\r\nhồng hào trắng\r\nsáng\r\n#3275#\r\nTôi là bông\r\nhồng\r\ngià[TAB-TPLAY]06789[TAB-TPLAY]Em là búp\r\nmăng già\r\nnếp nhăn\r\ngoá phụ";
             return View();
         }
 
@@ -338,6 +341,7 @@ namespace MyWebPlay.Controllers
             chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
             chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
             chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
+            ViewBag.Chuoi = chuoi;
             var listCha = chuoi.Split("\r\n#3275#\r\n");
             var phan1 = listCha[0].Replace(" ", "").Replace("\t", "").Replace(",", "").Replace("[", "").Replace("]", "").Replace("\r\n","\t");
             var phan2 = listCha[1].Replace("\r\n", "  ");

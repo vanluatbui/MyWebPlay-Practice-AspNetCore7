@@ -191,8 +191,7 @@ body {
   } else if (document.msExitFullscreen) { /* IE11 */
     document.msExitFullscreen();
   }
-
-                    xanh.innerHTML = "<b>FULL MÀN HÌNH - OFF</b>";
+                  xanh.innerHTML = "<b>FULL MÀN HÌNH - OFF</b>";
                 }
             }
         }
@@ -283,7 +282,7 @@ body {
                    else if (elem.msRequestFullscreen) /* IE11 */
                     elem.msRequestFullscreen();
 
-                    xanh.innerHTML = "<b>FULL MÀN HÌNH - ON</b>";
+                    document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - ON</b>";
         resetKaraoke();
     }
 
@@ -386,7 +385,10 @@ body {
         localStorage.setItem("kichthuocX", document.getElementById("kichthuoc").value);
         localStorage.setItem("hangX", document.getElementById("hang").value);
 
-        alert("Các cài đặt Karaoke của bạn đã được ghi nhớ thành công!");
+        alert("Các cài đặt Karaoke của bạn đã được ghi nhớ thành công, hệ thống phải khởi động lại để áp dụng!");
+
+        document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - OFF</b>";
+        resetKaraoke();
     }
 
                     var id = setInterval(myAlert, 100);

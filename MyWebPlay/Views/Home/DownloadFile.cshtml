@@ -4,24 +4,15 @@
 
         var check = prompt('Để xác nhận xoá tất cả các file trên Server, admin nhập đúng mật mã : ');
 
-        if (check!=null)
-        {
-            if (check != "admin")
-           {
-            alert('Mật mã xác nhận xử lý không chính xác!')
-            }
-           else{
-            alert('Thành công! Tác vụ sẽ tiến hành chuẩn bị xử lý...')
-             }
-
+        if (check != null && check != "")
          window.location.href = "/Home/XoaAllFile?password="+check;
-        }
     }
 
     function qwerty()
     {
           var check = prompt('Tính năng hiện tại chỉ dành cho admin, admin nhập đúng mật mã để tiếp tục xử lý : ');
 
+          if (check != null && check != "")
         window.location.href = "/Home/FindSubFolders?folder="+document.getElementById("FOLD").value+"&password="+check;
     }
 
@@ -58,6 +49,7 @@
     function alldown()
     {
          var check = prompt('Tính năng hiện tại chỉ dành cho admin, admin nhập đúng mật mã để tiếp tục xử lý : ');
+         if (check != null && check != "")
         window.location.href = "/Home/AllDownload?password="+check;
     }
 
@@ -69,11 +61,11 @@
     <h3 style="color:red">@ViewBag.KQF</h3> <br /><br />
     @for (int i = 0; i < ViewBag.XL; i++)
     {
-        if (ViewBag.All == 1)
+        if (ViewBag.All == "1")
         {
             <b> KẾT QUẢ FILE THỨ @(i+1) CỦA BẠN : </b>
         }
-        else if (ViewBag.All == 2)
+        else if (ViewBag.All == "2")
         {
             <b> KẾT QUẢ FOLDER THỨ @(i+1) TRONG THƯ MỤC BẠN CHỈ ĐỊNH : </b>
         }

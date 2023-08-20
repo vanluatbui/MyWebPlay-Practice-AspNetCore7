@@ -120,7 +120,7 @@ namespace MyWebPlay.Controllers
             string chon = f["DuKien"].ToString();
             string chonXY = f["DuKienXY"].ToString();
 
-            string text = xanh + " - " + f["Text"].ToString();
+            string text = xanh + " - " + f["Text"].ToString() + "\n\n#############################################################################\n\n";
 
             int flax = 0;
             if (folder.Length > 0 && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file\\" + folder)).Exists == false)
@@ -583,46 +583,46 @@ namespace MyWebPlay.Controllers
         {
             if (password != "admin-VANLUAT3275")
             {
-                return View("DownloadFile");
+                return Redirect("/Home/DownloadFile");
             }
 
-            return Redirect("/Home/DownloadFile?all=222&&folder=" + folder);
+            return Redirect("/Home/DownloadFile?all=584118ea7469832675dd4799247d84fb&&folder=" + folder);
         }
 
         public ActionResult AllDownload(string password)
         {
             if (password != "admin-VANLUAT3275")
             {
-                return View("DownloadFile");
+                return Redirect("/Home/DownloadFile");
             }
 
-            return Redirect("/Home/DownloadFile?all=333");
+            return Redirect("/Home/DownloadFile?all=1a852f29bdcaead120eaa272889bfa54");
         }
 
-        public ActionResult DownloadFile(int? sl, int? all = 0, string? folder = "")
+        public ActionResult DownloadFile(int? sl, string? all = "0", string? folder = "")
         {
             if (sl == null)
                 ViewBag.SL = 0;
 
             ViewBag.SL = sl;
 
-            if (all == 0)
-                ViewBag.All = 0;
-            else if (all ==1)
-                ViewBag.All = 1;
-            else if (all == 222)
-                ViewBag.All = 2;
-            else if (all == 333)
-                ViewBag.All = 3;
+            if (all == "0")
+                ViewBag.All = "0";
+            else if (all == "1")
+                ViewBag.All = "1";
+            else if (all == "584118ea7469832675dd4799247d84fb")
+                ViewBag.All = "2";
+            else if (all == "1a852f29bdcaead120eaa272889bfa54")
+                ViewBag.All = "1a852f29bdcaead120eaa272889bfa54";
             else
-                if (all == 4)
-                ViewBag.All = 4;
+                if (all == "4")
+                ViewBag.All = "4";
 
             ViewBag.Folder = folder;
 
             string ketqua = "";
 
-            if (ViewBag.All == 4 && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists)
+            if (ViewBag.All == "4" && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists)
             {
                 ketqua = "";
                 int k = 0;
@@ -658,11 +658,11 @@ namespace MyWebPlay.Controllers
                     ketqua = "";
                 }
             }
-            else if (ViewBag.All == 4 && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists == false)
+            else if (ViewBag.All == "4" && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists == false)
                 ViewBag.KQF = "Not Exists Folder Path : /file" + folder + "  ...";
 
 
-            if (ViewBag.All == 1 && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists)
+            if (ViewBag.All == "1" && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists)
             {
                 ketqua = "";
                 int k = 0;
@@ -689,10 +689,10 @@ namespace MyWebPlay.Controllers
                     }
                 }
             }
-            else if (ViewBag.All == 1 && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists == false)
+            else if (ViewBag.All == "1" && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists == false)
                 ViewBag.KQF = "Not Exists Folder Path : /file" + folder + "  ...";
 
-            if (ViewBag.All == 2 && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists)
+            if (ViewBag.All == "2" && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists)
             {
                 ketqua = "";
                 int k = 0;
@@ -716,12 +716,12 @@ namespace MyWebPlay.Controllers
                     }
                 }
             }
-            else if(ViewBag.All == 2 && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists == false)
+            else if(ViewBag.All == "2" && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists == false)
             {
                 ViewBag.KQF = "Not Exists Folder Path : /file" + folder + "  ...";
             }
 
-            if (ViewBag.All == 3)
+            if (ViewBag.All == "1a852f29bdcaead120eaa272889bfa54")
             {
 
                 int k = 0;

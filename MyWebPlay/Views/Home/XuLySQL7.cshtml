@@ -12,15 +12,21 @@
             <td>
                 <b>Nhập tên table : </b>
                 <br>
-                <input type="text" name="txtTable" />
+                <input type="text" name="txtTable" value="User" />
                 <br><br>
                 <b>Nhập nội dung được cho là đầy đủ (fileds - type) (liệt kê tách bởi Enter/sử dụng file SQL) : </b>
                 <br>
-                <textarea name="txtDayDu" cols="100" rows="12"></textarea>
+                <textarea name="txtDayDu" cols="100" rows="12">Column1 nvarchar(10)
+Column2 int
+Column3 money
+Column4 varchar(5)
+Column5 datetime</textarea>
                 <br><br>
                 <b>Nhập các fileds hiện có - tách bởi Enter (có thể dùng lệnh : SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'name') : </b>
                 <br>
-                <textarea name="txtHienTai" cols="100" rows="12"></textarea>"
+                <textarea name="txtHienTai" cols="100" rows="12">Column1
+Column2
+Column4</textarea>
             </td>
         </tr>
       

@@ -62,6 +62,25 @@ body {
     font-size: 80px;
 }
 
+.divOnTop {
+    color: #FFFFFF;
+    left: 0px;
+    height: 35px;
+    width: 100%;
+    background-color: yellow;
+    /* Text Always Center */
+    line-height: 26px;
+    /* position on bottom */
+    bottom: 0px;
+    /* Thay: bottom: 0px; = top: 0px; neu muon o tren dau trang */
+    position: fixed;
+    z-index: 100;
+    /* transparent background */
+    opacity: .75;
+    filter: alpha(opacity=75);
+    -moz-opacity: 0.75;
+}
+
 .word {
     position: relative;
     white-space: nowrap;

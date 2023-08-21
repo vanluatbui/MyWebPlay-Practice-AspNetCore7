@@ -117,7 +117,7 @@ namespace MyWebPlay.Controllers
             //sql = "\r\n" + sql;
             //sql = sql.Replace("\r\n", "<br>");
 
-            sql = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
+            sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
 
             ViewBag.Result = sql;
 
@@ -239,7 +239,7 @@ namespace MyWebPlay.Controllers
 
             //s = s.Replace("<", "&lt;").Replace(">", "&gt;").Replace("\r\n", "<br>");
 
-            s = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + s + "</textarea>";
+            s = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + s + "</textarea>";
 
             ViewBag.Result = s;
 
@@ -392,7 +392,7 @@ namespace MyWebPlay.Controllers
 
             //ss = ss.Replace("\r\n", "<br>");
 
-            ss = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + ss + "</textarea>";
+            ss = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + ss + "</textarea>";
 
             ViewBag.Result = ss;
 

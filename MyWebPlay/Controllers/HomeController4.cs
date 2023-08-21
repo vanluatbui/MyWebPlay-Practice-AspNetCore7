@@ -41,7 +41,7 @@ namespace MyWebPlay.Controllers
             //x = "\r\n" + x;
             //x = x.Replace("\r\n", "<br>");
 
-            x = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + x + "</textarea>";
+            x = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + x + "</textarea>";
 
             ViewBag.Result = x;
 
@@ -85,7 +85,7 @@ namespace MyWebPlay.Controllers
             TextCopy.ClipboardService.SetText(x);
 
 
-            x = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + x + "</textarea>";
+            x = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + x + "</textarea>";
 
             ViewBag.Result = x;
 
@@ -215,7 +215,7 @@ namespace MyWebPlay.Controllers
 
             //sql = sql.Replace("\r\n", "<br>");
 
-            dx = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + dx + "</textarea>";
+            dx = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + dx + "</textarea>";
 
             ViewBag.Result = dx;
 

@@ -62,6 +62,19 @@
          var tim3 = 30;
         var idX3 = setInterval(myFay3, 1000);
 
+        function copyResult()
+        {
+            var xu = document.getElementById("click_copy");
+
+            var copyText = document.getElementById("txtResultX");
+
+   // Copy the text inside the text field
+  navigator.clipboard.writeText(copyText.value);
+
+           xu.style.color = "green";
+           xu.innerHTML = "COPY TO YOUR CLIPBOARD SUCCESS";
+        }
+
         function myFay3()
         {
              if ($('#thoigian3').length)

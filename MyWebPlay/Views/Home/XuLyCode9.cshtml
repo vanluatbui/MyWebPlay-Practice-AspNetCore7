@@ -1,0 +1,45 @@
+﻿<table align="center">
+    <h2 style="text-align:center">Xử Lý Code 9</h2>
+
+    <h3 style="color:yellow" onclick="muaxuan()">@ViewBag.KetQua</h3>
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <span style="color:pink">Tạo mới và chuẩn bị file trống TXT : D:/XemCode/ma.txt nhé 😁</span>
+        <tr style="height:40px">
+            <td> </td>
+            <td>
+                <br>
+                    <b>Nhập dữ liệu theo mẫu (admin tự hiểu :)) )<br>
+                    </b>
+                     <br>
+                    <textarea cols="100" rows="15" name="txtChuoi">varA 0
+varB null,""
+varC null,"VANLUAT",UserName
+varD null,NO,UserName
+Session["UserSession"] null,"BUI-VAN-LUAT",UserName,UserModel
+Session["OrderSession"] null,NO,OrderItem,OrderCommon</textarea>
+            </td>
+        </tr>
+      
+        <tr style="height:40px">
+            <td></td>
+            <td><br>
+                <input type="Submit" value="Kết Quả" />
+            </td>
+        </tr>
+    }
+</table>
+<br /><br />
+
+******************************************************************************************************************************************************************************
+
+<br />
+<br />
+<br />
+
+<div id="hihi">
+                @Html.Raw(ViewBag.Result)
+</div>
+

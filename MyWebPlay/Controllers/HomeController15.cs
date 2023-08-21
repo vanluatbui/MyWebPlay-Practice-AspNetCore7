@@ -111,7 +111,7 @@ namespace MyWebPlay.Controllers
 
             // s = "<p style=\"color:blue\"" + s + "</p>";
 
-            result = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+            result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
 
             ViewBag.Result = result;
 
@@ -205,7 +205,7 @@ namespace MyWebPlay.Controllers
 
             // s = "<p style=\"color:blue\"" + s + "</p>";
 
-            result = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+            result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
 
             ViewBag.Result = result;
 
@@ -241,7 +241,7 @@ namespace MyWebPlay.Controllers
 
             result += "--------------------SỬ DỤNG XONG HÃY NHỚ DROP PROC PROC_MYWEBPLAY---------------------\n\n\n";
 
-            result = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+            result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
 
             ViewBag.Result = result;
 
@@ -319,7 +319,7 @@ namespace MyWebPlay.Controllers
                 }
             }
 
-            result = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+            result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
 
             ViewBag.Result = result;
 
@@ -349,7 +349,7 @@ namespace MyWebPlay.Controllers
 
             var result = phan1 + "\n" + phan2 + "\n"+ phan3;
 
-            result = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+            result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
 
             ViewBag.Result = result;
 
@@ -358,7 +358,74 @@ namespace MyWebPlay.Controllers
             return View();
         }
 
-        public ActionResult XuLySQL4()
+        public ActionResult XuLyCode9()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult XuLyCode9(IFormCollection f)
+        {
+            var txtTable = f["txtChuoi"].ToString();
+            txtTable = txtTable.Replace("[TAB-TPLAY]", "\t");
+            txtTable = txtTable.Replace("[ENTER-NPLAY]", "\n");
+            txtTable = txtTable.Replace("[ENTER-RPLAY]", "\r");
+
+            var txtChuoi = txtTable.Split("\r\n");
+            var result = "";
+            var k = 1;
+            for (int i = 0; i < txtChuoi.Length; i++)
+            {
+                var chuoi = txtChuoi[i].Split(' ');
+                var kieu = chuoi[1].Split(",", StringSplitOptions.RemoveEmptyEntries);
+
+                var sai = "";
+
+                if (kieu.Length == 3)
+                {
+                    if (kieu[1] != "NO")
+                        sai += chuoi[0] + " != " + kieu[0] + " && " + chuoi[0] + "." + kieu[2] + " == " + kieu[1];
+                    else
+                        sai += chuoi[0] + " != " + kieu[0];
+
+                    result += " if (" + sai + ")\r\n\tSystem.IO.File.WriteAllText(\"D:/XemCode/ma.txt\", \"\\n\\n\" + System.IO.File.ReadAllText(\"D:/XemCode/ma.txt\") + \"" + chuoi[0] + "." + kieu[2]+" = \" + " + chuoi[0] + "."+kieu[2]+" + \"\\n\\n\");\r\nelse\r\n\tSystem.IO.File.WriteAllText(\"D:/XemCode/ma.txt\", \"\\n\\n\" + System.IO.File.ReadAllText(\"D:/XemCode/ma.txt\") + \"" + chuoi[0] + "." + kieu[2] +" = NOT FIT VALUE\" + \"\\n\\n\");\n\n";
+                }
+                else
+                 if (kieu.Length == 2)
+                {
+                    sai += chuoi[0] + " != " + kieu[0] + " && " + chuoi[0] + " != " + kieu[1];
+                    result += " if (" + sai + ")\r\n\tSystem.IO.File.WriteAllText(\"D:/XemCode/ma.txt\", \"\\n\\n\" + System.IO.File.ReadAllText(\"D:/XemCode/ma.txt\") + \"" + chuoi[0] + " = \" + " + chuoi[0] + " + \"\\n\\n\");\r\nelse\r\n\tSystem.IO.File.WriteAllText(\"D:/XemCode/ma.txt\", \"\\n\\n\" + System.IO.File.ReadAllText(\"D:/XemCode/ma.txt\") + \"" + chuoi[0] + " = NOT FIT VALUE\" + \"\\n\\n\");\n\n";
+                }
+                else
+                 if (kieu.Length == 1)
+                {
+                    sai += chuoi[0] + " != " + kieu[0];
+                    result += " if (" + sai + ")\r\n\tSystem.IO.File.WriteAllText(\"D:/XemCode/ma.txt\", \"\\n\\n\" + System.IO.File.ReadAllText(\"D:/XemCode/ma.txt\") + \"" + chuoi[0] + " = \" + " + chuoi[0] + " + \"\\n\\n\");\r\nelse\r\n\tSystem.IO.File.WriteAllText(\"D:/XemCode/ma.txt\", \"\\n\\n\" + System.IO.File.ReadAllText(\"D:/XemCode/ma.txt\") + \"" + chuoi[0] + " = NOT FIT VALUE\" + \"\\n\\n\");\n\n";
+                }
+                if (kieu.Length == 4)
+                {
+                    var xanh = "result" + k;
+                    k++;
+                    if (kieu[1] != "NO")
+                        sai += xanh + " != " + kieu[0] + " && " + xanh + "." + kieu[2] + " == " + kieu[1];
+                    else
+                        sai += xanh + " != " + kieu[0];
+
+                    result += "var "+xanh+" = (" + kieu[3] +")"+chuoi[0]+";\r\nif (" + sai + ")\r\n\tSystem.IO.File.WriteAllText(\"D:/XemCode/ma.txt\", \"\\n\\n\" + System.IO.File.ReadAllText(\"D:/XemCode/ma.txt\") + \"" + chuoi[0] + "." + kieu[2] + " = \" + " + xanh + "." + kieu[2] + " + \"\\n\\n\");\r\nelse\r\n\tSystem.IO.File.WriteAllText(\"D:/XemCode/ma.txt\", \"\\n\\n\" + System.IO.File.ReadAllText(\"D:/XemCode/ma.txt\") + \"" + chuoi[0] + "." + kieu[2] + " = NOT FIT VALUE\" + \"\\n\\n\");\n\n";
+                }
+            }
+
+              result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+
+            ViewBag.Result = result;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+
+            return View();
+        }
+
+
+            public ActionResult XuLySQL4()
         {
             return View();
         }
@@ -390,7 +457,7 @@ namespace MyWebPlay.Controllers
                     result += "\n\t" + thieus[i] + " nvarchar(max),\n";
             }
 
-            result = "<textarea style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+            result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
 
             ViewBag.Result = result;
 

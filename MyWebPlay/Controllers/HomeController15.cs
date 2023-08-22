@@ -373,45 +373,61 @@ namespace MyWebPlay.Controllers
 
             var txtChuoi = txtTable.Split("\r\n");
             var result = "";
+
             var k = 1;
             for (int i = 0; i < txtChuoi.Length; i++)
             {
-                var chuoi = txtChuoi[i].Split(' ');
-                var kieu = chuoi[1].Split(",", StringSplitOptions.RemoveEmptyEntries);
+                var thang = txtChuoi[i].Split("#",StringSplitOptions.RemoveEmptyEntries);
 
-                var sai = "";
+                if (txtChuoi[i].Contains("#") && thang.Length == 2)
+                {
+                    var tach = thang[1].Split(".", StringSplitOptions.RemoveEmptyEntries);
 
-                if (kieu.Length == 3)
-                {
-                    if (kieu[1] != "NO")
-                        sai += chuoi[0] + " != " + kieu[0] + " && " + chuoi[0] + "." + kieu[2] + " == " + kieu[1];
-                    else
-                        sai += chuoi[0] + " != " + kieu[0];
-
-                    result += " if (" + sai + ")\r\n\tSystem.IO.File.WriteAllText(\"D:/XemCode/ma.txt\", \"\\n\\n\" + System.IO.File.ReadAllText(\"D:/XemCode/ma.txt\") + \"" + chuoi[0] + "." + kieu[2]+" = \" + " + chuoi[0] + "."+kieu[2]+" + \"\\n\\n\");\r\nelse\r\n\tSystem.IO.File.WriteAllText(\"D:/XemCode/ma.txt\", \"\\n\\n\" + System.IO.File.ReadAllText(\"D:/XemCode/ma.txt\") + \"" + chuoi[0] + "." + kieu[2] +" = NOT FIT VALUE\" + \"\\n\\n\");\n\n";
-                }
-                else
-                 if (kieu.Length == 2)
-                {
-                    sai += chuoi[0] + " != " + kieu[0] + " && " + chuoi[0] + " != " + kieu[1];
-                    result += " if (" + sai + ")\r\n\tSystem.IO.File.WriteAllText(\"D:/XemCode/ma.txt\", \"\\n\\n\" + System.IO.File.ReadAllText(\"D:/XemCode/ma.txt\") + \"" + chuoi[0] + " = \" + " + chuoi[0] + " + \"\\n\\n\");\r\nelse\r\n\tSystem.IO.File.WriteAllText(\"D:/XemCode/ma.txt\", \"\\n\\n\" + System.IO.File.ReadAllText(\"D:/XemCode/ma.txt\") + \"" + chuoi[0] + " = NOT FIT VALUE\" + \"\\n\\n\");\n\n";
-                }
-                else
-                 if (kieu.Length == 1)
-                {
-                    sai += chuoi[0] + " != " + kieu[0];
-                    result += " if (" + sai + ")\r\n\tSystem.IO.File.WriteAllText(\"D:/XemCode/ma.txt\", \"\\n\\n\" + System.IO.File.ReadAllText(\"D:/XemCode/ma.txt\") + \"" + chuoi[0] + " = \" + " + chuoi[0] + " + \"\\n\\n\");\r\nelse\r\n\tSystem.IO.File.WriteAllText(\"D:/XemCode/ma.txt\", \"\\n\\n\" + System.IO.File.ReadAllText(\"D:/XemCode/ma.txt\") + \"" + chuoi[0] + " = NOT FIT VALUE\" + \"\\n\\n\");\n\n";
-                }
-                if (kieu.Length == 4)
-                {
-                    var xanh = "result" + k;
+                    result += "var result" + k + " = (" + thang[0] + ")" + tach[0] + ";\r\nif (result" + k + " != null && ";
+                    var xanh = "";
+                    for (int j = 1; j<tach.Length-1; j++)
+                    {
+                        result += "result" + k + "." + xanh + tach[j] + " != null";
+                        xanh += tach[j] + ".";
+                        if (j < tach.Length - 2)
+                            result += " && ";
+                    }
+                    result += ")\r\n\tSystem.IO.File.WriteAllText(\"D:/XemCode/ma.txt\", \"\\n\\n\" + System.IO.File.ReadAllText(\"D:/XemCode/ma.txt\") + \"(" + thang[0] + ") " + thang[1] + " = \"+" + thang[1].Replace(tach[0], "result"+k) +"+\"\\n\\n\");\r\nelse\r\n{\r\n\tif (result"+k+" == null)\r\n";
+                    result += "\t\tSystem.IO.File.WriteAllText(\"D:/XemCode/ma.txt\", \"\\n\\n\" + System.IO.File.ReadAllText(\"D:/XemCode/ma.txt\") + \"(" + thang[0] +") " + tach[0] +" = NULL\"+\"\\n\\n\");\r\n";
+                    var xam = "";
+                    for (int j = 1; j<tach.Length-1;j++)
+                    {
+                        result += "\telse if (result" + k + "." + xam + tach[j]+ " == null)\r\n\t\tSystem.IO.File.WriteAllText(\"D:/XemCode/ma.txt\", \"\\n\\n\" + System.IO.File.ReadAllText(\"D:/XemCode/ma.txt\") + \"(" + thang[0]+") "+tach[0] + "."+xam+tach[j]+" = NULL\"+\"\\n\\n\");\r\n";
+                        xam += tach[j] + ".";
+                    }
+                    result += "}\r\n\r\n";
                     k++;
-                    if (kieu[1] != "NO")
-                        sai += xanh + " != " + kieu[0] + " && " + xanh + "." + kieu[2] + " == " + kieu[1];
-                    else
-                        sai += xanh + " != " + kieu[0];
-
-                    result += "var "+xanh+" = (" + kieu[3] +")"+chuoi[0]+";\r\nif (" + sai + ")\r\n\tSystem.IO.File.WriteAllText(\"D:/XemCode/ma.txt\", \"\\n\\n\" + System.IO.File.ReadAllText(\"D:/XemCode/ma.txt\") + \"" + chuoi[0] + "." + kieu[2] + " = \" + " + xanh + "." + kieu[2] + " + \"\\n\\n\");\r\nelse\r\n\tSystem.IO.File.WriteAllText(\"D:/XemCode/ma.txt\", \"\\n\\n\" + System.IO.File.ReadAllText(\"D:/XemCode/ma.txt\") + \"" + chuoi[0] + "." + kieu[2] + " = NOT FIT VALUE\" + \"\\n\\n\");\n\n";
+                }
+                else if (txtChuoi[i].Contains("#") == false && txtChuoi[i].Contains("."))
+                {
+                    var tach = txtChuoi[i].Split(".", StringSplitOptions.RemoveEmptyEntries);
+                    var xanh = "";
+                    result += "if (" + tach[0]+" != null && ";
+                    for (int j = 1; j < tach.Length - 1; j++)
+                    {
+                        result += tach[0] + "." + xanh + tach[j] + " != null";
+                        xanh += tach[j] + ".";
+                        if (j < tach.Length - 2)
+                            result += " && ";
+                    }
+                    result += ")\r\n\tSystem.IO.File.WriteAllText(\"D:/XemCode/ma.txt\", \"\\n\\n\" + System.IO.File.ReadAllText(\"D:/XemCode/ma.txt\") + \"" + txtChuoi[i] + " = \"+" + txtChuoi[i] + "+\"\\n\\n\");\r\nelse\r\n{\r\n\tif (" + tach[0] +" == null)\r\n";
+                    result += "\t\tSystem.IO.File.WriteAllText(\"D:/XemCode/ma.txt\", \"\\n\\n\" + System.IO.File.ReadAllText(\"D:/XemCode/ma.txt\") + \"" + tach[0] + " = NULL\"+\"\\n\\n\");\r\n";
+                    var xam = "";
+                    for (int j = 1; j < tach.Length - 1; j++)
+                    {
+                        result += "\telse if ("+tach[0] + "." + xam + tach[j] + " == null)\r\n\t\tSystem.IO.File.WriteAllText(\"D:/XemCode/ma.txt\", \"\\n\\n\" + System.IO.File.ReadAllText(\"D:/XemCode/ma.txt\") + \""+ tach[0] + "." + xam + tach[j] + " = NULL\"+\"\\n\\n\");\r\n";
+                        xam += tach[j] + ".";
+                    }
+                    result += "}\r\n\r\n";
+                }
+                else
+                {
+                    result += "System.IO.File.WriteAllText(\"D:/XemCode/ma.txt\", \"\\n\\n\" + System.IO.File.ReadAllText(\"D:/XemCode/ma.txt\") + \"" + txtChuoi[i] +" = \"+" + txtChuoi[i] +"+\"\\n\\n\");\r\n\r\n";
                 }
             }
 

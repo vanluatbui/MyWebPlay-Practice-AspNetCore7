@@ -3,6 +3,8 @@ using Org.BouncyCastle.Asn1.X509;
 using System.Formats.Tar;
 using System.Globalization;
 using System.IO;
+using System.Net;
+using System.Net.NetworkInformation;
 
 namespace MyWebPlay.Controllers
 {
@@ -246,6 +248,25 @@ namespace MyWebPlay.Controllers
                 ViewBag.SuDung = "Youtube";
             }
 
+            if (f["txtOnlineServer"].ToString() == "on")
+            {
+                var server = f["txtServer"].ToString();
+                var song = f["txtSong"].ToString();
+
+                var url_txt = server + "/" + song + "/" + song + ".txt";
+                var url_goc = server + "/" + song + "/" + song + "_Goc.mp3";
+                var url_kara = server + "/" + song + "/" + song + ".mp3";
+
+                WebClient client = new WebClient();
+                Stream stream = client.OpenRead("https://" + url_txt);
+                StreamReader reader = new StreamReader(stream);
+                String content = reader.ReadToEnd();
+
+                ViewBag.Music = "https://"+url_kara;
+                ViewBag.Musix = "https://" + url_goc;
+                ViewBag.Karaoke = content;
+            }
+            else
             if (f["txtChon"].ToString() != "on")
             {
                 var fileName = Path.GetFileName(txtMusic.FileName);

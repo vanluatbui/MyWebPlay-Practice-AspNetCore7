@@ -69,6 +69,43 @@ body {
 <meta charset="ISO-8859-1">
 <script>
 
+    function thoatServer()
+    {
+        window.location.href = "/Home/PlayKaraokeX";
+    }
+
+    function changesong()
+    {
+        var e = document.getElementById("listsong");
+        var song = e.options[e.selectedIndex].text;
+        document.getElementById("baihatX").value = song;
+    }
+
+function showlist()
+{
+    if (document.getElementById("songlist").value == "")
+    {
+    var url = document.getElementById("serverX").value;
+    var baihat = document.getElementById("baihatX").value;
+
+  alert("Xử lý thành công, hệ thống sẽ khởi động lại trang web. Vui lòng click lại vào link nút này một lần nữa để hoàn tất lấy danh sách tất cả các bài hát đã get trên Server host của bạn...");
+  window.location.href= "/Home/PlayKaraokeX?url="+url+"&&baihat="+baihat;
+    }
+    else
+    {
+        var noidung = document.getElementById("songlist").value.split("\n");
+        var listsong = document.getElementById("listsong");
+
+        document.getElementById("soluongSong").innerHTML = "Hiện tại Karaoke trên host server của bạn có : "+noidung.length+" bài hát."
+
+        listsong.innerHTML = "";
+        for (var i = 0; i < noidung.length; i++)
+        listsong.innerHTML += "<option>"+noidung[i]+"</option>";
+        document.getElementById("songlist").value = "";
+        document.getElementById("getlist").innerHTML = "Get all list song of your host server";
+    }
+}
+
     function helpKara()
     {
         alert("[CẢM PHIỀN BẠN HÃY ĐỌC HƯỚNG DẪN NHANH TẠI ĐÂY 😁]\n\n[1/2]\n\n1. Đăng kí host server name :\n\nLưu ý, hệ thống đang hướng dẫn bạn đăng kí host server bằng trang web của freeasphosting.net, nếu bạn có thể tìm kiếm được các trang web dịch vụ hỗ trợ host server khác thì cũng có thể áp dụng và các cách thực hiện cũng tương tự.\n\n- Truy cập : https://freeasphosting.net/ và đăng kí tài khoản mới (nếu bạn chưa có) tại Create Your Web Site\n\n- Đăng nhập tài khoản và vào mục quản lý file.\n\n- Mỗi một bài hát karaoke của bạn phải được đặt trong từng các thư mục riêng biệt.\n\n- Quy tắc như sau để phù hợp với dịch vụ Karaoke của MyWebPlay : ví dụ bạn có karaoke bài hát tên là Mùa xuân của em, tạo thư mục MuaXuanCuaEm và bên trong thư mục bạn có thể dùng chức năng Upload để tải lên đúng 3 file liên quan vào trong thư mục này. 3 file liên quan đó chính là : file txt nội dung karaoke, file mp3 nhạc bao gồm cả giọng ca sĩ và file mp3 đã tách nhạc.");
@@ -85,6 +122,7 @@ body {
             document.getElementById("check").style.display = "none";
             document.getElementById("phan4").style.display = "inline-block";
             document.getElementById("phan5").style.display = "inline-block";
+             document.getElementById("phan6").style.display = "inline-block";
         }
         else
         {
@@ -94,6 +132,7 @@ body {
              document.getElementById("check").style.display = "inline-block";
             document.getElementById("phan4").style.display = "none";
             document.getElementById("phan5").style.display = "none";
+              document.getElementById("phan6").style.display = "none";
         }
     }
     function doikichthuoc()
@@ -784,6 +823,8 @@ body {
     {
         @Html.ValidationSummary(true)
 
+        @if (ViewBag.ListSong == null || ViewBag.ListSong.Length == 0)
+        {
              <tr style="height:40px">
                 <td> </td>
                 <td>
@@ -791,63 +832,138 @@ body {
                         <b id="check" style="color:pink"><input id="checkdemo" onchange="democheck()" type="checkbox" name="txtChon" /> Tham khảo bản karaoke demo có sẵn trên hệ thống</b>
                         <br>
                 </td>
-            </tr>
+                    </tr>
+                }
 
-                         <tr style="height:40px">
-                <td> </td>
-                <td>
-                    <br>
-                        <b id="servercheck" style="color:hotpink"><input id="onlineServer" onchange="onlinecheck()" type="checkbox" name="txtOnlineServer" /> Sử dụng host server Karaoke online của bạn (mệt mỏi vì mỗi lần phải upload các file từ local 😀)</b>
-                <br>
-                </td>
-            </tr>
+                @if (ViewBag.ListSong == null || ViewBag.ListSong.Length == 0)
+                {
+                    <tr style="height:40px">
+                        <td> </td>
+                        <td>
+                            <br>
+                            <b id="servercheck" style="color:hotpink">
+                                <input id="onlineServer" onchange="onlinecheck()" type="checkbox" name="txtOnlineServer" />
+                                Sử dụng host server Karaoke online của bạn (mệt mỏi vì mỗi lần phải upload các file từ local 😀)</b>
+                            <br>
+                        </td>
+                    </tr>
 
-             <tr style="height:40px">
-                <td> </td>
-                <td id="phan4" style="display:none" >
-                    <br>
-                        <b> Nhập host Server name Karaoke của bạn  : </b> <a href="#xuly" onclick="helpKara()" style="color:crimson">Hướng dẫn tạo host Server để play Karaoke của bạn</a>
-                    <br>
-                        <input type="text" name="txtServer" size="80" value="karaoke1.bsite.net"/>
-                    <br>
-                </td>
-            </tr>
+                    <tr style="height:40px">
+                        <td> </td>
+                        <td id="phan4" style="display:none" >
+                            <br>
+                            <b> Nhập host Server name Karaoke của bạn  : </b> <a href="#xuly" onclick="helpKara()" style="color:crimson">Hướng dẫn tạo host Server để play Karaoke của bạn</a>
+                            <br>
+                            <input type="text" id="serverX" name="txtServer" size="80" placeholder="karaoke1.bsite.net" value="@ViewBag.Server"/>
+                            <br>
+                        </td>
+                    </tr>
 
-                <tr style="height:40px">
-                <td> </td>
+                    <tr style="height:40px">
+                        <td> </td>
                 <td id="phan5" style="display:none">
                     <br>
                         <b> Nhập bài hát Karaoke từ host server của bạn (lưu ý nhập chính xác) : </b>
                     <br>
-                        <input type="text" name="txtSong" size="80" value="NuCuoiXinh"/>
+                        <input id="baihatX" type="text" name="txtSong" size="80" placeholder="NuCuoiXinh" value="@ViewBag.BaiHatSV"/>
                 <br>
                 </td>
-            </tr>
+                    </tr>
 
-            <tr style="height:40px">
-                <td> </td>
-                <td id="phan1">
+                       <textarea id="songlist" hidden>@ViewBag.ListSong</textarea>
+
+                <tr style="height:40px">
+                    <td> </td>
+                    <td id="phan6" style="display:none">
+                        <br>
+                        <b style="color:aqua"> Bật mí tại thư mục root trên host server của bạn, bạn có thể tạo file <span style="color:yellowgreen">MyListSong.txt</span>, trong đó liệt kê các bài hát Karaoke (thư mục) đang tồn tại trên host server của bạn, mỗi bài hát phân biệt và cách nhau bởi kí tự Enter : </b>  <a href="#xuly" onclick="showlist()" style="color:crimson" id="getlist">Get all list song of your host server</a>
+                        <br>
+                        <br>
+                    </td>
+                </tr>
+                }
+                else
+                {
+                           <tr style="height:40px">
+                        <td> </td>
+                        <td>
+                            <br>
+                            <b id="servercheck" style="color:hotpink" hidden>
+                                <input id="onlineServer" checked onchange="onlinecheck()" type="checkbox" name="txtOnlineServer" />
+                                Sử dụng host server Karaoke online của bạn (mệt mỏi vì mỗi lần phải upload các file từ local 😀)</b>
+                            <a href="#xuly" onclick="thoatServer()" style="color:hotpink">THOÁT CHỨC NĂNG KARAOKE - YOUR HOST SERVER</a>
+                                <br>
+                        </td>
+                    </tr>
+
+                    <tr style="height:40px">
+                        <td> </td>
+                        <td id="phan4" style="display:inline-block" >
+                            <br>
+                            <b> Nhập host Server name Karaoke của bạn  : </b> <a href="#xuly" onclick="helpKara()" style="color:crimson">Hướng dẫn tạo host Server để play Karaoke của bạn</a>
+                            <br>
+                            <input type="text" id="serverX" name="txtServer" size="80" placeholder="karaoke1.bsite.net" value="@ViewBag.Server"/>
+                            <br>
+                        </td>
+                    </tr>
+
+                    <tr style="height:40px">
+                        <td> </td>
+                <td id="phan5" style="display:inline-block">
                     <br>
-                        <b> Tải file TXT karaoke (đã xử lý) : </b>
+                        <b> Nhập bài hát Karaoke từ host server của bạn (lưu ý nhập chính xác) : </b>
                     <br>
-                        <input type="file" name="txtKaraoke"/>  <b>@Html.ActionLink("Bạn chưa có file text karaoke?","CreateFile_Karaoke")</b>
-                    <br>
+                        <input id="baihatX" type="text" name="txtSong" size="80" placeholder="NuCuoiXinh" value="@ViewBag.BaiHatSV"/>
+                <br>
                 </td>
-            </tr>
+                    </tr>
 
-             <tr style="height:40px">
-                <td> </td>
-                <td id="phan2">
-                    <br>
-                        <b> Tải file MP3 karaoke - nhạc gốc có giọng ca sĩ (đã xử lý) : </b>
-                    <br>
-                        <input type="file" name="txtMusix"/>
-                    <br>
-                </td>
-            </tr>
+            <textarea id="songlist" hidden>@ViewBag.ListSong</textarea>
 
-             <tr style="height:40px">
-                <td> </td>
+                <tr style="height:40px">
+                    <td> </td>
+                    <td id="phan6" style="display:inline-block">
+                        <br>
+                        <b style="color:aqua"> Bật mí tại thư mục root trên host server của bạn, bạn có thể tạo file <span style="color:yellowgreen">MyListSong.txt</span>, trong đó liệt kê các bài hát Karaoke (thư mục) đang tồn tại trên host server của bạn, mỗi bài hát phân biệt và cách nhau bởi kí tự Enter : </b>  <a id="getlist" href="#xuly" onclick="showlist()" style="color:crimson">Get all list song of your host server (click try again to finish)</a>
+                        <br>
+                        <br>
+                        <b id="soluongSong" style="color:chartreuse"></b>
+                        <br>
+                        <br>
+                        <select id="listsong" size="10" onclick="changesong()">
+                            <option></option>
+                        </select>
+                        <br>
+                    </td>
+                </tr>
+                }
+
+                @if (ViewBag.ListSong == null || ViewBag.ListSong.Length == 0)
+                {
+                    <tr style="height:40px">
+                        <td> </td>
+                        <td id="phan1">
+                            <br>
+                            <b> Tải file TXT karaoke (đã xử lý) : </b>
+                            <br>
+                            <input type="file" name="txtKaraoke"/>  <b>@Html.ActionLink("Bạn chưa có file text karaoke?","CreateFile_Karaoke")</b>
+                            <br>
+                        </td>
+                    </tr>
+
+                    <tr style="height:40px">
+                        <td> </td>
+                        <td id="phan2">
+                            <br>
+                            <b> Tải file MP3 karaoke - nhạc gốc có giọng ca sĩ (đã xử lý) : </b>
+                            <br>
+                            <input type="file" name="txtMusix"/>
+                            <br>
+                        </td>
+                    </tr>
+
+                    <tr style="height:40px">
+                        <td> </td>
                 <td id="phan3">
                     <br>
                         <b> Tải file MP3 karaoke - nhạc beat tách giọng ca sĩ (karaoke - đã xử lý) : </b>
@@ -856,6 +972,7 @@ body {
                     <br>
                 </td>
             </tr>
+            }
 
              <tr style="height:40px">
                     <td> </td>

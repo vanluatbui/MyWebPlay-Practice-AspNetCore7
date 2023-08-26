@@ -2,6 +2,7 @@
 using MyWebPlay.Model;
 using System;
 using System.Collections;
+using System.IO;
 using System.Text.RegularExpressions;
 
 namespace MyWebPlay.Controllers
@@ -189,6 +190,33 @@ namespace MyWebPlay.Controllers
             ViewBag.Result = result;
 
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+
+            return View();
+        }
+
+        public ActionResult GetColorAtPicture()
+        {
+            ViewBag.HinhAnh = "NO";
+            if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Exists)
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Delete(true);
+
+            if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Exists == false)
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Create();
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult GetColorAtPicture(IFormFile txtFile)
+        {
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture", txtFile.FileName);
+            using (Stream fileStream = new FileStream(path, FileMode.Create))
+            {
+                txtFile.CopyTo(fileStream);
+            }
+
+            ViewBag.HinhAnh = "/GetColorAtPicture/"+txtFile.FileName;
+
 
             return View();
         }

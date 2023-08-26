@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\GetColorAtPicture\" />
     <Folder Include="wwwroot\karaoke\music\" />
     <Folder Include="wwwroot\karaoke_Example\background\" />
     <Folder Include="wwwroot\zip-gmail\" />

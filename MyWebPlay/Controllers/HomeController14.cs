@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Reflection.Metadata;
 
 namespace MyWebPlay.Controllers
 {
@@ -183,7 +184,7 @@ namespace MyWebPlay.Controllers
             return RedirectToAction("PlayKaraokeX");
         }
 
-        public ActionResult PlayKaraokeX()
+        public ActionResult PlayKaraokeX(string? url, string? baihat)
         {
             ViewBag.Music = "";
             ViewBag.Musix = "";
@@ -195,6 +196,19 @@ namespace MyWebPlay.Controllers
 
             new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
             new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
+
+            if (url != null)
+            {
+                ViewBag.Server = url;
+                ViewBag.BaiHatSV = baihat;
+
+                WebClient client = new WebClient();
+                Stream stream = client.OpenRead("https://" + url + "/MyListSong.txt");
+                StreamReader reader = new StreamReader(stream);
+                String content = reader.ReadToEnd();
+                ViewBag.Karaoke = "";
+                ViewBag.ListSong = content;
+            }
 
             return View();
         }

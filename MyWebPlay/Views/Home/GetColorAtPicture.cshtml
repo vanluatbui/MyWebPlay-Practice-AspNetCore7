@@ -1,0 +1,26 @@
+﻿
+<script>
+    function copy()
+    {
+        var mau = document.getElementById("mau").value;
+        navigator.clipboard.writeText(mau);
+    }
+</script>
+      @using (Html.BeginForm("GetColorAtPicture", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+      {
+        @Html.ValidationSummary(true)
+        <input type="file" name="txtFile" />
+        <br /><br />
+        <input type="Submit" value="Kết Quả" />
+      }
+
+      <br />
+      <hr />
+      <br />
+
+ @if (ViewBag.HinhAnh != "NO")
+{
+    <input type="color" id="mau"> <button onclick="copy()" style="color:deeppink"><b>Copy mã màu này</b></button>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <img src="@ViewBag.HinhAnh" alt="Image Error" width="1020" height="580">
+}

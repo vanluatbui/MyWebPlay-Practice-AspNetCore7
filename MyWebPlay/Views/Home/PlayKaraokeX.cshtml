@@ -193,6 +193,15 @@ body {
     document.msExitFullscreen();
   }
 
+   var menu = document.getElementById("menu");
+        var hienlinh = document.getElementById("hienlinh");
+        
+        if (menu.style.display != "inline-block")
+        {
+            menu.style.display = "inline-block";
+            hienlinh.style.display = "none";
+        }
+
                     xanh.innerHTML = "<b>FULL MÀN HÌNH - OFF</b>";
                 }
             }
@@ -272,6 +281,22 @@ body {
 
         alert("Các cài đặt Karaoke của bạn đã được ghi nhớ thành công, hệ thống phải khởi động lại để áp dụng!");
 
+           var menu = document.getElementById("menu");
+        var hienlinh = document.getElementById("hienlinh");
+        
+        if (menu.style.display != "inline-block")
+        {
+            menu.style.display = "inline-block";
+            hienlinh.style.display = "none";
+        }
+           var menu = document.getElementById("menu");
+        var hienlinh = document.getElementById("hienlinh");
+        
+        if (menu.style.display != "inline-block")
+        {
+            menu.style.display = "inline-block";
+            hienlinh.style.display = "none";
+        }
         document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - OFF</b>";
         resetKaraoke();
     }
@@ -445,6 +470,24 @@ body {
                         doihang_Save();
                         doikichthuoc_Save();
                         flg = 1;
+                        }
+
+                        if (t % 2 == 0)
+                        {
+                        if (!window.screenTop && !window.screenY)
+                        {
+                        document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - OFF</b>";
+                           var menu = document.getElementById("menu");
+        var hienlinh = document.getElementById("hienlinh");
+        
+        if (menu.style.display != "inline-block")
+        {
+            menu.style.display = "inline-block";
+            hienlinh.style.display = "none";
+        }
+                        }
+                        else
+                         document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - ON</b>";
                         }
            
                         t++;
@@ -626,9 +669,9 @@ body {
                 if (h_le[kf] <= kara1.length + xinloi[xinloi.length - 1].length)
                 {
                     var ct1 = kara1.substring(0,h_le[kf]).toUpperCase().replace("UNDEFINED","");
-                    var ct2 = kara1.substring(h_le[kf], kara1.length).toUpperCase().replace("UNDEFINED","");
-                   document.getElementById("txtKaraoke1").innerHTML = "<span style=\"color:"+mau+"\">"+ct1+"</span><span id=\"xanhX1\" class=\"word\">"+ct2+"</span>";
-      
+                    var ct2 = kara1.substring(h_le[kf], h_le[kf+1]).toUpperCase().replace("UNDEFINED","");
+                   var ct3 = kara1.substring(h_le[kf+1], kara1.length).toUpperCase().replace("UNDEFINED","");
+                   document.getElementById("txtKaraoke1").innerHTML = "<span style=\"color:"+mau+"\">"+ct1+"</span><span id=\"xanhX1\" class=\"word\">"+ct2+"</span><span style=\"color:"+mauX+"\">"+ct3+"</span>";
       var word1 = document.getElementById("xanhX1");
 
     $('#xanhX1').addClass('word').attr('data-content', ct2);
@@ -640,13 +683,24 @@ body {
                 else
                 {
                     var ct1 = kara2.substring(0, h_le[kf] - kara1.length - 2).toUpperCase().replace("UNDEFINED","").trim();
-                    var ct2 = kara2.substring(h_le[kf] - kara1.length - 2, kara2.length).toUpperCase().replace("UNDEFINED","").trim();
-                   if (ct1.length != kara2.length)
-                   document.getElementById("txtKaraoke2").innerHTML = "<span style=\"color:"+mau+"\">"+ct1+"</span>&nbsp;<span id=\"xanhX2\" class=\"work\">"+ct2+"</span>";
-                   else
-                   document.getElementById("txtKaraoke2").innerHTML = "&nbsp;<span style=\"color:"+mau+"\">"+ct1+"</span>&nbsp;<span id=\"xanhX2\" class=\"work\">"+ct2+"</span>";
+                    var ct2 = kara2.substring(h_le[kf] - kara1.length - 2, h_le[kf+1] - kara1.length - 2).toUpperCase().replace("UNDEFINED","").trim();
+                    var ct3 = kara2.substring(h_le[kf+1] - kara1.length - 2, kara2.length).toUpperCase().replace("UNDEFINED","").trim();
 
-  var word1 = document.getElementById("xanhX2");
+                    if (ct1.length == kara2.length)
+                    {
+                        ct2 = "";
+                    ct3 = "";
+                    }
+
+                   if (h_le[kf+1] == null || h_le[kf+1] === undefined)
+                   document.getElementById("txtKaraoke2").innerHTML = "&nbsp;&nbsp;<span style=\"color:"+mau+"\">"+ct1+"</span>&nbsp;<span id=\"xanhX2\" class=\"work\">"+ct2+"</span>&nbsp;<span style=\"color:"+mauX+"\">"+ct3+"</span>";
+                   else
+                   if (h_le[kf+2] == null || h_le[kf+2] === undefined)
+                   document.getElementById("txtKaraoke2").innerHTML = "&nbsp<span style=\"color:"+mau+"\">"+ct1+"</span>&nbsp;<span id=\"xanhX2\" class=\"work\">"+ct2+"</span>&nbsp;<span style=\"color:"+mauX+"\">"+ct3+"</span>";
+                   else
+                   document.getElementById("txtKaraoke2").innerHTML = "<span style=\"color:"+mau+"\">"+ct1+"</span>&nbsp;<span id=\"xanhX2\" class=\"work\">"+ct2+"</span>&nbsp;<span style=\"color:"+mauX+"\">"+ct3+"</span>";
+
+                   var word1 = document.getElementById("xanhX2");
 
     $('#xanhX2').addClass('work').attr('data-content', ct2);
       $('#xanhX1').addClass('word').attr('data-content',"");

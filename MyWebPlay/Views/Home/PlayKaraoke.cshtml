@@ -191,6 +191,16 @@ body {
   } else if (document.msExitFullscreen) { /* IE11 */
     document.msExitFullscreen();
   }
+
+   var menu = document.getElementById("menu");
+        var hienlinh = document.getElementById("hienlinh");
+        
+        if (menu.style.display != "inline-block")
+        {
+            menu.style.display = "inline-block";
+            hienlinh.style.display = "none";
+        }
+
                   xanh.innerHTML = "<b>FULL MÀN HÌNH - OFF</b>";
                 }
             }
@@ -388,6 +398,16 @@ body {
         alert("Các cài đặt Karaoke của bạn đã được ghi nhớ thành công, hệ thống phải khởi động lại để áp dụng!");
 
         document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - OFF</b>";
+
+         var menu = document.getElementById("menu");
+        var hienlinh = document.getElementById("hienlinh");
+        
+        if (menu.style.display != "inline-block")
+        {
+            menu.style.display = "inline-block";
+            hienlinh.style.display = "none";
+        }
+
         resetKaraoke();
     }
 
@@ -427,6 +447,24 @@ body {
                         doihang_Save();
                         doikichthuoc_Save();
                         flg = 1;
+                        }
+
+                         if (t % 2 == 0)
+                        {
+                        if (!window.screenTop && !window.screenY)
+                        {
+                        document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - OFF</b>";
+                           var menu = document.getElementById("menu");
+        var hienlinh = document.getElementById("hienlinh");
+        
+        if (menu.style.display != "inline-block")
+        {
+            menu.style.display = "inline-block";
+            hienlinh.style.display = "none";
+        }
+                        }
+                        else
+                         document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - ON</b>";
                         }
               
                         t++;

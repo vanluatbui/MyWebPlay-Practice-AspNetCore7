@@ -83,6 +83,9 @@ body {
 
 function showlist()
 {
+    if (document.getElementById("getlist").innerHTML == "<span style=\"color:green\">Successful!</span>")
+    return;
+
     if (document.getElementById("songlist").value == "")
     {
     var url = document.getElementById("serverX").value;
@@ -96,13 +99,19 @@ function showlist()
         var noidung = document.getElementById("songlist").value.split("\n");
         var listsong = document.getElementById("listsong");
 
-        document.getElementById("soluongSong").innerHTML = "Hiện tại Karaoke trên host server của bạn có : "+noidung.length+" bài hát."
-
         listsong.innerHTML = "";
+        var dem = 0;
         for (var i = 0; i < noidung.length; i++)
+        {
+            if (noidung[i] != "")
+            {
         listsong.innerHTML += "<option>"+noidung[i]+"</option>";
+        dem++;
+            }
+        }
+        document.getElementById("soluongSong").innerHTML = "Hiện tại Karaoke trên host server của bạn có : "+dem+" bài hát."
         document.getElementById("songlist").value = "";
-        document.getElementById("getlist").innerHTML = "Get all list song of your host server";
+        document.getElementById("getlist").innerHTML = "<span style=\"color:green\">Successful!</span>";
     }
 }
 
@@ -421,7 +430,7 @@ function showlist()
 
     function StopKaraoke()
     {
-        window.location.href="/Home/XoaKaraoke";
+        window.location.href="/Home/XoaKaraoke?url="+'@ViewBag.LoginServer'+"&&baihat="+'@ViewBag.BHServer';
     }
 
         var time_xuathien = [];
@@ -902,7 +911,7 @@ function showlist()
                             <br>
                             <b> Nhập host Server name Karaoke của bạn  : </b> <a href="#xuly" onclick="helpKara()" style="color:crimson">Hướng dẫn tạo host Server để play Karaoke của bạn</a>
                             <br>
-                            <input type="text" id="serverX" name="txtServer" size="80" placeholder="karaoke1.bsite.net" value="@ViewBag.Server"/>
+                            <input readonly type="text" id="serverX" name="txtServer" size="80" placeholder="karaoke1.bsite.net" value="@ViewBag.Server"/>
                             <br>
                         </td>
                     </tr>
@@ -928,6 +937,8 @@ function showlist()
                         <br>
                         <br>
                         <b id="soluongSong" style="color:chartreuse"></b>
+                        <br>
+                        <span style="color:orangered"><u>Lưu ý</u> : Danh sách bên dưới có thể chưa được hoàn tất do file <span style="color:yellowgreen">MyListSong.txt</span> trên host server của bạn chưa được cập nhật !</span>
                         <br>
                         <br>
                         <select id="listsong" size="10" onclick="changesong()">

@@ -173,7 +173,7 @@ namespace MyWebPlay.Controllers
             return View();
         }
 
-        public ActionResult XoaKaraoke()
+        public ActionResult XoaKaraoke(string? url, string? baihat)
         {
             if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Exists)
                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Delete(true);
@@ -181,7 +181,7 @@ namespace MyWebPlay.Controllers
             new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
             new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
 
-            return RedirectToAction("PlayKaraokeX");
+            return RedirectToAction("PlayKaraokeX", new { url = url, baihat = baihat });
         }
 
         public ActionResult PlayKaraokeX(string? url, string? baihat)
@@ -209,7 +209,6 @@ namespace MyWebPlay.Controllers
                 ViewBag.Karaoke = "";
                 ViewBag.ListSong = content;
             }
-
             return View();
         }
 
@@ -219,6 +218,9 @@ namespace MyWebPlay.Controllers
             ViewBag.Karaoke = "";
 
             ViewBag.Show = "show";
+
+            ViewBag.LoginServer = f["txtServer"].ToString();
+            ViewBag.BHServer = f["txtSong"].ToString();
 
             var chon = f["KaraChon"].ToString();
 

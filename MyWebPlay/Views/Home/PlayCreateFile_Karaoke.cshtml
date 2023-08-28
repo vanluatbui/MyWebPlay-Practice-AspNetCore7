@@ -1,6 +1,4 @@
 ﻿<script>
-
-    alert("[THÔNG BÁO]\n\nXin vui lòng không refresh lại trang này vì sẽ làm mất dữ liệu...\nNếu bạn vô tình làm như vậy, hãy quay lại trang trước đó và thử lại!");
         var LBH= [];
         var time_XuatHien= [];
         var time_LuuVet= [];
@@ -10,10 +8,23 @@
         var t = 0;
 
         var id;
+        var flox = 0;
+
+        function startplay()
+        {
+            var music = document.getElementById("music");
+            if (music.duration == 0)
+            return;
+
+             music.play();
+             document.getElementById("xuxu").style.display = "none";
+        }
+
 
    function PlayKaraoke()
    {
        var music = document.getElementById("music");
+
        music.style.display = "none";
 
        var xong = document.getElementById("xong");
@@ -44,6 +55,24 @@
          var h = Math.floor(tgian / 3600);
        var m = Math.floor((tgian / 60) % 60) ;
        var s = tgian % 60;
+
+        if (flox == 0 && (s == 1 && (t < 20 || t > 30)))
+       {
+           flox = 1;
+           var chon = confirm("😥 Cảnh báo về một lỗi có thể xảy ra nếu bạn tiếp tục thực hiện, vui lòng thử thao tác lại sau!\n\nNhấn [OK] để đồng ý thực hiện lại.\nNhấn [Cancel] nếu bạn muốn bỏ qua cảnh báo này.");
+           if (chon == true)
+           window.location.href="/Home/CreateFile_Karaoke";
+           else
+           {
+               t = 0;
+               document.getElementById("music").currentTime = 0;
+               document.getElementById("tgian").innerHTML = "";
+               document.getElementById("music").pause();
+               document.getElementById("xuxu").style.display = "inline-block";
+               clearInterval(id);
+               return;
+           }
+       }
 
         if (h< 10 && m < 10 && s < 10)
                 document.getElementById("tgian").innerHTML = "ĐANG PHÁT - "+ "0" + h + " : 0" + m + " : 0" + s;
@@ -139,6 +168,11 @@
 
  </script>
 
+ @if (ViewBag.KaraX == "")
+ {
+  <h3 style="color:aqua">[THÔNG BÁO]<br /><br />Xin vui lòng không refresh lại trang này vì sẽ làm mất dữ liệu...<br />Nếu bạn vô tình làm như vậy, hãy quay lại trang trước đó và thử lại!</h3><br />
+ }
+
  <h3 style="color:yellow">@Html.Raw(@ViewBag.FileKaraoke)</h3>
 
 <br /><br />
@@ -151,29 +185,31 @@
     <h2 style="color:red">HƯỚNG DẪN THỰC HIỆN - VUI LÒNG ĐỌC KỸ TRƯỚC KHI THỰC HIỆN</h2>
 - Sẵn sàng nghe nhạc mp3 của bạn cùng ca sĩ hát để xác định thời điểm của mỗi khúc lyric mà ca sĩ sẽ hát.
 <br>
-- Nếu bạn đã chuẩn bị sẵn sàng, nhấn nút Play và nghe bản nhạc của bạn tại controls bên dưới. Trong khi đang nghe, bạn sẽ vừa thao tác để tiến hành tạo file Karaoke của bạn.
+- Nếu bạn đã chuẩn bị sẵn sàng, nhấn nút Start Play và nghe bản nhạc của bạn bên dưới. Trong khi đang nghe, bạn sẽ vừa thao tác để tiến hành tạo file Karaoke của bạn.
 <br>
 - Cách thực hiện : vừa nghe nhạc, đồng thời hai ngón tay của bạn luôn giữ phím <b>Enter</b> và <b>Space</b> để thao tác trong suốt quá trình.
 <br>
 + Nếu ca sĩ sắp hát đến đoạn lyric nào, hãy nhấn <b>Space</b> (đoạn lyric đó sẽ xuất hiện - ca sĩ sắp hát đến đoạn đó (nên dành thời gian 1-3 giây hoặc từ 5-8 giây (nếu sau nhạc dạo)).
 <br>
-+ Nếu ca sĩ đang hát đến từ nào trong đoạn lyric, hãy nhấn phím <b>Enter</b> (màu chữ của từ đó sẽ được tô) - ngoại trừ các đoạn nhạc dạo [Empty] bạn có thể bỏ qua mà không cần gõ để tô màu đoạn này!
++ Nếu ca sĩ đang hát đến từ nào trong đoạn lyric, hãy nhấn phím <b>Enter</b> (màu chữ của từ đó sẽ được tô) - ngoại trừ các đoạn nhạc dạo <b>[Empty]</b> bạn có thể bỏ qua mà không cần gõ để tô màu đoạn này!
 <br>
 + Và thực hiện tương tự cho đến khi hết bài hát!
 <br />
-LƯU Ý : trong suốt quá trình thực hiện, bạn không nên có bất kỳ thao tác nào khác ngoài việc bạn chỉ cần giữ và canh gõ 2 phím : <b>Enter</b> và <b>Space</b> - đảm bảo tại textbox này luôn được trạng thái focus chuột : <input id="txtVD" onkeydown="return KeyPlay(event)" type="text" size="1" autofocus/><br />
-XIN LỖI VÌ SỰ BẤT TIỆN : mọi thao tác sai, bạn phải thực hiện lại từ đầu :)) - khi dò xét mỗi đoạn lyric mà đoạn đó có bao nhiêu từ thì bạn chỉ gõ đúng số lần đó (VD : đoạn lyric có 5 từ sẽ tương ứng chỉ đủ 5 lần gõ phím <b>Enter</b> của bạn [tô màu đủ số từ đang hiển thị]  tại đoạn Lyric đang dò xét đó - không nên nhấn lố hay thiếu (hãy cẩn thận)) ... Chúc bạn thành công!
+LƯU Ý : trong suốt quá trình thực hiện, bạn không nên có bất kỳ thao tác nào khác ngoài việc bạn chỉ cần giữ và canh gõ 2 phím : <b>Enter</b> và <b>Space</b> - đảm bảo tại textbox này luôn được trạng thái focus chuột (khi bạn click button play start nhạc bên dưới thì textbox này sẽ được forcus chuột trở lại và bạn không nên thoát khỏi nó 😂) : <br /> <input id="txtVD" onkeydown="return KeyPlay(event)" type="text" size="1" autofocus/><br />
+<br /><u>XIN LỖI VÌ SỰ BẤT TIỆN</u> : mọi thao tác sai, bạn phải thực hiện lại từ đầu :)) - khi dò xét mỗi đoạn lyric mà đoạn đó có bao nhiêu từ thì bạn chỉ gõ đúng số lần đó (VD : đoạn lyric có 5 từ sẽ tương ứng chỉ đủ 5 lần gõ phím <b>Enter</b> của bạn [tô màu đủ số từ đang hiển thị]  tại đoạn Lyric đang dò xét đó - không nên nhấn lố hay thiếu (hãy cẩn thận)) ... Chúc bạn thành công!😄
 <br />
 <br />
-<h3 style="color:yellow">Nếu bạn đã hiểu và sẵn sàng, nhấn nút PLAY MP3 và bắt đầu nghe nhạc của bạn : </h3>
+<h3 style="color:yellow">Nếu bạn đã hiểu và sẵn sàng, nhấn nút START PLAY và bắt đầu nghe nhạc của bạn : </h3>
 <br /><br />
-<audio id="music" onplay="PlayKaraoke()" controls>
+<audio id="music" onplay="PlayKaraoke()" hidden>
     <source src="@TempData["Music"]" type="audio/mpeg">
 </audio>
 <br />
+<button style="color:olive" id="xuxu" onclick="startplay()"><b>START PLAY</b></button>
+<br />
 <b id="tgian" style="color:deeppink; font-size:20px"></b>
 <br />
-<b id="tgian" style="color:orangered; font-size:15px">Để việc phân tích xử lý Karaoke một cách chính xác, bạn vui lòng tắt hết các ứng dụng đang sử dụng Media Play hoặc liên quan đến nền âm thanh nhé 🥰</b>
+<b style="color:orangered; font-size:15px">Để việc phân tích xử lý Karaoke một cách chính xác, bạn vui lòng tắt hết các ứng dụng đang sử dụng Media Play hoặc liên quan đến nền âm thanh nhé 🥰</b>
 <br /><br />
 <button style="display:none" id="xong" onclick="xulyKaraoke()"><b>XONG - XỬ LÝ FILE KARAOKE</b></button>
 

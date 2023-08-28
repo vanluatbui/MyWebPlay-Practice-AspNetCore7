@@ -150,6 +150,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult PlayCreateFile_Karaoke()
         {
+            ViewBag.KaraX = "";
             return View();
         }
 
@@ -168,7 +169,7 @@ namespace MyWebPlay.Controllers
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text", fi);
 
             System.IO.File.WriteAllText(path, f["txtLyric"].ToString().Replace("undefined","").Replace(" *","*"));
-
+            ViewBag.KaraX = "OK";
             ViewBag.FileKaraoke = "<p style=\"color:blue\">Thành công, một file TXT Karaoke của bạn đã được xử lý...</p><a href=\"/karaoke/text/" + fi + "\" download>Click vào đây để tải về</a><br><p style=\"color:red\">Hãy nhanh tay tải về vì sau <span style=\"color:yellow\" id=\"thoigian3\" class=\"thoigian3\">30</span> giây nữa, file này sẽ bị xoá hoặc sẽ bị lỗi nếu có!<br>";
             return View();
         }
@@ -199,6 +200,10 @@ namespace MyWebPlay.Controllers
 
             if (url != null)
             {
+                url = url.Replace("https://", "");
+                url = url.Replace("http://", "");
+                url = url.Replace("/", "");
+
                 ViewBag.Server = url;
                 ViewBag.BaiHatSV = baihat;
 
@@ -206,7 +211,6 @@ namespace MyWebPlay.Controllers
                 Stream stream = client.OpenRead("https://" + url + "/MyListSong.txt");
                 StreamReader reader = new StreamReader(stream);
                 String content = reader.ReadToEnd();
-                ViewBag.Karaoke = "";
                 ViewBag.ListSong = content;
             }
             return View();

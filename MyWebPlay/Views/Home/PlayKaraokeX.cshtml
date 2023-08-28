@@ -508,9 +508,6 @@ function showlist()
         var LBH;
         var flg = 0;
 
-         if ('@ViewBag.Karaoke' == "karaoke")
-    alert("Bạn nên trải nghiệm tính năng này trên máy tính (PC), laptop,... nhé 😄\nLưu ý : trong khi đang trải nghiệm Karaoke, bạn không nên refresh lại trang để tránh mất dữ liệu!");
-
                     var id = setInterval(myAlert, 100);
 
                     function myAlert()
@@ -821,6 +818,10 @@ function showlist()
 
 @if (ViewBag.Music == "")
 {
+    @if (ViewBag.Karaoke == "karaoke")
+{
+    <h3 style="color:aqua">Bạn nên trải nghiệm tính năng này trên máy tính (PC), laptop,... nhé 😄<br>Lưu ý : trong khi đang trải nghiệm Karaoke, bạn không nên refresh lại trang để tránh mất dữ liệu!</h3><br />
+}
      <h2>@Html.ActionLink("Bạn có muốn trải nghiệm phiên bản Karaoke cơ bản?", "PlayKaraoke")</h2> <br />
  <br />
     <table align="center">

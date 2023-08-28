@@ -5,7 +5,12 @@
         var check = prompt('Để xác nhận xoá tất cả các file trên Server, admin nhập đúng mật mã : ');
 
         if (check != null && check != "")
-         window.location.href = "/Home/XoaAllFile?password="+check;
+         window.location.href = "/Home/LoginAdmin?password="+check+"&&id=1&&url=DownloadFile";
+    }
+
+     if ('@TempData["LoginAdmin"]' != null && '@TempData["LoginAdmin"]' != "")
+    {
+    alert('@TempData["LoginAdmin"]');
     }
 
     function qwerty()
@@ -13,7 +18,7 @@
           var check = prompt('Tính năng hiện tại chỉ dành cho admin, admin nhập đúng mật mã để tiếp tục xử lý : ');
 
           if (check != null && check != "")
-        window.location.href = "/Home/FindSubFolders?folder="+document.getElementById("FOLD").value+"&password="+check;
+        window.location.href = "/Home/LoginAdmin?folder="+document.getElementById("FOLD").value+"&password="+check+"&&id=3";
     }
 
     function xacnhan(file)
@@ -50,7 +55,7 @@
     {
          var check = prompt('Tính năng hiện tại chỉ dành cho admin, admin nhập đúng mật mã để tiếp tục xử lý : ');
          if (check != null && check != "")
-        window.location.href = "/Home/AllDownload?password="+check;
+        window.location.href = "/Home/LoginAdmin?password="+check+"&&id=2";
     }
 
 </script>

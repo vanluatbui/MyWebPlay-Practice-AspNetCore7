@@ -220,5 +220,38 @@ namespace MyWebPlay.Controllers
 
             return View();
         }
+
+        public ActionResult LoginAdmin(string? folder, string? password, int? id, string? url)
+        {
+            if (password == "admin-VANLUAT3275")
+            {
+                HttpContext.Session.SetObject("LoginAdmin", "YES");
+
+                switch(id)
+                {
+                    case 1:
+                        return RedirectToAction("XoaAllFile", new {password = password, url = url});
+                    case 2:
+                        return RedirectToAction("AllDownload", new { password = password});
+                    case 3:
+                        return RedirectToAction("FindSubFolders", new {folder = folder, password = password});
+                }
+            }
+            else
+            {
+                HttpContext.Session.Remove("LoginAdmin");
+                switch (id)
+                {
+                    case 1:
+                        return RedirectToAction(url);
+                    case 2:
+                        return RedirectToAction("DownloadFile");
+                    case 3:
+                        return RedirectToAction("DownloadFile");
+                }
+
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

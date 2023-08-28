@@ -17,6 +17,7 @@ using static System.Net.Mime.MediaTypeNames;
 using System.Xml.Linq;
 using System.Runtime.InteropServices;
 using Org.BouncyCastle.Security;
+using MyWebPlay.Model;
 
 namespace MyWebPlay.Controllers
 {
@@ -581,22 +582,21 @@ namespace MyWebPlay.Controllers
 
         public ActionResult FindSubFolders (string folder, string password)
         {
-            if (password != "admin-VANLUAT3275")
+            if (password != "admin-VANLUAT3275" || HttpContext.Session.GetObject<string>("LoginAdmin") != "YES")
             {
                 return Redirect("/Home/DownloadFile");
             }
 
-            return Redirect("/Home/DownloadFile?all=584118ea7469832675dd4799247d84fb&&folder=" + folder);
+            return RedirectToAction("DownloadFile", new { all = "584118ea7469832675dd4799247d84fb", folder = folder });
         }
 
         public ActionResult AllDownload(string password)
         {
-            if (password != "admin-VANLUAT3275")
+            if (password != "admin-VANLUAT3275" || HttpContext.Session.GetObject<string>("LoginAdmin") != "YES")
             {
                 return Redirect("/Home/DownloadFile");
             }
-
-            return Redirect("/Home/DownloadFile?all=1a852f29bdcaead120eaa272889bfa54");
+            return RedirectToAction("DownloadFile", new { all = "1a852f29bdcaead120eaa272889bfa54"});
         }
 
         public ActionResult DownloadFile(int? sl, string? all = "0", string? folder = "")
@@ -611,7 +611,7 @@ namespace MyWebPlay.Controllers
             else if (all == "1")
                 ViewBag.All = "1";
             else if (all == "584118ea7469832675dd4799247d84fb")
-                ViewBag.All = "2";
+                ViewBag.All = "584118ea7469832675dd4799247d84fb";
             else if (all == "1a852f29bdcaead120eaa272889bfa54")
                 ViewBag.All = "1a852f29bdcaead120eaa272889bfa54";
             else
@@ -692,8 +692,13 @@ namespace MyWebPlay.Controllers
             else if (ViewBag.All == "1" && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists == false)
                 ViewBag.KQF = "Not Exists Folder Path : /file" + folder + "  ...";
 
-            if (ViewBag.All == "2" && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists)
+            if (ViewBag.All == "584118ea7469832675dd4799247d84fb" && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists)
             {
+                if (HttpContext.Session.GetObject<string>("LoginAdmin") != "YES")
+                    return RedirectToAction("DownloadFile");
+
+                HttpContext.Session.Remove("LoginAdmin");
+
                 ketqua = "";
                 int k = 0;
                 var listFolder = new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).GetDirectories();
@@ -716,18 +721,26 @@ namespace MyWebPlay.Controllers
                     }
                 }
             }
-            else if(ViewBag.All == "2" && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists == false)
+            else if(ViewBag.All == "584118ea7469832675dd4799247d84fb" && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists == false)
             {
+                if (HttpContext.Session.GetObject<string>("LoginAdmin") != "YES")
+                    return RedirectToAction("DownloadFile");
+
+                HttpContext.Session.Remove("LoginAdmin");
+
                 ViewBag.KQF = "Not Exists Folder Path : /file" + folder + "  ...";
             }
 
             if (ViewBag.All == "1a852f29bdcaead120eaa272889bfa54")
             {
+                if (HttpContext.Session.GetObject<string>("LoginAdmin") != "YES")
+                    return RedirectToAction("DownloadFile");
 
                 int k = 0;
                 ListFileDirectory("file", ref k);
                 ViewBag.XL = k;
                 ViewBag.KQF = "* Download list all file Server (toàn bộ - hiện tại có : "+k+" file)";
+                HttpContext.Session.Remove("LoginAdmin");
             }
 
                 TempData["All"] = ViewBag.All;
@@ -748,9 +761,7 @@ namespace MyWebPlay.Controllers
                 {
                     Calendar x = CultureInfo.InvariantCulture.Calendar;
                     ketqua += "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/" + path + "/" + item.Name + "\" download> tại đây</a> <span style=\"color:pink\">("+ x.AddHours(item.LastWriteTimeUtc, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture) + ")</span> <br> Link xem trực tiếp (nếu có thể) : <a target=\"_blank\" style=\"color:green\"" +
-                   "href=\"/" + path + "/" + item.Name + "\">/" + path + "/" + item.Name + "</a><br><br>" +
-                  "<button style=\"color:blue\" onclick=\"xacnhan('" + file.Replace("/file","") + "')\">Click để xoá thủ công file này?</button><br>";
-                    ketqua += "<br><br>";
+                   "href=\"/" + path + "/" + item.Name + "\">/" + path + "/" + item.Name + "</a><br><br>";
                     ViewData["KetQua" + k] = ketqua;
                     ketqua = "";
                     k++;
@@ -800,19 +811,20 @@ namespace MyWebPlay.Controllers
         //     return View("DownloadFile",new {all =  ViewBag.All, folder = ViewBag.Folder});
         // }
 
-        public ActionResult XoaAllFile(string password)
+        public ActionResult XoaAllFile(string password, string url)
         {
-            if (string.Compare(password,"admin-VANLUAT3275", false) == 0)
+            if (string.Compare(password,"admin-VANLUAT3275", false) == 0 && HttpContext.Session.GetObject<string>("LoginAdmin") == "YES")
             {
+                HttpContext.Session.Remove("LoginAdmin");
                 DirectoryInfo fx = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file"));
                 fx.Delete(true);
 
                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file")).Create();
 
                 System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), "");
+                TempData["LoginAdmin"] = "Admin delete all file in Server successful!";
             }
-
-            return RedirectToAction("UploadFile");
+            return RedirectToAction(url);
         }
 
         public ActionResult XoaFolder(string folder, string chon)

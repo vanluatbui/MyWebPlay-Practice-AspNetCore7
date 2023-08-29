@@ -410,6 +410,13 @@ function showlist()
 
     function ghinho()
     {
+        if ('@ViewBag.Share' == "YES - OK")
+        {
+            alert ("Xin lỗi, tính năng ghi nhớ cài đặt không thể áp dụng nếu bạn sử dụng Karaoke bằng link chia sẻ từ bạn bè!\nHệ thống sẽ khởi động lại...");
+            resetKaraoke();
+            return;
+        }
+
         localStorage.setItem("mau", document.getElementById("mau").value);
         localStorage.setItem("mauX", document.getElementById("mauX").value);
         localStorage.setItem("mauY", document.getElementById("mauY").value);
@@ -599,7 +606,7 @@ function showlist()
                         return;
 
                         // Thay doi tu cai dat da luu
-                        if (flg == 0)
+                        if (flg == 0 && '@ViewBag.Share' != "YES - OK")
                         {
                         doimau_Save();
                         doimauX_Save();
@@ -815,6 +822,7 @@ function showlist()
      $('#xanhX2').addClass('work').attr('data-content',"");
 
             word1.style.setProperty("--color", mau);
+            word1.style.setProperty("--colox", mauX);
             word1.style.setProperty("--animation", so+"s");
                 }
                 else
@@ -842,7 +850,8 @@ function showlist()
     $('#xanhX2').addClass('work').attr('data-content', ct2);
       $('#xanhX1').addClass('word').attr('data-content',"");
 
-            word1.style.setProperty("--color", mau);
+             word1.style.setProperty("--color", mau);
+            word1.style.setProperty("--colox", mauX);
             word1.style.setProperty("--animation", so+"s");
                 }
                 kf++;

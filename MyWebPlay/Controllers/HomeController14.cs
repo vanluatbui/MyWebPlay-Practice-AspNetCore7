@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Org.BouncyCastle.Asn1.X509;
+using System.Drawing;
+using System;
 using System.Formats.Tar;
 using System.Globalization;
 using System.IO;
@@ -185,7 +187,7 @@ namespace MyWebPlay.Controllers
             return RedirectToAction("PlayKaraokeX", new { url = url, baihat = baihat });
         }
 
-        public ActionResult PlayKaraokeX(string? url, string? baihat)
+        public ActionResult PlayKaraokeX(string? url, string? baihat, string? background, int? option)
         {
             ViewBag.Music = "";
             ViewBag.Musix = "";
@@ -198,6 +200,25 @@ namespace MyWebPlay.Controllers
             new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
             new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
 
+            if (url != null && baihat != null && background != null && option != null) 
+            {
+                url = url.Replace("https://", "");
+                url = url.Replace("http://", "");
+                url = url.Replace("/", "");
+
+                ViewBag.Server = url;
+                ViewBag.BaiHatSV = baihat;
+
+                WebClient client = new WebClient();
+                Stream stream = client.OpenRead("https://" + url + "/MyListSong.txt");
+                StreamReader reader = new StreamReader(stream);
+                String content = reader.ReadToEnd();
+                ViewBag.ListSong = content;
+                ViewBag.Background = background;
+                ViewBag.Option = option;
+                ViewBag.Share = "YES";
+            }
+            else
             if (url != null)
             {
                 url = url.Replace("https://", "");
@@ -212,14 +233,19 @@ namespace MyWebPlay.Controllers
                 StreamReader reader = new StreamReader(stream);
                 String content = reader.ReadToEnd();
                 ViewBag.ListSong = content;
+                ViewBag.Share = "OK";
             }
+
             return View();
         }
 
         [HttpPost]
         public ActionResult PlayKaraokeX (IFormCollection f, IFormFile txtKaraoke, IFormFile txtMusic, IFormFile txtMusix)
         {
+            ViewBag.Host = Request.Host;
+
             ViewBag.Karaoke = "";
+            ViewBag.Share = f["txtShare"] + " - OK";
 
             ViewBag.Show = "show";
 
@@ -227,6 +253,8 @@ namespace MyWebPlay.Controllers
             ViewBag.BHServer = f["txtSong"].ToString();
 
             var chon = f["KaraChon"].ToString();
+
+            ViewBag.Option = chon;
 
             if (chon == "1")
             {

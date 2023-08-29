@@ -14,7 +14,10 @@
         {
             var music = document.getElementById("music");
             if (music.duration == 0)
+              {
+                  alert("Hệ thống đang chuẩn bị sẵn sàng...\nHãy thử lại sau!")
             return;
+              }
 
              music.play();
              document.getElementById("xuxu").style.display = "none";
@@ -61,7 +64,10 @@
            flox = 1;
            var chon = confirm("😥 Cảnh báo về một lỗi có thể xảy ra nếu bạn tiếp tục thực hiện, vui lòng thử thao tác lại sau!\n\nNhấn [OK] để đồng ý thực hiện lại.\nNhấn [Cancel] nếu bạn muốn bỏ qua cảnh báo này.");
            if (chon == true)
+           {
+               alert ("Thành thật xin lỗi bạn vì sự bất tiện này! 😁\n\nNếu cảnh báo này cứ tiếp diễn, đảm bảo thiết bị của bạn đã tắt hết hay không còn các trang web/ứng dụng chạy ngầm hoặc sử dụng liên quan đến nền âm thanh (Media Play). Nếu không, giải pháp cuối cùng là bạn có thể khởi động lại trình duyệt hoặc re-start lại máy của bạn 😂")
            window.location.href="/Home/CreateFile_Karaoke";
+           }
            else
            {
                t = 0;

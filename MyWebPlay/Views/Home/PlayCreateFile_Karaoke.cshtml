@@ -56,28 +56,13 @@
        var time = music.split('.');
        var tgian = new Number(time[0]);
          var h = Math.floor(tgian / 3600);
-       var m = Math.floor((tgian / 60) % 60) ;
+       var m = Math.floor((tgian / 60) % 60);
        var s = tgian % 60;
 
-        if (flox == 0 && (s == 1 && (t < 20 || t > 30)))
+        if (flox == 0 && (h == 0 && m == 0 && s == 1 && (t < 20 || t > 30)))
        {
            flox = 1;
-           var chon = confirm("😥 Cảnh báo về một lỗi có thể xảy ra nếu bạn tiếp tục thực hiện, vui lòng thử thao tác lại sau!\n\nNhấn [OK] để đồng ý thực hiện lại.\nNhấn [Cancel] nếu bạn muốn bỏ qua cảnh báo này.");
-           if (chon == true)
-           {
-               alert ("Thành thật xin lỗi bạn vì sự bất tiện này! 😁\n\nNếu cảnh báo này cứ tiếp diễn, đảm bảo thiết bị của bạn đã tắt hết hay không còn các trang web/ứng dụng chạy ngầm hoặc sử dụng liên quan đến nền âm thanh (Media Play). Nếu không, giải pháp cuối cùng là bạn có thể khởi động lại trình duyệt hoặc re-start lại máy của bạn 😂")
-           window.location.href="/Home/CreateFile_Karaoke";
-           }
-           else
-           {
-               t = 0;
-               document.getElementById("music").currentTime = 0;
-               document.getElementById("tgian").innerHTML = "";
-               document.getElementById("music").pause();
-               document.getElementById("xuxu").style.display = "inline-block";
-               clearInterval(id);
-               return;
-           }
+           document.getElementById("error").style.display = "inline-block";
        }
 
         if (h< 10 && m < 10 && s < 10)
@@ -206,7 +191,9 @@ LƯU Ý : trong suốt quá trình thực hiện, bạn không nên có bất k�
 <br />
 <br />
 <h3 style="color:yellow">Nếu bạn đã hiểu và sẵn sàng, nhấn nút START PLAY và bắt đầu nghe nhạc của bạn : </h3>
-<br /><br />
+<br />
+<b style="color:red;display:none" id="error">⚠️ Cảnh báo về một lỗi có thể xảy ra nếu bạn tiếp tục thực hiện, vui lòng thử thao tác lại sau!</b>
+<br />
 <audio id="music" onplay="PlayKaraoke()" hidden>
     <source src="@TempData["Music"]" type="audio/mpeg">
 </audio>
@@ -215,7 +202,7 @@ LƯU Ý : trong suốt quá trình thực hiện, bạn không nên có bất k�
 <br />
 <b id="tgian" style="color:deeppink; font-size:20px"></b>
 <br />
-<b style="color:orangered; font-size:15px">Để việc phân tích xử lý Karaoke một cách chính xác, bạn vui lòng tắt hết các ứng dụng đang sử dụng Media Play hoặc liên quan đến nền âm thanh nhé 🥰</b>
+<b style="color:orangered; font-size:15px">Để việc phân tích xử lý Karaoke một cách chính xác, bạn vui lòng tắt hết các ứng dụng đang sử dụng Media Play hoặc liên quan đến nền âm thanh nhé 🥰<br /> Hoặc bạn có thể sẽ phải khởi động lại trình duyệt hoặc re-start máy!</b>
 <br /><br />
 <button style="display:none" id="xong" onclick="xulyKaraoke()"><b>XONG - XỬ LÝ FILE KARAOKE</b></button>
 

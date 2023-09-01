@@ -75,8 +75,9 @@ body {
         var url =  "https://" +'@ViewBag.Host' + "/Home/PlayKaraokeX?url=" + '@ViewBag.LoginServer' + "&&baihat=" + '@ViewBag.BHServer' + "&&background="+ background + "&&option=" + '@ViewBag.Option';
         navigator.clipboard.writeText(url);
 
-        alert("Một url chia sẻ Karaoke đã được copy vào Clipboard của bạn!\nHãy chia sẻ bài hát này và mang niềm vui đến bạn bè mình nhé 🥰")
-        resetKaraoke();
+        document.getElementById("message").style.display = "inline-block";
+        document.getElementById("error").style.display = "inline-block";
+        document.getElementById("error").innerHTML = "✔️ Một url chia sẻ Karaoke đã được copy vào Clipboard của bạn. Hãy chia sẻ bài hát này và mang niềm vui đến bạn bè mình nhé !";
     }
 
     var idX;
@@ -408,12 +409,21 @@ function showlist()
 
     }
 
+    function xoaerror()
+    {
+        document.getElementById("message").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("error").innerHTML = ""; 
+    }
+
     function ghinho()
     {
         if ('@ViewBag.Share' == "YES - OK")
         {
-            alert ("Xin lỗi, tính năng ghi nhớ cài đặt không thể áp dụng nếu bạn sử dụng Karaoke bằng link chia sẻ từ bạn bè!\nHệ thống sẽ khởi động lại...");
-            resetKaraoke();
+     
+          document.getElementById("message").style.display = "inline-block";
+          document.getElementById("error").style.display = "inline-block";
+        document.getElementById("error").innerHTML = "⚠️ Xin lỗi, tính năng ghi nhớ cài đặt không thể áp dụng nếu bạn đang sử dụng Karaoke bằng link chia sẻ từ bạn bè !";
             return;
         }
 
@@ -423,7 +433,9 @@ function showlist()
         localStorage.setItem("kichthuoc", document.getElementById("kichthuoc").value);
         localStorage.setItem("hang", document.getElementById("hang").value);
 
-        alert("Các cài đặt Karaoke của bạn đã được ghi nhớ thành công, hệ thống phải khởi động lại để áp dụng!");
+         document.getElementById("message").style.display = "inline-block";
+         document.getElementById("error").style.display = "inline-block";
+        document.getElementById("error").innerHTML = "✔️ Các cài đặt Karaoke của bạn đã được ghi nhớ thành công !"
 
            var menu = document.getElementById("menu");
         var hienlinh = document.getElementById("hienlinh");
@@ -442,7 +454,6 @@ function showlist()
             hienlinh.style.display = "none";
         }
         document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - OFF</b>";
-        resetKaraoke();
     }
 
      function PlayXKaraoke()
@@ -1105,8 +1116,11 @@ else
 {
     <div class="video-overlay" id="play">
        <table align="center" onended="loadsolar()">
+           <b id="error" style="color:red;display:none"><span is="error"></span></b>
+               <br />
+               <b id="message" style="color:yellow;display:none"><a href="#xuly" onclick="xoaerror()">Click để tắt thông báo</a></b>
+           <br>
            <div id="hienlinh" style="display:none">
-               <br>
                <br>
                <br>
                <br>

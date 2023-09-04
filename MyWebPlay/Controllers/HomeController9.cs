@@ -96,6 +96,13 @@ namespace MyWebPlay.Controllers
             var m3 = int.Parse(kiemtra[1]);
             var y3 = int.Parse(kiemtra[2]);
 
+            long tong = 0;
+            for (int i = 0; i < fileUpload.Count; i++)
+                tong += fileUpload[i].Length;
+
+            for (int i = 0; i < fileUploadX.Count; i++)
+                tong += fileUploadX[i].Length;
+
             int flag = 0;
             ViewBag.SL = TempData["SL"];
             ViewBag.X = TempData["X"];
@@ -407,6 +414,11 @@ namespace MyWebPlay.Controllers
             {
                 if (ViewBag.Y == 1)
                 {
+                    if (flag == 0 && homePass != "admin-VANLUAT3275" && tong > 2000000)
+                    {
+                        flag = 6;
+                    }
+
                      if (flax == 0 && folder.Length > 0 && chon == "2" && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file\\" + folder)).Exists == true)
                     {
                         flag = 4;
@@ -547,28 +559,41 @@ namespace MyWebPlay.Controllers
                 if (ViewBag.X == 1 && flag == 1)
                 {
                     ViewData["Loi"] = "Lỗi hệ thống. Nếu bạn đã đăng tải một file, hãy tự đặt lại tên mới gợi nhớ của bạn cho từng file đó ...";
+                    ViewBag.KetQua = "Lỗi hệ thống. Nếu bạn đã đăng tải một file, hãy tự đặt lại tên mới gợi nhớ của bạn cho từng file đó ...";
+
                     return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
                 }
                 else if (flag == 2)
                 {
                     ViewData["Loi"] = "Một trong những file bạn sắp tải - tên file bạn sắp upload (tên mới bạn tự đặt) đã tồn tại!\r\nTất cả các file đã bị lỗi khi đăng tải, mời bạn thực hiện lại ...";
+                    ViewBag.KetQua = "Một trong những file bạn sắp tải - tên file bạn sắp upload (tên mới bạn tự đặt) đã tồn tại!\r\nTất cả các file đã bị lỗi khi đăng tải, mời bạn thực hiện lại ...";
                     return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
                 }
                 else if (ViewBag.X == 1 && flag == 3)
                 {
                     ViewData["Loi"] = "Một trong những file bạn sắp tải - tên file bạn sắp upload (tên mới bạn tự đặt) đã tồn tại hoặc bị trùng!\r\nTất cả các file đã bị lỗi khi đăng tải, mời bạn kiểm tra và thực hiện lại ...";
+                    ViewBag.KetQua = "Một trong những file bạn sắp tải - tên file bạn sắp upload (tên mới bạn tự đặt) đã tồn tại hoặc bị trùng!\r\nTất cả các file đã bị lỗi khi đăng tải, mời bạn kiểm tra và thực hiện lại ...";
                     return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
                 }
                 else if (flag == 4 && flax == 0)
                 {
                     ViewData["LoiX"] = "Lỗi hệ thống - theo yêu cầu của bạn. Tên path thư mục đã tồn tại ...";
+                    ViewBag.KetQua = "Lỗi hệ thống - theo yêu cầu của bạn. Tên path thư mục đã tồn tại ...";
                     return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
                 }
                 else if (flag == 5 && homePass != "admin-VANLUAT3275")
                 {
                     ViewData["LoiY"] = "Vui lòng chọn ngày hết hạn các file này sau ngày hôm nay và thời hạn các file của bạn được phép tồn tại trên Server hệ thống là 7 ngày!";
+                    ViewBag.KetQua = "Vui lòng chọn ngày hết hạn các file này sau ngày hôm nay và thời hạn các file của bạn được phép tồn tại trên Server hệ thống là 7 ngày!";
                     return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
                 }
+                else if (flag == 6 && homePass != "admin-VANLUAT3275")
+                {
+                    ViewData["Loi"] = "⚠️ Hiện tại mỗi lượt bạn chỉ có thể tải lên hệ thống các file tổng kích thước tối đa không quá 2 MB!";
+                    ViewBag.KetQua = "⚠️ Hiện tại mỗi lượt bạn chỉ có thể tải lên hệ thống các file tổng kích thước tối đa không quá 2 MB!";
+                    return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
+                }
+
             }
 
             //SendEmail.SendMail2Step("mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", name, name, "teinnkatajeqerfl");

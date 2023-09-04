@@ -1,5 +1,12 @@
 ﻿@using System.Globalization;
 <script>
+
+    function xong()
+    {
+        document.getElementById("ok").style.display = "none";
+        document.getElementById("loading").style.display = "inline-block";
+    }
+
      function xemfile(event, ii, SL)
     {
         var ulx = document.getElementById("ulx-"+ii);
@@ -280,6 +287,7 @@ else
         <br />
             <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
         <br />
+        <br />
 
         if (ViewBag.Y == 0)
         {
@@ -477,7 +485,9 @@ else
             <tr style="height:40px">
                 <td></td>
                 <td>
-                    <input style="font-weight:bolder" type="Submit" value="OK UPLOAD" />
+                    <input id="ok" onclick="xong()" style="font-weight:bolder" type="Submit" value="OK UPLOAD" />
+                    <br />
+                    <img id="loading" src="/Image_Play/waiting.gif" style="display:none"/>
                 </td>
             </tr>
         }

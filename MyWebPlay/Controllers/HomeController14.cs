@@ -200,7 +200,7 @@ namespace MyWebPlay.Controllers
             new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
             new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
 
-            if (url != null && baihat != null && background != null && option != null) 
+            if (url != null && baihat != null && background != null && option != null)
             {
                 url = url.Replace("https://", "");
                 url = url.Replace("http://", "");
@@ -209,14 +209,22 @@ namespace MyWebPlay.Controllers
                 ViewBag.Server = url;
                 ViewBag.BaiHatSV = baihat;
 
-                WebClient client = new WebClient();
-                Stream stream = client.OpenRead("https://" + url + "/MyListSong.txt");
-                StreamReader reader = new StreamReader(stream);
-                String content = reader.ReadToEnd();
-                ViewBag.ListSong = content;
-                ViewBag.Background = background;
-                ViewBag.Option = option;
-                ViewBag.Share = "YES";
+                try
+                {
+                    WebClient client = new WebClient();
+                    Stream stream = client.OpenRead("https://" + url + "/MyListSong.txt");
+                    StreamReader reader = new StreamReader(stream);
+                    String content = reader.ReadToEnd();
+                    ViewBag.ListSong = content;
+                    ViewBag.Background = background;
+                    ViewBag.Option = option;
+                    ViewBag.Share = "YES";
+                }
+                catch
+                {
+                    ViewBag.Share = "ERROR";
+                }
+
             }
             else
             if (url != null)
@@ -228,12 +236,19 @@ namespace MyWebPlay.Controllers
                 ViewBag.Server = url;
                 ViewBag.BaiHatSV = baihat;
 
-                WebClient client = new WebClient();
-                Stream stream = client.OpenRead("https://" + url + "/MyListSong.txt");
-                StreamReader reader = new StreamReader(stream);
-                String content = reader.ReadToEnd();
-                ViewBag.ListSong = content;
-                ViewBag.Share = "OK";
+                try
+                {
+                    WebClient client = new WebClient();
+                    Stream stream = client.OpenRead("https://" + url + "/MyListSong.txt");
+                    StreamReader reader = new StreamReader(stream);
+                    String content = reader.ReadToEnd();
+                    ViewBag.ListSong = content;
+                    ViewBag.Share = "OK";
+                }
+                catch
+                {
+                    ViewBag.Share = "ERROR";
+                }
             }
 
             return View();
@@ -279,6 +294,7 @@ namespace MyWebPlay.Controllers
             else if (chon == "4")
             {
                 var link = f["txtOnline"].ToString();
+
                 link = link.Replace("&", "");
                 link = link.Replace("loop", "");
                 link = link.Replace("autoplay", "");
@@ -287,7 +303,10 @@ namespace MyWebPlay.Controllers
                 link = link.Replace("youtu.be/", "youtube.com/embed/");
                 link = link.Replace("youtube.com/watch?v=", "youtube.com/embed/");
 
-                if (link.Contains("?"))
+                if (link.Contains("youtube") == false)
+                    ViewBag.Share = "ERROR";
+
+                    if (link.Contains("?"))
                     link += "&autoplay=1&loop=1&controls=0&mute=1";
                 else
                     link += "?autoplay=1&loop=1&controls=0&mute=1";
@@ -305,14 +324,21 @@ namespace MyWebPlay.Controllers
                 var url_goc = server + "/" + song + "/" + song + "_Goc.mp3";
                 var url_kara = server + "/" + song + "/" + song + ".mp3";
 
-                WebClient client = new WebClient();
-                Stream stream = client.OpenRead("https://" + url_txt);
-                StreamReader reader = new StreamReader(stream);
-                String content = reader.ReadToEnd();
+                try
+                {
+                    WebClient client = new WebClient();
+                    Stream stream = client.OpenRead("https://" + url_txt);
+                    StreamReader reader = new StreamReader(stream);
+                    String content = reader.ReadToEnd();
 
-                ViewBag.Music = "https://"+url_kara;
-                ViewBag.Musix = "https://" + url_goc;
-                ViewBag.Karaoke = content;
+                    ViewBag.Music = "https://" + url_kara;
+                    ViewBag.Musix = "https://" + url_goc;
+                    ViewBag.Karaoke = content;
+                }
+                catch
+                {
+                    ViewBag.Share = "ERROR";
+                }
             }
             else
             if (f["txtChon"].ToString() != "on")

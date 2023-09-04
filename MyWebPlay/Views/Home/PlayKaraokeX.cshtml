@@ -890,7 +890,7 @@ function showlist()
 
 </script>
 
-@if (ViewBag.Share != "YES")
+@if (ViewBag.Share != "YES" && ViewBag.Share != "ERROR")
 {
 <audio id="music" autoplay hidden  onplay="PlayKaraoke()" onplaying="PlayY()" onpause="PlayXKaraoke()" onended="StopKaraoke()">
     <source src="@ViewBag.Music" type="audio/mpeg">
@@ -1218,10 +1218,12 @@ else if (ViewBag.SuDung == "Video")
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     }
-    else
+    else if (ViewBag.Share == "YES")
     {
         <br />
-        <h3 style="color:red">Dữ liệu đang được tải, vui lòng chờ trong ít phút!</h3>
+        <h3 style="color:yellow">✔️ Dữ liệu đang được tải, vui lòng chờ trong ít phút!</h3>
+        <br />
+                    <img src="/Image_Play/waiting.gif" />
     <div style="display:none">
 <audio id="music" autoplay hidden  onplay="PlayKaraoke()" onplaying="PlayY()" onpause="PlayXKaraoke()" onended="StopKaraoke()">
     <source src="@ViewBag.Music" type="audio/mpeg">
@@ -1543,7 +1545,14 @@ else if (ViewBag.SuDung == "Video")
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    </div>
+        </div>
+    }
+    else if (ViewBag.Share == "ERROR")
+    {
+         <br />
+        <h3 style="color:red">⚠️ Dữ liệu bạn đang cố gắng truy cập hiện không tồn tại hoặc không hợp lệ, vui lòng thử lại sau!</h3>
+        <br />
+        <a href="/Home/PlayKaraokeX">Back Karaoke</a>
     }
 </body>
 </html>

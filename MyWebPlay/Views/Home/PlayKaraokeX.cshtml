@@ -69,6 +69,12 @@ body {
 <meta charset="ISO-8859-1">
 <script>
 
+     function xong()
+    {
+        document.getElementById("okxem").style.display = "none";
+        document.getElementById("loading").style.display = "inline-block";
+    }
+
     function copyshare()
     {
         var background = ('@ViewBag.Background'.includes("karaoke_Example")) ? "NOT" : '@ViewBag.Background';
@@ -1105,7 +1111,9 @@ function showlist()
                 <td></td>
                 <td>
                                      <br>
-                        <input style="font-weight:bolder" type="Submit" id="okxem" value="Bắt Đầu" />
+                        <input onclick="xong()" style="font-weight:bolder" type="Submit" id="okxem" value="Bắt Đầu" />
+                         <br>
+                        <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
                 </td>
             </tr>
     }

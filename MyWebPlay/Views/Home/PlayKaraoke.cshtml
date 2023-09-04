@@ -67,6 +67,13 @@ body {
 <body>
 <meta charset="ISO-8859-1">
 <script>
+
+     function xong()
+    {
+        document.getElementById("ok").style.display = "none";
+        document.getElementById("loading").style.display = "inline-block";
+    }
+
     function doikichthuoc()
     {
         var kt = document.getElementById("kichthuoc").value + "px";
@@ -691,7 +698,9 @@ body {
                 <td></td>
                 <td>
                                      <br>
-                        <input style="font-weight:bolder" type="Submit" value="Bắt Đầu" />
+                        <input id="ok" onclick="xong()" style="font-weight:bolder" type="Submit" value="Bắt Đầu" />
+                         <br>
+                        <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
                 </td>
             </tr>
     }

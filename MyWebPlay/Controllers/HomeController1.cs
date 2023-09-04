@@ -92,7 +92,9 @@ namespace MyWebPlay.Controllers
                 //......................................................................
 
 
-                s = s.Replace("#3275#", " ");
+                s = s.Replace("#3275#", "<br>");
+
+               // System.IO.File.WriteAllText("D:/XemCode/ma.txt", s);
 
                 // cập nhật txtDapAn...
 
@@ -188,12 +190,20 @@ namespace MyWebPlay.Controllers
                 s = s.TrimStart(ss);
                 s = s.TrimEnd(ss);
 
+                char[] sk = { '<', 'b', 'r', '>' };
+                s = s.TrimStart(sk);
+                s = s.TrimEnd(sk);
+
                 char[] sm = { ' ', '\r', '\n' };
                 s = s.TrimStart(sm);
 
+                char[] sx = { '\t', '\r', '\n' };
+                s = s.TrimStart(sx);
+
                 // Kiểm tra nếu dữ liệu không đủ hợp với đáp án :
 
-                s = s.Replace("#3275#", " ");
+                s = s.Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+
 
                 string[] dulieu = Regex.Split(s, "\r\n");
 
@@ -443,7 +453,7 @@ namespace MyWebPlay.Controllers
 
                     ViewBag.KetQua += find_Error;
                     ViewBag.KetQua += "<h3 style=\"color:pink\"> --> Trượt đến tận cuối trang để có thể xem thử lại bản nháp đã phân tích hiện tại (nếu muốn)...</h3><br><br>";
-                    ViewBag.Temp_TN = "<h3 style=\"color:aqua\">[ERROR] </h3><br><h4 style=\"color:red\">LƯU Ý : Đây chỉ là bản nháp mà file trắc nghiệm đã phân tích được ở thời điểm hiện tại, việc phân tích của hệ thống dù thành công hay thất bại..., tại đây bạn có thể tự kiểm tra lại và thực hiện chỉnh sửa thủ công sau!</h4><br><p style=\"color:orange\">Lưu ý thêm : Dữ liệu này chỉ là bản nháp để giúp bạn có thể kiểm tra và xác định câu hỏi đang bị lỗi và bạn sẽ tự chỉnh sửa thủ công --> Không sử dụng lại dữ liệu này để phân tích lại file trắc nghiệm của bạn...</p><br><br><textarea cols=\"150\" rows=\"200\" readonly>" + s_err + "</textarea>";
+                    ViewBag.Temp_TN = "<h3 style=\"color:aqua\">[ERROR] </h3><br><h4 style=\"color:red\">LƯU Ý : Đây chỉ là bản nháp mà file trắc nghiệm đã phân tích được ở thời điểm hiện tại, việc phân tích của hệ thống dù thành công hay thất bại..., tại đây bạn có thể tự kiểm tra lại và thực hiện chỉnh sửa thủ công sau!</h4><br><p style=\"color:orange\">Lưu ý thêm : Dữ liệu này chỉ là bản nháp để giúp bạn có thể kiểm tra và xác định câu hỏi đang bị lỗi và bạn sẽ tự chỉnh sửa thủ công --> Không sử dụng lại dữ liệu này để phân tích lại file trắc nghiệm của bạn...</p><br><br><textarea cols=\"150\" rows=\"200\" >" + s_err + "</textarea>";
 
             }
             finally
@@ -508,7 +518,7 @@ namespace MyWebPlay.Controllers
 
                     ViewBag.KetQua += find_Error;
                     ViewBag.KetQua += "<br><br><h3 style=\"color:aqua\">[ERROR] </h3><h3 style=\"color:pink\"> --> Trượt đến tận cuối trang để có thể xem thử lại bản nháp đã phân tích hiện tại (nếu muốn)...</h3><br><br>";
-                    ViewBag.Temp_TN = "<h3 style=\"color:aqua\">[ERROR] </h3><br><h4 style=\"color:red\">LƯU Ý : Đây chỉ là bản nháp mà file trắc nghiệm đã phân tích được ở thời điểm hiện tại, việc phân tích của hệ thống dù thành công hay thất bại..., tại đây bạn có thể tự kiểm tra lại và thực hiện chỉnh sửa thủ công sau!</h4><br><p style=\"color:orange\">Lưu ý thêm : Dữ liệu này chỉ là bản nháp để giúp bạn có thể kiểm tra và xác định câu hỏi đang bị lỗi và bạn sẽ tự chỉnh sửa thủ công --> Không sử dụng lại dữ liệu này để phân tích lại file trắc nghiệm của bạn...</p><br><br><textarea cols=\"150\" rows=\"200\" readonly>" + s_err + "</textarea>";
+                    ViewBag.Temp_TN = "<h3 style=\"color:aqua\">[ERROR] </h3><br><h4 style=\"color:red\">LƯU Ý : Đây chỉ là bản nháp mà file trắc nghiệm đã phân tích được ở thời điểm hiện tại, việc phân tích của hệ thống dù thành công hay thất bại..., tại đây bạn có thể tự kiểm tra lại và thực hiện chỉnh sửa thủ công sau!</h4><br><p style=\"color:orange\">Lưu ý thêm : Dữ liệu này chỉ là bản nháp để giúp bạn có thể kiểm tra và xác định câu hỏi đang bị lỗi và bạn sẽ tự chỉnh sửa thủ công --> Không sử dụng lại dữ liệu này để phân tích lại file trắc nghiệm của bạn...</p><br><br><textarea cols=\"150\" rows=\"200\" >" + s_err + "</textarea>";
                 }
             }
             return View();

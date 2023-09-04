@@ -1,4 +1,11 @@
-﻿<table align="center">
+﻿<script>
+     function xong()
+    {
+        document.getElementById("ok").style.display = "none";
+        document.getElementById("loading").style.display = "inline-block";
+    }
+</script>
+<table align="center">
     <h3 style="color:aqua">Bạn nên trải nghiệm tính năng này trên máy tính (PC), laptop,... nhé 😄</h3><br />
     <h2 style="text-align:center">Play Test Trắc Nghiệm</h2>
 
@@ -61,7 +68,9 @@
             <tr style="height:40px">
                 <td></td>
                 <td>
-                        <input style="font-weight:bolder" type="Submit" value="Bắt đầu làm bài" />
+                        <input  id="ok" onclick="xong()" style="font-weight:bolder" type="Submit" value="Bắt đầu làm bài" />
+                        <br>
+                        <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
                 </td>
             </tr>
     }

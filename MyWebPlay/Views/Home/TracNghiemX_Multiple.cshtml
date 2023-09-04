@@ -1,6 +1,8 @@
 ﻿<script>
     function xem()
     {
+          document.getElementById("ok").style.display = "none";
+        document.getElementById("loading").style.display = "inline-block";
         if ( document.getElementById("ticky").checked)
         alert("XIN LƯU Ý :\n\n- Đây không phải là một bài kiểm tra - thi - test\n\n- Hệ thống không quan tâm sự đúng sai các đáp án bạn tự đánh giá tại đây\n\n- Hiện tại file trắc nghiệm của bạn đang sử dụng chưa có đáp án, bạn đang sử dụng tính năng này để setting answer lại vào file của bạn (dựa vào answer bạn sẽ đánh giá ở đây)...\n\n- Bạn hãy tự quan tâm đến độ chính xác đáp án của bạn nhé!");
     }
@@ -118,7 +120,9 @@
             <tr style="height:40px">
                 <td></td>
                 <td>
-                    <input style="font-weight:bolder" type="Submit" onclick="xem()" value="Bắt đầu làm bài" />
+                    <input  id="ok" style="font-weight:bolder" type="Submit" onclick="xem()" value="Bắt đầu làm bài" />
+               <br>
+                        <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
                 </td>
             </tr>
 

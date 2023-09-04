@@ -1,5 +1,9 @@
 ﻿ <script>
-   
+    function xong()
+    {
+        document.getElementById("ok").style.display = "none";
+        document.getElementById("loading").style.display = "inline-block";
+    }
  </script>
 <table align="center">
     <h2 style="text-align:center">Create File Your Karaoke - Online</h2>
@@ -39,7 +43,9 @@
             <tr style="height:40px">
                 <td></td>
                 <td>
-                        <input style="font-weight:bolder" type="Submit" value="Bắt Đầu" />
+                        <input id="ok" onclick="xong()" style="font-weight:bolder" type="Submit" value="Bắt Đầu" />
+                        <br>
+                        <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
                 </td>
             </tr>
     }

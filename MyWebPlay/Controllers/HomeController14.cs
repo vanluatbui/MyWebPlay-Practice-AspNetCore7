@@ -8,6 +8,7 @@ using System.IO;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Reflection.Metadata;
+using MyWebPlay.Extension;
 
 namespace MyWebPlay.Controllers
 {
@@ -176,7 +177,7 @@ namespace MyWebPlay.Controllers
             return View();
         }
 
-        public ActionResult XoaKaraoke(string? url, string? baihat)
+        public ActionResult XoaKaraoke(string? id)
         {
             if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Exists)
                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Delete(true);
@@ -184,11 +185,40 @@ namespace MyWebPlay.Controllers
             new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
             new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
 
-            return RedirectToAction("PlayKaraokeX", new { url = url, baihat = baihat });
+            return RedirectToAction("Share_Karaoke", new { id = id });
         }
 
-        public ActionResult PlayKaraokeX(string? url, string? baihat, string? background, int? option)
+        public ActionResult PlayKaraokeX()
         {
+            if (TempData["url"] == null)
+                TempData["url"] = "[NOT]";
+
+            if (TempData["baihat"] == null)
+                TempData["baihat"] = "[NOT]";
+
+            if (TempData["background"] == null)
+                TempData["background"] = "[NOT]";
+
+            if (TempData["option"] == null)
+                TempData["option"] = 0;
+
+            string? url = TempData["url"].ToString();
+            string? baihat = TempData["baihat"].ToString();
+            string? background = TempData["background"].ToString();
+            int? option = int.Parse(TempData["option"].ToString());
+
+            var n1 = StringMaHoaExtension.Encrypt(url);
+            var n2 = StringMaHoaExtension.Encrypt(baihat);
+            var n3 = StringMaHoaExtension.Encrypt(background);
+
+            var share = n1 + "-.-" + n2 + "-.-" + n3 + "-.-" + option;
+            ViewBag.LinkKaraoke = share;
+
+            TempData["url"] = null;
+            TempData["baihat"] = null;
+            TempData["background"] = null;
+            TempData["option"] = null;
+
             ViewBag.Music = "";
             ViewBag.Musix = "";
 
@@ -200,7 +230,9 @@ namespace MyWebPlay.Controllers
             new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
             new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
 
-            if (url != null && baihat != null && background != null && option != null)
+            if (url != null && baihat != null && background != null && option != null
+                && url != "[NOT]" && baihat != "[NOT]" && background != "[NOT]" && option != 0
+                && url != "" && baihat != "" && background != "" && option != 0)
             {
                 url = url.Replace("https://", "");
                 url = url.Replace("http://", "");
@@ -227,7 +259,7 @@ namespace MyWebPlay.Controllers
 
             }
             else
-            if (url != null)
+            if (url != null && url != "[NOT]" && url != "")
             {
                 url = url.Replace("https://", "");
                 url = url.Replace("http://", "");
@@ -380,8 +412,11 @@ namespace MyWebPlay.Controllers
                 ViewBag.Musix = "/karaoke_Example/VongTayNguoiAy.mp3";
             }
 
+            var n1 = StringMaHoaExtension.Encrypt(ViewBag.LoginServer);
+            var n2 = StringMaHoaExtension.Encrypt(ViewBag.BHServer);
+            var n3 = StringMaHoaExtension.Encrypt(ViewBag.Background);
+            ViewBag.LinkKaraoke = n1 + "-.-" + n2 + "-.-" + n3 + "-.-" + chon;
             return View();
         }
-
     }
 }

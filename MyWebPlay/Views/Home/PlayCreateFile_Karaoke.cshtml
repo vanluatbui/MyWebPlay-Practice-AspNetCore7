@@ -83,6 +83,22 @@
                 document.getElementById("tgian").innerHTML = "ĐANG PHÁT - "+ "" + h + " : " + m + " : " + s;
    }
 
+   var idSo;
+   var so = 0;
+                    function myAlertSo()
+                    {
+                        if (so == 10)
+                        {
+                             var ok = document.getElementById("ok");
+                             ok.style.display = "block";
+                              document.getElementById("loading").style.display = "none";
+                             clearInterval(idSo);
+                            return;
+                        }
+
+                        so++;
+                    }
+
    function xulyKaraoke()
    {
        var ss = "";
@@ -117,11 +133,14 @@
             }
             clearInterval(id);
             document.getElementById("Lyrix").value = ss;
-            var xong = document.getElementById("xong");
+             var xong = document.getElementById("xong");
        xong.style.display = "none";
-       var ok = document.getElementById("ok");
-       ok.style.display = "block";
-            alert("Đã xử lý thành công nội dung text Karaoke cho mp3 của bạn đã phân tích. Cuối cùng, bạn click nút Hoàn tất!")
+      document.getElementById("loading").style.display = "inline-block";
+      document.getElementById("textLBH").style.display = "none";
+      document.getElementById("tgian").style.display = "none";
+      document.getElementById("music").pause();
+            alert("Đã xử lý thành công nội dung text Karaoke cho mp3 của bạn đã phân tích. Cuối cùng, hãy đợi quá trình xử lý thêm một lúc và click nút Hoàn tất sau khi xuất hiện!");
+            idSo = setInterval(myAlertSo, 1000);
    }
 
        function KeyPlay(event)
@@ -205,13 +224,14 @@ LƯU Ý : trong suốt quá trình thực hiện, bạn không nên có bất k�
 <b style="color:orangered; font-size:15px">Để việc phân tích xử lý Karaoke một cách chính xác, bạn vui lòng tắt hết các ứng dụng đang sử dụng Media Play hoặc liên quan đến nền âm thanh nhé 🥰<br /> Hoặc bạn có thể sẽ phải khởi động lại trình duyệt hoặc re-start máy!</b>
 <br /><br />
 <button style="display:none" id="xong" onclick="xulyKaraoke()"><b>XONG - XỬ LÝ FILE KARAOKE</b></button>
-
+<br>
+                        <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
 <br /><br />
 <textarea rows="30" cols="50" id="Lyric" hidden>@TempData["Lyric"]</textarea>
 <input type="text" id="BH1" hidden />
 <input type="text" id="BH2" hidden />
 
-<h1><span id="LBH1" style="color:blue"></span>
+<h1 id="textLBH"><span id="LBH1" style="color:blue"></span>
                             <span id="LBH2" style="color:white"></span></h1>
 
 <br /><br />

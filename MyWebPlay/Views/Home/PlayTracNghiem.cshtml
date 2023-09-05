@@ -2,6 +2,26 @@
 
 <script>
 
+      var idSA;
+    var so = 0;
+    function xongroi()
+    {
+        document.getElementById("xong").style.display = "none";
+        document.getElementById("loading").style.display = "inline-block";
+        idSA = setInterval(myAlertX, 1000);
+    }
+
+    function myAlertX()
+    {
+        so++;
+        if (so == 10)
+        {
+            document.getElementById("OKX").click();
+             clearInterval(id);
+            return;
+        }
+    }
+
     function xemanh(i)
     {
         if (document.getElementById('chonanh-'+i).value == "")
@@ -559,7 +579,16 @@
                 <tr style="height:40px">
                     <td></td>
                     <td>
-                        <input onclick="okroi()" style="font-weight:bolder" id="OKX" type="Submit" value="Đánh Giá Bài Làm" />
+                        @if(ViewBag.ND_File == null)
+                        {
+                        <input style="font-weight:bolder" id="OKX" type="Submit" value="Đánh Giá Bài Làm" />
+                        }
+                        else
+                        {
+                             <input style="font-weight:bolder" id="OKX" type="Submit" value="OK" hidden />
+                             <br>
+                            <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
+                        }
                         <br>
                             <p style="color:orange">Lưu ý : kiểm tra thật kỹ toàn bộ bài làm trước khi xem kết quả!</p>
                     </td>
@@ -571,5 +600,15 @@
            <br />
         }
       }
+
+       @if(ViewBag.ND_File != null)
+        {
+             <tr style="height:40px" id="xong">
+                <td></td>
+                <td>
+                     <button><b onclick="xongroi()">CẬP NHẬT</b></button>
+                </td>
+            </tr>
+        }
     }
 </table>

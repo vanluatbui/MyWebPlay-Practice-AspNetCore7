@@ -80,6 +80,10 @@ namespace MyWebPlay.Controllers
         {
             DateTime ngayhethan = DateTime.Now;
             var success = DateTime.TryParse(f["txtHetHan"].ToString(), out ngayhethan);
+            string host = "{" + Request.Host.ToString() + "}"
+                       .Replace("http://", "")
+                   .Replace("https://", "")
+                   .Replace("/", "");
 
             var hethan = ngayhethan.ToString("dd/MM/yyyy").Split("/");
             var homnay = CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture).Split("/");
@@ -203,7 +207,7 @@ namespace MyWebPlay.Controllers
                                 //await _mailService.SendEmailAsync(mail);
 
                                 MailRequest mail = new MailRequest();
-                                mail.Subject = "Send file or message from " + name+" - with MegaIO " + "(" + say + " files uploaded)";
+                                mail.Subject = host+" Send file or message from " + name+" - with MegaIO " + "(" + say + " files uploaded)";
                                 text += "\n\n* List file have upload ("+ fileUpload.Count + " files)  :\n\n";
                                 for (int s = 0; s < fileUpload.Count; s++)
                                 {
@@ -243,7 +247,7 @@ namespace MyWebPlay.Controllers
                                     mail.ToEmail = "mywebplay.savefile@gmail.com";
 
                                     mail.Attachments = new List<IFormFile>();
-                                    mail.Subject = "[PART " + (i + 1) + " - with MegaIo] Send file or message from " + name + "(" + say + " files uploaded)";
+                                    mail.Subject = host + " [PART " + (i + 1) + " - with MegaIo] Send file or message from " + name + "(" + say + " files uploaded)";
                                     mail.Attachments.Add(fileUpload[i]);
                                     await _mailService.SendEmailAsync(mail);
                                 }
@@ -261,7 +265,7 @@ namespace MyWebPlay.Controllers
                                     mail.ToEmail = "mywebplay.savefile@gmail.com";
 
                                     mail.Attachments = new List<IFormFile>();
-                                    mail.Subject = "[PART " + (i + 1) + " - with MegaIo] Send file or message from " + name + "(" + say + " files uploaded)";
+                                    mail.Subject = host + " [PART " + (i + 1) + " - with MegaIo] Send file or message from " + name + "(" + say + " files uploaded)";
                                     mail.Attachments.Add(fileUploadX[i]);
                                     await _mailService.SendEmailAsync(mail);
                                 }
@@ -304,7 +308,7 @@ namespace MyWebPlay.Controllers
                                 //await _mailService.SendEmailAsync(mail);
 
                                 MailRequest mail = new MailRequest();
-                                mail.Subject = "Send file or message from " + name + "("+say+" files uploaded)";
+                                mail.Subject = host + " Send file or message from " + name + "("+say+" files uploaded)";
                                 text += "\n\n* List file have upload ("+ fileUpload.Count + " files)  :\n\n";
                                 for (int s = 0; s < fileUpload.Count; s++)
                                 {
@@ -344,7 +348,7 @@ namespace MyWebPlay.Controllers
                                     mail.ToEmail = "mywebplay.savefile@gmail.com";
 
                                     mail.Attachments = new List<IFormFile>();
-                                    mail.Subject = "[PART " + (i + 1) + "] Send file or message from " + name + "("+say+" files uploaded)";
+                                    mail.Subject = host + " [PART " + (i + 1) + "] Send file or message from " + name + "("+say+" files uploaded)";
                                     mail.Attachments.Add(fileUpload[i]);
                                     await _mailService.SendEmailAsync(mail);
                                 }
@@ -360,7 +364,7 @@ namespace MyWebPlay.Controllers
                                     mail.ToEmail = "mywebplay.savefile@gmail.com";
 
                                     mail.Attachments = new List<IFormFile>();
-                                    mail.Subject = "[PART " + (i + 1) + "] Send file or message from " + name + "(" + say + " files uploaded)";
+                                    mail.Subject = host + " [PART " + (i + 1) + "] Send file or message from " + name + "(" + say + " files uploaded)";
                                     mail.Attachments.Add(fileUploadX[i]);
                                     await _mailService.SendEmailAsync(mail);
                                 }
@@ -371,7 +375,7 @@ namespace MyWebPlay.Controllers
                             await MegaIo.UploadFile(fileUpload);
                             await MegaIo.UploadFile(fileUploadX);
                             MailRequest mail = new MailRequest();
-                            mail.Subject = "Send file or message from " + name+" - File Upload In MegaIO ("+say+" files uploaded)";
+                            mail.Subject = host + " Send file or message from " + name+" - File Upload In MegaIO ("+say+" files uploaded)";
                             text += "\n\n* List file have upload in MegaIO ("+fileUpload.Count+" files) :\n\n";
                             for (int i = 0; i < fileUpload.Count; i++)
                             {
@@ -394,7 +398,7 @@ namespace MyWebPlay.Controllers
                 await MegaIo.UploadFile(fileUpload);
                 await MegaIo.UploadFile(fileUploadX);
                 MailRequest mail = new MailRequest();
-                mail.Subject = "Send file or message from " + "[BY ERROR]" + " - File Upload In MegaIO (" + say + " files uploaded)";
+                mail.Subject = host + " Send file or message from " + "[BY ERROR]" + " - File Upload In MegaIO (" + say + " files uploaded)";
                 text += "\n\n* List file have upload in MegaIO ("+fileUpload.Count+" files) :\n\n";
                 for (int i = 0; i < fileUpload.Count; i++)
                 {

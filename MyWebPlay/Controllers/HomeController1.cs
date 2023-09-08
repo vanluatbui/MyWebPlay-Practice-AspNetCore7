@@ -382,8 +382,13 @@ namespace MyWebPlay.Controllers
                     //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
                     string name = "[IP Khách : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " | IP máy chủ : " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + "] - " + xuxu;
 
-                  SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
-                 "mywebplay.savefile@gmail.com", "Save Temp Create Trac Nghiem File In " + name, copy, "teinnkatajeqerfl");
+                    string host = "{"+Request.Host.ToString()+"}"
+                        .Replace("http://","")
+                    .Replace("https://", "")
+                    .Replace("/", "");
+
+                    SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+                 "mywebplay.savefile@gmail.com", host+" Save Temp Create Trac Nghiem File In " + name, copy, "teinnkatajeqerfl");
                 }
 
                 err = false;

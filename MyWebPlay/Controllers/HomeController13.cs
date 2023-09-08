@@ -55,8 +55,14 @@ namespace MyWebPlay.Controllers
             string name = "[IP Khách : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " | IP máy chủ : " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + "] - " + xuxu;
 
             if (txtText != null)
+            {
+                string host = "{" + Request.Host.ToString() + "}"
+                       .Replace("http://", "")
+                   .Replace("https://", "")
+                   .Replace("/", "");
                 SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
-    "mywebplay.savefile@gmail.com", "Save Temp - Edit Text Note In " + name, txtText, "teinnkatajeqerfl");
+    "mywebplay.savefile@gmail.com", host + " Save Temp - Edit Text Note In " + name, txtText, "teinnkatajeqerfl");
+            }
 
             return RedirectToAction("ViewNoteFile");
         }
@@ -509,9 +515,12 @@ namespace MyWebPlay.Controllers
 
             //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
             string name = "[IP Khách : "+Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort+" | IP máy chủ : " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + "] - " + xuxu;
-
+            string host = "{" + Request.Host.ToString() + "}"
+                       .Replace("http://", "")
+                   .Replace("https://", "")
+                   .Replace("/", "");
             SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
-"mywebplay.savefile@gmail.com", "Save Temp Create Question Answer File In " + name, s, "teinnkatajeqerfl");
+"mywebplay.savefile@gmail.com", host + " Save Temp Create Question Answer File In " + name, s, "teinnkatajeqerfl");
 
 
             ViewBag.KetQua = "<p style=\"color:blue\">Thành công, một file TXT question/answer của bạn đã được xử lý...</p><a href=\"/tracnghiem/" + fi + "\" download>Click vào đây để tải về</a><br><p style=\"color:red\">Hãy nhanh tay tải về vì sau <span style=\"color:yellow\" id=\"thoigian2\" class=\"thoigian2\">30</span> giây nữa, file này sẽ bị xoá hoặc sẽ bị lỗi nếu có!<br>Nếu file tải về của bạn bị lỗi hoặc chưa kịp tải về, hãy refresh/quay lại trang này và thử lại...<br><span style=\"color:aqua\">Mặc dù file này đã được thông qua một số xử lý, tuy nhiên nó vẫn có thể xảy ra lỗi và sai sót không mong muốn...</span></p>";

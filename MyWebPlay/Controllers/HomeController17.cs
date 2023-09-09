@@ -116,19 +116,18 @@ namespace MyWebPlay.Controllers
             return Redirect("https://google.com");
         }
 
-        public ActionResult QuaTangCuocSong (string? email)
+        public ActionResult TheGioiCoTich (string? email)
         {
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrEmpty(email))
             {
                 email = "mywebplay.savefile@gmail.com";
             }
-
             ViewBag.Email = email;
             return View();
         }
 
         [HttpPost]
-        public ActionResult QuaTangCuocSong (IFormCollection f)
+        public ActionResult TheGioiCoTich (IFormCollection f)
         {
             var email = f["txtEmail"].ToString();
             var message = f["txtNoiDung"].ToString();
@@ -164,7 +163,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
             }
-            return Redirect("https://truyencotich.vn/qua-tang-cuoc-song");
+            return Redirect("https://truyencotich.top/");
         }
     }
 }

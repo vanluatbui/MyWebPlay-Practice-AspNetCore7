@@ -9,7 +9,7 @@ namespace MyWebPlay.Extension
         {
             // Ví dụ tài khoản Gmail của bạn đăng ký với tên Nguyễn Văn A, nhưng bạn lại sử dụng địa chỉ email này code C# để gửi tự động
             // email cho ai đó và họ sẽ thấy tên mới bạn đặt khi nhận thư của bạn (ví dụ Web Bán Sách) ...
-            var fromAddress = new MailAddress(From, "My Web Play - Save Text Note File");
+            var fromAddress = new MailAddress(From, "My Web Play - Van Luat");
 
             var toAddress = new MailAddress(To, To);
             var smtp = new SmtpClient

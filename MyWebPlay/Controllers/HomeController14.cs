@@ -33,6 +33,12 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult PlayKaraoke(IFormCollection f, IFormFile txtKaraoke, IFormFile txtMusic, IFormFile txtMusix)
         {
+            if (txtMusic == null || txtMusic.Length == 0)
+                txtMusic = txtMusix;
+
+            if (txtMusix == null || txtMusix.Length == 0)
+                txtMusix = txtMusic;
+
             ViewBag.Karaoke = "";
 
             ViewBag.Show = "show";
@@ -289,6 +295,12 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult PlayKaraokeX (IFormCollection f, IFormFile txtKaraoke, IFormFile txtMusic, IFormFile txtMusix)
         {
+            if (txtMusic == null || txtMusic.Length == 0)
+                txtMusic = txtMusix;
+
+            if (txtMusix == null || txtMusix.Length == 0)
+                txtMusix = txtMusic;
+
             ViewBag.Host = Request.Host;
 
             ViewBag.Karaoke = "";

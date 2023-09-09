@@ -704,26 +704,29 @@ body {
                 </td>
             </tr>
     }
-</table>
-}
-else
-{
-    <div class="video-overlay" id="play">
-       <table align="center" onended="loadsolar()">
-           <div id="hienlinh" style="display:none">
-               <br>
-               <br>
-               <br>
-               <br>
-           </div>
-           <b style="color:black; font-size:5px"><a style="color:black; font-size:5px" onclick="dongmomenu()" href="#xuly">...</a></b>
-                      &nbsp;&nbsp;&nbsp;<br><br>
-           <div id="menu" style="display:inline-block">
-    <select id="chon" onchange="changeKara()">
-        <option>Chế độ Karaoke</option>
-        <option>Chế độ Ca sĩ hát</option>
-    </select>&nbsp;&nbsp;&nbsp
-    <button style="color:brown" onclick="loadsolar()" id="xanh"><b>FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp;<b id="xemthumau" style="color:#2900f5">Chọn màu tô điểm text</b> : <input type="color" onchange="doimau()" id="mau" value="#2900f5" />
+        </table>
+    }
+    else
+    {
+        <div class="video-overlay" id="play">
+            <table align="center" onended="loadsolar()">
+                <div id="hienlinh" style="display:none">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+                <b style="color:black; font-size:5px"><a style="color:black; font-size:5px" onclick="dongmomenu()" href="#xuly">...</a></b>
+                &nbsp;&nbsp;&nbsp;<br><br>
+                <div id="menu" style="display:inline-block">
+                    @if (ViewBag.Music != ViewBag.Musix)
+                    {
+                        <select id="chon" onchange="changeKara()">
+                            <option>Chế độ Karaoke</option>
+                            <option>Chế độ Ca sĩ hát</option>
+                        </select>
+    }
+    &nbsp; &nbsp; &nbsp<button style="color:brown" onclick="loadsolar()" id="xanh"><b>FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp;<b id="xemthumau" style="color:#2900f5">Chọn màu tô điểm text</b> : <input type="color" onchange="doimau()" id="mau" value="#2900f5" />
     &nbsp;&nbsp;&nbsp;<b id="xemmauthu" style="color:#efe6e6">Chọn màu đoạn text ban đầu</b> : <input type="color" onchange="doimauX()" id="mauX" value="#efe6e6" />
      &nbsp;&nbsp;&nbsp;<b id="xemmaudi" style="color:#e3f207">Chọn màu cho time đếm ngược bắt đầu karaoke</b> : <input type="color" onchange="doimauY()" id="mauY" value="#e3f207" />
        &nbsp;&nbsp;&nbsp; <input id="kichthuoc" type="number" min="0" value="100" onchange="doikichthuoc()"/>

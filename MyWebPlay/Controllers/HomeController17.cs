@@ -141,19 +141,93 @@ namespace MyWebPlay.Controllers
             return Redirect("https://google.com");
         }
 
-        public ActionResult TheGioiCoTich (string? email)
+        public ActionResult SecretWeb (string? email)
         {
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrEmpty(email))
             {
                 email = "mywebplay.savefile@gmail.com";
             }
             ViewBag.Email = email;
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "RandomLayOut.txt");
+
+            var file = new FileInfo(path);
+
+            if (System.IO.File.Exists(path))
+            {
+                ViewBag.RandomLayout = System.IO.File.ReadAllText(path);
+            }
+                return View();
+        }
+
+        //----------------------------------------------------------------
+
+        public ActionResult RandomLayout()
+        {
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "RandomLayout.txt");
+
+            var file = new FileInfo(path);
+
+            if (System.IO.File.Exists(path))
+            {
+                ViewBag.Text = System.IO.File.ReadAllText(path);
+                Calendar x = CultureInfo.InvariantCulture.Calendar;
+                ViewBag.DateTime = x.AddHours(file.LastWriteTimeUtc, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+            }
+            return View();
+        }
+
+        public ActionResult EditLayout()
+        {
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "RandomLayout.txt");
+            if (System.IO.File.Exists(path))
+            {
+                ViewBag.Text = System.IO.File.ReadAllText(path);
+            }
+
             return View();
         }
 
         [HttpPost]
-        public ActionResult TheGioiCoTich (IFormCollection f)
+        public ActionResult EditLayout(string? txtText)
         {
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "RandomLayout.txt");
+
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+            }
+
+            if (txtText != null)
+                System.IO.File.WriteAllText(path, txtText);
+
+            return RedirectToAction("RandomLayout");
+        }
+
+        public ActionResult XoaLayout()
+        {
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "RandomLayout.txt");
+
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+            }
+            return RedirectToAction("RandomLayout");
+        }
+
+        //-----------------------------------------------------------------
+
+        [HttpPost]
+        public ActionResult SecretWeb (IFormCollection f)
+        {
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "RandomLayOut.txt");
+
+            var file = new FileInfo(path);
+
+            if (System.IO.File.Exists(path))
+            {
+                ViewBag.RandomLayout = System.IO.File.ReadAllText(path);
+            }
+
             var email = f["txtEmail"].ToString();
             var message = f["txtNoiDung"].ToString();
 
@@ -188,7 +262,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
             }
-            return Redirect("https://truyencotich.top/");
+            return Redirect("https://google.com");
         }
     }
 }

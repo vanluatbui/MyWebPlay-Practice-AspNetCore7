@@ -75,6 +75,9 @@ namespace MyWebPlay.Controllers
         {
             HttpContext.Session.Remove("TracNghiem");
 
+            if (new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "RandomLayout.txt")).Exists == false)
+                new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "RandomLayout.txt")).Create();
+
             if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Exists == true)
               new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Delete(true);
 

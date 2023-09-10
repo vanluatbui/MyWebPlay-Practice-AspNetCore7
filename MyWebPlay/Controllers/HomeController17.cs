@@ -11,6 +11,31 @@ namespace MyWebPlay.Controllers
 {
     public partial class HomeController : Controller
     {
+        public ActionResult PlayOnWebInLocalX(string key)
+        {
+            if (key == "true")
+                TempData["PlayOnWebInLocal"] = "true";
+            else if (key == "false")
+                TempData["PlayOnWebInLocal"] = "false";
+
+            Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+            string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+            string name = "[IP Khách : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " | IP máy chủ : " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + "] - " + xuxu;
+            string host = "{" + Request.Host.ToString() + "}"
+                       .Replace("http://", "")
+                   .Replace("https://", "")
+                   .Replace("/", "");
+
+            if (key == "true")
+            {
+                SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+                       "mywebplay.savefile@gmail.com", host + " [THONG BAO ADMIN] Play On Web In Client Local  In " + name, "", "teinnkatajeqerfl");
+            }
+
+            return RedirectToAction("Index");
+        }
+
         public ActionResult Share_Karaoke(string? id)
         {
             //System.IO.File.WriteAllText("D:/XemCode/ma.txt", id);

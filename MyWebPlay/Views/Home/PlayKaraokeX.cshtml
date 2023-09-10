@@ -69,7 +69,6 @@ body {
 <body>
 <meta charset="ISO-8859-1">
 <script>
-
      function xong()
     {
         document.getElementById("okxem").style.display = "none";
@@ -609,6 +608,7 @@ function showlist()
 
         var LBH;
         var flg = 0;
+        var flix = 0;
 
                     var id = setInterval(myAlert, 100);
 
@@ -631,6 +631,19 @@ function showlist()
                         k++;
                     }
                     flag = 1;
+                        }
+
+                        if (flix == 0)
+                        {
+                        var height = screen.height;
+                        var width = screen.width;
+
+                        var kichthuoc = new Number(width/19).toFixed();
+                        var vitri = new Number(height/170).toFixed();
+
+                        document.getElementById("kichthuoc").value = kichthuoc;
+                        document.getElementById("hang").value = vitri;
+                        flix = 1;
                         }
 
                          if (you == false || youX == false)

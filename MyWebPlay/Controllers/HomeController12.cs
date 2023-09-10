@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyWebPlay.Extension;
 using MyWebPlay.Model;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace MyWebPlay.Controllers
@@ -37,7 +39,7 @@ namespace MyWebPlay.Controllers
                 f.Delete();
             }
 
-            return View();
+                return View();
         }
 
         [HttpPost]
@@ -343,6 +345,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult TracNghiemX_Multiple(IFormCollection f, List<IFormFile> txtFile)
         {
+
             int sl = txtFile.Count();
             var cFile = "";
 

@@ -12,6 +12,7 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult FindValueCheckInSQL()
         {
+            khoawebsiteClient();
             ViewBag.ViDu = "user_name\tvarchar(10)\r\nuser_birth\tdatetime\r\nuser_age\tint";
             return View();
         }
@@ -122,6 +123,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult FindCompareValueInSQL()
         {
+            khoawebsiteClient();
             return View();
         }
 
@@ -216,6 +218,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XuLySQL1()
         {
+            khoawebsiteClient();
             ViewBag.Table = "User\r\nProduct\r\nOrder";
             return View();
         }
@@ -252,6 +255,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XuLySQL2()
         {
+            khoawebsiteClient();
             ViewBag.Table = "User\r\nProduct\r\nOrder";
             return View();
         }
@@ -330,6 +334,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XuLySQL3()
         {
+            khoawebsiteClient();
             ViewBag.Chuoi = "Coumn1\r\nCoumn2\r\nCoumn3\r\n#3275#\r\nEm là hoa\r\nhồng\r\nnhỏ[TAB-TPLAY]12345[TAB-TPLAY]Em là búp\r\nmăng non\r\nhồng hào trắng\r\nsáng\r\n#3275#\r\nTôi là bông\r\nhồng\r\ngià[TAB-TPLAY]06789[TAB-TPLAY]Em là búp\r\nmăng già\r\nnếp nhăn\r\ngoá phụ";
             return View();
         }
@@ -360,6 +365,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XuLyCode9()
         {
+            khoawebsiteClient();
             return View();
         }
 
@@ -443,6 +449,7 @@ namespace MyWebPlay.Controllers
 
             public ActionResult XuLySQL4()
         {
+            khoawebsiteClient();
             return View();
         }
 

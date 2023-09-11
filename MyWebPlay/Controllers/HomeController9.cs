@@ -25,16 +25,19 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult HD_API()
         {
+            khoawebsiteClient();
             return View();
         }
 
         public ActionResult HD_Web_AspNetCore()
         {
+            khoawebsiteClient();
             return View();
         }
 
         public ActionResult UploadFile(int? sl = 1, int? name = 0, int? upload =1)
         {
+            khoawebsiteClient();
             if (sl == null) 
                 ViewBag.SL = 0;
 
@@ -611,6 +614,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult FindSubFolders (string folder, string password)
         {
+            khoawebsiteClient();
             if (password != "admin-VANLUAT3275" || HttpContext.Session.GetObject<string>("LoginAdmin") != "YES")
             {
                 return Redirect("/Home/DownloadFile");
@@ -621,6 +625,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult AllDownload(string password)
         {
+            khoawebsiteClient();
             if (password != "admin-VANLUAT3275" || HttpContext.Session.GetObject<string>("LoginAdmin") != "YES")
             {
                 return Redirect("/Home/DownloadFile");
@@ -630,6 +635,8 @@ namespace MyWebPlay.Controllers
 
         public ActionResult DownloadFile(int? sl, string? all = "0", string? folder = "")
         {
+            khoawebsiteClient();
+
             if (sl == null)
                 ViewBag.SL = 0;
 
@@ -842,6 +849,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XoaAllFile(string password, string url)
         {
+            khoawebsiteClient();
             if (string.Compare(password,"admin-VANLUAT3275", false) == 0 && HttpContext.Session.GetObject<string>("LoginAdmin") == "YES")
             {
                 HttpContext.Session.Remove("LoginAdmin");
@@ -858,6 +866,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XoaFolder(string folder, string chon)
         {
+            khoawebsiteClient();
             if (chon == "1")
             {
                 if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists)
@@ -901,7 +910,8 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XoaFile(string file)
         {
-             FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file"+file));
+            khoawebsiteClient();
+            FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file"+file));
             if (f.Exists)
             f.Delete();
 
@@ -915,6 +925,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XoaFileX(string file)
         {
+            khoawebsiteClient();
             if (new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file"+file)).Exists)
             {
                 FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file"+file));

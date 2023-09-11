@@ -14,6 +14,7 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult TracNghiem()
         {
+            khoawebsiteClient();
             HttpContext.Session.Remove("TracNghiem");
 
             var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
@@ -285,6 +286,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult PlayTracNghiem(TracNghiem tn)
         {
+            khoawebsiteClient();
             if (ViewBag.ND_File != null)
             {
                 var ND_File = ViewBag.ND_File;

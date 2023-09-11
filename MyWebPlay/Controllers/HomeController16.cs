@@ -11,6 +11,7 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult XuLySQL5()
         {
+            khoawebsiteClient();
             return View();
         }
 
@@ -43,6 +44,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XuLySQL6()
         {
+            khoawebsiteClient();
             return View();
         }
 
@@ -75,6 +77,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XuLySQL7 ()
         {
+            khoawebsiteClient();
             return View();
         }
 
@@ -161,6 +164,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XuLySQL8()
         {
+            khoawebsiteClient();
             return View();
         }
 
@@ -196,6 +200,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult GetColorAtPicture()
         {
+            khoawebsiteClient();
             ViewBag.HinhAnh = "NO";
             if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Exists)
                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Delete(true);
@@ -223,6 +228,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult LoginAdmin(string? folder, string? password, int? id, string? url)
         {
+            khoawebsiteClient();
             if (password == "admin-VANLUAT3275")
             {
                 HttpContext.Session.SetObject("LoginAdmin", "YES");

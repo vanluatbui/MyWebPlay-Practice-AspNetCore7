@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using MyWebPlay.Extension;
 using System;
 using System.Globalization;
+using System.IO;
 using System.Net.Mail;
 using System.Xml.Linq;
 using TextCopy;
@@ -11,12 +12,44 @@ namespace MyWebPlay.Controllers
 {
     public partial class HomeController : Controller
     {
-        public ActionResult PlayOnWebInLocalX(string key)
+        public ActionResult PlayOnWebInLocalX(string key, string? id)
         {
+            khoawebsiteClient();
+            if (TempData["lock"].ToString() == "true")
+                return RedirectToAction("LockWebSite");
+
+            string ID = Request.HttpContext.Connection.Id;
+            string IP = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "ListIPOnWebPlay.txt");
+            var noidung = docfile(path);
+
+            var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ListIPLock.txt");
+            var noidung2 = docfile(path2);
+
+            if (key == "true" && (noidung.Contains(IP) == true || noidung2.Contains(IP) == true))
+            {
+                return RedirectToAction("Index");
+            }
+
+            string message = "Báo cáo hành động bật trang web của khách hàng @id :\r\n\r\n+ ID : @IDX\r\n\r\n+ IP : @IPX\r\n\r\n- Link huỷ bỏ kết nối trang web với các thiết bị có sử dụng IP này :\r\n\r\n@link"
+                .Replace("@IDX", ID).Replace("@id", id).Replace("@IPX", IP)
+                .Replace("@link", Request.Host + "/Home/LockThisClient?ip=" + IP)
+                + "\r\n\r\n- Nếu bạn đã lỡ khoá mà sau này muốn khôi phục lại kết nối với các thiết bị này, click vào link :\r\n\r\n@back"
+                .Replace("@back", Request.Host + "/Home/UnlockThisClient?ip=" + IP);
+
             if (key == "true")
+            {
                 TempData["PlayOnWebInLocal"] = "true";
+                noidung += IP + "##";
+                System.IO.File.WriteAllText(path, noidung);
+            }
             else if (key == "false")
+            {
+                noidung = noidung.Replace(IP + "##", "");
+                System.IO.File.WriteAllText(path, noidung);
                 TempData["PlayOnWebInLocal"] = "false";
+            }
 
             Calendar x = CultureInfo.InvariantCulture.Calendar;
 
@@ -30,7 +63,7 @@ namespace MyWebPlay.Controllers
             if (key == "true")
             {
                 SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
-                       "mywebplay.savefile@gmail.com", host + " [THONG BAO ADMIN] Play On Web In Client Local  In " + name, "", "teinnkatajeqerfl");
+                       "mywebplay.savefile@gmail.com", host + " [THONG BAO ADMIN] Play On Web In Client Local  In " + name, message, "teinnkatajeqerfl");
             }
 
             return RedirectToAction("Index");
@@ -38,6 +71,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult Share_Karaoke(string? id)
         {
+            khoawebsiteClient();
             //System.IO.File.WriteAllText("D:/XemCode/ma.txt", id);
             if (id != null)
             {
@@ -63,6 +97,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult SendMailSave1 (string? email, string message)
         {
+            khoawebsiteClient();
             Calendar x = CultureInfo.InvariantCulture.Calendar;
 
             string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
@@ -102,6 +137,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult SendMailSave2 (string? email)
         {
+            khoawebsiteClient();
             Calendar x = CultureInfo.InvariantCulture.Calendar;
 
             string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
@@ -143,6 +179,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult SecretWeb (string? email)
         {
+            khoawebsiteClient();
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrEmpty(email))
             {
                 email = "mywebplay.savefile@gmail.com";
@@ -168,6 +205,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult RandomLayout()
         {
+            khoawebsiteClient();
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "RandomLayout.txt");
 
             var file = new FileInfo(path);
@@ -183,6 +221,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult EditLayout()
         {
+            khoawebsiteClient();
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "RandomLayout.txt");
             if (System.IO.File.Exists(path))
             {
@@ -268,6 +307,20 @@ namespace MyWebPlay.Controllers
                 }
             }
             return Redirect("https://google.com");
+        }
+
+        public ActionResult LockWebSite()
+        {
+            string IP = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+            var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ListIPOnWebPlay.txt");
+            var noidung1 = docfile(path1);
+
+            var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ListIPLock.txt");
+            var noidung2 = docfile(path2);
+
+            if (noidung1.Contains(IP) == true && noidung2.Contains(IP) == false)
+                return RedirectToAction("Index");
+                return View();
         }
     }
 }

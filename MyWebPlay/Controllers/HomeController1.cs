@@ -14,6 +14,7 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult CreateFile_TracNghiem()
         {
+            khoawebsiteClient();
 
             if (ViewBag.HoanVi_VD == null)
                 ViewBag.HoanVi_VD = "đều đúng\r\nđều sai\r\nA,B và C\r\nA và B\r\ntất cả\r\nđáp án";
@@ -531,7 +532,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XoaAllFile_X1()
         {
-                var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
+            var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
 
                 foreach (var file in listFile)
                 {

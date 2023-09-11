@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
-    <link rel="icon" type="image/x-icon" href="/Image_Play/icon.png">
+    <link rel="icon" href="/images/icon.png">
 </head>
 <body style="background-color:black">
     <script>
@@ -27,8 +27,14 @@
             alert("Bạn đã bật trang web MyWebPlay thành công, bạn có thể sử dụng các tính năng tại trang web 😊!");
         }
 
+        if ('@TempData["lock"]' == "true")
+        {
+            alert("⚠ Xin lỗi, tất cả các thiết bị có cùng kết nối ID với bạn sẽ không thể truy cập trang web ngay lúc này (vì lý do đáng ngờ).\nVui lòng chờ đợi sau khi admin duyệt và mở khoá cho bạn. Nếu bạn muốn gửi email xin phép, liên hệ tại : mywebplay.savefile@gmail.com");
+            window.location.href = "/Home/LockWebSite";
+        }
+
         if (localStorage.getItem("keyX_PlayOnWeb") == null)
-        window.location.href = "https://google.com";
+        window.location.href = "/Home/LockWebSite";
 
         function refresh()
         {

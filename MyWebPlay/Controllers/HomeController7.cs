@@ -7,6 +7,7 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult BangChanTri()
         {
+            khoawebsiteClient();
             return View();
         }
 

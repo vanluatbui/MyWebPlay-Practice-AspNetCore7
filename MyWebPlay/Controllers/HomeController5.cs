@@ -8,6 +8,7 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult String_Split_Regex()
         {
+            khoawebsiteClient();
             return View();
         }
 
@@ -171,6 +172,7 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult Check_Regex()
         {
+            khoawebsiteClient();
             return View();
         }
 

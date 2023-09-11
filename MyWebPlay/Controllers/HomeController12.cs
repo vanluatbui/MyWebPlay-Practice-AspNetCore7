@@ -10,6 +10,7 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult TracNghiem_Multiple(int? sl)
         {
+            khoawebsiteClient();
             HttpContext.Session.Remove("TracNghiem");
 
             var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
@@ -30,6 +31,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult TracNghiemX_Multiple()
         {
+            khoawebsiteClient();
             HttpContext.Session.Remove("TracNghiem");
             var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
 
@@ -750,6 +752,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult HD_Web_AspNet()
         {
+            khoawebsiteClient();
             return View();
         }
     }

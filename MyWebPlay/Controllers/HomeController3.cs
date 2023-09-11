@@ -9,6 +9,7 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult SQL_CreateTable()
         {
+            khoawebsiteClient();
             return View();
         }
 
@@ -130,6 +131,7 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult Cxap_CreateClass()
         {
+            khoawebsiteClient();
             return View();
         }
 
@@ -252,6 +254,7 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult Cxap_InsertValueClass()
         {
+            khoawebsiteClient();
             return View();
         }
 

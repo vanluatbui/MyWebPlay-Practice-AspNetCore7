@@ -10,6 +10,7 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult ViewNoteFile()
         {
+            khoawebsiteClient();
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "note", "textnote.txt");
 
            var file = new FileInfo(path);
@@ -25,6 +26,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult EditTextNote()
         {
+            khoawebsiteClient();
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "note", "textnote.txt");
             if (System.IO.File.Exists(path))
             {
@@ -80,6 +82,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult PlayQuestion_Multiple()
         {
+            khoawebsiteClient();
             HttpContext.Session.Remove("TracNghiem");
 
             var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
@@ -394,6 +397,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult PlayQuestion(TracNghiem tn)
         {
+            khoawebsiteClient();
             HttpContext.Session.SetObject("TracNghiem", tn);
             return View(tn);
         }
@@ -468,6 +472,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult CreateFile_Question()
         {
+            khoawebsiteClient();
             if (ViewBag.ChuoiVD == null)
                 ViewBag.ChuoiVD = "1+1=?\r\n2\r\nHà có 5 quả cam, Hà được Lan cho thêm 3 quả cam. Hỏi Hà có tất cả bao nhiêu quả cam?\r\n8 quả\r\nTìm x biết x * 2 = 18?\r\nx = 9\r\nĐây là ai trong nhóm Winx?<br><img src=\"https://i.redd.it/dlrwc6cqztg61.jpg\" alt=\"Image Error\"><br>\r\nStella\r\n<span style=\"color:red\">Hạnh phúc</span> là gì?\r\nLà niềm vui, là sự bình yên trong tâm hồn, là những ước mơ...";
 

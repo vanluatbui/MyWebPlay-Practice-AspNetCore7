@@ -7,6 +7,7 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult Regex_Replace_Multiple()
         {
+            khoawebsiteClient();
             return View();
         }
 

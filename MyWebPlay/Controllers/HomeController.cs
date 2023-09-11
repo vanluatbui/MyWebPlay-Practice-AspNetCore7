@@ -70,9 +70,26 @@ namespace MyWebPlay.Controllers
             return 1;
         }
 
+        public void khoawebsiteClient()
+        {
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "ListIPLock.txt");
+            var noidung = docfile(path);
+
+            string IP = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+            if (noidung.Contains(IP))
+            {
+                TempData["lock"] = "true";
+            }
+            else
+            {
+                TempData["lock"] = "false";
+            }
+        }
+
 
         public ActionResult Index()
         {
+            khoawebsiteClient();
             HttpContext.Session.Remove("TracNghiem");
 
             if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Exists == true)
@@ -165,6 +182,7 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult CheckText()
         {
+            khoawebsiteClient();
             return View();
         }
 
@@ -347,6 +365,7 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult TextToColumn1()
         {
+            khoawebsiteClient();
             return View();
         }
 
@@ -412,6 +431,7 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult TextToColumn2()
         {
+            khoawebsiteClient();
             return View();
         }
 
@@ -480,6 +500,7 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult ReadNumber()
         {
+            khoawebsiteClient();
             return View();
         }
 
@@ -536,6 +557,7 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult TextConvertX()
         {
+            khoawebsiteClient();
             return View();
         }
 
@@ -585,6 +607,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult CSDL_MainKey()
         {
+            khoawebsiteClient();
             return View();
         }
 

@@ -10,6 +10,7 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult ResultCheck_Regex()
         {
+            khoawebsiteClient();
             ViewBag.ViDu = "!\"#$%&'()*+,-./0123456789:;<=>?@ ABCDEFGHIJKLMNOPQRSTUVWXYZ\t[\\]^_`\r\nabcdefghijklmnopqrstuvwxyz{|}~";
             return View();
         }
@@ -84,6 +85,7 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult Replace_Regex()
         {
+            khoawebsiteClient();
             return View();
         }
 

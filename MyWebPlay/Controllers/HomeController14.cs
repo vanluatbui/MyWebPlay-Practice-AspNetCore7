@@ -16,6 +16,7 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult PlayKaraoke()
         {
+            khoawebsiteClient();
             ViewBag.Music = "";
             ViewBag.Musix = "";
 
@@ -129,6 +130,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult CreateFile_Karaoke()
         {
+            khoawebsiteClient();
             if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Exists)
                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Delete(true);
 
@@ -159,6 +161,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult PlayCreateFile_Karaoke()
         {
+            khoawebsiteClient();
             ViewBag.KaraX = "";
             return View();
         }
@@ -196,6 +199,8 @@ namespace MyWebPlay.Controllers
 
         public ActionResult PlayKaraokeX()
         {
+            khoawebsiteClient();
+
             if (TempData["url"] == null)
                 TempData["url"] = "[NOT]";
 

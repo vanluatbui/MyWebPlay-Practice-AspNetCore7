@@ -9,6 +9,7 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult String_Reverse()
         {
+            khoawebsiteClient();
             return View();
         }
 
@@ -52,6 +53,7 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult String_Reverse2()
         {
+            khoawebsiteClient();
             return View();
         }
 
@@ -96,6 +98,7 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult Special_OrderBy()
         {
+            khoawebsiteClient();
             return View();
         }
 

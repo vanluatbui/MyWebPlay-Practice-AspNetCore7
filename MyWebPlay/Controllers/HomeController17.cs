@@ -12,19 +12,18 @@ namespace MyWebPlay.Controllers
 {
     public partial class HomeController : Controller
     {
-        public ActionResult PlayOnWebInLocalX(string key, string? id)
+        public ActionResult PlayOnWebInLocalX(string key, string? info)
         {
             khoawebsiteClient();
             if (TempData["lock"].ToString() == "true")
-                return RedirectToAction("LockWebSite");
+                return RedirectToAction("LockedWeb");
 
-            string ID = Request.HttpContext.Connection.Id;
             string IP = Request.HttpContext.Connection.RemoteIpAddress.ToString();
 
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "ListIPOnWebPlay.txt");
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
             var noidung = docfile(path);
 
-            var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ListIPLock.txt");
+            var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPLock.txt");
             var noidung2 = docfile(path2);
 
             if (key == "true" && (noidung.Contains(IP) == true || noidung2.Contains(IP) == true))
@@ -32,8 +31,8 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
 
-            string message = "Báo cáo hành động bật trang web của khách hàng @id :\r\n\r\n+ ID : @IDX\r\n\r\n+ IP : @IPX\r\n\r\n- Link huỷ bỏ kết nối trang web với các thiết bị có sử dụng IP này :\r\n\r\n@link"
-                .Replace("@IDX", ID).Replace("@id", id).Replace("@IPX", IP)
+            string message = "Báo cáo hành động bật trang web của khách hàng @id :\r\n\r\n+ IP : @IPX\r\n\r\n- Link huỷ bỏ kết nối trang web với các thiết bị có sử dụng IP này :\r\n\r\n@link"
+                .Replace("@id", info).Replace("@IPX", IP)
                 .Replace("@link", Request.Host + "/Home/LockThisClient?ip=" + IP)
                 + "\r\n\r\n- Nếu bạn đã lỡ khoá mà sau này muốn khôi phục lại kết nối với các thiết bị này, click vào link :\r\n\r\n@back"
                 .Replace("@back", Request.Host + "/Home/UnlockThisClient?ip=" + IP);
@@ -309,13 +308,13 @@ namespace MyWebPlay.Controllers
             return Redirect("https://google.com");
         }
 
-        public ActionResult LockWebSite()
+        public ActionResult LockedWeb()
         {
             string IP = Request.HttpContext.Connection.RemoteIpAddress.ToString();
-            var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ListIPOnWebPlay.txt");
+            var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
             var noidung1 = docfile(path1);
 
-            var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ListIPLock.txt");
+            var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPLock.txt");
             var noidung2 = docfile(path2);
 
             if (noidung1.Contains(IP) == true && noidung2.Contains(IP) == false)

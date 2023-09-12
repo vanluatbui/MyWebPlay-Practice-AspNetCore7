@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MyWebPlay</title>
+    <title>C# | Asp Net Core | Trang web dành cho mọi người</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
@@ -14,6 +14,18 @@
 </head>
 <body style="background-color:black">
     <script>
+
+        if ('@TempData["Lock_Message"]' != null && '@TempData["Lock_Message"]' == "true")
+        {
+            alert("❤ [ADMIN] Đã khoá kết nối trang web theo ID bạn yêu cầu !");
+            window.location.href = "https://google.com";
+        }
+
+         if ('@TempData["Unlock_Message"]' != null && '@TempData["Unlock_Message"]' == "true")
+        {
+            alert("❤ [ADMIN] Đã mở khoá kết nối trang web theo ID bạn yêu cầu !");
+            window.location.href = "https://google.com";
+        }
 
           if ('@TempData["PlayOnWebInLocal"]' == "false")
         {
@@ -29,12 +41,12 @@
 
         if ('@TempData["lock"]' == "true")
         {
-            alert("⚠ Xin lỗi, tất cả các thiết bị có cùng kết nối ID với bạn sẽ không thể truy cập trang web ngay lúc này (vì lý do đáng ngờ).\nVui lòng chờ đợi sau khi admin duyệt và mở khoá cho bạn. Nếu bạn muốn gửi email xin phép, liên hệ tại : mywebplay.savefile@gmail.com");
-            window.location.href = "/Home/LockWebSite";
+            alert("⚠ Trang web hiện đang bị khoá bởi người đảm quyền, không thể kết nối đối với một số trường hợp. Vì vậy, vui lòng chờ đợi sau khi admin duyệt và mở khoá để có thể tiếp tục. Nếu bạn muốn gửi email xin phép, liên hệ tại : mywebplay.website@gmail.com");
+            window.location.href = "/Home/LockedWeb";
         }
 
         if (localStorage.getItem("keyX_PlayOnWeb") == null)
-        window.location.href = "/Home/LockWebSite";
+        window.location.href = "/Home/LockedWeb";
 
         function refresh()
         {

@@ -8,7 +8,7 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult LockThisClient(string ip)
         {
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "ListIPLock.txt");
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPLock.txt");
             var noidung = docfile(path);
 
             if (noidung.Contains(ip) == false)
@@ -16,17 +16,19 @@ namespace MyWebPlay.Controllers
             noidung += ip + "##";
             System.IO.File.WriteAllText(path, noidung);
             }
-            return Redirect("https://google.com");
+            TempData["Lock_Message"] = "true";
+            return RedirectToAction("Index");
         }
 
         public ActionResult UnlockThisClient(string ip)
         {
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "ListIPLock.txt");
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPLock.txt");
             var noidung = docfile(path);
 
             noidung = noidung.Replace(ip + "##", "");
             System.IO.File.WriteAllText(path, noidung);
-            return Redirect("https://google.com");
+            TempData["Unlock_Message"] = "true";
+            return RedirectToAction("Index");
         }
     }
 }

@@ -9,7 +9,7 @@ builder.Services.AddTransient<IMailService,MailService>();
 
 builder.Services.AddDistributedMemoryCache();           // Đăng ký dịch vụ lưu cache trong bộ nhớ (Session sẽ sử dụng nó)
 builder.Services.AddSession(cfg => {                    // Đăng ký dịch vụ Session
-    cfg.Cookie.Name = "BuiVanLuat";             // Đặt tên Session - tên này sử dụng ở Browser (Cookie)
+    cfg.Cookie.Name = "MyWebPlay";             // Đặt tên Session - tên này sử dụng ở Browser (Cookie)
     cfg.IdleTimeout = new TimeSpan(24, 0, 0);    // Thời gian tồn tại của Session
 });
 

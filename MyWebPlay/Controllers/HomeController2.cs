@@ -9,7 +9,7 @@ namespace MyWebPlay.Controllers
         public ActionResult SQL_InsertDoc()
         {
             khoawebsiteClient();
-            ViewBag.VD = "SV001\tBùi Văn Luật\t10\t20/06/2000\r\nSV002\tNguyễn Văn Đạt\t9.5\t15/08/2001\r\nSV003\tTrần Chí Khôi\t2.5\t29/07/1990\r\nSV004\tLê Tuấn Kiệt\t9.2\t05/12/1995\r\nSV005\tĐào Vũ Hạnh\t4.8\t28/03/1992";
+            ViewBag.VD = "SV001\tMyWebPlay Asp Net Core\t10\t20/06/2000\r\nSV002\tNguyễn Văn Đạt\t9.5\t15/08/2001\r\nSV003\tTrần Chí Khôi\t2.5\t29/07/1990\r\nSV004\tLê Tuấn Kiệt\t9.2\t05/12/1995\r\nSV005\tĐào Vũ Hạnh\t4.8\t28/03/1992";
             return View();
         }
 
@@ -20,7 +20,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult SQL_InsertDoc(IFormCollection f)
         {
-            ViewBag.VD = "SV001\tBùi Văn Luật\t10\t20/06/2000\r\nSV002\tNguyễn Văn Đạt\t9.5\t15/08/2001\r\nSV003\tTrần Chí Khôi\t2.5\t29/07/1990\r\nSV004\tLê Tuấn Kiệt\t9.2\t05/12/1995\r\nSV005\tĐào Vũ Hạnh\t4.8\t28/03/1992";
+            ViewBag.VD = "SV001\tMyWebPlay Asp Net Core\t10\t20/06/2000\r\nSV002\tNguyễn Văn Đạt\t9.5\t15/08/2001\r\nSV003\tTrần Chí Khôi\t2.5\t29/07/1990\r\nSV004\tLê Tuấn Kiệt\t9.2\t05/12/1995\r\nSV005\tĐào Vũ Hạnh\t4.8\t28/03/1992";
             string table = f["Table"].ToString();
             string trangthai = f["TrangThai"].ToString();
             string dulieu = f["DuLieu"].ToString();
@@ -108,7 +108,7 @@ namespace MyWebPlay.Controllers
         public ActionResult JSON_InsertDoc()
         {
             khoawebsiteClient();
-            ViewBag.VD = "SV001\tBùi Văn Luật\t10\t20/06/2000\r\nSV002\tNguyễn Văn Đạt\t9.5\t15/08/2001\r\nSV003\tTrần Chí Khôi\t2.5\t29/07/1990\r\nSV004\tLê Tuấn Kiệt\t9.2\t05/12/1995\r\nSV005\tĐào Vũ Hạnh\t4.8\t28/03/1992";
+            ViewBag.VD = "SV001\tMyWebPlay Asp Net Core\t10\t20/06/2000\r\nSV002\tNguyễn Văn Đạt\t9.5\t15/08/2001\r\nSV003\tTrần Chí Khôi\t2.5\t29/07/1990\r\nSV004\tLê Tuấn Kiệt\t9.2\t05/12/1995\r\nSV005\tĐào Vũ Hạnh\t4.8\t28/03/1992";
             return View();
         }
 
@@ -120,7 +120,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult JSON_InsertDoc(IFormCollection f)
         {
-            ViewBag.VD = "SV001\tBùi Văn Luật\t10\t20/06/2000\r\nSV002\tNguyễn Văn Đạt\t9.5\t15/08/2001\r\nSV003\tTrần Chí Khôi\t2.5\t29/07/1990\r\nSV004\tLê Tuấn Kiệt\t9.2\t05/12/1995\r\nSV005\tĐào Vũ Hạnh\t4.8\t28/03/1992";
+            ViewBag.VD = "SV001\tMyWebPlay Asp Net Core\t10\t20/06/2000\r\nSV002\tNguyễn Văn Đạt\t9.5\t15/08/2001\r\nSV003\tTrần Chí Khôi\t2.5\t29/07/1990\r\nSV004\tLê Tuấn Kiệt\t9.2\t05/12/1995\r\nSV005\tĐào Vũ Hạnh\t4.8\t28/03/1992";
             string trangthai = f["TrangThai"].ToString();
             string dulieu = f["DuLieu"].ToString();
 

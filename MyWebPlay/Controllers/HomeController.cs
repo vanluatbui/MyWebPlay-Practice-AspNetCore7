@@ -73,19 +73,26 @@ namespace MyWebPlay.Controllers
         public void khoawebsiteClient()
         {
             string IP = Request.HttpContext.Connection.RemoteIpAddress.ToString();
-            var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
-            var noidung1 = docfile(path1);
 
             var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPLock.txt");
             var noidung2 = docfile(path2);
 
-            if (noidung1.Contains(IP) == false || noidung2.Contains("IP"))
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
+            var noidung = docfile(path);
+
+            if (noidung2.Contains(IP))
             {
                 TempData["lock"] = "true";
             }
             else
             {
                 TempData["lock"] = "false";
+            }
+
+            if (noidung.Contains(IP) == false)
+            {
+                TempData["PlayOnWebInLocal"] = "false";
+                TempData["InError"] = "true";
             }
         }
 

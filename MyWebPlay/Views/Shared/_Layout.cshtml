@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
-    <link rel="icon" href="/images/icon.png">
+    <link rel="icon" href="/images/imagex.png">
 </head>
 <body style="background-color:black">
     <script>
@@ -19,18 +19,14 @@
         {
             alert("❤ [ADMIN] Đã khoá kết nối trang web theo ID bạn yêu cầu !");
             window.location.href = "https://google.com";
+            alert("Sẽ tiếp tục chuyển hướng trình duyệt sang google...");
         }
 
          if ('@TempData["Unlock_Message"]' != null && '@TempData["Unlock_Message"]' == "true")
         {
             alert("❤ [ADMIN] Đã mở khoá kết nối trang web theo ID bạn yêu cầu !");
+            alert("Sẽ tiếp tục chuyển hướng trình duyệt sang google...");
             window.location.href = "https://google.com";
-        }
-
-          if ('@TempData["PlayOnWebInLocal"]' == "false")
-        {
-            localStorage.removeItem("keyX_PlayOnWeb");
-            alert("Bạn đã tắt trang web MyWebPlay thành công, để sử dụng lại hãy thực hiện các bước để bật 😎 !");
         }
 
          if ('@TempData["PlayOnWebInLocal"]' == "true")
@@ -45,13 +41,18 @@
             window.location.href = "/Home/LockedWeb";
         }
 
+         if ('@TempData["PlayOnWebInLocal"]' == "false")
+        {
+            localStorage.removeItem("keyX_PlayOnWeb");
+            if ('@TempData["InError"]' == null)
+            alert("Bạn đã tắt trang web MyWebPlay thành công, để sử dụng lại hãy thực hiện các bước để bật 😎 !");
+            else
+            alert("⚠ Tất cả kết nối phiên bản của bạn hiện đã hết hạn sử dụng hoặc chưa được bật, vui lòng bật lại trang web để sử dụng !");
+        }
+
         if (localStorage.getItem("keyX_PlayOnWeb") == null)
         window.location.href = "/Home/LockedWeb";
 
-        function refresh()
-        {
-            window.location.href = "/Home/PlayRefresh";
-        }
         function muaxuan()
         {
             document.location.href= "#hihi";

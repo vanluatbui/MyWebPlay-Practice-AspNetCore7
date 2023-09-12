@@ -64,7 +64,6 @@ namespace MyWebPlay.Controllers
                 SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
                        "mywebplay.savefile@gmail.com", host + " [THONG BAO ADMIN] Play On Web In Client Local  In " + name, message, "teinnkatajeqerfl");
             }
-
             return RedirectToAction("Index");
         }
 

@@ -73,6 +73,7 @@ namespace MyWebPlay.Controllers
         public void khoawebsiteClient()
         {
             string IP = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+            TempData["IP_Client"] = IP;
 
             var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPLock.txt");
             var noidung2 = docfile(path2);
@@ -93,6 +94,10 @@ namespace MyWebPlay.Controllers
             {
                 TempData["PlayOnWebInLocal"] = "false";
                 TempData["InError"] = "true";
+            }
+            else
+            {
+                TempData["VisibleX"] = "true";
             }
         }
 

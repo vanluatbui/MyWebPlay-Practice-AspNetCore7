@@ -29,6 +29,13 @@
             window.location.href = "https://google.com";
         }
 
+         if ('@TempData["Logout_Message"]' != null && '@TempData["Logout_Message"]' == "true")
+        {
+            alert("❤ [ADMIN] Đã đăng xuất tất cả kết nối theo ID bạn yêu cầu, họ sẽ phải bật lại trang web !");
+            alert("Sẽ tiếp tục chuyển hướng trình duyệt sang google...");
+            window.location.href = "https://google.com";
+        }
+
          if ('@TempData["PlayOnWebInLocal"]' == "true")
         {
             localStorage.setItem("keyX_PlayOnWeb", "true");
@@ -41,13 +48,19 @@
             window.location.href = "/Home/LockedWeb";
         }
 
-         if ('@TempData["PlayOnWebInLocal"]' == "false")
+         if ('@TempData["PlayOnWebInLocal"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null))
         {
             localStorage.removeItem("keyX_PlayOnWeb");
             if ('@TempData["InError"]' == null)
             alert("Bạn đã tắt trang web MyWebPlay thành công, để sử dụng lại hãy thực hiện các bước để bật 😎 !");
             else
             alert("⚠ Tất cả kết nối phiên bản của bạn hiện đã hết hạn sử dụng hoặc chưa được bật, vui lòng bật lại trang web để sử dụng !");
+        }
+
+         if ('@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true")
+        {
+            alert("Trước đó có vẻ như bạn đã hành động xoá dữ liệu trình duyệt, đồng nghĩa các sự kết nối này cũng đã hết hạn.\nVui lòng thực hiện bật trang web trở lại để sử dụng!")
+            window.location.href = "/Home/RemoveIpConnectWeb?ip="+'@TempData["IP_Client"]';
         }
 
         if (localStorage.getItem("keyX_PlayOnWeb") == null)

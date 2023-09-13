@@ -34,8 +34,9 @@ namespace MyWebPlay.Controllers
             string message = "Báo cáo hành động bật trang web của khách hàng @id :\r\n\r\n+ IP : @IPX\r\n\r\n- Link huỷ bỏ kết nối trang web với các thiết bị có sử dụng IP này :\r\n\r\n@link"
                 .Replace("@id", info).Replace("@IPX", IP)
                 .Replace("@link", Request.Host + "/Home/LockThisClient?ip=" + IP)
-                + "\r\n\r\n- Nếu bạn đã lỡ khoá mà sau này muốn khôi phục lại kết nối với các thiết bị này, click vào link :\r\n\r\n@back"
-                .Replace("@back", Request.Host + "/Home/UnlockThisClient?ip=" + IP);
+                + "\r\n\r\n- Nếu bạn đã lỡ khoá mà sau này muốn khôi phục lại kết nối với các thiết bị này, click vào link :\r\n\r\n@back\r\n\r\n- Đăng xuất tất cả các kết nối từ IP này (yêu cầu đăng nhập lại hoặc kết nối đã hết hạn) :\r\n\r\n@herelink"
+                .Replace("@back", Request.Host + "/Home/UnlockThisClient?ip=" + IP)
+                .Replace("@herelink", Request.Host + "/Home/RemoveIpInWeb?ip=" + IP);
 
             if (key == "true")
             {

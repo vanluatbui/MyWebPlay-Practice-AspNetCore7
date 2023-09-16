@@ -60,8 +60,6 @@ namespace MyWebPlay.Controllers
             var tick = f["Tick"].ToString();
             try
             {
-                if (string.IsNullOrEmpty(f["txtNux"].ToString()))
-                    ViewData["Loi"] = "Trường này là bắt buộc, bạn có thể click nút trên để xử lý...";
 
                 var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
 

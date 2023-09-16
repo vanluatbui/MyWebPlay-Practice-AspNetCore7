@@ -4,8 +4,30 @@
     var so = 0;
     function xongroi()
     {
+        if (document.getElementById("CH_Num").value == "")
+        {
+            document.getElementById("loisox").innerHTML = "Trường này là bắt buộc, bạn có thể click nút bên để xử lý...";
+            window.location.href = "#CH_Num"
+            return;
+        }
+
         document.getElementById("xong").style.display = "none";
         document.getElementById("loading").style.display = "inline-block";
+        document.getElementById("Swap1").readOnly = true;
+        document.getElementById("Swap2").readOnly = true;
+        document.getElementById("Chuoi").readOnly = true;
+        document.getElementById("Num").readOnly = true;
+        document.getElementById("CH_Num").readOnly = true;
+        document.getElementById("txtansw").readOnly = true;
+        document.getElementById("ticky0").disabled = true;
+        document.getElementById("chotans").disabled = true;
+        document.getElementById("CH_Front").readOnly = true;
+        document.getElementById("CH_Back").readOnly = true;
+        document.getElementById("DapAn").readOnly = true;
+        document.getElementById("DA_A").readOnly = true;
+        document.getElementById("DA_B").readOnly = true;
+        document.getElementById("DA_C").readOnly = true;
+        document.getElementById("DA_D").readOnly = true;
         id = setInterval(myAlertX, 1000);
     }
 
@@ -448,7 +470,7 @@
             s += " <tr style=\"height:40px\">                                 <td></td>                             <td>                                 <br>                                    <b></b>                                    <br>                                   <hr>                                   <br>                             </td>                         </tr>";
         }
 
-        s += "<tr style=\"height:40px\">                                 <td></td>                             <td>                                    <b></b>                                    <input type=\"radio\" onclick=\"downAnswer()\" checked /><b style=\"color:aqua\"> ⬅️ Click để nạp tải đáp án (cập nhật tổng chốt answer)</b><br><p style=\"color:pink\">Lưu ý : sau khi bạn đã chỉnh sửa answer cho các dropdown ở trên thì bắt buộc bạn phải click vào nút này để cập nhật tổng chốt đáp án trắc nghiệm của bạn tại trường input textbox bên dưới)...</p>                                  <br>                             </td>                         </tr>";
+        s += "<tr style=\"height:40px\">                                 <td></td>                             <td>                                    <b></b>                                    <input id=\"chotans\" type=\"radio\" onclick=\"downAnswer()\" checked /><b style=\"color:aqua\"> ⬅️ Click để nạp tải đáp án (cập nhật tổng chốt answer)</b><br><p style=\"color:pink\">Lưu ý : sau khi bạn đã chỉnh sửa answer cho các dropdown ở trên thì bắt buộc bạn phải click vào nút này để cập nhật tổng chốt đáp án trắc nghiệm của bạn tại trường input textbox bên dưới)...</p>                                  <br>                             </td>                         </tr>";
 
         var answer = document.getElementById("setupAnswer");
         answer.innerHTML = s;
@@ -559,14 +581,15 @@
                     <td></td>
                     <td>
                         <input type="text" name="txtNum" id="Num" value="@ViewBag.CH_VD" size="20" placeholder="Liệt kê các câu hỏi (index)"> <br>
-                        <input type="text" readonly name="txtNux" id="CH_Num" placeholder="Tổng số câu hỏi bài trắc nghiệm (bắt buộc)" size="80" /> <input type="radio" onclick="checkNum()" checked> <b style="color:purple"> ⬅️ Click để cập nhật tự động</b><br>
-                        <span style="color:red">@ViewData["Loi"]</span>
+                        <input  type="text" readonly name="txtNux" id="CH_Num" placeholder="Tổng số câu hỏi bài trắc nghiệm (bắt buộc)" size="80" /> <input type="radio" onclick="checkNum()" checked> <b style="color:purple"> ⬅️ Click để cập nhật tự động</b><br>
+                        <span style="color:red" id="loisox"></span>
                     </td>
                 </tr>
 
                 <tr style="height:40px">
                     <td></td>
-                          <td><b><u>Xem lại nội dung bài trắc nghiệm của bạn để tự tìm và đánh giá phân tách phù hợp (xem ví dụ)...</u></b></td>
+                          <td
+                              ><b><u>Xem lại nội dung bài trắc nghiệm của bạn để tự tìm và đánh giá phân tách phù hợp (xem ví dụ)...</u></b></td>
                     </tr>
 
    
@@ -628,7 +651,7 @@
                                 <br>
                                    <b>Chọn những câu không cần hoán vị đáp án - theo index hệ thống * start in 1 (xem ví dụ) : </b>
                                    <br>
-                                <input type="text" name="txtNoSwap" value="@ViewBag.NoSwap_VD" size="50">
+                                <input type="text" name="txtNoSwap" id="Swap1" value="@ViewBag.NoSwap_VD" size="50">
                             </td>
                         </tr>
 
@@ -638,7 +661,7 @@
                                 <br>
                                    <b>Nhận dạng dấu hiệu của đáp án xuất hiện trong câu, nó sẽ làm cho câu đó không bị hoán vị (hãy kỹ càng - cẩn thận - mỗi dấu hiệu cách nhau bởi Enter) : </b>
                                    <br>
-                                <textarea name="txtHoanVi" cols="80" rows="10">@ViewBag.HoanVi_VD</textarea>
+                                <textarea id="Swap2" name="txtHoanVi" cols="80" rows="10">@ViewBag.HoanVi_VD</textarea>
                             </td>
                         </tr>
 
@@ -670,7 +693,7 @@
                             <td style="display:none" id="win">
                                   <b style="color:deeppink">Hoặc là bạn cũng có thể thiết đặt các đáp án tại đây...</b><br><b style="color:deeppink">Forcus tại input bên dưới và lần lượt gõ đáp án theo nguyên tắc như sau (1 : đáp án A, 2 : đáp án B, 3 : đáp án C, 4 : Đáp án D)
                                   </b><br><br>
-                                  <input id="txt" type="number" size="1" min="1" max="4"  onkeyup ="changeDA()" />
+                                  <input id="txtansw" type="number" size="1" min="1" max="4"  onkeyup ="changeDA()" />
                             </td>
                         </tr>
                       

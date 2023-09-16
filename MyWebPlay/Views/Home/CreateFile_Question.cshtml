@@ -5,6 +5,7 @@
     {
         document.getElementById("xong").style.display = "none";
         document.getElementById("loading").style.display = "inline-block";
+        document.getElementById("chuoi").readOnly = true;
         id = setInterval(myAlertX, 1000);
     }
 
@@ -39,7 +40,7 @@
                         <br>
                             <b style="color:yellow">Để tránh trường hợp có thể xảy ra, tốt nhất bạn nên lưu và thực hiện nội dung question answer đâu đó trên local và sao chép chúng thông qua vào trường điền dưới đây...</b>
                             <br>
-                    <textarea rows="20" cols="150" name="txtChuoi" autofocus>@ViewBag.ChuoiVD</textarea>
+                    <textarea rows="20" cols="150" id="chuoi" name="txtChuoi" autofocus>@ViewBag.ChuoiVD</textarea>
                 </td>
             </tr>
 

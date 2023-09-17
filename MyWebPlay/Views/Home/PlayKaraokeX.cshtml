@@ -272,10 +272,12 @@ function showlist()
         var chonX = document.getElementById("chonKarax");
         var online = document.getElementById("online");
         var help = document.getElementById("helpYoutube");
+        var help2 = document.getElementById("Youtubehelp");
         if (chon == 0)
         {
             online.style.display = "none";
             help.style.display = "none";
+             help2.style.display = "none";
         chonX.value = "1";
         }
         else if (chon == 1)
@@ -283,18 +285,21 @@ function showlist()
         chonX.value = "2";
         online.style.display = "inline-block";
         help.style.display = "none";
+         help2.style.display = "none";
         }
         else  if (chon == 2)
         {
         chonX.value = "3";
          online.style.display = "inline-block";
          help.style.display = "none";
+          help2.style.display = "none";
         }
         else  if (chon == 3)
         {
         chonX.value = "4";
          online.style.display = "inline-block";
          help.style.display = "inline-block";
+         help2.style.display = "inline-block";
         }
     }
 
@@ -375,9 +380,19 @@ function showlist()
     }
 
     var flix = 0;
+    var sai = 0;
 
     function PlayKaraoke()
     {
+        if (sai == 0 && '@ViewBag.BehindYoutube' == "YES" && '@ViewBag.Share' != "YES" && '@ViewBag.Share' != "YES - OK")
+        {
+             document.getElementById("musix").pause();
+             document.getElementById("music").pause();
+           you = false;
+           sai = 1;
+            return;
+        }
+
         if (document.getElementById("music").currentTime != document.getElementById("musix").currentTime)
         document.getElementById("music").currentTime = document.getElementById("musix").currentTime;
 
@@ -388,6 +403,15 @@ function showlist()
 
     function PlayKaraokeX()
     {
+         if (sai == 0 && '@ViewBag.BehindYoutube' == "YES" && '@ViewBag.Share' != "YES" && '@ViewBag.Share' != "YES - OK")
+        {
+             document.getElementById("music").pause();
+             document.getElementById("musix").pause();
+           you = false;
+           sai = 1;
+            return;
+        }
+
          if (document.getElementById("musix").currentTime != document.getElementById("music").currentTime)
         document.getElementById("musix").currentTime = document.getElementById("music").currentTime;
 
@@ -407,6 +431,7 @@ function showlist()
     {
          document.getElementById("musix").currentTime = 0;
          document.getElementById("music").currentTime =0;
+
          t = 10;
           kk = 0;
         empty = -1;
@@ -475,6 +500,24 @@ function showlist()
         document.getElementById("musix").pause();
 
         you = false;
+    }
+
+    function playxem()
+    {
+         document.getElementById("music").play();
+             document.getElementById("musix").play();
+          document.getElementById("music").currentTime = 0;
+          document.getElementById("musix").currentTime = 0;
+         dongmomenu();
+        if (elem.requestFullscreen)
+                    elem.requestFullscreen();
+                     else if (elem.webkitRequestFullscreen) /* Safari */
+                    elem.webkitRequestFullscreen();
+                   else if (elem.msRequestFullscreen) /* IE11 */
+                    elem.msRequestFullscreen();
+
+                    document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - ON</b>";
+                    document.getElementById("sorry").style.display = "none";
     }
 
     function xemplay()
@@ -928,13 +971,13 @@ function showlist()
 
 @if (ViewBag.Share != "YES" && ViewBag.Share != "ERROR")
 {
-<audio id="music" autoplay hidden  onplay="PlayKaraoke()" onplaying="PlayY()" onpause="PlayXKaraoke()" onended="StopKaraoke()">
+           <audio id="music" autoplay hidden  onplay="PlayKaraoke()" onplaying="PlayY()" onpause="PlayXKaraoke()" onended="StopKaraoke()">
     <source src="@ViewBag.Music" type="audio/mpeg">
 </audio>
 
 <audio id="musix" autoplay hidden muted onplay="PlayKaraokeX()" onplaying="PlayZ()" onpause="PlayXKaraokeX()" onended="StopKaraoke()">
     <source src="@ViewBag.Musix" type="audio/mpeg">
-</audio>
+            </audio>
 
 <textarea id="txtKara" hidden>@ViewBag.Karaoke</textarea>
 
@@ -1139,6 +1182,7 @@ function showlist()
                       <br><br>
                       <input name="txtOnline" id="online" size="100" style="display:none" type="text" placeholder="Nhập link online background của bạn thực hiện karaoke..." />
                      <br><span id="helpYoutube" style="color:red; display:none"><u>Lưu ý</u> : một số link Youtube có thể không khả dụng hoặc bạn nên cố gắng thử lại (và hãy tìm video youtube dài phút nhất có thể 😃)</span>
+                     <br><span id="Youtubehelp" style="color:blueviolet; display:none">Với lựa chọn này, để đảm bảo sự tuyệt đối thì ban đầu nhạc sẽ không được phát tự động như bình thường. Bạn vui lòng tự canh đợi sau khi video Youtube trên background của bạn đã bắt đầu vừa phát, hãy nhấn phím link <span style="color:orangered">Play & Start</span> để mới bắt đầu hành trình nhé 😁</span>
                 </td>
             </tr>
 
@@ -1183,16 +1227,26 @@ else
      &nbsp;&nbsp;&nbsp;<b id="xemmaudi" style="color:#e3f207">Chọn màu cho time đếm ngược bắt đầu karaoke</b> : <input type="color" onchange="doimauY()" id="mauY" value="#e3f207" />
       &nbsp;&nbsp;&nbsp; <br /><span style="color:deeppink"><b>Kích thước chữ : </b></span><input id="kichthuoc" type="number" min="0" value="80" onchange="doikichthuoc()"/>
         &nbsp;&nbsp;&nbsp;<span style="color:deeppink"><b>Vị trí xuất hiện : </b></span> <input id="hang" type="number" min="0" value="0" onchange="doihang()"/>
-        &nbsp;&nbsp;&nbsp; <button onclick="ghinho()"><b style="color:lightcoral">Ghi nhớ các cài đặt</b></button>
-        &nbsp;&nbsp;&nbsp; <b style="color:aqua"><a onclick="xemplay()" href="#xuly">Restart & full screen</a></b>
+        &nbsp;&nbsp;&nbsp; <button onclick="ghinho()"><b style="color:lightcoral">Ghi nhớ các cài đặt</b></button> &nbsp;&nbsp;&nbsp; 
+        @if (ViewBag.BehindYoutube != "YES")
+        {
+       <b style="color:aqua"><a onclick="xemplay()" href="#xuly">Restart & full screen</a></b>
+        }
+        &nbsp;&nbsp;&nbsp; 
+         @if (ViewBag.BehindYoutube == "YES")
+                        {
+                            <b id="sorry" style="color:coral"><a onclick="playxem()" href="#xuly">Play & full screen</a></b>
+                        }
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="StopKaraoke()"><b style="color:darkgreen">THOÁT</b></button>
       @if (ViewBag.Share != "YES - OK" && ViewBag.BHServer != "" && ViewBag.LoginServer != "")
         {
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><b style="color:red"><a onclick="copyshare()" href="#xuly">Share Karaoke</a></b>
         }
-
+        @if (ViewBag.BehindYoutube != "YES")
+        {
     <br /><br /><b><span style="color:white">Xin lỗi, đôi khi vì sự cố kết nối mạng mà khiến cho chức năng Karaoke : nhạc và đoạn text lời xuất hiện không đồng nhất với nhau hay dữ liệu chưa được tải lên hết.
         <br>Mỗi khi gặp sự cố này, phiền bạn hãy nhấn nút <button style="color:purple" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI</b></button> để tải lại dữ liệu cho đến khi một cách hoàn tất. Xin cảm ơn!</span></b>
+        }
     <br />
     </div>
 
@@ -1267,7 +1321,7 @@ else if (ViewBag.SuDung == "Video")
     else if (ViewBag.Share == "YES")
     {
         <br />
-        <h3 style="color:yellow">✔️ Dữ liệu đang được tải, vui lòng chờ trong ít phút!</h3>
+        <h3 style="color:yellow">✔️ Dữ liệu Karaoke đang được tải, vui lòng chờ trong ít phút!</h3>
         <br />
                     <img src="/Image_Play/waiting.gif" />
     <div style="display:none">
@@ -1483,6 +1537,7 @@ else if (ViewBag.SuDung == "Video")
                       <br><br>
                       <input name="txtOnline" id="online" size="100" style="display:none" type="text" placeholder="Nhập link online background của bạn thực hiện karaoke..." />
                      <br><span id="helpYoutube" style="color:red; display:none"><u>Lưu ý</u> : một số link Youtube có thể không khả dụng hoặc bạn nên cố gắng thử lại (và hãy tìm video youtube dài phút nhất có thể 😃)</span>
+                      <br><span id="Youtubehelp" style="color:blueviolet; display:none">Với lựa chọn này, để đảm bảo sự tuyệt đối thì ban đầu nhạc sẽ không được phát tự động như bình thường. Bạn vui lòng tự canh đợi sau khi video Youtube trên background của bạn đã bắt đầu vừa phát, hãy nhấn phím link <span style="color:orangered">Play & Start</span> để mới bắt đầu hành trình nhé 😁</span>
                 </td>
             </tr>
 

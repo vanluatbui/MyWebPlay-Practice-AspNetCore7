@@ -342,6 +342,8 @@ namespace MyWebPlay.Controllers
             }
             else if (chon == "4")
             {
+                ViewBag.BehindYoutube = "YES";
+
                 var link = f["txtOnline"].ToString();
 
                 link = link.Replace("&", "");

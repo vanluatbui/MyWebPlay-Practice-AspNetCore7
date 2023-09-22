@@ -184,19 +184,10 @@ namespace MyWebPlay.Controllers
                 email = "mywebplay.savefile@gmail.com";
             }
             ViewBag.Email = email;
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "RandomLayOut.txt");
 
-            var file = new FileInfo(path);
 
-            if (System.IO.File.Exists(path))
-            {
-                ViewBag.RandomLayout = System.IO.File.ReadAllText(path);
-            }
-
-            if (string.IsNullOrEmpty(ViewBag.RandomLayout) == false || string.IsNullOrWhiteSpace(ViewBag.RandomLayout) == false)
-            {
                 ViewBag.XuLy = "<br><a href=\"#\" onclick=\"chuyendoi()\">_</a><br>";
-            }
+
                 return View();
         }
 

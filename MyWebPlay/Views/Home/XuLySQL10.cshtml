@@ -1,0 +1,45 @@
+﻿<table align="center">
+    <h2 style="text-align:center">Xử Lý SQL 10</h2>
+
+    <h3 style="color:yellow" onclick="muaxuan()">@ViewBag.KetQua</h3>
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <tr style="height:40px">
+            <td> </td>
+            <td>
+                <b>Nhập nội dung statement : </b>
+                <br>
+                <textarea name="txtStatement" cols="100" rows="12">@ViewBag.Statement</textarea>
+                <br><br>
+                <b>Nhập input [TAB-TPLAY] output - replace params (cách nhau bởi Enter) : </b>
+                <br>
+                <textarea name="txtReplace" cols="100" rows="12">@ViewBag.Replace</textarea>
+                <br><br>
+                 <b>Copy từ file SQL Db Xml và dán liệt kê các param + type của mỗi thành phần tại đây (xem ví dụ - cách nhau bởi Enter) : </b>
+                <br>
+                <textarea name="txtParam" cols="100" rows="12">@ViewBag.Param</textarea>
+            </td>
+        </tr>
+      
+        <tr style="height:40px">
+            <td></td>
+            <td><br>
+                <input type="Submit" value="Kết Quả" />
+            </td>
+        </tr>
+    }
+</table>
+<br /><br />
+
+******************************************************************************************************************************************************************************
+
+<br />
+<br />
+<br />
+
+<div id="hihi">
+                @Html.Raw(ViewBag.Result)
+</div>

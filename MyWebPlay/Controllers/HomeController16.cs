@@ -168,6 +168,15 @@ namespace MyWebPlay.Controllers
             return View();
         }
 
+        public ActionResult XuLySQL10()
+        {
+            khoawebsiteClient();
+            ViewBag.Statement = "SELECT  w2_User.*\r\n  FROM  w2_User\r\n WHERE  w2_User.user_id = @user_id\r\n   AND  w2_User.user_id_extend = @user_id_extend\r\n   AND  w2_User.user_name = @user_name\r\n   AND  w2_User.user_name_day = @user_name_day\r\n   AND  w2_User.user_age = @user_age";
+            ViewBag.Replace = "@user_id\tuser001\r\n@user_id_extend\tABCDE\r\n@user_name_day\t20/06/2000\r\n@user_name\tLê Thị Mỹ Thư\r\n@user_age\t25";
+            ViewBag.Param = "<Input Name=\"user_id\" Type=\"varchar\" Size=\"10\" />\r\n<Input Name=\"user_id_extend\" Type=\"char\" Size=\"50\" />\r\n<Input Name=\"user_name\" Type=\"nvarchar\" Size=\"100\" />\r\n<Input Name=\"user_name_day\" Type=\"datetime\" />\r\n<Input Name=\"user_age\" Type=\"int\" />";
+            return View();
+        }
+
         [HttpPost]
         public ActionResult XuLySQL8(IFormCollection f)
         {
@@ -188,6 +197,88 @@ namespace MyWebPlay.Controllers
             }
 
             result += "\n\nPRINT N'XONG, QUÁ TRÌNH XỬ LÝ HOÀN TẤT!'";
+
+            result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+
+            ViewBag.Result = result;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult XuLySQL10(IFormCollection f)
+        {
+            var statement = f["txtStatement"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r");
+            var replace = f["txtReplace"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r").Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
+            var param = f["txtParam"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r").Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
+
+            ViewBag.Statement = statement;
+            ViewBag.Replace = f["txtReplace"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r");
+            ViewBag.Param = f["txtParam"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r");
+
+            var result = statement;
+            var listInput = new List<string>();
+            var listOutput = new List<string>();
+            for (int i = 0; i < replace.Length; i++)
+            {
+                var re = replace[i].Trim(' ').Trim('\t').Split("\t", StringSplitOptions.RemoveEmptyEntries);
+                var re1 = re[0];
+                var re2 = re[1];
+                listInput.Add(re1);
+                listOutput.Add(re2);
+            }
+
+            // Sort if ...
+
+            for (int i = 0; i < listInput.Count - 1; i++)
+                for (int j = i + 1; j < listInput.Count; j++)
+                {
+                    if (listInput[j].Contains(listInput[i]))
+                    {
+                        var t = listInput[i];
+                        listInput[i] = listInput[j];
+                        listInput[j] = t;
+
+                        var tt = listOutput[i];
+                        listOutput[i] = listOutput[j];
+                        listOutput[j] = tt;
+                    }
+                }
+
+            for (int i = 0; i < listInput.Count; i++)
+                for (int j = 0; j < param.Length; j++)
+                {
+                    if (param[j].Contains("\"" + listInput[i].Replace("@", "") + "\""))
+                    {
+                        var pa = param[j];
+                        var bien = listInput[i];
+                        var tri = listOutput[i];
+                        if (pa.Contains("char") == true || pa.Contains("text") == true ||
+                pa.Contains("binary") == true || pa.Contains("image") == true)
+                        {
+                            result = result.Replace(bien, "N'" + tri + "'");
+                        }
+                        else
+             if (pa.Contains("memo") || pa.Contains("single") ||
+                pa.Contains("currency") || pa.Contains("money") || pa.Contains("double") ||
+                pa.Contains("long") || pa.Contains("byte") ||
+                pa.Contains("bit") || pa.Contains("int") ||
+                pa.Contains("decimal") || pa.Contains("numeric") ||
+                pa.Contains("money") || pa.Contains("float") ||
+                pa.Contains("real"))
+                        {
+                            result = result.Replace(bien, tri);
+                        }
+                        else if (pa.Contains("date"))
+                        {
+                            result = result.Replace(bien, "'" + tri + "'");
+                        }
+                        break;
+                    }
+                }
+
 
             result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
 

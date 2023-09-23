@@ -36,7 +36,7 @@
             window.location.href = "https://google.com";
         }
 
-         if ('@TempData["PlayOnWebInLocal"]' == "true")
+         if ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true")
         {
             localStorage.setItem("keyX_PlayOnWeb", "true");
             alert("Bạn đã bật trang web MyWebPlay thành công, bạn có thể sử dụng các tính năng tại trang web 😊!");

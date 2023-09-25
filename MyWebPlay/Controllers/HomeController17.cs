@@ -186,7 +186,7 @@ namespace MyWebPlay.Controllers
             ViewBag.Email = email;
 
 
-                ViewBag.XuLy = "<br><a href=\"#\" onclick=\"chuyendoi()\">_</a><br>";
+                ViewBag.XuLy = "<br><a href=\"#\" onclick=\"chuyendoi()\">...</a><br>";
 
                 return View();
         }

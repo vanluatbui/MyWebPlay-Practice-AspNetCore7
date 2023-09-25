@@ -102,7 +102,7 @@ namespace MyWebPlay.Controllers
         }
 
 
-        public ActionResult Index()
+        public ActionResult Index(string? closex)
         {
             khoawebsiteClient();
             HttpContext.Session.Remove("TracNghiem");

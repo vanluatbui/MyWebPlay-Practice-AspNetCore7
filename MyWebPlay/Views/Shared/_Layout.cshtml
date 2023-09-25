@@ -15,25 +15,32 @@
 <body style="background-color:black">
     <script>
 
+        //var queryString = window.location.search;
+        //var urlParams = new URLSearchParams(queryString);
+        //var closex = urlParams.get('closex');
+
         if ('@TempData["Lock_Message"]' != null && '@TempData["Lock_Message"]' == "true")
         {
-            alert("❤ [ADMIN] Đã khoá kết nối trang web theo ID bạn yêu cầu !");
-            window.location.href = "https://google.com";
-            alert("Sẽ tiếp tục chuyển hướng trình duyệt sang google...");
+            alert("❤ [ADMIN] Đã [KHOÁ] kết nối trang web theo ID bạn yêu cầu !");
+            var win = window.open("about:blank", "_self");
+             win.close();
+             window.close();
         }
 
          if ('@TempData["Unlock_Message"]' != null && '@TempData["Unlock_Message"]' == "true")
         {
-            alert("❤ [ADMIN] Đã mở khoá kết nối trang web theo ID bạn yêu cầu !");
-            alert("Sẽ tiếp tục chuyển hướng trình duyệt sang google...");
-            window.location.href = "https://google.com";
+             alert("❤ [ADMIN] Đã [MỞ KHOÁ] kết nối trang web theo ID bạn yêu cầu !");
+             var win = window.open("about:blank", "_self");
+             win.close();
+             window.close();
         }
 
          if ('@TempData["Logout_Message"]' != null && '@TempData["Logout_Message"]' == "true")
         {
             alert("❤ [ADMIN] Đã đăng xuất tất cả kết nối theo ID bạn yêu cầu, họ sẽ phải bật lại trang web !");
-            alert("Sẽ tiếp tục chuyển hướng trình duyệt sang google...");
-            window.location.href = "https://google.com";
+             var win = window.open("about:blank", "_self");
+             win.close();
+             window.close();
         }
 
          if ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true")
@@ -59,7 +66,7 @@
 
          if ('@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true")
         {
-            alert("Trước đó có vẻ như bạn đã hành động xoá dữ liệu trình duyệt, đồng nghĩa các sự kết nối này cũng đã hết hạn.\nVui lòng thực hiện bật trang web trở lại để sử dụng!")
+            alert("Trước đó có vẻ như bạn đã hành động xoá dữ liệu trình duyệt, đồng nghĩa các sự kết nối này cũng đã hết hạn.\nVui lòng thực hiện bật trang web trở lại để sử dụng hoặc sự dụng lại ứng dụng trình duyệt mà bạn đã từng bật sử dụng trang web!")
             window.location.href = "/Home/RemoveIpConnectWeb?ip="+'@TempData["IP_Client"]';
         }
 

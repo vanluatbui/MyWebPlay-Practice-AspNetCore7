@@ -172,7 +172,7 @@ namespace MyWebPlay.Controllers
         {
             khoawebsiteClient();
             ViewBag.Statement = "SELECT  w2_User.*\r\n  FROM  w2_User\r\n WHERE  w2_User.user_id = @user_id\r\n   AND  w2_User.user_id_extend = @user_id_extend\r\n   AND  w2_User.user_name = @user_name\r\n   AND  w2_User.user_name_day = @user_name_day\r\n   AND  w2_User.user_age = @user_age";
-            ViewBag.Replace = "@user_id\tuser001\r\n@user_id_extend\tABCDE\r\n@user_name_day\t20/06/2000\r\n@user_name\tLê Thị Mỹ Thư\r\n@user_age\t25";
+            ViewBag.Replace = "@user_id\tuser001\r\n@user_id_extend\t\r\n@user_name_day\t20/06/2000\r\n@user_name\tLê Thị Mỹ Thư\r\n@user_age\t25";
             ViewBag.Param = "<Input Name=\"user_id\" Type=\"varchar\" Size=\"10\" />\r\n<Input Name=\"user_id_extend\" Type=\"char\" Size=\"50\" />\r\n<Input Name=\"user_name\" Type=\"nvarchar\" Size=\"100\" />\r\n<Input Name=\"user_name_day\" Type=\"datetime\" />\r\n<Input Name=\"user_age\" Type=\"int\" />";
             return View();
         }
@@ -225,7 +225,7 @@ namespace MyWebPlay.Controllers
             {
                 var re = replace[i].Trim(' ').Trim('\t').Split("\t", StringSplitOptions.RemoveEmptyEntries);
                 var re1 = re[0];
-                var re2 = re[1];
+                var re2 = (re.Length < 2) ? "" : re[1];
                 listInput.Add(re1);
                 listOutput.Add(re2);
             }

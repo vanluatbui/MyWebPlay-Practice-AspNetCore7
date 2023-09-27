@@ -11,7 +11,7 @@ namespace MyWebPlay.Extension
             if (string.IsNullOrEmpty(clearText))
                 return "[NOT]";
 
-            string EncryptionKey = "admin-VANLUAT3275";
+            string EncryptionKey = "buivanluat-ADMIN3275";
             byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
             using (Aes encryptor = Aes.Create())
             {
@@ -35,7 +35,7 @@ namespace MyWebPlay.Extension
             if (string.IsNullOrEmpty(cipherText))
                 return "[NOT]";
 
-            string EncryptionKey = "admin-VANLUAT3275";
+            string EncryptionKey = "buivanluat-ADMIN3275";
             cipherText = cipherText.Replace(" ", "+");
             byte[] cipherBytes = Convert.FromBase64String(cipherText);
             using (Aes encryptor = Aes.Create())

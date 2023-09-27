@@ -170,7 +170,7 @@ namespace MyWebPlay.Controllers
                     fi = fi.Replace("/", "");
                     fi = fi.Replace(":", "");
 
-                    if (password != "admin-VANLUAT3275")
+                    if (password != "buivanluat-ADMIN3275")
                     {
                         if (chonXY == "1")
                         {
@@ -421,7 +421,7 @@ namespace MyWebPlay.Controllers
             {
                 if (ViewBag.Y == 1)
                 {
-                    if (flag == 0 && homePass != "admin-VANLUAT3275" && tong > 2000000)
+                    if (flag == 0 && homePass != "buivanluat-ADMIN3275" && tong > 2000000)
                     {
                         flag = 6;
                     }
@@ -511,7 +511,7 @@ namespace MyWebPlay.Controllers
                             else
                                 pao = "file" + folder + "/" + fileName;
 
-                            if (homePass != "admin-VANLUAT3275")
+                            if (homePass != "buivanluat-ADMIN3275")
                             {
                                 var infoFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"));
                                 var files = infoFile.Split("\n");
@@ -532,14 +532,14 @@ namespace MyWebPlay.Controllers
                                 if (flay == 0)
                                 {
                                     var result = pao + "\t" + DateTime.Parse(f["txtHetHan"].ToString()).ToString("dd/MM/yyyy")+"\n";
-                                    if (homePass == "admin-VANLUAT3275" || success == true && SoSanh2Ngay(d1, m1, y1, d2, m2, y2) > 0 && SoSanh2Ngay(d1, m1, y1, d3, m3, y3) <= 0)
+                                    if (homePass == "buivanluat-ADMIN3275" || success == true && SoSanh2Ngay(d1, m1, y1, d2, m2, y2) > 0 && SoSanh2Ngay(d1, m1, y1, d3, m3, y3) <= 0)
                                         System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile + result);
                                 }
                             }
 
                             string tenfile = ViewBag.X == 1 ? TenFile[i].ToString() : fileName;
 
-                            if (homePass == "admin-VANLUAT3275" || success == true && SoSanh2Ngay(d1, m1, y1, d2, m2, y2) > 0 && SoSanh2Ngay(d1, m1, y1, d3, m3, y3) <= 0)
+                            if (homePass == "buivanluat-ADMIN3275" || success == true && SoSanh2Ngay(d1, m1, y1, d2, m2, y2) > 0 && SoSanh2Ngay(d1, m1, y1, d3, m3, y3) <= 0)
                             {
                                 using (Stream fileStream = new FileStream(path, FileMode.Create))
                                 {
@@ -549,7 +549,7 @@ namespace MyWebPlay.Controllers
                         }
                     }
 
-                    if (flag == 0 && homePass != "admin-VANLUAT3275")
+                    if (flag == 0 && homePass != "buivanluat-ADMIN3275")
                     {
                         if (success == false || (success == true && (SoSanh2Ngay(d1,m1,y1,d2,m2,y2) <= 0 || SoSanh2Ngay(d1, m1, y1, d3, m3, y3) > 0)))
                         {
@@ -588,13 +588,13 @@ namespace MyWebPlay.Controllers
                     ViewBag.KetQua = "Lỗi hệ thống - theo yêu cầu của bạn. Tên path thư mục đã tồn tại ...";
                     return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
                 }
-                else if (flag == 5 && homePass != "admin-VANLUAT3275")
+                else if (flag == 5 && homePass != "buivanluat-ADMIN3275")
                 {
                     ViewData["LoiY"] = "Vui lòng chọn ngày hết hạn các file này sau ngày hôm nay và thời hạn các file của bạn được phép tồn tại trên Server hệ thống là 7 ngày!";
                     ViewBag.KetQua = "Vui lòng chọn ngày hết hạn các file này sau ngày hôm nay và thời hạn các file của bạn được phép tồn tại trên Server hệ thống là 7 ngày!";
                     return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
                 }
-                else if (flag == 6 && homePass != "admin-VANLUAT3275")
+                else if (flag == 6 && homePass != "buivanluat-ADMIN3275")
                 {
                     ViewData["Loi"] = "⚠️ Hiện tại mỗi lượt bạn chỉ có thể tải lên hệ thống các file tổng kích thước tối đa không quá 2 MB!";
                     ViewBag.KetQua = "⚠️ Hiện tại mỗi lượt bạn chỉ có thể tải lên hệ thống các file tổng kích thước tối đa không quá 2 MB!";
@@ -605,7 +605,7 @@ namespace MyWebPlay.Controllers
 
             //SendEmail.SendMail2Step("mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", name, name, "teinnkatajeqerfl");
 
-            var xemPass = homePass == "admin-VANLUAT3275" ? " - OFF SAVE ADMIN IS CORRECT" : "";
+            var xemPass = homePass == "buivanluat-ADMIN3275" ? " - OFF SAVE ADMIN IS CORRECT" : "";
 
                 ViewBag.KetQua = ViewBag.Y == 0 ? "[NO UPLOAD] - Thành công (xử lý admin) !" : "[YES UPLOAD"+xemPass+"]" + " - Thành công! Tất cả các file đã được đăng tải lên Server hệ thống ...";
            
@@ -615,7 +615,7 @@ namespace MyWebPlay.Controllers
         public ActionResult FindSubFolders (string folder, string password)
         {
             khoawebsiteClient();
-            if (password != "admin-VANLUAT3275" || HttpContext.Session.GetObject<string>("LoginAdmin") != "YES")
+            if (password != "buivanluat-ADMIN3275" || HttpContext.Session.GetObject<string>("LoginAdmin") != "YES")
             {
                 return Redirect("/Home/DownloadFile");
             }
@@ -626,7 +626,7 @@ namespace MyWebPlay.Controllers
         public ActionResult AllDownload(string password)
         {
             khoawebsiteClient();
-            if (password != "admin-VANLUAT3275" || HttpContext.Session.GetObject<string>("LoginAdmin") != "YES")
+            if (password != "buivanluat-ADMIN3275" || HttpContext.Session.GetObject<string>("LoginAdmin") != "YES")
             {
                 return Redirect("/Home/DownloadFile");
             }
@@ -850,7 +850,7 @@ namespace MyWebPlay.Controllers
         public ActionResult XoaAllFile(string password, string url)
         {
             khoawebsiteClient();
-            if (string.Compare(password,"admin-VANLUAT3275", false) == 0 && HttpContext.Session.GetObject<string>("LoginAdmin") == "YES")
+            if (string.Compare(password,"buivanluat-ADMIN3275", false) == 0 && HttpContext.Session.GetObject<string>("LoginAdmin") == "YES")
             {
                 HttpContext.Session.Remove("LoginAdmin");
                 DirectoryInfo fx = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file"));

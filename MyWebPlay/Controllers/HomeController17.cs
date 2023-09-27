@@ -14,6 +14,11 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult PlayOnWebInLocalX(string key, string? info)
         {
+            if (info == null || info == "")
+            {
+                return View("LockedWeb");
+            }
+
             khoawebsiteClient();
             if (TempData["lock"].ToString() == "true")
                 return RedirectToAction("LockedWeb");
@@ -311,6 +316,25 @@ namespace MyWebPlay.Controllers
             if (noidung1.Contains(IP) == true && noidung2.Contains(IP) == false)
                 return RedirectToAction("Index");
                 return View();
+        }
+
+        public ActionResult LockedWebClient(string? LockedClientID)
+        {
+            string IP = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/LockedIPClient.txt");
+            var noidung = docfile(path);
+            if (LockedClientID == null || LockedClientID == "")
+            {
+                if (noidung.Contains(IP) == false)
+                System.IO.File.WriteAllText(path, noidung + IP + "<>BVL000##");
+                return View();
+            }
+            else
+            {
+                    noidung = noidung.Replace(IP + "<>" + LockedClientID + "##", "");
+                System.IO.File.WriteAllText(path, noidung);
+                return RedirectToAction("Index");
+            }
         }
     }
 }

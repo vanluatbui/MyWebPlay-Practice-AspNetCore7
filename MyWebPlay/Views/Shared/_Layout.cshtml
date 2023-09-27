@@ -19,6 +19,11 @@
         //var urlParams = new URLSearchParams(queryString);
         //var closex = urlParams.get('closex');
 
+        if ('@TempData["lockedClient"]' == "true")
+        {
+            window.location.href = "/Home/LockedWebClient?LockedClientID=";
+        }
+
         if ('@TempData["Lock_Message"]' != null && '@TempData["Lock_Message"]' == "true")
         {
             alert("❤ [ADMIN] Đã [KHOÁ] kết nối trang web theo ID bạn yêu cầu !");
@@ -66,7 +71,7 @@
 
          if ('@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true")
         {
-            alert("Trước đó có vẻ như bạn đã hành động xoá dữ liệu trình duyệt, đồng nghĩa các sự kết nối này cũng đã hết hạn.\nVui lòng thực hiện bật trang web trở lại để sử dụng hoặc sự dụng lại ứng dụng trình duyệt mà bạn đã từng bật sử dụng trang web!")
+            alert("Trước đó có vẻ như bạn đã hành động xoá dữ liệu trình duyệt, đồng nghĩa các sự kết nối này cũng đã hết hạn.\nVui lòng thực hiện bật trang web trở lại (có thể xin phép liên hệ trực tiếp với admin qua email : mywebplay.website@gmail.com) để tiếp tục sử dụng hoặc sử dụng lại ứng dụng trình duyệt mà bạn đã từng bật sử dụng trang web trước đó (nếu bạn chưa xoá dữ liệu)!")
             window.location.href = "/Home/RemoveIpConnectWeb?ip="+'@TempData["IP_Client"]';
         }
 
@@ -145,168 +150,21 @@
            }
         }
 
+        function khoawebsite()
+        {
+            window.location.href = "/Home/LockedWebClient?LockedClientID=";
+        }
+
         </script>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-black border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a style="color:white" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MyWebPlay</a>
+                <button style="color:deeppink" class="navbar-brand" asp-area="" onclick="khoawebsite()">Khoá WebSite bằng mật mã LockedClientID (<u>hãy cẩn thận đừng nhấn nhầm vào đây nếu bạn không có nhu cầu 😁</u>)</button>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-       
-                         <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="HD_API">HD_API</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="HD_Web_AspNetCore">HD_Web_AspNetCore</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="HD_Web_AspNet">HD_Web_AspNet</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="CheckText">CheckText</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="TextToColumn1">TextToColumn-X1</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="TextToColumn2">TextToColumn-X2</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="ReadNumber">ReadNumber</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="TextConvertX">Text-ConvertX</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="CSDL_MainKey">CSDL_MainKey</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="SQL_InsertDoc">SQL_InsertDoc</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="JSON_InsertDoc">JSON_InsertDoc</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="SQL_CreateTable">SQL_CreateTable</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="Cxap_CreateClass">Cxap_CreateClass</a>
-                        </li>
-     
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="Cxap_InsertValueClass">Cxap_InsertValueClass</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="String_Reverse">String_Reverse 1</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="String_Reverse2">String_Reverse 2</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="Special_OrderBy">Special_OrderBy</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="SpecialX_OrderBy">SpecialX_OrderBy</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="String_Split_Regex">String_Split_Regex</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="Check_Regex">Check_Regex</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="ResultCheck_Regex">ResultFindCheck_Regex</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="Replace_Regex">Replace_Regex</a>
-                        </li>
-
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="BangChanTri">Bảng Chân Trị</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="TronMau">Trộn Màu</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="Euler_X">Euler - Đồ thị</a>
-                        </li>
-
-                         <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="UploadFile">Upload File</a>
-                        </li>
-
-                         <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="DownloadFile">Download File</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="Regex_Replace_Multiple">Regex_Replace_Multiple</a>
-                        </li>
-
-                        @* <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="TracNghiem">Play-Trắc-Nghiệm</a>
-                        </li>*@
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="TracNghiemX_Multiple">Play-Trắc-Nghiệm_Multiple</a>
-                        </li>
-
-                          <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="PlayQuestion_Multiple">PlayQuestion_Multiple</a>
-                        </li>
-
-                         <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="ViewNoteFile">ViewNoteFile</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="PlayKaraokeX">Play-Karaoke</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="FindValueCheckInSQL">Find-Value-Check-In-SQL</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="FindCompareValueInSQL">Find-Compare-Value-In-SQL</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="GetColorAtPicture">GetColorAtPicture</a>
-                        </li>
-
-                       @*  <li class="nav-item">
-                            <a class="nav-link text-light" target="_blank" asp-area="" asp-controller="Home" asp-action="SessionPlay">Session Play</a>
-                        </li>*@
-
-                    </ul>
-                </div>
+                <span style="color:yellow">Nếu bạn vô tình click vào đây và không nhớ mật mã <b>LockedClientID</b> (mật mã này bạn phải đăng ký tạo trước đó với admin bằng cách liên hệ qua email), vui lòng liên hệ lại admin qua email mywebplay.website@gmail.com và xin cấp phép bật sử dụng lại trang web !</span>
             </div>
         </nav>
     </header>
@@ -321,7 +179,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - MyWebPlay - Bui Van Luat - Asp Net Core 7
+            &copy; 2023 - MyWebPlay - C# ~ Asp Net Core 7
         </div>
     </footer>
     <br />

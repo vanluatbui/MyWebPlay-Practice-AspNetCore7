@@ -320,7 +320,7 @@ namespace MyWebPlay.Controllers
         public ActionResult LoginAdmin(string? folder, string? password, int? id, string? url)
         {
             khoawebsiteClient();
-            if (password == "admin-VANLUAT3275")
+            if (password == "buivanluat-ADMIN3275")
             {
                 HttpContext.Session.SetObject("LoginAdmin", "YES");
 

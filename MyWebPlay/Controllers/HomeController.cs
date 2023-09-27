@@ -81,6 +81,18 @@ namespace MyWebPlay.Controllers
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
             var noidung = docfile(path);
 
+            var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/LockedIPClient.txt");
+            var noidung1 = docfile(path1);
+
+            if (noidung1.Contains(IP))
+            {
+                TempData["lockedClient"] = "true";
+            }
+            else
+            {
+                TempData["lockedClient"] = "false";
+            }
+
             if (noidung2.Contains(IP))
             {
                 TempData["lock"] = "true";

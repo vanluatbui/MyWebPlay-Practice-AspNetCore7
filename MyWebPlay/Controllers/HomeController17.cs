@@ -16,7 +16,11 @@ namespace MyWebPlay.Controllers
     public partial class HomeController : Controller
     {
         public ActionResult PlayOnWebInLocalX(string key, string? info)
-        {
+        {    
+            khoawebsiteClient();
+            if (TempData["lock"].ToString() == "true")
+                return RedirectToAction("LockedWeb");
+
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
             var noidung = docfile(path);
 
@@ -41,9 +45,6 @@ namespace MyWebPlay.Controllers
                 return View("LockedWeb");
             }
 
-            khoawebsiteClient();
-            if (TempData["lock"].ToString() == "true")
-                return RedirectToAction("LockedWeb");
 
             string message = "Báo cáo hành động bật trang web của khách hàng @info :\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@end"
                 .Replace("@info", info)

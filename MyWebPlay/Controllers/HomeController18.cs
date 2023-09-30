@@ -11,7 +11,9 @@ namespace MyWebPlay.Controllers
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
             var noidung = docfile(path);
 
-            noidung = noidung.Replace(ip + "##", "");
+           var info = ip.Split("*",StringSplitOptions.RemoveEmptyEntries);
+            noidung = noidung.Replace(info[0] + "##", "");
+            noidung = noidung.Replace(info[1] + "##", "");
             System.IO.File.WriteAllText(path, noidung);
 
             TempData["Logout_Message"] = "true";
@@ -23,7 +25,10 @@ namespace MyWebPlay.Controllers
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
             var noidung = docfile(path);
 
-            noidung = noidung.Replace(ip + "##", "");
+            var info = ip.Split("*", StringSplitOptions.RemoveEmptyEntries);
+            noidung = noidung.Replace(info[0] + "##", "");
+            noidung = noidung.Replace(info[1] + "##", "");
+
             System.IO.File.WriteAllText(path, noidung);
 
             return RedirectToAction("Index");

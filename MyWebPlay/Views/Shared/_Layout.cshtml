@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>C# | Asp Net Core | Trang web dành cho mọi người</title>
+    <title>C# | Asp Net Core | Công nghệ thông tin</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
@@ -57,6 +57,7 @@
         if ('@TempData["continue"]' == "OK")
         {
             localStorage.setItem("keyX_PlayOnWeb", "true");
+            window.location.href="/Home/LockedWebClient";
         }
 
         if ('@TempData["lock"]' == "true")

@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <title>C# | Asp Net Core | Trang web dành cho mọi người</title>
+    <title>C# | Asp Net Core | Công nghệ thông tin</title>
     <link rel="icon" href="/images/imagex.png">
  <style>
 
@@ -53,9 +53,9 @@ body {
   @using (Html.BeginForm())
     {
         @Html.ValidationSummary(true)
-        <input autofocus name="LockedClientID" size="30" />
+        <input type="password" autofocus name="LockedClientID" size="30" />
         <button hidden></button>
     }
-    <span style="color:blue">Nếu bạn vô tình click vào đây và không nhớ mật mã <b style="color:lawngreen">LockedClientID</b> (mật mã này bạn phải đăng ký tạo trước đó với admin bằng cách liên hệ qua email), vui lòng liên hệ lại admin qua email <b>mywebplay.website@gmail.com</b> và xin cấp phép bật sử dụng lại trang web !</span>
+    <span style="color:blue">Nếu bạn vô tình click vào đây và không nhớ mật mã <b style="color:lawngreen">LockedClientID</b> (mật mã này bạn phải đăng ký tạo trước đó với admin bằng cách liên hệ qua email), vui lòng liên hệ lại admin qua email <b>mywebplay.website@gmail.com</b> và xin cấp phép bật sử dụng lại trang web...<br /> Hoặc trường hợp nếu bạn đã yêu cầu cấp lại sự cho phép để tiếp tục sử dụng web cho thiết bị mới, hệ thống buộc phải chuyển hướng bạn đến trang này vì lý do bảo mật. Xin cảm ơn!</span>
 </head>
 </html>

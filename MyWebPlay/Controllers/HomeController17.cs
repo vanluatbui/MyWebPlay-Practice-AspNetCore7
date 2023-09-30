@@ -364,7 +364,7 @@ namespace MyWebPlay.Controllers
                 return View();
         }
 
-        public ActionResult LockedWebClient(string? LockedClientID)
+        public ActionResult LockedWebClient()
         {
             khoawebsiteClient();
 
@@ -381,23 +381,38 @@ namespace MyWebPlay.Controllers
 
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/LockedIPClient.txt");
             var noidung = docfile(path);
-            if (LockedClientID == null || LockedClientID == "")
-            {
-                if (noidung.Contains(IP) == false)
+
+            if (noidung.Contains(IP) == false)
                 System.IO.File.WriteAllText(path, noidung + IP + "<>[NOT-PASSWORD-3275]##");
-                return View();
-            }
-            else
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult LockedWebClient(string? LockedClientID)
+        {
+            if (string.IsNullOrEmpty(LockedClientID))
+                return RedirectToAction("LockedWebClient");
+
+            string IP;
+            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
             {
-                Calendar x = CultureInfo.InvariantCulture.Calendar;
-                var d = x.AddHours(DateTime.UtcNow, 7);
+                socket.Connect("8.8.8.8", 65530);
+                IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                IP = endPoint.Address.ToString();
+            }
 
-                var day = String.Join("", d.Day.ToString("00").Reverse().ToList());
-                var month = String.Join("", d.Month.ToString("00").Reverse().ToList());
-                var hour = String.Join("",d.Hour.ToString("00").Reverse().ToList());
-                var minute = String.Join("", d.Minute.ToString("00").Reverse().ToList());
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/LockedIPClient.txt");
+            var noidung = docfile(path);
 
-                var passOK = "00"+hour + month + day + minute;
+            Calendar x = CultureInfo.InvariantCulture.Calendar;
+        var d = x.AddHours(DateTime.UtcNow, 7);
+
+        var day = String.Join("", d.Day.ToString("00").Reverse().ToList());
+        var month = String.Join("", d.Month.ToString("00").Reverse().ToList());
+        var hour = String.Join("", d.Hour.ToString("00").Reverse().ToList());
+        var minute = String.Join("", d.Minute.ToString("00").Reverse().ToList());
+
+        var passOK = "00" + hour + month + day + minute;
 
                 if (noidung.Contains(IP + "<>[NOT-PASSWORD-3275]##") == true)
                 {
@@ -409,9 +424,8 @@ namespace MyWebPlay.Controllers
                         noidung = noidung.Replace(IP + "<>" + LockedClientID + "##", "");
                 }
 
-                System.IO.File.WriteAllText(path, noidung);
-                return RedirectToAction("Index");
-            }
+System.IO.File.WriteAllText(path, noidung);
+return RedirectToAction("Index");
         }
     }
 }

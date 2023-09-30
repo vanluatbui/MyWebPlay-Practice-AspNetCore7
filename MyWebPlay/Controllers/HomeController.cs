@@ -83,15 +83,7 @@ namespace MyWebPlay.Controllers
                 IP = endPoint.Address.ToString();
             }
 
-            string key = "Win32_BIOS";
-            ManagementObjectSearcher selectvalue = new ManagementObjectSearcher("select * from " + key);
-            string ID = "";
-            foreach (ManagementObject getserial in selectvalue.Get())
-            {
-                ID += getserial["SerialNumber"].ToString();
-            }
-
-            TempData["IP_Client"] = IP + "*" +ID;
+            TempData["IP_Client"] = IP;
 
             var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPLock.txt");
             var noidung2 = docfile(path2);
@@ -102,7 +94,7 @@ namespace MyWebPlay.Controllers
             var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/LockedIPClient.txt");
             var noidung1 = docfile(path1);
 
-            if (noidung1.Contains(IP) || noidung1.Contains(ID))
+            if (noidung1.Contains(IP))
             {
                 TempData["lockedClient"] = "true";
             }
@@ -111,7 +103,7 @@ namespace MyWebPlay.Controllers
                 TempData["lockedClient"] = "false";
             }
 
-            if (noidung2.Contains(IP) || noidung2.Contains(ID))
+            if (noidung2.Contains(IP))
             {
                 TempData["lock"] = "true";
             }
@@ -120,7 +112,7 @@ namespace MyWebPlay.Controllers
                 TempData["lock"] = "false";
             }
 
-            if (noidung.Contains(IP) == false && noidung.Contains(ID) == false)
+            if (noidung.Contains(IP) == false)
             {
                 TempData["PlayOnWebInLocal"] = "false";
                 TempData["InError"] = "true";

@@ -54,14 +54,20 @@
             alert("Bạn đã bật trang web MyWebPlay thành công, bạn có thể sử dụng các tính năng tại trang web 😊!");
         }
 
+        if ('@TempData["continue"]' == "OK")
+        {
+            localStorage.setItem("keyX_PlayOnWeb", "true");
+        }
+
         if ('@TempData["lock"]' == "true")
         {
             alert("⚠ Trang web hiện đang bị khoá bởi người đảm quyền, không thể kết nối đối với một số trường hợp. Vì vậy, vui lòng chờ đợi sau khi admin duyệt và mở khoá để có thể tiếp tục. Nếu bạn muốn gửi email xin phép, liên hệ tại : mywebplay.website@gmail.com");
             window.location.href = "/Home/LockedWeb";
         }
-
+        var ok = 0;
          if ('@TempData["PlayOnWebInLocal"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null))
         {
+            ok = "1";
             localStorage.removeItem("keyX_PlayOnWeb");
             if ('@TempData["InError"]' == null)
             alert("Bạn đã tắt trang web MyWebPlay thành công, để sử dụng lại hãy thực hiện các bước để bật 😎 !");
@@ -69,10 +75,10 @@
             alert("⚠ Tất cả kết nối phiên bản của bạn hiện đã hết hạn sử dụng hoặc chưa được bật, vui lòng bật lại trang web để sử dụng !");
         }
 
-         if ('@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true")
+         if (ok == 0 && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true")
         {
-            alert("Trước đó có vẻ như bạn đã hành động xoá dữ liệu trình duyệt, đồng nghĩa các sự kết nối này cũng đã hết hạn.\nVui lòng thực hiện bật trang web trở lại (có thể xin phép liên hệ trực tiếp với admin qua email : mywebplay.website@gmail.com) để tiếp tục sử dụng hoặc sử dụng lại ứng dụng trình duyệt mà bạn đã từng bật sử dụng trang web trước đó (nếu bạn chưa xoá dữ liệu)!")
-            window.location.href = "/Home/RemoveIpConnectWeb?ip="+'@TempData["IP_Client"]';
+            alert("Để tiếp tục sử dụng, vui lòng tìm cách để có lại được sự cấp phép. Nếu không, hãy tắt sử dụng trang web và yêu cầu bật sử dụng lại!");
+            window.location.href = "https://google.com";
         }
 
         if (localStorage.getItem("keyX_PlayOnWeb") == null)

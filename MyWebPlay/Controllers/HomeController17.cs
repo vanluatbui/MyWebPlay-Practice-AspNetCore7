@@ -17,14 +17,11 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult PlayOnWebInLocalX(string key, string? info)
         {
-            if (key == "true" && (info == null || info == ""))
-            {
-                return View("LockedWeb");
-            }
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
+            var noidung = docfile(path);
 
-            khoawebsiteClient();
-            if (TempData["lock"].ToString() == "true")
-                return RedirectToAction("LockedWeb");
+            var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPLock.txt");
+            var noidung2 = docfile(path2);
 
             string IP;
             using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
@@ -34,44 +31,35 @@ namespace MyWebPlay.Controllers
                 IP = endPoint.Address.ToString();
             }
 
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
-            var noidung = docfile(path);
-
-            var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPLock.txt");
-            var noidung2 = docfile(path2);
-
             if (key == "true" && (noidung.Contains(IP) == true || noidung2.Contains(IP) == true))
             {
                 return RedirectToAction("Index");
             }
 
-            string keyX = "Win32_BIOS";
-            ManagementObjectSearcher selectvalue = new ManagementObjectSearcher("select * from " + keyX);
-            string ID = "";
-            foreach (ManagementObject getserial in selectvalue.Get())
+            if (key == "true" && (info == null || info == ""))
             {
-                ID += getserial["SerialNumber"].ToString();
+                return View("LockedWeb");
             }
 
-            string message = "Báo cáo hành động bật trang web @host của khách hàng @info (ID : @id) :\r\n\r\n* RIÊNG TƯ :\r\n\r\n+ Link khoá sử dụng website (riêng tư) :\r\n\r\n@lock_private\r\n\r\n+ Link mở khoá cho phép tiếp tục sử dụng website (riêng tư)\r\n\r\n@unlock_private\r\n\r\n____________________________________________\r\n\r\n* CỤC BỘ :\r\n\r\n+ Link khoá sử dụng website (cục bộ) :\r\n\r\n@lock_enter\r\n\r\n+ Link mở khoá cho phép tiếp tục sử dụng website (cục bộ)\r\n\r\n@unlock_enter\r\n\r\n____________________________________________\r\n\r\n* ĐĂNG XUẤT :\r\n\r\n+ Xoá quyền truy cập, yêu cầu đăng nhập lại (tất cả)\r\n\r\n@end\r\n\r\n"
-                .Replace("@id", ID)
+            khoawebsiteClient();
+            if (TempData["lock"].ToString() == "true")
+                return RedirectToAction("LockedWeb");
+
+            string message = "Báo cáo hành động bật trang web của khách hàng @info :\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@end"
                 .Replace("@info", info)
-                .Replace("@lock_private", "https://" + Request.Host + "/Home/LockThisClient?ip=" + ID)
-                .Replace("@lock_enter", "https://" + Request.Host + "/Home/LockThisClient?ip=" + IP)
-                 .Replace("@unlock_private", "https://" + Request.Host + "/Home/UnlockThisClient?ip=" + ID)
-                .Replace("@unlock_enter", "https://" + Request.Host + "/Home/UnlockThisClient?ip=" + IP)
-                 .Replace("@end", "https://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + ID+"*"+IP)
-                .Replace("@host", "https://" + Request.Host);
+                .Replace("@lock", "https://" + Request.Host + "/Home/LockThisClient?ip=" + IP)
+                .Replace("@unlock", "https://" + Request.Host + "/Home/UnlockThisClient?ip=" + IP)
+                .Replace("@end", "https://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + IP);
 
             if (key == "true")
             {
                 TempData["PlayOnWebInLocal"] = "true";
-                noidung += ID + "##";
+                noidung += IP + "##";
                 System.IO.File.WriteAllText(path, noidung);
             }
             else if (key == "false")
             {
-                noidung = noidung.Replace(ID + "##", "");
+                noidung = noidung.Replace(IP + "##", "");
                 System.IO.File.WriteAllText(path, noidung);
                 TempData["PlayOnWebInLocal"] = "false";
             }
@@ -79,16 +67,9 @@ namespace MyWebPlay.Controllers
             Calendar x = CultureInfo.InvariantCulture.Calendar;
 
             string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-            string localIP;
-            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
-            {
-                socket.Connect("8.8.8.8", 65530);
-                IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
-                localIP = endPoint.Address.ToString();
-            }
 
             //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-            string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + localIP + "] - " + xuxu;
+            string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + IP + "] - " + xuxu;
             string host = "{" + Request.Host.ToString() + "}"
                        .Replace("http://", "")
                    .Replace("https://", "")
@@ -370,23 +351,14 @@ namespace MyWebPlay.Controllers
                 IP = endPoint.Address.ToString();
             }
 
-            string key = "Win32_BIOS";
-            ManagementObjectSearcher selectvalue = new ManagementObjectSearcher("select * from " + key);
-            string ID = "";
-            foreach (ManagementObject getserial in selectvalue.Get())
-            {
-                ID += getserial["SerialNumber"].ToString();
-            }
-
             var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
             var noidung1 = docfile(path1);
 
             var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPLock.txt");
             var noidung2 = docfile(path2);
 
-            if ((noidung1.Contains(IP) == true || noidung1.Contains(ID) == true ) 
-                && noidung2.Contains(IP) == false
-               && noidung2.Contains(ID) == false)
+            if (noidung1.Contains(IP) == true
+                && noidung2.Contains(IP) == false)
                 return RedirectToAction("Index");
                 return View();
         }
@@ -398,12 +370,12 @@ namespace MyWebPlay.Controllers
             if (TempData["lock"] == "true")
                 return RedirectToAction("Index");
 
-            string key = "Win32_BIOS";
-            ManagementObjectSearcher selectvalue = new ManagementObjectSearcher("select * from " + key);
-            string IP = "";
-            foreach (ManagementObject getserial in selectvalue.Get())
+            string IP;
+            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
             {
-                IP += getserial["SerialNumber"].ToString();
+                socket.Connect("8.8.8.8", 65530);
+                IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                IP = endPoint.Address.ToString();
             }
 
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/LockedIPClient.txt");

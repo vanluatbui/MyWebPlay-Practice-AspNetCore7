@@ -2,6 +2,7 @@
 using MyWebPlay.Model;
 using System;
 using System.Collections;
+using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -213,6 +214,7 @@ namespace MyWebPlay.Controllers
             var statement = f["txtStatement"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r");
             var replace = f["txtReplace"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r").Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
             var param = f["txtParam"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r").Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
+            var chon = f["txtChon"].ToString();
 
             ViewBag.Statement = statement;
             ViewBag.Replace = f["txtReplace"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r");
@@ -247,6 +249,18 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
+            if (chon == "on")
+            {
+                var s = "";
+                for (int i = 0; i < listInput.Count; i++)
+                {
+                    s += "<Input Name=\"" + listInput[i].Replace("@","") + "\" Type=\"nvarchar\" Size=\"MAX\" />\n";
+                }
+                s = s.Trim('\n');
+                param = s.Split("\n", StringSplitOptions.RemoveEmptyEntries);
+                ViewBag.Param = s;
+            }
+
             for (int i = 0; i < listInput.Count; i++)
                 for (int j = 0; j < param.Length; j++)
                 {
@@ -255,30 +269,36 @@ namespace MyWebPlay.Controllers
                         var pa = param[j];
                         var bien = listInput[i];
                         var tri = listOutput[i];
-                        if (pa.Contains("char") == true || pa.Contains("text") == true ||
-                pa.Contains("binary") == true || pa.Contains("image") == true)
+                        if (chon == "on")
                         {
                             result = result.Replace(bien, "N'" + tri + "'");
                         }
                         else
-             if (pa.Contains("memo") || pa.Contains("single") ||
-                pa.Contains("currency") || pa.Contains("money") || pa.Contains("double") ||
-                pa.Contains("long") || pa.Contains("byte") ||
-                pa.Contains("bit") || pa.Contains("int") ||
-                pa.Contains("decimal") || pa.Contains("numeric") ||
-                pa.Contains("money") || pa.Contains("float") ||
-                pa.Contains("real"))
                         {
-                            result = result.Replace(bien, tri);
+                            if (pa.Contains("char") == true || pa.Contains("text") == true ||
+                    pa.Contains("binary") == true || pa.Contains("image") == true)
+                            {
+                                result = result.Replace(bien, "N'" + tri + "'");
+                            }
+                            else
+                 if (pa.Contains("memo") || pa.Contains("single") ||
+                    pa.Contains("currency") || pa.Contains("money") || pa.Contains("double") ||
+                    pa.Contains("long") || pa.Contains("byte") ||
+                    pa.Contains("bit") || pa.Contains("int") ||
+                    pa.Contains("decimal") || pa.Contains("numeric") ||
+                    pa.Contains("money") || pa.Contains("float") ||
+                    pa.Contains("real"))
+                            {
+                                result = result.Replace(bien, tri);
+                            }
+                            else if (pa.Contains("date"))
+                            {
+                                result = result.Replace(bien, "'" + tri + "'");
+                            }
+                            break;
                         }
-                        else if (pa.Contains("date"))
-                        {
-                            result = result.Replace(bien, "'" + tri + "'");
-                        }
-                        break;
                     }
                 }
-
 
             result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
 

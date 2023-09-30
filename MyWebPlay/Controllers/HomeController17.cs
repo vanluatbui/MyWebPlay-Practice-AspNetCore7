@@ -4,7 +4,9 @@ using MyWebPlay.Extension;
 using System;
 using System.Globalization;
 using System.IO;
+using System.Net;
 using System.Net.Mail;
+using System.Net.Sockets;
 using System.Xml.Linq;
 using TextCopy;
 
@@ -14,7 +16,7 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult PlayOnWebInLocalX(string key, string? info)
         {
-            if (info == null || info == "")
+            if (key == "true" && (info == null || info == ""))
             {
                 return View("LockedWeb");
             }
@@ -23,7 +25,13 @@ namespace MyWebPlay.Controllers
             if (TempData["lock"].ToString() == "true")
                 return RedirectToAction("LockedWeb");
 
-            string IP = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+            string IP;
+            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+            {
+                socket.Connect("8.8.8.8", 65530);
+                IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                IP = endPoint.Address.ToString();
+            }
 
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
             var noidung = docfile(path);
@@ -38,10 +46,10 @@ namespace MyWebPlay.Controllers
 
             string message = "Báo cáo hành động bật trang web của khách hàng @id :\r\n\r\n+ IP : @IPX\r\n\r\n- Link huỷ bỏ kết nối trang web với các thiết bị có sử dụng IP này :\r\n\r\n@link"
                 .Replace("@id", info).Replace("@IPX", IP)
-                .Replace("@link", Request.Host + "/Home/LockThisClient?ip=" + IP)
+                .Replace("@link", "https://"+Request.Host + "/Home/LockThisClient?ip=" + IP)
                 + "\r\n\r\n- Nếu bạn đã lỡ khoá mà sau này muốn khôi phục lại kết nối với các thiết bị này, click vào link :\r\n\r\n@back\r\n\r\n- Đăng xuất tất cả các kết nối từ IP này (yêu cầu đăng nhập lại hoặc kết nối đã hết hạn) :\r\n\r\n@herelink"
-                .Replace("@back", Request.Host + "/Home/UnlockThisClient?ip=" + IP)
-                .Replace("@herelink", Request.Host + "/Home/RemoveIpInWeb?ip=" + IP);
+                .Replace("@back", "https://" + Request.Host + "/Home/UnlockThisClient?ip=" + IP)
+                .Replace("@herelink", "https://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + IP);
 
             if (key == "true")
             {
@@ -59,7 +67,16 @@ namespace MyWebPlay.Controllers
             Calendar x = CultureInfo.InvariantCulture.Calendar;
 
             string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-            string name = "[IP Khách : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " | IP máy chủ : " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + "] - " + xuxu;
+            string localIP;
+            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+            {
+                socket.Connect("8.8.8.8", 65530);
+                IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                localIP = endPoint.Address.ToString();
+            }
+
+            //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+            string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + localIP + "] - " + xuxu;
             string host = "{" + Request.Host.ToString() + "}"
                        .Replace("http://", "")
                    .Replace("https://", "")
@@ -105,7 +122,16 @@ namespace MyWebPlay.Controllers
             Calendar x = CultureInfo.InvariantCulture.Calendar;
 
             string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-            string name = "[IP Khách : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " | IP máy chủ : " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + "] - " + xuxu;
+            string localIP;
+            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+            {
+                socket.Connect("8.8.8.8", 65530);
+                IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                localIP = endPoint.Address.ToString();
+            }
+
+            //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+            string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + localIP + "] - " + xuxu;
             string host = "{" + Request.Host.ToString() + "}"
                        .Replace("http://", "")
                    .Replace("https://", "")
@@ -145,7 +171,16 @@ namespace MyWebPlay.Controllers
             Calendar x = CultureInfo.InvariantCulture.Calendar;
 
             string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-            string name = "[IP Khách : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " | IP máy chủ : " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + "] - " + xuxu;
+            string localIP;
+            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+            {
+                socket.Connect("8.8.8.8", 65530);
+                IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                localIP = endPoint.Address.ToString();
+            }
+
+            //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+            string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + localIP + "] - " + xuxu;
             string host = "{" + Request.Host.ToString() + "}"
                        .Replace("http://", "")
                    .Replace("https://", "")
@@ -275,7 +310,16 @@ namespace MyWebPlay.Controllers
                 Calendar x = CultureInfo.InvariantCulture.Calendar;
 
                 string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                string name = "[IP Khách : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " | IP máy chủ : " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + "] - " + xuxu;
+                string localIP;
+                using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+                {
+                    socket.Connect("8.8.8.8", 65530);
+                    IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                    localIP = endPoint.Address.ToString();
+                }
+
+                //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + localIP + "] - " + xuxu;
                 string host = "{" + Request.Host.ToString() + "}"
                            .Replace("http://", "")
                        .Replace("https://", "")
@@ -306,7 +350,14 @@ namespace MyWebPlay.Controllers
 
         public ActionResult LockedWeb()
         {
-            string IP = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+            string IP;
+            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+            {
+                socket.Connect("8.8.8.8", 65530);
+                IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                IP = endPoint.Address.ToString();
+            }
+
             var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
             var noidung1 = docfile(path1);
 
@@ -320,18 +371,44 @@ namespace MyWebPlay.Controllers
 
         public ActionResult LockedWebClient(string? LockedClientID)
         {
-            string IP = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+            string IP;
+            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+            {
+                socket.Connect("8.8.8.8", 65530);
+                IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                IP = endPoint.Address.ToString();
+            }
+
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/LockedIPClient.txt");
             var noidung = docfile(path);
             if (LockedClientID == null || LockedClientID == "")
             {
                 if (noidung.Contains(IP) == false)
-                System.IO.File.WriteAllText(path, noidung + IP + "<>BVL000##");
+                System.IO.File.WriteAllText(path, noidung + IP + "<>[NOT-PASSWORD-3275]##");
                 return View();
             }
             else
             {
-                    noidung = noidung.Replace(IP + "<>" + LockedClientID + "##", "");
+                Calendar x = CultureInfo.InvariantCulture.Calendar;
+                var d = x.AddHours(DateTime.UtcNow, 7);
+
+                var day = String.Join("", d.Day.ToString("00").Reverse().ToList());
+                var month = String.Join("", d.Month.ToString("00").Reverse().ToList());
+                var hour = String.Join("",d.Hour.ToString("00").Reverse().ToList());
+                var minute = String.Join("", d.Minute.ToString("00").Reverse().ToList());
+
+                var passOK = "00"+hour + month + day + minute;
+
+                if (noidung.Contains(IP + "<>[NOT-PASSWORD-3275]##") == true)
+                {
+                    if (LockedClientID == passOK)
+                        noidung = noidung.Replace(IP + "<>[NOT-PASSWORD-3275]##", "");
+                }
+                else
+                {
+                        noidung = noidung.Replace(IP + "<>" + LockedClientID + "##", "");
+                }
+
                 System.IO.File.WriteAllText(path, noidung);
                 return RedirectToAction("Index");
             }

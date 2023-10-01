@@ -114,7 +114,7 @@ namespace MyWebPlay.Controllers
 
             if (noidung.Contains(IP) == false)
             {
-                TempData["PlayOnWebInLocal"] = "false";
+                TempData["PlayOnWebInLocal-X"] = "false";
                 TempData["InError"] = "true";
             }
             else

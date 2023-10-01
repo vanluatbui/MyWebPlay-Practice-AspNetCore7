@@ -21,13 +21,17 @@
 
         var ok = 0;
 
-        if ('@TempData["lockedClient"]' == "true")
+        if (ok == 0 && '@TempData["lockedClient"]' == "true")
         {
+            ok = 1;
             window.location.href = "/Home/LockedWebClient";
         }
 
         if (ok != 100 && '@TempData["Lock_Message"]' != null && '@TempData["Lock_Message"]' == "true")
         {
+            @{
+            TempData["Lock_Message"] = "";
+        }
             ok = 1;
             alert("❤ [ADMIN] Đã [KHOÁ] kết nối trang web theo ID bạn yêu cầu !");
             var win = window.open("about:blank", "_self");
@@ -37,6 +41,9 @@
 
          if (ok != 100 && '@TempData["Unlock_Message"]' != null && '@TempData["Unlock_Message"]' == "true")
         {
+            @{
+            TempData["Unlock_Message"] = "";
+        }
             ok = 100;
              alert("❤ [ADMIN] Đã [MỞ KHOÁ] kết nối trang web theo ID bạn yêu cầu !");
              var win = window.open("about:blank", "_self");
@@ -46,6 +53,9 @@
 
          if (ok != 100 && '@TempData["Logout_Message"]' != null && '@TempData["Logout_Message"]' == "true")
         {
+            @{
+            TempData["Logout_Message"] = "";
+        }
             ok = 100;
             alert("❤ [ADMIN] Đã đăng xuất tất cả kết nối theo ID bạn yêu cầu, họ sẽ phải bật lại trang web !");
              var win = window.open("about:blank", "_self");
@@ -53,34 +63,48 @@
              window.close();
         }
 
-         if ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true")
+         if (ok == 0 && '@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true")
         {
+            ok = 10;
             localStorage.setItem("keyX_PlayOnWeb", "true");
             alert("Bạn đã bật trang web MyWebPlay thành công, bạn có thể sử dụng các tính năng tại trang web 😊!");
+            window.location.href = "/Home/RemoveTempData";
         }
 
 
-        if ('@TempData["continue"]' == "OK" && localStorage.getItem("keyX_PlayOnWeb") != "true")
+        if (ok == 0 && '@TempData["continue"]' == "OK" && localStorage.getItem("keyX_PlayOnWeb") != "true")
         {
             ok = 2;
             window.location.href="/Home/AcceptContinueUseWeb";
         }
 
-        if ('@TempData["continue"]' == "NO" && localStorage.getItem("keyX_PlayOnWeb") == "true")
+         if (ok == 0 && '@TempData["ok-continue"]' == "yes" && localStorage.getItem("keyX_PlayOnWeb") != "true")
+        {
+            ok = 10;
+            alert("Đã cấp phép thành công, bạn có thể tiếp tục sử dụng các tính năng tại trang web trên IDs mới này 😎 !");
+            localStorage.setItem("keyX_PlayOnWeb", "true");
+             window.location.href = "/Home/RemoveTempData";
+        }
+
+        if (ok == 0 && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true")
+        {
+            ok = 1;
+            alert("Để tiếp tục sử dụng, vui lòng tìm cách để có lại được sự cấp phép. Nếu không, hãy tắt sử dụng trang web và yêu cầu bật sử dụng lại! ");
+            window.location.href = "https://google.com";
+        }
+
+        if (ok == 0 && '@TempData["continue-X"]' == "NO" && localStorage.getItem("keyX_PlayOnWeb") == "true")
         {
             ok = 3;
             localStorage.removeItem("keyX_PlayOnWeb");
-            window.location.href="/Home/Index";
+             window.location.href = "/Home/RemoveTempData";
         }
 
-        if ('@TempData["ok-continue"]' == "yes" && localStorage.getItem("keyX_PlayOnWeb") != "true")
+        if (ok == 0  && '@TempData["ok-continue-X"]' == "no")
         {
-            localStorage.setItem("keyX_PlayOnWeb", "true");
-        }
-
-        if ('@TempData["ok-continue"]' == "no")
-        {
+            ok = 10;
             localStorage.removeItem("keyX_PlayOnWeb");
+             window.location.href = "/Home/RemoveTempData";
         }
 
         if (ok == 0 && '@TempData["lock"]' == "true")
@@ -90,7 +114,7 @@
             window.location.href = "/Home/LockedWeb";
         }
         
-         if (ok == 0 && '@TempData["PlayOnWebInLocal"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null))
+         if (ok == 0 && ('@TempData["PlayOnWebInLocal-X"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null)))
         {
             ok = 1;
             localStorage.removeItem("keyX_PlayOnWeb");
@@ -99,12 +123,6 @@
             else
             alert("⚠ Tất cả kết nối phiên bản của bạn hiện đã hết hạn sử dụng hoặc chưa được bật, vui lòng bật lại trang web để sử dụng !");
             window.location.href="/Home/LockedWeb";
-        }
-
-         if (ok == 0 && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true")
-        {
-            alert("Để tiếp tục sử dụng, vui lòng tìm cách để có lại được sự cấp phép. Nếu không, hãy tắt sử dụng trang web và yêu cầu bật sử dụng lại! ");
-            window.location.href = "https://google.com";
         }
 
         function muaxuan()

@@ -62,7 +62,7 @@ namespace MyWebPlay.Controllers
             {
                 noidung = noidung.Replace(IP + "##", "");
                 System.IO.File.WriteAllText(path, noidung);
-                TempData["PlayOnWebInLocal"] = "false";
+                TempData["PlayOnWebInLocal-X"] = "false";
             }
 
             Calendar x = CultureInfo.InvariantCulture.Calendar;
@@ -344,6 +344,8 @@ namespace MyWebPlay.Controllers
 
         public ActionResult LockedWeb()
         {
+            TempData["lock"] = "";
+            TempData["PlayOnWebInLocal-X"] = "";
             string IP;
             using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
             {
@@ -366,6 +368,8 @@ namespace MyWebPlay.Controllers
 
         public ActionResult LockedWebClient()
         {
+            TempData["lockedClient"] = "";
+
             khoawebsiteClient();
 
             if (TempData["lock"] == "true")

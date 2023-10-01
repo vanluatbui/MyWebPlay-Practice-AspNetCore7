@@ -51,13 +51,15 @@ namespace MyWebPlay.Controllers
 
         public ActionResult AcceptContinueUseWeb()
         {
+            TempData["continue"] = "";
+
             khoawebsiteClient();
             if (TempData["lock"].ToString() == "true")
                 return RedirectToAction("LockedWeb");
 
             if (HttpContext.Session.GetObject<string>("continueX") != "ok")
             {
-                TempData["ok-continue"] = "no";
+                TempData["ok-continue-X"] = "no";
                 return RedirectToAction("Index");
             }
 
@@ -103,7 +105,7 @@ namespace MyWebPlay.Controllers
                 TempData["continue"] = "OK"; 
             }
             else
-                TempData["continue"] = "NO";
+                TempData["continue-X"] = "NO";
 
             return RedirectToAction("Index");
         }
@@ -144,8 +146,14 @@ namespace MyWebPlay.Controllers
                           "mywebplay.savefile@gmail.com", host + " [THONG BAO ADMIN] Continue Play On Web In Client Local  In " + name, message, "teinnkatajeqerfl");
                 }
             else
-                TempData["ok-continue"] = "no";
+                TempData["ok-continue-X"] = "no";
 
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult RemoveTempData()
+        {
+            TempData.Clear();
             return RedirectToAction("Index");
         }
     }

@@ -1,4 +1,12 @@
-﻿<table align="center">
+﻿<script>
+      function xoaValue(ele)
+    {
+            document.getElementById(ele).value = "";
+            document.getElementById(ele).focus();
+    }
+</script>
+<table align="center">
+    
     <h2 style="text-align:center">Reverse String 1 - Ví dụ : 1 2 3 | 4 5 6 | 7 8 9 --> 7 8 9 | 4 5 6 | 1 2 3</h2>
 
     <h3 style="color:yellow" onclick="muaxuan()">@ViewBag.KetQua</h3>
@@ -11,9 +19,9 @@
             <td> </td>
             <td>
                 <br>
-                    <b> Chuỗi của bạn :</b>
+                   <a href="#xuly" onclick="xoaValue('chuoi')"> <b> Chuỗi của bạn :</b></a>
                 <br>
-                <textarea rows="20" cols="150" name="Chuoi" autofocus>A B C
+                <textarea rows="20" cols="150" name="Chuoi" id="chuoi" autofocus>A B C
 D E F
 G H I
 X Y Z</textarea>

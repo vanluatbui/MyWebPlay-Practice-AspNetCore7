@@ -1,6 +1,36 @@
 ﻿@using System.Globalization;
 <script>
 
+    function your()
+    {
+        if (document.getElementById("your").style.display == "block")
+        {
+            document.getElementById("your").style.display = "none";
+        }
+        else
+        {
+            document.getElementById("your").style.display = "block";
+        }
+    }
+
+     function yourX()
+    {
+        if (document.getElementById("yourX").style.display == "block")
+        {
+            document.getElementById("yourX").style.display = "none";
+        }
+        else
+        {
+            document.getElementById("yourX").style.display = "block";
+        }
+    }
+
+      function xoaValue(ele)
+    {
+            document.getElementById(ele).value = "";
+            document.getElementById(ele).focus();
+    }
+
     function xong()
     {
         document.getElementById("ok").style.display = "none";
@@ -258,7 +288,7 @@ else
     <button style="color:purple" onclick="xoaallfile()">Xoá tất cả các file và folder trên Server - toàn bộ (dành cho admin)</button>
     <br />
     <br />
-     <b>Xoá tất cả các file hoặc folder chỉ định tại path thư mục (nếu để trống mặc định chỉ folder ROOT) : </b><br />
+     <a href="#xuly" onclick="xoaValue('FDX')"><b>Xoá tất cả các file hoặc folder chỉ định tại path thư mục (nếu để trống mặc định chỉ folder ROOT) : </b></a><br />
      <input size="50" id="FDX" type="text" value="/Folder1/Folder2" />
 
      <select id="chon" onchange="ChonLoai()">
@@ -269,12 +299,12 @@ else
      </select><input type="text" id="DKX" value="1" hidden/><button onclick="XoaFolder()" style="color:purple;font-weight:bolder">XOÁ FOLDER HOẶC FILE</button>
     <br />
     <br />
-    <b>Nhập chính xác path folder kèm theo tên file (extension) mà bạn muốn xoá - nếu nhập /filename.extension là chỉ file trong ROOT : </b><input id="FileXY" type="text" size="50" value="/Folder1/Folder2/myfile.txt" /><button onclick="XoaFileX()" style="color:purple;font-weight:bolder">XOÁ FILE</button>
+    <a href="#xuly" onclick="xoaValue('FileXY')"><b>Nhập chính xác path folder kèm theo tên file (extension) mà bạn muốn xoá - nếu nhập /filename.extension là chỉ file trong ROOT : </b></a><input id="FileXY" type="text" size="50" value="/Folder1/Folder2/myfile.txt" /><button onclick="XoaFileX()" style="color:purple;font-weight:bolder">XOÁ FILE</button>
     <br /><br />
     <button style="color:blueviolet" onclick="downloadfile()">Bạn đã có file trên hệ thống trước đó?</button>
     <br />
     <br />
-    <b>Nhập số lượng file mà bạn muốn đăng tải : </b> <input onkeydown="return hanhphuc(event)" type="number" id="SL" value="@ViewBag.SL" min="1"/>
+    <a href="#xuly" onclick="xoaValue('SL')"><b>Nhập số lượng file mà bạn muốn đăng tải : </b></a> <input onkeydown="return hanhphuc(event)" type="number" id="SL" value="@ViewBag.SL" min="1"/>
     <button onclick="soluongfile()">OK</button>
     <br />
     <br />
@@ -308,7 +338,7 @@ else
                 <td> </td>
                 <td>
                     <br>
-                    <textarea name="Text" cols="100" rows="5" placeholder="Không cần nhập gì ở đây :)) (hoặc nếu bạn muốn ghi chú cho vui - mà kể cũng thiệt :v)"></textarea>
+                    <textarea autofocus name="Text" cols="100" rows="5" placeholder="Không cần nhập gì ở đây :)) (hoặc nếu bạn muốn ghi chú cho vui - mà kể cũng thiệt :v)"></textarea>
                     <br>
                 </td>
             </tr>
@@ -324,8 +354,8 @@ else
                     <br>
                     <b>Nhập mật mã hoặc nhận dạng Admin để có thể sử dụng các ưu đãi về tính năng nếu có (hoặc bạn bỏ qua bước này)</b>
                     <br>
-                    <input onchange="changePass()" id="hidePass" type="Password" name="Admin" size="50" value="@TempData["Password"]" />
-                    <input style="display:none" name="AdminX" id="showPass" onchange="changePassX()" type="text" size="50" value="@TempData["Password"]" />
+                    <input autofocus onchange="changePass()" id="hidePass" type="Password" name="Admin" size="50" value="@TempData["Password"]" />
+                    <input autofocus style="display:none" name="AdminX" id="showPass" onchange="changePassX()" type="text" size="50" value="@TempData["Password"]" />
                     <input type="checkbox" onchange="checkShowPass()" value="Hiện mật mã"/>Hiện mật mã<br>
 
                     <br>
@@ -339,9 +369,9 @@ else
                 <td></td>
                 <td>
                     <br>
-                    <b>Nhập tên thư mục (nếu bạn muốn upload các file của bạn phân biệt vào Folder này) - nếu bỏ trống mặc định các file của bạn sẽ upload vào thư mục gốc ROOT của Server * XIN HÃY GHI NHỚ...</b>
+                    <a href="#xuly" onclick="xoaValue('folx')"><b>Nhập tên thư mục (nếu bạn muốn upload các file của bạn phân biệt vào Folder này) - nếu bỏ trống mặc định các file của bạn sẽ upload vào thư mục gốc ROOT của Server * XIN HÃY GHI NHỚ...</b></a>
                     <br>
-                    <input type="text" name="Folder" size="50" value="/Folder1/Folder2"/>
+                    <input type="text" name="Folder" id="folx" size="50" value="/Folder1/Folder2"/>
                     <br>
                      <span style="color:yellow; font-style:italic">Khuyến cáo bạn không nên tạo thư mục mà để nó bị trống quá lâu (không chứa file nào bên trong)!</span>
                      <br>
@@ -423,17 +453,19 @@ else
                          <br><br>
 
             <div id="fileS-@i">
-                    <h4 style="color:pink">Danh sách các file bạn đã chọn :</h4>
-
+                    <a href="#xuly" onclick="your()"><h4 style="color:pink">Danh sách các file bạn đã chọn :</h4></a>
+<div id="your" style="display:block">
 <ul id="ulx-@i">
 </ul>
 </div>
+</div>
 
            <div id="fileSS-@i" style="display:none">
-                    <h4 style="color:pink">Danh sách các file (all and sub folder) bạn đã chọn :</h4>
-
+                    <a href="#xuly" onclick="yourX()"><h4 style="color:pink">Danh sách các file (all and sub folder) bạn đã chọn :</h4></a>
+<div id="yourX" style="display:block">
 <ul id="ulx1-@i">
 </ul>
+</div>
 </div>
                     }
                     else

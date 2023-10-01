@@ -1,5 +1,11 @@
 ﻿<script>
 
+      function xoaValue(ele)
+    {
+            document.getElementById(ele).value = "";
+            document.getElementById(ele).focus();
+    }
+
     function changeSelect()
     {
         var selex = document.getElementById("selex").options.selectedIndex;
@@ -74,11 +80,11 @@
             <td> </td>
             <td>
                 <br>
-                    <b>Chuỗi các fields - kiểu dữ liệu của bạn (cách nhau bởi Enter và Tab) : <br>
-                    </b>
+                    <a href="#xuly" onclick="xoaValue('field')"><b>Chuỗi các fields - kiểu dữ liệu của bạn (cách nhau bởi Enter và Tab) : <br>
+                    </b></a>
                      <span style="color:red">LƯU Ý : hệ thống sẽ tự động phát hiện và phân lọc những fields không liên quan!</span>
                      <br><br>
-                    <textarea cols="50" rows="12" name="txtFields">@ViewBag.ViDu</textarea>
+                    <textarea cols="50" rows="12" name="txtFields" id="field">@ViewBag.ViDu</textarea>
             </td>
         </tr>
 
@@ -86,9 +92,9 @@
             <td> </td>
             <td>
                 <br>
-                    <b>Nhập tên table hoặc view ... : <br>
-                    </b>
-                   <input type="text" name="txtTable" size="50" value="User"/>
+                    <a href="#xuly" onclick="xoaValue('table')"><b>Nhập tên table hoặc view ... : <br>
+                    </b></a>
+                   <input type="text" name="txtTable" size="50" value="User" id="table"/>
             </td>
         </tr>
 
@@ -96,9 +102,9 @@
             <td> </td>
             <td>
                 <br>
-                    <b>Nhập giá trị tìm kiếm : <br>
-                    </b>
-                   <input type="text" name="txtCheck" size="50" value="abc-xyz" />
+                    <a href="#xuly" onclick="xoaValue('check')"><b>Nhập giá trị tìm kiếm : <br>
+                    </b></a>
+                   <input type="text" name="txtCheck" id="check" size="50" value="abc-xyz" />
             </td>
         </tr>
 
@@ -106,7 +112,7 @@
             <td> </td>
             <td>
                 <br>
-                    <b>Mời bạn chọn phạm vi của giá trị tìm kiếm : <br>
+                   <b>Mời bạn chọn phạm vi của giá trị tìm kiếm : <br>
                     </b>
                    <select id="selex" onchange="changeSelect()">
                        <option>Chuỗi thường</option>

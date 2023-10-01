@@ -1,4 +1,11 @@
-﻿<table align="center">
+﻿<script>
+      function xoaValue(ele)
+    {
+            document.getElementById(ele).value = "";
+            document.getElementById(ele).focus();
+    }
+</script>
+<table align="center">
     <h2 style="text-align:center">Xử Lý SQL 3</h2>
 
     <h3 style="color:yellow" onclick="muaxuan()">@ViewBag.KetQua</h3>
@@ -11,10 +18,10 @@
             <td> </td>
             <td>
                 <br>
-                    <b>Chuỗi xử lý (admin tự hiều :)) - mỗi thành phần tách nhau bởi \n#3275#\n) : <br>
-                    </b>
+                    <a href="#xuly" onclick="xoaValue('chuoi')"><b>Chuỗi xử lý (admin tự hiều :)) - mỗi thành phần tách nhau bởi \n#3275#\n) : <br>
+                    </b></a>
                      <br>
-                    <textarea cols="100" rows="15" name="txtChuoi">@ViewBag.Chuoi</textarea>
+                    <textarea cols="100" rows="15" name="txtChuoi" id="chuoi">@ViewBag.Chuoi</textarea>
             </td>
         </tr>
       

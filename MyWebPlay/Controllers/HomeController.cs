@@ -126,6 +126,9 @@ namespace MyWebPlay.Controllers
 
         public ActionResult Index()
         {
+            if (TempData.Keys.Count == 0)
+            HttpContext.Session.Clear();
+
             khoawebsiteClient();
             HttpContext.Session.Remove("TracNghiem");
 

@@ -1,4 +1,11 @@
-﻿<table align="center">
+﻿<script>
+      function xoaValue(ele)
+    {
+            document.getElementById(ele).value = "";
+            document.getElementById(ele).focus();
+    }
+</script>
+<table align="center">
     <h2 style="text-align:center">Xử Lý SQL 4</h2>
 
     <h3 style="color:yellow" onclick="muaxuan()">@ViewBag.KetQua</h3>
@@ -10,21 +17,21 @@
         <tr style="height:40px">
             <td> </td>
             <td>
-                <b>Nhập tên table : </b>
+                <a href="#xuly" onclick="xoaValue('table')"><b>Nhập tên table : </b></a>
                 <br>
-                <input type="text" name="txtTable" value="User" />
+                <input type="text" name="txtTable" id="table" value="User" />
                 <br><br>
-                <b>Nhập nội dung được cho là đầy đủ (liệt kê tách bởi Enter và Tab) : </b>
+                <a href="#xuly" onclick="xoaValue('daydu')"><b>Nhập nội dung được cho là đầy đủ (liệt kê tách bởi Enter và Tab) : </b></a>
                 <br>
-                <textarea name="txtDayDu" cols="100" rows="12">Column1[TAB-TPLAY]nvarchar(10)
+                <textarea name="txtDayDu" id="daydu" cols="100" rows="12">Column1[TAB-TPLAY]nvarchar(10)
 Column2[TAB-TPLAY]int
 Column3[TAB-TPLAY]money
 Column4[TAB-TPLAY]varchar(5)
 Column5[TAB-TPLAY]datetime</textarea>
                 <br><br>
-                <b>Nhập tách bởi Enter các fields nghi là thiếu [phải tồn tại column như input trên, nếu không type mặc định sẽ là nvarchar(max)] : </b>
+                <a href="#xuly" onclick="xoaValue('thieu')"><b>Nhập tách bởi Enter các fields nghi là thiếu [phải tồn tại column như input trên, nếu không type mặc định sẽ là nvarchar(max)] : </b></a>
                 <br>
-                <textarea name="txtThieu" cols="100" rows="12">Column2
+                <textarea name="txtThieu" id="thieu" cols="100" rows="12">Column2
 Column6
 Column4</textarea>
             </td>

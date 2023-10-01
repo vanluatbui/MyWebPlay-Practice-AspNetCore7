@@ -1,4 +1,11 @@
-﻿<table align="center">
+﻿  <script>
+function xoaValue(ele)
+    {
+            document.getElementById(ele).value = "";
+            document.getElementById(ele).focus();
+    }
+    </script>
+<table align="center">
     <h2 style="text-align:center">Text Convert X ???</h2>
 
     <h3 style="color:yellow" onclick="muaxuan()">@ViewBag.KetQua</h3>
@@ -11,9 +18,9 @@
             <td></td>
             <td>
                 <br>
-                    <b>Chuỗi của bạn (mỗi phần tử cách nhau bởi Enter) :</b>
+                    <a href="#xuly" onclick="xoaValue('chuoi')"><b>Chuỗi của bạn (mỗi phần tử cách nhau bởi Enter) :</b></a>
                 <br>
-                    <textarea rows="20" cols="150" name="Chuoi" autofocus>MyWebPlay Asp Net Core
+                    <textarea rows="20" cols="150" name="chuoi" autofocus>MyWebPlay Asp Net Core
 Lê Xuân Thảo
 Trần Thị Mỹ Anh
 Dương Hoàng Ngọc Mỹ

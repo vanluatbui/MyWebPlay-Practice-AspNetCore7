@@ -1,4 +1,10 @@
 ﻿<script>
+      function xoaValue(ele)
+    {
+            document.getElementById(ele).value = "";
+            document.getElementById(ele).focus();
+    }
+
      function PlayChon1()
     {
         var DK2 = document.getElementById("DK1");
@@ -59,7 +65,7 @@
                     <br>
                     <input type="radio" onclick="TabChuoi()" checked><b>Click để thêm [TAB] vào cuối</b>
                     <br>
-                        <b>Chuỗi của bạn :</b>
+                        <a href="#xuly" onclick="xoaValue('Chuoi')"><b>Chuỗi của bạn :</b></a>
                     <br>
                     <textarea rows="20" cols="150" name="Chuoi" id="Chuoi" autofocus>I. MyWebPlay Asp Net Core
 II. Lê Xuân Thảo
@@ -81,7 +87,7 @@ VI. Nguyễn Minh Đức</textarea>
                     <br>
                     <input type="radio" onclick="TabInput()" checked><b>Click để thêm [TAB] vào cuối</b>
                     <br>
-                        <b> Nhập pattern-input cần được thay thế (mỗi phần tử cách nhau bởi Enter - với Enter là \n hoặc \r\n, Tab là \t) : </b>
+                       <a href="#xuly" onclick="xoaValue('Input')"> <b> Nhập pattern-input cần được thay thế (mỗi phần tử cách nhau bởi Enter - với Enter (enter này nó khác với enter sự phân tách mỗi thành phần à nhé 😂) là \n hoặc \r\n, Tab là \t) : </b></a>
                     <br>
                     <textarea rows="15" cols="100" name="Input" id="Input" autofocus>I.
 II.
@@ -122,7 +128,7 @@ VI.</textarea>
                     <br>
                     <input type="radio" onclick="TabOutput()" checked><b>Click để thêm [TAB] vào cuối</b>
                     <br>
-                            <b> Nhập pattern-output sẽ được thay thế thành (mỗi phần tử cách nhau bởi Enter và phải tương xứng với index của các input  - với Enter là \n hoặc \r\n, Tab là \t) : </b>
+                            <a href="#xuly" onclick="xoaValue('Output')"><b> Nhập pattern-output sẽ được thay thế thành (mỗi phần tử cách nhau bởi Enter và phải tương xứng với index của các input  - với Enter là \n hoặc \r\n, Tab là \t) : </b></a>
                     <br>
                     <textarea rows="15" cols="100" name="Output" id="Output" autofocus>1.
 2.

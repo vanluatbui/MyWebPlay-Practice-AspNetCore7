@@ -1,4 +1,11 @@
-﻿<table align="center">
+﻿<script>
+      function xoaValue(ele)
+    {
+            document.getElementById(ele).value = "";
+            document.getElementById(ele).focus();
+    }
+</script>
+<table align="center">
     <h2 style="text-align:center">Xử Lý SQL 8</h2>
 
     <h3 style="color:yellow" onclick="muaxuan()">@ViewBag.KetQua</h3>
@@ -10,13 +17,13 @@
         <tr style="height:40px">
             <td> </td>
             <td>
-                <b>Nhập tên table : </b>
+                <a href="#xuly" onclick="xoaValue('table')"><b>Nhập tên table : </b></a>
                 <br>
-                <input type="text" name="txtTable" value="User" />
+                <input type="text" name="txtTable" id="table" value="User" />
                 <br>
-                <b>Nhập toàn bộ fields + type hiện có (lấy từ script sql file - tách nhau bởi Enter) : </b>
+               <a href="#xuly" onclick="xoaValue('field')"> <b>Nhập toàn bộ fields + type hiện có (lấy từ script sql file - tách nhau bởi Enter) : </b></a>
                 <br>
-                <textarea name="txtFields" cols="100" rows="12">Column1 nvarchar(10)
+                <textarea name="txtFields" id="field" cols="100" rows="12">Column1 nvarchar(10)
 Column2 int
 Column3 money
 Column4 varchar(5)

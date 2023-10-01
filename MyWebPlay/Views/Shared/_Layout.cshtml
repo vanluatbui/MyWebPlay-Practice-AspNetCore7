@@ -54,21 +54,41 @@
             alert("Bạn đã bật trang web MyWebPlay thành công, bạn có thể sử dụng các tính năng tại trang web 😊!");
         }
 
+        var ok = 0;
+
         if ('@TempData["continue"]' == "OK" && localStorage.getItem("keyX_PlayOnWeb") != "true")
         {
+            ok = 2;
+            window.location.href="/Home/AcceptContinueUseWeb";
+        }
+
+        if ('@TempData["continue"]' == "NO" && localStorage.getItem("keyX_PlayOnWeb") == "true")
+        {
+            ok = 3;
+            localStorage.removeItem("keyX_PlayOnWeb");
+            window.location.href="/Home/Index";
+        }
+
+        if ('@TempData["ok-continue"]' == "yes" && localStorage.getItem("keyX_PlayOnWeb") != "true")
+        {
             localStorage.setItem("keyX_PlayOnWeb", "true");
-            window.location.href="/Home/LockedWebClient?web_continue=yes-ok";
+        }
+
+        if ('@TempData["ok-continue"]' == "no")
+        {
+            localStorage.removeItem("keyX_PlayOnWeb");
         }
 
         if ('@TempData["lock"]' == "true")
         {
+            ok = 4;
             alert("⚠ Trang web hiện đang bị khoá bởi người đảm quyền, không thể kết nối đối với một số trường hợp. Vì vậy, vui lòng chờ đợi sau khi admin duyệt và mở khoá để có thể tiếp tục. Nếu bạn muốn gửi email xin phép, liên hệ tại : mywebplay.website@gmail.com");
             window.location.href = "/Home/LockedWeb";
         }
-        var ok = 0;
+        
          if ('@TempData["PlayOnWebInLocal"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null))
         {
-            ok = "1";
+            ok = 1;
             localStorage.removeItem("keyX_PlayOnWeb");
             if ('@TempData["InError"]' == null)
             alert("Bạn đã tắt trang web MyWebPlay thành công, để sử dụng lại hãy thực hiện các bước để bật 😎 !");
@@ -78,12 +98,9 @@
 
          if (ok == 0 && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true")
         {
-            alert("Để tiếp tục sử dụng, vui lòng tìm cách để có lại được sự cấp phép. Nếu không, hãy tắt sử dụng trang web và yêu cầu bật sử dụng lại!");
+            alert("Để tiếp tục sử dụng, vui lòng tìm cách để có lại được sự cấp phép. Nếu không, hãy tắt sử dụng trang web và yêu cầu bật sử dụng lại! ");
             window.location.href = "https://google.com";
         }
-
-        if (localStorage.getItem("keyX_PlayOnWeb") == null)
-        window.location.href = "/Home/LockedWeb";
 
         function muaxuan()
         {

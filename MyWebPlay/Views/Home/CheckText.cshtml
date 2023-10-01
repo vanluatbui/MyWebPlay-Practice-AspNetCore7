@@ -1,4 +1,10 @@
-﻿
+﻿<script>
+      function xoaValue(ele)
+    {
+            document.getElementById(ele).value = "";
+            document.getElementById(ele).focus();
+    }
+</script>
 <table align="center">
     <h2 style="text-align:center">Chỉnh sửa 50% lỗi cơ bản của văn bản :)) - ứng dụng này coi như bỏ :v</h2>
 
@@ -12,9 +18,9 @@
                 <td></td>
                 <td>
                     <br>
-                        <b>Chuỗi của bạn : </b>
+                        <a href="#xuly" onclick="xoaValue('chuoi')"><b>Chuỗi của bạn : </b></a>
                         <br>
-                    <textarea rows="20" cols="150" name="Chuoi" autofocus>
+                    <textarea rows="20" cols="150" name="Chuoi" id="chuoi" autofocus>
 
 
 

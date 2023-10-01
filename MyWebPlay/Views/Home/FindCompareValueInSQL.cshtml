@@ -1,4 +1,11 @@
-﻿<table align="center">
+﻿<script>
+      function xoaValue(ele)
+    {
+            document.getElementById(ele).value = "";
+            document.getElementById(ele).focus();
+    }
+</script>
+<table align="center">
     <h2 style="text-align:center">Find Compare Value In SQL</h2>
 
     <h3 style="color:yellow" onclick="muaxuan()">@ViewBag.KetQua</h3>
@@ -11,10 +18,10 @@
             <td> </td>
             <td>
                 <br>
-                    <b>Chuỗi các fields của bạn (chú ý index - cách nhau bởi Enter) : <br>
-                    </b>
+                   <a href="#xuly" onclick="xoaValue('field')"> <b>Chuỗi các fields của bạn (chú ý index - cách nhau bởi Enter) : <br>
+                    </b></a>
                      <br>
-                    <textarea cols="50" rows="12" name="txtFields">Column1
+                    <textarea cols="50" rows="12" name="txtFields" id="field">Column1
 Column2
 Column3
 Column4
@@ -26,10 +33,10 @@ Column5</textarea>
             <td> </td>
             <td>
                 <br>
-                    <b>Chuỗi các giá trị cũ của dữ liệu (chú ý phải theo index - tách nhau bởi Enter và Tab) <br>
-                    </b>
+                    <a href="#xuly" onclick="xoaValue('old')"><b>Chuỗi các giá trị cũ của dữ liệu (chú ý phải theo index - tách nhau bởi Enter và Tab) <br>
+                    </b></a>
                      <br>
-                    <textarea cols="100" rows="12" name="txtOld">ABC[TAB-TPLAY]DEF[TAB-TPLAY]XYZ[TAB-TPLAY]HIK[TAB-TPLAY]LOP
+                    <textarea cols="100" rows="12" name="txtOld" id="old">ABC[TAB-TPLAY]DEF[TAB-TPLAY]XYZ[TAB-TPLAY]HIK[TAB-TPLAY]LOP
 123[TAB-TPLAY]456[TAB-TPLAY]789[TAB-TPLAY]000[TAB-TPLAY]890
 BUI[TAB-TPLAY]VAN[TAB-TPLAY]LUAT[TAB-TPLAY]18DTHA1[TAB-TPLAY]1811061316</textarea>
             </td>
@@ -39,10 +46,10 @@ BUI[TAB-TPLAY]VAN[TAB-TPLAY]LUAT[TAB-TPLAY]18DTHA1[TAB-TPLAY]1811061316</textare
             <td> </td>
             <td>
                 <br>
-                    <b>Chuỗi các giá trị mới của dữ liệu (chú ý phải theo index - tách nhau bởi Enter và Tab) <br>
-                    </b>
+                    <a href="#xuly" onclick="xoaValue('new')"><b>Chuỗi các giá trị mới của dữ liệu (chú ý phải theo index - tách nhau bởi Enter và Tab) <br>
+                    </b></a>
                      <br>
-                    <textarea cols="100" rows="12" name="txtNew">ABC[TAB-TPLAY]DEF[TAB-TPLAY]XYZ[TAB-TPLAY]HIK[TAB-TPLAY]LOP
+                    <textarea cols="100" rows="12" name="txtNew" id="new">ABC[TAB-TPLAY]DEF[TAB-TPLAY]XYZ[TAB-TPLAY]HIK[TAB-TPLAY]LOP
 123[TAB-TPLAY]546[TAB-TPLAY]789[TAB-TPLAY]000[TAB-TPLAY]890
 BUI[TAB-TPLAY]VAN[TAB-TPLAY]LUAT-3275[TAB-TPLAY]18DTHA1-HUTECH[TAB-TPLAY]1811061316</textarea>
             </td>
@@ -52,10 +59,10 @@ BUI[TAB-TPLAY]VAN[TAB-TPLAY]LUAT-3275[TAB-TPLAY]18DTHA1-HUTECH[TAB-TPLAY]1811061
             <td> </td>
             <td>
                 <br>
-                    <b>Nhập các fields làm dữ kiện nhận dạng (cách nhau bởi dấu phẩy) <br>
-                    </b>
+                    <a href="#xuly" onclick="xoaValue('where')"><b>Nhập các fields làm dữ kiện nhận dạng (cách nhau bởi dấu phẩy) <br>
+                    </b></a>
                      <br>
-                    <input type="text" size="50" name="txtWhere" value="Column1,Column5" />
+                    <input type="text" size="50" name="txtWhere" id="where" value="Column1,Column5" />
             </td>
         </tr>
 

@@ -1,5 +1,9 @@
 ﻿<script>
-
+      function xoaValue(ele)
+    {
+            document.getElementById(ele).value = "";
+            document.getElementById(ele).focus();
+    }
      function PlayChon1()
     {
         var DK2 = document.getElementById("DK1");
@@ -46,7 +50,7 @@
             <td></td>
             <td>
                 <br>
-                    <b>Chuỗi của bạn : </b>
+                    <a href="#xuly" onclick="xoaValue('Chuoi')"><b>Chuỗi của bạn : </b></a>
                 <br>
                 <input type="radio" onclick="TabChuoi()" checked><b>Click để thêm [TAB] vào cuối</b>
                 <br>
@@ -65,7 +69,7 @@
                 <br>
                 <input type="radio" onclick="TabInput()" checked><b>Click để thêm [TAB] vào cuối</b>
                 <br>
-                    <b> Nhập pattern-input cần được thay thế : </b>
+                  <a href="#xuly" onclick="xoaValue('Input')">  <b> Nhập pattern-input cần được thay thế : </b></a>
                 <br>
                 <textarea rows="10" cols="100" name="Input" id="Input" autofocus></textarea>
                 <br>
@@ -82,7 +86,7 @@
                 <br>
                 <input type="radio" onclick="TabOutput()" checked><b>Click để thêm [TAB] vào cuối</b>
                 <br>
-                    <b> Nhập pattern-output sẽ được thay thế thành : </b>
+                    <a href="#xuly" onclick="xoaValue('Output')"><b> Nhập pattern-output sẽ được thay thế thành : </b></a>
                 <br>
                 <textarea rows="10" cols="100" name="Output" id="Output" autofocus></textarea>
                 <br>

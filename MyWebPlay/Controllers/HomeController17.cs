@@ -364,44 +364,12 @@ namespace MyWebPlay.Controllers
                 return View();
         }
 
-        public ActionResult LockedWebClient(string? web_continue)
+        public ActionResult LockedWebClient()
         {
-            TempData["continue"] = "";
-
             khoawebsiteClient();
 
             if (TempData["lock"] == "true")
                 return RedirectToAction("Index");
-
-            if (web_continue == "yes-ok")
-            {
-                string ID;
-                using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
-                {
-                    socket.Connect("8.8.8.8", 65530);
-                    IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
-                    ID = endPoint.Address.ToString();
-                }
-
-                string message = "Báo cáo hành động [tiếp tục] bật sử dụng trang web của khách hàng mới (ID client đã được đăng kí mở trước đây, yêu cầu lại cấp phép mới) :\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@end"
-               .Replace("@lock", "https://" + Request.Host + "/Home/LockThisClient?ip=" + ID)
-               .Replace("@unlock", "https://" + Request.Host + "/Home/UnlockThisClient?ip=" + ID)
-               .Replace("@end", "https://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + ID);
-
-                Calendar x = CultureInfo.InvariantCulture.Calendar;
-
-                string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-
-                //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + ID + "] - " + xuxu;
-                string host = "{" + Request.Host.ToString() + "}"
-                           .Replace("http://", "")
-                       .Replace("https://", "")
-                       .Replace("/", "");
-
-                SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
-                      "mywebplay.savefile@gmail.com", host + " [THONG BAO ADMIN] Continue Play On Web In Client Local  In " + name, message, "teinnkatajeqerfl");
-            }
 
             string IP;
             using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))

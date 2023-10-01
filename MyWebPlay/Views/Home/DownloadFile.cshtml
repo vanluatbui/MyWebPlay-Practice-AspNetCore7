@@ -58,6 +58,12 @@
         window.location.href = "/Home/LoginAdmin?password="+check+"&&id=2";
     }
 
+      function xoaValue(ele)
+    {
+            document.getElementById(ele).value = "";
+            document.getElementById(ele).focus();
+    }
+
 </script>
 
 
@@ -89,7 +95,7 @@
     <br />
 
     <br />
-    <b>Nhập chính xác path folder để truy xuất các file (không bao gồm các folder con) để download - nếu để trống mặc định là ROOT : </b><input id="Folder" type="text" size="50" value="/Folder1/Folder2" />
+    <a href="#xuly" onclick="xoaValue('Folder')"><b>Nhập chính xác path folder để truy xuất các file (không bao gồm các folder con) để download - nếu để trống mặc định là ROOT : </b></a><input id="Folder" type="text" size="50" value="/Folder1/Folder2" />
     <button style="color:blue;font-weight:bold" onclick="downall()">ALL DOWNLOAD SERVER IN THIS FOLDER</button>
     <button style="color:blue;font-weight:bold" onclick="downall1()">ALL DOWNLOAD SERVER IN THIS FOLDER (NÉN ALL ZIP)</button>
     <br />
@@ -104,7 +110,7 @@
 
                 <br />
                  <br />
-    <b>Nếu bạn không nhớ các folder trên Server có thể <u>lần mò từ từ</u> để xuất DS các thư mục đang tồn tại, bắt đầu bỏ trống trường này để đi từ mục ROOT : <input type="text" value="/Folder1/Folder2" id="FOLD" size="50" /><button onclick="qwerty()"><b>XUẤT DS FOLDER IN THIS</b></button></b>
+    <a href="#xuly" onclick="xoaValue('FOLD')"><b>Nếu bạn không nhớ các folder trên Server có thể <u>lần mò từ từ</u> để xuất DS các thư mục đang tồn tại, bắt đầu bỏ trống trường này để đi từ mục ROOT : </b></a> <input type="text" value="/Folder1/Folder2" id="FOLD" size="50" /><button onclick="qwerty()"><b>XUẤT DS FOLDER IN THIS</b></button>
     <br /><br />
  
 </table>

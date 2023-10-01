@@ -1,4 +1,9 @@
-﻿<table align="center">
+﻿  function xoaValue(ele)
+    {
+            document.getElementById(ele).value = "";
+            document.getElementById(ele).focus();
+    }
+<table align="center">
     <h2 style="text-align:center">Xử Lý Code 9</h2>
 
     <h3 style="color:yellow" onclick="muaxuan()">@ViewBag.KetQua</h3>
@@ -11,10 +16,10 @@
             <td> </td>
             <td>
                 <br>
-                    <b>Nhập dữ liệu theo mẫu (admin tự hiểu :)) )<br>
-                    </b>
+                    <a href="#xuly" onclick="xoaValue('chuoi')"><b>Nhập dữ liệu theo mẫu (admin tự hiểu :)) )<br>
+                    </b></a>
                      <br>
-                    <textarea cols="100" rows="15" name="txtChuoi">varA
+                    <textarea cols="100" rows="15" name="txtChuoi" id="chuoi">varA
 varA.varB.varC.varD.varE
 UserModel#Session["UserSession"].Items.Display.UserInfo.UserName</textarea>
             </td>

@@ -11,6 +11,12 @@
         DK2.value = 2;
     }
 
+      function xoaValue(ele)
+    {
+            document.getElementById(ele).value = "";
+            document.getElementById(ele).focus();
+    }
+
 </script>
 
 <table align="center">
@@ -26,9 +32,9 @@
             <td> </td>
             <td>
                 <br>
-                    <b>Chuỗi của bạn : </b>
+                    <a href="#xuly" onclick="xoaValue('chuoi')"><b>Chuỗi của bạn : </b></a>
                 <br>
-                <textarea rows="20" cols="150" name="Chuoi" autofocus>@ViewBag.ViDu</textarea>
+                <textarea rows="20" cols="150" name="Chuoi" id="chuoi" autofocus>@ViewBag.ViDu</textarea>
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
             </td>

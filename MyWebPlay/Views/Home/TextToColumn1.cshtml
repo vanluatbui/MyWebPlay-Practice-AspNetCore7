@@ -1,4 +1,11 @@
-﻿<table align="center">
+﻿<script>
+      function xoaValue(ele)
+    {
+            document.getElementById(ele).value = "";
+            document.getElementById(ele).focus();
+    }
+</script>
+<table align="center">
     <h2 style="text-align:center">Text all one line-column to convert x column part 1</h2>
 
     <h3 style="color:yellow" onclick="muaxuan()">@ViewBag.KetQua</h3>
@@ -11,9 +18,9 @@
             <td></td>
             <td>
                     <br>
-                        <b> Chuỗi của bạn :</b>
+                       <a href="#xuly" onclick="xoaValue('chuoi')"> <b> Chuỗi của bạn :</b></a>
                     <br>
-                <textarea rows="20" cols="150" name="Chuoi" autofocus>A
+                <textarea rows="20" cols="150" name="Chuoi" id="chuoi" autofocus>A
 B
 C
 D
@@ -37,9 +44,9 @@ P</textarea>
             <td></td>
             <td>
                     <br>
-                            <b>  Number column : </b>
+                           <a href="#xuly" onclick="xoaValue('number')"> <b>  Number column : </b></a>
                     <br>
-                <input type="number" name="Number" min="1" value="3">
+                <input type="number" name="Number" id="number" min="1" value="3">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
             </td>

@@ -1,4 +1,11 @@
-﻿<table align="center">
+﻿<script>
+      function xoaValue(ele)
+    {
+            document.getElementById(ele).value = "";
+            document.getElementById(ele).focus();
+    }
+</script>
+<table align="center">
     <h2 style="text-align:center">Insert JSON Doc</h2>
 
     <h3 style="color:yellow" onclick="muaxuan()">@ViewBag.KetQua</h3>
@@ -11,9 +18,9 @@
             <td> </td>
             <td>
                 <br>
-                    <b>Nhập trạng thái theo mẫu (tên cột-kiểu dữ liệu) *** Với # 1 : Kiểu số, 2 : Kiểu chuỗi, 3 : Kiểu DateTime/Char </b>
+                    <a href="#xuly" onclick="xoaValue('trangthai')"><b>Nhập trạng thái theo mẫu (tên cột-kiểu dữ liệu) *** Với # 1 : Kiểu số, 2 : Kiểu chuỗi, 3 : Kiểu DateTime/Char </b></a>
                     <br>
-                <input type="text" size="50" name="TrangThai" value="MSSV-3,HoTen-2,DTB-1,NgaySinh-3">
+                <input type="text" size="50" name="TrangThai" id="trangthai" value="MSSV-3,HoTen-2,DTB-1,NgaySinh-3">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
             </td>
@@ -24,9 +31,9 @@
             <td> </td>
             <td>
                 <br>
-                    <b>Nhập dãy dữ liệu theo mẫu (VD - nếu mỗi doc SQL có 5 cột/ mỗi col cách nhau bởi [Tab] - mỗi doc cách nhau bởi Enter)... </b>
+                   <a href="#xuly" onclick="xoaValue('dulieu')"> <b>Nhập dãy dữ liệu theo mẫu (VD - nếu mỗi doc SQL có 5 cột/ mỗi col cách nhau bởi [Tab] - mỗi doc cách nhau bởi Enter)... </b></a>
                 <br>
-                <textarea name="DuLieu" cols="100" rows="50">@ViewBag.VD</textarea>
+                <textarea name="DuLieu" id="dulieu" cols="100" rows="50">@ViewBag.VD</textarea>
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
             </td>

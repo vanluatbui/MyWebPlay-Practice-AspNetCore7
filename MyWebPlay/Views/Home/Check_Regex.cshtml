@@ -1,4 +1,12 @@
-﻿<table align="center">
+﻿<script>
+
+      function xoaValue(ele)
+    {
+            document.getElementById(ele).value = "";
+            document.getElementById(ele).focus();
+    }
+</script>
+<table align="center">
     <h2 style="text-align:center">Check Text Pattern Regex</h2>
 
     <h3 style="color:yellow" onclick="muaxuan()">@ViewBag.KetQua</h3>
@@ -11,9 +19,9 @@
             <td></td>
             <td>
                 <br>
-                    <b>Chuỗi của bạn : </b>
+                   <a href="#xuly" onclick="xoaValue('chuoi')">  <b>Chuỗi của bạn : </b></a>
                 <br>
-                <input type="text" size="100" name="Chuoi">
+                <input type="text" size="100" name="Chuoi" id="chuoi">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
             </td>
@@ -26,9 +34,9 @@
             <td></td>
             <td>
                 <br>
-                    <b>Pattern cần kiểm tra : </b>
+                   <a href="#xuly" onclick="xoaValue('pattern')">  <b>Pattern cần kiểm tra : </b></a>
                 <br>
-                <input type="text" size="100" name="Pattern">
+                <input type="text" size="100" name="Pattern" id="pattern">
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
             </td>

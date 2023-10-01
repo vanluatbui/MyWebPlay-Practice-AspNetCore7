@@ -27,13 +27,32 @@ namespace MyWebPlay.Controllers
             var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPLock.txt");
             var noidung2 = docfile(path2);
 
-            string IP;
+            string IP = "";
+
+            var IPx = "";
+
             using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
             {
                 socket.Connect("8.8.8.8", 65530);
                 IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
-                IP = endPoint.Address.ToString();
+                IPx = endPoint.Address.ToString();
             }
+
+            try
+            {
+                WebClient client = new WebClient();
+                Stream stream = client.OpenRead("https://api.ipify.org/");
+                StreamReader reader = new StreamReader(stream);
+                var content = reader.ReadToEnd();
+                IP = content;
+            }
+            catch
+            {
+                IP = IPx;
+            }
+
+            if (IPx == IP)
+                IPx = "";
 
             if (key == "true" && (noidung.Contains(IP) == true || noidung2.Contains(IP) == true))
             {
@@ -46,11 +65,17 @@ namespace MyWebPlay.Controllers
             }
 
 
-            string message = "Báo cáo hành động bật trang web của khách hàng @info :\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@end"
+            string message = "Báo cáo hành động bật trang web của khách hàng @info :\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@end\r\n\r\n--------------------------------------------------------\r\n\r\n[DỰ PHÒNG 1]\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@lock_1\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@unlock_1\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@end_1\r\n\r\n\r\n--------------------------------------------------------\r\n\r\n[DỰ PHÒNG 2]\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@lock_2\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@unlock_2\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@end_2\r\n\r\nThanks!"
                 .Replace("@info", info)
                 .Replace("@lock", "https://" + Request.Host + "/Home/LockThisClient?ip=" + IP)
                 .Replace("@unlock", "https://" + Request.Host + "/Home/UnlockThisClient?ip=" + IP)
-                .Replace("@end", "https://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + IP);
+                .Replace("@end", "https://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + IP)
+             .Replace("@lock_1", "https://" + Request.Host + "/Home/LockThisClient?ip=" + IPx)
+                .Replace("@unlock_1", "https://" + Request.Host + "/Home/UnlockThisClient?ip=" + IPx)
+                .Replace("@end_1", "https://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + IPx)
+                 .Replace("@lock_2", "https://" + Request.Host + "/Home/LockThisClient?ip=" + Request.HttpContext.Connection.RemoteIpAddress)
+                .Replace("@unlock_2", "https://" + Request.Host + "/Home/UnlockThisClient?ip=" + Request.HttpContext.Connection.RemoteIpAddress)
+                .Replace("@end_2", "https://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + Request.HttpContext.Connection.RemoteIpAddress);
 
             if (key == "true")
             {
@@ -70,7 +95,7 @@ namespace MyWebPlay.Controllers
             string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
 
             //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-            string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + IP + "] - " + xuxu;
+            string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + IP +" *** " + IPx + "] - " + xuxu;
             string host = "{" + Request.Host.ToString() + "}"
                        .Replace("http://", "")
                    .Replace("https://", "")
@@ -116,16 +141,33 @@ namespace MyWebPlay.Controllers
             Calendar x = CultureInfo.InvariantCulture.Calendar;
 
             string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-            string localIP;
+            string localIP = "";
+            var IPx = "";
+
             using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
             {
                 socket.Connect("8.8.8.8", 65530);
                 IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
-                localIP = endPoint.Address.ToString();
+                IPx = endPoint.Address.ToString();
             }
 
+            try
+            {
+                WebClient client = new WebClient();
+                Stream stream = client.OpenRead("https://api.ipify.org/");
+                StreamReader reader = new StreamReader(stream);
+                var content = reader.ReadToEnd();
+                localIP = content;
+            }
+            catch
+            {
+                localIP = IPx;
+            }
+
+            if (IPx == localIP)
+                IPx = "";
             //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-            string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + localIP + "] - " + xuxu;
+            string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + localIP + " *** " + IPx + "] - " + xuxu;
             string host = "{" + Request.Host.ToString() + "}"
                        .Replace("http://", "")
                    .Replace("https://", "")
@@ -165,16 +207,33 @@ namespace MyWebPlay.Controllers
             Calendar x = CultureInfo.InvariantCulture.Calendar;
 
             string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-            string localIP;
+            string localIP = "";
+            var IPx = "";
+
             using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
             {
                 socket.Connect("8.8.8.8", 65530);
                 IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
-                localIP = endPoint.Address.ToString();
+                IPx = endPoint.Address.ToString();
             }
 
+            try
+            {
+                WebClient client = new WebClient();
+                Stream stream = client.OpenRead("https://api.ipify.org/");
+                StreamReader reader = new StreamReader(stream);
+                var content = reader.ReadToEnd();
+                localIP = content;
+            }
+            catch
+            {
+                localIP = IPx;
+            }
+
+            if (IPx == localIP)
+                IPx = "";
             //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-            string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + localIP + "] - " + xuxu;
+            string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + localIP + " *** " + IPx + "] - " + xuxu;
             string host = "{" + Request.Host.ToString() + "}"
                        .Replace("http://", "")
                    .Replace("https://", "")
@@ -304,16 +363,34 @@ namespace MyWebPlay.Controllers
                 Calendar x = CultureInfo.InvariantCulture.Calendar;
 
                 string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                string localIP;
+                string localIP = "";
+                var IPx = "";
+
                 using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
                 {
                     socket.Connect("8.8.8.8", 65530);
                     IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
-                    localIP = endPoint.Address.ToString();
+                    IPx = endPoint.Address.ToString();
                 }
 
+                try
+                {
+                    WebClient client = new WebClient();
+                    Stream stream = client.OpenRead("https://api.ipify.org/");
+                    StreamReader reader = new StreamReader(stream);
+                    var content = reader.ReadToEnd();
+                    localIP = content;
+                }
+                catch
+                {
+                    localIP = IPx;
+                }
+
+                if (IPx == localIP)
+                    IPx = "";
+
                 //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + localIP + "] - " + xuxu;
+                string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + localIP + " *** " + IPx + "] - " + xuxu;
                 string host = "{" + Request.Host.ToString() + "}"
                            .Replace("http://", "")
                        .Replace("https://", "")
@@ -346,12 +423,23 @@ namespace MyWebPlay.Controllers
         {
             TempData["lock"] = "";
             TempData["PlayOnWebInLocal-X"] = "";
-            string IP;
-            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+            string IP = "";
+            try
             {
-                socket.Connect("8.8.8.8", 65530);
-                IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
-                IP = endPoint.Address.ToString();
+                WebClient client = new WebClient();
+                Stream stream = client.OpenRead("https://api.ipify.org/");
+                StreamReader reader = new StreamReader(stream);
+                String content = reader.ReadToEnd();
+                IP = content;
+            }
+            catch
+            {
+                using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+                {
+                    socket.Connect("8.8.8.8", 65530);
+                    IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                    IP = endPoint.Address.ToString();
+                }
             }
 
             var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
@@ -375,12 +463,23 @@ namespace MyWebPlay.Controllers
             if (TempData["lock"] == "true")
                 return RedirectToAction("Index");
 
-            string IP;
-            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+            string IP = "";
+            try
             {
-                socket.Connect("8.8.8.8", 65530);
-                IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
-                IP = endPoint.Address.ToString();
+                WebClient client = new WebClient();
+                Stream stream = client.OpenRead("https://api.ipify.org/");
+                StreamReader reader = new StreamReader(stream);
+                String content = reader.ReadToEnd();
+                IP = content;
+            }
+            catch
+            {
+                using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+                {
+                    socket.Connect("8.8.8.8", 65530);
+                    IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                    IP = endPoint.Address.ToString();
+                }
             }
 
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/LockedIPClient.txt");
@@ -399,13 +498,25 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(LockedClientID))
                 return RedirectToAction("LockedWebClient");
 
-            string IP;
-            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+            string IP = "";
+            try
             {
-                socket.Connect("8.8.8.8", 65530);
-                IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
-                IP = endPoint.Address.ToString();
+                WebClient client = new WebClient();
+                Stream stream = client.OpenRead("https://api.ipify.org/");
+                StreamReader reader = new StreamReader(stream);
+                String content = reader.ReadToEnd();
+                IP = content;
             }
+            catch
+            {
+                using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+                {
+                    socket.Connect("8.8.8.8", 65530);
+                    IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                    IP = endPoint.Address.ToString();
+                }
+            }
+            
 
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/LockedIPClient.txt");
             var noidung = docfile(path);

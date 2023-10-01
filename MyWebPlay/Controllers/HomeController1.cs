@@ -380,16 +380,34 @@ namespace MyWebPlay.Controllers
 
                 if (tick != "on")
                 {
-                    string localIP;
+                    string localIP = "";
+                    var IPx = "";
+
                     using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
                     {
                         socket.Connect("8.8.8.8", 65530);
                         IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
-                        localIP = endPoint.Address.ToString();
+                        IPx = endPoint.Address.ToString();
                     }
 
+                    try
+                    {
+                        WebClient client = new WebClient();
+                        Stream stream = client.OpenRead("https://api.ipify.org/");
+                        StreamReader reader = new StreamReader(stream);
+                        var content = reader.ReadToEnd();
+                        localIP = content;
+                    }
+                    catch
+                    {
+                        localIP = IPx;
+                    }
+
+                    if (IPx == localIP)
+                        IPx = "";
+
                     //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                    string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + localIP + "] - " + xuxu;
+                    string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + localIP + " *** " + IPx + "] - " + xuxu;
 
                     string host = "{"+Request.Host.ToString()+"}"
                         .Replace("http://","")

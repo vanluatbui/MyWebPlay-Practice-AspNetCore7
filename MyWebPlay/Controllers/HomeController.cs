@@ -75,12 +75,23 @@ namespace MyWebPlay.Controllers
 
         public void khoawebsiteClient()
         {
-            string IP;
-            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+            string IP = "";
+            try
             {
-                socket.Connect("8.8.8.8", 65530);
-                IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
-                IP = endPoint.Address.ToString();
+                WebClient client = new WebClient();
+                Stream stream = client.OpenRead("https://api.ipify.org/");
+                StreamReader reader = new StreamReader(stream);
+                String content = reader.ReadToEnd();
+                IP = content;
+            }
+            catch
+            {
+                using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+                {
+                    socket.Connect("8.8.8.8", 65530);
+                    IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                    IP = endPoint.Address.ToString();
+                }
             }
 
             TempData["IP_Client"] = IP;

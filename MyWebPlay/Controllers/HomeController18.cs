@@ -110,14 +110,6 @@ namespace MyWebPlay.Controllers
 
         public ActionResult AcceptContinue(int id) 
         {
-            if (HttpContext.Session.GetObject<string>("continueX") != "ok")
-            {
-                TempData["ok-continue"] = "no";
-                return RedirectToAction("Index");
-            }
-
-            HttpContext.Session.Remove("continueX");
-
                 Calendar x = CultureInfo.InvariantCulture.Calendar;
                 var d = x.AddHours(DateTime.UtcNow, 7);
                 var hour = String.Join("", d.Hour.ToString("00").Reverse().ToList());

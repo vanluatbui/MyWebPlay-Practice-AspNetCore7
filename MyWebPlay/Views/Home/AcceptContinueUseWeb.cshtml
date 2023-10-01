@@ -52,10 +52,34 @@ body {
         window.location.href = "/Home/AcceptContinue?id="+i;
     }
 
- </script>
- @for (int i = 10; i <= 9999; i++)
+    function show()
     {
-        <button onclick="accept(@i)"><b>@i.ToString("0000")</b></button>
+        var s = "";
+        for (var i = 0; i <=9999; i++)
+        {
+            var x = "";
+
+            if (i.toString().length == 1)
+            x = "000"+i;
+             else
+            if (i.toString().length == 2)
+            x = "00"+i;
+             else
+            if (i.toString().length == 3)
+            x = "0"+i;
+            else
+            x= ""+i;
+
+            s += "<button onclick=\"accept("+i+")\">"+x+"</button> ";
+        }
+        document.getElementById("ok").style.display = "none";
+        document.getElementById("maika").innerHTML = s;
     }
+
+ </script>
+ <button onclick="show()" id="ok" style="color:red"><h2>Show List ID Open</h2></button>
+ <div id="maika">
+
+ </div>
 </head>
 </html>

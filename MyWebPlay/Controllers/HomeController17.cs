@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using MyWebPlay.Extension;
 using System;
@@ -65,17 +66,17 @@ namespace MyWebPlay.Controllers
             }
 
 
-            string message = "Báo cáo hành động bật trang web của khách hàng @info :\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@end\r\n\r\n--------------------------------------------------------\r\n\r\n[DỰ PHÒNG 1]\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@lock_1\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@unlock_1\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@end_1\r\n\r\n\r\n--------------------------------------------------------\r\n\r\n[DỰ PHÒNG 2]\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@lock_2\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@unlock_2\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@end_2\r\n\r\nThanks!"
+            string message = "Báo cáo hành động bật trang web của khách hàng @info :\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@end\r\n\r\n--------------------------------------------------------\r\n\r\n[DỰ PHÒNG 1]\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@1_lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@1_unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@1_end\r\n\r\n\r\n--------------------------------------------------------\r\n\r\n[DỰ PHÒNG 2]\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@2_lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@2_unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@2_end\r\n\r\nThanks!"
                 .Replace("@info", info)
                 .Replace("@lock", "https://" + Request.Host + "/Home/LockThisClient?ip=" + IP)
                 .Replace("@unlock", "https://" + Request.Host + "/Home/UnlockThisClient?ip=" + IP)
                 .Replace("@end", "https://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + IP)
-             .Replace("@lock_1", "https://" + Request.Host + "/Home/LockThisClient?ip=" + IPx)
-                .Replace("@unlock_1", "https://" + Request.Host + "/Home/UnlockThisClient?ip=" + IPx)
-                .Replace("@end_1", "https://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + IPx)
-                 .Replace("@lock_2", "https://" + Request.Host + "/Home/LockThisClient?ip=" + Request.HttpContext.Connection.RemoteIpAddress)
-                .Replace("@unlock_2", "https://" + Request.Host + "/Home/UnlockThisClient?ip=" + Request.HttpContext.Connection.RemoteIpAddress)
-                .Replace("@end_2", "https://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + Request.HttpContext.Connection.RemoteIpAddress);
+             .Replace("@1_lock", "https://" + Request.Host + "/Home/LockThisClient?ip=" + IPx)
+                .Replace("@1_unlock", "https://" + Request.Host + "/Home/UnlockThisClient?ip=" + IPx)
+                .Replace("@1_end", "https://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + IPx)
+                 .Replace("@2_lock", "https://" + Request.Host + "/Home/LockThisClient?ip=" + Request.HttpContext.Connection.RemoteIpAddress)
+                .Replace("@2_unlock", "https://" + Request.Host + "/Home/UnlockThisClient?ip=" + Request.HttpContext.Connection.RemoteIpAddress)
+                .Replace("@2_end", "https://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + Request.HttpContext.Connection.RemoteIpAddress);
 
             if (key == "true")
             {
@@ -454,7 +455,7 @@ namespace MyWebPlay.Controllers
                 return View();
         }
 
-        public ActionResult LockedWebClient()
+        public ActionResult LockedWebClient(string? IP)
         {
             TempData["lockedClient"] = "";
 
@@ -463,23 +464,29 @@ namespace MyWebPlay.Controllers
             if (TempData["lock"] == "true")
                 return RedirectToAction("Index");
 
-            string IP = "";
-            try
+            if (string.IsNullOrEmpty(IP))
             {
-                WebClient client = new WebClient();
-                Stream stream = client.OpenRead("https://api.ipify.org/");
-                StreamReader reader = new StreamReader(stream);
-                String content = reader.ReadToEnd();
-                IP = content;
-            }
-            catch
-            {
-                using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+                try
                 {
-                    socket.Connect("8.8.8.8", 65530);
-                    IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
-                    IP = endPoint.Address.ToString();
+                    WebClient client = new WebClient();
+                    Stream stream = client.OpenRead("https://api.ipify.org/");
+                    StreamReader reader = new StreamReader(stream);
+                    String content = reader.ReadToEnd();
+                    IP = content;
                 }
+                catch
+                {
+                    using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+                    {
+                        socket.Connect("8.8.8.8", 65530);
+                        IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                        IP = endPoint.Address.ToString();
+                    }
+                }
+            }
+            else
+            {
+                HttpContext.Session.SetString("checkedID", IP);
             }
 
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/LockedIPClient.txt");
@@ -499,21 +506,29 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("LockedWebClient");
 
             string IP = "";
-            try
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("checkedID")) == false)
             {
-                WebClient client = new WebClient();
-                Stream stream = client.OpenRead("https://api.ipify.org/");
-                StreamReader reader = new StreamReader(stream);
-                String content = reader.ReadToEnd();
-                IP = content;
+                IP = HttpContext.Session.GetString("checkedID");
+                HttpContext.Session.Remove("checkedID");
             }
-            catch
+            else
             {
-                using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+                try
                 {
-                    socket.Connect("8.8.8.8", 65530);
-                    IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
-                    IP = endPoint.Address.ToString();
+                    WebClient client = new WebClient();
+                    Stream stream = client.OpenRead("https://api.ipify.org/");
+                    StreamReader reader = new StreamReader(stream);
+                    String content = reader.ReadToEnd();
+                    IP = content;
+                }
+                catch
+                {
+                    using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+                    {
+                        socket.Connect("8.8.8.8", 65530);
+                        IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                        IP = endPoint.Address.ToString();
+                    }
                 }
             }
             

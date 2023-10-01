@@ -266,19 +266,7 @@
 <h1>@ViewBag.Xuan</h1>
 <h3 style="color:yellow">@Html.Raw(@ViewBag.KetQua)</h3>
 <br />
-@if (ViewBag.Y == 0)
-{
-    <h3 style="color:aqua">Bạn hiện đang ở chế độ Admin (tính năng không dành cho khách hàng).<br>Vui lòng chuyển sang chế độ tính năng dành cho người dùng...</h3><br />
-    <button style="color:blue" onclick="XYZ()">Chuyển sang chế độ người dùng</button>
-    <br />
-    <br />
-}
-else
-{
-<button style="color:darkgrey" onclick="DEF()">Chuyển sang chế độ Admin</button>
-    <br />
-    <br />
-}
+
    @* <button style="color:blue" onclick="ABC()">Have u (Have name - one file)</button>
     <br />
     <br />*@
@@ -337,7 +325,10 @@ else
             <tr style="height:40px">
                 <td> </td>
                 <td>
-                    <br>
+                     <h3 style="color:aqua">Bạn hiện đang ở chế độ Admin (tính năng không dành cho khách hàng).<br>Vui lòng chuyển sang chế độ tính năng dành cho người dùng...</h3><br />
+    <a href="#xuly" style="color:blue" onclick="XYZ()"><h2>Chuyển sang chế độ người dùng</h2></a>
+    <br />
+    <br />
                     <textarea autofocus name="Text" cols="100" rows="5" placeholder="Không cần nhập gì ở đây :)) (hoặc nếu bạn muốn ghi chú cho vui - mà kể cũng thiệt :v)"></textarea>
                     <br>
                 </td>
@@ -351,6 +342,8 @@ else
              <tr style="height:40px">
                 <td></td>
                 <td>
+                    <a href="#xuly" style="color:darkgrey" onclick="DEF()"><h2>Chuyển sang chế độ Admin</h2></a>
+    <br />
                     <br>
                     <b>Nhập mật mã hoặc nhận dạng Admin để có thể sử dụng các ưu đãi về tính năng nếu có (hoặc bạn bỏ qua bước này)</b>
                     <br>

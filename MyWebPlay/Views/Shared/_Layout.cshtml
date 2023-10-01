@@ -19,29 +19,34 @@
         //var urlParams = new URLSearchParams(queryString);
         //var closex = urlParams.get('closex');
 
+        var ok = 0;
+
         if ('@TempData["lockedClient"]' == "true")
         {
             window.location.href = "/Home/LockedWebClient";
         }
 
-        if ('@TempData["Lock_Message"]' != null && '@TempData["Lock_Message"]' == "true")
+        if (ok != 100 && '@TempData["Lock_Message"]' != null && '@TempData["Lock_Message"]' == "true")
         {
+            ok = 1;
             alert("❤ [ADMIN] Đã [KHOÁ] kết nối trang web theo ID bạn yêu cầu !");
             var win = window.open("about:blank", "_self");
              win.close();
              window.close();
         }
 
-         if ('@TempData["Unlock_Message"]' != null && '@TempData["Unlock_Message"]' == "true")
+         if (ok != 100 && '@TempData["Unlock_Message"]' != null && '@TempData["Unlock_Message"]' == "true")
         {
+            ok = 100;
              alert("❤ [ADMIN] Đã [MỞ KHOÁ] kết nối trang web theo ID bạn yêu cầu !");
              var win = window.open("about:blank", "_self");
              win.close();
              window.close();
         }
 
-         if ('@TempData["Logout_Message"]' != null && '@TempData["Logout_Message"]' == "true")
+         if (ok != 100 && '@TempData["Logout_Message"]' != null && '@TempData["Logout_Message"]' == "true")
         {
+            ok = 100;
             alert("❤ [ADMIN] Đã đăng xuất tất cả kết nối theo ID bạn yêu cầu, họ sẽ phải bật lại trang web !");
              var win = window.open("about:blank", "_self");
              win.close();
@@ -54,7 +59,6 @@
             alert("Bạn đã bật trang web MyWebPlay thành công, bạn có thể sử dụng các tính năng tại trang web 😊!");
         }
 
-        var ok = 0;
 
         if ('@TempData["continue"]' == "OK" && localStorage.getItem("keyX_PlayOnWeb") != "true")
         {
@@ -79,14 +83,14 @@
             localStorage.removeItem("keyX_PlayOnWeb");
         }
 
-        if ('@TempData["lock"]' == "true")
+        if (ok == 0 && '@TempData["lock"]' == "true")
         {
             ok = 4;
             alert("⚠ Trang web hiện đang bị khoá bởi người đảm quyền, không thể kết nối đối với một số trường hợp. Vì vậy, vui lòng chờ đợi sau khi admin duyệt và mở khoá để có thể tiếp tục. Nếu bạn muốn gửi email xin phép, liên hệ tại : mywebplay.website@gmail.com");
             window.location.href = "/Home/LockedWeb";
         }
         
-         if ('@TempData["PlayOnWebInLocal"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null))
+         if (ok == 0 && '@TempData["PlayOnWebInLocal"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null))
         {
             ok = 1;
             localStorage.removeItem("keyX_PlayOnWeb");
@@ -94,6 +98,7 @@
             alert("Bạn đã tắt trang web MyWebPlay thành công, để sử dụng lại hãy thực hiện các bước để bật 😎 !");
             else
             alert("⚠ Tất cả kết nối phiên bản của bạn hiện đã hết hạn sử dụng hoặc chưa được bật, vui lòng bật lại trang web để sử dụng !");
+            window.location.href="/Home/LockedWeb";
         }
 
          if (ok == 0 && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true")

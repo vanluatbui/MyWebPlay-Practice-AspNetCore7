@@ -92,23 +92,13 @@ namespace MyWebPlay.Controllers
             var noidung2 = docfile(path2);
 
             string IP = "";
-            try
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")))
             {
-                WebClient client = new WebClient();
-                Stream stream = client.OpenRead("https://api.ipify.org/");
-                StreamReader reader = new StreamReader(stream);
-                String content = reader.ReadToEnd();
-                IP = content;
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
             }
-            catch
-            {
-                using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
-                {
-                    socket.Connect("8.8.8.8", 65530);
-                    IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
-                    IP = endPoint.Address.ToString();
-                }
-            }
+            else
+                IP = HttpContext.Session.GetString("userIP");
 
             if ((noidung1.Contains(IP) == true && noidung2.Contains(IP) == false) && code == "1234567890qwertyuiopasdfghjklzxcvbnm")
             {
@@ -141,21 +131,13 @@ namespace MyWebPlay.Controllers
                     IPx = endPoint.Address.ToString();
                 }
 
-                try
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")))
                 {
-                    WebClient client = new WebClient();
-                    Stream stream = client.OpenRead("https://api.ipify.org/");
-                    StreamReader reader = new StreamReader(stream);
-                    var content = reader.ReadToEnd();
-                    ID = content;
+                    TempData["GetDataIP"] = "true";
+                    return RedirectToAction("Index");
                 }
-                catch
-                {
-                    ID = IPx;
-                }
-
-                if (IPx == ID)
-                    IPx = "";
+                else
+                   ID = HttpContext.Session.GetString("userIP");
 
                 string message = "Báo cáo hành động [tiếp tục] bật sử dụng trang web của khách hàng mới (ID client đã được đăng kí mở trước đây, yêu cầu lại cấp phép mới) :\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@end\r\n\r\n--------------------------------------------------------\r\n\r\n[DỰ PHÒNG 1]\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@1_lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@1_unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@1_end\r\n\r\n\r\n--------------------------------------------------------\r\n\r\n[DỰ PHÒNG 2]\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@2_lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@2_unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@2_end\r\n\r\nThanks!"
                 .Replace("@lock", "https://" + Request.Host + "/Home/LockThisClient?ip=" + ID)
@@ -171,7 +153,7 @@ namespace MyWebPlay.Controllers
                 string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
 
                     //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                    string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + ID + " *** " + IPx + "] - " + xuxu;
+                    string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + IPx + " *** " + ID + "] - " + xuxu;
                     string host = "{" + Request.Host.ToString() + "}"
                                .Replace("http://", "")
                            .Replace("https://", "")

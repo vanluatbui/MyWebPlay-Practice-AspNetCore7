@@ -390,24 +390,16 @@ namespace MyWebPlay.Controllers
                         IPx = endPoint.Address.ToString();
                     }
 
-                    try
+                    if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")))
                     {
-                        WebClient client = new WebClient();
-                        Stream stream = client.OpenRead("https://api.ipify.org/");
-                        StreamReader reader = new StreamReader(stream);
-                        var content = reader.ReadToEnd();
-                        localIP = content;
+                        TempData["GetDataIP"] = "true";
+                        return RedirectToAction("Index");
                     }
-                    catch
-                    {
-                        localIP = IPx;
-                    }
-
-                    if (IPx == localIP)
-                        IPx = "";
+                    else
+                        localIP = HttpContext.Session.GetString("userIP");
 
                     //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                    string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + localIP + " *** " + IPx + "] - " + xuxu;
+                    string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + IPx + " *** " + localIP + "] - " + xuxu;
 
                     string host = "{"+Request.Host.ToString()+"}"
                         .Replace("http://","")

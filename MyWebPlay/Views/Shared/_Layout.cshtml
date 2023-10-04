@@ -19,9 +19,12 @@
         //var urlParams = new URLSearchParams(queryString);
         //var closex = urlParams.get('closex');
 
-  //      fetch('https://api.ipify.org?format=json')
-  //.then(response => response.json())
-  //.then(data => alert(data.ip));
+        if ('@TempData["GetDataIP"]' == "true")
+        {
+        fetch('https://api.ipify.org?format=json')
+  .then(response => response.json())
+  .then(data => window.location.href ="/Home/GetUserIP?ip="+data.ip);
+        }
 
         var ok = 0;
 
@@ -215,7 +218,6 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <span style="color:yellow">Nếu bạn vô tình click vào đây và không nhớ mật mã <b>LockedClientID</b> (mật mã này bạn phải đăng ký tạo trước đó với admin bằng cách liên hệ qua email), vui lòng liên hệ lại admin qua email mywebplay.website@gmail.com và xin cấp phép bật sử dụng lại trang web !</span>
             </div>
         </nav>
     </header>

@@ -170,24 +170,16 @@ namespace MyWebPlay.Controllers
                         IPx = endPoint.Address.ToString();
                     }
 
-                    try
+                    if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")))
                     {
-                        WebClient client = new WebClient();
-                        Stream stream = client.OpenRead("https://api.ipify.org/");
-                        StreamReader reader = new StreamReader(stream);
-                        var content = reader.ReadToEnd();
-                        localIP = content;
+                        TempData["GetDataIP"] = "true";
+                        return RedirectToAction("Index");
                     }
-                    catch
-                    {
-                        localIP = IPx;
-                    }
-
-                    if (IPx == localIP)
-                        IPx = "";
+                    else
+                        localIP = HttpContext.Session.GetString("userIP");
 
                     //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                    string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + localIP + " *** " + IPx + "] - " + xuxu;
+                    string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + IPx + " *** " + localIP + "] - " + xuxu;
                     x = CultureInfo.InvariantCulture.Calendar;
 
                    xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
@@ -699,27 +691,24 @@ namespace MyWebPlay.Controllers
                     string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
                     //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
                     string localIP = "";
-                    try
+                    if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")))
                     {
-                        WebClient client = new WebClient();
-                        Stream stream = client.OpenRead("https://api.ipify.org/");
-                        StreamReader reader = new StreamReader(stream);
-                        String content = reader.ReadToEnd();
-                        localIP = content;
+                        TempData["GetDataIP"] = "true";
+                        return RedirectToAction("Index");
                     }
-                    catch
+                    else
+                        localIP = HttpContext.Session.GetString("userIP");
+
+                    var IPx = "";
+                    using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
                     {
-                        using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
-                        {
-                            socket.Connect("8.8.8.8", 65530);
-                            IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
-                            localIP = endPoint.Address.ToString();
-                        }
+                        socket.Connect("8.8.8.8", 65530);
+                        IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                        IPx = endPoint.Address.ToString();
                     }
 
                     //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                    string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + localIP + "] - " + xuxu;
-
+                    string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + IPx + " *** " + localIP + "] - " + xuxu;
 
                     x = CultureInfo.InvariantCulture.Calendar;
 

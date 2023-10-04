@@ -75,128 +75,132 @@ namespace MyWebPlay.Controllers
 
         public void khoawebsiteClient()
         {
-            string IP = "";
-            try
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+                TempData["GetDataIP"] = "true";
+
+            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
             {
-                WebClient client = new WebClient();
-                Stream stream = client.OpenRead("https://api.ipify.org/");
-                StreamReader reader = new StreamReader(stream);
-                String content = reader.ReadToEnd();
-                IP = content;
+                socket.Connect("8.8.8.8", 65530);
+                IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                listIP.Add(endPoint.Address.ToString());
             }
-            catch
-            {
-                using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+
+            listIP.Add(Request.HttpContext.Connection.RemoteIpAddress.ToString());
+
+                TempData["IP_Client"] = listIP[0];
+
+                var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPLock.txt");
+                var noidung2 = docfile(path2);
+
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
+                var noidung = docfile(path);
+
+                var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/LockedIPClient.txt");
+                var noidung1 = docfile(path1);
+
+                if (noidung1.Contains(listIP[0]))
                 {
-                    socket.Connect("8.8.8.8", 65530);
-                    IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
-                    IP = endPoint.Address.ToString();
+                    TempData["lockedClient"] = "true";
+                }
+                else
+                {
+                    TempData["lockedClient"] = "false";
+                }
+
+
+            for (int i = 0; i < listIP.Count; i++)
+            {
+                if (noidung2.Contains(listIP[i]))
+                {
+                    TempData["lock"] = "true";
+                    break;
+                }
+                else
+                {
+                    TempData["lock"] = "false";
                 }
             }
 
-            TempData["IP_Client"] = IP;
-
-            var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPLock.txt");
-            var noidung2 = docfile(path2);
-
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
-            var noidung = docfile(path);
-
-            var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/LockedIPClient.txt");
-            var noidung1 = docfile(path1);
-
-            if (noidung1.Contains(IP))
-            {
-                TempData["lockedClient"] = "true";
-            }
-            else
-            {
-                TempData["lockedClient"] = "false";
-            }
-
-            if (noidung2.Contains(IP))
-            {
-                TempData["lock"] = "true";
-            }
-            else
-            {
-                TempData["lock"] = "false";
-            }
-
-            if (noidung.Contains(IP) == false)
-            {
-                TempData["PlayOnWebInLocal-X"] = "false";
-                TempData["InError"] = "true";
-            }
-            else
-            {
-                TempData["VisibleX"] = "true";
-            }
+                if (noidung.Contains(listIP[0]) == false)
+                {
+                    TempData["PlayOnWebInLocal-X"] = "false";
+                    TempData["InError"] = "true";
+                }
+                else
+                {
+                    TempData["VisibleX"] = "true";
+                }
         }
-
-
         public ActionResult Index()
         {
-            if (TempData.Keys.Count == 0)
-            HttpContext.Session.Clear();
-
-            khoawebsiteClient();
-            HttpContext.Session.Remove("TracNghiem");
-
-            if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Exists == true)
-              new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Delete(true);
-
-            if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Exists == true)
-               new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Delete(true);
-
-            if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file")).Exists == false)
-                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file")).Create();
-
-            if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Exists)
-                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Delete(true);
-
-            if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Exists == false)
-                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Create();
-
-            if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Exists == false)
-                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Create();
-
-            if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Exists == false)
-                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Create();
-
-            if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem")).Exists == false)
-                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem")).Create();
-
-            if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "note")).Exists == false)
-                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "note")).Create();
-
-            var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
-
-            foreach (var file in listFile)
+            TempData["sorryforyou"] = "false";
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")))
             {
-                FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", file));
-                f.Delete();
+                TempData["GetDataIP"] = "true";
             }
-
-            if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Exists)
-                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Delete(true);
-
-            new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
-            new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
-
-            var infoFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"));
-
-            var files = infoFile.Split("\n", StringSplitOptions.RemoveEmptyEntries);
-
-            Calendar x = CultureInfo.InvariantCulture.Calendar;
-
-            string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
-
-            for (int xx = 0; xx < files.Length; xx++)
+            else
             {
-                if (files[xx] == "") continue;
+                khoawebsiteClient();
+                HttpContext.Session.Remove("TracNghiem");
 
-                var fi = files[xx].Split("\t");
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Exists == true)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Delete(true);
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Exists == true)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Delete(true);
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file")).Exists == false)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file")).Create();
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Exists)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Delete(true);
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Exists == false)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Create();
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Exists == false)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Create();
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Exists == false)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Create();
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem")).Exists == false)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem")).Create();
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "note")).Exists == false)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "note")).Create();
+
+                var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
+
+                foreach (var file in listFile)
+                {
+                    FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", file));
+                    f.Delete();
+                }
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Exists)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Delete(true);
+
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
+
+                var infoFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"));
+
+                var files = infoFile.Split("\n", StringSplitOptions.RemoveEmptyEntries);
+
+                Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+                string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+                for (int xx = 0; xx < files.Length; xx++)
+                {
+                    if (files[xx] == "") continue;
+
+                    var fi = files[xx].Split("\t");
 
                     var today = xuxu.Split("/");
                     var hethan = fi[1].Split("/");
@@ -216,16 +220,17 @@ namespace MyWebPlay.Controllers
                         infoFile = infoFile.Replace(fi[0] + "\t" + fi[1] + "\n", "");
                     }
 
-            }
-            System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile);
-            try
-            {
-                XoaDirectoryNull("file");
-            }
-            catch(Exception ex)
-            {
-                ViewBag.Loi = "";
-                return View();
+                }
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile);
+                try
+                {
+                    XoaDirectoryNull("file");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Loi = "";
+                    return View();
+                }
             }
             return View();
         }

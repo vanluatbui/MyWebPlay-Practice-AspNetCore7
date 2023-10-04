@@ -46,6 +46,10 @@ body {
 
 </style>
 <script>
+    if ('@TempData["sorryforyou"]' == "true")
+    {
+        alert("Do dữ liệu của bạn đã hết hạn hoặc chưa có nên trang web tạm thời bị khoá vì lý do mật thiết, vui lòng tự thực hiện mở khoá. Xin cảm ơn!");
+    }
  </script>
 @*<img src="/Image_Play/waiting.gif" id="myVideo" class="sqs-html5-video" />*@
 <br /><br /><b style="color:red">WEBSITE ĐANG BỊ KHOÁ BỞI CHÍNH BẠN HOẶC MỘT AI ĐÓ KHÁC TRONG NỘI BỘ! ~ </b><span style="color:deeppink">Nhập chính xác mật mã mở khoá tại trường input data bên dưới để mở khoá tiếp tục sử dụng website...</span> <br /><br />
@@ -55,6 +59,5 @@ body {
         <input type="password" autofocus name="LockedClientID" size="30" />
         <button hidden></button>
     }
-    <span style="color:blue">Nếu bạn vô tình click vào đây và không nhớ mật mã <b style="color:lawngreen">LockedClientID</b> (mật mã này bạn phải đăng ký tạo trước đó với admin bằng cách liên hệ qua email), vui lòng liên hệ lại admin qua email <b>mywebplay.website@gmail.com</b> và xin cấp phép bật sử dụng lại trang web...</span>
 </head>
 </html>

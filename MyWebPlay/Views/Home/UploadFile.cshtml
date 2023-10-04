@@ -264,8 +264,6 @@
 
 </script>
 <h1>@ViewBag.Xuan</h1>
-<h3 style="color:yellow">@Html.Raw(@ViewBag.KetQua)</h3>
-<br />
 
    @* <button style="color:blue" onclick="ABC()">Have u (Have name - one file)</button>
     <br />
@@ -325,6 +323,8 @@
             <tr style="height:40px">
                 <td> </td>
                 <td>
+                    <h3 style="color:yellow">@Html.Raw(@ViewBag.KetQua)</h3>
+                    <br />
                      <h3 style="color:aqua">Bạn hiện đang ở chế độ Admin (tính năng không dành cho khách hàng).<br>Vui lòng chuyển sang chế độ tính năng dành cho người dùng...</h3><br />
     <a href="#xuly" style="color:blue" onclick="XYZ()"><h2>Chuyển sang chế độ người dùng</h2></a>
     <br />
@@ -342,6 +342,8 @@
              <tr style="height:40px">
                 <td></td>
                 <td>
+                    <h3 style="color:yellow">@Html.Raw(@ViewBag.KetQua)</h3>
+<br />
                     <a href="#xuly" style="color:darkgrey" onclick="DEF()"><h2>Chuyển sang chế độ Admin</h2></a>
     <br />
                     <br>

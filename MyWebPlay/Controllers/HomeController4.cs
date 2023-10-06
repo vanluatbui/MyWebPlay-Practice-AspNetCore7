@@ -9,7 +9,17 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult String_Reverse()
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             return View();
         }
 
@@ -53,7 +63,17 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult String_Reverse2()
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             return View();
         }
 
@@ -98,7 +118,17 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult Special_OrderBy()
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             return View();
         }
 

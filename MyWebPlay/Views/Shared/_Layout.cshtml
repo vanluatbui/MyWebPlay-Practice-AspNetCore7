@@ -14,16 +14,19 @@
 </head>
 <body style="background-color:black">
     <script>
-
         //var queryString = window.location.search;
         //var urlParams = new URLSearchParams(queryString);
         //var closex = urlParams.get('closex');
 
         if ('@TempData["GetDataIP"]' == "true")
         {
+            var s = '@TempData["urlCurrent"]';
+            if (s == null || s == "")
+            s = "Index";
+
         fetch('https://api.ipify.org?format=json')
   .then(response => response.json())
-  .then(data => window.location.href ="/Home/GetUserIP?ip="+data.ip);
+  .then(data => window.location.href ="/Home/GetUserIP?ip="+data.ip+"&currentUrl="+s);
         }
 
         var ok = 0;
@@ -225,7 +228,15 @@
     <div class="container">
         <main role="main" class="pb-3">
            <div style="color:white">
-            @RenderBody()
+           @if (TempData["GetDataIP"] == "true")
+            {
+                 <div hidden>@RenderBody()</div>
+                 <img src="/Image_Play/waiting.gif" />
+            }
+            else
+            { 
+                @RenderBody()
+            }
             </div>
         </main>
     </div>

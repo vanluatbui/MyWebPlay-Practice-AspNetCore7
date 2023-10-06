@@ -12,7 +12,17 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult FindValueCheckInSQL()
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             ViewBag.ViDu = "user_name\tvarchar(10)\r\nuser_birth\tdatetime\r\nuser_age\tint";
             return View();
         }
@@ -123,7 +133,17 @@ namespace MyWebPlay.Controllers
 
         public ActionResult FindCompareValueInSQL()
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             return View();
         }
 
@@ -218,7 +238,17 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XuLySQL1()
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             ViewBag.Table = "User\r\nProduct\r\nOrder";
             return View();
         }
@@ -255,7 +285,17 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XuLySQL2()
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             ViewBag.Table = "User\r\nProduct\r\nOrder";
             return View();
         }
@@ -334,7 +374,17 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XuLySQL3()
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             ViewBag.Chuoi = "Coumn1\r\nCoumn2\r\nCoumn3\r\n#3275#\r\nEm là hoa\r\nhồng\r\nnhỏ[TAB-TPLAY]12345[TAB-TPLAY]Em là búp\r\nmăng non\r\nhồng hào trắng\r\nsáng\r\n#3275#\r\nTôi là bông\r\nhồng\r\ngià[TAB-TPLAY]06789[TAB-TPLAY]Em là búp\r\nmăng già\r\nnếp nhăn\r\ngoá phụ";
             return View();
         }
@@ -365,7 +415,17 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XuLyCode9()
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             return View();
         }
 
@@ -449,7 +509,17 @@ namespace MyWebPlay.Controllers
 
             public ActionResult XuLySQL4()
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             return View();
         }
 

@@ -26,19 +26,49 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult HD_API()
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             return View();
         }
 
         public ActionResult HD_Web_AspNetCore()
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             return View();
         }
 
         public ActionResult UploadFile(int? sl = 1, int? name = 0, int? upload =1)
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             if (sl == null) 
                 ViewBag.SL = 0;
 
@@ -633,7 +663,17 @@ namespace MyWebPlay.Controllers
 
         public ActionResult FindSubFolders (string folder, string password)
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             if (password != "buivanluat-ADMIN3275" || HttpContext.Session.GetObject<string>("LoginAdmin") != "YES")
             {
                 return Redirect("/Home/DownloadFile");
@@ -644,7 +684,17 @@ namespace MyWebPlay.Controllers
 
         public ActionResult AllDownload(string password)
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             if (password != "buivanluat-ADMIN3275" || HttpContext.Session.GetObject<string>("LoginAdmin") != "YES")
             {
                 return Redirect("/Home/DownloadFile");
@@ -654,7 +704,17 @@ namespace MyWebPlay.Controllers
 
         public ActionResult DownloadFile(int? sl, string? all = "0", string? folder = "")
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
 
             if (sl == null)
                 ViewBag.SL = 0;
@@ -885,7 +945,17 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XoaAllFile(string password, string url)
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             if (string.Compare(password,"buivanluat-ADMIN3275", false) == 0 && HttpContext.Session.GetObject<string>("LoginAdmin") == "YES")
             {
                 HttpContext.Session.Remove("LoginAdmin");
@@ -902,7 +972,17 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XoaFolder(string folder, string chon)
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             if (chon == "1")
             {
                 if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists)
@@ -946,7 +1026,17 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XoaFile(string file)
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file"+file));
             if (f.Exists)
             f.Delete();
@@ -961,7 +1051,17 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XoaFileX(string file)
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             if (new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file"+file)).Exists)
             {
                 FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file"+file));

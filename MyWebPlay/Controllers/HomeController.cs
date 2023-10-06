@@ -73,15 +73,8 @@ namespace MyWebPlay.Controllers
             return 1;
         }
 
-        public void khoawebsiteClient()
+        public void khoawebsiteClient(List<string> listIP)
         {
-            var listIP = new List<string>();
-
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-                TempData["GetDataIP"] = "true";
-
             using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
             {
                 socket.Connect("8.8.8.8", 65530);
@@ -137,14 +130,23 @@ namespace MyWebPlay.Controllers
         }
         public ActionResult Index()
         {
-            TempData["sorryforyou"] = "false";
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")))
             {
                 TempData["GetDataIP"] = "true";
             }
             else
             {
-                khoawebsiteClient();
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                var listIP = new List<string>();
+
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                    listIP.Add(HttpContext.Session.GetString("userIP"));
+                else
+                {
+                    TempData["GetDataIP"] = "true";
+                    return RedirectToAction("Index");
+                }
+                khoawebsiteClient(listIP);
                 HttpContext.Session.Remove("TracNghiem");
 
                 if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Exists == true)
@@ -238,7 +240,17 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult CheckText()
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             return View();
         }
 
@@ -421,7 +433,17 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult TextToColumn1()
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             return View();
         }
 
@@ -487,7 +509,17 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult TextToColumn2()
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             return View();
         }
 
@@ -556,7 +588,17 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult ReadNumber()
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             return View();
         }
 
@@ -613,7 +655,18 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult TextConvertX()
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             return View();
         }
 
@@ -663,7 +716,17 @@ namespace MyWebPlay.Controllers
 
         public ActionResult CSDL_MainKey()
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             return View();
         }
 

@@ -12,7 +12,17 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult XuLySQL5()
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             return View();
         }
 
@@ -45,7 +55,17 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XuLySQL6()
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             return View();
         }
 
@@ -78,7 +98,17 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XuLySQL7 ()
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             return View();
         }
 
@@ -165,13 +195,33 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XuLySQL8()
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             return View();
         }
 
         public ActionResult XuLySQL10()
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             ViewBag.Statement = "SELECT  w2_User.*\r\n  FROM  w2_User\r\n WHERE  w2_User.user_id = @user_id\r\n   AND  w2_User.user_id_extend = @user_id_extend\r\n   AND  w2_User.user_name = @user_name\r\n   AND  w2_User.user_name_day = @user_name_day\r\n   AND  w2_User.user_age = @user_age";
             ViewBag.Replace = "@user_id\tuser001\r\n@user_id_extend\t\r\n@user_name_day\t20/06/2000\r\n@user_name\tLê Thị Mỹ Thư\r\n@user_age\t25";
             ViewBag.Param = "<Input Name=\"user_id\" Type=\"varchar\" Size=\"10\" />\r\n<Input Name=\"user_id_extend\" Type=\"char\" Size=\"50\" />\r\n<Input Name=\"user_name\" Type=\"nvarchar\" Size=\"100\" />\r\n<Input Name=\"user_name_day\" Type=\"datetime\" />\r\n<Input Name=\"user_age\" Type=\"int\" />";
@@ -311,7 +361,17 @@ namespace MyWebPlay.Controllers
 
         public ActionResult GetColorAtPicture()
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             ViewBag.HinhAnh = "NO";
             if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Exists)
                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Delete(true);
@@ -339,7 +399,17 @@ namespace MyWebPlay.Controllers
 
         public ActionResult LoginAdmin(string? folder, string? password, int? id, string? url)
         {
-            khoawebsiteClient();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             if (password == "buivanluat-ADMIN3275")
             {
                 HttpContext.Session.SetObject("LoginAdmin", "YES");

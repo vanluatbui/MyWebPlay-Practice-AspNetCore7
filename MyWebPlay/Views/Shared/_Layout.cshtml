@@ -18,6 +18,12 @@
         //var urlParams = new URLSearchParams(queryString);
         //var closex = urlParams.get('closex');
 
+        if ('@TempData["UsingWebsite"]' == "false")
+        {
+            alert("⚠ Website hiện đang không hoạt động nên bây giờ bạn sẽ không thể sử dụng. Vui lòng quay lại sau, hoặc liên hệ tại email : mywebplay.website@gmail.com. Xin cảm ơn !");
+            window.location.href = "/Home/LockedWeb";
+        }
+
         if ('@TempData["GetDataIP"]' == "true")
         {
             var s = '@TempData["urlCurrent"]';

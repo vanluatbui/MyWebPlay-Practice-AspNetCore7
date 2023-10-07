@@ -75,7 +75,28 @@ namespace MyWebPlay.Controllers
 
         public void khoawebsiteClient(List<string> listIP)
         {
-            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                if (info[0] == "Using_Website")
+                {
+                    if (info[1] == "false")
+                    {
+                        TempData["UsingWebsite"] = "false";
+                    }
+                    else
+                    {
+                        TempData["UsingWebsite"] = "true";
+                    }
+                }
+            }
+
+
+                using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
             {
                 socket.Connect("8.8.8.8", 65530);
                 IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;

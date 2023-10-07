@@ -106,8 +106,23 @@ namespace MyWebPlay.Controllers
 
             if (key == "true")
             {
-                SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
-                       "mywebplay.savefile@gmail.com", host + " [THONG BAO ADMIN] Play On Web In Client Local  In " + name, message, "teinnkatajeqerfl");
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+                var noidungX = System.IO.File.ReadAllText(pathX);
+
+                var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < listSetting.Length; i++)
+                {
+                    var infox = listSetting[i].Split('#', StringSplitOptions.RemoveEmptyEntries);
+                    if (infox[0] == "Email_User_Website")
+                    {
+                        if (infox[1] == "true")
+                        {
+                            SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+                        "mywebplay.savefile@gmail.com", host + " [THONG BAO ADMIN] Play On Web In Client Local  In " + name, message, "teinnkatajeqerfl");
+                        }
+                        break;
+                    }
+                }
             }
             return RedirectToAction("Index");
         }
@@ -463,48 +478,72 @@ namespace MyWebPlay.Controllers
 
         public ActionResult LockedWeb()
         {
-            TempData["lock"] = "";
-            TempData["PlayOnWebInLocal-X"] = "";
-            TempData["GetDataIP-X"] = "true";
-            var listIP = new List<string>();
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")))
+            if (HttpContext.Session.GetString("boqua") != "true")
             {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            }
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+                var noidungX = System.IO.File.ReadAllText(pathX);
 
-            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
-            {
-                socket.Connect("8.8.8.8", 65530);
-                IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
-                listIP.Add(endPoint.Address.ToString());
-            }
-
-            listIP.Add(Request.HttpContext.Connection.RemoteIpAddress.ToString());
-
-            var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
-            var noidung1 = docfile(path1);
-
-            var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPLock.txt");
-            var noidung2 = docfile(path2);
-
-            var flag = 0;
-            for (int i = 0; i < listIP.Count; i++)
-            {
-                if (noidung1.Contains(listIP[i]) == true &&
-                    noidung2.Contains(listIP[i]) == false)
+                var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < listSetting.Length; i++)
                 {
-                    flag = 1;
-                    break;
+                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                    if (info[0] == "Using_Website")
+                    {
+                        if (info[1] == "true")
+                        {
+                            HttpContext.Session.SetString("boqua", "true");
+                            return RedirectToAction("Index");
+                        }
+                    }
                 }
             }
 
-            if (flag == 1)
-            return RedirectToAction("Index");
+            HttpContext.Session.Remove("boqua");
+
+            if (TempData["UsingWebsite"] == "true")
+            {
+                TempData["lock"] = "";
+                TempData["PlayOnWebInLocal-X"] = "";
+                TempData["GetDataIP-X"] = "true";
+                var listIP = new List<string>();
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")))
+                {
+                    TempData["GetDataIP"] = "true";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    listIP.Add(HttpContext.Session.GetString("userIP"));
+                }
+
+                using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+                {
+                    socket.Connect("8.8.8.8", 65530);
+                    IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                    listIP.Add(endPoint.Address.ToString());
+                }
+
+                listIP.Add(Request.HttpContext.Connection.RemoteIpAddress.ToString());
+
+                var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
+                var noidung1 = docfile(path1);
+
+                var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPLock.txt");
+                var noidung2 = docfile(path2);
+                var flag = 0;
+                for (int i = 0; i < listIP.Count; i++)
+                {
+                    if (noidung1.Contains(listIP[i]) == true &&
+                        noidung2.Contains(listIP[i]) == false)
+                    {
+                        flag = 1;
+                        break;
+                    }
+                }
+
+                if (flag == 1)
+                    return RedirectToAction("Index");
+            }
             return View();
         }
 

@@ -416,8 +416,23 @@ namespace MyWebPlay.Controllers
                     .Replace("https://", "")
                     .Replace("/", "");
 
-                    SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
-                 "mywebplay.savefile@gmail.com", host+" Save Temp Create Trac Nghiem File In " + name, copy, "teinnkatajeqerfl");
+                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+                    var noidungX = System.IO.File.ReadAllText(pathX);
+
+                    var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    for (int i = 0; i < listSetting.Length; i++)
+                    {
+                        var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                        if (info[0] == "Email_TracNghiem_Create")
+                        {
+                            if (info[1] == "true")
+                            {
+                                SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+                 "mywebplay.savefile@gmail.com", host + " Save Temp Create Trac Nghiem File In " + name, copy, "teinnkatajeqerfl");
+                            }
+                            break;
+                        }
+                    }
                 }
 
                 err = false;

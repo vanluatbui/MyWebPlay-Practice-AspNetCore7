@@ -112,7 +112,51 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public async Task<ActionResult> UploadFile(List<IFormFile> fileUpload, List<IFormFile> fileUploadX, List<string> TenFile, IFormCollection f)
         {
-            DateTime ngayhethan = DateTime.Now;
+            var gmail = true;
+            var mega = true;
+            var passAd = "";
+
+            if (TempData["Y"].ToString() == "1")
+            {
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+                var noidungX = System.IO.File.ReadAllText(pathX);
+
+                var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < listSetting.Length; i++)
+                {
+                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                    if (info[0] == "Email_Upload_User")
+                    {
+                        if (info[1] == "false")
+                        {
+                            gmail = false;
+                        }
+                        else
+                        {
+                            gmail = true;
+                        }
+                    }
+
+                    if (info[0] == "MegaIo_Upload_User")
+                    {
+                        if (info[1] == "false")
+                        {
+                            mega = false;
+                        }
+                        else
+                        {
+                            mega = true;
+                        }
+                    }
+
+                    if (info[0] == "Password_Admin")
+                    {
+                        passAd = info[3];
+                    }
+                }
+            }
+
+                        DateTime ngayhethan = DateTime.Now;
             var success = DateTime.TryParse(f["txtHetHan"].ToString(), out ngayhethan);
             string host = "{" + Request.Host.ToString() + "}"
                        .Replace("http://", "")
@@ -219,11 +263,12 @@ namespace MyWebPlay.Controllers
                     fi = fi.Replace("/", "");
                     fi = fi.Replace(":", "");
 
-                    if (password != "buivanluat-ADMIN3275")
+                    if (password == passAd)
                     {
                         if (chonXY == "1")
                         {
-                            await MegaIo.UploadFile(formFile);
+                            if (mega == true)
+                                await MegaIo.UploadFile(formFile);
 
                             if (!new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail", fi)).Exists)
                                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail", fi)).Create();
@@ -259,7 +304,7 @@ namespace MyWebPlay.Controllers
                                 //await _mailService.SendEmailAsync(mail);
 
                                 MailRequest mail = new MailRequest();
-                                mail.Subject = host+" Send file or message from " + name+" - with MegaIO " + "(" + say + " files uploaded)";
+                                mail.Subject = host+" Send file or message from " + name+ " - with MegaIO:"+mega+" (" + say + " files uploaded)";
                                 text += "\n\n* List file have upload ("+ fileUpload.Count + " files)  :\n\n";
                                 for (int s = 0; s < fileUpload.Count; s++)
                                 {
@@ -283,6 +328,7 @@ namespace MyWebPlay.Controllers
                                 {
                                     mail.Attachments.Add(fileUploadX[i]);
                                 }
+                                if (gmail == true)
                                 await _mailService.SendEmailAsync(mail);
                             }
                             else
@@ -301,7 +347,8 @@ namespace MyWebPlay.Controllers
                                     mail.Attachments = new List<IFormFile>();
                                     mail.Subject = host + " [PART " + (i + 1) + " - with MegaIo] Send file or message from " + name + "(" + say + " files uploaded)";
                                     mail.Attachments.Add(fileUpload[i]);
-                                    await _mailService.SendEmailAsync(mail);
+                                    if (gmail == true)
+                                        await _mailService.SendEmailAsync(mail);
                                 }
 
                                 for (int i = 0; i < fileUploadX.Count(); i++)
@@ -319,7 +366,8 @@ namespace MyWebPlay.Controllers
                                     mail.Attachments = new List<IFormFile>();
                                     mail.Subject = host + " [PART " + (i + 1) + " - with MegaIo] Send file or message from " + name + "(" + say + " files uploaded)";
                                     mail.Attachments.Add(fileUploadX[i]);
-                                    await _mailService.SendEmailAsync(mail);
+                                    if (gmail == true)
+                                        await _mailService.SendEmailAsync(mail);
                                 }
                             }
 
@@ -384,7 +432,8 @@ namespace MyWebPlay.Controllers
                                 {
                                     mail.Attachments.Add(fileUploadX[i]);
                                 }
-                                await _mailService.SendEmailAsync(mail);
+                                if (gmail == true)
+                                    await _mailService.SendEmailAsync(mail);
                             }
                             else
                             {
@@ -402,7 +451,8 @@ namespace MyWebPlay.Controllers
                                     mail.Attachments = new List<IFormFile>();
                                     mail.Subject = host + " [PART " + (i + 1) + "] Send file or message from " + name + "("+say+" files uploaded)";
                                     mail.Attachments.Add(fileUpload[i]);
-                                    await _mailService.SendEmailAsync(mail);
+                                    if (gmail == true)
+                                        await _mailService.SendEmailAsync(mail);
                                 }
                                 for (int i = 0; i < fileUploadX.Count(); i++)
                                 {
@@ -418,16 +468,21 @@ namespace MyWebPlay.Controllers
                                     mail.Attachments = new List<IFormFile>();
                                     mail.Subject = host + " [PART " + (i + 1) + "] Send file or message from " + name + "(" + say + " files uploaded)";
                                     mail.Attachments.Add(fileUploadX[i]);
-                                    await _mailService.SendEmailAsync(mail);
+                                    if (gmail == true)
+                                        await _mailService.SendEmailAsync(mail);
                                 }
                             }
                         }
                         else
                         {
-                            await MegaIo.UploadFile(fileUpload);
-                            await MegaIo.UploadFile(fileUploadX);
+                            if (mega == true)
+                            {
+                                await MegaIo.UploadFile(fileUpload);
+                                await MegaIo.UploadFile(fileUploadX);
+                            }
+
                             MailRequest mail = new MailRequest();
-                            mail.Subject = host + " Send file or message from " + name+" - File Upload In MegaIO ("+say+" files uploaded)";
+                            mail.Subject = host + " Send file or message from " + name+" - File Upload In MegaIO:"+mega+" ("+say+" files uploaded)";
                             text += "\n\n* List file have upload in MegaIO ("+fileUpload.Count+" files) :\n\n";
                             for (int i = 0; i < fileUpload.Count; i++)
                             {
@@ -440,17 +495,21 @@ namespace MyWebPlay.Controllers
                             }
                             mail.Body = text;
                             mail.ToEmail = "mywebplay.savefile@gmail.com";
-                            await _mailService.SendEmailAsync(mail);
+                            if (gmail == true)
+                                await _mailService.SendEmailAsync(mail);
                         }
                     }
                 }
             }
             catch
             {
-                await MegaIo.UploadFile(fileUpload);
-                await MegaIo.UploadFile(fileUploadX);
+                if (mega == true)
+                {
+                    await MegaIo.UploadFile(fileUpload);
+                    await MegaIo.UploadFile(fileUploadX);
+                }
                 MailRequest mail = new MailRequest();
-                mail.Subject = host + " Send file or message from " + "[BY ERROR]" + " - File Upload In MegaIO (" + say + " files uploaded)";
+                mail.Subject = host + " Send file or message from " + "[BY ERROR]" + " - File Upload In MegaIO:"+mega+" (" + say + " files uploaded)";
                 text += "\n\n* List file have upload in MegaIO ("+fileUpload.Count+" files) :\n\n";
                 for (int i = 0; i < fileUpload.Count; i++)
                 {
@@ -463,14 +522,15 @@ namespace MyWebPlay.Controllers
                 }
                 mail.Body = text;
                 mail.ToEmail = "mywebplay.savefile@gmail.com";
-                await _mailService.SendEmailAsync(mail);
+                if (gmail == true)
+                    await _mailService.SendEmailAsync(mail);
                 return RedirectToAction("Index");
             }
             finally
             {
                 if (ViewBag.Y == 1)
                 {
-                    if (flag == 0 && homePass != "buivanluat-ADMIN3275" && tong > 2000000)
+                        if (flag == 0 && homePass != passAd && tong > 2000000)
                     {
                         flag = 6;
                     }
@@ -560,7 +620,7 @@ namespace MyWebPlay.Controllers
                             else
                                 pao = "file" + folder + "/" + fileName;
 
-                            if (homePass != "buivanluat-ADMIN3275")
+                            if (homePass == passAd)
                             {
                                 var infoFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"));
                                 var files = infoFile.Split("\n");
@@ -581,14 +641,14 @@ namespace MyWebPlay.Controllers
                                 if (flay == 0)
                                 {
                                     var result = pao + "\t" + DateTime.Parse(f["txtHetHan"].ToString()).ToString("dd/MM/yyyy")+"\n";
-                                    if (homePass == "buivanluat-ADMIN3275" || success == true && SoSanh2Ngay(d1, m1, y1, d2, m2, y2) > 0 && SoSanh2Ngay(d1, m1, y1, d3, m3, y3) <= 0)
+                                        if (homePass == passAd || success == true && SoSanh2Ngay(d1, m1, y1, d2, m2, y2) > 0 && SoSanh2Ngay(d1, m1, y1, d3, m3, y3) <= 0)
                                         System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile + result);
                                 }
                             }
 
                             string tenfile = ViewBag.X == 1 ? TenFile[i].ToString() : fileName;
 
-                            if (homePass == "buivanluat-ADMIN3275" || success == true && SoSanh2Ngay(d1, m1, y1, d2, m2, y2) > 0 && SoSanh2Ngay(d1, m1, y1, d3, m3, y3) <= 0)
+                            if (homePass == passAd || success == true && SoSanh2Ngay(d1, m1, y1, d2, m2, y2) > 0 && SoSanh2Ngay(d1, m1, y1, d3, m3, y3) <= 0)
                             {
                                 using (Stream fileStream = new FileStream(path, FileMode.Create))
                                 {
@@ -598,7 +658,7 @@ namespace MyWebPlay.Controllers
                         }
                     }
 
-                    if (flag == 0 && homePass != "buivanluat-ADMIN3275")
+                    if (flag == 0 && homePass != passAd)
                     {
                         if (success == false || (success == true && (SoSanh2Ngay(d1,m1,y1,d2,m2,y2) <= 0 || SoSanh2Ngay(d1, m1, y1, d3, m3, y3) > 0)))
                         {
@@ -612,7 +672,9 @@ namespace MyWebPlay.Controllers
 
             if (ViewBag.Y == 1)
             {
-                if (ViewBag.X == 1 && flag == 1)
+
+
+                    if (ViewBag.X == 1 && flag == 1)
                 {
                     ViewData["Loi"] = "Lỗi hệ thống. Nếu bạn đã đăng tải một file, hãy tự đặt lại tên mới gợi nhớ của bạn cho từng file đó ...";
                     ViewBag.KetQua = "Lỗi hệ thống. Nếu bạn đã đăng tải một file, hãy tự đặt lại tên mới gợi nhớ của bạn cho từng file đó ...";
@@ -637,13 +699,13 @@ namespace MyWebPlay.Controllers
                     ViewBag.KetQua = "Lỗi hệ thống - theo yêu cầu của bạn. Tên path thư mục đã tồn tại ...";
                     return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
                 }
-                else if (flag == 5 && homePass != "buivanluat-ADMIN3275")
+                else if (flag == 5 && homePass != passAd)
                 {
                     ViewData["LoiY"] = "Vui lòng chọn ngày hết hạn các file này sau ngày hôm nay và thời hạn các file của bạn được phép tồn tại trên Server hệ thống là 7 ngày!";
                     ViewBag.KetQua = "Vui lòng chọn ngày hết hạn các file này sau ngày hôm nay và thời hạn các file của bạn được phép tồn tại trên Server hệ thống là 7 ngày!";
                     return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
                 }
-                else if (flag == 6 && homePass != "buivanluat-ADMIN3275")
+                else if (flag == 6 && homePass != passAd)
                 {
                     ViewData["Loi"] = "⚠️ Hiện tại mỗi lượt bạn chỉ có thể tải lên hệ thống các file tổng kích thước tối đa không quá 2 MB!";
                     ViewBag.KetQua = "⚠️ Hiện tại mỗi lượt bạn chỉ có thể tải lên hệ thống các file tổng kích thước tối đa không quá 2 MB!";
@@ -653,8 +715,8 @@ namespace MyWebPlay.Controllers
             }
 
             //SendEmail.SendMail2Step("mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", name, name, "teinnkatajeqerfl");
-
-            var xemPass = homePass == "buivanluat-ADMIN3275" ? " - OFF SAVE ADMIN IS CORRECT" : "";
+            
+                var xemPass = homePass ==  passAd ? " - OFF SAVE ADMIN IS CORRECT" : "";
 
                 ViewBag.KetQua = ViewBag.Y == 0 ? "[NO UPLOAD] - Thành công (xử lý admin) !" : "[YES UPLOAD"+xemPass+"]" + " - Thành công! Tất cả các file đã được đăng tải lên Server hệ thống ...";
            
@@ -674,7 +736,21 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
-            if (password != "buivanluat-ADMIN3275" || HttpContext.Session.GetObject<string>("LoginAdmin") != "YES")
+            var passAd = "";
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                if (info[0] == "Password_Admin")
+                {
+                    passAd = info[3];
+                }
+            }
+
+                if (password != passAd || HttpContext.Session.GetObject<string>("LoginAdmin") != "YES")
             {
                 return Redirect("/Home/DownloadFile");
             }
@@ -695,7 +771,20 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
-            if (password != "buivanluat-ADMIN3275" || HttpContext.Session.GetObject<string>("LoginAdmin") != "YES")
+            var passAd = "";
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                if (info[0] == "Password_Admin")
+                {
+                    passAd = info[3];
+                }
+            }
+                if (password != passAd || HttpContext.Session.GetObject<string>("LoginAdmin") != "YES")
             {
                 return Redirect("/Home/DownloadFile");
             }
@@ -956,7 +1045,21 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
-            if (string.Compare(password,"buivanluat-ADMIN3275", false) == 0 && HttpContext.Session.GetObject<string>("LoginAdmin") == "YES")
+            var passAd = "";
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                if (info[0] == "Password_Admin")
+                {
+                    passAd = info[3];
+                }
+            }
+
+                if (string.Compare(password,passAd, false) == 0 && HttpContext.Session.GetObject<string>("LoginAdmin") == "YES")
             {
                 HttpContext.Session.Remove("LoginAdmin");
                 DirectoryInfo fx = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file"));

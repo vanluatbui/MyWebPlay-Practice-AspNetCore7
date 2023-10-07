@@ -1,0 +1,136 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+@model MyWebPlay.Model.SettingAdmin;
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>C# | Asp Net Core | Công nghệ thông tin</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
+    <link rel="icon" href="/images/imagex.png">
+</head>
+<style>
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+</style>
+<body>
+    <br />
+
+@*<label class="switch">
+  <input type="checkbox">
+  <span class="slider"></span>
+</label>*@
+
+ @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+         <tr style="height:40px">
+            <td></td>
+            <td><br>
+                <h2 style="color:deeppink">Cài ĐẶT ADMIN</h2><br />
+            </td>
+        </tr>
+
+      <tr style="height:40px">
+            <td> </td>
+            <td>
+                @for (int i = 0; i < Model.Topics.Count; i++)
+{
+ <h3>@Model.Topics[i].NoiDung</h3>
+ @if(Model.Topics[i].ID != "Password_Admin")
+ {
+<label class="switch">
+    @if (Model.Topics[i].Option == false)
+    {
+                <input name="@Model.Topics[i].ID" type="checkbox">
+     }
+            else
+            {
+                <input name="@Model.Topics[i].ID" type="checkbox" checked>
+            }
+            <span class="slider round"></span>
+                        </label>
+                    }
+                    else
+                    {
+                        <input size="100" name="@Model.Topics[i].ID" type="text" value="@ViewBag.Password" />
+                    }
+                    <br /><br />
+}
+            </td>
+        </tr>
+      
+        <tr style="height:40px">
+            <td></td>
+            <td><br>
+                <input type="Submit" value="LƯU CÀI ĐẶT" />
+            </td>
+        </tr>
+    }
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html> 

@@ -410,7 +410,21 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
-            if (password == "buivanluat-ADMIN3275")
+            var passAd = "";
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                if (info[0] == "Password_Admin")
+                {
+                    passAd = info[3];
+                }
+            }
+
+                    if (password == passAd)
             {
                 HttpContext.Session.SetObject("LoginAdmin", "YES");
 

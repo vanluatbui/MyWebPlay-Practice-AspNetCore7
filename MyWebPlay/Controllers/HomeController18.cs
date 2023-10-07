@@ -179,9 +179,24 @@ namespace MyWebPlay.Controllers
                            .Replace("https://", "")
                            .Replace("/", "");
 
-                    SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+                var noidungX = System.IO.File.ReadAllText(pathX);
+
+                var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < listSetting.Length; i++)
+                {
+                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                    if (info[0] == "Email_User_Continue")
+                    {
+                        if (info[1] == "true")
+                        {
+                            SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
                           "mywebplay.savefile@gmail.com", host + " [THONG BAO ADMIN] Continue Play On Web In Client Local  In " + name, message, "teinnkatajeqerfl");
+                        }
+                        break;
+                    }
                 }
+               }
             else
                 TempData["ok-continue-X"] = "no";
 

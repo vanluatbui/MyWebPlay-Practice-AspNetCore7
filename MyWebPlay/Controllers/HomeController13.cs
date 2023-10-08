@@ -29,7 +29,8 @@ namespace MyWebPlay.Controllers
 
             if (System.IO.File.Exists(path))
             {
-                ViewBag.Text = System.IO.File.ReadAllText(path);
+                ViewBag.Text1 = System.IO.File.ReadAllText(path);
+                ViewBag.Text2 = "<p id=\"preX\" style=\"color:deeppink; font-size:22px; display:none\">"+ViewBag.Text1.Replace("\n", "<br>")+"</p>";
                 Calendar x = CultureInfo.InvariantCulture.Calendar;
                 ViewBag.DateTime = x.AddHours(file.LastWriteTimeUtc, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
             }

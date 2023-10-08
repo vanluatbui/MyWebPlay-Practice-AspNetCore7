@@ -18,13 +18,16 @@
         //var urlParams = new URLSearchParams(queryString);
         //var closex = urlParams.get('closex');
 
+        var ok = 0;
+
         if ('@TempData["UsingWebsite"]' == "false")
         {
             alert("⚠ Website hiện đang không hoạt động nên bây giờ bạn sẽ không thể sử dụng. Vui lòng quay lại sau, hoặc liên hệ tại email : mywebplay.website@gmail.com. Xin cảm ơn !");
+            ok = 1;
             window.location.href = "/Home/LockedWeb";
         }
 
-        if ('@TempData["GetDataIP"]' == "true")
+        if (ok ==0 && '@TempData["GetDataIP"]' == "true")
         {
             var s = '@TempData["urlCurrent"]';
             if (s == null || s == "")
@@ -34,8 +37,6 @@
   .then(response => response.json())
   .then(data => window.location.href ="/Home/GetUserIP?ip="+data.ip+"&currentUrl="+s);
         }
-
-        var ok = 0;
 
         if (ok == 0 && '@TempData["lockedClient"]' == "true")
         {

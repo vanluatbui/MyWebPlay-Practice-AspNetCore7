@@ -711,7 +711,6 @@ namespace MyWebPlay.Controllers
                     ViewBag.KetQua = "⚠️ Hiện tại mỗi lượt bạn chỉ có thể tải lên hệ thống các file tổng kích thước tối đa không quá 2 MB!";
                     return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
                 }
-
             }
 
             //SendEmail.SendMail2Step("mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", name, name, "teinnkatajeqerfl");

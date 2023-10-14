@@ -1,10 +1,10 @@
-Using_Website<3275>false<3275>Hoạt động website
-Email_Upload_User<3275>false<3275>Thông báo email khi user upload file
-MegaIo_Upload_User<3275>false<3275>Lưu trữ các file của user tại Mega.Io
-Email_TracNghiem_Create<3275>false<3275>Thông báo email bài trắc nghiệm được tạo
-Email_TracNghiem_Update<3275>false<3275>Thông báo email bài trắc nghiệm đã update
-Email_Question<3275>false<3275>Thông báo email bài question được tạo
-Email_User_Website<3275>false<3275>Thông báo email phát hiện user bật website
-Email_User_Continue<3275>false<3275>Thông báo email phát hiện user tiếp tục sử dụng website
-Email_Note<3275>false<3275>Thông báo email note text mới
+Using_Website<3275>true<3275>Hoạt động website
+Email_Upload_User<3275>true<3275>Thông báo email khi user upload file
+MegaIo_Upload_User<3275>true<3275>Lưu trữ các file của user tại Mega.Io
+Email_TracNghiem_Create<3275>true<3275>Thông báo email bài trắc nghiệm được tạo
+Email_TracNghiem_Update<3275>true<3275>Thông báo email bài trắc nghiệm đã update
+Email_Question<3275>true<3275>Thông báo email bài question được tạo
+Email_User_Website<3275>true<3275>Thông báo email phát hiện user bật website
+Email_User_Continue<3275>true<3275>Thông báo email phát hiện user tiếp tục sử dụng website
+Email_Note<3275>true<3275>Thông báo email note text mới
 Password_Admin<3275>true<3275>Mật khẩu admin (nếu để trống mật khẩu mặc định sẽ là : buivanluat-ADMIN3275)<3275>buivanluat-ADMIN3275

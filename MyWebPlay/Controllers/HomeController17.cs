@@ -112,7 +112,7 @@ namespace MyWebPlay.Controllers
                 var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
                 for (int i = 0; i < listSetting.Length; i++)
                 {
-                    var infox = listSetting[i].Split('#', StringSplitOptions.RemoveEmptyEntries);
+                    var infox = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
                     if (infox[0] == "Email_User_Website")
                     {
                         if (infox[1] == "true")

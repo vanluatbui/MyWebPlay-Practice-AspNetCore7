@@ -8,7 +8,7 @@
 <table align="center">
     <h2 style="text-align:center">Xử Lý SQL 10</h2>
 
-    <h3 style="color:yellow" onclick="muaxuan()">@ViewBag.KetQua</h3>
+    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
 
     @using (Html.BeginForm())
     {
@@ -25,7 +25,7 @@
                 <br>
                 <textarea name="txtReplace" id="replace" cols="100" rows="12">@ViewBag.Replace</textarea>
                 <br><br>
-                 <a href="#xuly" onclick="xoaValue('param')"><b>Copy từ file SQL Db Xml và dán liệt kê các param + type của mỗi thành phần tại đây (xem ví dụ - cách nhau bởi Enter) : </b</a>
+                 <a href="#xuly" onclick="xoaValue('param')"><b>Copy từ file SQL Db Xml và dán liệt kê các param + type của mỗi thành phần tại đây (xem ví dụ - cách nhau bởi Enter) : </b></a>
                 <br>
                 <textarea name="txtParam" id="param" cols="100" rows="12">@ViewBag.Param</textarea>
                 <br>

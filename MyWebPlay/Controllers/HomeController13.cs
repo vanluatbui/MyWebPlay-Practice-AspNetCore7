@@ -30,7 +30,7 @@ namespace MyWebPlay.Controllers
             if (System.IO.File.Exists(path))
             {
                 ViewBag.Text1 = System.IO.File.ReadAllText(path);
-                ViewBag.Text2 = "<p id=\"preX\" style=\"color:deeppink; font-size:22px; display:none\">"+ViewBag.Text1.Replace("\n", "<br>")+"</p>";
+                ViewBag.Text2 = "<p id=\"preX\" style=\"color:" + TempData["mau_text"]+";font-size:22px; display:none\">"+ViewBag.Text1.Replace("\n", "<br>")+"</p>";
                 Calendar x = CultureInfo.InvariantCulture.Calendar;
                 ViewBag.DateTime = x.AddHours(file.LastWriteTimeUtc, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
             }
@@ -62,6 +62,50 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult EditTextNote(string? txtText)
         {
+            Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+            var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
+
+            if (xuxu1.Hour >= 6 && xuxu1.Hour <= 17)
+            {
+                TempData["mau_background"] = "white";
+                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
+                TempData["nav_link"] = "text-dark"; TempData["winx"] = "❤";
+            }
+            else
+            {
+                TempData["mau_background"] = "black";
+                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
+                TempData["nav_link"] = "text-light"; TempData["winx"] = "❤";
+            }
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var flag = 0;
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (flag == 0 && (info[0] == "Email_Upload_User"
+                    || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
+                    || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
+                    || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
+                    || info[0] == "Email_Note"))
+                {
+                    if (info[1] == "false")
+                    {
+                        
+                        TempData["mau_winx"] = "red";
+                        flag = 1;
+                    }
+                    else
+                    {
+                        
+                        TempData["mau_winx"] = "deeppink";
+                        flag = 0;
+                    }
+                }
+            }
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "note", "textnote.txt");
             
             if (System.IO.File.Exists(path))
@@ -104,13 +148,13 @@ namespace MyWebPlay.Controllers
                        .Replace("http://", "")
                    .Replace("https://", "")
                    .Replace("/", "");
-                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
-                var noidungX = System.IO.File.ReadAllText(pathX);
+                var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+                var noidungX1 = System.IO.File.ReadAllText(pathX1);
 
-                var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-                for (int i = 0; i < listSetting.Length; i++)
+                var listSetting1 = noidungX1.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < listSetting1.Length; i++)
                 {
-                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                    var info = listSetting1[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
                     if (info[0] == "Email_Note")
                     {
                         if (info[1] == "true")
@@ -167,6 +211,50 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult PlayQuestion_Multiple (IFormCollection f, List<IFormFile> txtFile)
         {
+            Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+            var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+
+            if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
+            {
+                TempData["mau_background"] = "white";
+                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
+                TempData["nav_link"] = "text-dark"; TempData["winx"] = "❤";
+            }
+            else
+            {
+                TempData["mau_background"] = "black";
+                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
+                TempData["nav_link"] = "text-light"; TempData["winx"] = "❤";
+            }
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var flax = 0;
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (flax == 0 && (info[0] == "Email_Upload_User"
+                    || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
+                    || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
+                    || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
+                    || info[0] == "Email_Note"))
+                {
+                    if (info[1] == "false")
+                    {
+                        
+                        TempData["mau_winx"] = "red";
+                        flax = 1;
+                    }
+                    else
+                    {
+                        
+                        TempData["mau_winx"] = "deeppink";
+                        flax = 0;
+                    }
+                }
+            }
             int sl = txtFile.Count();
             string txtSoCau = f["txtSoCau"].ToString();
             string txtTime = f["txtTime"].ToString();
@@ -483,6 +571,50 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult PlayQuestion(IFormCollection f)
         {
+            Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+            var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+
+            if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
+            {
+                TempData["mau_background"] = "white";
+                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
+                TempData["nav_link"] = "text-dark"; TempData["winx"] = "❤";
+            }
+            else
+            {
+                TempData["mau_background"] = "black";
+                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
+                TempData["nav_link"] = "text-light"; TempData["winx"] = "❤";
+            }
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var flag = 0;
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (flag == 0 && (info[0] == "Email_Upload_User"
+                    || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
+                    || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
+                    || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
+                    || info[0] == "Email_Note"))
+                {
+                    if (info[1] == "false")
+                    {
+                        
+                        TempData["mau_winx"] = "red";
+                        flag = 1;
+                    }
+                    else
+                    {
+                        
+                        TempData["mau_winx"] = "deeppink";
+                        flag = 0;
+                    }
+                }
+            }
             TracNghiem tn;
 
             if (HttpContext.Session.GetObject<TracNghiem>("TracNghiem") == null)
@@ -570,6 +702,50 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult CreateFile_Question(IFormCollection f)
         {
+            Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+            var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
+
+            if (xuxu1.Hour >= 6 && xuxu1.Hour <= 17)
+            {
+                TempData["mau_background"] = "white";
+                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
+                TempData["nav_link"] = "text-dark"; TempData["winx"] = "❤";
+            }
+            else
+            {
+                TempData["mau_background"] = "black";
+                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
+                TempData["nav_link"] = "text-light"; TempData["winx"] = "❤";
+            }
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var flag = 0;
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (flag == 0 && (info[0] == "Email_Upload_User"
+                    || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
+                    || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
+                    || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
+                    || info[0] == "Email_Note"))
+                {
+                    if (info[1] == "false")
+                    {
+                        
+                        TempData["mau_winx"] = "red";
+                        flag = 1;
+                    }
+                    else
+                    {
+                        
+                        TempData["mau_winx"] = "deeppink";
+                        flag = 0;
+                    }
+                }
+            }
             var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
 
             foreach (var file in listFile)
@@ -593,7 +769,7 @@ namespace MyWebPlay.Controllers
 
             string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
 
-            string fi = Request.HttpContext.Connection.RemoteIpAddress + "_Question_" + xuxu + ".txt";
+            string fi = HttpContext.Session.GetString("userIP") + "_Question_" + xuxu + ".txt";
             fi = fi.Replace("\\", "");
             fi = fi.Replace("/", "");
             fi = fi.Replace(":", "");
@@ -630,13 +806,13 @@ namespace MyWebPlay.Controllers
                        .Replace("http://", "")
                    .Replace("https://", "")
                    .Replace("/", "");
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
-            var noidungX = System.IO.File.ReadAllText(pathX);
+            var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var noidungX1 = System.IO.File.ReadAllText(pathX1);
 
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            for (int i = 0; i < listSetting.Length; i++)
+            var listSetting1 = noidungX1.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < listSetting1.Length; i++)
             {
-                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                var info = listSetting1[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
                 if (info[0] == "Email_Question")
                 {
                     if (info[1] == "true")

@@ -19,7 +19,8 @@
         document.getElementById("Num").readOnly = true;
         document.getElementById("CH_Num").readOnly = true;
         document.getElementById("txtansw").readOnly = true;
-        document.getElementById("ticky0").disabled = true;
+        if (document.getElementById("ticky0").checked == false)
+        {
         document.getElementById("chotans").disabled = true;
         document.getElementById("CH_Front").readOnly = true;
         document.getElementById("CH_Back").readOnly = true;
@@ -28,6 +29,8 @@
         document.getElementById("DA_B").readOnly = true;
         document.getElementById("DA_C").readOnly = true;
         document.getElementById("DA_D").readOnly = true;
+        }
+        document.getElementById("ticky0").disabled = true;
         id = setInterval(myAlertX, 1000);
     }
 
@@ -47,10 +50,12 @@
         if (document.getElementById("ticky0").checked)
         {
            // document.getElementById("ticky1").style.display = "none";
+           document.getElementById("ticky00").checked = true;
             document.getElementById("ticky2").style.display = "none";
         }
         else{
             // document.getElementById("ticky1").style.display = "inline-block";
+            document.getElementById("ticky00").checked = false;
             document.getElementById("ticky2").style.display = "inline-block";
         }
     }
@@ -122,6 +127,7 @@
             }
         }
         alert("Thành công, mời bạn trượt lên mục dropdown Answer có thể kiểm tra lại...");
+        window.location.href = "#setupAnswer";
     }
 
     function checkCH()
@@ -438,7 +444,8 @@
          var tong = document.getElementById("CH_Num").value;
         if (tong == "" || isNaN(tong) == true)
         {
-            alert("Để sử dụng tính năng này, mời bạn nhập lại chính xác tổng số câu hỏi của trường data input phía trên hoặc click button để cập nhật tự động và thử lại...");
+            document.getElementById("loisox").innerHTML = "Trường này là bắt buộc, bạn có thể click nút bên để xử lý...";
+           window.location.href = "#CH_Num";
             return;
         }
 
@@ -476,12 +483,18 @@
         answer.innerHTML = s;
     }
 
+    function see_error()
+    {
+        window.location.href = "#memy";
+    }
+
     function downAnswer()
     {
          var tong = document.getElementById("CH_Num").value;
         if (tong == "" || isNaN(tong) == true)
         {
-            alert("Để sử dụng tính năng này, mời bạn nhập lại chính xác tổng số câu hỏi của trường data input phía trên hoặc click button để cập nhật tự động và thử lại...");
+            document.getElementById("loisox").innerHTML = "Trường này là bắt buộc, bạn có thể click nút bên để xử lý...";
+            window.location.href = "#CH_Num";
             return;
         }
 
@@ -510,6 +523,7 @@
         dapan.value = s;
 
         alert("Successful - Please your check answer...");
+        window.location.href = "#DapAn";
     }
 
      function checkX()
@@ -668,7 +682,8 @@
                              <tr style="height:40px">
                                 <td></td>
                             <td>
-                               <input id="ticky0" onchange="setTicky()" type="checkbox" name="tick" checked /><b id="tick0" style="color:forestgreen">Hiện tại tôi không muốn đánh đáp án bây giờ</b>
+                               <input id="ticky0" onchange="setTicky()" type="checkbox" checked /><b id="tick0" style="color:forestgreen">Hiện tại tôi không muốn đánh đáp án bây giờ</b>
+                               <input id="ticky00" type="checkbox" name="tick" hidden checked />
                                <br>
                             </td>
                         </tr>

@@ -40,7 +40,7 @@
 <table align="center">
     <h2 style="text-align:center">Replace - Regex</h2>
 
-    <h3 style="color:yellow" onclick="muaxuan()">@ViewBag.KetQua</h3>
+    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
 
     @using (Html.BeginForm())
     {
@@ -107,7 +107,7 @@
                         <option>Không áp dụng Regex</option>
                         <option>Áp dụng Regex</option>
                     </select>
-                <input type="number" min="1" max="2" name="DuKien1" id="DK1" value="2">
+                <input type="number" min="1" max="2" name="DuKien1" id="DK1" value="2" hidden>
                 <br>
                 <span style="color:red; font-style:italic">@ViewData["Loi4"] </span>
             </td>

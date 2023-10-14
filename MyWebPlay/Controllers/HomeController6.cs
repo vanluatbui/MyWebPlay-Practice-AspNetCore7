@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Drawing;
+using System.Globalization;
 using System.Reflection.Emit;
 using System.Text.RegularExpressions;
 
@@ -28,6 +29,51 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult ResultCheck_Regex(IFormCollection f)
         {
+            Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+            var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+
+            if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
+            {
+                TempData["mau_background"] = "white";
+                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
+                TempData["nav_link"] = "text-dark"; TempData["winx"] = "❤";
+            }
+            else
+            {
+                TempData["mau_background"] = "black";
+                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
+                TempData["nav_link"] = "text-light"; TempData["winx"] = "❤";
+            }
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var flag = 0;
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (flag == 0 && (info[0] == "Email_Upload_User"
+                    || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
+                    || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
+                    || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
+                    || info[0] == "Email_Note"))
+                {
+                    if (info[1] == "false")
+                    {
+                        
+                        TempData["mau_winx"] = "red";
+                        flag = 1;
+                    }
+                    else
+                    {
+                        
+                        TempData["mau_winx"] = "deeppink";
+                        flag = 0;
+                    }
+                }
+            }
+
             ViewBag.ViDu = "!\"#$%&'()*+,-./0123456789:;<=>?@ ABCDEFGHIJKLMNOPQRSTUVWXYZ\t[\\]^_`\r\nabcdefghijklmnopqrstuvwxyz{|}~";
             string chuoi = f["Chuoi"].ToString();
             if (string.IsNullOrEmpty(chuoi))
@@ -112,6 +158,50 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult Replace_Regex(IFormCollection f)
         {
+            Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+            var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+
+            if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
+            {
+                TempData["mau_background"] = "white";
+                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
+                TempData["nav_link"] = "text-dark"; TempData["winx"] = "❤";
+            }
+            else
+            {
+                TempData["mau_background"] = "black";
+                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
+                TempData["nav_link"] = "text-light"; TempData["winx"] = "❤";
+            }
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var flag = 0;
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (flag == 0 && (info[0] == "Email_Upload_User"
+                    || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
+                    || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
+                    || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
+                    || info[0] == "Email_Note"))
+                {
+                    if (info[1] == "false")
+                    {
+                        
+                        TempData["mau_winx"] = "red";
+                        flag = 1;
+                    }
+                    else
+                    {
+                        
+                        TempData["mau_winx"] = "deeppink";
+                        flag = 0;
+                    }
+                }
+            }
             string chuoi = f["Chuoi"].ToString();
             if (string.IsNullOrEmpty(chuoi))
             {

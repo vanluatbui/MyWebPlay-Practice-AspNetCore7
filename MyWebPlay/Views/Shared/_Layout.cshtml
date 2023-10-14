@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
     <link rel="icon" href="/images/imagex.png">
 </head>
-<body style="background-color:black">
+<body style="background-color:@TempData["mau_background"]">
     <script>
         //var queryString = window.location.search;
         //var urlParams = new URLSearchParams(queryString);
@@ -218,12 +218,12 @@
         {
             window.location.href = "/Home/LockedWebClient";
         }
-
         </script>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-black border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color:@TempData["mau_nen"]">
             <div class="container-fluid">
                 <button style="color:deeppink" class="navbar-brand" asp-area="" onclick="khoawebsite()">Khoá WebSite bằng mật mã LockedClientID (<u>hãy cẩn thận đừng nhấn nhầm vào đây nếu bạn không có nhu cầu 😁</u>)</button>
+                <h2 style="color:@TempData["mau_winx"]">@TempData["winx"]</h2>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -231,10 +231,9 @@
             </div>
         </nav>
     </header>
-
     <div class="container">
         <main role="main" class="pb-3">
-           <div style="color:white">
+           <div style="color:@TempData["mau_text"]">
            @if (TempData["GetDataIP"] == "true")
             {
                  <div hidden>@RenderBody()</div>

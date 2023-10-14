@@ -67,6 +67,50 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult CreateFile_TracNghiem(IFormCollection f)
         {
+            Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+            var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
+
+            if (xuxu1.Hour >= 6 && xuxu1.Hour <= 17)
+            {
+                TempData["mau_background"] = "white";
+                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
+                TempData["nav_link"] = "text-dark"; TempData["winx"] = "❤";
+            }
+            else
+            {
+                TempData["mau_background"] = "black";
+                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
+                TempData["nav_link"] = "text-light"; TempData["winx"] = "❤";
+            }
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var flag = 0;
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (flag == 0 && (info[0] == "Email_Upload_User"
+                    || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
+                    || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
+                    || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
+                    || info[0] == "Email_Note"))
+                {
+                    if (info[1] == "false")
+                    {
+                        
+                        TempData["mau_winx"] = "red";
+                        flag = 1;
+                    }
+                    else
+                    {
+                        
+                        TempData["mau_winx"] = "deeppink";
+                        flag = 0;
+                    }
+                }
+            }
             string s = "\r\n" + f["txtChuoi"].ToString();
             bool err = true;
             var tick = f["Tick"].ToString();
@@ -355,7 +399,7 @@ namespace MyWebPlay.Controllers
 
                 string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
 
-                string fi = Request.HttpContext.Connection.RemoteIpAddress + "_TracNghiem_" + xuxu + ".txt";
+                string fi = HttpContext.Session.GetString("userIP") + "_TracNghiem_" + xuxu + ".txt";
                 fi = fi.Replace("\\", "");
                 fi = fi.Replace("/", "");
                 fi = fi.Replace(":", "");
@@ -416,13 +460,13 @@ namespace MyWebPlay.Controllers
                     .Replace("https://", "")
                     .Replace("/", "");
 
-                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
-                    var noidungX = System.IO.File.ReadAllText(pathX);
+                    var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+                    var noidungX1 = System.IO.File.ReadAllText(pathX1);
 
-                    var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-                    for (int i = 0; i < listSetting.Length; i++)
+                    var listSetting1 = noidungX1.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    for (int i = 0; i < listSetting1.Length; i++)
                     {
-                        var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                        var info = listSetting1[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
                         if (info[0] == "Email_TracNghiem_Create")
                         {
                             if (info[1] == "true")
@@ -501,8 +545,8 @@ namespace MyWebPlay.Controllers
                     }
 
                     ViewBag.KetQua += find_Error;
-                    ViewBag.KetQua += "<h3 style=\"color:pink\"> --> Trượt đến tận cuối trang để có thể xem thử lại bản nháp đã phân tích hiện tại (nếu muốn)...</h3><br><br>";
-                    ViewBag.Temp_TN = "<h3 style=\"color:aqua\">[ERROR] </h3><br><h4 style=\"color:red\">LƯU Ý : Đây chỉ là bản nháp mà file trắc nghiệm đã phân tích được ở thời điểm hiện tại, việc phân tích của hệ thống dù thành công hay thất bại..., tại đây bạn có thể tự kiểm tra lại và thực hiện chỉnh sửa thủ công sau!</h4><br><p style=\"color:orange\">Lưu ý thêm : Dữ liệu này chỉ là bản nháp để giúp bạn có thể kiểm tra và xác định câu hỏi đang bị lỗi và bạn sẽ tự chỉnh sửa thủ công --> Không sử dụng lại dữ liệu này để phân tích lại file trắc nghiệm của bạn...</p><br><br><textarea cols=\"150\" rows=\"200\" >" + s_err + "</textarea>";
+                    ViewBag.KetQua += "<h3 style=\"color:pink\" onclick=\"see_error()\"> --> Trượt đến tận cuối trang để có thể xem thử lại bản nháp đã phân tích hiện tại (nếu muốn)...</h3><br><br>";
+                    ViewBag.Temp_TN = "<h3 style=\"color:aqua\">[ERROR] </h3><br><h4 style=\"color:red\" id=\"memy\">LƯU Ý : Đây chỉ là bản nháp mà file trắc nghiệm đã phân tích được ở thời điểm hiện tại, việc phân tích của hệ thống dù thành công hay thất bại..., tại đây bạn có thể tự kiểm tra lại và thực hiện chỉnh sửa thủ công sau!</h4><br><p style=\"color:orange\">Lưu ý thêm : Dữ liệu này chỉ là bản nháp để giúp bạn có thể kiểm tra và xác định câu hỏi đang bị lỗi và bạn sẽ tự chỉnh sửa thủ công --> Không sử dụng lại dữ liệu này để phân tích lại file trắc nghiệm của bạn...</p><br><br><textarea cols=\"150\" rows=\"200\" >" + s_err + "</textarea>";
 
             }
             finally
@@ -566,8 +610,8 @@ namespace MyWebPlay.Controllers
                     }
 
                     ViewBag.KetQua += find_Error;
-                    ViewBag.KetQua += "<br><br><h3 style=\"color:aqua\">[ERROR] </h3><h3 style=\"color:pink\"> --> Trượt đến tận cuối trang để có thể xem thử lại bản nháp đã phân tích hiện tại (nếu muốn)...</h3><br><br>";
-                    ViewBag.Temp_TN = "<h3 style=\"color:aqua\">[ERROR] </h3><br><h4 style=\"color:red\">LƯU Ý : Đây chỉ là bản nháp mà file trắc nghiệm đã phân tích được ở thời điểm hiện tại, việc phân tích của hệ thống dù thành công hay thất bại..., tại đây bạn có thể tự kiểm tra lại và thực hiện chỉnh sửa thủ công sau!</h4><br><p style=\"color:orange\">Lưu ý thêm : Dữ liệu này chỉ là bản nháp để giúp bạn có thể kiểm tra và xác định câu hỏi đang bị lỗi và bạn sẽ tự chỉnh sửa thủ công --> Không sử dụng lại dữ liệu này để phân tích lại file trắc nghiệm của bạn...</p><br><br><textarea cols=\"150\" rows=\"200\" >" + s_err + "</textarea>";
+                    ViewBag.KetQua += "<br><br><h3 style=\"color:aqua\">[ERROR] </h3><h3 style=\"color:pink\" onclick=\"see_error()\"> --> Trượt đến tận cuối trang để có thể xem thử lại bản nháp đã phân tích hiện tại (nếu muốn)...</h3><br><br>";
+                    ViewBag.Temp_TN = "<h3 style=\"color:aqua\">[ERROR] </h3><br><h4 style=\"color:red\" id=\"memy\">LƯU Ý : Đây chỉ là bản nháp mà file trắc nghiệm đã phân tích được ở thời điểm hiện tại, việc phân tích của hệ thống dù thành công hay thất bại..., tại đây bạn có thể tự kiểm tra lại và thực hiện chỉnh sửa thủ công sau!</h4><br><p style=\"color:orange\">Lưu ý thêm : Dữ liệu này chỉ là bản nháp để giúp bạn có thể kiểm tra và xác định câu hỏi đang bị lỗi và bạn sẽ tự chỉnh sửa thủ công --> Không sử dụng lại dữ liệu này để phân tích lại file trắc nghiệm của bạn...</p><br><br><textarea cols=\"150\" rows=\"200\" >" + s_err + "</textarea>";
                 }
             }
             return View();
@@ -587,6 +631,21 @@ namespace MyWebPlay.Controllers
 
         public ActionResult Menu()
         {
+            Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+            var xuxu = x.AddHours(DateTime.UtcNow, 7);
+
+            if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
+            {
+                TempData["mau_background"] = "white";
+                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
+            }
+            else
+            {
+                TempData["mau_background"] = "black";
+                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
+            }
+
             return PartialView();
         }
     }

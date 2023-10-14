@@ -74,8 +74,36 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 </style>
-<body style="background-color:black">
+<body style="background-color:@TempData["mau_background"]">
     <br />
+
+    <script>
+
+        function xong()
+        {
+             document.getElementById("ok").click();
+        }
+
+        function chonall()
+        {
+            var n = new Number(document.getElementById("count").value) - 1;
+            for (var i = 0; i < n;i++)
+            {
+                document.getElementById("check-"+i).checked = true;
+            }
+            document.getElementById("ok").click();
+        }
+
+        function boall()
+        {
+            var n = new Number(document.getElementById("count").value) - 1;
+            for (var i = 0; i < n;i++)
+            {
+                document.getElementById("check-"+i).checked = false;
+            }
+            document.getElementById("ok").click();
+        }
+     </script>
 
 @*<label class="switch">
   <input type="checkbox">
@@ -86,10 +114,14 @@ input:checked + .slider:before {
     {
         @Html.ValidationSummary(true)
 
+        <input type="number" id="count" hidden value ="@Model.Topics.Count" />
+
          <tr style="height:40px">
             <td></td>
             <td><br>
                 <h2 style="color:deeppink">Cài ĐẶT ADMIN</h2><br />
+                <h4><a href="#xuly" onclick="chonall()" style="color:green">CHỌN TẤT CẢ</a> | <a href="#xuly" onclick="boall()" style="color:red">BỎ CHỌN TẤT CẢ</a></h4>
+                <br>
             </td>
         </tr>
 
@@ -98,17 +130,17 @@ input:checked + .slider:before {
             <td>
                 @for (int i = 0; i < Model.Topics.Count; i++)
 {
- <h3 style="color:white">@Model.Topics[i].NoiDung</h3>
+ <h3 style="color:@TempData["mau_text"]">@Model.Topics[i].NoiDung</h3>
  @if(Model.Topics[i].ID != "Password_Admin")
  {
 <label class="switch">
     @if (Model.Topics[i].Option == false)
     {
-                <input name="@Model.Topics[i].ID" type="checkbox">
+                <input id="check-@i" onchange="xong()" name="@Model.Topics[i].ID" type="checkbox">
      }
             else
             {
-                <input name="@Model.Topics[i].ID" type="checkbox" checked>
+                <input id="check-@i" onchange="xong()" name="@Model.Topics[i].ID" type="checkbox" checked>
             }
             <span class="slider round"></span>
                         </label>
@@ -125,7 +157,7 @@ input:checked + .slider:before {
         <tr style="height:40px">
             <td></td>
             <td><br>
-                <input type="Submit" value="LƯU CÀI ĐẶT" />
+                <input id="ok" type="submit" hidden value="LƯU CÀI ĐẶT" />
             </td>
         </tr>
     }

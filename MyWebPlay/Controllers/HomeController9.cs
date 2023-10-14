@@ -112,19 +112,64 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public async Task<ActionResult> UploadFile(List<IFormFile> fileUpload, List<IFormFile> fileUploadX, List<string> TenFile, IFormCollection f)
         {
+            Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+            var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
+
+            if (xuxu1.Hour >= 6 && xuxu1.Hour <= 17)
+            {
+                TempData["mau_background"] = "white";
+                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
+                TempData["nav_link"] = "text-dark"; TempData["winx"] = "❤";
+            }
+            else
+            {
+                TempData["mau_background"] = "black";
+                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
+                TempData["nav_link"] = "text-light"; TempData["winx"] = "❤";
+            }
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var flah = 0;
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (flah == 0 && (info[0] == "Email_Upload_User"
+                    || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
+                    || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
+                    || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
+                    || info[0] == "Email_Note"))
+                {
+                    if (info[1] == "false")
+                    {
+                        
+                        TempData["mau_winx"] = "red";
+                        flah = 1;
+                    }
+                    else
+                    {
+                        
+                        TempData["mau_winx"] = "deeppink";
+                        flah = 0;
+                    }
+                }
+            }
+
             var gmail = true;
             var mega = true;
             var passAd = "";
 
             if (TempData["Y"].ToString() == "1")
             {
-                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
-                var noidungX = System.IO.File.ReadAllText(pathX);
+                var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+                var noidungX1 = System.IO.File.ReadAllText(pathX1);
 
-                var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-                for (int i = 0; i < listSetting.Length; i++)
+                var listSetting1 = noidungX1.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < listSetting1.Length; i++)
                 {
-                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                    var info = listSetting1[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
                     if (info[0] == "Email_Upload_User")
                     {
                         if (info[1] == "false")
@@ -258,7 +303,7 @@ namespace MyWebPlay.Controllers
 
                    xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
 
-                    string fi = Request.HttpContext.Connection.RemoteIpAddress + "_ZipFile_" + xuxu;
+                    string fi = HttpContext.Session.GetString("userIP") + "_ZipFile_" + xuxu;
                     fi = fi.Replace("\\", "");
                     fi = fi.Replace("/", "");
                     fi = fi.Replace(":", "");
@@ -620,7 +665,7 @@ namespace MyWebPlay.Controllers
                             else
                                 pao = "file" + folder + "/" + fileName;
 
-                            if (homePass == passAd)
+                            if (homePass != passAd)
                             {
                                 var infoFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"));
                                 var files = infoFile.Split("\n");
@@ -862,7 +907,7 @@ namespace MyWebPlay.Controllers
 
                     xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
 
-                    string fi = Request.HttpContext.Connection.RemoteIpAddress + "_ZipFile_" + folder + "_" + xuxu;
+                    string fi = HttpContext.Session.GetString("userIP") + "_ZipFile_" + folder + "_" + xuxu;
                     fi = fi.Replace("\\", "");
                     fi = fi.Replace("/", "");
                     fi = fi.Replace(":", "");
@@ -898,7 +943,7 @@ namespace MyWebPlay.Controllers
 
                         Calendar x = CultureInfo.InvariantCulture.Calendar;
 
-                        ketqua += "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/file" + folder + "/" + item.Name + "\" download> tại đây</a> <span style=\"color:pink\">("+ x.AddHours(item.LastWriteTimeUtc, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture)+")</span> <br> Link xem trực tiếp (nếu có thể) : <a target=\"_blank\" style=\"color:green\"" +
+                        ketqua += "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/file" + folder + "/" + item.Name + "\" download> tại đây</a> <span style=\"color:seagreen\">("+ x.AddHours(item.LastWriteTimeUtc, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture)+")</span> <br> Link xem trực tiếp (nếu có thể) : <a target=\"_blank\" style=\"color:green\"" +
                        "href=\"/file" + folder + "/" + item.Name + "\">/file" + folder + "/" + item.Name + "</a><br><br>" +
                       "<button style=\"color:blue\" onclick=\"xacnhan('"+ file + "')\">Click để xoá thủ công file này?</button><br>";
                         ketqua += "<br><br>";
@@ -980,7 +1025,7 @@ namespace MyWebPlay.Controllers
                 if (new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, file.TrimStart("/".ToCharArray()))).Exists)
                 {
                     Calendar x = CultureInfo.InvariantCulture.Calendar;
-                    ketqua += "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/" + path + "/" + item.Name + "\" download> tại đây</a> <span style=\"color:pink\">("+ x.AddHours(item.LastWriteTimeUtc, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture) + ")</span> <br> Link xem trực tiếp (nếu có thể) : <a target=\"_blank\" style=\"color:green\"" +
+                    ketqua += "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/" + path + "/" + item.Name + "\" download> tại đây</a> <span style=\"color:seagreen\">("+ x.AddHours(item.LastWriteTimeUtc, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture) + ")</span> <br> Link xem trực tiếp (nếu có thể) : <a target=\"_blank\" style=\"color:green\"" +
                    "href=\"/" + path + "/" + item.Name + "\">/" + path + "/" + item.Name + "</a><br><br>";
                     ViewData["KetQua" + k] = ketqua;
                     ketqua = "";

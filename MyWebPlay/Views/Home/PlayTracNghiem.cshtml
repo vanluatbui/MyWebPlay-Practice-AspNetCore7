@@ -162,29 +162,29 @@
         if (s == 1)
         {
             A.style.color = "red";
-            B.style.color = "white";
-            C.style.color = "white";
-            D.style.color = "white";
+            B.style.color = '@TempData["mau_text"]';
+            C.style.color = '@TempData["mau_text"]';
+            D.style.color = '@TempData["mau_text"]';
         }
         else if (s == 2)
         {
-            A.style.color = "white";
+            A.style.color = '@TempData["mau_text"]';
             B.style.color = "red";
-            C.style.color = "white";
-            D.style.color = "white";
+            C.style.color = '@TempData["mau_text"]';
+            D.style.color = '@TempData["mau_text"]';
         }
         else if (s == 3)
         {
-            A.style.color = "white";
-            B.style.color = "white";
+            A.style.color = '@TempData["mau_text"]';
+            B.style.color = '@TempData["mau_text"]';
             C.style.color = "red";
-            D.style.color = "white";
+            D.style.color = '@TempData["mau_text"]';
         }
         else if (s == 4)
         {
-            A.style.color = "white";
-            B.style.color = "white";
-            C.style.color = "white";
+            A.style.color = '@TempData["mau_text"]';
+            B.style.color = '@TempData["mau_text"]';
+            C.style.color = '@TempData["mau_text"]';
             D.style.color = "red";
         }
     }
@@ -276,29 +276,29 @@
        if (answer == 1)
        {
              A.style.color = "red";
-            B.style.color = "white";
-            C.style.color = "white";
-            D.style.color = "white";
+            B.style.color = '@TempData["mau_text"]';
+            C.style.color = '@TempData["mau_text"]';
+            D.style.color = '@TempData["mau_text"]';
        }
        else if (answer == 2)
        {
-            A.style.color = "white";
+            A.style.color = '@TempData["mau_text"]';
             B.style.color = "red";
-            C.style.color = "white";
-            D.style.color = "white";
+            C.style.color = '@TempData["mau_text"]';
+            D.style.color = '@TempData["mau_text"]';
        }
         else if (answer == 3)
        {
-            A.style.color = "white";
-            B.style.color = "white";
+            A.style.color = '@TempData["mau_text"]';
+            B.style.color = '@TempData["mau_text"]';
             C.style.color = "red";
-            D.style.color = "white";
+            D.style.color = '@TempData["mau_text"]';
        }
         else if (answer == 4)
        {
-            A.style.color = "white";
-            B.style.color = "white";
-            C.style.color = "white";
+            A.style.color = '@TempData["mau_text"]';
+            B.style.color = '@TempData["mau_text"]';
+            C.style.color = '@TempData["mau_text"]';
             D.style.color = "red";
        }
 
@@ -334,10 +334,10 @@
         var C = document.getElementById("dapanC-"+i);
         var D = document.getElementById("dapanD-"+i);
 
-          A.style.color = "white";
-            B.style.color = "white";
-            C.style.color = "white";
-            D.style.color = "white";
+          A.style.color = '@TempData["mau_text"]';
+            B.style.color = '@TempData["mau_text"]';
+            C.style.color = '@TempData["mau_text"]';
+            D.style.color = '@TempData["mau_text"]';
      }
 
       alert("Thành công, mời bạn kiểm tra lại!");
@@ -413,7 +413,7 @@
 
    @if (TempData["Socola"] != null && TempData["Socola"].ToString() == "hay")
    {
-        <h3 style="color:yellow">@Html.Raw(ViewBag.KetQua)</h3>
+        <h3 style="color:royalblue">@Html.Raw(ViewBag.KetQua)</h3>
     }
     else
     {
@@ -456,7 +456,7 @@
         {
             <tr style="height:40px">
                 <td></td>
-                        <td><h4><b style="color:yellow">Câu số @(i + 1)</b>. <span id="causo-@i"> @Html.Raw(Model.ch[@i])</span></h4><br /></td>
+                        <td><h4><b style="color:olive">Câu số @(i + 1)</b>. <span id="causo-@i"> @Html.Raw(Model.ch[@i])</span></h4><br /></td>
             </tr>
 
              @if (ViewBag.ND_File != null)
@@ -488,7 +488,7 @@
                 @if(ViewData["KetQua-"+@i] ==  null)
                 {
                         <td>
-                            <h4><b> <a href="#@(i+1)" onclick="chondapan(@i,1)"><span id="dapanA-@i" style="color:white">A. <span id="DAA-@i">@Html.Raw(Model.a[@i])</span></span></a></b></h4> <br>
+                            <h4><b> <a href="#@(i+1)" onclick="chondapan(@i,1)"><span id="dapanA-@i" style="color:@TempData["mau_text"]">A. <span id="DAA-@i">@Html.Raw(Model.a[@i])</span></span></a></b></h4> <br>
                             </td>
                 }
                 else
@@ -502,7 +502,7 @@
                          <td></td>
                 @if(ViewData["KetQua-"+@i] ==  null)
                 {
-                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,2)"><span id="dapanB-@i" style="color:white">B. <span id="DAB-@i">@Html.Raw(Model.b[@i])</span></span></a></b></h4> <br /></td>
+                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,2)"><span id="dapanB-@i" style="color:@TempData["mau_text"]">B. <span id="DAB-@i">@Html.Raw(Model.b[@i])</span></span></a></b></h4> <br /></td>
                 }
                 else
                 {
@@ -515,7 +515,7 @@
                                           <td></td>
                 @if(ViewData["KetQua-"+@i] ==  null)
                 {
-                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,3)"><span id="dapanC-@i" style="color:white">C. <span id="DAC-@i">@Html.Raw(Model.c[@i])</span></span></a></b></h4><br> </td>
+                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,3)"><span id="dapanC-@i" style="color:@TempData["mau_text"]">C. <span id="DAC-@i">@Html.Raw(Model.c[@i])</span></span></a></b></h4><br> </td>
                 }
                 else
                 {
@@ -530,7 +530,7 @@
                                           <td></td>
                  @if(ViewData["KetQua-"+@i] ==  null)
                 {
-                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,4)"><span id="dapanD-@i" style="color:white">D. <span id="DAD-@i">@Html.Raw(Model.d[@i])</span></span></a></b></h4><br> </td>
+                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,4)"><span id="dapanD-@i" style="color:@TempData["mau_text"]">D. <span id="DAD-@i">@Html.Raw(Model.d[@i])</span></span></a></b></h4><br> </td>
                 }
                 else
                 {

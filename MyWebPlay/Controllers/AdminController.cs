@@ -110,7 +110,7 @@ namespace MyWebPlay.Controllers
                 {
                     var xinh = f[info[0]];
                     if (string.IsNullOrEmpty(xinh))
-                        xinh = "buivanluat-ADMIN3275";
+                        xinh = "mywebplay-ADMIN";
 
                     noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
                  }

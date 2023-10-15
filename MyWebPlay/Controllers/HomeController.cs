@@ -1,6 +1,7 @@
 ﻿using AppFindMainKey_CSDL;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using MyWebPlay.Extension;
@@ -75,6 +76,7 @@ namespace MyWebPlay.Controllers
 
         public void khoawebsiteClient(List<string> listIP)
         {
+            TempData["current"] = HttpContext.Request.GetDisplayUrl();
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
 

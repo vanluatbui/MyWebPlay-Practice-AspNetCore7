@@ -130,7 +130,7 @@ input:checked + .slider:before {
             <td>
                 @for (int i = 0; i < Model.Topics.Count; i++)
 {
- <h3 style="color:@TempData["mau_text"]">@Model.Topics[i].NoiDung</h3>
+ <h3 style="color:@TempData["mau_text"]">@Html.Raw(Model.Topics[i].NoiDung)</h3>
  @if(Model.Topics[i].ID != "Password_Admin")
  {
 <label class="switch">

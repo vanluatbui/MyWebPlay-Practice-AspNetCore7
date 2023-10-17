@@ -1,0 +1,36 @@
+﻿<script>
+</script>
+<table align="center">
+
+    @using(Html.BeginForm())
+    {
+    <h2 style="text-align:center">Edit Text Note File</h2>
+
+     <tr style="height:40px">
+                <td></td>
+                <td>
+                    <input type="Submit" value="LƯU" />
+                    <br>
+                     <h4>@Html.ActionLink("Trở về", "TracNghiemOnline_ViewMark")</h4>
+                </td>
+            </tr>
+
+        <tr style="height:40px">
+            <td></td>
+            <td>
+                <br>
+                <br>
+                    <textarea rows="500" cols="150" name="txtText" autofocus>@ViewBag.Text</textarea>
+            </td>
+        </tr>
+
+         <tr style="height:40px">
+                <td></td>
+                <td>
+                    <input type="Submit" value="LƯU" />
+                    <br>
+                    <h4>@Html.ActionLink("Trở về", "TracNghiemOnline_ViewMark")</h4>
+                </td>
+            </tr>
+    }
+</table>

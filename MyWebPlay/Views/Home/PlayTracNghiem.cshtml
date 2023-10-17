@@ -11,6 +11,14 @@
         idSA = setInterval(myAlertX, 1000);
     }
 
+    function hayqua()
+    {
+        if (document.getElementById("Xonline").value != "")
+        {
+        alert("Bài trắc nghiệm của bạn đã được hoàn thành.\nVui lòng chờ giáo viên công bố kết quả !");
+        }
+    }
+
     function myAlertX()
     {
         so++;
@@ -425,6 +433,7 @@
         <input type="text" readonly name="GioiHanCau" value="@ViewBag.GioiHanCau" hidden />
         <input type="text" readonly name="TimeLamBai" value="@ViewBag.TimeLamBaiX" hidden />
         <input type="text" readonly name="TenMon" value="@ViewBag.TenMon" hidden>
+        <input type="text" hidden readonly name="OnlineX" id="Xonline" value="@TempData["TracNghiem_Online"]" />
 
         <textarea name="File_ND" hidden>@ViewBag.ND_File</textarea>
         <textarea readonly name="CauHoi" hidden>@ViewBag.CauHoi</textarea>
@@ -581,7 +590,7 @@
                     <td>
                         @if(ViewBag.ND_File == null)
                         {
-                        <input style="font-weight:bolder" id="OKX" type="Submit" value="Đánh Giá Bài Làm" />
+                        <input style="font-weight:bolder" onclick="hayqua()" id="OKX" type="Submit" value="Đánh Giá Bài Làm" />
                         }
                         else
                         {

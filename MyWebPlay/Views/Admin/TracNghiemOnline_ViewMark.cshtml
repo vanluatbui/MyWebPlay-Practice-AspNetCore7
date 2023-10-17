@@ -1,0 +1,47 @@
+﻿  <script>
+
+      function xoa()
+      {
+          var con = confirm("Bạn có chắc chắn muốn xoá không?");
+          if (con == true)
+          window.location.href = "/Admin/XoaViewMark";
+      }
+      function chonX()
+      {
+          if (document.getElementById("chon").options.selectedIndex == 0)
+          {
+              document.getElementById("textboxX").style.display = "inline-block";
+              document.getElementById("preX").style.display = "none";
+          }
+          else
+          {
+              document.getElementById("preX").style.display = "inline-block";
+              document.getElementById("textboxX").style.display = "none";
+          }
+      }
+  </script>
+   <select id="chon" onchange="chonX()">
+                    <option>Xem view dưới dạng textbox</option>
+                    <option>Xem view dưới dạng lable</option>
+   </select> <button onclick="xoa()"><b style="color:red">XOÁ</b></button>
+   <h3 style="color:pink"> @ViewBag.DateTime </h3>
+   <br /><br />
+   <h3>@Html.ActionLink("Chỉnh sửa Student Test Mark", "EditStudentMark")</h3>
+ <br />
+<table align="center">
+    <h2 style="text-align:center;color:deeppink">View Of Student Mark Test</h2>
+        <tr style="height:40px">
+            <td>
+            </td>
+            <td>
+                <br>
+                <br>
+                <hr /><br />
+                    <textarea id="textboxX" rows="500" cols="150" name="txtText" readonly placeholder="Nội dung view student mark file hiện đang trống..." autofocus>@ViewBag.Text1</textarea>
+                    @Html.Raw(@ViewBag.Text2)
+                    <br /><hr /><br /><br />
+            </td>
+        </tr>
+</table>
+<br />
+            <h3>@Html.ActionLink("Chỉnh sửa Student Test Mark", "EditStudentMark")</h3>

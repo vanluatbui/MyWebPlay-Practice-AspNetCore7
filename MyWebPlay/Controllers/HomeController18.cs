@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyWebPlay.Extension;
 using MyWebPlay.Model;
 using System.Globalization;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
@@ -207,6 +208,311 @@ namespace MyWebPlay.Controllers
         {
             TempData.Clear();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult PlayTracNghiem_Online()
+        {
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult PlayTracNghiem_Online(IFormCollection f)
+        {
+            var noidung = "";
+            Calendar xi = CultureInfo.InvariantCulture.Calendar;
+            var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+            var path = "";
+            var id = f["txtID"].ToString();
+            ViewBag.ID = id;
+            var mssv = f["txtMSSV"].ToString();
+            ViewBag.MSSV = mssv;
+            var IP = "";
+            try
+            {
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                var listIP = new List<string>();
+
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                    listIP.Add(HttpContext.Session.GetString("userIP"));
+                else
+                {
+                    TempData["GetDataIP"] = "true";
+                    return RedirectToAction("Index");
+                }
+                khoawebsiteClient(listIP);
+
+                if (string.IsNullOrEmpty(id))
+                {
+                    ViewData["Loi1"] = "Vui lòng nhập ID liên kết với bài trắc nghiệm bạn muốn làm";
+                    return this.PlayTracNghiem_Online();
+                }
+
+                if (string.IsNullOrEmpty(mssv))
+                {
+                    ViewData["Loi2"] = "Vui lòng nhập mã số học sinh của bạn";
+                    return this.PlayTracNghiem_Online();
+                }
+
+                IP = HttpContext.Session.GetString("userIP");
+
+                path = Path.Combine(_webHostEnvironment.WebRootPath, "TracNghiem_XOnline/DiemHocSinh.txt");
+                noidung = System.IO.File.ReadAllText(path);
+                if (noidung.Contains(mssv + "\t" + id))
+                {
+                    ViewData["Loi2"] = "Mã học sinh đã thực hiện và có kết quả của bài làm trắc nghiệm đợt này. Mời bạn quay lại sau!";
+                    return this.PlayTracNghiem_Online();
+                }
+                else
+                {
+                    System.IO.File.WriteAllText(path, noidung + xuxu + "\t" + IP + "\t" + mssv + "\t" + id + "\t[NULL]\t[NULL]\n");
+                }
+
+                noidung = System.IO.File.ReadAllText(path);
+
+                int n9_S = 0;
+                var split = id.Split("_");
+                var timelambai = int.Parse(split[2]);
+                var socau = int.Parse(split[1]);
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "file/TracNghiemOnline_32752262", split[0]);
+                var listTN = new DirectoryInfo(pathX).GetFiles().ToArray();
+                TracNghiem[] tn = new TracNghiem[socau];
+                var ssl = "";
+                if (split[3] == "s")
+                    ssl = "http://";
+                else if (split[3] == "ss")
+                    ssl = "https://";
+                var tenmon = split[4];
+
+                for (var h = 0; h < listTN.Length; h++)
+                {
+                    tn[h] = new TracNghiem();
+                 
+                    var ND_file = "";
+                    try
+                    {
+                        WebClient client = new WebClient();
+                        Stream stream = client.OpenRead(ssl + Request.Host + "/file/TracNghiemOnline_32752262/" + split[0] + "/" + listTN[h].Name);
+                        StreamReader reader = new StreamReader(stream);
+                        ND_file = reader.ReadToEnd();
+                    }
+                    catch
+                    {
+                        ViewData["Loi1"] = "Đã xảy ra lỗi khi cố gắng liên kết với ID bài test trắc nghiệm. Vui lòng thử lại sau!";
+                        noidung = noidung.Replace(xuxu + "\t" + IP + "\t" + mssv + "\t" + id + "\t[NULL]\t[NULL]\n", "");
+                        System.IO.File.WriteAllText(path, noidung);
+                        return this.PlayTracNghiem_Online();
+                    }
+
+                    //--------------------
+
+                    String[] t1 = ND_file.Split("\r\n#\r\n", StringSplitOptions.RemoveEmptyEntries);
+
+                    int[] chuaxet_ch;
+                    int[][] chuaxet_da;
+
+                    int n9 = t1.Length;
+                    n9_S += n9;
+
+                    tn[h].ch = new String[t1.Length];
+                    tn[h].a = new String[t1.Length];
+                    tn[h].b = new String[t1.Length];
+                    tn[h].c = new String[t1.Length];
+                    tn[h].d = new String[t1.Length];
+                    tn[h].dung = new String[t1.Length];
+
+                    chuaxet_ch = new int[t1.Length];
+
+                    chuaxet_da = new int[t1.Length][];
+
+                    for (int i = 0; i < t1.Length; i++)
+                        chuaxet_da[i] = new int[5];
+
+                    //=======
+
+                    int dem = 0;
+                    var ix = 0;
+                    while (true)
+                    {
+                        if (dem == t1.Length)
+                            break;
+
+                        double x = 0;
+                        Random r = new Random();
+
+                        x = r.Next(0, t1.Length);
+
+                        if (chuaxet_ch[int.Parse(x.ToString())] == 1)
+                            continue;
+
+                        chuaxet_ch[int.Parse(x.ToString())] = 1;
+
+                        int i = int.Parse(x.ToString());
+                        String[] t2 = t1[i].Split("\r\n");
+
+                        char[] CH = t2[0].ToCharArray();
+
+                        if (CH[0] == '$')
+                        {
+                            t2[0].Remove(0, 1);
+                            tn[h].ch[dem] = t2[0].Replace("$", "");
+                            tn[h].a[dem] = t2[1];
+                            tn[h].b[dem] = t2[2];
+                            tn[h].c[dem] = t2[3];
+                            tn[h].d[dem] = t2[4];
+                            String DAx = t2[5].Replace("[", "");
+                            DAx = DAx.Replace("]", "");
+                            tn[h].dung[dem] = DAx;
+                        }
+                        else
+                        {
+                            int aa, bb, cc, dd;
+
+                            tn[h].ch[dem] = t2[0];
+
+                            do
+                            {
+                                aa = r.Next(1, 5);
+                            }
+                            while (chuaxet_da[dem][int.Parse(aa.ToString())] == 1);
+                            chuaxet_da[dem][int.Parse(aa.ToString())] = 1;
+
+
+                            tn[h].a[dem] = t2[aa];
+
+                            do
+                            {
+                                bb = r.Next(1, 5);
+                            }
+                            while (chuaxet_da[dem][int.Parse(bb.ToString())] == 1);
+                            chuaxet_da[dem][int.Parse(bb.ToString())] = 1;
+
+
+                            tn[h].b[dem] = t2[bb];
+
+                            do
+                            {
+                                cc = r.Next(1, 5);
+                            }
+                            while (chuaxet_da[dem][int.Parse(cc.ToString())] == 1);
+                            chuaxet_da[dem][int.Parse(cc.ToString())] = 1;
+
+                            tn[h].c[dem] = t2[cc];
+
+                            do
+                            {
+                                dd = r.Next(1, 5);
+                            }
+                            while (chuaxet_da[dem][int.Parse(dd.ToString())] == 1);
+                            chuaxet_da[dem][int.Parse(dd.ToString())] = 1;
+
+                            tn[h].d[dem] = t2[dd];
+                            String DA = t2[5].Replace("[", "");
+                            DA = DA.Replace("]", "");
+                            tn[h].dung[dem] = DA;
+                        }
+                        dem++;
+                    }
+                    tn[h].tongsocau = n9;
+                }
+
+                TracNghiem tnX = new TracNghiem();
+                tnX.ch = new String[socau];
+                tnX.a = new String[socau];
+                tnX.b = new String[socau];
+                tnX.c = new String[socau];
+                tnX.d = new String[socau];
+                tnX.dung = new String[socau];
+
+                tnX.tongsocau = n9_S;
+
+                if (socau > n9_S)
+                {
+                    socau = n9_S;
+                }
+
+                tnX.gioihancau = socau;
+                tnX.timelambai = timelambai;
+                ViewBag.TimeLamBai = tnX.timelambai;
+
+                //=======================
+
+                int[][] chuaxetX = new int[socau][];
+
+                for (int i = 0; i < listTN.Length; i++)
+                {
+                    chuaxetX[i] = new int[tn[i].tongsocau];
+                    for (int j = 0; j < chuaxetX[i].Length; j++)
+                    {
+                        chuaxetX[i][j] = 0;
+                    }
+                }
+                for (int i = 0; i < tnX.gioihancau; i++)
+                {
+                    int chuong = 0;
+                    int soluong = 0;
+
+                    Random r = new Random();
+
+                    do
+                    {
+                        chuong = r.Next(0, listTN.Length);
+                        soluong = r.Next(0, tn[chuong].tongsocau);
+                    }
+                    while (chuaxetX[chuong][soluong] == 1);
+
+                    chuaxetX[chuong][soluong] = 1;
+
+                    tnX.ch[i] = tn[chuong].ch[soluong];
+                    tnX.a[i] = tn[chuong].a[soluong];
+                    tnX.b[i] = tn[chuong].b[soluong];
+                    tnX.c[i] = tn[chuong].c[soluong];
+                    tnX.d[i] = tn[chuong].d[soluong];
+                    tnX.dung[i] = tn[chuong].dung[soluong];
+                }
+
+                tnX.timelambai = timelambai;
+                tnX.tenmon = tenmon;
+
+                ViewBag.TimeLamBai = tnX.timelambai;
+
+                HttpContext.Session.SetObject("TracNghiem", tnX);
+
+                ViewBag.TongSoCau = tnX.tongsocau;
+                ViewBag.GioiHanCau = tnX.gioihancau;
+                ViewBag.TimeLamBaiX = tnX.timelambai;
+                ViewBag.TenMon = tnX.tenmon;
+
+                ViewBag.CauHoi = String.Join("\r\n", tnX.ch);
+                ViewBag.A = String.Join("\r\n", tnX.a);
+                ViewBag.B = String.Join("\r\n", tnX.b);
+                ViewBag.C = String.Join("\r\n", tnX.c);
+                ViewBag.D = String.Join("\r\n", tnX.d);
+                ViewBag.Dung = String.Join("\r\n", tnX.dung);
+
+                ViewBag.KetQuaDung = "";
+
+                TempData["TracNghiem_Online"] = xuxu + "#" + mssv + "#" + id;
+
+                return View("PlayTracNghiem", tnX);
+            }
+            catch(Exception ex)
+            {
+                ViewData["Loi1"] = "Đã xảy ra lỗi khi cố gắng liên kết với ID bài test trắc nghiệm. Vui lòng kiểm tra và thử lại sau!";
+                noidung = noidung.Replace(xuxu + "\t" + IP + "\t" + mssv + "\t" + id + "\t[NULL]\t[NULL]\n", "");
+                System.IO.File.WriteAllText(path, noidung);
+                return this.PlayTracNghiem_Online();
+            }
         }
     }
 }

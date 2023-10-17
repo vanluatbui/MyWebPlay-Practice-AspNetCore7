@@ -1,0 +1,40 @@
+﻿
+<table align="center">
+    <h2 style="text-align:center">Play Test Trắc Nghiệm - Online</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <tr style="height:40px">
+            <td> </td>
+            <td>
+                <br>
+                <input name="txtID" type="text" placeholder="Nhập ID liên kết bài với test trắc nghiệm" size="100" value="@ViewBag.ID" />
+                <br>
+                 <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+                <br>
+                <input name="txtMSSV" type="text" size="100" placeholder="Nhập mã số học sinh" value="@ViewBag.MSSV" />
+                <br>
+                <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+            </td>
+        </tr>
+      
+        <tr style="height:40px">
+            <td></td>
+            <td><br>
+                <button><b>Bắt đầu làm bài</b></button>
+                <br><br>
+                <p style="color:yellow">
+                    <b style="color:deeppink">* LƯU Ý (đọc hiểu và xác nhận):</b><br><br>
+                    - Khi bạn nhấn nút "Bắt đầu làm bài" đồng nghĩa thời gian làm bài của bạn đã bắt đầu được tính.<br>
+                    - Sau khi hết thời gian làm bài quy định, hệ thống sẽ tự động nộp bài. Hoặc bạn có thể tự nộp thủ công (kiểm tra kỹ bài làm của mình trước khi hoàn thành).<br>
+                    - Các câu hỏi trắc nghiệm luôn được phê duyệt thường xuyên (bao gồm đáp án, đánh giá năng lực và phân loại) bởi các giáo viên. Và xin lưu ý thêm, khi bạn hoàn thành bài kiểm tra thì hệ thống sẽ chỉ lưu trữ thông tin về bạn như (MSSV, ID liên kết trắc nhiệm bạn đã thực hiện,...) và kết quả điểm bài thi đó của bạn.<br>
+                    - Ngân hàng server đề thi của liên kết trắc nghiệm được biên soạn rất nhiều câu hỏi đa dạng, mỗi học sinh khi đăng nhập sẽ được random các câu hỏi và đảo lộn khác nhau. Khi công bố điểm, giáo viên chỉ có thể cung cấp điểm mà bạn đã đạt được chứ không thể biết bạn đã làm những câu nào, đúng câu nào, sai câu nào (vì lí do bảo mật nên bạn hãy chú ý điều này).<br>
+                    - Hãy đảm bảo kết nối Internet và thực hiện nghiêm túc trong suốt quá trình làm bài (không tự ý load lại trang hay ra khỏi khu vực đang thi). Mỗi học sinh chỉ được phép làm bài kiểm tra 1 lần cho 1 đợt thi.<br>
+                    - Nếu bạn gặp bất kỳ sự cố nào, hãy liên hệ với giáo viên để được xử lý kịp thời!
+                </p>
+            </td>
+        </tr>
+    }
+</table>

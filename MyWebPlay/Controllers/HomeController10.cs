@@ -3,6 +3,8 @@ using Microsoft.Extensions.FileSystemGlobbing.Internal;
 using MyWebPlay.Extension;
 using MyWebPlay.Model;
 using Newtonsoft.Json.Linq;
+using Org.BouncyCastle.Ocsp;
+using System;
 using System.Formats.Tar;
 using System.Globalization;
 using System.IO;
@@ -56,6 +58,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult TracNghiem(IFormCollection f, IFormFile txtFile)
         {
+            
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -63,13 +66,13 @@ namespace MyWebPlay.Controllers
             if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
             {
                 TempData["mau_background"] = "white";
-                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
+                TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
                 TempData["nav_link"] = "text-dark"; TempData["winx"] = "❤";
             }
             else
             {
                 TempData["mau_background"] = "black";
-                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
+                TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
                 TempData["nav_link"] = "text-light"; TempData["winx"] = "❤";
             }
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
@@ -88,13 +91,13 @@ namespace MyWebPlay.Controllers
                 {
                     if (info[1] == "false")
                     {
-                        
+
                         TempData["mau_winx"] = "red";
                         flax = 1;
                     }
                     else
                     {
-                        
+
                         TempData["mau_winx"] = "deeppink";
                         flax = 0;
                     }
@@ -103,7 +106,7 @@ namespace MyWebPlay.Controllers
             string txtSoCau = f["txtSoCau"].ToString();
             string txtTime = f["txtTime"].ToString();
             string txtMon = f["txtMon"].ToString();
-           
+
 
             if (txtFile == null || txtFile.FileName.Length == 0)
             {
@@ -115,7 +118,7 @@ namespace MyWebPlay.Controllers
                 txtMon = txtFile.FileName;
             }
 
-            if (string.IsNullOrEmpty(txtSoCau) )
+            if (string.IsNullOrEmpty(txtSoCau))
             {
                 ViewData["Loi2"] = "Không được bỏ trống trường này";
                 return this.TracNghiem();
@@ -201,7 +204,7 @@ namespace MyWebPlay.Controllers
                 if (flag == 0)
                 {
                     //MessageBox.Show("Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi.\nXin lỗi vì sự bất tiện này! ]");
-                     ViewData["Loi1"] = "WRONG INDEX ANSWER OF QUESTION : " + t2[0] + "";
+                    ViewData["Loi1"] = "WRONG INDEX ANSWER OF QUESTION : " + t2[0] + "";
                     return this.TracNghiem();
                 }
             }
@@ -316,14 +319,15 @@ namespace MyWebPlay.Controllers
             }
 
             tn.tongsocau = n9;
-           tn.gioihancau = int.Parse(txtSoCau);
+            tn.gioihancau = int.Parse(txtSoCau);
             tn.timelambai = int.Parse(txtTime);
             tn.tenmon = txtMon;
 
-           ViewBag.TimeLamBai = tn.timelambai;
+            ViewBag.TimeLamBai = tn.timelambai;
 
             HttpContext.Session.SetObject("TracNghiem", tn);
             ViewBag.KetQuaDung = "";
+            
 
             ViewBag.TongSoCau = tn.tongsocau;
             ViewBag.GioiHanCau = tn.gioihancau;
@@ -336,12 +340,19 @@ namespace MyWebPlay.Controllers
             ViewBag.C = String.Join("\r\n", tn.c);
             ViewBag.D = String.Join("\r\n", tn.d);
             ViewBag.Dung = String.Join("\r\n", tn.dung);
+            
 
             return View("PlayTracNghiem", tn);
         }
 
         public ActionResult PlayTracNghiem(TracNghiem tn)
         {
+            if (TempData["TracNghiem_Online"] != null)
+            {
+                var dapan = TempData["TracNghiem_Online"];
+                TempData["TracNghiem_Online"] = dapan;
+            }
+
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -352,7 +363,7 @@ namespace MyWebPlay.Controllers
                 TempData["GetDataIP"] = "true";
                 return RedirectToAction("Index");
             }
-            khoawebsiteClient(listIP);
+            //khoawebsiteClient(listIP);
             if (ViewBag.ND_File != null)
             {
                 var ND_File = ViewBag.ND_File;
@@ -372,9 +383,9 @@ namespace MyWebPlay.Controllers
                 return View(tn);
         }
 
-        [HttpPost, ActionName("PlayTracNghiem")]
-        public ActionResult TracNghiemPlay(IFormCollection f)
-        {
+        [HttpPost]
+        public ActionResult PlayTracNghiem(IFormCollection f)
+        {      
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
@@ -421,6 +432,19 @@ namespace MyWebPlay.Controllers
             }
 
             TracNghiem tn;
+            var onlineX = f["OnlineX"].ToString();
+
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                var listIP = new List<string>();
+
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                    listIP.Add(HttpContext.Session.GetString("userIP"));
+                else
+                {
+                    TempData["GetDataIP"] = "true";
+                    return RedirectToAction("Index");
+                }
+                var IP = HttpContext.Session.GetString("userIP");
 
             if (HttpContext.Session.GetObject<TracNghiem>("TracNghiem") == null)
             {
@@ -548,7 +572,27 @@ namespace MyWebPlay.Controllers
                 diem = Math.Round(diem, 1);
 
                 ViewBag.KetQuaDiem = "Điểm Đánh Giá : " + diem + "/10";
-                return View(tn);
+                if (string.IsNullOrEmpty(onlineX))
+                {
+                    return View(tn);
+                }
+                else
+                {
+                    var spi = onlineX.Split("#");
+                    var xuxu = spi[0];
+                    var mssv = spi[1];
+                    var id = spi[2];
+                    Calendar xix = CultureInfo.InvariantCulture.Calendar;
+                    var xong = xix.AddHours(DateTime.UtcNow, 7);
+                    var path = Path.Combine(_webHostEnvironment.WebRootPath, "TracNghiem_XOnline/DiemHocSinh.txt");
+                    var noidung = System.IO.File.ReadAllText(path);
+                    if (noidung.Contains(mssv + "\t" + id))
+                    {
+                        noidung = noidung.Replace(xuxu + "\t" + IP + "\t" + mssv + "\t" + id + "\t[NULL]\t[NULL]\n", xuxu + "\t" + IP + "\t" + mssv + "\t" + id + "\t"+xong+"\t"+diem+"\n");
+                        System.IO.File.WriteAllText(path, noidung);
+                    }
+                        return RedirectToAction("PlayTracNghiem_Online");
+                }
             }
             else
             {

@@ -10,6 +10,7 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult TracNghiem_Multiple(int? sl)
         {
+            
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -41,6 +42,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult TracNghiemX_Multiple()
         {
+            
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -67,6 +69,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult TracNghiem_Multiple(IFormCollection f, List<IFormFile> txtFile)
         {
+            
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -404,6 +407,7 @@ namespace MyWebPlay.Controllers
             ViewBag.Dung = String.Join("\r\n", tnX.dung);
 
             ViewBag.KetQuaDung = "";
+            
 
             return View("PlayTracNghiem", tnX);
         }
@@ -411,6 +415,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult TracNghiemX_Multiple(IFormCollection f, List<IFormFile> txtFile)
         {
+            
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -804,6 +809,7 @@ namespace MyWebPlay.Controllers
             ViewBag.Dung = String.Join("\r\n", tnX.dung);
 
             ViewBag.KetQuaDung = "";
+            
 
             if (tick == "on")
                 ViewBag.ND_File = cFile;

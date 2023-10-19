@@ -142,6 +142,7 @@
             window.location.href="/Home/LockedWeb";
         }
 
+   
         function muaxuan()
         {
             document.location.href= "#hihi";
@@ -224,7 +225,7 @@
             navigator.clipboard.writeText(document.getElementById("current").innerHTML);
         }
         </script>
-    <header>
+            <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color:@TempData["mau_nen"]">
             <div class="container-fluid">
                 <button style="color:deeppink" class="navbar-brand" asp-area="" onclick="khoawebsite()">Khoá WebSite bằng mật mã LockedClientID (<u>hãy cẩn thận đừng nhấn nhầm vào đây nếu bạn không có nhu cầu 😁</u>)</button>
@@ -241,7 +242,7 @@
         <main role="main" class="pb-3">
            <div style="color:@TempData["mau_text"]">
            <a href="#xuly" onclick="copyCurrent()"><h4 id="current" style="color:orangered">@TempData["current"]</h4></a>
-           <br />
+               <br />
            @if (TempData["GetDataIP"] == "true")
             {
                  <div hidden>@RenderBody()</div>

@@ -138,135 +138,8 @@ namespace MyWebPlay.Controllers
             return s;
         }
 
-        public void khoawebsiteClient(List<string> listIP)
-        {
-            TempData["current"] = HttpContext.Request.GetDisplayUrl();
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
-            var noidungX = System.IO.File.ReadAllText(pathX);
-
-            Calendar x = CultureInfo.InvariantCulture.Calendar;
-
-            var xuxu = x.AddHours(DateTime.UtcNow, 7);
-
-            if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
-            {
-                TempData["mau_background"] = "white";
-                TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
-                TempData["nav_link"] = "text-dark"; TempData["winx"] = "❤";
-            }
-            else
-            {
-                TempData["mau_background"] = "black";
-                TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
-                TempData["nav_link"] = "text-light"; TempData["winx"] = "❤";
-            }
-
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            var flag = 0;
-            for (int i = 0; i < listSetting.Length; i++)
-            {
-                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-                if (info[0] == "Using_Website")
-                {
-                    if (info[1] == "false")
-                    {
-                        TempData["UsingWebsite"] = "false";
-                    }
-                    else
-                    {
-                        TempData["UsingWebsite"] = "true";
-                    }
-                }
-
-                if (flag == 0 && (info[0] == "Email_Upload_User"
-                    || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
-                    || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
-                    || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
-                    || info[0] == "Email_Note"))
-                {
-                    if (info[1] == "false")
-                    {
-
-                        TempData["mau_winx"] = "red";
-                        flag = 1;
-                    }
-                    else
-                    {
-
-                        TempData["mau_winx"] = "deeppink";
-                        flag = 0;
-                    }
-                }
-            }
-
-
-            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
-            {
-                socket.Connect("8.8.8.8", 65530);
-                IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
-                listIP.Add(endPoint.Address.ToString());
-            }
-
-            listIP.Add(Request.HttpContext.Connection.RemoteIpAddress.ToString());
-
-            TempData["IP_Client"] = listIP[0];
-
-            var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPLock.txt");
-            var noidung2 = docfile(path2);
-
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
-            var noidung = docfile(path);
-
-            var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/LockedIPClient.txt");
-            var noidung1 = docfile(path1);
-
-            if (noidung1.Contains(listIP[0]))
-            {
-                TempData["lockedClient"] = "true";
-            }
-            else
-            {
-                TempData["lockedClient"] = "false";
-            }
-
-
-            for (int i = 0; i < listIP.Count; i++)
-            {
-                if (noidung2.Contains(listIP[i]))
-                {
-                    TempData["lock"] = "true";
-                    break;
-                }
-                else
-                {
-                    TempData["lock"] = "false";
-                }
-            }
-
-            if (noidung.Contains(listIP[0]) == false)
-            {
-                TempData["PlayOnWebInLocal-X"] = "false";
-                TempData["InError"] = "true";
-            }
-            else
-            {
-                TempData["VisibleX"] = "true";
-            }
-        }
-
         public ActionResult TracNghiemOnline_ViewMark()
         {
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
-
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            khoawebsiteClient(listIP);
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "TracNghiem_XOnline", "DiemHocSinh.txt");
 
             var file = new FileInfo(path);
@@ -283,17 +156,6 @@ namespace MyWebPlay.Controllers
 
         public ActionResult EditStudentMark()
         {
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
-
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            khoawebsiteClient(listIP);
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "TracNghiem_XOnline", "DiemHocSinh.txt");
             if (System.IO.File.Exists(path))
             {
@@ -357,8 +219,14 @@ namespace MyWebPlay.Controllers
                 System.IO.File.Delete(path);
             }
 
-            if (txtText != null)
+            if (string.IsNullOrEmpty(txtText) ==  false)
                 System.IO.File.WriteAllText(path, txtText);
+            else
+            {
+                var noidung = "Thời gian bắt đầu\tIP Address\tMSSV\tID Link\tThời gian kết thúc\tĐiểm\r\n";
+                System.IO.File.WriteAllText(path, noidung);
+            }
+
 
             return RedirectToAction("TracNghiemOnline_ViewMark");
         }

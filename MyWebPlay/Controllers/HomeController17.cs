@@ -129,17 +129,17 @@ namespace MyWebPlay.Controllers
 
         public ActionResult Share_Karaoke(string? id)
         {
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
+            //TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            //var listIP = new List<string>();
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            khoawebsiteClient(listIP);
+            //if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+            //    listIP.Add(HttpContext.Session.GetString("userIP"));
+            //else
+            //{
+            //    TempData["GetDataIP"] = "true";
+            //    return RedirectToAction("Index");
+            //}
+            //khoawebsiteClient(listIP);
             //System.IO.File.WriteAllText("D:/XemCode/ma.txt", id);
             if (id != null)
             {

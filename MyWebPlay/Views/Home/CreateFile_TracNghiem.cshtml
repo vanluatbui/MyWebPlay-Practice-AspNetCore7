@@ -63,7 +63,7 @@
     function changeDA()
     {
         var dapan = document.getElementById("DapAn");
-        var txt = document.getElementById("txt");
+        var txt = document.getElementById("txtansw");
 
         var s = "";
         if (txt.value == "1")
@@ -471,13 +471,13 @@
             var num_s = s_num[i].split("-");
             for (var j = num_s[0]; j <= num_s[1]; j++)
             {
-                s += "<tr style=\"height:40px\">                                 <td></td>                             <td>                                 <br>                                    <b></b>                                    <br>                                <b style=\"color:yellow\">ĐÁP ÁN CÂU "+j+" : </b>                                <select name=\"HasAnswer\">                                    <option>A</option>                                    <option>B</option>                                    <option>C</option>                                    <option>D</option>                                </select>                             </td>                         </tr>";
+                s += "<tr style=\"height:40px\">                                 <td></td>                             <td>                                 <br>                                    <b></b>                                    <br>                                <b style=\"color:deeppink\">ĐÁP ÁN CÂU "+j+" : </b>                                <select name=\"HasAnswer\">                                    <option>A</option>                                    <option>B</option>                                    <option>C</option>                                    <option>D</option>                                </select>                             </td>                         </tr>";
             }
 
             s += " <tr style=\"height:40px\">                                 <td></td>                             <td>                                 <br>                                    <b></b>                                    <br>                                   <hr>                                   <br>                             </td>                         </tr>";
         }
 
-        s += "<tr style=\"height:40px\">                                 <td></td>                             <td>                                    <b></b>                                    <input id=\"chotans\" type=\"radio\" onclick=\"downAnswer()\" checked /><b style=\"color:aqua\"> ⬅️ Click để nạp tải đáp án (cập nhật tổng chốt answer)</b><br><p style=\"color:pink\">Lưu ý : sau khi bạn đã chỉnh sửa answer cho các dropdown ở trên thì bắt buộc bạn phải click vào nút này để cập nhật tổng chốt đáp án trắc nghiệm của bạn tại trường input textbox bên dưới)...</p>                                  <br>                             </td>                         </tr>";
+        s += "<tr style=\"height:40px\">                                 <td></td>                             <td>                                    <b></b>                                    <input id=\"chotans\" type=\"radio\" onclick=\"downAnswer()\" checked /><b style=\"color:brown\"> ⬅️ Click để nạp tải đáp án (cập nhật tổng chốt answer)</b><br><p style=\"color:purple\">Lưu ý : sau khi bạn đã chỉnh sửa answer cho các dropdown ở trên thì bắt buộc bạn phải click vào nút này để cập nhật tổng chốt đáp án trắc nghiệm của bạn tại trường input textbox bên dưới)...</p>                                  <br>                             </td>                         </tr>";
 
         var answer = document.getElementById("setupAnswer");
         answer.innerHTML = s;
@@ -567,7 +567,7 @@
 <table align="center">
     <h2 style="text-align:center">File Trắc Nghiệm Theo Hệ Thống (dành cho admin hoặc các user hiểu biết chức năng)</h2>
 
-    <h3 style="color:yellow">@Html.Raw(ViewBag.KetQua)</h3>
+    <h3 style="color:deeppink">@Html.Raw(ViewBag.KetQua)</h3>
 
     <br />
 
@@ -582,7 +582,7 @@
                     <br>
                         <b>Dán bài trắc nghiệm của bạn tại đây (xem ví dụ tương đương) :</b>
                         <br>
-                            <b style="color:yellow">Để tránh trường hợp có thể xảy ra, tốt nhất bạn nên lưu và thực hiện nội dung trắc nghiệm đâu đó trên local và sao chép chúng thông qua vào trường điền dưới đây...</b>
+                            <b style="color:deeppink">Để tránh trường hợp có thể xảy ra, tốt nhất bạn nên lưu và thực hiện nội dung trắc nghiệm đâu đó trên local và sao chép chúng thông qua vào trường điền dưới đây...</b>
                             <br>
                     <textarea rows="50" cols="150" id="Chuoi" name="txtChuoi" autofocus>@ViewBag.ChuoiVD</textarea>
                     <br>
@@ -708,7 +708,7 @@
                             <td style="display:none" id="win">
                                   <b style="color:deeppink">Hoặc là bạn cũng có thể thiết đặt các đáp án tại đây...</b><br><b style="color:deeppink">Forcus tại input bên dưới và lần lượt gõ đáp án theo nguyên tắc như sau (1 : đáp án A, 2 : đáp án B, 3 : đáp án C, 4 : Đáp án D)
                                   </b><br><br>
-                                  <input id="txtansw" type="number" size="1" min="1" max="4"  onkeyup ="changeDA()" />
+                                  <input id="txtansw" type="number" size="1" min="1" max="4"  onkeyup="changeDA()" />
                             </td>
                         </tr>
                       

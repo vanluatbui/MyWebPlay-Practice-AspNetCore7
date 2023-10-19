@@ -447,8 +447,15 @@
         <br />
             <b>Tên môn học/kỳ kiểm tra : @Model.tenmon</b>
             <br />
-        <b>Tổng số câu cần làm : @Model.gioihancau/@Model.tongsocau</b>
-        <br />
+        @if (TempData["TracNghiem_Online"] == null)
+        {
+                <b>Tổng số câu cần làm : @Model.gioihancau/@Model.tongsocau</b>
+            }
+            else
+            {
+                <b>Tổng số câu cần làm : @Model.gioihancau</b>
+            }
+            <br />
             <b>Thời gian làm bài : @Model.timelambai phút
                      @if (ViewBag.TimeLamBai != null)
                      {
@@ -599,7 +606,7 @@
                             <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
                         }
                         <br>
-                            <p style="color:orange">Lưu ý : kiểm tra thật kỹ toàn bộ bài làm trước khi xem kết quả!</p>
+                            <p style="color:deeppink">Lưu ý : kiểm tra thật kỹ toàn bộ bài làm trước khi xem kết quả!</p>
                     </td>
             </tr>
         }

@@ -385,7 +385,9 @@ namespace MyWebPlay.Controllers
 
         [HttpPost]
         public ActionResult PlayTracNghiem(IFormCollection f)
-        {      
+        {
+            TempData["online_null"] = null;
+
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
@@ -591,7 +593,8 @@ namespace MyWebPlay.Controllers
                         noidung = noidung.Replace(xuxu + "\t" + IP + "\t" + mssv + "\t" + id + "\t[NULL]\t[NULL]\n", xuxu + "\t" + IP + "\t" + mssv + "\t" + id + "\t"+xong+"\t"+diem+"\n");
                         System.IO.File.WriteAllText(path, noidung);
                     }
-                        return RedirectToAction("PlayTracNghiem_Online");
+                    TempData["online_null"] = "true";
+                    return View(tn);
                 }
             }
             else

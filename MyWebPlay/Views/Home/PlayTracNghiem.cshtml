@@ -429,25 +429,12 @@
     {
         @Html.ValidationSummary(true)
 
-        <input type="text" readonly name="TongSoCau" value="@ViewBag.TongSoCau" hidden />
-        <input type="text" readonly name="GioiHanCau" value="@ViewBag.GioiHanCau" hidden />
-        <input type="text" readonly name="TimeLamBai" value="@ViewBag.TimeLamBaiX" hidden />
-        <input type="text" readonly name="TenMon" value="@ViewBag.TenMon" hidden>
-        <input type="text" hidden readonly name="OnlineX" id="Xonline" value="@TempData["TracNghiem_Online"]" />
-
-        <textarea name="File_ND" hidden>@ViewBag.ND_File</textarea>
-        <textarea readonly name="CauHoi" hidden>@ViewBag.CauHoi</textarea>
-        <textarea readonly name="A" hidden>@ViewBag.A</textarea>
-        <textarea readonly name="B" hidden>@ViewBag.B</textarea>
-        <textarea readonly name="C" hidden>@ViewBag.C</textarea>
-        <textarea readonly name="D" hidden>@ViewBag.D</textarea>
-         <textarea readonly name="Dung" hidden>@ViewBag.Dung</textarea>
-
             <br />
         <br />
             <b>Tên môn học/kỳ kiểm tra : @Model.tenmon</b>
             <br />
-        @if (TempData["TracNghiem_Online"] == null)
+
+        @if (TempData["TracNghiem_Online"] == null && TempData["online_null"] == null)
         {
                 <b>Tổng số câu cần làm : @Model.gioihancau/@Model.tongsocau</b>
             }
@@ -466,10 +453,12 @@
                 </b>
         <br />
         <br />
-        <hr />
+                <hr />
 
         @for (int i = 0; i < @Model.gioihancau; i++)
         {
+            if (TempData["online_null"] == null)
+            {
             <tr style="height:40px">
                 <td></td>
                         <td><h4><b style="color:olive">Câu số @(i + 1)</b>. <span id="causo-@i"> @Html.Raw(Model.ch[@i])</span></h4><br /></td>
@@ -588,7 +577,28 @@
                 </td>
      </tr>
                     }
-        }
+                }
+                else
+                {
+                    <table border="0">
+                        <tr>
+                            <th>Câu @(i+1).  </th>
+                            @if (ViewData["ketqua-"+@i].ToString().Contains("ĐÚNG RỒI"))
+                            {
+                            <th><b style="color:green">Đúng</b></th>
+                            }
+                            else if (ViewData["ketqua-"+@i].ToString().Contains("SAI RỒI"))
+                            {
+                                <th><b style="color:red">Sai</b></th>
+                            }
+                            else
+                            {
+                                <th><b style="color:orangered">Chưa trả lời</b></th>
+                            }
+                        </tr>
+                     </table>
+                }
+            }
 
         @if (ViewBag.KetQuaDung == "")
         {
@@ -612,10 +622,27 @@
         }
         else
         {
+            if (TempData["online_null"] == null)
+            {
            <h3>@Html.ActionLink("Thực hiện bài test trắc nghiệm mới", "TracNghiemX_Multiple")</h3>
            <br />
+            }
+         }
+         
+        <input type="text" readonly name="TongSoCau" value="@ViewBag.TongSoCau" hidden />
+        <input type="text" readonly name="GioiHanCau" value="@ViewBag.GioiHanCau" hidden />
+        <input type="text" readonly name="TimeLamBai" value="@ViewBag.TimeLamBaiX" hidden />
+        <input type="text" readonly name="TenMon" value="@ViewBag.TenMon" hidden>
+        <input type="text" hidden readonly name="OnlineX" id="Xonline" value="@TempData["TracNghiem_Online"]" />
+
+        <textarea name="File_ND" hidden>@ViewBag.ND_File</textarea>
+        <textarea readonly name="CauHoi" hidden>@ViewBag.CauHoi</textarea>
+        <textarea readonly name="A" hidden>@ViewBag.A</textarea>
+        <textarea readonly name="B" hidden>@ViewBag.B</textarea>
+        <textarea readonly name="C" hidden>@ViewBag.C</textarea>
+        <textarea readonly name="D" hidden>@ViewBag.D</textarea>
+         <textarea readonly name="Dung" hidden>@ViewBag.Dung</textarea>
         }
-      }
 
        @if(ViewBag.ND_File != null)
         {

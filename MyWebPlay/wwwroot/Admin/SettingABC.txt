@@ -7,4 +7,7 @@ Email_Question<3275>false<3275>Thông báo email bài question được tạo
 Email_User_Website<3275>false<3275>Thông báo email phát hiện user bật website
 Email_User_Continue<3275>false<3275>Thông báo email phát hiện user tiếp tục sử dụng website
 Email_Note<3275>false<3275>Thông báo email note text mới
+Admin_Control<3275>false<3275>View site for admin (chỉ là về giao diện)
+Save_ComeHere<3275>false<3275>Save request of user/list request used (các dữ liệu mới sẽ không được lưu trữ và các dữ liệu cũ vẫn được bảo toàn)
+Mail_ReportUrl<3275>false<3275>Auto send mail with IP request come used (if data than 100) - nếu bạn tắt thì dữ liệu vẫn sẽ bị khôi phục nhưng không gửi mail report
 Password_Admin<3275>true<3275>Mật khẩu admin (nếu để trống mật khẩu mặc định sẽ là : <b style="color:red">mywebplay-ADMIN</b>)<3275>mywebplay-ADMIN

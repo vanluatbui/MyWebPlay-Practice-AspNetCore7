@@ -38,6 +38,8 @@
   .then(data => window.location.href ="/Home/GetUserIP?ip="+data.ip+"&currentUrl="+s);
         }
 
+        if ('@TempData["AdminControl"]' == "false")
+        {
         if (ok == 0 && '@TempData["lockedClient"]' == "true")
         {
             ok = 1;
@@ -140,9 +142,9 @@
             else
             alert("⚠ Tất cả kết nối phiên bản của bạn hiện đã hết hạn sử dụng hoặc chưa được bật, vui lòng bật lại trang web để sử dụng !");
             window.location.href="/Home/LockedWeb";
+         }
         }
 
-   
         function muaxuan()
         {
             document.location.href= "#hihi";
@@ -225,8 +227,10 @@
             navigator.clipboard.writeText(document.getElementById("current").innerHTML);
         }
         </script>
-            <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color:@TempData["mau_nen"]">
+        @if (TempData["AdminControl"] == "false")
+    {
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color:@TempData["mau_nen"]">
             <div class="container-fluid">
                 <button style="color:deeppink" class="navbar-brand" asp-area="" onclick="khoawebsite()">Khoá WebSite bằng mật mã LockedClientID (<u>hãy cẩn thận đừng nhấn nhầm vào đây nếu bạn không có nhu cầu 😁</u>)</button>
                 <a href="/Home/Index"><p style="color:orangered">BACK HOME MENU</p></a>
@@ -238,11 +242,15 @@
             </div>
         </nav>
     </header>
+    }
     <div class="container">
         <main role="main" class="pb-3">
            <div style="color:@TempData["mau_text"]">
+                   @if (TempData["AdminControl"] == "false")
+    {
            <a href="#xuly" onclick="copyCurrent()"><h4 id="current" style="color:orangered">@TempData["current"]</h4></a>
                <br />
+    }
            @if (TempData["GetDataIP"] == "true")
             {
                  <div hidden>@RenderBody()</div>

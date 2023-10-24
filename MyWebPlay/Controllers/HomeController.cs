@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.Extensions.Hosting;
 using MyWebPlay.Extension;
 using MyWebPlay.Model;
 using MyWebPlay.Models;
@@ -114,6 +115,42 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
+                if (info[0] == "Admin_Control")
+                {
+                    if (info[1] == "false")
+                    {
+                        TempData["AdminControl"] = "false";
+                    }
+                    else
+                    {
+                        TempData["AdminControl"] = "true";
+                    }
+                }
+
+                if (info[0] == "Save_ComeHere")
+                {
+                    if (info[1] == "false")
+                    {
+                        TempData["SaveComeHere"] = "false";
+                    }
+                    else
+                    {
+                        TempData["SaveComeHere"] = "true";
+                    }
+                }
+
+                if (info[0] == "Mail_ReportUrl")
+                {
+                    if (info[1] == "false")
+                    {
+                        TempData["MailReportUrl"] = "false";
+                    }
+                    else
+                    {
+                        TempData["MailReportUrl"] = "true";
+                    }
+                }
+
                 if (flag == 0 && (info[0] == "Email_Upload_User"
                     || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
                     || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
@@ -147,7 +184,38 @@ namespace MyWebPlay.Controllers
 
             listIP.Add(Request.HttpContext.Connection.RemoteIpAddress.ToString());
 
-                TempData["IP_Client"] = listIP[0];
+            var path0 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
+            var noidung0 = docfile(path0);
+
+            var socox = noidung0.Split("\n", StringSplitOptions.RemoveEmptyEntries);
+            if (socox.Length >= 99)
+            {
+                System.IO.File.WriteAllText(path0, "");
+
+                if (TempData["MailReportUrl"] == "true")
+                    {
+  
+                    string host = "{" + Request.Host.ToString() + "}"
+                        .Replace("http://", "")
+                    .Replace("https://", "")
+                    .Replace("/", "");
+
+                    SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+                           "mywebplay.savefile@gmail.com", host + "[ADMIN] Báo cáo tự động danh sách các IP user đã ghé thăm và request từng chức năng của trang web (tất cả/có thể chưa đầy đủ) In " + xuxu, noidung0, "teinnkatajeqerfl");
+                    }
+                noidung0 = "";
+            }
+
+            if (TempData["SaveComeHere"] == "true")
+            {
+                //Lưu trữ IP tất cả khách hàng từng ghé thăm trang web (dù bật hay chưa sử dụng)
+
+                var noidungZ = noidung0 + "\n" + listIP[0] + "\t" + DateTime.Now + "\t" + TempData["current"];
+
+                System.IO.File.WriteAllText(path0, noidungZ.Trim('\n'));
+            }
+
+            TempData["IP_Client"] = listIP[0];
 
                 var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPLock.txt");
                 var noidung2 = docfile(path2);
@@ -168,18 +236,18 @@ namespace MyWebPlay.Controllers
                 }
 
 
-            for (int i = 0; i < listIP.Count; i++)
-            {
-                if (noidung2.Contains(listIP[i]))
+                for (int i = 0; i < listIP.Count; i++)
                 {
-                    TempData["lock"] = "true";
-                    break;
+                    if (noidung2.Contains(listIP[i]))
+                    {
+                        TempData["lock"] = "true";
+                        break;
+                    }
+                    else
+                    {
+                        TempData["lock"] = "false";
+                    }
                 }
-                else
-                {
-                    TempData["lock"] = "false";
-                }
-            }
 
                 if (noidung.Contains(listIP[0]) == false)
                 {

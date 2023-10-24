@@ -79,6 +79,26 @@ input:checked + .slider:before {
 
     <script>
 
+        if ('@TempData["SaveComeHere"]' == "true" && window.location.search == "?key=code")
+        window.location.href = "#listIPcomehere";
+
+        function reportIPcomehere()
+        {
+            window.location.href = "/Admin/ReportListIPComeHere";
+        }
+
+         function deleteIPcomehere()
+        {
+            var con = confirm('Are you sure?');
+            if (con == true)
+            window.location.href = "/Admin/DeleteIPComeHere";
+        }
+
+        function listIPcomehere()
+        {
+            window.location.href = "#listIPcomehere";
+        }
+
         function xong()
         {
              document.getElementById("ok").click();
@@ -160,6 +180,30 @@ input:checked + .slider:before {
                 <input id="ok" type="submit" hidden value="LƯU CÀI ĐẶT" />
             </td>
         </tr>
+    }
+    <h3 style="color:deeppink">
+* Email support : mywebplay.website@gmail.com<br><br>* Đăng nhập :<br><br>https://freeasphosting.net/<br><br>ID : kienthuccode<br>Pass : #=vanluat3275=#<br><br>somee.com<br><br>ID : mywebplay<br>Pass : #=vanluat3275=#<br><br>* Link sử dụng web :<br><br>https://bom.so/playweb1<br>kienthuccode.bsite.net<br><br>https://bom.so/playweb2<br>kienthuccongnghe.somee.com<br><br>* Cài đặt admin (chỉ nên truy cập cá nhân) :<br><br>https://bom.so/adset1<br>https://bom.so/adset2<br><br>/Admin/SettingXYZ<br><br>* Password web admin (cho tất cả - riêng tư cá nhân) :<br><br>Mặc định : mywebplay-ADMIN<br>Hoặc tuỳ thuộc sự thay đổi tại : /Admin/SettingXYZ<br><br>* Link bật web :<br><br>https://bom.so/batweb1 | https://bom.so/batweb11 (ở nhà)<br><br>https://bom.so/batweb2 | https://bom.so/batweb22 (bên ngoài - W2 solution my work)<br><br>Thông tin bật web cho người khác/nơi khác :<br><br>/Home/PlayOnWebInLocalX?key=true&info=[THÔNG-TIN-NGƯỜI-MUỐN-ĐĂNG-KÍ-BẬT-WEB]<br><br>* Link tắt web (đồng thời xoá luôn cấp phép truy cập) :<br><br>https://bom.so/tatweb1<br>https://bom.so/tatweb2<br><br>/Home/PlayOnWebInLocalX?key=false<br><br>* Link cấp phép tiếp tục sử dụng (thiết bị mới) :<br><br>https://bom.so/capphep1<br>https://bom.so/capphep2<br><br>/Home/ContinueUsedWebX?code=1234567890qwertyuiopasdfghjklzxcvbnm<br><br>Sau khi vào link cấp phép, cần phải xác nhận :<br><br>=> Ví dụ lúc đó đang là 10 giờ 05 phút (đọc ngược lại ta có dãy số 5001), thì ta sẽ Ctrl+ F và tìm button đang có dãy số này và chỉ nhấn vào button đó thôi.<br><br>* Link xoá cấp phép truy cập web cho thiết bị hiện tại (tuy nhiên vẫn còn đăng kí) :<br><br>https://bom.so/traiphep1<br>https://bom.so/traiphep2<br><br>/Home/ContinueUsedWebX?code=<br><br>* Nếu bị khoá web bởi admin :<br><br>[Kiểm tra và tìm lại email admin để xử lý - các link nhấn (chỉ admin mới quyết định)]<br><br>* Nếu bị khoá web bởi khoá LockedClientID (user) :<br><br>18:08<br>02/12<br><br>Ví dụ, lúc cần mở khoá đang 18 giờ 08 phút, ngày 02 tháng 12 thì mật khẩu LockedClientID sẽ là : 0081212080 (trừ khi password đã được user tự thiết kế riêng)<br><br>Hoặc password chung dễ hơn là : abc-xyz (nhưng khuyên hạn chế xài/riêng tư)<br><br>* Mega.io :<br><br>ID : mywebplay.savefile@gmail.com<br>Pass : vanluat12345#<br><br>* Điều khiển session :<br><br>/Home/SessionPlay<br><br>* Các link ngoại khoá (tham khảo thêm) :<br><br>Home/SendMailSave1?email=[...]&message=[...] (này cũng tạm được)<br>Home/SecretWeb?email=[...]<br><br>💚 Tuy nhiên thường sẽ xài cái dưới : <br><br>* Hướng dẫn COPY :<br><br>- LƯU Ý : phải thực sự cần xài thì mới vào đây, nếu lỡ đã vào thì phải xài cho hết.<br>Dấu hiệu xài xong và ok là khi mình được chuyển hướng sang trang google.com<br><br>________________________________________________________<br><br>- Copy nội dung bạn muốn (copy lại lần nữa cho chắc), phải đảm bảo nội dung bạn đang copy hiện có thể Ctrl+V được và phải chính xác nội dung bạn đang mong muốn và cần copy.<br><br>- Truy cập : https://bom.so/copy_on<br><br>- Nếu muốn thay đổi có thể thêm param ?email=[your-email] trên thanh url (không thì sẽ là mặc định).<br><br>- Như đã nói, vô đây là phải xài. Mà dù lỡ xài hay không xài cũng ráng mà click vào link chuyển hướng sang google.con là ok tất :)), chứ đừng có thoát hay X close nha ...<br><br>Bye!
+    </h3>
+    <hr />
+    <h3 style="color:firebrick">
+        * Đối với giáo viên :<br><br>- Sử dụng chức năng Upload File - khuyên nên tạm bật setting chế độ View site for admin cho đẹp :)) (bsite hoặc somee) và tạo thư mục trong wwroot là file/TracNghiemOnline_323752262 và tạo tiếp thư mục là một chuỗi mã (TNID) tuỳ ý (VD : qwerty). Nên upload file bằng user vì nó có giới hạn sử dụng và tự xoá sau khi.<br><br>- Mỗi thư mục mã (TNID) là một loại trắc nghiệm dành riêng/phân biệt cho một môn học theo mỗi đợt. Bên trong thư mục này, hãy gán tất cả các file txt trắc nghiệm có liên quan đến môn học đó.<br><br>- Để xem điểm học sinh : /Admin/TracNghiemOnline_ViewMark (không tiết lộ cho HS)<br><br>* Đối với học sinh (mỗi bạn tự biết MSSV của mình) :<br><br>- ID liên kết thực hiện trắc nghiệm : A_B_C_D_E<br><br>#Trong đó :<br><br>A : tên thư mục mã TNID chứa các file txt cần thực hiện<br>B : tổng số câu phải làm<br>C : thời gian làm bài<br>D : SSL (ghi s thì sẽ là http://, nếu ghi ss thì sẽ là https://)<br>E : tên môn học (để phân biệt và hiển thị)<br>
+    </h3>
+    <hr />
+    <br />
+     @if (TempData["SaveComeHere"] == "true")
+    {
+    <button id="listIPcomehere" onclick="listIPcomehere()"><b style="color:red">RELOAD THIS HERE</b></button>
+    
+    <button onclick="reportIPcomehere()"><b style="color:green">MAIL REPORT THIS RESULT AND RESET THIS HERE</b></button>
+
+    <button onclick="deleteIPcomehere()"><b style="color:orangered">DELETE AND DON'T SAVE REPORT</b></button>
+    <br /><br />
+        <p style="color:purple">
+            - Bạn chỉ cần/nên nhấn button "RELOAD" 1 lần, từ lần sau bạn hãy F5 hoặc reload lại trang như thường.<br />
+            - Nhấn button "MAIL REPORT" nếu bạn muốn tự xuất báo cáo thủ công ngay hiện tại, hoặc không nếu hệ thống phát hiện dữ liệu này đã hơn 100 thì cũng tự động gửi report và khôi phục...<br>
+            - Kết quả danh sách bên dưới có thể chưa đủ thông tin vì trước đó bạn đã từng tắt/tạm ngưng save setting chế độ lưu trữ này hoặc tự động được reset lại khi data đã quá 100 (hãy bật setting report mail when data than 100 để kịp thời lưu trữ).
+        </p>
+        <textarea readonly cols="100" rows="30">@TempData["showIPCome"]</textarea>
     }
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

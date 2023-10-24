@@ -19,6 +19,11 @@ namespace MyWebPlay.Controllers
 
         public ActionResult SettingXYZ()
         {
+
+            var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
+            var noidung1 = docfile(path1);
+            TempData["showIPCome"] = noidung1;
+
             Calendar x = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = x.AddHours(DateTime.UtcNow, 7);
@@ -47,6 +52,18 @@ namespace MyWebPlay.Controllers
 
                 if (info[0] == "Password_Admin")
                     ViewBag.Password = info[3];
+
+                if (info[0] == "Save_ComeHere")
+                {
+                    if (info[1] == "false")
+                    {
+                        TempData["SaveComeHere"] = "false";
+                    }
+                    else
+                    {
+                        TempData["SaveComeHere"] = "true";
+                    }
+                }
             }
 
             return View(settingAdmin);
@@ -55,6 +72,9 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult SettingXYZ(IFormCollection f)
         {
+            var non = TempData["SaveComeHere"];
+            TempData["SaveComeHere"] = non;
+
             Calendar x = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = x.AddHours(DateTime.UtcNow, 7);
@@ -241,6 +261,43 @@ namespace MyWebPlay.Controllers
                 System.IO.File.WriteAllText(path, noidung);
             }
             return RedirectToAction("TracNghiemOnline_ViewMark");
+        }
+
+        public ActionResult ReportListIPComeHere() 
+        {
+            var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
+            var noidung1 = docfile(path1);
+
+            System.IO.File.WriteAllText(path1, "");
+
+            Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+            string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+
+
+            string host = "{" + Request.Host.ToString() + "}"
+                .Replace("http://", "")
+            .Replace("https://", "")
+            .Replace("/", "");
+
+            var non = TempData["SaveComeHere"];
+            TempData["SaveComeHere"] = non;
+
+            if (string.IsNullOrEmpty(noidung1) == false)
+            SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+               "mywebplay.savefile@gmail.com", host + "[ADMIN] Báo cáo thủ công danh sách các IP user đã ghé thăm và request từng chức năng của trang web (tất cả/có thể chưa đầy đủ) In " + xuxu, noidung1, "teinnkatajeqerfl");
+
+            return RedirectToAction("SettingXYZ", new { key = "code" });
+        }
+
+        public ActionResult DeleteIPComeHere()
+        {
+            var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
+            var noidung1 = docfile(path1);
+
+            System.IO.File.WriteAllText(path1, "");
+       
+            return RedirectToAction("SettingXYZ", new { key = "code"});
         }
     }
 }

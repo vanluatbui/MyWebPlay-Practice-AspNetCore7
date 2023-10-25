@@ -22,9 +22,21 @@
 
         if ('@TempData["UsingWebsite"]' == "false")
         {
+            if ('@TempData["AlertUsingWebsite"]' == "true")
+            {
             alert("⚠ Website hiện đang không hoạt động nên bây giờ bạn sẽ không thể sử dụng. Vui lòng quay lại sau, hoặc liên hệ tại email : mywebplay.website@gmail.com. Xin cảm ơn !");
             ok = 1;
             window.location.href = "/Home/LockedWeb";
+            }
+            else
+            {
+                ok = 1;
+                var x = Math.floor(Math.random() * 2 + 1);
+                if (x == 1)
+                 window.location.href = "https://learn.microsoft.com/en-us/dotnet/csharp/linq/";
+                 else
+                   window.location.href = "https://google.com";
+            }
         }
 
         if (ok ==0 && '@TempData["GetDataIP"]' == "true")
@@ -84,10 +96,22 @@
 
          if (ok == 0 && '@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true")
         {
+            if ('@TempData["AlertUsingWebsite"]' == "true")
+            {
             ok = 10;
             localStorage.setItem("keyX_PlayOnWeb", "true");
             alert("Bạn đã bật trang web MyWebPlay thành công, bạn có thể sử dụng các tính năng tại trang web 😊!");
             window.location.href = "/Home/RemoveTempData";
+            }
+            else
+            {
+                 var x = Math.floor(Math.random() * 2 + 1);
+                if (x == 1)
+                 window.location.href = "https://learn.microsoft.com/en-us/dotnet/csharp/linq/";
+                 else
+                   window.location.href = "https://google.com";
+                   ok = 10;
+            }
         }
 
 
@@ -99,17 +123,41 @@
 
          if (ok == 0 && '@TempData["ok-continue"]' == "yes" && localStorage.getItem("keyX_PlayOnWeb") != "true")
         {
+             if ('@TempData["AlertUsingWebsite"]' == "true")
+            {
             ok = 10;
             alert("Đã cấp phép thành công, bạn có thể tiếp tục sử dụng các tính năng tại trang web trên IDs mới này 😎 !");
             localStorage.setItem("keyX_PlayOnWeb", "true");
              window.location.href = "/Home/RemoveTempData";
+            }
+             else
+            {
+                 var x = Math.floor(Math.random() * 2 + 1);
+                if (x == 1)
+                 window.location.href = "https://learn.microsoft.com/en-us/dotnet/csharp/linq/";
+                 else
+                   window.location.href = "https://google.com";
+                   ok = 10;
+            }
         }
 
         if (ok == 0 && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true")
         {
+             if ('@TempData["AlertUsingWebsite"]' == "true")
+            {
             ok = 1;
             alert("Để tiếp tục sử dụng, vui lòng tìm cách để có lại được sự cấp phép. Nếu không, hãy tắt sử dụng trang web và yêu cầu bật sử dụng lại! ");
             window.location.href = "https://google.com";
+            }
+             else
+            {
+                 var x = Math.floor(Math.random() * 2 + 1);
+                if (x == 1)
+                 window.location.href = "https://learn.microsoft.com/en-us/dotnet/csharp/linq/";
+                 else
+                   window.location.href = "https://google.com";
+                   ok = 1;
+            }
         }
 
         if (ok == 0 && '@TempData["continue-X"]' == "NO" && localStorage.getItem("keyX_PlayOnWeb") == "true")
@@ -128,13 +176,27 @@
 
         if (ok == 0 && '@TempData["lock"]' == "true")
         {
+             if ('@TempData["AlertUsingWebsite"]' == "true")
+            {
             ok = 4;
             alert("⚠ Trang web hiện đang bị khoá bởi người đảm quyền, không thể kết nối đối với một số trường hợp. Vì vậy, vui lòng chờ đợi sau khi admin duyệt và mở khoá để có thể tiếp tục. Nếu bạn muốn gửi email xin phép, liên hệ tại : mywebplay.website@gmail.com");
             window.location.href = "/Home/LockedWeb";
+            }
+             else
+            {
+                 var x = Math.floor(Math.random() * 2 + 1);
+                if (x == 1)
+                 window.location.href = "https://learn.microsoft.com/en-us/dotnet/csharp/linq/";
+                 else
+                   window.location.href = "https://google.com";
+                   ok = 4;
+            }
         }
         
          if (ok == 0 && ('@TempData["PlayOnWebInLocal-X"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null)))
         {
+             if ('@TempData["AlertUsingWebsite"]' == "true")
+            {
             ok = 1;
             localStorage.removeItem("keyX_PlayOnWeb");
             if ('@TempData["InError"]' == null)
@@ -142,6 +204,16 @@
             else
             alert("⚠ Tất cả kết nối phiên bản của bạn hiện đã hết hạn sử dụng hoặc chưa được bật, vui lòng bật lại trang web để sử dụng !");
             window.location.href="/Home/LockedWeb";
+            }
+             else
+            {
+                 var x = Math.floor(Math.random() * 2 + 1);
+                if (x == 1)
+                 window.location.href = "https://learn.microsoft.com/en-us/dotnet/csharp/linq/";
+                 else
+                   window.location.href = "https://google.com";
+                   ok = 1;
+            }
          }
         }
 

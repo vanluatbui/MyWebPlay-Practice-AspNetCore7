@@ -47,6 +47,14 @@ body {
 
 </style>
 <script>
+       if('@TempData["rehosting"]' == "true")
+    {
+         var x = Math.floor(Math.random() * 2 + 1);
+                if (x == 1)
+                 window.location.href = "https://learn.microsoft.com/en-us/dotnet/csharp/linq/";
+                 else
+                   window.location.href = "https://google.com";
+    }
  </script>
  <body>
 @*<img src="/Image_Play/waiting.gif" id="myVideo" class="sqs-html5-video" />*@

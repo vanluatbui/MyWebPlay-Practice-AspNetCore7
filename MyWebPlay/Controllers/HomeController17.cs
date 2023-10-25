@@ -481,6 +481,20 @@ namespace MyWebPlay.Controllers
 
         public ActionResult LockedWeb()
         {
+            var pathXY = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var noidungXY = System.IO.File.ReadAllText(pathXY);
+            var listSettingM = noidungXY.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < listSettingM.Length; i++)
+            {
+                var info = listSettingM[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "Alert_UsingWebsite")
+                {
+                    if (info[1] == "false")
+                        TempData["rehosting"] = "true";
+                }
+            }
+
             Calendar x = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = x.AddHours(DateTime.UtcNow, 7);
@@ -567,6 +581,20 @@ namespace MyWebPlay.Controllers
 
         public ActionResult LockedWebClient(string? IP)
         {
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "Alert_UsingWebsite")
+                {
+                    if (info[1] == "false")
+                        TempData["rehosting"] = "true";
+                }
+            }
+
             Calendar x = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = x.AddHours(DateTime.UtcNow, 7);

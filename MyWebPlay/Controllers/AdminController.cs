@@ -6,6 +6,8 @@ using System.Globalization;
 using System.Net.Sockets;
 using System.Net;
 using Microsoft.AspNetCore.Http.Extensions;
+using System.Reflection.Metadata.Ecma335;
+using MailKit.Security;
 
 namespace MyWebPlay.Controllers
 {
@@ -298,6 +300,77 @@ namespace MyWebPlay.Controllers
             System.IO.File.WriteAllText(path1, "");
        
             return RedirectToAction("SettingXYZ", new { key = "code"});
+        }
+
+        public ActionResult QuickDataInWeb(string? name)
+        {
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                if (info[0] == "Using_QuickData" || info[0] == "Using_Website")
+                {
+                    if (info[1] == "false")
+                    {
+                        var r = new Random();
+                        var x = r.Next(0, 2);
+                        if (x == 1)
+                        return Redirect("https://learn.microsoft.com/en-us/dotnet/csharp/linq/");
+                        return Redirect("https://google.com");
+                    }
+                }
+            }
+
+                if (string.IsNullOrEmpty(name) == false)
+                TempData["ok-data"] = "true";
+
+            ViewBag.Name = name;
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult QuickDataInWeb(IFormCollection f)
+        {
+            TempData["ok-data"] = null;
+            TempData["Name"] = f["txtName"].ToString();
+            var s = f["txtNoiDung"].ToString().Split("\r\n#\r\n", StringSplitOptions.RemoveEmptyEntries);
+            var chuoi = "";
+            for ( int i = 0; i < s.Length; i++ )
+            {
+                var ss = s[i].Split("\r\n*\r\n", StringSplitOptions.RemoveEmptyEntries);
+                ss[1] = ss[1].Replace("[NULL]", "");
+                chuoi += "<textarea name=\"" + ss[0] + "\" cols=\"80\" rows=\"30\">" + ss[1] + "</textarea><br>\n";
+            }
+
+            TempData["Data"] = chuoi;
+
+            return RedirectToAction("PlayDataInWeb");
+        }
+
+        public ActionResult PlayDataInWeb()
+        {
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                if (info[0] == "Using_QuickData" || info[0] == "Using_Website")
+                {
+                    if (info[1] == "false")
+                    {
+                        var r = new Random();
+                        var x = r.Next(0, 2);
+                        if (x == 1)
+                         return Redirect("https://learn.microsoft.com/en-us/dotnet/csharp/linq/");
+                        return Redirect("https://google.com");
+                    }
+                }
+            }
+            return View();
         }
     }
 }

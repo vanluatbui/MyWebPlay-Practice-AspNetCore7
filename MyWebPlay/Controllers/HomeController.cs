@@ -115,6 +115,18 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
+                if (info[0] == "Alert_UsingWebsite")
+                {
+                    if (info[1] == "false")
+                    {
+                        TempData["AlertUsingWebsite"] = "false";
+                    }
+                    else
+                    {
+                        TempData["AlertUsingWebsite"] = "true";
+                    }
+                }
+
                 if (info[0] == "Admin_Control")
                 {
                     if (info[1] == "false")
@@ -188,7 +200,7 @@ namespace MyWebPlay.Controllers
             var noidung0 = docfile(path0);
 
             var socox = noidung0.Split("\n", StringSplitOptions.RemoveEmptyEntries);
-            if (socox.Length >= 99)
+            if (socox.Length >= 100)
             {
                 System.IO.File.WriteAllText(path0, "");
 

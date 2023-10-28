@@ -27,6 +27,18 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult SQL_CreateTable(IFormCollection f)
         {
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
+
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -169,7 +181,7 @@ namespace MyWebPlay.Controllers
                 sql += "\r\n)";
             }
 
-            TextCopy.ClipboardService.SetText(sql);
+            //TextCopy.ClipboardService.SetText(sql);
 
             //sql = "\r\n" + sql;
             //sql = sql.Replace("\r\n", "<br>");
@@ -253,6 +265,17 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult Cxap_CreateClass(IFormCollection f)
         {
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -394,7 +417,7 @@ namespace MyWebPlay.Controllers
 
             s += "}";
 
-            TextCopy.ClipboardService.SetText(s);
+            //TextCopy.ClipboardService.SetText(s);
 
             //s = s.Replace("<", "&lt;").Replace(">", "&gt;").Replace("\r\n", "<br>");
 
@@ -428,6 +451,17 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult Cxap_InsertValueClass (IFormCollection f)
         {
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -603,7 +637,7 @@ namespace MyWebPlay.Controllers
                 ss += s + "\r\n\r\n";
             }
 
-            TextCopy.ClipboardService.SetText(ss);
+            //TextCopy.ClipboardService.SetText(ss);
 
             //ss = ss.Replace("\r\n", "<br>");
 

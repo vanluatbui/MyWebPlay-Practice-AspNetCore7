@@ -115,6 +115,18 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
+                if (info[0] == "Clear_Website")
+                {
+                    if (info[1] == "false")
+                    {
+                        TempData["ClearWebsite"] = "false";
+                    }
+                    else
+                    {
+                        TempData["ClearWebsite"] = "true";
+                    }
+                }
+
                 if (info[0] == "Alert_UsingWebsite")
                 {
                     if (info[1] == "false")
@@ -127,7 +139,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-                if (info[0] == "Admin_Control")
+                if (info[0] == "ViewSite_Pattern")
                 {
                     if (info[1] == "false")
                     {
@@ -160,6 +172,30 @@ namespace MyWebPlay.Controllers
                     else
                     {
                         TempData["MailReportUrl"] = "true";
+                    }
+                }
+
+                if (info[0] == "Off_RandomTab")
+                {
+                    if (info[1] == "false")
+                    {
+                        var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomTab_Image.txt");
+                        var hinh = System.IO.File.ReadAllText(pathX1).Split("\n", StringSplitOptions.RemoveEmptyEntries);
+
+                        var pathX2 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomTab_Tittle.txt");
+                        var tittle = System.IO.File.ReadAllText(pathX2).Split("\n", StringSplitOptions.RemoveEmptyEntries);
+
+                        var r = new Random();
+                        var ix = r.Next(0, hinh.Length);
+                        var iy = r.Next(0, tittle.Length);
+
+                        TempData["OffRandomTab"] = "false";
+                        TempData["Tab_Image"] = hinh[ix];
+                        TempData["Tab_Tittle"] = tittle[iy];
+                    }
+                    else
+                    {
+                        TempData["OffRandomTab"] = "true";
                     }
                 }
 
@@ -496,6 +532,18 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult CheckText(IFormCollection f)
         {
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
+
             Calendar x = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = x.AddHours(DateTime.UtcNow, 7);
@@ -607,7 +655,7 @@ namespace MyWebPlay.Controllers
             while (s.Contains("\t\t") == true)
                 s = s.Replace("\t\t", "\t");
 
-            TextCopy.ClipboardService.SetText(s);
+            //TextCopy.ClipboardService.SetText(s);
 
            // s = "<p style=\"color:blue\"" + s + "</p>";
 
@@ -639,6 +687,17 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult TextToColumn1(IFormCollection f)
         {
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -726,7 +785,7 @@ namespace MyWebPlay.Controllers
             char[] x = { '\r','\n' };
             ss = ss.TrimEnd(x);
 
-            TextCopy.ClipboardService.SetText(ss);
+            //TextCopy.ClipboardService.SetText(ss);
 
             //ss = "\r\n" + ss;
             //ss = ss.Replace("\r\n", "<br>");
@@ -759,6 +818,17 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult TextToColumn2(IFormCollection f)
         {
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -848,7 +918,7 @@ namespace MyWebPlay.Controllers
             char[] x = { '\r','\n' };
             ss = ss.TrimEnd(x);
 
-            TextCopy.ClipboardService.SetText(ss);
+            //TextCopy.ClipboardService.SetText(ss);
 
 
             //ss = "\r\n" + ss;
@@ -882,6 +952,17 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult ReadNumber(IFormCollection f)
         {
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -959,7 +1040,7 @@ namespace MyWebPlay.Controllers
                 }
               }
 
-            TextCopy.ClipboardService.SetText(result);
+            //TextCopy.ClipboardService.SetText(result);
 
             result = "\r\n" + result+"\r\n\r\n"+re;
             result = result.Replace("\r\n", "<br>");
@@ -994,6 +1075,17 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult TextConvertX (IFormCollection f)
         {
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -1065,7 +1157,7 @@ namespace MyWebPlay.Controllers
                 noidung += start + sx[i] + end + "\r\n";
             }
 
-            TextCopy.ClipboardService.SetText(noidung);
+            ////TextCopy.ClipboardService.SetText(noidung);
 
             //noidung = "\r\n" + noidung;
             //noidung= noidung.Replace("\r\n", "<br>").Replace(" ","&nbsp;");
@@ -1485,6 +1577,17 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult CSDL_MainKey (IFormCollection f)
         {
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -1572,7 +1675,7 @@ namespace MyWebPlay.Controllers
                 s += "\r\n+ Các thuộc tính trung gian : NULL\r\n";
                 s += "\r\n==> Không có kết quả Key phù hợp hoặc có thể có một Key duy nhất là khoá từ tập nguồn : " + y.nguon + " !";
                 
-                TextCopy.ClipboardService.SetText(s);
+                //TextCopy.ClipboardService.SetText(s);
 
                 //s = "\r\n" + s.Replace("\r\n", "<br>");
 
@@ -1606,7 +1709,7 @@ namespace MyWebPlay.Controllers
             sieukhoa(y);
             s += "\r\n\r\n==> Kết quả các siêu khoá bé nhất là : "+xuatsieukhoa(k);
 
-            TextCopy.ClipboardService.SetText(s);
+            //TextCopy.ClipboardService.SetText(s);
 
 
 

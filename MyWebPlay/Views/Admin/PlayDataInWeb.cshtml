@@ -3,11 +3,26 @@
 }
 <html lang="vi">
 <head>
+    @if (TempData["OffRandomTab"] == "true")
+    {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <title>C# | Asp Net Core | Công nghệ thông tin</title>
-    <link rel="icon" href="/images/imagex.png">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
+        <link rel="icon" href="/images/imagex.png">
+    }
+    else
+    {
+     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@TempData["Tab_Tittle"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
+    <link rel="icon" href="@TempData["Tab_Image"]">
+    }
 <script>
      var tim = 0;
      setInterval(myFay, 1000);
@@ -19,7 +34,7 @@
             document.getElementById("ok").click();
         }
 </script>
- <img id="loading" src="/Image_Play/waiting.gif" />
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Google_web_search.png" width="100%" height="100%">
 <div style="display:none">
  @using (Html.BeginForm(TempData["Name"].ToString(), "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
  {

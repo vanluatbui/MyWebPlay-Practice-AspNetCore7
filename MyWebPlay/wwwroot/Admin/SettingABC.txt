@@ -1,5 +1,7 @@
-Using_Website<3275>false<3275>Hoạt động website
-Alert_UsingWebsite<3275>false<3275>Thông báo khi website tắt hoạt động (nếu tắt thì sẽ chuyển hướng sang google.com (*) và không nói gì thêm/user sẽ khó biết được vấn đề) - kể cả bị lock website bởi admin hoặc client nội bộ. Hãy thật cẩn thận khi muốn tắt setting này!
+Using_Website<3275>false<3275>Hoạt động website <span style="color:purple">[MASTER]</span>
+Alert_UsingWebsite<3275>false<3275>Thông báo khi website tắt hoạt động (nếu tắt thì sẽ chuyển hướng sang google.com (*) và không nói gì thêm/user sẽ khó biết được vấn đề) - kể cả bị lock website bởi admin hoặc client nội bộ,...vv... Hãy thật cẩn thận khi muốn tắt setting này!
+Off_RandomTab<3275>false<3275>Tắt chế độ random view tab website
+ViewSite_Pattern<3275>false<3275>Bật chế độ giao diện một phần (cho phép website với mọi người)
 Email_Upload_User<3275>false<3275>Thông báo email khi user upload file
 MegaIo_Upload_User<3275>false<3275>Lưu trữ các file của user tại Mega.Io
 Email_TracNghiem_Create<3275>false<3275>Thông báo email bài trắc nghiệm được tạo
@@ -8,8 +10,8 @@ Email_Question<3275>false<3275>Thông báo email bài question được tạo
 Email_User_Website<3275>false<3275>Thông báo email phát hiện user bật website
 Email_User_Continue<3275>false<3275>Thông báo email phát hiện user tiếp tục sử dụng website
 Email_Note<3275>false<3275>Thông báo email note text mới
-Admin_Control<3275>false<3275>View site for admin (chỉ là về giao diện)
 Save_ComeHere<3275>false<3275>Save request of user/list request used (khi tắt các dữ liệu mới sẽ không được lưu trữ và các dữ liệu cũ vẫn sẽ được bảo toàn)
 Mail_ReportUrl<3275>false<3275>Auto send mail with IP request come used (if data than 100) - nếu bạn tắt thì dữ liệu vẫn sẽ bị khôi phục nhưng không gửi mail report
 Using_QuickData<3275>false<3275>[Admin] Áp dụng dịch vụ request POST excute data nhanh (nếu tắt sẽ được chuyển hướng đến google.com (*))
+Clear_Website<3275>false<3275>[Admin] Chế độ tàng hình website (một số tính năng sẽ rất khó hoặc không thể sử dụng)
 Password_Admin<3275>true<3275>Mật khẩu admin (nếu để trống mật khẩu mặc định sẽ là : <b style="color:red">mywebplay-ADMIN</b>)<3275>mywebplay-ADMIN

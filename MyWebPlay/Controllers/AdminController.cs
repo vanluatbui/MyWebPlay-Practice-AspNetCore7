@@ -190,6 +190,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult EditStudentMark(string? txtText)
         {
+
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
@@ -302,8 +303,13 @@ namespace MyWebPlay.Controllers
             return RedirectToAction("SettingXYZ", new { key = "code"});
         }
 
-        public ActionResult QuickDataInWeb(string? name)
+        public ActionResult QuickDataInWeb(string? first)
         {
+            if (string.IsNullOrEmpty(first) == false)
+                ViewBag.FirstGoTo = "true";
+            else
+                ViewBag.FirstGoTo = "false";
+
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
@@ -317,16 +323,35 @@ namespace MyWebPlay.Controllers
                         var r = new Random();
                         var x = r.Next(0, 2);
                         if (x == 1)
-                        return Redirect("https://learn.microsoft.com/en-us/dotnet/csharp/linq/");
+                        return Redirect("https://dotnet.microsoft.com/en-us/learn/csharp");
                         return Redirect("https://google.com");
                     }
                 }
+
+                if (info[0] == "Off_RandomTab")
+                {
+                    if (info[1] == "false")
+                    {
+                        var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomTab_Image.txt");
+                        var hinh = System.IO.File.ReadAllText(pathX1).Split("\n", StringSplitOptions.RemoveEmptyEntries);
+
+                        var pathX2 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomTab_Tittle.txt");
+                        var tittle = System.IO.File.ReadAllText(pathX2).Split("\n", StringSplitOptions.RemoveEmptyEntries);
+
+                        var r = new Random();
+                        var ix = r.Next(0, hinh.Length);
+                        var iy = r.Next(0, tittle.Length);
+
+                        TempData["OffRandomTab"] = "false";
+                        TempData["Tab_Image"] = hinh[ix];
+                        TempData["Tab_Tittle"] = tittle[iy];
+                    }
+                    else
+                    {
+                        TempData["OffRandomTab"] = "true";
+                    }
+                }
             }
-
-                if (string.IsNullOrEmpty(name) == false)
-                TempData["ok-data"] = "true";
-
-            ViewBag.Name = name;
 
             return View();
         }
@@ -334,9 +359,11 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult QuickDataInWeb(IFormCollection f)
         {
-            TempData["ok-data"] = null;
-            TempData["Name"] = f["txtName"].ToString();
-            var s = f["txtNoiDung"].ToString().Split("\r\n#\r\n", StringSplitOptions.RemoveEmptyEntries);
+
+            var name = f["txtNoiDung"].ToString().Split("\r\n|\r\n", StringSplitOptions.RemoveEmptyEntries);
+            TempData["Name"] = name[0];
+            
+            var s = name[1].Split("\r\n#\r\n", StringSplitOptions.RemoveEmptyEntries);
             var chuoi = "";
             for ( int i = 0; i < s.Length; i++ )
             {
@@ -365,8 +392,32 @@ namespace MyWebPlay.Controllers
                         var r = new Random();
                         var x = r.Next(0, 2);
                         if (x == 1)
-                         return Redirect("https://learn.microsoft.com/en-us/dotnet/csharp/linq/");
+                         return Redirect("https://dotnet.microsoft.com/en-us/learn/csharp");
                         return Redirect("https://google.com");
+                    }
+                }
+
+                if (info[0] == "Off_RandomTab")
+                {
+                    if (info[1] == "false")
+                    {
+                        var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomTab_Image.txt");
+                        var hinh = System.IO.File.ReadAllText(pathX1).Split("\n", StringSplitOptions.RemoveEmptyEntries);
+
+                        var pathX2 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomTab_Tittle.txt");
+                        var tittle = System.IO.File.ReadAllText(pathX2).Split("\n", StringSplitOptions.RemoveEmptyEntries);
+
+                        var r = new Random();
+                        var ix = r.Next(0, hinh.Length);
+                        var iy = r.Next(0, tittle.Length);
+
+                        TempData["OffRandomTab"] = "false";
+                        TempData["Tab_Image"] = hinh[ix];
+                        TempData["Tab_Tittle"] = tittle[iy];
+                    }
+                    else
+                    {
+                        TempData["OffRandomTab"] = "true";
                     }
                 }
             }

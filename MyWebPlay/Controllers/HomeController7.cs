@@ -123,6 +123,18 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult BangChanTri(IFormCollection f)
         {
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
+
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -311,7 +323,7 @@ namespace MyWebPlay.Controllers
                 result += "\r\n";
             }
 
-            TextCopy.ClipboardService.SetText(xemlai_BT + "\r\n\r\n\r\n" + result.Replace("\t\t","\t"));
+            //TextCopy.ClipboardService.SetText(xemlai_BT + "\r\n\r\n\r\n" + result.Replace("\t\t","\t"));
 
             string re = xemlai_BT + "\r\n\r\n\r\n"  + result;
 

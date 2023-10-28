@@ -310,6 +310,9 @@ namespace MyWebPlay.Controllers
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomLayOut.txt");
+            ViewBag.RandomLayOut = docfile(path);
+
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
                 listIP.Add(HttpContext.Session.GetString("userIP"));
             else
@@ -324,8 +327,54 @@ namespace MyWebPlay.Controllers
             }
             ViewBag.Email = email;
 
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
 
-                ViewBag.XuLy = "<br><a href=\"#\" onclick=\"chuyendoi()\">...</a><br>";
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var flag = 0;
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "Alert_UsingWebsite")
+                {
+                    if (info[1] == "false")
+                    {
+                        TempData["AlertUsingWebsite"] = "false";
+                    }
+                    else
+                    {
+                        TempData["AlertUsingWebsite"] = "true";
+                    }
+                }
+
+
+                if (info[0] == "Off_RandomTab")
+                {
+                    if (info[1] == "false")
+                    {
+                        var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomTab_Image.txt");
+                        var hinh = System.IO.File.ReadAllText(pathX1).Split("\n", StringSplitOptions.RemoveEmptyEntries);
+
+                        var pathX2 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomTab_Tittle.txt");
+                        var tittle = System.IO.File.ReadAllText(pathX2).Split("\n", StringSplitOptions.RemoveEmptyEntries);
+
+                        var r = new Random();
+                        var ix = r.Next(0, hinh.Length);
+                        var iy = r.Next(0, tittle.Length);
+
+                        TempData["OffRandomTab"] = "false";
+                        TempData["Tab_Image"] = hinh[ix];
+                        TempData["Tab_Tittle"] = tittle[iy];
+                    }
+                    else
+                    {
+                        TempData["OffRandomTab"] = "true";
+                    }
+                }
+            }
+
+               ViewBag.XuLy = "<br><a href=\"#\" onclick=\"chuyendoi()\">...</a><br>";
 
                 return View();
         }
@@ -345,7 +394,8 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "RandomLayout.txt");
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomLayOut.txt");
+            ViewBag.RandomLayOut = docfile(path); 
 
             var file = new FileInfo(path);
 
@@ -360,6 +410,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult EditLayout()
         {
+
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -371,7 +422,8 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "RandomLayout.txt");
+
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomLayOut.txt");
             if (System.IO.File.Exists(path))
             {
                 ViewBag.Text = System.IO.File.ReadAllText(path);
@@ -383,9 +435,19 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult EditLayout(string? txtText)
         {
-            
-           
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "RandomLayout.txt");
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
+
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomLayOut.txt");
 
             if (System.IO.File.Exists(path))
             {
@@ -400,7 +462,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XoaLayout()
         {
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "RandomLayout.txt");
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomLayOut.txt");
 
             if (System.IO.File.Exists(path))
             {
@@ -414,8 +476,19 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult SecretWeb (IFormCollection f)
         {
-            
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "RandomLayOut.txt");
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
+
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomLayOut.txt");
 
             var file = new FileInfo(path);
 
@@ -492,6 +565,30 @@ namespace MyWebPlay.Controllers
                 {
                     if (info[1] == "false")
                         TempData["rehosting"] = "true";
+                }
+
+                if (info[0] == "Off_RandomTab")
+                {
+                    if (info[1] == "false")
+                    {
+                        var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomTab_Image.txt");
+                        var hinh = System.IO.File.ReadAllText(pathX1).Split("\n", StringSplitOptions.RemoveEmptyEntries);
+
+                        var pathX2 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomTab_Tittle.txt");
+                        var tittle = System.IO.File.ReadAllText(pathX2).Split("\n", StringSplitOptions.RemoveEmptyEntries);
+
+                        var r = new Random();
+                        var ix = r.Next(0, hinh.Length);
+                        var iy = r.Next(0, tittle.Length);
+
+                        TempData["OffRandomTab"] = "false";
+                        TempData["Tab_Image"] = hinh[ix];
+                        TempData["Tab_Tittle"] = tittle[iy];
+                    }
+                    else
+                    {
+                        TempData["OffRandomTab"] = "true";
+                    }
                 }
             }
 
@@ -593,6 +690,30 @@ namespace MyWebPlay.Controllers
                     if (info[1] == "false")
                         TempData["rehosting"] = "true";
                 }
+
+                if (info[0] == "Off_RandomTab")
+                {
+                    if (info[1] == "false")
+                    {
+                        var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomTab_Image.txt");
+                        var hinh = System.IO.File.ReadAllText(pathX1).Split("\n", StringSplitOptions.RemoveEmptyEntries);
+
+                        var pathX2 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomTab_Tittle.txt");
+                        var tittle = System.IO.File.ReadAllText(pathX2).Split("\n", StringSplitOptions.RemoveEmptyEntries);
+
+                        var r = new Random();
+                        var ix = r.Next(0, hinh.Length);
+                        var iy = r.Next(0, tittle.Length);
+
+                        TempData["OffRandomTab"] = "false";
+                        TempData["Tab_Image"] = hinh[ix];
+                        TempData["Tab_Tittle"] = tittle[iy];
+                    }
+                    else
+                    {
+                        TempData["OffRandomTab"] = "true";
+                    }
+                }
             }
 
             Calendar x = CultureInfo.InvariantCulture.Calendar;
@@ -654,6 +775,18 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult LockedWebClient(IFormCollection f)
         {
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
+
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);

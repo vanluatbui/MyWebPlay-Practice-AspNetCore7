@@ -4,11 +4,26 @@
 
 <html lang="vi">
 <head>
+    @if (TempData["OffRandomTab"] == "true")
+    {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <title>C# | Asp Net Core | Công nghệ thông tin</title>
-    <link rel="icon" href="/images/imagex.png">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
+        <link rel="icon" href="/images/imagex.png">
+    }
+    else
+    {
+     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@TempData["Tab_Tittle"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
+    <link rel="icon" href="@TempData["Tab_Image"]">
+    }
  <style>
 
  .video-overlay{
@@ -51,7 +66,7 @@ body {
     {
          var x = Math.floor(Math.random() * 2 + 1);
                 if (x == 1)
-                 window.location.href = "https://learn.microsoft.com/en-us/dotnet/csharp/linq/";
+                 window.location.href = "https://dotnet.microsoft.com/en-us/learn/csharp";
                  else
                    window.location.href = "https://google.com";
     }

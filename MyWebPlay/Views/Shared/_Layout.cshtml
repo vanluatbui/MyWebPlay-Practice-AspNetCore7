@@ -1,16 +1,328 @@
-﻿<!DOCTYPE html>
+﻿
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
 @using MyWebPlay.Model;
 @using MyWebPlay.Extension
 
 <html lang="vi">
 <head>
+    @if (TempData["OffRandomTab"] == "true")
+    {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>C# | Asp Net Core | Công nghệ thông tin</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
-    <link rel="icon" href="/images/imagex.png">
+        <link rel="icon" href="/images/imagex.png">
+    }
+    else
+    {
+     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@TempData["Tab_Tittle"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
+    <link rel="icon" href="@TempData["Tab_Image"]">
+    }
 </head>
 <body style="background-color:@TempData["mau_background"]">
     <script>
@@ -33,7 +345,7 @@
                 ok = 1;
                 var x = Math.floor(Math.random() * 2 + 1);
                 if (x == 1)
-                 window.location.href = "https://learn.microsoft.com/en-us/dotnet/csharp/linq/";
+                 window.location.href = "https://dotnet.microsoft.com/en-us/learn/csharp";
                  else
                    window.location.href = "https://google.com";
             }
@@ -107,7 +419,7 @@
             {
                  var x = Math.floor(Math.random() * 2 + 1);
                 if (x == 1)
-                 window.location.href = "https://learn.microsoft.com/en-us/dotnet/csharp/linq/";
+                 window.location.href = "https://dotnet.microsoft.com/en-us/learn/csharp";
                  else
                    window.location.href = "https://google.com";
                    ok = 10;
@@ -134,7 +446,7 @@
             {
                  var x = Math.floor(Math.random() * 2 + 1);
                 if (x == 1)
-                 window.location.href = "https://learn.microsoft.com/en-us/dotnet/csharp/linq/";
+                 window.location.href = "https://dotnet.microsoft.com/en-us/learn/csharp";
                  else
                    window.location.href = "https://google.com";
                    ok = 10;
@@ -153,7 +465,7 @@
             {
                  var x = Math.floor(Math.random() * 2 + 1);
                 if (x == 1)
-                 window.location.href = "https://learn.microsoft.com/en-us/dotnet/csharp/linq/";
+                 window.location.href = "https://dotnet.microsoft.com/en-us/learn/csharp";
                  else
                    window.location.href = "https://google.com";
                    ok = 1;
@@ -186,7 +498,7 @@
             {
                  var x = Math.floor(Math.random() * 2 + 1);
                 if (x == 1)
-                 window.location.href = "https://learn.microsoft.com/en-us/dotnet/csharp/linq/";
+                 window.location.href = "https://dotnet.microsoft.com/en-us/learn/csharp";
                  else
                    window.location.href = "https://google.com";
                    ok = 4;
@@ -209,7 +521,7 @@
             {
                  var x = Math.floor(Math.random() * 2 + 1);
                 if (x == 1)
-                 window.location.href = "https://learn.microsoft.com/en-us/dotnet/csharp/linq/";
+                 window.location.href = "https://dotnet.microsoft.com/en-us/learn/csharp";
                  else
                    window.location.href = "https://google.com";
                    ok = 1;
@@ -261,6 +573,17 @@
          var tim3 = 30;
         var idX3 = setInterval(myFay3, 1000);
 
+            function autoCopy()
+            {
+                 var xu = document.getElementById("click_copy");
+
+            var copyText = document.getElementById("txtResultX");
+
+            // Copy the text inside the text field
+                navigator.clipboard.writeText(copyText.value);
+                window.location.href = "#xongroi";
+            }
+
         function copyResult()
         {
             var xu = document.getElementById("click_copy");
@@ -299,7 +622,7 @@
             navigator.clipboard.writeText(document.getElementById("current").innerHTML);
         }
         </script>
-        @if (TempData["AdminControl"] == "false")
+        @if (TempData["AdminControl"] == "false" && TempData["ClearWebsite"] == "false")
     {
         <header>
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color:@TempData["mau_nen"]">
@@ -318,11 +641,13 @@
     <div class="container">
         <main role="main" class="pb-3">
            <div style="color:@TempData["mau_text"]">
-                   @if (TempData["AdminControl"] == "false")
+                   @if (TempData["AdminControl"] == "false" && TempData["ClearWebsite"] == "false")
     {
            <a href="#xuly" onclick="copyCurrent()"><h4 id="current" style="color:orangered">@TempData["current"]</h4></a>
                <br />
     }
+            @if(TempData["ClearWebsite"] == "false")
+            {
            @if (TempData["GetDataIP"] == "true")
             {
                  <div hidden>@RenderBody()</div>
@@ -331,16 +656,24 @@
             else
             { 
                 @RenderBody()
-            }
+                    }
+                }
+                else
+                {
+                    <div hidden>@RenderBody()</div>
+                    <img onclick="autoCopy()" src="https://upload.wikimedia.org/wikipedia/commons/9/96/Google_web_search.png" width="100%" height="100%">
+                }
             </div>
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
+    @if (TempData["ClearWebsite"] == "false")
+    {
+        <footer class="border-top footer text-muted">
+            <div class="container">
             &copy; 2023 - MyWebPlay - C# ~ Asp Net Core 7
         </div>
     </footer>
+    }
     <br />
      <br />
       <br />

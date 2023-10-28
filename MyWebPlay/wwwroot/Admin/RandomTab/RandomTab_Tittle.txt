@@ -1,0 +1,50 @@
+﻿Exception-handling statements - throw and try, catch, finally
+lock statement - synchronize thread access to a shared resource
+The .NET Compiler Platform SDK (Roslyn APIs)
+Language Integrated Query (LINQ) in C#
+Delegates with Named vs. Anonymous Methods
+How to subscribe to and unsubscribe from events
+Iteration statements -for, foreach, do, and while
+Query a collection of objects (LINQ in C#)
+How to concatenate multiple strings (C# Guide)
+(Networking) Sử dụng HttpClient trong C# tạo các truy vấn HTTP
+(ASP.NET Core) Sử dụng Session  trong ứng  dụng Web C# CSharp
+Cấu hình ứng dụng WEB appsettings.json và Inject option cho các dịch vụ C# CSharp
+(ASP.NET Core) Sử dụng gulp.js build SCSS (SASS) thành CSS
+Model Binding tự động ánh xạ dữ liệu gửi đến vào Model C# ASP.NET Core
+Tạo quan hệ trong Entity Framework với Fluent API  C# CSharp
+Tạo migration trong EntityFramework với C# CSharp
+Sử dụng giao diện IDisposable và từ khóa using trong C# Sharp
+Stream trong C# làm việc với FileStream lập trình C Sharp
+Lập trình bất đồng bộ asynchronou C# C Sharp với bất đồng bộ theo mô hình tác vụ
+Tích hợp Entity Framework và Identity
+Biểu thức lambda trong C# sử dụng lambda với delegate
+Sử dụng giao diện IDisposable và từ khóa using trong C# Sharp
+Lớp ObservableCollection trong C# .net
+Sử dụng Attribute Annotation trong lập trình C# CSharp
+Đối tượng Math trong JavaScript
+Khái niệm cơ bản Dom - JavaScript
+C# Exceptions (Try..Catch)
+(EF Core) Tạo Model trong Entity Framework ánh xạ các đối tượng vào Database C# CSharp
+Giới thiệu ado.net  và kết nối SQL Server với SqlConnection
+Sử dụng cấu trúc struct và kiểu liệt kê enum trong lập trình C# C Sharp<
+Tìm hiểu và sử dụng null nullable trong lập trình C Sharp
+Partial Type và Nested Type phân code thành nhiều file và lớp lồng nhau trong C# C Sharp
+(ASP.NET Razor) Tạo và sử dụng ViewComponent
+Tìm hiểu và sử dụng ngoại lệ Exception câu lệnh try catch trong C#
+Lớp Dictionary HashSet trong C# C Sharp
+Dependency injection (DI) trong C# với ServiceCollection
+where (generic type constraint) - C# Reference
+Mảng nhiều chiều trong lập trình C# cơ bản
+Regular Expression trong C#
+Biến toàn cục và biến cục bộ trong C#
+Kiểu dữ liệu Object trong C#
+Ràng buộc trong SQL
+Lệnh TRUNCATE TABLE trong SQL
+Transaction trong SQL
+Phương thức nặc danh trong C#
+Catalog API feature
+Creating a simple data-driven CRUD
+Testing ASP.NET Core services and web apps
+Use a database server running as a container
+Sử dụng HttpMessageHandler cho HttpClient trong C# CSharp

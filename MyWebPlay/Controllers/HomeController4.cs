@@ -28,6 +28,17 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult String_Reverse(IFormCollection f)
         {
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -93,7 +104,7 @@ namespace MyWebPlay.Controllers
 
             string x = String.Join("\r\n", s);
 
-            TextCopy.ClipboardService.SetText(x);
+            //TextCopy.ClipboardService.SetText(x);
 
             //x = "\r\n" + x;
             //x = x.Replace("\r\n", "<br>");
@@ -126,6 +137,17 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult String_Reverse2(IFormCollection f)
         {
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -195,7 +217,7 @@ namespace MyWebPlay.Controllers
 
             string x = String.Join("\r\n", s);
 
-            TextCopy.ClipboardService.SetText(x);
+            //TextCopy.ClipboardService.SetText(x);
 
 
             x = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + x + "</textarea>";
@@ -226,6 +248,18 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult Special_OrderBy(IFormCollection f)
         {
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
+
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -377,7 +411,7 @@ namespace MyWebPlay.Controllers
 
             string dx = String.Join("\n", DS);
 
-            TextCopy.ClipboardService.SetText(dx);
+            //TextCopy.ClipboardService.SetText(dx);
 
             //String sql = "\r\n" + String.Join("\r\n", DS);
 

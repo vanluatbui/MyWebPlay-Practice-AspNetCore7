@@ -1,4 +1,8 @@
-﻿<table align="center">
+﻿@if (TempData["ViewSiteBasic"] == "true")
+{
+    Layout = null;
+}
+<table align="center">
     <h2 style="text-align:center">Special - OrderBy (Sắp xếp tăng dần)</h2>
 
     <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>

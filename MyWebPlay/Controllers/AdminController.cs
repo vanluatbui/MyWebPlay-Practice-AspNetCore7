@@ -316,15 +316,18 @@ namespace MyWebPlay.Controllers
             for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-                if (info[0] == "Using_QuickData" || info[0] == "Using_Website")
+                if (TempData["NotAlertQuickData"] == "false")
                 {
-                    if (info[1] == "false")
+                    if (info[0] == "Using_QuickData" || info[0] == "Using_Website")
                     {
-                        var r = new Random();
-                        var x = r.Next(0, 2);
-                        if (x == 1)
-                        return Redirect("https://dotnet.microsoft.com/en-us/learn/csharp");
-                        return Redirect("https://google.com");
+                        if (info[1] == "false")
+                        {
+                            var r = new Random();
+                            var x = r.Next(0, 2);
+                            if (x == 1)
+                                return Redirect("https://dotnet.microsoft.com/en-us/learn/csharp");
+                            return Redirect("https://google.com");
+                        }
                     }
                 }
 
@@ -359,22 +362,28 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult QuickDataInWeb(IFormCollection f)
         {
-
-            var name = f["txtNoiDung"].ToString().Split("\r\n|\r\n", StringSplitOptions.RemoveEmptyEntries);
-            TempData["Name"] = name[0];
-            
-            var s = name[1].Split("\r\n#\r\n", StringSplitOptions.RemoveEmptyEntries);
-            var chuoi = "";
-            for ( int i = 0; i < s.Length; i++ )
+            try
             {
-                var ss = s[i].Split("\r\n*\r\n", StringSplitOptions.RemoveEmptyEntries);
-                ss[1] = ss[1].Replace("[NULL]", "");
-                chuoi += "<textarea name=\"" + ss[0] + "\" cols=\"80\" rows=\"30\">" + ss[1] + "</textarea><br>\n";
+                var name = f["txtNoiDung"].ToString().Split("\r\n|\r\n", StringSplitOptions.RemoveEmptyEntries);
+                TempData["Name"] = name[0];
+
+                var s = name[1].Split("\r\n#\r\n", StringSplitOptions.RemoveEmptyEntries);
+                var chuoi = "";
+                for (int i = 0; i < s.Length; i++)
+                {
+                    var ss = s[i].Split("\r\n*\r\n", StringSplitOptions.RemoveEmptyEntries);
+                    ss[1] = ss[1].Replace("[NULL]", "");
+                    chuoi += "<textarea name=\"" + ss[0] + "\" cols=\"80\" rows=\"30\">" + ss[1] + "</textarea><br>\n";
+                }
+
+                TempData["Data"] = chuoi;
+
+                return RedirectToAction("PlayDataInWeb");
             }
-
-            TempData["Data"] = chuoi;
-
-            return RedirectToAction("PlayDataInWeb");
+            catch
+            {
+                return Redirect("https://www.google.com/search?q=t%C3%ACm+ki%E1%BA%BFm+t%C3%A0i+li%E1%BB%87u+l%E1%BA%ADp+tr%C3%ACnh+c%23&sca_esv=577545666&source=hp&ei=Nug9ZZriKNWSoATwlYLABA&iflsig=AO6bgOgAAAAAZT32RrDEkkwYmnsLXkiyQImAqChwxVYm&ved=0ahUKEwia1bCEvpqCAxVVCYgKHfCKAEgQ4dUDCAo&uact=5&oq=t%C3%ACm+ki%E1%BA%BFm+t%C3%A0i+li%E1%BB%87u+l%E1%BA%ADp+tr%C3%ACnh+c%23&gs_lp=Egdnd3Mtd2l6Iid0w6xtIGtp4bq_bSB0w6BpIGxp4buHdSBs4bqtcCB0csOsbmggYyMyBRAhGKABMgUQIRigAUiSUFCLA1jDTXAeeACQAQ6YAbMBoAHpKaoBBTQwLjE4uAEDyAEA-AEBqAIAwgILEAAYgAQYsQMYgwHCAgsQLhiKBRixAxiDAcICBRAAGIAEwgIOEC4YgAQYsQMYxwEY0QPCAgsQABiKBRixAxiDAcICCBAAGIAEGLEDwgIIEC4YgAQYsQPCAggQABiABBjJA8ICCBAAGIoFGJIDwgIHEAAYgAQYCsICChAAGIAEGLEDGArCAg0QABiABBixAxiDARgKwgIFEC4YgATCAgYQABgWGB7CAgcQABgNGIAEwgIGEAAYHhgNwgIIEAAYHhgNGA_CAgcQIRigARgKwgIIECEYFhgeGB3CAgoQIRgWGB4YDxgdwgIFEAAYogQ&sclient=gws-wiz");
+            }
         }
 
         public ActionResult PlayDataInWeb()
@@ -385,15 +394,18 @@ namespace MyWebPlay.Controllers
             for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-                if (info[0] == "Using_QuickData" || info[0] == "Using_Website")
+                if (TempData["NotAlertQuickData"] == "false")
                 {
-                    if (info[1] == "false")
+                    if (info[0] == "Using_QuickData" || info[0] == "Using_Website")
                     {
-                        var r = new Random();
-                        var x = r.Next(0, 2);
-                        if (x == 1)
-                         return Redirect("https://dotnet.microsoft.com/en-us/learn/csharp");
-                        return Redirect("https://google.com");
+                        if (info[1] == "false")
+                        {
+                            var r = new Random();
+                            var x = r.Next(0, 2);
+                            if (x == 1)
+                                return Redirect("https://dotnet.microsoft.com/en-us/learn/csharp");
+                            return Redirect("https://google.com");
+                        }
                     }
                 }
 

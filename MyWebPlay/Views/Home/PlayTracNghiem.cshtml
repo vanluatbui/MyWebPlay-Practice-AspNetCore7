@@ -1,5 +1,10 @@
 ﻿@model MyWebPlay.Model.TracNghiem
 
+@if (TempData["ViewSiteBasic"] == "true")
+{
+    Layout = null;
+}
+
 <script>
 
       var idSA;

@@ -1,4 +1,8 @@
-﻿<table align="center">
+﻿@if (TempData["ViewSiteBasic"] == "true")
+{
+    Layout = null;
+}
+<table align="center">
 
     @using(Html.BeginForm())
     {

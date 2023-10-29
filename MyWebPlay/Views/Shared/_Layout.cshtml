@@ -332,7 +332,7 @@
 
         var ok = 0;
 
-        if ('@TempData["UsingWebsite"]' == "false")
+        if ('@TempData["NotAlertQuickData"]' == "false" && '@TempData["UsingWebsite"]' == "false")
         {
             if ('@TempData["AlertUsingWebsite"]' == "true")
             {
@@ -455,7 +455,7 @@
 
         if (ok == 0 && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true")
         {
-             if ('@TempData["AlertUsingWebsite"]' == "true")
+             if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
             {
             ok = 1;
             alert("Để tiếp tục sử dụng, vui lòng tìm cách để có lại được sự cấp phép. Nếu không, hãy tắt sử dụng trang web và yêu cầu bật sử dụng lại! ");
@@ -507,7 +507,7 @@
         
          if (ok == 0 && ('@TempData["PlayOnWebInLocal-X"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null)))
         {
-             if ('@TempData["AlertUsingWebsite"]' == "true")
+             if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
             {
             ok = 1;
             localStorage.removeItem("keyX_PlayOnWeb");

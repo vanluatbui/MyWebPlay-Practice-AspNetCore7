@@ -1,4 +1,8 @@
-﻿<script>
+﻿    @if (TempData["ViewSiteBasic"] == "true")
+{
+    Layout = null;
+}
+<script>
     function soluong()
     {
         var sl = document.getElementById("txtSL").value;

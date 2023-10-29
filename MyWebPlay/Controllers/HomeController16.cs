@@ -321,16 +321,6 @@ namespace MyWebPlay.Controllers
         public ActionResult SessionPlay()
         {
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
-
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            khoawebsiteClient(listIP);
 
             return View();
         }
@@ -339,16 +329,6 @@ namespace MyWebPlay.Controllers
         public ActionResult SessionPlay(IFormCollection f)
         {
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
-
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            khoawebsiteClient(listIP);
 
             var session = f["txtSession"].ToString();
             var giatri = f["txtGiaTri"].ToString();

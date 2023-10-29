@@ -1,4 +1,8 @@
-﻿<div class="list-group" style="color:@TempData["mau_text"]">
+﻿@if (TempData["ViewSiteBasic"] == "true")
+{
+    Layout = null;
+}
+<div class="list-group" style="color:@TempData["mau_text"]">
    <a  class="nav-link @TempData["nav_link"]" asp-area="" asp-controller="Home" asp-action="HD_API">HD_API</a>
                        
 

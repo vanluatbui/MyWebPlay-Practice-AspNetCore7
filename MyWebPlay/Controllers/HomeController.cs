@@ -100,6 +100,9 @@ namespace MyWebPlay.Controllers
 
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
+            var flx = 0;
+            var flix = 0;
+            var flox = 0;
             for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -123,7 +126,32 @@ namespace MyWebPlay.Controllers
                     }
                     else
                     {
+                        flix = 1;
                         TempData["ClearWebsite"] = "true";
+                    }
+                }
+
+                if (info[0] == "Using_QuickData")
+                {
+                    if (info[1] == "true")
+                    {
+                        flx = 1;
+                    }
+                }
+
+                if (flox == 0)
+               TempData["NotAlertQuickData"] = "false";
+
+                if (flix == 1 && flx == 1 && info[0] == "NotAlert_QuickData")
+                {
+                    if (info[1] == "false")
+                    {
+                        TempData["NotAlertQuickData"] = "false";
+                    }
+                    else
+                    {
+                        TempData["NotAlertQuickData"] = "true";
+                        flox = 1;
                     }
                 }
 
@@ -148,6 +176,18 @@ namespace MyWebPlay.Controllers
                     else
                     {
                         TempData["AdminControl"] = "true";
+                    }
+                }
+
+                if (info[0] == "ViewSite_Basic")
+                {
+                    if (info[1] == "false")
+                    {
+                        TempData["ViewSiteBasic"] = "false";
+                    }
+                    else
+                    {
+                        TempData["ViewSiteBasic"] = "true";
                     }
                 }
 

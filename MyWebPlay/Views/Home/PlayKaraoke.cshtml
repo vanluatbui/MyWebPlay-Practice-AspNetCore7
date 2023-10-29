@@ -1,4 +1,4 @@
-﻿@if (ViewBag.Show != null && ViewBag.Show == "show")
+﻿@if (ViewBag.Show != null && ViewBag.Show == "show" || TempData["ViewSiteBasic"] == "true")
 {
     Layout = null;
 }

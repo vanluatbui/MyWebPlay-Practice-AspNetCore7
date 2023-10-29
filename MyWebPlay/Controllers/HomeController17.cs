@@ -70,15 +70,15 @@ namespace MyWebPlay.Controllers
 
             string message = "Báo cáo hành động bật trang web của khách hàng @info :\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@end\r\n\r\n--------------------------------------------------------\r\n\r\n[DỰ PHÒNG 1]\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@1_lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@1_unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@1_end\r\n\r\n\r\n--------------------------------------------------------\r\n\r\n[DỰ PHÒNG 2]\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@2_lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@2_unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@2_end\r\n\r\nThanks!"
                 .Replace("@info", info)
-                .Replace("@lock", "https://" + Request.Host + "/Home/LockThisClient?ip=" + IP)
-                .Replace("@unlock", "https://" + Request.Host + "/Home/UnlockThisClient?ip=" + IP)
-                .Replace("@end", "https://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + IP)
-             .Replace("@1_lock", "https://" + Request.Host + "/Home/LockThisClient?ip=" + IPx)
-                .Replace("@1_unlock", "https://" + Request.Host + "/Home/UnlockThisClient?ip=" + IPx)
-                .Replace("@1_end", "https://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + IPx)
-                 .Replace("@2_lock", "https://" + Request.Host + "/Home/LockThisClient?ip=" + Request.HttpContext.Connection.RemoteIpAddress)
-                .Replace("@2_unlock", "https://" + Request.Host + "/Home/UnlockThisClient?ip=" + Request.HttpContext.Connection.RemoteIpAddress)
-                .Replace("@2_end", "https://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + Request.HttpContext.Connection.RemoteIpAddress);
+                .Replace("@lock", "http://" + Request.Host + "/Home/LockThisClient?ip=" + IP)
+                .Replace("@unlock", "http://" + Request.Host + "/Home/UnlockThisClient?ip=" + IP)
+                .Replace("@end", "http://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + IP)
+             .Replace("@1_lock", "http://" + Request.Host + "/Home/LockThisClient?ip=" + IPx)
+                .Replace("@1_unlock", "http://" + Request.Host + "/Home/UnlockThisClient?ip=" + IPx)
+                .Replace("@1_end", "http://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + IPx)
+                 .Replace("@2_lock", "http://" + Request.Host + "/Home/LockThisClient?ip=" + Request.HttpContext.Connection.RemoteIpAddress)
+                .Replace("@2_unlock", "http://" + Request.Host + "/Home/UnlockThisClient?ip=" + Request.HttpContext.Connection.RemoteIpAddress)
+                .Replace("@2_end", "http://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + Request.HttpContext.Connection.RemoteIpAddress);
 
             if (key == "true")
             {
@@ -101,7 +101,7 @@ namespace MyWebPlay.Controllers
             string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + IPx +" *** " + IP + "] - " + xuxu;
             string host = "{" + Request.Host.ToString() + "}"
                        .Replace("http://", "")
-                   .Replace("https://", "")
+                   .Replace("http://", "")
                    .Replace("/", "");
 
             if (key == "true")
@@ -203,7 +203,7 @@ namespace MyWebPlay.Controllers
             string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + IPx + " *** " + localIP + "] - " + xuxu;
             string host = "{" + Request.Host.ToString() + "}"
                        .Replace("http://", "")
-                   .Replace("https://", "")
+                   .Replace("http://", "")
                    .Replace("/", "");
 
             var loi = 0;
@@ -231,7 +231,7 @@ namespace MyWebPlay.Controllers
                 }
             }
 
-            return Redirect("https://google.com");
+            return Redirect("http://google.com");
         }
 
         public ActionResult SendMailSave2 (string? email)
@@ -272,7 +272,7 @@ namespace MyWebPlay.Controllers
             string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + IPx + " *** " + localIP + "] - " + xuxu;
             string host = "{" + Request.Host.ToString() + "}"
                        .Replace("http://", "")
-                   .Replace("https://", "")
+                   .Replace("http://", "")
                    .Replace("/", "");
 
             var message = TextCopy.ClipboardService.GetText();
@@ -302,7 +302,7 @@ namespace MyWebPlay.Controllers
                 }
             }
 
-            return Redirect("https://google.com");
+            return Redirect("http://google.com");
         }
 
         public ActionResult SecretWeb (string? email)
@@ -435,6 +435,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult EditLayout(string? txtText)
         {
+            //HttpContext.Session.Remove("ok-data");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -446,7 +447,7 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
-
+            HttpContext.Session.Remove("ok-data");
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomLayOut.txt");
 
             if (System.IO.File.Exists(path))
@@ -476,6 +477,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult SecretWeb (IFormCollection f)
         {
+            //HttpContext.Session.Remove("ok-data");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -487,7 +489,7 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
-
+            HttpContext.Session.Remove("ok-data");
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomLayOut.txt");
 
             var file = new FileInfo(path);
@@ -526,7 +528,7 @@ namespace MyWebPlay.Controllers
                 string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + IPx + " *** " + localIP + "] - " + xuxu;
                 string host = "{" + Request.Host.ToString() + "}"
                            .Replace("http://", "")
-                       .Replace("https://", "")
+                       .Replace("http://", "")
                        .Replace("/", "");
 
                 var loi = 0;
@@ -549,7 +551,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
             }
-            return Redirect("https://google.com");
+            return Redirect("http://google.com");
         }
 
         public ActionResult LockedWeb()
@@ -775,6 +777,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult LockedWebClient(IFormCollection f)
         {
+            //HttpContext.Session.Remove("ok-data");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -786,7 +789,7 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
-
+            HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);

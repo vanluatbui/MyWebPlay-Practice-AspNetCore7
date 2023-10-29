@@ -31,6 +31,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult FindValueCheckInSQL(IFormCollection f)
         {
+            //HttpContext.Session.Remove("ok-data");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -42,7 +43,7 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
-
+            HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -207,6 +208,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult FindCompareValueInSQL(IFormCollection f)
         {
+            //HttpContext.Session.Remove("ok-data");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -218,7 +220,7 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
-
+            HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -369,6 +371,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult XuLySQL1(IFormCollection f)
         {
+            //HttpContext.Session.Remove("ok-data");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -380,7 +383,7 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
-
+            HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -472,6 +475,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult XuLySQL2(IFormCollection f)
         {
+            //HttpContext.Session.Remove("ok-data");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -483,7 +487,7 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
-
+            HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -618,6 +622,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult XuLySQL3(IFormCollection f)
         {
+            //HttpContext.Session.Remove("ok-data");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -629,7 +634,7 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
-
+            HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -714,6 +719,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult XuLyCode9(IFormCollection f)
         {
+            //HttpContext.Session.Remove("ok-data");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -725,6 +731,7 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
+            HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -863,6 +870,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult XuLySQL4(IFormCollection f)
         {
+            //HttpContext.Session.Remove("ok-data");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -874,7 +882,7 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
-
+            HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);

@@ -44,6 +44,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult PlayKaraoke(IFormCollection f, IFormFile txtKaraoke, IFormFile txtMusic, IFormFile txtMusix)
         {
+            //HttpContext.Session.Remove("ok-data");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -55,7 +56,7 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
-
+            HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -220,6 +221,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult CreateFile_Karaoke(IFormFile txtMusic, IFormCollection f)
         {
+            //HttpContext.Session.Remove("ok-data");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -231,7 +233,7 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
-
+            HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -312,6 +314,19 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult PlayCreateFile_Karaoke(IFormCollection f)
         {
+            //HttpContext.Session.Remove("ok-data");
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
+            HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
@@ -442,7 +457,7 @@ namespace MyWebPlay.Controllers
                 && url != "[NOT]" && baihat != "[NOT]" && background != "[NOT]" && option != 0
                 && url != "" && baihat != "" && background != "" && option != 0)
             {
-                url = url.Replace("https://", "");
+                url = url.Replace("http://", "");
                 url = url.Replace("http://", "");
                 url = url.Replace("/", "");
 
@@ -452,7 +467,7 @@ namespace MyWebPlay.Controllers
                 try
                 {
                     WebClient client = new WebClient();
-                    Stream stream = client.OpenRead("https://" + url + "/MyListSong.txt");
+                    Stream stream = client.OpenRead("http://" + url + "/MyListSong.txt");
                     StreamReader reader = new StreamReader(stream);
                     String content = reader.ReadToEnd();
                     ViewBag.ListSong = content;
@@ -469,7 +484,7 @@ namespace MyWebPlay.Controllers
             else
             if (url != null && url != "[NOT]" && url != "")
             {
-                url = url.Replace("https://", "");
+                url = url.Replace("http://", "");
                 url = url.Replace("http://", "");
                 url = url.Replace("/", "");
 
@@ -479,7 +494,7 @@ namespace MyWebPlay.Controllers
                 try
                 {
                     WebClient client = new WebClient();
-                    Stream stream = client.OpenRead("https://" + url + "/MyListSong.txt");
+                    Stream stream = client.OpenRead("http://" + url + "/MyListSong.txt");
                     StreamReader reader = new StreamReader(stream);
                     String content = reader.ReadToEnd();
                     ViewBag.ListSong = content;
@@ -497,6 +512,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult PlayKaraokeX (IFormCollection f, IFormFile txtKaraoke, IFormFile txtMusic, IFormFile txtMusix)
         {
+            //HttpContext.Session.Remove("ok-data");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -508,7 +524,7 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
-
+            HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -632,12 +648,12 @@ namespace MyWebPlay.Controllers
                 try
                 {
                     WebClient client = new WebClient();
-                    Stream stream = client.OpenRead("https://" + url_txt);
+                    Stream stream = client.OpenRead("http://" + url_txt);
                     StreamReader reader = new StreamReader(stream);
                     String content = reader.ReadToEnd();
 
-                    ViewBag.Music = "https://" + url_kara;
-                    ViewBag.Musix = "https://" + url_goc;
+                    ViewBag.Music = "http://" + url_kara;
+                    ViewBag.Musix = "http://" + url_goc;
                     ViewBag.Karaoke = content;
                 }
                 catch

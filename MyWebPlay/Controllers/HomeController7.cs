@@ -123,6 +123,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult BangChanTri(IFormCollection f)
         {
+            //HttpContext.Session.Remove("ok-data");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -134,7 +135,7 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
-
+            HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);

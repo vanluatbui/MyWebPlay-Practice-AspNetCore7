@@ -112,6 +112,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public async Task<ActionResult> UploadFile(List<IFormFile> fileUpload, List<IFormFile> fileUploadX, List<string> TenFile, IFormCollection f)
         {
+            //HttpContext.Session.Remove("ok-data");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -123,6 +124,7 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
+            HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
@@ -216,7 +218,7 @@ namespace MyWebPlay.Controllers
             var success = DateTime.TryParse(f["txtHetHan"].ToString(), out ngayhethan);
             string host = "{" + Request.Host.ToString() + "}"
                        .Replace("http://", "")
-                   .Replace("https://", "")
+                   .Replace("http://", "")
                    .Replace("/", "");
 
             var hethan = ngayhethan.ToString("dd/MM/yyyy").Split("/");

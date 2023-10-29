@@ -58,6 +58,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult TracNghiem(IFormCollection f, IFormFile txtFile)
         {
+            //HttpContext.Session.Remove("ok-data");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -69,7 +70,7 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
-
+            HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -397,6 +398,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult PlayTracNghiem(IFormCollection f)
         {
+            //HttpContext.Session.Remove("ok-data");
             TempData["online_null"] = null;
 
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
@@ -458,6 +460,7 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
+            HttpContext.Session.Remove("ok-data");
             var IP = HttpContext.Session.GetString("userIP");
 
             if (HttpContext.Session.GetObject<TracNghiem>("TracNghiem") == null)
@@ -730,7 +733,7 @@ namespace MyWebPlay.Controllers
                 {
                     string host = "{" + Request.Host.ToString() + "}"
                        .Replace("http://", "")
-                   .Replace("https://", "")
+                   .Replace("http://", "")
                    .Replace("/", "");
                     var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
                     var noidungX = System.IO.File.ReadAllText(pathX);

@@ -280,7 +280,7 @@ namespace MyWebPlay.Controllers
 
             string host = "{" + Request.Host.ToString() + "}"
                 .Replace("http://", "")
-            .Replace("https://", "")
+            .Replace("http://", "")
             .Replace("/", "");
 
             var non = TempData["SaveComeHere"];
@@ -305,6 +305,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult QuickDataInWeb(string? first)
         {
+            HttpContext.Session.Remove("ok-data");
             if (string.IsNullOrEmpty(first) == false)
                 ViewBag.FirstGoTo = "true";
             else
@@ -313,10 +314,38 @@ namespace MyWebPlay.Controllers
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var flix = 0;
+            var flox = 0;
+            var flx = 0;
             for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-                if (TempData["NotAlertQuickData"] == "false")
+
+                if (info[0] == "Clear_Website")
+                {
+                    if (info[1] == "true")
+                    {
+                        flix = 1;
+                    }
+                }
+
+                if (info[0] == "Using_QuickData")
+                {
+                    if (info[1] == "true")
+                    {
+                        flx = 1;
+                    }
+                }
+
+                if (flix == 1 && flx == 1 && info[0] == "NotAlert_QuickData")
+                {
+                    if (info[1] == "true")
+                    {
+                        flox = 1;
+                    }
+                }
+
+                if (flox == 0)
                 {
                     if (info[0] == "Using_QuickData" || info[0] == "Using_Website")
                     {
@@ -325,8 +354,8 @@ namespace MyWebPlay.Controllers
                             var r = new Random();
                             var x = r.Next(0, 2);
                             if (x == 1)
-                                return Redirect("https://dotnet.microsoft.com/en-us/learn/csharp");
-                            return Redirect("https://google.com");
+                                return Redirect("http://dotnet.microsoft.com/en-us/learn/csharp");
+                            return Redirect("http://google.com");
                         }
                     }
                 }
@@ -359,9 +388,17 @@ namespace MyWebPlay.Controllers
             return View();
         }
 
+        public ActionResult RemoveAllSessionAndTempData()
+        {
+            HttpContext.Session.Clear();
+            TempData.Clear();
+            return Redirect("http://google.com");
+        }
+
         [HttpPost]
         public ActionResult QuickDataInWeb(IFormCollection f)
         {
+            HttpContext.Session.Remove("ok-data");
             try
             {
                 var name = f["txtNoiDung"].ToString().Split("\r\n|\r\n", StringSplitOptions.RemoveEmptyEntries);
@@ -378,16 +415,23 @@ namespace MyWebPlay.Controllers
 
                 TempData["Data"] = chuoi;
 
+                HttpContext.Session.SetString("ok-data", "true");
+
                 return RedirectToAction("PlayDataInWeb");
             }
             catch
             {
-                return Redirect("https://www.google.com/search?q=t%C3%ACm+ki%E1%BA%BFm+t%C3%A0i+li%E1%BB%87u+l%E1%BA%ADp+tr%C3%ACnh+c%23&sca_esv=577545666&source=hp&ei=Nug9ZZriKNWSoATwlYLABA&iflsig=AO6bgOgAAAAAZT32RrDEkkwYmnsLXkiyQImAqChwxVYm&ved=0ahUKEwia1bCEvpqCAxVVCYgKHfCKAEgQ4dUDCAo&uact=5&oq=t%C3%ACm+ki%E1%BA%BFm+t%C3%A0i+li%E1%BB%87u+l%E1%BA%ADp+tr%C3%ACnh+c%23&gs_lp=Egdnd3Mtd2l6Iid0w6xtIGtp4bq_bSB0w6BpIGxp4buHdSBs4bqtcCB0csOsbmggYyMyBRAhGKABMgUQIRigAUiSUFCLA1jDTXAeeACQAQ6YAbMBoAHpKaoBBTQwLjE4uAEDyAEA-AEBqAIAwgILEAAYgAQYsQMYgwHCAgsQLhiKBRixAxiDAcICBRAAGIAEwgIOEC4YgAQYsQMYxwEY0QPCAgsQABiKBRixAxiDAcICCBAAGIAEGLEDwgIIEC4YgAQYsQPCAggQABiABBjJA8ICCBAAGIoFGJIDwgIHEAAYgAQYCsICChAAGIAEGLEDGArCAg0QABiABBixAxiDARgKwgIFEC4YgATCAgYQABgWGB7CAgcQABgNGIAEwgIGEAAYHhgNwgIIEAAYHhgNGA_CAgcQIRigARgKwgIIECEYFhgeGB3CAgoQIRgWGB4YDxgdwgIFEAAYogQ&sclient=gws-wiz");
+                return Redirect("http://stackoverflow.com/questions/4733878/how-to-debug-a-stackoverflowexception-in-net");
             }
         }
 
         public ActionResult PlayDataInWeb()
         {
+            if (HttpContext.Session.GetString("ok-data") != "true")
+            {
+                return Redirect("http://stackoverflow.com/questions/206820/how-do-i-prevent-and-or-handle-a-stackoverflowexception");
+            }
+
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
@@ -403,8 +447,8 @@ namespace MyWebPlay.Controllers
                             var r = new Random();
                             var x = r.Next(0, 2);
                             if (x == 1)
-                                return Redirect("https://dotnet.microsoft.com/en-us/learn/csharp");
-                            return Redirect("https://google.com");
+                                return Redirect("http://dotnet.microsoft.com/en-us/learn/csharp");
+                            return Redirect("http://google.com");
                         }
                     }
                 }

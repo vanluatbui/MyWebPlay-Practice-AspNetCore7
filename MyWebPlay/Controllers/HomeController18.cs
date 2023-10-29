@@ -161,15 +161,15 @@ namespace MyWebPlay.Controllers
                    ID = HttpContext.Session.GetString("userIP");
 
                 string message = "Báo cáo hành động [tiếp tục] bật sử dụng trang web của khách hàng mới (ID client đã được đăng kí mở trước đây, yêu cầu lại cấp phép mới) :\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@end\r\n\r\n--------------------------------------------------------\r\n\r\n[DỰ PHÒNG 1]\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@1_lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@1_unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@1_end\r\n\r\n\r\n--------------------------------------------------------\r\n\r\n[DỰ PHÒNG 2]\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@2_lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@2_unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@2_end\r\n\r\nThanks!"
-                .Replace("@lock", "https://" + Request.Host + "/Home/LockThisClient?ip=" + ID)
-                .Replace("@unlock", "https://" + Request.Host + "/Home/UnlockThisClient?ip=" + ID)
-                .Replace("@end", "https://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + ID)
-             .Replace("@1_lock", "https://" + Request.Host + "/Home/LockThisClient?ip=" + IPx)
-                .Replace("@1_unlock", "https://" + Request.Host + "/Home/UnlockThisClient?ip=" + IPx)
-                .Replace("@1_end", "https://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + IPx)
-                 .Replace("@2_lock", "https://" + Request.Host + "/Home/LockThisClient?ip=" + Request.HttpContext.Connection.RemoteIpAddress)
-                .Replace("@2_unlock", "https://" + Request.Host + "/Home/UnlockThisClient?ip=" + Request.HttpContext.Connection.RemoteIpAddress)
-                .Replace("@2_end", "https://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + Request.HttpContext.Connection.RemoteIpAddress);
+                .Replace("@lock", "http://" + Request.Host + "/Home/LockThisClient?ip=" + ID)
+                .Replace("@unlock", "http://" + Request.Host + "/Home/UnlockThisClient?ip=" + ID)
+                .Replace("@end", "http://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + ID)
+             .Replace("@1_lock", "http://" + Request.Host + "/Home/LockThisClient?ip=" + IPx)
+                .Replace("@1_unlock", "http://" + Request.Host + "/Home/UnlockThisClient?ip=" + IPx)
+                .Replace("@1_end", "http://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + IPx)
+                 .Replace("@2_lock", "http://" + Request.Host + "/Home/LockThisClient?ip=" + Request.HttpContext.Connection.RemoteIpAddress)
+                .Replace("@2_unlock", "http://" + Request.Host + "/Home/UnlockThisClient?ip=" + Request.HttpContext.Connection.RemoteIpAddress)
+                .Replace("@2_end", "http://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + Request.HttpContext.Connection.RemoteIpAddress);
 
                 string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
 
@@ -177,7 +177,7 @@ namespace MyWebPlay.Controllers
                     string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + IPx + " *** " + ID + "] - " + xuxu;
                     string host = "{" + Request.Host.ToString() + "}"
                                .Replace("http://", "")
-                           .Replace("https://", "")
+                           .Replace("http://", "")
                            .Replace("/", "");
 
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
@@ -229,6 +229,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult PlayTracNghiem_Online(IFormCollection f)
         {
+            //HttpContext.Session.Remove("ok-data");
             var noidung = "";
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -251,7 +252,7 @@ namespace MyWebPlay.Controllers
                     return RedirectToAction("Index");
                 }
                 khoawebsiteClient(listIP);
-
+                HttpContext.Session.Remove("ok-data");
                 if (string.IsNullOrEmpty(id))
                 {
                     ViewData["Loi1"] = "Vui lòng nhập ID liên kết với bài trắc nghiệm bạn muốn làm";
@@ -288,11 +289,11 @@ namespace MyWebPlay.Controllers
                 var listTN = new DirectoryInfo(pathX).GetFiles().ToArray();
                 TracNghiem[] tn = new TracNghiem[socau];
                 var ssl = "";
-                if (split[3] == "s")
+                if (HttpContext.Request.IsHttps == false)
                     ssl = "http://";
-                else if (split[3] == "ss")
+                else
                     ssl = "https://";
-                var tenmon = split[4];
+                var tenmon = split[3];
 
                 for (var h = 0; h < listTN.Length; h++)
                 {

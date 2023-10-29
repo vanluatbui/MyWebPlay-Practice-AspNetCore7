@@ -1,5 +1,5 @@
 
-Copyright OpenJS Foundation and other contributors, https://openjsf.org/
+Copyright OpenJS Foundation and other contributors, http://openjsf.org/
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

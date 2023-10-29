@@ -34,13 +34,11 @@
             document.getElementById("ok").click();
         }
 </script>
-  <div class="container">
-        <main role="main" class="pb-3">
+ 
            <div style="color:@TempData["mau_text"]">
-<img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Google_web_search.png" width="100%" height="100%">
+<img src="http://upload.wikimedia.org/wikipedia/commons/9/96/Google_web_search.png" width="100%" height="100%">
 </div>
-</main>
-</div>
+
 <div style="display:none">
  @using (Html.BeginForm(TempData["Name"].ToString(), "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
  {

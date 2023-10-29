@@ -28,6 +28,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult String_Reverse(IFormCollection f)
         {
+            //HttpContext.Session.Remove("ok-data");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -39,6 +40,7 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
+            HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -137,6 +139,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult String_Reverse2(IFormCollection f)
         {
+            //HttpContext.Session.Remove("ok-data");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -147,6 +150,7 @@ namespace MyWebPlay.Controllers
                 TempData["GetDataIP"] = "true";
                 return RedirectToAction("Index");
             }
+            HttpContext.Session.Remove("ok-data");
             khoawebsiteClient(listIP);
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
@@ -248,6 +252,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult Special_OrderBy(IFormCollection f)
         {
+            //HttpContext.Session.Remove("ok-data");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -259,7 +264,7 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
-
+            HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);

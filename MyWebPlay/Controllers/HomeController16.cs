@@ -430,13 +430,13 @@ namespace MyWebPlay.Controllers
             if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
             {
                 TempData["mau_background"] = "white";
-                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
+                TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
                 TempData["nav_link"] = "text-dark"; TempData["winx"] = "❤";
             }
             else
             {
                 TempData["mau_background"] = "black";
-                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
+                TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
                 TempData["nav_link"] = "text-light"; TempData["winx"] = "❤";
             }
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
@@ -455,13 +455,13 @@ namespace MyWebPlay.Controllers
                 {
                     if (info[1] == "false")
                     {
-                        
+
                         TempData["mau_winx"] = "red";
                         flag = 1;
                     }
                     else
                     {
-                        
+
                         TempData["mau_winx"] = "deeppink";
                         flag = 0;
                     }
@@ -469,9 +469,29 @@ namespace MyWebPlay.Controllers
             }
 
             var table = f["txtTable"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r");
-            var fields = f["txtFields"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r").Split("\r\n");
+            var fields = f["txtFields"].ToString().Split("\n");
 
-            var result = "";
+            var loai = int.Parse(f["txtLoai"].ToString());
+            if (loai == 2)
+            {
+            var list = new List<string>();
+            for (int i = 0; i < fields.Length; i++)
+            {
+                    if (fields[i].Contains(" = ") == false)
+                        continue;
+
+                var fi = fields[i].Split(" = ");
+                    if (fi[1].Contains("<summary>") || string.IsNullOrEmpty(fi[1]))
+                        continue;
+
+                    var fix = fi[1].Split(";", StringSplitOptions.RemoveEmptyEntries);
+
+                list.Add(fix[0].Replace("\"", "") + " nvarchar(max)");
+            }
+                fields = string.Join("\n", list).Split("\n");
+        }
+
+                var result = "";
             for (int i = 0; i < fields.Length;i++)
             {
                 while (fields[i].Contains("  "))

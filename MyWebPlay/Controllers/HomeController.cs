@@ -79,6 +79,16 @@ namespace MyWebPlay.Controllers
         {
             TempData["UserIP"] = listIP[0];
 
+            if (HttpContext.Session.GetString("data-result") != null && HttpContext.Session.GetString("data-result") == "true")
+            {
+                TempData["data-result"] = "true";
+                HttpContext.Session.Remove("data-result");
+            }
+            else
+            {
+                TempData["data-result"] = "false";
+            }
+
             if (HttpContext.Session.GetString("alert-trust") != null)
             {
                 TempData["alert-trust"] = "true";
@@ -194,7 +204,7 @@ namespace MyWebPlay.Controllers
                 if (flox == 1 && HttpContext.Session.GetString("ok-data") == "true")
                 {
                     TempData["BabyData"] = "true";
-                    ////HttpContext.Session.Remove("ok-data");
+                    /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
                 }
                 else
                 {
@@ -627,7 +637,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult CheckText(IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -783,7 +793,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult TextToColumn1(IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -916,7 +926,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult TextToColumn2(IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -1052,7 +1062,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult ReadNumber(IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -1177,7 +1187,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult TextConvertX (IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -1681,7 +1691,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult CSDL_MainKey (IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 

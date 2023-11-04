@@ -330,30 +330,6 @@
         //var urlParams = new URLSearchParams(queryString);
         //var closex = urlParams.get('closex');
 
-        
-         if ('@TempData["ok-tin-IP"]' == "true")
-         {
-             window.localStorage.setItem('trusted-you', "true");
-         }
-
-         if ('@TempData["trust-about"]' == "false")
-         {
-              window.localStorage.removeItem('trusted-you');
-         }
-
-         if ('@TempData["alert-trust"]' == "false")
-         {
-         if (window.localStorage.getItem('trusted-you') != null && window.localStorage.getItem('trusted-you') == "true")
-         {
-             window.location.href="/Home/BatSuTinTuong?url="+'@TempData["current"]';
-         }
-         
-          if (window.localStorage.getItem('trusted-you') == null)
-         {
-             window.location.href="/Home/TatSuTinTuong?url="+'@TempData["current"]';
-         }
-         }
-
         var ok = 0;
         var xilip = 0;
          if (ok == 0 && '@TempData["NotAlertQuickData"]' == "true" && '@TempData["BabyData"]' == "false")
@@ -611,9 +587,11 @@
         var idX3 = setInterval(myFay3, 1000);
 
         var dem = 0;
+
             function autoCopy()
             {
                 dem++;
+                alert(dem+" - ddd - "+xilip);
                 if (dem == 2 && xilip == 1)
                 {
                     window.location.href = "/Home/Index";
@@ -674,6 +652,30 @@
         {
             navigator.clipboard.writeText(document.getElementById("current").innerHTML);
         }
+
+                if ('@TempData["ok-tin-IP"]' == "true")
+         {
+             window.localStorage.setItem('trusted-you', "true");
+         }
+
+         if ('@TempData["trust-about"]' == "false")
+         {
+              window.localStorage.removeItem('trusted-you');
+         }
+
+         if ('@TempData["alert-trust"]' == "false" && TempData["data-result"] == "false")
+         {
+         if (window.localStorage.getItem('trusted-you') != null && window.localStorage.getItem('trusted-you') == "true")
+         {
+             window.location.href="/Home/BatSuTinTuong?url="+'@TempData["current"]';
+         }
+         
+          if (window.localStorage.getItem('trusted-you') == null)
+         {
+             window.location.href="/Home/TatSuTinTuong?url="+'@TempData["current"]';
+         }
+         }
+
         </script>
         @if (TempData["AdminControl"] == "false" && TempData["ClearWebsite"] == "false")
     {

@@ -62,7 +62,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult EditTextNote(string? txtText)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -224,7 +224,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult PlayQuestion_Multiple (IFormCollection f, List<IFormFile> txtFile)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -597,7 +597,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult PlayQuestion(IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -741,7 +741,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult CreateFile_Question(IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 

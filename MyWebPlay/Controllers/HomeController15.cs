@@ -31,7 +31,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult FindValueCheckInSQL(IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -208,7 +208,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult FindCompareValueInSQL(IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -371,7 +371,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult XuLySQL1(IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -475,7 +475,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult XuLySQL2(IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -622,7 +622,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult XuLySQL3(IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -719,7 +719,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult XuLyCode9(IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -870,7 +870,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult XuLySQL4(IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 

@@ -28,7 +28,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult String_Reverse(IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -139,7 +139,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult String_Reverse2(IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -252,7 +252,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult Special_OrderBy(IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 

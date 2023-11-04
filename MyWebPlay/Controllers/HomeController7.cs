@@ -123,7 +123,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult BangChanTri(IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 

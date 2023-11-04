@@ -112,7 +112,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public async Task<ActionResult> UploadFile(List<IFormFile> fileUpload, List<IFormFile> fileUploadX, List<string> TenFile, IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 

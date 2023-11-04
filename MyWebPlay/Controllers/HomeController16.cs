@@ -29,7 +29,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult XuLySQL5(IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -130,7 +130,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult XuLySQL6(IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -231,7 +231,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult XuLySQL7 (IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -410,7 +410,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult XuLySQL8(IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -518,7 +518,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult XuLySQL10(IFormCollection f)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -700,7 +700,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult GetColorAtPicture(IFormFile txtFile)
         {
-            //HttpContext.Session.Remove("ok-data");
+            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 

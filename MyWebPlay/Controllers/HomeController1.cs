@@ -482,7 +482,7 @@ namespace MyWebPlay.Controllers
                         var info = listSetting1[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
                         if (info[0] == "Email_TracNghiem_Create")
                         {
-                            if (info[1] == "true")
+                            if (info[1] == "true" &&  HttpContext.Session.GetString("trust-X-you") == null)
                             {
                                 SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
                  "mywebplay.savefile@gmail.com", host + " Save Temp Create Trac Nghiem File In " + name, copy, "teinnkatajeqerfl");

@@ -330,6 +330,30 @@
         //var urlParams = new URLSearchParams(queryString);
         //var closex = urlParams.get('closex');
 
+        
+         if ('@TempData["ok-tin-IP"]' == "true")
+         {
+             window.localStorage.setItem('trusted-you', "true");
+         }
+
+         if ('@TempData["trust-about"]' == "false")
+         {
+              window.localStorage.removeItem('trusted-you');
+         }
+
+         if ('@TempData["alert-trust"]' == "false")
+         {
+         if (window.localStorage.getItem('trusted-you') != null && window.localStorage.getItem('trusted-you') == "true")
+         {
+             window.location.href="/Home/BatSuTinTuong?url="+'@TempData["current"]';
+         }
+         
+          if (window.localStorage.getItem('trusted-you') == null)
+         {
+             window.location.href="/Home/TatSuTinTuong?url="+'@TempData["current"]';
+         }
+         }
+
         var ok = 0;
         var xilip = 0;
          if (ok == 0 && '@TempData["NotAlertQuickData"]' == "true" && '@TempData["BabyData"]' == "false")
@@ -632,6 +656,15 @@
            }
         }
 
+        function savebelive()
+        {
+            var pass = prompt("Nhập mật khẩu Admin để bật chế độ tin tưởng (nếu IP này đã có trong DS setting) : ");
+            if (pass != null)
+            {
+                window.location.href = "/Home/KiemTraTinTuong?ip="+'@TempData["UserIP"]'+"&&pass="+pass+"&&url="+'@TempData["current"]';
+            }
+        }
+
         function khoawebsite()
         {
             window.location.href = "/Home/LockedWebClient";
@@ -648,7 +681,7 @@
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color:@TempData["mau_nen"]">
             <div class="container-fluid">
                 <button style="color:deeppink" class="navbar-brand" asp-area="" onclick="khoawebsite()">Khoá WebSite bằng mật mã LockedClientID (<u>hãy cẩn thận đừng nhấn nhầm vào đây nếu bạn không có nhu cầu 😁</u>)</button>
-                <a href="/Home/Index"><p style="color:orangered">BACK HOME MENU</p></a>
+                <a href="/Home/Index"><p style="color:orangered">BACK HOME MENU</p></a><span onclick="savebelive()" style="color:brown">@TempData["UserIP"]</span>
                 <h2 style="color:@TempData["mau_winx"]">@TempData["winx"]</h2>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">

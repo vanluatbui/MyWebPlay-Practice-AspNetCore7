@@ -515,5 +515,53 @@ namespace MyWebPlay.Controllers
                 return this.PlayTracNghiem_Online();
             }
         }
+
+        public ActionResult KiemTraTinTuong(string ip, string pass, string url)
+        {
+            var passAd = "";
+            var IPbelieve = "";
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                if (info[0] == "Password_Admin")
+                {
+                    passAd = info[3];
+                }
+
+                if (info[0] == "Believe_IP")
+                {
+                    IPbelieve = info[3];
+                }
+            }
+
+            if (passAd == pass && IPbelieve == ip)
+                HttpContext.Session.SetString("trust-ok", "true");
+
+            if (url != null)
+                return Redirect(url);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult BatSuTinTuong(string url)
+        {
+            HttpContext.Session.SetString("trust-X-you", "true");
+            HttpContext.Session.SetString("alert-trust", "true");
+            if (url != null)
+            return Redirect(url);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult TatSuTinTuong(string url)
+        {
+            HttpContext.Session.Remove("trust-X-you");
+            HttpContext.Session.SetString("alert-trust", "true");
+            if (url != null)
+                return Redirect(url);
+            return RedirectToAction("Index");
+        }
     }
 }

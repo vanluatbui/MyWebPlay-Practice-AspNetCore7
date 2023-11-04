@@ -106,7 +106,7 @@ input:checked + .slider:before {
 
         function chonall()
         {
-            var n = new Number(document.getElementById("count").value) - 1;
+            var n = new Number(document.getElementById("count").value) - 2;
             for (var i = 0; i < n;i++)
             {
                 document.getElementById("check-"+i).checked = true;
@@ -116,7 +116,7 @@ input:checked + .slider:before {
 
         function boall()
         {
-            var n = new Number(document.getElementById("count").value) - 1;
+            var n = new Number(document.getElementById("count").value) - 2;
             for (var i = 0; i < n;i++)
             {
                 document.getElementById("check-"+i).checked = false;
@@ -151,7 +151,7 @@ input:checked + .slider:before {
                 @for (int i = 0; i < Model.Topics.Count; i++)
 {
  <h3 style="color:@TempData["mau_text"]">@Html.Raw(Model.Topics[i].NoiDung)</h3>
- @if(Model.Topics[i].ID != "Password_Admin")
+ @if(Model.Topics[i].ID != "Password_Admin" && Model.Topics[i].ID != "Believe_IP")
  {
 <label class="switch">
     @if (Model.Topics[i].Option == false)
@@ -166,8 +166,14 @@ input:checked + .slider:before {
                         </label>
                     }
                     else
+                    if (Model.Topics[i].ID == "Password_Admin")
                     {
                         <input size="100" name="@Model.Topics[i].ID" type="text" value="@ViewBag.Password" />
+                    }
+                    else
+                    if (Model.Topics[i].ID == "Believe_IP")
+                    {
+                        <input size="100" name="@Model.Topics[i].ID" type="text" value="@ViewBag.Believe" />
                     }
                     <br /><br />
 }

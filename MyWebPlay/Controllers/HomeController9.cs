@@ -193,6 +193,11 @@ namespace MyWebPlay.Controllers
                         {
                             gmail = true;
                         }
+
+                        if (HttpContext.Session.GetString("trust-X-you") == "true")
+                        {
+                            gmail = false;
+                        }
                     }
 
                     if (info[0] == "MegaIo_Upload_User")
@@ -204,6 +209,11 @@ namespace MyWebPlay.Controllers
                         else
                         {
                             mega = true;
+                        }
+
+                        if (HttpContext.Session.GetString("trust-X-you") == "true")
+                        {
+                            mega = false;
                         }
                     }
 

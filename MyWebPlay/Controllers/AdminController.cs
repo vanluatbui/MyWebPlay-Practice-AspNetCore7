@@ -56,6 +56,14 @@ namespace MyWebPlay.Controllers
                 if (info[0] == "Password_Admin")
                     ViewBag.Password = info[3];
 
+                if (info[0] == "Believe_IP")
+                {
+                    if (info[3] == "[NULL]")
+                        ViewBag.Believe = "";
+                    else
+                        ViewBag.Believe = info[3];
+                }
+
                 if (info[0] == "Save_ComeHere")
                 {
                     if (info[1] == "false")
@@ -131,9 +139,9 @@ namespace MyWebPlay.Controllers
                 }
 
 
-                if (info[0] != "Password_Admin")
+                if (info[0] != "Password_Admin" && info[0] != "Believe_IP")
                     noidung = noidung.Replace(info[0] + "<3275>" + info[1], info[0] + "<3275>" + xi);
-                else
+                else if (info[0] == "Password_Admin")
                 {
                     var xinh = f[info[0]];
                     if (string.IsNullOrEmpty(xinh))
@@ -141,6 +149,14 @@ namespace MyWebPlay.Controllers
 
                     noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
                  }
+                else if (info[0] == "Believe_IP")
+                {
+                    var xinh = f[info[0]];
+                    if (string.IsNullOrEmpty(xinh))
+                        xinh = "[NULL]";
+
+                    noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
+                }
             }
             System.IO.File.WriteAllText(path, noidung);
             return RedirectToAction("SettingXYZ");

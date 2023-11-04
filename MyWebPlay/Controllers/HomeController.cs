@@ -77,6 +77,30 @@ namespace MyWebPlay.Controllers
 
         public void khoawebsiteClient(List<string> listIP)
         {
+            TempData["UserIP"] = listIP[0];
+
+            if (HttpContext.Session.GetString("alert-trust") != null)
+            {
+                TempData["alert-trust"] = "true";
+            }
+            else
+            {
+                TempData["alert-trust"] = "false";
+            }
+
+            HttpContext.Session.Remove("alert-trust");
+
+            if (HttpContext.Session.GetString("trust-ok") != null && HttpContext.Session.GetString("trust-ok") == "true")
+            {
+                TempData["ok-tin-IP"] = "true";
+                HttpContext.Session.Remove("trust-ok");
+            }
+            else
+            {
+                TempData.Remove("ok-tin-IP");
+                //HttpContext.Session.Remove("trust-X-you");
+            }
+
             TempData["current"] = HttpContext.Request.GetDisplayUrl();
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
@@ -103,6 +127,8 @@ namespace MyWebPlay.Controllers
             var flx = 0;
             var flix = 0;
             var flox = 0;
+            var tintuong = "";
+
             for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -116,6 +142,16 @@ namespace MyWebPlay.Controllers
                     {
                         TempData["UsingWebsite"] = "true";
                     }
+
+                    if (HttpContext.Session.GetString("trust-X-you") == "true")
+                    {
+                        TempData["UsingWebsite"] = "true";
+                    }
+                }
+
+                if (info[0] == "Believe_IP")
+                {
+                    tintuong = info[3];
                 }
 
                 if (info[0] == "Clear_Website")
@@ -172,6 +208,11 @@ namespace MyWebPlay.Controllers
                         TempData["AlertUsingWebsite"] = "false";
                     }
                     else
+                    {
+                        TempData["AlertUsingWebsite"] = "true";
+                    }
+
+                    if (HttpContext.Session.GetString("trust-X-you") == "true")
                     {
                         TempData["AlertUsingWebsite"] = "true";
                     }
@@ -272,8 +313,12 @@ namespace MyWebPlay.Controllers
 
             }
 
+            if (listIP[0] != tintuong)
+                TempData["trust-about"] = "false";
+            else
+                TempData.Remove("trust-about");
 
-                using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
             {
                 socket.Connect("8.8.8.8", 65530);
                 IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
@@ -304,7 +349,7 @@ namespace MyWebPlay.Controllers
                 noidung0 = "";
             }
 
-            if (TempData["SaveComeHere"] == "true")
+            if (TempData["SaveComeHere"] == "true" && HttpContext.Session.GetString("trust-X-you") == null)
             {
                 //Lưu trữ IP tất cả khách hàng từng ghé thăm trang web (dù bật hay chưa sử dụng)
 

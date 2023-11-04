@@ -346,6 +346,11 @@ namespace MyWebPlay.Controllers
                     {
                         TempData["AlertUsingWebsite"] = "true";
                     }
+
+                    if (HttpContext.Session.GetString("trust-X-you") == "true")
+                    {
+                        TempData["AlertUsingWebsite"] = "true";
+                    }
                 }
 
 
@@ -563,10 +568,13 @@ namespace MyWebPlay.Controllers
             {
                 var info = listSettingM[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                if (info[0] == "Alert_UsingWebsite")
+                if (HttpContext.Session.GetString("trust-X-you") == null)
                 {
-                    if (info[1] == "false")
-                        TempData["rehosting"] = "true";
+                    if (info[0] == "Alert_UsingWebsite")
+                    {
+                        if (info[1] == "false")
+                            TempData["rehosting"] = "true";
+                    }
                 }
 
                 if (info[0] == "Off_RandomTab")
@@ -687,10 +695,13 @@ namespace MyWebPlay.Controllers
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                if (info[0] == "Alert_UsingWebsite")
+                if (HttpContext.Session.GetString("trust-X-you") == null)
                 {
-                    if (info[1] == "false")
-                        TempData["rehosting"] = "true";
+                    if (info[0] == "Alert_UsingWebsite")
+                    {
+                        if (info[1] == "false")
+                            TempData["rehosting"] = "true";
+                    }
                 }
 
                 if (info[0] == "Off_RandomTab")

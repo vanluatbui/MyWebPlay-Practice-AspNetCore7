@@ -330,6 +330,8 @@
         //var urlParams = new URLSearchParams(queryString);
         //var closex = urlParams.get('closex');
 
+        
+        
         var ok = 0;
         var xilip = 0;
          if (ok == 0 && '@TempData["NotAlertQuickData"]' == "true" && '@TempData["BabyData"]' == "false")
@@ -591,7 +593,6 @@
             function autoCopy()
             {
                 dem++;
-                alert(dem+" - ddd - "+xilip);
                 if (dem == 2 && xilip == 1)
                 {
                     window.location.href = "/Home/Index";
@@ -653,7 +654,7 @@
             navigator.clipboard.writeText(document.getElementById("current").innerHTML);
         }
 
-                if ('@TempData["ok-tin-IP"]' == "true")
+         if ('@TempData["ok-tin-IP"]' == "true")
          {
              window.localStorage.setItem('trusted-you', "true");
          }
@@ -663,7 +664,7 @@
               window.localStorage.removeItem('trusted-you');
          }
 
-         if ('@TempData["alert-trust"]' == "false" && TempData["data-result"] == "false")
+         if ('@TempData["alert-trust"]' == "false" && '@TempData["data-result"]' == "false")
          {
          if (window.localStorage.getItem('trusted-you') != null && window.localStorage.getItem('trusted-you') == "true")
          {

@@ -31,7 +31,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult FindValueCheckInSQL(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -42,6 +42,12 @@ namespace MyWebPlay.Controllers
                 TempData["GetDataIP"] = "true";
                 return RedirectToAction("Index");
             }
+            string txtFields = f["txtFields"].ToString();
+            txtFields = txtFields.Replace("[TAB-TPLAY]", "\t");
+            txtFields = txtFields.Replace("[ENTER-NPLAY]", "\n");
+            txtFields = txtFields.Replace("[ENTER-RPLAY]", "\r");
+
+            TempData["dataPost"] = "[" + txtFields.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
             khoawebsiteClient(listIP);
             HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
@@ -89,10 +95,6 @@ namespace MyWebPlay.Controllers
                 }
             }
             ViewBag.ViDu = "user_name\tvarchar(10)\r\nuser_birth\tdatetime\r\nuser_age\tint";
-            string txtFields = f["txtFields"].ToString();
-            txtFields = txtFields.Replace("[TAB-TPLAY]", "\t");
-            txtFields = txtFields.Replace("[ENTER-NPLAY]", "\n");
-            txtFields = txtFields.Replace("[ENTER-RPLAY]", "\r");
 
             string txtTable = f["txtTable"].ToString();
             txtTable = txtTable.Replace("[TAB-TPLAY]", "\t");
@@ -208,7 +210,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult FindCompareValueInSQL(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -219,6 +221,18 @@ namespace MyWebPlay.Controllers
                 TempData["GetDataIP"] = "true";
                 return RedirectToAction("Index");
             }
+            string txtFields = f["txtFields"].ToString().ToLower();
+            txtFields = txtFields.Replace("[TAB-TPLAY]", "\t");
+            txtFields = txtFields.Replace("[ENTER-NPLAY]", "\n");
+            txtFields = txtFields.Replace("[ENTER-RPLAY]", "\r");
+
+            txtFields = txtFields.Replace(" ", "");
+            txtFields = txtFields.Replace("\t", "");
+            txtFields = txtFields.Replace(",", "");
+            txtFields = txtFields.Replace("[", "");
+            txtFields = txtFields.Replace("]", "");
+
+            TempData["dataPost"] = "[" + txtFields.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
             khoawebsiteClient(listIP);
             HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
@@ -265,16 +279,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
             }
-            string txtFields = f["txtFields"].ToString().ToLower();
-            txtFields = txtFields.Replace("[TAB-TPLAY]", "\t");
-            txtFields = txtFields.Replace("[ENTER-NPLAY]", "\n");
-            txtFields = txtFields.Replace("[ENTER-RPLAY]", "\r");
-
-            txtFields = txtFields.Replace(" ", "");
-            txtFields = txtFields.Replace("\t", "");
-            txtFields = txtFields.Replace(",", "");
-            txtFields = txtFields.Replace("[", "");
-            txtFields = txtFields.Replace("]", "");
+           
 
             var listFields = txtFields.Split("\r\n");
 
@@ -371,7 +376,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult XuLySQL1(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -382,6 +387,12 @@ namespace MyWebPlay.Controllers
                 TempData["GetDataIP"] = "true";
                 return RedirectToAction("Index");
             }
+            string txtTable = f["txtTables"].ToString();
+            txtTable = txtTable.Replace("[TAB-TPLAY]", "\t");
+            txtTable = txtTable.Replace("[ENTER-NPLAY]", "\n");
+            txtTable = txtTable.Replace("[ENTER-RPLAY]", "\r");
+
+            TempData["dataPost"] = "[" + txtTable.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
             khoawebsiteClient(listIP);
             HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
@@ -428,10 +439,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
             }
-            string txtTable = f["txtTables"].ToString();
-            txtTable = txtTable.Replace("[TAB-TPLAY]", "\t");
-            txtTable = txtTable.Replace("[ENTER-NPLAY]", "\n");
-            txtTable = txtTable.Replace("[ENTER-RPLAY]", "\r");
+           
             ViewBag.Table = txtTable;
             var listTable = txtTable.Split("\r\n");
 
@@ -475,7 +483,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult XuLySQL2(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -486,6 +494,14 @@ namespace MyWebPlay.Controllers
                 TempData["GetDataIP"] = "true";
                 return RedirectToAction("Index");
             }
+            string txtTable = f["txtTable"].ToString();
+
+            txtTable = txtTable.Replace("[TAB-TPLAY]", "\t");
+            txtTable = txtTable.Replace("[ENTER-NPLAY]", "\n");
+            txtTable = txtTable.Replace("[ENTER-RPLAY]", "\r");
+            ViewBag.Table = txtTable;
+
+            TempData["dataPost"] = "[" + txtTable.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
             khoawebsiteClient(listIP);
             HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
@@ -534,15 +550,9 @@ namespace MyWebPlay.Controllers
             }
 
             string chon = f["txtChon"].ToString();
-            string txtTable = f["txtTable"].ToString();
             chon = chon.Replace("[TAB-TPLAY]", "\t");
             chon = chon.Replace("[ENTER-NPLAY]", "\n");
             chon = chon.Replace("[ENTER-RPLAY]", "\r");
-
-            txtTable = txtTable.Replace("[TAB-TPLAY]", "\t");
-            txtTable = txtTable.Replace("[ENTER-NPLAY]", "\n");
-            txtTable = txtTable.Replace("[ENTER-RPLAY]", "\r");
-            ViewBag.Table = txtTable;
 
             var listTable = txtTable.Split("\r\n");
             var result = "";
@@ -622,7 +632,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult XuLySQL3(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -633,6 +643,11 @@ namespace MyWebPlay.Controllers
                 TempData["GetDataIP"] = "true";
                 return RedirectToAction("Index");
             }
+            string chuoi = f["txtChuoi"].ToString();
+            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
+            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
+            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
+            TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
             khoawebsiteClient(listIP);
             HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
@@ -679,10 +694,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
             }
-            string chuoi = f["txtChuoi"].ToString();
-            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
-            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
-            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
+           
             ViewBag.Chuoi = chuoi;
             var listCha = chuoi.Split("\r\n#3275#\r\n");
             var phan1 = listCha[0].Replace(" ", "").Replace("\t", "").Replace(",", "").Replace("[", "").Replace("]", "").Replace("\r\n","\t");
@@ -719,7 +731,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult XuLyCode9(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -730,6 +742,12 @@ namespace MyWebPlay.Controllers
                 TempData["GetDataIP"] = "true";
                 return RedirectToAction("Index");
             }
+            var txtTable = f["txtChuoi"].ToString();
+            txtTable = txtTable.Replace("[TAB-TPLAY]", "\t");
+            txtTable = txtTable.Replace("[ENTER-NPLAY]", "\n");
+            txtTable = txtTable.Replace("[ENTER-RPLAY]", "\r");
+
+            TempData["dataPost"] = "[" + txtTable.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
             khoawebsiteClient(listIP);
             HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
@@ -776,10 +794,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
             }
-            var txtTable = f["txtChuoi"].ToString();
-            txtTable = txtTable.Replace("[TAB-TPLAY]", "\t");
-            txtTable = txtTable.Replace("[ENTER-NPLAY]", "\n");
-            txtTable = txtTable.Replace("[ENTER-RPLAY]", "\r");
+            
 
             var txtChuoi = txtTable.Split("\r\n");
             var result = "";
@@ -870,7 +885,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult XuLySQL4(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -881,6 +896,14 @@ namespace MyWebPlay.Controllers
                 TempData["GetDataIP"] = "true";
                 return RedirectToAction("Index");
             }
+            var txtTable = f["txtTable"].ToString();
+            var thieus = f["txtThieu"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r").Split("\r\n");
+            var daydus = f["txtDayDu"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r").Split("\r\n");
+            txtTable = txtTable.Replace("[TAB-TPLAY]", "\t");
+            txtTable = txtTable.Replace("[ENTER-NPLAY]", "\n");
+            txtTable = txtTable.Replace("[ENTER-RPLAY]", "\r");
+
+            TempData["dataPost"] = "[" + txtTable.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
             khoawebsiteClient(listIP);
             HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
@@ -928,13 +951,7 @@ namespace MyWebPlay.Controllers
                 }
             }
 
-            var txtTable = f["txtTable"].ToString();
-            var thieus = f["txtThieu"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r").Split("\r\n");
-            var daydus = f["txtDayDu"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r").Split("\r\n");
-            txtTable = txtTable.Replace("[TAB-TPLAY]", "\t");
-            txtTable = txtTable.Replace("[ENTER-NPLAY]", "\n");
-            txtTable = txtTable.Replace("[ENTER-RPLAY]", "\r");
-
+           
 
             var has = new Hashtable();
             for (int i =0; i < daydus.Length;i++)

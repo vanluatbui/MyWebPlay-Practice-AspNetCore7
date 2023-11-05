@@ -44,7 +44,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult PlayKaraoke(IFormCollection f, IFormFile txtKaraoke, IFormFile txtMusic, IFormFile txtMusix)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -221,7 +221,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult CreateFile_Karaoke(IFormFile txtMusic, IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -314,7 +314,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult PlayCreateFile_Karaoke(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -512,7 +512,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult PlayKaraokeX (IFormCollection f, IFormFile txtKaraoke, IFormFile txtMusic, IFormFile txtMusix)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 

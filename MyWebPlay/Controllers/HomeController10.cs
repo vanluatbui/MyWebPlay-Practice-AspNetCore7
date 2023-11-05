@@ -58,7 +58,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult TracNghiem(IFormCollection f, IFormFile txtFile)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -398,7 +398,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult PlayTracNghiem(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["online_null"] = null;
 
             Calendar xi = CultureInfo.InvariantCulture.Calendar;

@@ -31,7 +31,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult SQL_InsertDoc(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -42,6 +42,9 @@ namespace MyWebPlay.Controllers
                 TempData["GetDataIP"] = "true";
                 return RedirectToAction("Index");
             }
+            string dulieu = f["DuLieu"].ToString();
+
+            TempData["dataPost"] = "[" + dulieu.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
             khoawebsiteClient(listIP);
             HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
@@ -92,7 +95,6 @@ namespace MyWebPlay.Controllers
             ViewBag.VD = "SV001\tMyWebPlay Asp Net Core\t10\t20/06/2000\r\nSV002\tNguyễn Văn Đạt\t9.5\t15/08/2001\r\nSV003\tTrần Chí Khôi\t2.5\t29/07/1990\r\nSV004\tLê Tuấn Kiệt\t9.2\t05/12/1995\r\nSV005\tĐào Vũ Hạnh\t4.8\t28/03/1992";
             string table = f["Table"].ToString();
             string trangthai = f["TrangThai"].ToString();
-            string dulieu = f["DuLieu"].ToString();
 
             if (string.IsNullOrEmpty(table))
             {
@@ -199,7 +201,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult JSON_InsertDoc(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -210,6 +212,12 @@ namespace MyWebPlay.Controllers
                 TempData["GetDataIP"] = "true";
                 return RedirectToAction("Index");
             }
+            string dulieu = f["DuLieu"].ToString();
+            dulieu = dulieu.Replace("[TAB-TPLAY]", "\t");
+            dulieu = dulieu.Replace("[ENTER-NPLAY]", "\n");
+            dulieu = dulieu.Replace("[ENTER-RPLAY]", "\r");
+
+            TempData["dataPost"] = "[" + dulieu.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
             khoawebsiteClient(listIP);
             HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
@@ -259,7 +267,7 @@ namespace MyWebPlay.Controllers
 
             ViewBag.VD = "SV001\tMyWebPlay Asp Net Core\t10\t20/06/2000\r\nSV002\tNguyễn Văn Đạt\t9.5\t15/08/2001\r\nSV003\tTrần Chí Khôi\t2.5\t29/07/1990\r\nSV004\tLê Tuấn Kiệt\t9.2\t05/12/1995\r\nSV005\tĐào Vũ Hạnh\t4.8\t28/03/1992";
             string trangthai = f["TrangThai"].ToString();
-            string dulieu = f["DuLieu"].ToString();
+           
 
             if (string.IsNullOrEmpty(trangthai))
             {
@@ -276,10 +284,6 @@ namespace MyWebPlay.Controllers
             trangthai = trangthai.Replace("[TAB-TPLAY]", "\t");
             trangthai = trangthai.Replace("[ENTER-NPLAY]", "\n");
             trangthai = trangthai.Replace("[ENTER-RPLAY]", "\r");
-
-            dulieu = dulieu.Replace("[TAB-TPLAY]", "\t");
-            dulieu = dulieu.Replace("[ENTER-NPLAY]", "\n");
-            dulieu = dulieu.Replace("[ENTER-RPLAY]", "\r");
 
             string[] ds_trangthai = trangthai.Split(",");
 

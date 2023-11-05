@@ -69,7 +69,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult TracNghiem_Multiple(IFormCollection f, List<IFormFile> txtFile)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -427,7 +427,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult TracNghiemX_Multiple(IFormCollection f, List<IFormFile> txtFile)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 

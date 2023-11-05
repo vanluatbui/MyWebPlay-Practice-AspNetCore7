@@ -26,7 +26,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult String_Split_Regex(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -37,6 +37,12 @@ namespace MyWebPlay.Controllers
                 TempData["GetDataIP"] = "true";
                 return RedirectToAction("Index");
             }
+            string chuoi = f["Chuoi"].ToString();
+            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
+            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
+            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
+
+            TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
             khoawebsiteClient(listIP);
             HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
@@ -83,17 +89,12 @@ namespace MyWebPlay.Controllers
                     }
                 }
             }
-            string chuoi = f["Chuoi"].ToString();
 
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi1"] = "Trường này không được để trống!";
                 return this.String_Split_Regex();
             }
-
-            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
-            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
-            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
 
             string dukien1 = f["DuKien1"].ToString();
             dukien1 = dukien1.Replace("[TAB-TPLAY]", "\t");
@@ -257,7 +258,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult Check_Regex(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -268,6 +269,12 @@ namespace MyWebPlay.Controllers
                 TempData["GetDataIP"] = "true";
                 return RedirectToAction("Index");
             }
+            string chuoi = f["Chuoi"].ToString();
+            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
+            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
+            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
+
+            TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
             khoawebsiteClient(listIP);
             HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
@@ -314,15 +321,13 @@ namespace MyWebPlay.Controllers
                     }
                 }
             }
-            string chuoi = f["Chuoi"].ToString();
+
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi1"] = "Trường này không được để trống!";
                 return this.Check_Regex();
             }
-            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
-            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
-            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
+           
 
             string pattern = f["Pattern"].ToString();
             pattern = pattern.Replace("[TAB-TPLAY]", "\t");

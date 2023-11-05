@@ -27,7 +27,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult SpecialX_OrderBy(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -38,6 +38,11 @@ namespace MyWebPlay.Controllers
                 TempData["GetDataIP"] = "true";
                 return RedirectToAction("Index");
             }
+            string chuoi = f["Chuoi"].ToString();
+            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
+            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
+            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
+            TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
             khoawebsiteClient(listIP);
             HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
@@ -86,10 +91,7 @@ namespace MyWebPlay.Controllers
             }
             ViewBag.ChuoiViDu = "1\tBùi Nguyễn Tú Dương\t01/01/2000\r\n2\tNguyễn Thị Xuân Hoài Anh\t02/01/2000\r\n3\tLê Trần Anh Huy\t03/01/2000\r\n4\tMyWebPlay Asp Net Core\t04/01/2000\r\n5\tLê Đức Anh\t05/01/2000\r\n6\tLê Anh Huy\t06/01/2000\r\n7\tLê Gia Khiêm\t07/01/2000\r\n8\tPhạm Lưu Văn Sang\t08/01/2000\r\n9\tLê Thảo Lâm\t09/01/2000\r\n10\tLý Ngọc Thảo\t10/01/2000\r\n11\tTrần Tú Anh\t11/01/2000\r\n12\tNguyễn Tấn Lộc\t12/01/2000\r\n13\tLê Ngọc Thảo\t13/01/2000\r\n14\tLê Minh Tuấn Anh\t14/01/2000\r\n15\tLê Xuân Thảo\t15/01/2000\r\n16\tPhạm Ngọc Hoài Anh\t16/01/2000\r\n17\tNguyễn Đại Lộc\t17/01/2000\r\n18\tTrần Đức Lộc\t18/01/2000\r\n19\tPhạm Đức Anh\t19/01/2000\r\n20\tPhạm Hoàng Lan\t20/01/2000\r\n21\tTrần Ngọc Khánh Xuân\t21/01/2000\r\n22\tĐỗ Tấn Huệ\t22/01/2000\r\n23\tKim Đức Anh\t23/01/2000\r\n24\tPhạm Hoàng Lan Anh\t24/01/2000\r\n25\tPhạm Thị Mỹ Linh\t25/01/2000\r\n26\tTrần Ngọc Lê Hoài Anh\t26/01/2000\r\n27\tTrần Ngọc Hoài Anh\t27/01/2000\r\n28\tPhạm Ngọc Hải Yến\t28/01/2000\r\n29\tTrần Ngọc Duy Anh\t29/01/2000\r\n30\tLê Tú Anh\t30/01/2000\r\n31\tTrần Xuân Anh\t31/01/2000\r\n32\tNguyễn Phạm Lê Hoài Anh\t01/02/2000\r\n33\tDương Thảo Lâm\t02/02/2000\r\n34\tPhạm Bình Hoài Anh\t03/02/2000\r\n35\tBùi Ngọc Tú\t04/02/2000\r\n36\tLê Anh Hào\t05/02/2000\r\n37\tPhạm Xuân Anh\t06/02/2000\r\n38\tTrần Phương Thảo\t07/02/2000";
 
-            string chuoi = f["Chuoi"].ToString();
-            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
-            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
-            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
+
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi1"] = "Trường này không được để trống!";
@@ -353,7 +355,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult Euler_X(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -364,6 +366,11 @@ namespace MyWebPlay.Controllers
                 TempData["GetDataIP"] = "true";
                 return RedirectToAction("Index");
             }
+            string chuoi = f["Chuoi"].ToString();
+            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
+            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
+            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
+            TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
             khoawebsiteClient(listIP);
             HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
@@ -411,10 +418,6 @@ namespace MyWebPlay.Controllers
                 }
             }
 
-            string chuoi = f["Chuoi"].ToString();
-            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
-            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
-            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi"] = "Trường này không được để trống!";

@@ -664,7 +664,7 @@
               window.localStorage.removeItem('trusted-you');
          }
 
-         if ('@TempData["alert-trust"]' == "false" && '@TempData["data-result"]' == "false")
+         if ('@TempData["alert-trust"]' == "false" && '@TempData["data-result"]' == "false" && '@TempData["directURL"]' == "false")
          {
          if (window.localStorage.getItem('trusted-you') != null && window.localStorage.getItem('trusted-you') == "true")
          {
@@ -701,6 +701,7 @@
            <a href="#xuly" onclick="copyCurrent()"><h4 id="current" style="color:orangered">@TempData["current"]</h4></a>
                <br />
     }
+
             @if(TempData["ClearWebsite"] == "false" || TempData["ClearWebsite"] == null)
             {
            @if (TempData["GetDataIP"] == "true")

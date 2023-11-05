@@ -27,7 +27,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult SQL_CreateTable(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -38,6 +38,9 @@ namespace MyWebPlay.Controllers
                 TempData["GetDataIP"] = "true";
                 return RedirectToAction("Index");
             }
+            string dulieu = f["DuLieu"].ToString();
+
+            TempData["dataPost"] = "[" + dulieu.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
             khoawebsiteClient(listIP);
             HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
@@ -87,7 +90,7 @@ namespace MyWebPlay.Controllers
 
             string tableX = f["Table"].ToString();
             string key = f["Key"].ToString();
-            string dulieu = f["DuLieu"].ToString();
+           
 
             if (string.IsNullOrEmpty(tableX))
             {
@@ -266,7 +269,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult Cxap_CreateClass(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -277,6 +280,9 @@ namespace MyWebPlay.Controllers
                 TempData["GetDataIP"] = "true";
                 return RedirectToAction("Index");
             }
+            string dulieu = f["DuLieu"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r");
+
+            TempData["dataPost"] = "[" + dulieu.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
             khoawebsiteClient(listIP);
             HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
@@ -325,8 +331,7 @@ namespace MyWebPlay.Controllers
             }
 
             string tenclass = f["TenClass"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r");
-            string dulieu = f["DuLieu"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r");
-
+            
             if (string.IsNullOrEmpty(tenclass))
             {
                 ViewData["Loi2"] = "Trường này không được để trống!";
@@ -454,7 +459,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult Cxap_InsertValueClass (IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -465,6 +470,9 @@ namespace MyWebPlay.Controllers
                 TempData["GetDataIP"] = "true";
                 return RedirectToAction("Index");
             }
+            string dulieu = f["DuLieu"].ToString();
+
+            TempData["dataPost"] = "[" + dulieu.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
             khoawebsiteClient(listIP);
             HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
@@ -513,7 +521,7 @@ namespace MyWebPlay.Controllers
             }
 
             string tenclass = f["TenClass"].ToString();
-            string dulieu = f["DuLieu"].ToString();
+            
 
             string dukien1 = f["DuKien1"].ToString();
             string dukien2 = f["DuKien2"].ToString();

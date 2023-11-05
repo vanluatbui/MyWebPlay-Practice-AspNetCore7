@@ -123,7 +123,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult BangChanTri(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -134,6 +134,16 @@ namespace MyWebPlay.Controllers
                 TempData["GetDataIP"] = "true";
                 return RedirectToAction("Index");
             }
+            string chuoi = f["Chuoi"].ToString();
+            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
+            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
+            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
+            chuoi = chuoi.Replace("[PHU]", "#");
+            chuoi = chuoi.Replace("[HOI]", "Λ");
+            chuoi = chuoi.Replace("[TUYEN]", "∨");
+            chuoi = chuoi.Replace("[KEOTHEO]", "→");
+            chuoi = chuoi.Replace("[TUONGDUONG]", "⇔");
+            TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
             khoawebsiteClient(listIP);
             HttpContext.Session.Remove("ok-data");
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
@@ -191,21 +201,13 @@ namespace MyWebPlay.Controllers
                 return this.BangChanTri();
             }
 
-            string chuoi = f["Chuoi"].ToString();
-            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
-            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
-            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
-            chuoi = chuoi.Replace("[PHU]", "#");
-            chuoi = chuoi.Replace("[HOI]", "Λ");
-            chuoi = chuoi.Replace("[TUYEN]", "∨");
-            chuoi = chuoi.Replace("[KEOTHEO]", "→");
-            chuoi = chuoi.Replace("[TUONGDUONG]", "⇔");
-
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi3"] = "Trường này không được để trống!";
                 return this.BangChanTri();
             }
+
+            
 
             string[] bd = bandau.Split('-');
             n1 = bd.Length;

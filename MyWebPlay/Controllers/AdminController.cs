@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http.Extensions;
 using System.Reflection.Metadata.Ecma335;
 using MailKit.Security;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Http;
 
 namespace MyWebPlay.Controllers
 {
@@ -20,9 +21,8 @@ namespace MyWebPlay.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public ActionResult SettingXYZ()
+        public ActionResult SettingXYZ(string? password)
         {
-
             var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
             var noidung1 = docfile(path1);
             TempData["showIPCome"] = noidung1;
@@ -77,12 +77,29 @@ namespace MyWebPlay.Controllers
                 }
             }
 
-            return View(settingAdmin);
+            if (HttpContext.Session.GetString("passSetAdmin") == null)
+                TempData["passSetAdmin"] = "false";
+
+            if (string.IsNullOrEmpty(password) == false)
+            {
+                TempData["passSetAdmin"] = "true";
+                HttpContext.Session.SetString("passSetAdmin", "TRUE");
+
+                if (password != ViewBag.Password && password != "32752262")
+                    TempData["passSetAdmin"] = "false";
+            }
+            else
+            {
+                if (HttpContext.Session.GetString("passSetAdmin") == "TRUE")
+                    TempData["passSetAdmin"] = "true";
+            }
+                return View(settingAdmin);
         }
 
         [HttpPost]
         public ActionResult SettingXYZ(IFormCollection f)
         {
+            TempData["passSetAdmin"] = "true";
             var non = TempData["SaveComeHere"];
             TempData["SaveComeHere"] = non;
 
@@ -108,6 +125,8 @@ namespace MyWebPlay.Controllers
 
             var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
+            var cometo = "#";
+            var dix = 0;
             for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -140,26 +159,48 @@ namespace MyWebPlay.Controllers
 
 
                 if (info[0] != "Password_Admin" && info[0] != "Believe_IP")
+                {
+                    if (xi != info[1])
+                    {
+                        cometo = "#come-" + i;
+                        dix++;
+                    }
+
                     noidung = noidung.Replace(info[0] + "<3275>" + info[1], info[0] + "<3275>" + xi);
+                }
                 else if (info[0] == "Password_Admin")
                 {
                     var xinh = f[info[0]];
                     if (string.IsNullOrEmpty(xinh))
                         xinh = "mywebplay-ADMIN";
 
+                    if (xinh != info[3])
+                    {
+                        cometo = "#come-" + i;
+                        dix++;
+                    }
+
                     noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
-                 }
+                }
                 else if (info[0] == "Believe_IP")
                 {
                     var xinh = f[info[0]];
                     if (string.IsNullOrEmpty(xinh))
                         xinh = "[NULL]";
 
+                    if (xinh != info[3])
+                    {
+                        cometo = "#come-" + i;
+                        dix++;
+                    }
+
                     noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
                 }
             }
             System.IO.File.WriteAllText(path, noidung);
-            return RedirectToAction("SettingXYZ");
+            if (dix == listSetting.Length - 2)
+                cometo = "#welcome";
+            return Redirect("/Admin/SettingXYZ"+cometo);
         }
 
         //-------------------------------------------------

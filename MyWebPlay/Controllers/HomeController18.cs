@@ -229,7 +229,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult PlayTracNghiem_Online(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             var noidung = "";
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);

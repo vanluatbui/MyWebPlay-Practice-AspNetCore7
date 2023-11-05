@@ -112,7 +112,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public async Task<ActionResult> UploadFile(List<IFormFile> fileUpload, List<IFormFile> fileUploadX, List<string> TenFile, IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/HttpContext.Session.SetString("data-result", "true");
+            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -872,6 +872,16 @@ namespace MyWebPlay.Controllers
             }
             khoawebsiteClient(listIP);
 
+                if (HttpContext.Session.GetString("adminDirectURL") != null && HttpContext.Session.GetString("adminDirectURL") == "YES")
+                {
+                    HttpContext.Session.Remove("adminDirectURL");
+                    TempData["directURL"] = "true";
+                }
+                else
+                {
+                    TempData["directURL"] = "false";
+                }
+
             if (sl == null)
                 ViewBag.SL = 0;
 
@@ -1112,6 +1122,7 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
+           
             var passAd = "";
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);

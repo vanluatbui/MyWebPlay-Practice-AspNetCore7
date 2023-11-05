@@ -19,6 +19,7 @@ using System.Runtime.InteropServices;
 using Org.BouncyCastle.Security;
 using MyWebPlay.Model;
 using System.Net.Sockets;
+using Microsoft.AspNetCore.Http;
 
 namespace MyWebPlay.Controllers
 {
@@ -56,7 +57,7 @@ namespace MyWebPlay.Controllers
             return View();
         }
 
-        public ActionResult UploadFile(int? sl = 1, int? name = 0, int? upload =1)
+        public ActionResult UploadFile(string? type, int? sl = 1, int? name = 0, int? upload =1)
         {
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
@@ -69,6 +70,25 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
+
+            if (string.IsNullOrEmpty(type) == false && type.Contains("<splix>"))
+            {
+                var po = type.Split("<splix>");
+                sl = int.Parse(po[0]);
+                name = int.Parse(po[1]);
+                upload = int.Parse(po[2]);
+            }
+
+            if (HttpContext.Session.GetString("adminDirectURL") != null && HttpContext.Session.GetString("adminDirectURL") == "YES")
+            {
+                HttpContext.Session.Remove("adminDirectURL");
+                TempData["directURL"] = "true";
+            }
+            else
+            {
+                TempData["directURL"] = "false";
+            }
+
             if (sl == null) 
                 ViewBag.SL = 0;
 
@@ -861,6 +881,7 @@ namespace MyWebPlay.Controllers
         public ActionResult DownloadFile(int? sl, string? all = "0", string? folder = "")
         {
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+
             var listIP = new List<string>();
 
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
@@ -872,7 +893,14 @@ namespace MyWebPlay.Controllers
             }
             khoawebsiteClient(listIP);
 
-                if (HttpContext.Session.GetString("adminDirectURL") != null && HttpContext.Session.GetString("adminDirectURL") == "YES")
+            if (string.IsNullOrEmpty(folder) == false &&  folder.Contains("<split>"))
+            {
+                var po = folder.Split("<split>", StringSplitOptions.RemoveEmptyEntries);
+                folder = po[0];
+                all = po[1];
+            }
+
+            if (HttpContext.Session.GetString("adminDirectURL") != null && HttpContext.Session.GetString("adminDirectURL") == "YES")
                 {
                     HttpContext.Session.Remove("adminDirectURL");
                     TempData["directURL"] = "true";
@@ -1227,7 +1255,7 @@ namespace MyWebPlay.Controllers
             TempData["Folder"] = ViewBag.Folder;
             TempData["All"] = ViewBag.All;
 
-            return RedirectToAction("DownloadFile",new { all = ViewBag.All, folder = ViewBag.Folder });
+            return RedirectToAction("DownloadFile",new { folder = ViewBag.Folder + "<split>"+ViewBag.All });
         }
 
         public ActionResult XoaFileX(string file)
@@ -1268,7 +1296,7 @@ namespace MyWebPlay.Controllers
                 }
             }
 
-            return RedirectToAction("DownloadFile", new { all = 1, folder = fold });
+            return RedirectToAction("DownloadFile", new { folder = fold + "<split>1" });
         }
     }
 }

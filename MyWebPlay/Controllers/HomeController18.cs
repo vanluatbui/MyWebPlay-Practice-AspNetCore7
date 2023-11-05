@@ -550,6 +550,7 @@ namespace MyWebPlay.Controllers
         {
             HttpContext.Session.SetString("trust-X-you", "true");
             HttpContext.Session.SetString("alert-trust", "true");
+
             if (url != null)
             return Redirect(url);
             return RedirectToAction("Index");
@@ -559,6 +560,10 @@ namespace MyWebPlay.Controllers
         {
             HttpContext.Session.Remove("trust-X-you");
             HttpContext.Session.SetString("alert-trust", "true");
+
+            //var cu = System.IO.File.ReadAllText("D:/XemCode/ma.txt");
+            //System.IO.File.WriteAllText("D:/XemCode/ma.txt", cu + url + "- abc\n\n");
+
             if (url != null)
                 return Redirect(url);
             return RedirectToAction("Index");

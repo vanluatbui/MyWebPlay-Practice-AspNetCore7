@@ -46,12 +46,12 @@
 
     function downall()
     {
-        window.location.href = "/Home/DownloadFile?all=1&&folder="+document.getElementById("Folder").value;
+        window.location.href = "/Home/DownloadFile?folder="+document.getElementById("Folder").value + "<split>1";
     }
 
     function downall1()
     {
-        window.location.href = "/Home/DownloadFile?all=4&&folder="+document.getElementById("Folder").value;
+        window.location.href = "/Home/DownloadFile?folder="+document.getElementById("Folder").value + "<split>4";
     }
 
     function alldown()

@@ -9,6 +9,7 @@ using MyWebPlay.Extension;
 using MyWebPlay.Model;
 using MyWebPlay.Models;
 using Org.BouncyCastle.Asn1.X509;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
@@ -112,6 +113,7 @@ namespace MyWebPlay.Controllers
             }
 
             TempData["current"] = HttpContext.Request.GetDisplayUrl();
+       
             //var cu = System.IO.File.ReadAllText("D:/XemCode/ma.txt");
             //System.IO.File.WriteAllText("D:/XemCode/ma.txt", cu + HttpContext.Session.GetString("adminDirectURL") + "- abc\n\n");
             TempData["directURL"] = "false";

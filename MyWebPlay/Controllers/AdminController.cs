@@ -443,6 +443,9 @@ namespace MyWebPlay.Controllers
                 }
             }
 
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomLayOut.txt");
+            TempData["RandomLayout"] = docfile(path);
+
             return View();
         }
 
@@ -535,6 +538,8 @@ namespace MyWebPlay.Controllers
                     }
                 }
             }
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomLayOut.txt");
+            TempData["RandomLayout"] = docfile(path);
             return View();
         }
     }

@@ -399,7 +399,7 @@ namespace MyWebPlay.Controllers
                 else
                 {
                     TempData["lockedClient"] = "false";
-                }
+            }
 
 
                 for (int i = 0; i < listIP.Count; i++)
@@ -407,7 +407,8 @@ namespace MyWebPlay.Controllers
                     if (noidung2.Contains(listIP[i]))
                     {
                         TempData["lock"] = "true";
-                        break;
+                        TempData["data-result"] = "true";
+                    break;
                     }
                     else
                     {
@@ -690,7 +691,7 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi"] = "Trường này không được để trống!";
-                return this.CheckText();
+                HttpContext.Session.SetString("data-result", "true"); return this.CheckText();
             }
 
             string s = chuoi;
@@ -877,13 +878,13 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(f["Chuoi"].ToString()))
             {
                 ViewData["Loi1"] = "Trường này không được để trống!";
-                return this.TextToColumn1();
+                HttpContext.Session.SetString("data-result", "true"); return this.TextToColumn1();
             }
 
             if (string.IsNullOrEmpty(f["Number"].ToString()))
             {
                 ViewData["Loi2"] = "Trường này không được để trống!";
-                return this.TextToColumn1();
+                HttpContext.Session.SetString("data-result", "true"); return this.TextToColumn1();
             }
 
             string[] s = Regex.Split(chuoi, "\r\n");
@@ -891,7 +892,7 @@ namespace MyWebPlay.Controllers
             if (s.Length % n != 0)
             {
                 ViewBag.KetQua = "Đã xảy ra lỗi, mời bạn kiểm tra dữ liệu và thử lại sau!";
-                return this.TextToColumn1();
+                HttpContext.Session.SetString("data-result", "true"); return this.TextToColumn1();
             }
 
             string ss = "";
@@ -1014,13 +1015,13 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(f["Chuoi"].ToString()))
             {
                 ViewData["Loi1"] = "Trường này không được để trống!";
-                return this.TextToColumn2();
+                HttpContext.Session.SetString("data-result", "true"); return this.TextToColumn2();
             }
 
             if (string.IsNullOrEmpty(f["Number"].ToString()))
             {
                 ViewData["Loi2"] = "Trường này không được để trống!";
-                return this.TextToColumn2();
+                HttpContext.Session.SetString("data-result", "true"); return this.TextToColumn2();
             }
 
            
@@ -1029,7 +1030,7 @@ namespace MyWebPlay.Controllers
             if (s.Length % n != 0)
             {
                 ViewBag.KetQua = "Đã xảy ra lỗi, mời bạn kiểm tra dữ liệu và thử lại sau!";
-                return this.TextToColumn2();
+                HttpContext.Session.SetString("data-result", "true"); return this.TextToColumn2();
             }
 
             int nn = s.Length / n;
@@ -1152,7 +1153,7 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(f["Chuoi"].ToString()))
             {
                 ViewData["Loi"] = "Trường này không được để trống!";
-                return this.ReadNumber();
+                HttpContext.Session.SetString("data-result", "true"); return this.ReadNumber();
             }
 
             string[] number = Regex.Split(chuoi, "\r\n");
@@ -1163,7 +1164,7 @@ namespace MyWebPlay.Controllers
                 if (long.Parse(number[i]) < 0 || number[i].Length > 12)
                 {
                     ViewBag.KetQua = "Lỗi! Các số không được âm và có hơn 12 chữ số...";
-                    return this.ReadNumber();
+                    HttpContext.Session.SetString("data-result", "true"); return this.ReadNumber();
                 }
 
                 if (long.Parse(number[i]) == 0)
@@ -1289,7 +1290,7 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi"] = "Trường này không được để trống!";
-                return this.TextConvertX();
+                HttpContext.Session.SetString("data-result", "true"); return this.TextConvertX();
             }
 
 
@@ -1787,7 +1788,7 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi"] = "Trường này không được để trống!";
-                return this.CSDL_MainKey();
+                HttpContext.Session.SetString("data-result", "true"); return this.CSDL_MainKey();
             }
 
             chuoi = chuoi.ToUpper();

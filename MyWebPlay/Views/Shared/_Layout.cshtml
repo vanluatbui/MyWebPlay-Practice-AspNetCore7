@@ -379,7 +379,7 @@
 
         if ('@TempData["AdminControl"]' == "false")
         {
-        if (ok == 0 && '@TempData["lockedClient"]' == "true")
+        if (ok == 0 && '@TempData["lockedClient"]' == "true" && '@TempData["data-result"]' == "false")
         {
             ok = 1;
             window.location.href = "/Home/LockedWebClient";

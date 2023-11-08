@@ -93,7 +93,7 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi1"] = "Trường này không được để trống!";
-                return this.String_Split_Regex();
+                HttpContext.Session.SetString("data-result", "true"); return this.String_Split_Regex();
             }
 
             string dukien1 = f["DuKien1"].ToString();
@@ -103,14 +103,14 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(dukien1))
             {
                 ViewData["Loi2"] = "Trường này không được để trống!";
-                return this.String_Split_Regex();
+                HttpContext.Session.SetString("data-result", "true"); return this.String_Split_Regex();
             }
 
             string pattern = f["Pattern"].ToString();
             if (string.IsNullOrEmpty(pattern))
             {
                 ViewData["Loi3"] = "Trường này không được để trống!";
-                return this.String_Split_Regex();
+                HttpContext.Session.SetString("data-result", "true"); return this.String_Split_Regex();
             }
 
             pattern = pattern.Replace("[TAB-TPLAY]", "\t");
@@ -121,7 +121,7 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(dukien2))
             {
                 ViewData["Loi4"] = "Trường này không được để trống!";
-                return this.String_Split_Regex();
+                HttpContext.Session.SetString("data-result", "true"); return this.String_Split_Regex();
             }
 
             dukien2 = dukien2.Replace("[TAB-TPLAY]", "\t");
@@ -136,7 +136,7 @@ namespace MyWebPlay.Controllers
             //if (string.IsNullOrEmpty(X))
             //{
             //    ViewData["Loi5"] = "Trường này không được để trống!";
-            //    return this.String_Split_Regex();
+            //    HttpContext.Session.SetString("data-result", "true"); return this.String_Split_Regex();
             //}
 
             string Y = f["Y"].ToString();
@@ -146,7 +146,7 @@ namespace MyWebPlay.Controllers
             //if (string.IsNullOrEmpty(Y))
             //{
             //    ViewData["Loi6"] = "Trường này không được để trống!";
-            //    return this.String_Split_Regex();
+            //    HttpContext.Session.SetString("data-result", "true"); return this.String_Split_Regex();
             //}
 
             string[] DS = Regex.Split(chuoi, "\r\n");
@@ -325,7 +325,7 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi1"] = "Trường này không được để trống!";
-                return this.Check_Regex();
+                HttpContext.Session.SetString("data-result", "true"); return this.Check_Regex();
             }
            
 
@@ -336,7 +336,7 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(pattern))
             {
                 ViewData["Loi2"] = "Trường này không được để trống!";
-                return this.Check_Regex();
+                HttpContext.Session.SetString("data-result", "true"); return this.Check_Regex();
             }
 
             while (pattern.Contains(@"\\") == true)

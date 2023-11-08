@@ -198,13 +198,13 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(bandau))
             {
                 ViewData["Loi1"] = "Trường này không được để trống!";
-                return this.BangChanTri();
+                HttpContext.Session.SetString("data-result", "true"); return this.BangChanTri();
             }
 
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi3"] = "Trường này không được để trống!";
-                return this.BangChanTri();
+                HttpContext.Session.SetString("data-result", "true"); return this.BangChanTri();
             }
 
             

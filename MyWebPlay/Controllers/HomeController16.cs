@@ -371,6 +371,12 @@ namespace MyWebPlay.Controllers
                 ViewBag.KetQua = "";
                 HttpContext.Session.Clear();
             }
+            else
+            if (chon == "5")
+            {
+                ViewBag.KetQua = "";
+                TempData.Clear();
+            }
 
             return View();
         }

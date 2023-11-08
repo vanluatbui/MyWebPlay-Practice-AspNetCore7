@@ -297,6 +297,8 @@ namespace MyWebPlay.Controllers
         public ActionResult PlayCreateFile_Karaoke()
         {
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            HttpContext.Session.SetString("data-result", "true");
+
             var listIP = new List<string>();
 
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)

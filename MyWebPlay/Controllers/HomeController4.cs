@@ -97,7 +97,7 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi"] = "Trường này không được để trống!";
-                return this.String_Reverse();
+                HttpContext.Session.SetString("data-result", "true"); return this.String_Reverse();
             }
            
 
@@ -211,7 +211,7 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi"] = "Trường này không được để trống!";
-                return this.String_Reverse2();
+                HttpContext.Session.SetString("data-result", "true"); return this.String_Reverse2();
             }
            
 
@@ -327,7 +327,7 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi"] = "Trường này không được để trống!";
-                return this.Special_OrderBy();
+                HttpContext.Session.SetString("data-result", "true"); return this.Special_OrderBy();
             }
            
 
@@ -339,7 +339,7 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi1"] = "Trường này không được để trống!";
-                return this.Special_OrderBy();
+                HttpContext.Session.SetString("data-result", "true"); return this.Special_OrderBy();
             }
 
             string[] DS = Regex.Split(chuoi, "\r\n");

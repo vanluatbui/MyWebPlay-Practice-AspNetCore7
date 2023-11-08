@@ -55,6 +55,7 @@ namespace MyWebPlay.Controllers
             TempData["continue"] = "";
 
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            HttpContext.Session.SetString("data-result", "true");
             var listIP = new List<string>();
 
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
@@ -103,6 +104,7 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
+            HttpContext.Session.SetString("data-result", "true");
             if (TempData["lock"].ToString() == "true")
                 return RedirectToAction("LockedWeb");
 
@@ -256,13 +258,13 @@ namespace MyWebPlay.Controllers
                 if (string.IsNullOrEmpty(id))
                 {
                     ViewData["Loi1"] = "Vui lòng nhập ID liên kết với bài trắc nghiệm bạn muốn làm";
-                    return this.PlayTracNghiem_Online();
+                    HttpContext.Session.SetString("data-result", "true"); return this.PlayTracNghiem_Online();
                 }
 
                 if (string.IsNullOrEmpty(mssv))
                 {
                     ViewData["Loi2"] = "Vui lòng nhập mã số học sinh của bạn";
-                    return this.PlayTracNghiem_Online();
+                    HttpContext.Session.SetString("data-result", "true"); return this.PlayTracNghiem_Online();
                 }
 
                 IP = HttpContext.Session.GetString("userIP");
@@ -272,7 +274,7 @@ namespace MyWebPlay.Controllers
                 if (noidung.Contains(mssv + "\t" + id))
                 {
                     ViewData["Loi2"] = "Mã học sinh đã thực hiện và có kết quả của bài làm trắc nghiệm đợt này. Mời bạn quay lại sau!";
-                    return this.PlayTracNghiem_Online();
+                    HttpContext.Session.SetString("data-result", "true"); return this.PlayTracNghiem_Online();
                 }
                 else
                 {
@@ -312,7 +314,7 @@ namespace MyWebPlay.Controllers
                         ViewData["Loi1"] = "Đã xảy ra lỗi khi cố gắng liên kết với ID bài test trắc nghiệm. Vui lòng thử lại sau!";
                         noidung = noidung.Replace(xuxu + "\t" + IP + "\t" + mssv + "\t" + id + "\t[NULL]\t[NULL]\n", "");
                         System.IO.File.WriteAllText(path, noidung);
-                        return this.PlayTracNghiem_Online();
+                        HttpContext.Session.SetString("data-result", "true"); return this.PlayTracNghiem_Online();
                     }
 
                     //--------------------
@@ -512,7 +514,7 @@ namespace MyWebPlay.Controllers
                 ViewData["Loi1"] = "Đã xảy ra lỗi khi cố gắng liên kết với ID bài test trắc nghiệm. Vui lòng kiểm tra và thử lại sau!";
                 noidung = noidung.Replace(xuxu + "\t" + IP + "\t" + mssv + "\t" + id + "\t[NULL]\t[NULL]\n", "");
                 System.IO.File.WriteAllText(path, noidung);
-                return this.PlayTracNghiem_Online();
+                HttpContext.Session.SetString("data-result", "true"); return this.PlayTracNghiem_Online();
             }
         }
 
@@ -560,9 +562,6 @@ namespace MyWebPlay.Controllers
         {
             HttpContext.Session.Remove("trust-X-you");
             HttpContext.Session.SetString("alert-trust", "true");
-
-            //var cu = System.IO.File.ReadAllText("D:/XemCode/ma.txt");
-            //System.IO.File.WriteAllText("D:/XemCode/ma.txt", cu + url + "- abc\n\n");
 
             if (url != null)
                 return Redirect(url);

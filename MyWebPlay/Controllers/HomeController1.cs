@@ -162,8 +162,6 @@ namespace MyWebPlay.Controllers
 
                 s = s.Replace("#3275#", "<br>");
 
-               // System.IO.File.WriteAllText("D:/XemCode/ma.txt", s);
-
                 // cập nhật txtDapAn...
 
                 string d = f["txtDapAn"].ToString();
@@ -200,7 +198,7 @@ namespace MyWebPlay.Controllers
 
                         ViewBag.DapAn_VD = f["txtDapAn"].ToString();
 
-                        return this.CreateFile_TracNghiem();
+                        HttpContext.Session.SetString("data-result", "true"); return this.CreateFile_TracNghiem();
                     }
                 }
 
@@ -302,7 +300,7 @@ namespace MyWebPlay.Controllers
 
                 //    ViewBag.DapAn_VD = f["txtDapAn"].ToString();
 
-                //    return this.CreateFile_TracNghiem();
+                //    HttpContext.Session.SetString("data-result", "true"); return this.CreateFile_TracNghiem();
                 //}
 
 
@@ -339,7 +337,7 @@ namespace MyWebPlay.Controllers
 
                         ViewBag.DapAn_VD = f["txtDapAn"].ToString();
 
-                        return this.CreateFile_TracNghiem();
+                        HttpContext.Session.SetString("data-result", "true"); return this.CreateFile_TracNghiem();
                     }
                 }
 

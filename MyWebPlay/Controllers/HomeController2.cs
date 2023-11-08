@@ -99,19 +99,19 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(table))
             {
                 ViewData["Loi1"] = "Trường này không được để trống!";
-                return this.SQL_InsertDoc();
+                HttpContext.Session.SetString("data-result", "true"); return this.SQL_InsertDoc();
             }
 
             if (string.IsNullOrEmpty(trangthai))
             {
                 ViewData["Loi2"] = "Trường này không được để trống!";
-                return this.SQL_InsertDoc();
+                HttpContext.Session.SetString("data-result", "true"); return this.SQL_InsertDoc();
             }
 
             if (string.IsNullOrEmpty(dulieu))
             {
                 ViewData["Loi3"] = "Trường này không được để trống!";
-                return this.SQL_InsertDoc();
+                HttpContext.Session.SetString("data-result", "true"); return this.SQL_InsertDoc();
             }
 
             table = table.Replace("[TAB-TPLAY]", "\t");
@@ -272,13 +272,13 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(trangthai))
             {
                 ViewData["Loi2"] = "Trường này không được để trống!";
-                return this.JSON_InsertDoc();
+                HttpContext.Session.SetString("data-result", "true"); return this.JSON_InsertDoc();
             }
 
             if (string.IsNullOrEmpty(dulieu))
             {
                 ViewData["Loi3"] = "Trường này không được để trống!";
-                return this.JSON_InsertDoc();
+                HttpContext.Session.SetString("data-result", "true"); return this.JSON_InsertDoc();
             }
 
             trangthai = trangthai.Replace("[TAB-TPLAY]", "\t");
@@ -799,6 +799,17 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult Copy_RepairColumn3()
         {
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
             //TextCopy.ClipboardService.SetText("ALTER TABLE <Tên Table> ADD CONSTRAINT <Tên Ràng buộc>\r\nFOREIGN KEY (<Cột cần làm khoá ngoại>) REFERENCES <Table Cha> (<Cột của bảng cha cần nối kết khoá ngoại>)\r\n");
             String sql = "\r\nALTER TABLE &lt;Tên Table&gt; ADD CONSTRAINT &lt;Tên Ràng buộc&gt;\r\nFOREIGN KEY (&lt;Cột cần làm khoá ngoại&gt;) REFERENCES &lt;Table Cha&gt; (&lt;Cột của bảng cha cần nối kết khoá ngoại&gt;)\r\n";
             // sql = sql.Replace("\r\n", "<br>");

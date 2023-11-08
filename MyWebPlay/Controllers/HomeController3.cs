@@ -95,19 +95,19 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(tableX))
             {
                 ViewData["Loi1"] = "Trường này không được để trống!";
-                return this.SQL_CreateTable();
+                HttpContext.Session.SetString("data-result", "true"); return this.SQL_CreateTable();
             }
 
             if (string.IsNullOrEmpty(key))
             {
                 ViewData["Loi2"] = "Trường này không được để trống!";
-                return this.SQL_CreateTable();
+                HttpContext.Session.SetString("data-result", "true"); return this.SQL_CreateTable();
             }
 
             if (string.IsNullOrEmpty(dulieu))
             {
                 ViewData["Loi3"] = "Trường này không được để trống!";
-                return this.SQL_CreateTable();
+                HttpContext.Session.SetString("data-result", "true"); return this.SQL_CreateTable();
             }
 
             dulieu = dulieu.Replace("[TAB-TPLAY]", "\t");
@@ -335,13 +335,13 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(tenclass))
             {
                 ViewData["Loi2"] = "Trường này không được để trống!";
-                return this.JSON_InsertDoc();
+                HttpContext.Session.SetString("data-result", "true"); return this.JSON_InsertDoc();
             }
 
             if (string.IsNullOrEmpty(dulieu))
             {
                 ViewData["Loi3"] = "Trường này không được để trống!";
-                return this.JSON_InsertDoc();
+                HttpContext.Session.SetString("data-result", "true"); return this.JSON_InsertDoc();
             }
 
             string[] DS = Regex.Split(dulieu, "\r\n");
@@ -529,23 +529,23 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(tenclass))
             {
                 ViewData["Loi1"] = "Trường này không được để trống!";
-                return this.Cxap_InsertValueClass();
+                HttpContext.Session.SetString("data-result", "true"); return this.Cxap_InsertValueClass();
             }
 
             if (string.IsNullOrEmpty(dukien1))
             {
                 ViewData["Loi2"] = "Trường này không được để trống!";
-                return this.Cxap_InsertValueClass();
+                HttpContext.Session.SetString("data-result", "true"); return this.Cxap_InsertValueClass();
             }
             if (string.IsNullOrEmpty(dukien2))
             {
                 ViewData["Loi3"] = "Trường này không được để trống!";
-                return this.Cxap_InsertValueClass();
+                HttpContext.Session.SetString("data-result", "true"); return this.Cxap_InsertValueClass();
             }
             if (string.IsNullOrEmpty(dulieu))
             {
                 ViewData["Loi4"] = "Trường này không được để trống!";
-                return this.Cxap_InsertValueClass();
+                HttpContext.Session.SetString("data-result", "true"); return this.Cxap_InsertValueClass();
             }
 
             tenclass = tenclass.Replace("[TAB-TPLAY]", "\t");

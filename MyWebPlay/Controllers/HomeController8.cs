@@ -95,7 +95,7 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi1"] = "Trường này không được để trống!";
-                return this.Special_OrderBy();
+                HttpContext.Session.SetString("data-result", "true"); return this.Special_OrderBy();
             }
 
             string sapxep = f["SapXep"].ToString();
@@ -105,21 +105,21 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi2"] = "Trường này không được để trống!";
-                return this.Special_OrderBy();
+                HttpContext.Session.SetString("data-result", "true"); return this.Special_OrderBy();
             }
 
             string tanggiam = f["TangGiam"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r");
             if (string.IsNullOrEmpty(tanggiam))
             {
                 ViewData["Loi3"] = "Trường này không được để trống!";
-                return this.Special_OrderBy();
+                HttpContext.Session.SetString("data-result", "true"); return this.Special_OrderBy();
             }
 
             string codinh = f["CoDinh"].ToString().Replace("[TAB-TPLAY]", "\t").Replace("[ENTER-NPLAY]", "\n").Replace("[ENTER-RPLAY]", "\r");
             if (string.IsNullOrEmpty(codinh))
             {
                 ViewData["Loi4"] = "Trường này không được để trống!";
-                return this.Special_OrderBy();
+                HttpContext.Session.SetString("data-result", "true"); return this.Special_OrderBy();
             }
 
             string[] DS = Regex.Split(chuoi, "\r\n");
@@ -421,7 +421,7 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi"] = "Trường này không được để trống!";
-                return this.Euler_X();
+                HttpContext.Session.SetString("data-result", "true"); return this.Euler_X();
             }
 
             string dukien = f["DuKien"].ToString();
@@ -431,7 +431,7 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi2"] = "Trường này không được để trống!";
-                return this.Euler_X();
+                HttpContext.Session.SetString("data-result", "true"); return this.Euler_X();
             }
 
             int chon = int.Parse(dukien);

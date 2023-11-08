@@ -123,7 +123,7 @@ namespace MyWebPlay.Controllers
             if (txtFile == null || txtFile.FileName.Length == 0)
             {
                 ViewData["Loi1"] = "Mời bạn chọn file TXT trắc nghiệm...";
-                return this.TracNghiem();
+                HttpContext.Session.SetString("data-result", "true"); return this.TracNghiem();
             }
             if (string.IsNullOrWhiteSpace(txtMon))
             {
@@ -133,13 +133,13 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(txtSoCau))
             {
                 ViewData["Loi2"] = "Không được bỏ trống trường này";
-                return this.TracNghiem();
+                HttpContext.Session.SetString("data-result", "true"); return this.TracNghiem();
             }
 
             if (string.IsNullOrEmpty(txtTime))
             {
                 ViewData["Loi3"] = "Không được bỏ trống trường này";
-                return this.TracNghiem();
+                HttpContext.Session.SetString("data-result", "true"); return this.TracNghiem();
             }
 
             int time = int.Parse(txtTime);
@@ -147,7 +147,7 @@ namespace MyWebPlay.Controllers
             {
                 ViewData["Loi3"] = "Thời gian làm bài phải tối thiểu 1 phút và không vượt quá 20 giờ...";
 
-                return this.TracNghiem();
+                HttpContext.Session.SetString("data-result", "true"); return this.TracNghiem();
             }
 
             //------
@@ -168,7 +168,7 @@ namespace MyWebPlay.Controllers
             if (ND_file.Length == 0)
             {
                 ViewData["Loi1"] = "Bài kiểm tra hay file văn bản của bạn hiện chưa có nội dung nào!";
-                return this.TracNghiem();
+                HttpContext.Session.SetString("data-result", "true"); return this.TracNghiem();
             }
 
             String[] split = { "\n#\n" };
@@ -183,7 +183,7 @@ namespace MyWebPlay.Controllers
                     string err = "WRONG INDEX QUESTION : " + t2[0] + "";
                     //err += "Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi, còn $ dùng đế xác định câu hỏi không cần hoán vị đáp án. Xin lỗi vì sự bất tiện này! ]";
                     ViewData["Loi1"] = err;
-                    return this.TracNghiem();
+                    HttpContext.Session.SetString("data-result", "true"); return this.TracNghiem();
                 }
 
                 char[] t2_x = t2[5].ToCharArray();
@@ -193,7 +193,7 @@ namespace MyWebPlay.Controllers
                     //err += "Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi, còn $ dùng đế xác định câu hỏi không cần hoán vị đáp án. Xin lỗi vì sự bất tiện này! ]";
 
                     ViewData["Loi1"] = err;
-                    return this.TracNghiem();
+                    HttpContext.Session.SetString("data-result", "true"); return this.TracNghiem();
                 }
             }
 
@@ -217,7 +217,7 @@ namespace MyWebPlay.Controllers
                 {
                     //MessageBox.Show("Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi.\nXin lỗi vì sự bất tiện này! ]");
                     ViewData["Loi1"] = "WRONG INDEX ANSWER OF QUESTION : " + t2[0] + "";
-                    return this.TracNghiem();
+                    HttpContext.Session.SetString("data-result", "true"); return this.TracNghiem();
                 }
             }
 

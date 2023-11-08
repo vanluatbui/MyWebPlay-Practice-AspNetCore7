@@ -91,7 +91,7 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(chuoi))
             {
                 ViewData["Loi1"] = "Trường này không được để trống!";
-                return this.Regex_Replace_Multiple();
+                HttpContext.Session.SetString("data-result", "true"); return this.Regex_Replace_Multiple();
             }
 
             string dukien1 = f["DuKien1"].ToString();
@@ -101,7 +101,7 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(dukien1))
             {
                 ViewData["Loi4"] = "Trường này không được để trống!";
-                return this.Regex_Replace_Multiple();
+                HttpContext.Session.SetString("data-result", "true"); return this.Regex_Replace_Multiple();
             }
 
             string input = f["Input"].ToString();
@@ -111,7 +111,7 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(input))
             {
                 ViewData["Loi2"] = "Trường này không được để trống!";
-                return this.Regex_Replace_Multiple();
+                HttpContext.Session.SetString("data-result", "true"); return this.Regex_Replace_Multiple();
             }
 
             string yes = f["DuKien3"].ToString();
@@ -121,7 +121,7 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(yes))
             {
                 ViewData["Loi6"] = "Trường này không được để trống!";
-                return this.Regex_Replace_Multiple();
+                HttpContext.Session.SetString("data-result", "true"); return this.Regex_Replace_Multiple();
             }
 
             string dukien2 = f["DuKien2"].ToString();
@@ -131,7 +131,7 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(dukien2))
             {
                 ViewData["Loi5"] = "Trường này không được để trống!";
-                return this.Regex_Replace_Multiple();
+                HttpContext.Session.SetString("data-result", "true"); return this.Regex_Replace_Multiple();
             }
 
             string dukien4 = f["DuKien4"].ToString();
@@ -141,7 +141,7 @@ namespace MyWebPlay.Controllers
             if (string.IsNullOrEmpty(dukien4))
             {
                 ViewData["Loi7"] = "Trường này không được để trống!";
-                return this.Regex_Replace_Multiple();
+                HttpContext.Session.SetString("data-result", "true"); return this.Regex_Replace_Multiple();
             }
 
             string output = f["Output"].ToString();
@@ -151,7 +151,7 @@ namespace MyWebPlay.Controllers
             //if (string.IsNullOrEmpty(output))
             //{
             //    ViewData["Loi3"] = "Trường này không được để trống!";
-            //    return this.Regex_Replace_Multiple();
+            //    HttpContext.Session.SetString("data-result", "true"); return this.Regex_Replace_Multiple();
             //}
 
             var listInput = Regex.Split(input, "\r\n");
@@ -160,7 +160,7 @@ namespace MyWebPlay.Controllers
             if (listInput.Length != listOutput.Length)
             {
                 ViewData["Loi3"] = "Số lượng thành phần pattern input và output không tương xứng...";
-                return this.Regex_Replace_Multiple();
+                HttpContext.Session.SetString("data-result", "true"); return this.Regex_Replace_Multiple();
             }
 
             if (yes == "0")

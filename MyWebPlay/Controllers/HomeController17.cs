@@ -140,7 +140,8 @@ namespace MyWebPlay.Controllers
             //    return RedirectToAction("Index");
             //}
             //khoawebsiteClient(listIP);
-            //System.IO.File.WriteAllText("D:/XemCode/ma.txt", id);
+
+            HttpContext.Session.SetString("data-result", "true");
             if (id != null)
             {
                 var noidung = id.Split("-.-", StringSplitOptions.RemoveEmptyEntries);
@@ -151,8 +152,6 @@ namespace MyWebPlay.Controllers
                     var baihat = (id.Contains("[NONE]") == false) ? StringMaHoaExtension.Decrypt(noidung[1]) : noidung[1].Replace("[NONE]", "");
                     var background = (id.Contains("[NONE]") == false) ? StringMaHoaExtension.Decrypt(noidung[2]) : noidung[2];
                     var option = int.Parse(noidung[3]);
-
-                    //System.IO.File.WriteAllText("D:/XemCode/ma.txt", url);
 
                     TempData["url"] = url;
                     TempData["baihat"] = baihat;
@@ -311,7 +310,7 @@ namespace MyWebPlay.Controllers
             var listIP = new List<string>();
 
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomLayOut.txt");
-            ViewBag.RandomLayOut = docfile(path);
+            TempData["RandomLayout"] = docfile(path);
 
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
                 listIP.Add(HttpContext.Session.GetString("userIP"));
@@ -378,8 +377,9 @@ namespace MyWebPlay.Controllers
                     }
                 }
             }
-
-               ViewBag.XuLy = "<br><a href=\"#\" onclick=\"chuyendoi()\">...</a><br>";
+            
+            if (TempData["RandomLayout"].ToString().Contains("onclick=\"chuyendoi()\"") == false)
+            ViewBag.XuLy = "<br><a href=\"#\" onclick=\"chuyendoi()\">...</a><br>";
 
                 return View();
         }
@@ -440,6 +440,10 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult EditLayout(string? txtText)
         {
+            if (string.IsNullOrEmpty(txtText))
+            {
+                txtText = "<img src=\"/Image_Play/Google.png\" width=\"100%\" heigth=\"100%\" onclick=\"chuyendoi()\">";
+            }
             /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
@@ -758,7 +762,6 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
-
             if (TempData["lock"] == "true")
                 return RedirectToAction("Index");
 

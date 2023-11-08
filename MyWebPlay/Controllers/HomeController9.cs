@@ -767,37 +767,37 @@ namespace MyWebPlay.Controllers
                     ViewData["Loi"] = "Lỗi hệ thống. Nếu bạn đã đăng tải một file, hãy tự đặt lại tên mới gợi nhớ của bạn cho từng file đó ...";
                     ViewBag.KetQua = "Lỗi hệ thống. Nếu bạn đã đăng tải một file, hãy tự đặt lại tên mới gợi nhớ của bạn cho từng file đó ...";
 
-                    return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
+                    HttpContext.Session.SetString("data-result", "true"); return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
                 }
                 else if (flag == 2)
                 {
                     ViewData["Loi"] = "Một trong những file bạn sắp tải - tên file bạn sắp upload (tên mới bạn tự đặt) đã tồn tại!\r\nTất cả các file đã bị lỗi khi đăng tải, mời bạn thực hiện lại ...";
                     ViewBag.KetQua = "Một trong những file bạn sắp tải - tên file bạn sắp upload (tên mới bạn tự đặt) đã tồn tại!\r\nTất cả các file đã bị lỗi khi đăng tải, mời bạn thực hiện lại ...";
-                    return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
+                    HttpContext.Session.SetString("data-result", "true"); return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
                 }
                 else if (ViewBag.X == 1 && flag == 3)
                 {
                     ViewData["Loi"] = "Một trong những file bạn sắp tải - tên file bạn sắp upload (tên mới bạn tự đặt) đã tồn tại hoặc bị trùng!\r\nTất cả các file đã bị lỗi khi đăng tải, mời bạn kiểm tra và thực hiện lại ...";
                     ViewBag.KetQua = "Một trong những file bạn sắp tải - tên file bạn sắp upload (tên mới bạn tự đặt) đã tồn tại hoặc bị trùng!\r\nTất cả các file đã bị lỗi khi đăng tải, mời bạn kiểm tra và thực hiện lại ...";
-                    return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
+                    HttpContext.Session.SetString("data-result", "true"); return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
                 }
                 else if (flag == 4 && flax == 0)
                 {
                     ViewData["LoiX"] = "Lỗi hệ thống - theo yêu cầu của bạn. Tên path thư mục đã tồn tại ...";
                     ViewBag.KetQua = "Lỗi hệ thống - theo yêu cầu của bạn. Tên path thư mục đã tồn tại ...";
-                    return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
+                    HttpContext.Session.SetString("data-result", "true"); return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
                 }
                 else if (flag == 5 && homePass != passAd)
                 {
                     ViewData["LoiY"] = "Vui lòng chọn ngày hết hạn các file này sau ngày hôm nay và thời hạn các file của bạn được phép tồn tại trên Server hệ thống là 7 ngày!";
                     ViewBag.KetQua = "Vui lòng chọn ngày hết hạn các file này sau ngày hôm nay và thời hạn các file của bạn được phép tồn tại trên Server hệ thống là 7 ngày!";
-                    return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
+                    HttpContext.Session.SetString("data-result", "true"); return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
                 }
                 else if (flag == 6 && homePass != passAd)
                 {
                     ViewData["Loi"] = "⚠️ Hiện tại mỗi lượt bạn chỉ có thể tải lên hệ thống các file tổng kích thước tối đa không quá 2 MB!";
                     ViewBag.KetQua = "⚠️ Hiện tại mỗi lượt bạn chỉ có thể tải lên hệ thống các file tổng kích thước tối đa không quá 2 MB!";
-                    return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
+                    HttpContext.Session.SetString("data-result", "true"); return this.UploadFile(ViewBag.SL, ViewBag.X, ViewBag.Y);
                 }
             }
 

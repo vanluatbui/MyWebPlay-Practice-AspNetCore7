@@ -85,9 +85,31 @@
             document.getElementById("chon").value = 4;
            document.getElementById("ok").click();
            alert("Xử lý thành công!")
-        }   
+        } 
     }
 
+    function xoaallTempData()
+    {
+         var re = confirm("Bạn có chắc chắn muốn tiếp tục xử lý hành động này?");
+
+        if (re == true)
+        {
+            document.getElementById("chon").value = 5;
+           document.getElementById("ok").click();
+           alert("Xử lý thành công!")
+        } 
+    }
+
+    function xoaallLocalStorage()
+    {
+         var re = confirm("Bạn có chắc chắn muốn tiếp tục xử lý hành động này?");
+
+        if (re == true)
+        {
+           localStorage.clear();
+           alert("Xử lý thành công!")
+        } 
+    }
 
 </script>
 
@@ -114,6 +136,7 @@
                 <br>
                 <h1><a onclick="gansessionJS()" href="#xuly">Gán bằng JS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="gansessionC()" href="#xuly">Gán bằng C# (chờ xử lý)</a></h1>
                 <h1><a onclick="xoaallJS()" href="#xuly">Xoá all session bằng JS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="xoaallC()" href="#xuly">Xoá all session bằng C# (chờ xử lý)</a></h1>
+                <h1 style="color:deeppink"><a onclick="xoaallTempData()" href="#xuly">[Xoá all temp data bằng C#]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="xoaallLocalStorage()" href="#xuly">[Xoá all localStorage bằng JS]</a></h1>
                 <br>
                 <h1 style="color:red">⬇</h1>
                 <br><br>

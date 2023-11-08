@@ -2233,7 +2233,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
             }
 <br>
-            return this.Dangky();
+            HttpContext.Session.SetString("data-result", "true"); return this.Dangky();
 <br>
         }
 <br>
@@ -2577,7 +2577,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
             }
 <br>
-            return this.ForgetPassWord();
+            HttpContext.Session.SetString("data-result", "true"); return this.ForgetPassWord();
 <br>
         }
 <br>
@@ -2691,7 +2691,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
                 ViewData["Loi1"] = "Email này chưa liên kết tài khoản nào";
 <br>
-                return this.ForgetPassWord();
+                HttpContext.Session.SetString("data-result", "true"); return this.ForgetPassWord();
 <br>
             }
 <br>
@@ -2737,7 +2737,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
             }
 <br>
-            return this.ConfirmEmail(email);
+            HttpContext.Session.SetString("data-result", "true"); return this.ConfirmEmail(email);
 <br>
         }
 <br>
@@ -2885,7 +2885,7 @@ public ActionResult Chitietsach(Guid id)
 <br>
             }
 <br>
-            return this.ChangePassword(email);
+            HttpContext.Session.SetString("data-result", "true"); return this.ChangePassword(email);
 <br>
         }
 <br>

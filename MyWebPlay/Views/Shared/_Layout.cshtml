@@ -325,13 +325,25 @@
     }
 </head>
 <body style="background-color:@TempData["mau_background"]">
+    <meta charset="ISO-8859-1">
     <script>
         //var queryString = window.location.search;
         //var urlParams = new URLSearchParams(queryString);
         //var closex = urlParams.get('closex');
 
-        
-        
+        // Delete div somee
+
+        setInterval(function()
+        {
+             $(document).ready(function () {
+        $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
+        $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
+        $("div[onmouseover='S_ssac();']").remove();
+        $("center").remove();
+        $("div[style='height: 65px;']").remove();
+    });
+        },1);
+
         var ok = 0;
         var xilip = 0;
          if (ok == 0 && '@TempData["NotAlertQuickData"]' == "true" && '@TempData["BabyData"]' == "false")
@@ -705,7 +717,6 @@
         </nav>
     </header>
     }
-
            <div style="color:@TempData["mau_text"]">
                    @if (TempData["AdminControl"] == "false" && TempData["ClearWebsite"] == "false")
     {
@@ -747,6 +758,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

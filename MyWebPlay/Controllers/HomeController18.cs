@@ -567,5 +567,90 @@ namespace MyWebPlay.Controllers
                 return Redirect(url);
             return RedirectToAction("Index");
         }
+
+        //---------------------------
+
+        public ActionResult Setting_AddIPActive(string ip)
+        {
+            if (string.IsNullOrEmpty(ip) == false)
+            {
+                var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
+                var noidung2 = docfile(path2);
+
+                if (noidung2.Contains(ip + "##") == false)
+                    System.IO.File.WriteAllText(path2, noidung2 + ip + "##");
+            }
+            return Redirect("/Admin/SettingXYZ#labelActive");
+        }
+
+        public ActionResult Setting_RemoveIPActive(string ip)
+        {
+            if (string.IsNullOrEmpty(ip) == false)
+            {
+                var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
+                var noidung2 = docfile(path2);
+                noidung2 = noidung2.Replace(ip + "##", "");
+
+                System.IO.File.WriteAllText(path2, noidung2);
+            }
+            return Redirect("/Admin/SettingXYZ#labelActive");
+        }
+
+        //======
+
+        public ActionResult Setting_AddIPLockAdmin(string ip)
+        {
+            if (string.IsNullOrEmpty(ip) == false)
+            {
+                var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPLock.txt");
+                var noidung2 = docfile(path2);
+
+                if (noidung2.Contains(ip + "##") == false)
+                    System.IO.File.WriteAllText(path2, noidung2 + ip + "##");
+            }
+            return Redirect("/Admin/SettingXYZ#labelActive");
+        }
+
+        public ActionResult Setting_RemoveIPLockAdmin(string ip)
+        {
+            if (string.IsNullOrEmpty(ip) == false)
+            {
+                var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPLock.txt");
+                var noidung2 = docfile(path2);
+                
+                    noidung2 = noidung2.Replace(ip + "##", "");
+
+                    System.IO.File.WriteAllText(path2, noidung2);
+            }
+            return Redirect("/Admin/SettingXYZ#labelActive");
+        }
+
+        public ActionResult Setting_AddIPLockClient(string ip_pass)
+        {
+            if (string.IsNullOrEmpty(ip_pass) == false && ip_pass.Contains("<>"))
+            {
+                var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/LockedIPClient.txt");
+                var noidung2 = docfile(path2);
+
+                var ip = ip_pass.Split("<>")[0];
+
+                if (noidung2.Contains(ip) == false)
+                    System.IO.File.WriteAllText(path2, noidung2 + ip_pass + "##");
+            }
+            return Redirect("/Admin/SettingXYZ#labelActive");
+        }
+
+        public ActionResult Setting_RemoveIPLockClient(string ip_pass)
+        {
+            if (string.IsNullOrEmpty(ip_pass) == false)
+            {
+                var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/LockedIPClient.txt");
+                var noidung2 = docfile(path2);
+                noidung2 = noidung2.Replace(ip_pass + "##", "");
+
+                System.IO.File.WriteAllText(path2, noidung2);
+            }
+            return Redirect("/Admin/SettingXYZ#labelActive");
+        }
     }
 }

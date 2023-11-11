@@ -21,7 +21,7 @@ namespace MyWebPlay.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public ActionResult SettingXYZ(string? password)
+        public ActionResult SettingXYZ()
         {
             var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
             var noidung1 = docfile(path1);
@@ -77,29 +77,24 @@ namespace MyWebPlay.Controllers
                 }
             }
 
-            if (HttpContext.Session.GetString("passSetAdmin") == null)
-                TempData["passSetAdmin"] = "false";
+            var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
+            var noidung2 = docfile(path2);
+            TempData["ListIPActive"] = noidung2;
 
-            if (string.IsNullOrEmpty(password) == false)
-            {
-                TempData["passSetAdmin"] = "true";
-                HttpContext.Session.SetString("passSetAdmin", "TRUE");
+            var path3 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPLock.txt");
+            var noidung3 = docfile(path3);
+            TempData["ListIPLockAdmin"] = noidung3;
 
-                if (password != ViewBag.Password && password != "32752262")
-                    TempData["passSetAdmin"] = "false";
-            }
-            else
-            {
-                if (HttpContext.Session.GetString("passSetAdmin") == "TRUE")
-                    TempData["passSetAdmin"] = "true";
-            }
-                return View(settingAdmin);
+            var path4 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/LockedIPClient.txt");
+            var noidung4 = docfile(path4);
+            TempData["ListIPLockClient"] = noidung4;
+
+            return View(settingAdmin);
         }
 
         [HttpPost]
         public ActionResult SettingXYZ(IFormCollection f)
         {
-            TempData["passSetAdmin"] = "true";
             var non = TempData["SaveComeHere"];
             TempData["SaveComeHere"] = non;
 

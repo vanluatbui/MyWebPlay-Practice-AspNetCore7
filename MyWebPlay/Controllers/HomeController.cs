@@ -372,8 +372,12 @@ namespace MyWebPlay.Controllers
                     TempData["dataPost"] = "[GET]";
 
                 var sa = TempData["dataPost"].ToString().TrimStart('[').TrimEnd(']');
+
+                if (string.IsNullOrEmpty(sa) || string.IsNullOrWhiteSpace(sa))
+                    TempData["dataPost"] = "[POST - EMPTY OR NULL]";
+                else
                 if (sa.Length > 200)
-                    TempData["dataPost"] = "[" + sa.Substring(0,200) + "...]";
+                    TempData["dataPost"] = "[POST - " + sa.Substring(0,200) + "...]";
 
                 var noidungZ = noidung0 + "\n" + listIP[0] + "\t" + DateTime.Now + "\t" + TempData["current"] + "\t" + TempData["dataPost"];
                 TempData.Remove("dataPost");

@@ -797,5 +797,271 @@ namespace MyWebPlay.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public ActionResult XuLySQL11()
+        {
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
+
+            ViewBag.Table = "w2_User";
+            ViewBag.Constants = "public const string FIELD_USER_USER_ID = \"user_id\";                                         // ユーザID\r\n\t\tpublic const string FIELD_USER_USER_KBN = \"user_kbn\";                                       // 顧客区分\r\n\t\tpublic const string FIELD_USER_MALL_ID = \"mall_id\";                                         // モールID\r\n\t\tpublic const string FIELD_USER_NAME = \"name\";                                               // 氏名\r\n\t\tpublic const string FIELD_USER_NAME1 = \"name1\";                                             // 氏名1\r\n\t\tpublic const string FIELD_USER_NAME2 = \"name2\";                                             // 氏名2\r\n\t\tpublic const string FIELD_USER_NAME_KANA = \"name_kana\";                                     // 氏名かな\r\n\t\tpublic const string FIELD_USER_NAME_KANA1 = \"name_kana1\";                                   // 氏名かな1\r\n\t\tpublic const string FIELD_USER_NAME_KANA2 = \"name_kana2\";                                   // 氏名かな2\r\n\t\tpublic const string FIELD_USER_NICK_NAME = \"nick_name\";                                     // ニックネーム\r\n\t\tpublic const string FIELD_USER_MAIL_ADDR = \"mail_addr\";                                     // メールアドレス\r\n\t\tpublic const string FIELD_USER_MAIL_ADDR2 = \"mail_addr2\";                                   // メールアドレス2";
+            ViewBag.Script = "[user_id] [nvarchar] (30) NOT NULL,\r\n\t[user_kbn] [nvarchar] (10) NOT NULL DEFAULT (N'PC_USER'),\r\n\t[mall_id] [nvarchar] (30) NOT NULL DEFAULT (N'OWN_SITE'),\r\n\t[name] [nvarchar] (40) NOT NULL DEFAULT (N''),\r\n\t[name1] [nvarchar] (20) NOT NULL DEFAULT (N''),\r\n\t[name2] [nvarchar] (20) NOT NULL DEFAULT (N''),\r\nALTER TABLE [w2_User] ADD [mail_addr2] datetime NOT NULL DEFAULT (N'');\r\nALTER TABLE [w2_User] ADD [name_kana] float NOT NULL DEFAULT (N'');";
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult XuLySQL11(IFormCollection f)
+        {
+            /*HttpContext.Session.Remove("ok-data");*/
+            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            var table = f["txtTable"].ToString();
+            var constants = f["txtConstants"].ToString().Trim('\t').Trim(' ').Split("\r\n");
+            var script = f["txtScript"].ToString().Trim('\t').Trim(' ').Split("\r\n");
+
+            ViewBag.Table = table;
+            ViewBag.Constants = f["txtConstants"].ToString();
+            ViewBag.Script = f["txtScript"].ToString();
+
+            TempData["dataPost"] = "[" + f["txtConstants"].ToString().Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
+            khoawebsiteClient(listIP);
+            HttpContext.Session.Remove("ok-data");
+            Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+            var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+
+            if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
+            {
+                TempData["mau_background"] = "white";
+                TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
+                TempData["nav_link"] = "text-dark"; TempData["winx"] = "❤";
+            }
+            else
+            {
+                TempData["mau_background"] = "black";
+                TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
+                TempData["nav_link"] = "text-light"; TempData["winx"] = "❤";
+            }
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var flag = 0;
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (flag == 0 && (info[0] == "Email_Upload_User"
+                    || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
+                    || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
+                    || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
+                    || info[0] == "Email_Note"))
+                {
+                    if (info[1] == "false")
+                    {
+
+                        TempData["mau_winx"] = "red";
+                        flag = 1;
+                    }
+                    else
+                    {
+
+                        TempData["mau_winx"] = "deeppink";
+                        flag = 0;
+                    }
+                }
+            }
+
+            var chon = f["txtChon"].ToString();
+
+            var result = "";
+
+            var listFieldConstants = new List<string>();
+
+            for (int i =0; i < constants.Length; i++)
+            {
+                var xy = constants[i].Split(" = \"");
+                var xyy = xy[1].Split("\";");
+
+                listFieldConstants.Add(xyy[0]);
+            }
+
+            for (int i = 0; i<script.Length; i++)
+            {
+                if (script[i].Contains("ALTER TABLE"))
+                {
+                    script[i] = script[i].Replace("[", "").Replace("]", "").Replace(";","");
+                    var xo = script[i].Split("ADD ");
+                    var xp = xo[1].Split(" ");
+
+                    if (chon == "on")
+                       
+                    result += "\n\nIF NOT EXISTS( SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + table + "' AND COLUMN_NAME = '" + xp[0] + "')\r\nBEGIN\r\n\tPRINT '" + script[i].Replace("ALTER TABLE " + table + " ADD ", "") + "," + "'\r\nEND";
+                    else
+                    result += "\n\nIF NOT EXISTS( SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + table + "' AND COLUMN_NAME = '" + xp[0] + "')\r\nBEGIN\r\n\t" + script[i] + "\r\nEND";
+                    listFieldConstants.Remove(xp[0]);
+                }
+                else
+                {
+                    script[i] = script[i].Replace(",", "").Replace("[", "").Replace("]", "").Trim('\t').Trim(' ');
+                    var xo = script[i].Split(" ");
+                    if (chon == "on")
+                        result += "\n\nIF NOT EXISTS( SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + table + "' AND COLUMN_NAME = '" + xo[0] + "')\r\nBEGIN\r\n\tPRINT '" + script[i] + "," + "'\r\nEND";
+                    else
+                        result += "\n\nIF NOT EXISTS( SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + table + "' AND COLUMN_NAME = '" + xo[0] + "')\r\nBEGIN\r\n\tALTER TABLE " + table + " ADD " + script[i] + "\r\nEND";
+                    listFieldConstants.Remove(xo[0]);
+                }
+            }
+
+            for (var i = 0; i<listFieldConstants.Count;i++)
+            {
+                if (chon == "on")
+                result += "\n\nIF NOT EXISTS( SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + table + "' AND COLUMN_NAME = '" + listFieldConstants[i] + "')\r\nBEGIN\r\n\tPRINT '" + listFieldConstants[i] + " nvarchar(max) NOT NULL DEFAULT (N'')" + "," + "'\r\nEND";
+                else
+                    result += "\n\nIF NOT EXISTS( SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + table + "' AND COLUMN_NAME = '" + listFieldConstants[i] + "')\r\nBEGIN\r\n\tALTER TABLE " + table + " ADD " + listFieldConstants[i] + " nvarchar(max) NOT NULL DEFAULT (N'')\r\nEND";
+            }
+
+            if (chon != "on")
+            result += "\n\nPRINT N'XONG, QUÁ TRÌNH XỬ LÝ HOÀN TẤT!'";
+
+            result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+
+            ViewBag.Result = result;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+
+            return View();
+        }
+
+        public ActionResult XuLySQL12()
+        {
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            khoawebsiteClient(listIP);
+    
+                return View();
+        }
+
+        [HttpPost]
+        public ActionResult XuLySQL12(IFormCollection f)
+        {
+            /*HttpContext.Session.Remove("ok-data");*/
+            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            var listIP = new List<string>();
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                listIP.Add(HttpContext.Session.GetString("userIP"));
+            else
+            {
+                TempData["GetDataIP"] = "true";
+                return RedirectToAction("Index");
+            }
+            var noidung = f["txtNoiDung"].ToString();
+
+            TempData["dataPost"] = "[" + f["txtNoiDung"].ToString().Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
+            khoawebsiteClient(listIP);
+            HttpContext.Session.Remove("ok-data");
+            Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+            var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+
+            if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
+            {
+                TempData["mau_background"] = "white";
+                TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
+                TempData["nav_link"] = "text-dark"; TempData["winx"] = "❤";
+            }
+            else
+            {
+                TempData["mau_background"] = "black";
+                TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
+                TempData["nav_link"] = "text-light"; TempData["winx"] = "❤";
+            }
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var flag = 0;
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (flag == 0 && (info[0] == "Email_Upload_User"
+                    || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
+                    || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
+                    || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
+                    || info[0] == "Email_Note"))
+                {
+                    if (info[1] == "false")
+                    {
+
+                        TempData["mau_winx"] = "red";
+                        flag = 1;
+                    }
+                    else
+                    {
+
+                        TempData["mau_winx"] = "deeppink";
+                        flag = 0;
+                    }
+                }
+            }
+
+            var xuan = noidung.Split("\r\n");
+
+            var result = "";
+            for (var i =0; i <xuan.Length; i++)
+            {
+                if (string.IsNullOrEmpty(xuan[i]) || string.IsNullOrWhiteSpace(xuan[i]))
+                {
+                    result += " + CHAR(13) + CHAR(10)";
+                    continue;
+                }
+
+                result += "\r\n";
+
+                if (i == 0)
+                {
+                    result += "N'" + xuan[i] + "'";
+                }
+                else
+                {
+                    result += "[SPACE]+ '" + xuan[i] + "'";
+                }
+            }
+
+            result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+
+            ViewBag.Result = result;
+
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+
+            return View();
+        }
     }
 }

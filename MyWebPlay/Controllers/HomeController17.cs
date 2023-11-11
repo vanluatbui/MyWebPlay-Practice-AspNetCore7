@@ -379,7 +379,7 @@ namespace MyWebPlay.Controllers
             }
             
             if (TempData["RandomLayout"].ToString().Contains("onclick=\"chuyendoi()\"") == false)
-            ViewBag.XuLy = "<br><a href=\"#\" onclick=\"chuyendoi()\">...</a><br>";
+            ViewBag.XuLy = "<br><a href=\"#\" onclick=\"chuyendoi()\">5828</a><br>";
 
                 return View();
         }

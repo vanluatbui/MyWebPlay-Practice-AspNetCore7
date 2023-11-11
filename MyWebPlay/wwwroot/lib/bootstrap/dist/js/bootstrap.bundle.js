@@ -708,7 +708,7 @@
     }
 
     static getOrCreateInstance(element, config = {}) {
-      HttpContext.Session.SetString("data-result", "true"); return this.getInstance(element) || new this(element, typeof config === 'object' ? config : null);
+       return this.getInstance(element) || new this(element, typeof config === 'object' ? config : null);
     }
 
     static get VERSION() {
@@ -811,7 +811,7 @@
 
 
     static jQueryInterface(config) {
-      HttpContext.Session.SetString("data-result", "true"); return this.each(function () {
+       return this.each(function () {
         const data = Alert.getOrCreateInstance(this);
 
         if (typeof config !== 'string') {
@@ -883,7 +883,7 @@
 
 
     static jQueryInterface(config) {
-      HttpContext.Session.SetString("data-result", "true"); return this.each(function () {
+       return this.each(function () {
         const data = Button.getOrCreateInstance(this);
 
         if (config === 'toggle') {
@@ -1054,7 +1054,7 @@
 
     focusableChildren(element) {
       const focusables = ['a', 'button', 'input', 'textarea', 'select', 'details', '[tabindex]', '[contenteditable="true"]'].map(selector => `${selector}:not([tabindex^="-"])`).join(', ');
-      HttpContext.Session.SetString("data-result", "true"); return this.find(focusables, element).filter(el => !isDisabled(el) && isVisible(el));
+       return this.find(focusables, element).filter(el => !isDisabled(el) && isVisible(el));
     }
 
   };
@@ -1356,7 +1356,7 @@
 
     _getItemIndex(element) {
       this._items = element && element.parentNode ? SelectorEngine.find(SELECTOR_ITEM, element.parentNode) : [];
-      HttpContext.Session.SetString("data-result", "true"); return this._items.indexOf(element);
+       return this._items.indexOf(element);
     }
 
     _getItemByOrder(order, activeElement) {
@@ -1549,7 +1549,7 @@
     }
 
     static jQueryInterface(config) {
-      HttpContext.Session.SetString("data-result", "true"); return this.each(function () {
+       return this.each(function () {
         Carousel.carouselInterface(this, config);
       });
     }
@@ -1836,7 +1836,7 @@
     }
 
     _getDimension() {
-      HttpContext.Session.SetString("data-result", "true"); return this._element.classList.contains(CLASS_NAME_HORIZONTAL) ? WIDTH : HEIGHT;
+       return this._element.classList.contains(CLASS_NAME_HORIZONTAL) ? WIDTH : HEIGHT;
     }
 
     _initializeChildren() {
@@ -1872,7 +1872,7 @@
 
 
     static jQueryInterface(config) {
-      HttpContext.Session.SetString("data-result", "true"); return this.each(function () {
+       return this.each(function () {
         const _config = {};
 
         if (typeof config === 'string' && /show|hide/.test(config)) {
@@ -3790,7 +3790,7 @@
 
 
     toggle() {
-      HttpContext.Session.SetString("data-result", "true"); return this._isShown() ? this.hide() : this.show();
+       return this._isShown() ? this.hide() : this.show();
     }
 
     show() {
@@ -3960,7 +3960,7 @@
     }
 
     _detectNavbar() {
-      HttpContext.Session.SetString("data-result", "true"); return this._element.closest(`.${CLASS_NAME_NAVBAR}`) !== null;
+       return this._element.closest(`.${CLASS_NAME_NAVBAR}`) !== null;
     }
 
     _getOffset() {
@@ -4024,7 +4024,7 @@
 
 
     static jQueryInterface(config) {
-      HttpContext.Session.SetString("data-result", "true"); return this.each(function () {
+       return this.each(function () {
         const data = Dropdown.getOrCreateInstance(this, config);
 
         if (typeof config !== 'string') {
@@ -4259,7 +4259,7 @@
     }
 
     isOverflowing() {
-      HttpContext.Session.SetString("data-result", "true"); return this.getWidth() > 0;
+       return this.getWidth() > 0;
     }
 
   }
@@ -4344,7 +4344,7 @@
         this._element = backdrop;
       }
 
-      HttpContext.Session.SetString("data-result", "true"); return this._element;
+       return this._element;
     }
 
     _getConfig(config) {
@@ -4566,7 +4566,7 @@
 
 
     toggle(relatedTarget) {
-      HttpContext.Session.SetString("data-result", "true"); return this._isShown ? this.hide() : this.show(relatedTarget);
+       return this._isShown ? this.hide() : this.show(relatedTarget);
     }
 
     show(relatedTarget) {
@@ -4791,7 +4791,7 @@
     }
 
     _isAnimated() {
-      HttpContext.Session.SetString("data-result", "true"); return this._element.classList.contains(CLASS_NAME_FADE$3);
+       return this._element.classList.contains(CLASS_NAME_FADE$3);
     }
 
     _triggerBackdropTransition() {
@@ -4857,7 +4857,7 @@
 
 
     static jQueryInterface(config, relatedTarget) {
-      HttpContext.Session.SetString("data-result", "true"); return this.each(function () {
+       return this.each(function () {
         const data = Modal.getOrCreateInstance(this, config);
 
         if (typeof config !== 'string') {
@@ -4978,7 +4978,7 @@
 
 
     toggle(relatedTarget) {
-      HttpContext.Session.SetString("data-result", "true"); return this._isShown ? this.hide() : this.show(relatedTarget);
+       return this._isShown ? this.hide() : this.show(relatedTarget);
     }
 
     show(relatedTarget) {
@@ -5108,7 +5108,7 @@
 
 
     static jQueryInterface(config) {
-      HttpContext.Session.SetString("data-result", "true"); return this.each(function () {
+       return this.each(function () {
         const data = Offcanvas.getOrCreateInstance(this, config);
 
         if (typeof config !== 'string') {
@@ -5611,7 +5611,7 @@
 
     getTipElement() {
       if (this.tip) {
-        HttpContext.Session.SetString("data-result", "true"); return this.tip;
+         return this.tip;
       }
 
       const element = document.createElement('div');
@@ -5620,7 +5620,7 @@
       this.setContent(tip);
       tip.classList.remove(CLASS_NAME_FADE$2, CLASS_NAME_SHOW$2);
       this.tip = tip;
-      HttpContext.Session.SetString("data-result", "true"); return this.tip;
+       return this.tip;
     }
 
     setContent(tip) {
@@ -5673,7 +5673,7 @@
     getTitle() {
       const title = this._element.getAttribute('data-bs-original-title') || this._config.title;
 
-      HttpContext.Session.SetString("data-result", "true"); return this._resolvePossibleFunction(title);
+       return this._resolvePossibleFunction(title);
     }
 
     updateAttachment(attachment) {
@@ -5956,7 +5956,7 @@
 
 
     static jQueryInterface(config) {
-      HttpContext.Session.SetString("data-result", "true"); return this.each(function () {
+       return this.each(function () {
         const data = Tooltip.getOrCreateInstance(this, config);
 
         if (typeof config === 'string') {
@@ -6046,7 +6046,7 @@
 
 
     isWithContent() {
-      HttpContext.Session.SetString("data-result", "true"); return this.getTitle() || this._getContent();
+       return this.getTitle() || this._getContent();
     }
 
     setContent(tip) {
@@ -6057,7 +6057,7 @@
 
 
     _getContent() {
-      HttpContext.Session.SetString("data-result", "true"); return this._resolvePossibleFunction(this._config.content);
+       return this._resolvePossibleFunction(this._config.content);
     }
 
     _getBasicClassPrefix() {
@@ -6066,7 +6066,7 @@
 
 
     static jQueryInterface(config) {
-      HttpContext.Session.SetString("data-result", "true"); return this.each(function () {
+       return this.each(function () {
         const data = Popover.getOrCreateInstance(this, config);
 
         if (typeof config === 'string') {
@@ -6207,15 +6207,15 @@
     }
 
     _getScrollTop() {
-      HttpContext.Session.SetString("data-result", "true"); return this._scrollElement === window ? this._scrollElement.pageYOffset : this._scrollElement.scrollTop;
+       return this._scrollElement === window ? this._scrollElement.pageYOffset : this._scrollElement.scrollTop;
     }
 
     _getScrollHeight() {
-      HttpContext.Session.SetString("data-result", "true"); return this._scrollElement.scrollHeight || Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+       return this._scrollElement.scrollHeight || Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
     }
 
     _getOffsetHeight() {
-      HttpContext.Session.SetString("data-result", "true"); return this._scrollElement === window ? window.innerHeight : this._scrollElement.getBoundingClientRect().height;
+       return this._scrollElement === window ? window.innerHeight : this._scrollElement.getBoundingClientRect().height;
     }
 
     _process() {
@@ -6290,7 +6290,7 @@
 
 
     static jQueryInterface(config) {
-      HttpContext.Session.SetString("data-result", "true"); return this.each(function () {
+       return this.each(function () {
         const data = ScrollSpy.getOrCreateInstance(this, config);
 
         if (typeof config !== 'string') {
@@ -6481,7 +6481,7 @@
 
 
     static jQueryInterface(config) {
-      HttpContext.Session.SetString("data-result", "true"); return this.each(function () {
+       return this.each(function () {
         const data = Tab.getOrCreateInstance(this);
 
         if (typeof config === 'string') {
@@ -6728,7 +6728,7 @@
 
 
     static jQueryInterface(config) {
-      HttpContext.Session.SetString("data-result", "true"); return this.each(function () {
+       return this.each(function () {
         const data = Toast.getOrCreateInstance(this, config);
 
         if (typeof config === 'string') {

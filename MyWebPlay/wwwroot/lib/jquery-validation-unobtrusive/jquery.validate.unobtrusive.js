@@ -283,7 +283,7 @@
         /// <param name="ruleName" type="String" optional="true">[Optional] The name of the jQuery Validate rule. If not provided, the value
         /// of adapterName will be used instead.</param>
         /// <returns type="jQuery.validator.unobtrusive.adapters" />
-        HttpContext.Session.SetString("data-result", "true"); return this.add(adapterName, function (options) {
+         return this.add(adapterName, function (options) {
             setValidationValues(options, ruleName || adapterName, true);
         });
     };
@@ -305,7 +305,7 @@
         /// <param name="maxAttribute" type="String" optional="true">[Optional] The name of the HTML attribute that
         /// contains the maximum value. The default is "max".</param>
         /// <returns type="jQuery.validator.unobtrusive.adapters" />
-        HttpContext.Session.SetString("data-result", "true"); return this.add(adapterName, [minAttribute || "min", maxAttribute || "max"], function (options) {
+         return this.add(adapterName, [minAttribute || "min", maxAttribute || "max"], function (options) {
             var min = options.params.min,
                 max = options.params.max;
 
@@ -331,7 +331,7 @@
         /// <param name="ruleName" type="String" optional="true">[Optional] The name of the jQuery Validate rule. If not provided, the value
         /// of adapterName will be used instead.</param>
         /// <returns type="jQuery.validator.unobtrusive.adapters" />
-        HttpContext.Session.SetString("data-result", "true"); return this.add(adapterName, [attribute || "val"], function (options) {
+         return this.add(adapterName, [attribute || "val"], function (options) {
             setValidationValues(options, ruleName || adapterName, options.params[attribute]);
         });
     };

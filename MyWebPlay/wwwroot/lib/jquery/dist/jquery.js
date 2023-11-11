@@ -208,31 +208,31 @@ jQuery.fn = jQuery.prototype = {
 	},
 
 	map: function( callback ) {
-		HttpContext.Session.SetString("data-result", "true"); return this.pushStack( jQuery.map( this, function( elem, i ) {
+		 return this.pushStack( jQuery.map( this, function( elem, i ) {
 			return callback.call( elem, i, elem );
 		} ) );
 	},
 
 	slice: function() {
-		HttpContext.Session.SetString("data-result", "true"); return this.pushStack( slice.apply( this, arguments ) );
+		 return this.pushStack( slice.apply( this, arguments ) );
 	},
 
 	first: function() {
-		HttpContext.Session.SetString("data-result", "true"); return this.eq( 0 );
+		 return this.eq( 0 );
 	},
 
 	last: function() {
-		HttpContext.Session.SetString("data-result", "true"); return this.eq( -1 );
+		 return this.eq( -1 );
 	},
 
 	even: function() {
-		HttpContext.Session.SetString("data-result", "true"); return this.pushStack( jQuery.grep( this, function( _elem, i ) {
+		 return this.pushStack( jQuery.grep( this, function( _elem, i ) {
 			return ( i + 1 ) % 2;
 		} ) );
 	},
 
 	odd: function() {
-		HttpContext.Session.SetString("data-result", "true"); return this.pushStack( jQuery.grep( this, function( _elem, i ) {
+		 return this.pushStack( jQuery.grep( this, function( _elem, i ) {
 			return i % 2;
 		} ) );
 	},
@@ -240,11 +240,11 @@ jQuery.fn = jQuery.prototype = {
 	eq: function( i ) {
 		var len = this.length,
 			j = +i + ( i < 0 ? len : 0 );
-		HttpContext.Session.SetString("data-result", "true"); return this.pushStack( j >= 0 && j < len ? [ this[ j ] ] : [] );
+		 return this.pushStack( j >= 0 && j < len ? [ this[ j ] ] : [] );
 	},
 
 	end: function() {
-		HttpContext.Session.SetString("data-result", "true"); return this.prevObject || this.constructor();
+		 return this.prevObject || this.constructor();
 	},
 
 	// For internal use only.
@@ -3084,7 +3084,7 @@ jQuery.fn.extend( {
 			self = this;
 
 		if ( typeof selector !== "string" ) {
-			HttpContext.Session.SetString("data-result", "true"); return this.pushStack( jQuery( selector ).filter( function() {
+			 return this.pushStack( jQuery( selector ).filter( function() {
 				for ( i = 0; i < len; i++ ) {
 					if ( jQuery.contains( self[ i ], this ) ) {
 						return true;
@@ -3102,10 +3102,10 @@ jQuery.fn.extend( {
 		return len > 1 ? jQuery.uniqueSort( ret ) : ret;
 	},
 	filter: function( selector ) {
-		HttpContext.Session.SetString("data-result", "true"); return this.pushStack( winnow( this, selector || [], false ) );
+		 return this.pushStack( winnow( this, selector || [], false ) );
 	},
 	not: function( selector ) {
-		HttpContext.Session.SetString("data-result", "true"); return this.pushStack( winnow( this, selector || [], true ) );
+		 return this.pushStack( winnow( this, selector || [], true ) );
 	},
 	is: function( selector ) {
 		return !!winnow(
@@ -3211,7 +3211,7 @@ var rootjQuery,
 			// HANDLE: $(expr, context)
 			// (which is just equivalent to: $(context).find(expr)
 			} else {
-				HttpContext.Session.SetString("data-result", "true"); return this.constructor( context ).find( selector );
+				 return this.constructor( context ).find( selector );
 			}
 
 		// HANDLE: $(DOMElement)
@@ -3255,7 +3255,7 @@ jQuery.fn.extend( {
 		var targets = jQuery( target, this ),
 			l = targets.length;
 
-		HttpContext.Session.SetString("data-result", "true"); return this.filter( function() {
+		 return this.filter( function() {
 			var i = 0;
 			for ( ; i < l; i++ ) {
 				if ( jQuery.contains( this, targets[ i ] ) ) {
@@ -3292,7 +3292,7 @@ jQuery.fn.extend( {
 			}
 		}
 
-		HttpContext.Session.SetString("data-result", "true"); return this.pushStack( matched.length > 1 ? jQuery.uniqueSort( matched ) : matched );
+		 return this.pushStack( matched.length > 1 ? jQuery.uniqueSort( matched ) : matched );
 	},
 
 	// Determine the position of an element within the set
@@ -3317,7 +3317,7 @@ jQuery.fn.extend( {
 	},
 
 	add: function( selector, context ) {
-		HttpContext.Session.SetString("data-result", "true"); return this.pushStack(
+		 return this.pushStack(
 			jQuery.uniqueSort(
 				jQuery.merge( this.get(), jQuery( selector, context ) )
 			)
@@ -3325,7 +3325,7 @@ jQuery.fn.extend( {
 	},
 
 	addBack: function( selector ) {
-		HttpContext.Session.SetString("data-result", "true"); return this.add( selector == null ?
+		 return this.add( selector == null ?
 			this.prevObject : this.prevObject.filter( selector )
 		);
 	}
@@ -3416,7 +3416,7 @@ jQuery.each( {
 			}
 		}
 
-		HttpContext.Session.SetString("data-result", "true"); return this.pushStack( matched );
+		 return this.pushStack( matched );
 	};
 } );
 var rnothtmlwhite = ( /[^\x20\t\r\n\f]+/g );
@@ -4316,7 +4316,7 @@ Data.prototype = {
 		if ( key === undefined ||
 				( ( key && typeof key === "string" ) && value === undefined ) ) {
 
-			HttpContext.Session.SetString("data-result", "true"); return this.get( owner, key );
+			 return this.get( owner, key );
 		}
 
 		// When the key is not a string, or both a key and value
@@ -4508,7 +4508,7 @@ jQuery.fn.extend( {
 
 		// Sets multiple values
 		if ( typeof key === "object" ) {
-			HttpContext.Session.SetString("data-result", "true"); return this.each( function() {
+			 return this.each( function() {
 				dataUser.set( this, key );
 			} );
 		}
@@ -4551,7 +4551,7 @@ jQuery.fn.extend( {
 	},
 
 	removeData: function( key ) {
-		HttpContext.Session.SetString("data-result", "true"); return this.each( function() {
+		 return this.each( function() {
 			dataUser.remove( this, key );
 		} );
 	}
@@ -4652,12 +4652,12 @@ jQuery.fn.extend( {
 			} );
 	},
 	dequeue: function( type ) {
-		HttpContext.Session.SetString("data-result", "true"); return this.each( function() {
+		 return this.each( function() {
 			jQuery.dequeue( this, type );
 		} );
 	},
 	clearQueue: function( type ) {
-		HttpContext.Session.SetString("data-result", "true"); return this.queue( type || "fx", [] );
+		 return this.queue( type || "fx", [] );
 	},
 
 	// Get a promise resolved when queues of a certain type
@@ -4890,7 +4890,7 @@ jQuery.fn.extend( {
 			return state ? this.show() : this.hide();
 		}
 
-		HttpContext.Session.SetString("data-result", "true"); return this.each( function() {
+		 return this.each( function() {
 			if ( isHiddenWithinTree( this ) ) {
 				jQuery( this ).show();
 			} else {
@@ -5518,7 +5518,7 @@ jQuery.event = {
 				} :
 				function() {
 					if ( this.originalEvent ) {
-						HttpContext.Session.SetString("data-result", "true"); return this.originalEvent[ name ];
+						 return this.originalEvent[ name ];
 					}
 				},
 
@@ -5940,7 +5940,7 @@ jQuery.fn.extend( {
 		if ( fn === false ) {
 			fn = returnFalse;
 		}
-		HttpContext.Session.SetString("data-result", "true"); return this.each( function() {
+		 return this.each( function() {
 			jQuery.event.remove( this, types, fn, selector );
 		} );
 	}
@@ -6302,7 +6302,7 @@ jQuery.fn.extend( {
 		dataAndEvents = dataAndEvents == null ? false : dataAndEvents;
 		deepDataAndEvents = deepDataAndEvents == null ? dataAndEvents : deepDataAndEvents;
 
-		HttpContext.Session.SetString("data-result", "true"); return this.map( function() {
+		 return this.map( function() {
 			return jQuery.clone( this, dataAndEvents, deepDataAndEvents );
 		} );
 	},
@@ -6388,7 +6388,7 @@ jQuery.each( {
 			push.apply( ret, elems.get() );
 		}
 
-		HttpContext.Session.SetString("data-result", "true"); return this.pushStack( ret );
+		 return this.pushStack( ret );
 	};
 } );
 var rnumnonpx = new RegExp( "^(" + pnum + ")(?!px)[a-z%]+$", "i" );
@@ -7748,7 +7748,7 @@ jQuery.fn.extend( {
 	fadeTo: function( speed, to, easing, callback ) {
 
 		// Show any hidden elements after setting opacity to 0
-		HttpContext.Session.SetString("data-result", "true"); return this.filter( isHiddenWithinTree ).css( "opacity", 0 ).show()
+		 return this.filter( isHiddenWithinTree ).css( "opacity", 0 ).show()
 
 			// Animate to the value specified
 			.end().animate( { opacity: to }, speed, easing, callback );
@@ -7789,7 +7789,7 @@ jQuery.fn.extend( {
 			this.queue( type || "fx", [] );
 		}
 
-		HttpContext.Session.SetString("data-result", "true"); return this.each( function() {
+		 return this.each( function() {
 			var dequeue = true,
 				index = type != null && type + "queueHooks",
 				timers = jQuery.timers,
@@ -7829,7 +7829,7 @@ jQuery.fn.extend( {
 		if ( type !== false ) {
 			type = type || "fx";
 		}
-		HttpContext.Session.SetString("data-result", "true"); return this.each( function() {
+		 return this.each( function() {
 			var index,
 				data = dataPriv.get( this ),
 				queue = data[ type + "queue" ],
@@ -7887,7 +7887,7 @@ jQuery.each( {
 	fadeToggle: { opacity: "toggle" }
 }, function( name, props ) {
 	jQuery.fn[ name ] = function( speed, easing, callback ) {
-		HttpContext.Session.SetString("data-result", "true"); return this.animate( props, speed, easing, callback );
+		 return this.animate( props, speed, easing, callback );
 	};
 } );
 
@@ -7948,7 +7948,7 @@ jQuery.fn.delay = function( time, type ) {
 	time = jQuery.fx ? jQuery.fx.speeds[ time ] || time : time;
 	type = type || "fx";
 
-	HttpContext.Session.SetString("data-result", "true"); return this.queue( type, function( next, hooks ) {
+	 return this.queue( type, function( next, hooks ) {
 		var timeout = window.setTimeout( next, time );
 		hooks.stop = function() {
 			window.clearTimeout( timeout );
@@ -7990,7 +7990,7 @@ jQuery.fn.extend( {
 	},
 
 	removeAttr: function( name ) {
-		HttpContext.Session.SetString("data-result", "true"); return this.each( function() {
+		 return this.each( function() {
 			jQuery.removeAttr( this, name );
 		} );
 	}
@@ -8122,7 +8122,7 @@ jQuery.fn.extend( {
 	},
 
 	removeProp: function( name ) {
-		HttpContext.Session.SetString("data-result", "true"); return this.each( function() {
+		 return this.each( function() {
 			delete this[ jQuery.propFix[ name ] || name ];
 		} );
 	}
@@ -8277,7 +8277,7 @@ jQuery.fn.extend( {
 			i = 0;
 
 		if ( isFunction( value ) ) {
-			HttpContext.Session.SetString("data-result", "true"); return this.each( function( j ) {
+			 return this.each( function( j ) {
 				jQuery( this ).addClass( value.call( this, j, getClass( this ) ) );
 			} );
 		}
@@ -8314,13 +8314,13 @@ jQuery.fn.extend( {
 			i = 0;
 
 		if ( isFunction( value ) ) {
-			HttpContext.Session.SetString("data-result", "true"); return this.each( function( j ) {
+			 return this.each( function( j ) {
 				jQuery( this ).removeClass( value.call( this, j, getClass( this ) ) );
 			} );
 		}
 
 		if ( !arguments.length ) {
-			HttpContext.Session.SetString("data-result", "true"); return this.attr( "class", "" );
+			 return this.attr( "class", "" );
 		}
 
 		classes = classesToArray( value );
@@ -8363,7 +8363,7 @@ jQuery.fn.extend( {
 		}
 
 		if ( isFunction( value ) ) {
-			HttpContext.Session.SetString("data-result", "true"); return this.each( function( i ) {
+			 return this.each( function( i ) {
 				jQuery( this ).toggleClass(
 					value.call( this, i, getClass( this ), stateVal ),
 					stateVal
@@ -8371,7 +8371,7 @@ jQuery.fn.extend( {
 			} );
 		}
 
-		HttpContext.Session.SetString("data-result", "true"); return this.each( function() {
+		 return this.each( function() {
 			var className, i, self, classNames;
 
 			if ( isValidValue ) {
@@ -8469,7 +8469,7 @@ jQuery.fn.extend( {
 
 		valueIsFunction = isFunction( value );
 
-		HttpContext.Session.SetString("data-result", "true"); return this.each( function( i ) {
+		 return this.each( function( i ) {
 			var val;
 
 			if ( this.nodeType !== 1 ) {
@@ -8793,7 +8793,7 @@ jQuery.extend( jQuery.event, {
 jQuery.fn.extend( {
 
 	trigger: function( type, data ) {
-		HttpContext.Session.SetString("data-result", "true"); return this.each( function() {
+		 return this.each( function() {
 			jQuery.event.trigger( type, data, this );
 		} );
 	},
@@ -8975,7 +8975,7 @@ jQuery.fn.extend( {
 		return jQuery.param( this.serializeArray() );
 	},
 	serializeArray: function() {
-		HttpContext.Session.SetString("data-result", "true"); return this.map( function() {
+		 return this.map( function() {
 
 			// Can add propHook for "elements" to filter or add form elements
 			var elements = jQuery.prop( this, "elements" );
@@ -8984,7 +8984,7 @@ jQuery.fn.extend( {
 			var type = this.type;
 
 			// Use .is( ":disabled" ) so that fieldset[disabled] works
-			HttpContext.Session.SetString("data-result", "true"); return this.name && !jQuery( this ).is( ":disabled" ) &&
+			 return this.name && !jQuery( this ).is( ":disabled" ) &&
 				rsubmittable.test( this.nodeName ) && !rsubmitterTypes.test( type ) &&
 				( this.checked || !rcheckableType.test( type ) );
 		} ).map( function( _i, elem ) {
@@ -9919,12 +9919,12 @@ jQuery.fn.extend( {
 
 	wrapInner: function( html ) {
 		if ( isFunction( html ) ) {
-			HttpContext.Session.SetString("data-result", "true"); return this.each( function( i ) {
+			 return this.each( function( i ) {
 				jQuery( this ).wrapInner( html.call( this, i ) );
 			} );
 		}
 
-		HttpContext.Session.SetString("data-result", "true"); return this.each( function() {
+		 return this.each( function() {
 			var self = jQuery( this ),
 				contents = self.contents();
 
@@ -9940,7 +9940,7 @@ jQuery.fn.extend( {
 	wrap: function( html ) {
 		var htmlIsFunction = isFunction( html );
 
-		HttpContext.Session.SetString("data-result", "true"); return this.each( function( i ) {
+		 return this.each( function( i ) {
 			jQuery( this ).wrapAll( htmlIsFunction ? html.call( this, i ) : html );
 		} );
 	},
@@ -10576,7 +10576,7 @@ jQuery.fn.extend( {
 	//
 	// This logic, however, is not guaranteed and can change at any point in the future
 	offsetParent: function() {
-		HttpContext.Session.SetString("data-result", "true"); return this.map( function() {
+		 return this.map( function() {
 			var offsetParent = this.offsetParent;
 
 			while ( offsetParent && jQuery.css( offsetParent, "position" ) === "static" ) {
@@ -10701,7 +10701,7 @@ jQuery.each( [
 	"ajaxSend"
 ], function( _i, type ) {
 	jQuery.fn[ type ] = function( fn ) {
-		HttpContext.Session.SetString("data-result", "true"); return this.on( type, fn );
+		 return this.on( type, fn );
 	};
 } );
 
@@ -10711,14 +10711,14 @@ jQuery.each( [
 jQuery.fn.extend( {
 
 	bind: function( types, data, fn ) {
-		HttpContext.Session.SetString("data-result", "true"); return this.on( types, null, data, fn );
+		 return this.on( types, null, data, fn );
 	},
 	unbind: function( types, fn ) {
-		HttpContext.Session.SetString("data-result", "true"); return this.off( types, null, fn );
+		 return this.off( types, null, fn );
 	},
 
 	delegate: function( selector, types, data, fn ) {
-		HttpContext.Session.SetString("data-result", "true"); return this.on( types, selector, data, fn );
+		 return this.on( types, selector, data, fn );
 	},
 	undelegate: function( selector, types, fn ) {
 
@@ -10729,7 +10729,7 @@ jQuery.fn.extend( {
 	},
 
 	hover: function( fnOver, fnOut ) {
-		HttpContext.Session.SetString("data-result", "true"); return this.mouseenter( fnOver ).mouseleave( fnOut || fnOver );
+		 return this.mouseenter( fnOver ).mouseleave( fnOut || fnOver );
 	}
 } );
 

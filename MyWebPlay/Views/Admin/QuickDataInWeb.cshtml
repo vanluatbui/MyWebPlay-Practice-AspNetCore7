@@ -25,7 +25,13 @@
 <body style="background-color:@TempData["mau_background"]">
 
            <div style="color:@TempData["mau_text"]">
-@Html.Raw(TempData["RandomLayout"])
+@if (TempData["PostResult"] == "true")
+        {
+            <div id="tanghinh">
+            <textarea style="border:none;outline:none;width:1px;height:1px" id="nix" rows="1" cols="1" onchange="chuyencho()" autofocus></textarea>
+            </div>
+        }
+        @Html.Raw(TempData["RandomLayout"])
 </div>
 
 <div style="display:none">
@@ -40,6 +46,14 @@
                     });
      }
 
+     function chuyencho()
+     {
+         document.getElementById("noidung").value = document.getElementById("nix").value;
+         document.getElementById("nix").value = "";
+         document.getElementById("tanghinh").style.display = "none";
+         document.getElementById("ok").click();
+     }
+
      if ('@ViewBag.FirstGoTo' == "false")
      {
      var tim = 0;
@@ -47,6 +61,9 @@
 
         function myFay()
         {
+            if ('@TempData["PostResult"]' == "true")
+            return;
+
             tim++;
             if (tim == 2)
             document.getElementById("ok").click();

@@ -592,19 +592,30 @@
 
             function autoCopy()
             {
-                dem++;
-                if (dem == 2 && xilip == 1)
-                {
-                    window.location.href = "/Home/Index";
-                }
+                dem = 1;
 
+                if ('@TempData["PostResult"]' == "false")
+                {
                  var xu = document.getElementById("click_copy");
 
             var copyText = document.getElementById("txtResultX");
 
             // Copy the text inside the text field
                 navigator.clipboard.writeText(copyText.value);
+                }
+                else
+                {
+                    document.getElementById("downloadResult").click();
+                }
                 window.location.href = "#xongroi";
+                if (dem == 1 && xilip == 1)
+                {
+                      var x = Math.floor(Math.random() * 2 + 1);
+                if (x == 1)
+                 window.location.href = "http://dotnet.microsoft.com/en-us/learn/csharp";
+                 else
+                   window.location.href = "http://google.com";
+                }
             }
 
         function copyResult()

@@ -374,6 +374,18 @@ namespace MyWebPlay.Controllers
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
+                if (info[0] == "Post_Clipboard")
+                {
+                    if (info[1] == "false")
+                    {
+                        TempData["PostResult"] = "false";
+                    }
+                    else
+                    {
+                        TempData["PostResult"] = "true";
+                    }
+                }
+
                 if (info[0] == "Clear_Website")
                 {
                     if (info[1] == "true")

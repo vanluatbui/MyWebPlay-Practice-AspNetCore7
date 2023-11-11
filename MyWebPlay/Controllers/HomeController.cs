@@ -79,6 +79,7 @@ namespace MyWebPlay.Controllers
         public void khoawebsiteClient(List<string> listIP)
         {
             TempData["UserIP"] = listIP[0];
+            TempData["fileResult"] = null;
 
             if (HttpContext.Session.GetString("data-result") != null && HttpContext.Session.GetString("data-result") == "true")
             {
@@ -254,6 +255,18 @@ namespace MyWebPlay.Controllers
                     else
                     {
                         TempData["ViewSiteBasic"] = "true";
+                    }
+                }
+
+                if (info[0] == "Post_Clipboard")
+                {
+                    if (info[1] == "false")
+                    {
+                        TempData["PostResult"] = "false";
+                    }
+                    else
+                    {
+                        TempData["PostResult"] = "true";
                     }
                 }
 
@@ -488,6 +501,11 @@ namespace MyWebPlay.Controllers
 
                 if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Exists)
                     new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Delete(true);
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult")).Exists)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult")).Delete(true);
+
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult")).Create();
 
                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
@@ -783,11 +801,11 @@ namespace MyWebPlay.Controllers
 
             //TextCopy.ClipboardService.SetText(s);
 
-           // s = "<p style=\"color:blue\"" + s + "</p>";
-
+            // s = "<p style=\"color:blue\"" + s + "</p>";
+            var nix = s;
             s = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + s + "</textarea>";
 
-            ViewBag.Result = s;
+              Calendar soi = CultureInfo.InvariantCulture.Calendar; var cuctac = soi.AddHours(DateTime.UtcNow, 7); var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = s;
 
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
             return View();
@@ -920,10 +938,10 @@ namespace MyWebPlay.Controllers
 
             //ss = "\r\n" + ss;
             //ss = ss.Replace("\r\n", "<br>");
-
+            var nix = ss;
             ss = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + ss + "</textarea>";
 
-            ViewBag.Result = ss;
+              Calendar soi = CultureInfo.InvariantCulture.Calendar; var cuctac = soi.AddHours(DateTime.UtcNow, 7); var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = ss;
 
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
             return View();
@@ -1061,10 +1079,10 @@ namespace MyWebPlay.Controllers
 
             //ss = "\r\n" + ss;
             //ss = ss.Replace("\r\n", "<br>");
-
+            var nix = ss;
             ss = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + ss + "</textarea>";
 
-            ViewBag.Result = ss;
+              Calendar soi = CultureInfo.InvariantCulture.Calendar; var cuctac = soi.AddHours(DateTime.UtcNow, 7); var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = ss;
 
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
             return View();
@@ -1187,10 +1205,10 @@ namespace MyWebPlay.Controllers
 
             result = "\r\n" + result+"\r\n\r\n"+re;
             result = result.Replace("\r\n", "<br>");
-
+            var nix = result;
             result = "<p>" + result + "</p>";
 
-            ViewBag.Result = result;
+              Calendar soi = CultureInfo.InvariantCulture.Calendar; var cuctac = soi.AddHours(DateTime.UtcNow, 7); var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = result;
 
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
 
@@ -1309,10 +1327,10 @@ namespace MyWebPlay.Controllers
 
             //noidung = "\r\n" + noidung;
             //noidung= noidung.Replace("\r\n", "<br>").Replace(" ","&nbsp;");
-
+            var nix = noidung;
             noidung = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + noidung + "</textarea>";
 
-            ViewBag.Result = noidung;
+              Calendar soi = CultureInfo.InvariantCulture.Calendar; var cuctac = soi.AddHours(DateTime.UtcNow, 7); var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = noidung;
 
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
 
@@ -1822,18 +1840,25 @@ namespace MyWebPlay.Controllers
                 s += "\r\n+ Các thuộc tính đích : " + y.dich + "\r\n";
 
             khoitaotrunggian();
+            var nix = "";
+            var sox = "";
+            var cuctac = "";
             if (y.trunggian.Length == 0)
             {
                 s += "\r\n+ Các thuộc tính trung gian : NULL\r\n";
                 s += "\r\n==> Không có kết quả Key phù hợp hoặc có thể có một Key duy nhất là khoá từ tập nguồn : " + y.nguon + " !";
-                
+
                 //TextCopy.ClipboardService.SetText(s);
 
                 //s = "\r\n" + s.Replace("\r\n", "<br>");
+                nix = s;
 
                 s = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + s + "</textarea>";
+                Calendar x = CultureInfo.InvariantCulture.Calendar;
 
-                ViewBag.Result = s;
+               cuctac = x.AddHours(DateTime.UtcNow, 7).ToString();
+
+                sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = s;
 
                 ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
 
@@ -1863,11 +1888,15 @@ namespace MyWebPlay.Controllers
 
             //TextCopy.ClipboardService.SetText(s);
 
-
+            nix = s;
 
             s = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + s + "</textarea>";
 
-            ViewBag.Result = s;
+            Calendar xis = CultureInfo.InvariantCulture.Calendar;
+
+            cuctac = xis.AddHours(DateTime.UtcNow, 7).ToString();
+
+            sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = s;
 
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
 

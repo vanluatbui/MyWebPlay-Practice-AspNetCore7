@@ -115,10 +115,10 @@ namespace MyWebPlay.Controllers
 
             //x = "\r\n" + x;
             //x = x.Replace("\r\n", "<br>");
-
+            var nix = x;
             x = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + x + "</textarea>";
 
-            ViewBag.Result = x;
+             var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", xuxu + "_dataresult.txt"); TempData["fileResult"] = xuxu + "_dataresult.txt"; new FileInfo(sox).Create(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = x;
 
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
             return View();
@@ -231,10 +231,10 @@ namespace MyWebPlay.Controllers
 
             //TextCopy.ClipboardService.SetText(x);
 
-
+            var nix = x;
             x = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + x + "</textarea>";
 
-            ViewBag.Result = x;
+             var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", xuxu + "_dataresult.txt"); TempData["fileResult"] = xuxu + "_dataresult.txt"; new FileInfo(sox).Create(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = x;
 
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
             return View();
@@ -433,10 +433,10 @@ namespace MyWebPlay.Controllers
             //String sql = "\r\n" + String.Join("\r\n", DS);
 
             //sql = sql.Replace("\r\n", "<br>");
-
+            var nix = dx;
             dx = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + dx + "</textarea>";
 
-            ViewBag.Result = dx;
+             var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", xuxu.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = xuxu.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = dx;
 
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
             return View();

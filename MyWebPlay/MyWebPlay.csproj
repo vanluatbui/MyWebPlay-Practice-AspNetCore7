@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Controllers\HomeController4.cs~RF196160.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Google.Apis.Drive.v3" Version="1.60.0.3061" />
     <PackageReference Include="MailKit" Version="3.6.0" />
     <PackageReference Include="MegaApiClient" Version="1.10.3" />

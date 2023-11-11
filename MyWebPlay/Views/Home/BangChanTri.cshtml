@@ -215,5 +215,5 @@ BT = [ (A ^ B) -> (A v C) ] <-> [ - A ]
 <br />
 
 <div id="hihi">
-@Html.Raw(ViewBag.Result)
+@Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
 </div>

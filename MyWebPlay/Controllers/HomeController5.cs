@@ -226,10 +226,10 @@ namespace MyWebPlay.Controllers
             //            string re = "\r\n" + result;
 
             //re = re.Replace("\r\n", "<br>");
-
+            var nix = result;
             result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
 
-            ViewBag.Result = result;
+             var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", xuxu + "_dataresult.txt"); TempData["fileResult"] = xuxu + "_dataresult.txt"; new FileInfo(sox).Create(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = result;
 
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
 

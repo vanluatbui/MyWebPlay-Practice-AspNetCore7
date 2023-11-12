@@ -364,6 +364,9 @@ namespace MyWebPlay.Controllers
             else
                 ViewBag.FirstGoTo = "false";
 
+            Random ri = new Random();
+            ViewBag.NumberRandom = ri.Next(3) + 1;
+
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
@@ -383,6 +386,18 @@ namespace MyWebPlay.Controllers
                     else
                     {
                         TempData["PostResult"] = "true";
+                    }
+                }
+
+                if (info[0] == "Random_Layout")
+                {
+                    if (info[1] == "false")
+                    {
+                        TempData["Layout_Random"] = "false";
+                    }
+                    else
+                    {
+                        TempData["Layout_Random"] = "true";
                     }
                 }
 
@@ -500,6 +515,9 @@ namespace MyWebPlay.Controllers
                 return Redirect("http://stackoverflow.com/questions/206820/how-do-i-prevent-and-or-handle-a-stackoverflowexception");
             }
 
+            Random ri = new Random();
+            ViewBag.NumberRandom = ri.Next(3) + 1;
+
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
@@ -518,6 +536,18 @@ namespace MyWebPlay.Controllers
                                 return Redirect("http://dotnet.microsoft.com/en-us/learn/csharp");
                             return Redirect("http://google.com");
                         }
+                    }
+                }
+
+                if (info[0] == "Random_Layout")
+                {
+                    if (info[1] == "false")
+                    {
+                        TempData["Layout_Random"] = "false";
+                    }
+                    else
+                    {
+                        TempData["Layout_Random"] = "true";
                     }
                 }
 

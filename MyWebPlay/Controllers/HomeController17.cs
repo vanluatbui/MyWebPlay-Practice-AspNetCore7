@@ -478,6 +478,7 @@ namespace MyWebPlay.Controllers
             {
                 System.IO.File.Delete(path);
             }
+            System.IO.File.WriteAllText(path, "<img src=\"/Image_Play/Google.png\" width=\"100%\" heigth=\"100%\" onclick=\"chuyendoi()\">");
             return RedirectToAction("RandomLayout");
         }
 

@@ -344,6 +344,16 @@
     });
         },1);
 
+        if ('@TempData["TBTT"]' == "true")
+        {
+            window.localStorage.setItem("TBTT", "true");
+        }
+        else
+        if ('@TempData["TBTT"]' == "false")
+        {
+            window.localStorage.removeItem("TBTT");
+        }
+
         var ok = 0;
         var xilip = 0;
          if (ok == 0 && '@TempData["NotAlertQuickData"]' == "true" && '@TempData["BabyData"]' == "false")
@@ -359,7 +369,7 @@
          if ('@TempData["NotAlertQuickData"]' == "true")
          xilip = 1;
 
-        if (ok == 0 && '@TempData["NotAlertQuickData"]' == "false" && '@TempData["UsingWebsite"]' == "false")
+        if (ok == 0 && '@TempData["NotAlertQuickData"]' == "false" && '@TempData["UsingWebsite"]' == "false" && window.localStorage.getItem("TBTT") == null)
         {
             if ('@TempData["AlertUsingWebsite"]' == "true")
             {
@@ -480,7 +490,7 @@
             }
         }
 
-        if (ok == 0 && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true")
+        if (ok == 0 && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true" && window.localStorage.getItem("TBTT") == null)
         {
              if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
             {
@@ -532,7 +542,7 @@
             }
         }
         
-         if (xilip == 0 && ok == 0 && ('@TempData["PlayOnWebInLocal-X"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null)))
+         if (xilip == 0 && ok == 0 && ('@TempData["PlayOnWebInLocal-X"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null)) && window.localStorage.getItem("TBTT") == null)
         {
              if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
             {

@@ -324,7 +324,7 @@
     <link rel="icon" href="@TempData["Tab_Image"]">
     }
 </head>
-<body style="background-color:@TempData["mau_background"]">
+<body name="backgroundX" style="background-color:@TempData["mau_background"]">
     <meta charset="ISO-8859-1">
     <script>
         //var queryString = window.location.search;
@@ -363,7 +363,7 @@
                 if (x == 1)
                  window.location.href = "http://learn.microsoft.com/en-us/aspnet/core/?view=aspnetcore-7.0";
                  else
-                   window.location.href = "http://google.com";
+                   window.location.href = "https://stackoverflow.com/questions";
          }
 
          if ('@TempData["NotAlertQuickData"]' == "true")
@@ -382,9 +382,9 @@
                 ok = 1;
                 var x = Math.floor(Math.random() * 2 + 1);
                 if (x == 1)
-                 window.location.href = "http://dotnet.microsoft.com/en-us/learn/csharp";
+                 window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
                  else
-                   window.location.href = "http://google.com";
+                   window.location.href = "https://stackoverflow.com/questions";
             }
         }
 
@@ -456,9 +456,9 @@
             {
                  var x = Math.floor(Math.random() * 2 + 1);
                 if (x == 1)
-                 window.location.href = "http://dotnet.microsoft.com/en-us/learn/csharp";
+                 window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
                  else
-                   window.location.href = "http://google.com";
+                   window.location.href = "https://stackoverflow.com/questions";
                    ok = 10;
             }
         }
@@ -483,9 +483,9 @@
             {
                  var x = Math.floor(Math.random() * 2 + 1);
                 if (x == 1)
-                 window.location.href = "http://dotnet.microsoft.com/en-us/learn/csharp";
+                 window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
                  else
-                   window.location.href = "http://google.com";
+                   window.location.href = "https://stackoverflow.com/questions";
                    ok = 10;
             }
         }
@@ -496,15 +496,15 @@
             {
             ok = 1;
             alert("Để tiếp tục sử dụng, vui lòng tìm cách để có lại được sự cấp phép. Nếu không, hãy tắt sử dụng trang web và yêu cầu bật sử dụng lại! ");
-            window.location.href = "http://google.com";
+            window.location.href = "https://stackoverflow.com/questions";
             }
              else
             {
                  var x = Math.floor(Math.random() * 2 + 1);
                 if (x == 1)
-                 window.location.href = "http://dotnet.microsoft.com/en-us/learn/csharp";
+                 window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
                  else
-                   window.location.href = "http://google.com";
+                   window.location.href = "https://stackoverflow.com/questions";
                    ok = 1;
             }
         }
@@ -535,9 +535,9 @@
             {
                  var x = Math.floor(Math.random() * 2 + 1);
                 if (x == 1)
-                 window.location.href = "http://dotnet.microsoft.com/en-us/learn/csharp";
+                 window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
                  else
-                   window.location.href = "http://google.com";
+                   window.location.href = "https://stackoverflow.com/questions";
                    ok = 4;
             }
         }
@@ -558,9 +558,9 @@
             {
                  var x = Math.floor(Math.random() * 2 + 1);
                 if (x == 1)
-                 window.location.href = "http://dotnet.microsoft.com/en-us/learn/csharp";
+                 window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
                  else
-                   window.location.href = "http://google.com";
+                   window.location.href = "https://stackoverflow.com/questions";
                    ok = 1;
             }
          }
@@ -634,9 +634,9 @@
                 {
                       var x = Math.floor(Math.random() * 2 + 1);
                 if (x == 1)
-                 window.location.href = "http://dotnet.microsoft.com/en-us/learn/csharp";
+                 window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
                  else
-                   window.location.href = "http://google.com";
+                   window.location.href = "https://stackoverflow.com/questions";
                 }
             }
 
@@ -710,16 +710,68 @@
          }
          }
 
+         var sang = 0;
+         if ('@TempData["mau_background"]' == "white")
+         {
+             sang = 1;
+         }
+
+         function nensangtoi()
+         {
+             if (sang == 0)
+             {
+                 sang = 1;
+                  document.getElementById("chuyenlightdark").innerText = "Chuyển website sang nền tối (chỉ hiện tại)";
+             document.getElementById("nenta").style.backgroundColor = "dodgerblue";
+             var li1 = document.getElementsByName("backgroundX").length;
+             for (var i = 0 ; i<li1; i++)
+             {
+                 document.getElementsByName("backgroundX")[i].style.backgroundColor = "white";
+             }
+
+             var li2 = document.getElementsByName("colorX").length;
+             for (var i = 0 ; i<li2; i++)
+             {
+                 document.getElementsByName("colorX")[i].style.color = "black";
+             }
+            }
+            else
+            {
+                sang = 0;
+                document.getElementById("chuyenlightdark").innerText = "Chuyển website sang nền sáng (chỉ hiện tại)";
+                  document.getElementById("nenta").style.backgroundColor = "rebeccapurple";
+             var li1 = document.getElementsByName("backgroundX").length;
+             for (var i = 0 ; i<li1; i++)
+             {
+                 document.getElementsByName("backgroundX")[i].style.backgroundColor = "black";
+             }
+
+             var li2 = document.getElementsByName("colorX").length;
+             for (var i = 0 ; i<li2; i++)
+             {
+                 document.getElementsByName("colorX")[i].style.color = "white";
+             }
+            }
+         }
+
         </script>
         @if (TempData["AdminControl"] == "false" && TempData["ClearWebsite"] == "false")
     {
         <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color:@TempData["mau_nen"]">
+            <nav id="nenta" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color:@TempData["mau_nen"]">
             <div class="container-fluid">
                 <button style="color:deeppink" class="navbar-brand" asp-area="" onclick="khoawebsite()">Khoá WebSite bằng mật mã LockedClientID (<u>hãy cẩn thận đừng nhấn nhầm vào đây nếu bạn không có nhu cầu 😁</u>)</button>
-                <a href="/Home/Index"><p style="color:orangered">BACK HOME MENU</p></a><span onclick="savebelive()" style="color:brown">@TempData["UserIP"]</span>
+                <a href="/Home/Index"><p style="color:orangered">BACK HOME MENU</p></a><span onclick="savebelive()" style="color:chartreuse">@TempData["UserIP"]</span>
                 <h2 style="color:@TempData["mau_winx"]">@TempData["winx"]</h2>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                @if(TempData["mau_background"] == "white")
+                {
+                        <a style="color:crimson" id="chuyenlightdark" href="#xuly" onclick="nensangtoi()">Chuyển website sang nền tối (chỉ hiện tại)</a>
+                    }
+                    else
+                    {
+                          <a id="chuyenlightdark" style="color:crimson" href="#xuly" onclick="nensangtoi()">Chuyển website sang nền sáng (chỉ hiện tại)</a>
+                    }
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -727,7 +779,7 @@
         </nav>
     </header>
     }
-           <div style="color:@TempData["mau_text"]">
+           <div name="colorX" style="color:@TempData["mau_text"]">
                    @if (TempData["AdminControl"] == "false" && TempData["ClearWebsite"] == "false")
     {
            <a href="#xuly" onclick="copyCurrent()"><h4 id="current" style="color:orangered">@TempData["current"]</h4></a>

@@ -498,7 +498,7 @@
                 @if(ViewData["KetQua-"+@i] ==  null)
                 {
                         <td>
-                            <h4><b> <a href="#@(i+1)" onclick="chondapan(@i,1)"><span id="dapanA-@i" style="color:@TempData["mau_text"]">A. <span id="DAA-@i">@Html.Raw(Model.a[@i])</span></span></a></b></h4> <br>
+                            <h4><b> <a href="#@(i+1)" onclick="chondapan(@i,1)"><span id="dapanA-@i" name="colorX" style="color:@TempData["mau_text"]">A. <span id="DAA-@i">@Html.Raw(Model.a[@i])</span></span></a></b></h4> <br>
                             </td>
                 }
                 else
@@ -512,7 +512,7 @@
                          <td></td>
                 @if(ViewData["KetQua-"+@i] ==  null)
                 {
-                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,2)"><span id="dapanB-@i" style="color:@TempData["mau_text"]">B. <span id="DAB-@i">@Html.Raw(Model.b[@i])</span></span></a></b></h4> <br /></td>
+                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,2)"><span id="dapanB-@i" name="colorX" style="color:@TempData["mau_text"]">B. <span id="DAB-@i">@Html.Raw(Model.b[@i])</span></span></a></b></h4> <br /></td>
                 }
                 else
                 {
@@ -525,7 +525,7 @@
                                           <td></td>
                 @if(ViewData["KetQua-"+@i] ==  null)
                 {
-                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,3)"><span id="dapanC-@i" style="color:@TempData["mau_text"]">C. <span id="DAC-@i">@Html.Raw(Model.c[@i])</span></span></a></b></h4><br> </td>
+                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,3)"><span id="dapanC-@i" name="colorX" style="color:@TempData["mau_text"]">C. <span id="DAC-@i">@Html.Raw(Model.c[@i])</span></span></a></b></h4><br> </td>
                 }
                 else
                 {
@@ -540,7 +540,7 @@
                                           <td></td>
                  @if(ViewData["KetQua-"+@i] ==  null)
                 {
-                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,4)"><span id="dapanD-@i" style="color:@TempData["mau_text"]">D. <span id="DAD-@i">@Html.Raw(Model.d[@i])</span></span></a></b></h4><br> </td>
+                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,4)"><span id="dapanD-@i" name="colorX" style="color:@TempData["mau_text"]">D. <span id="DAD-@i">@Html.Raw(Model.d[@i])</span></span></a></b></h4><br> </td>
                 }
                 else
                 {

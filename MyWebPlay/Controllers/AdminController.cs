@@ -106,13 +106,13 @@ namespace MyWebPlay.Controllers
             {
                 TempData["mau_background"] = "white";
                 TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
-                TempData["nav_link"] = "text-dark"; TempData["winx"] = "❤";
+                 TempData["winx"] = "❤";
             }
             else
             {
                 TempData["mau_background"] = "black";
                 TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
-                TempData["nav_link"] = "text-light"; TempData["winx"] = "❤";
+                 TempData["winx"] = "❤";
             }
 
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
@@ -252,13 +252,13 @@ namespace MyWebPlay.Controllers
             {
                 TempData["mau_background"] = "white";
                 TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
-                TempData["nav_link"] = "text-dark"; TempData["winx"] = "❤";
+                 TempData["winx"] = "❤";
             }
             else
             {
                 TempData["mau_background"] = "black";
                 TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
-                TempData["nav_link"] = "text-light"; TempData["winx"] = "❤";
+                 TempData["winx"] = "❤";
             }
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
@@ -434,8 +434,8 @@ namespace MyWebPlay.Controllers
                             var r = new Random();
                             var x = r.Next(0, 2);
                             if (x == 1)
-                                return Redirect("http://dotnet.microsoft.com/en-us/learn/csharp");
-                            return Redirect("http://google.com");
+                                return Redirect("https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website");
+                            return Redirect("https://stackoverflow.com/questions");
                         }
                     }
                 }
@@ -475,7 +475,7 @@ namespace MyWebPlay.Controllers
         {
             HttpContext.Session.Clear();
             TempData.Clear();
-            return Redirect("http://google.com");
+            return Redirect("https://stackoverflow.com/questions");
         }
 
         [HttpPost]
@@ -533,8 +533,8 @@ namespace MyWebPlay.Controllers
                             var r = new Random();
                             var x = r.Next(0, 2);
                             if (x == 1)
-                                return Redirect("http://dotnet.microsoft.com/en-us/learn/csharp");
-                            return Redirect("http://google.com");
+                                return Redirect("https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website");
+                            return Redirect("https://stackoverflow.com/questions");
                         }
                     }
                 }

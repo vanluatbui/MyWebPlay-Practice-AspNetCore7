@@ -56,13 +56,13 @@ namespace MyWebPlay.Controllers
             {
                 TempData["mau_background"] = "white";
                 TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
-                TempData["nav_link"] = "text-dark"; TempData["winx"] = "❤";
+                 TempData["winx"] = "❤";
             }
             else
             {
                 TempData["mau_background"] = "black";
                 TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
-                TempData["nav_link"] = "text-light"; TempData["winx"] = "❤";
+                 TempData["winx"] = "❤";
             }
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
@@ -171,13 +171,13 @@ namespace MyWebPlay.Controllers
             {
                 TempData["mau_background"] = "white";
                 TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
-                TempData["nav_link"] = "text-dark"; TempData["winx"] = "❤";
+                 TempData["winx"] = "❤";
             }
             else
             {
                 TempData["mau_background"] = "black";
                 TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
-                TempData["nav_link"] = "text-light"; TempData["winx"] = "❤";
+                 TempData["winx"] = "❤";
             }
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
@@ -287,13 +287,13 @@ namespace MyWebPlay.Controllers
             {
                 TempData["mau_background"] = "white";
                 TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
-                TempData["nav_link"] = "text-dark"; TempData["winx"] = "❤";
+                 TempData["winx"] = "❤";
             }
             else
             {
                 TempData["mau_background"] = "black";
                 TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
-                TempData["nav_link"] = "text-light"; TempData["winx"] = "❤";
+                 TempData["winx"] = "❤";
             }
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);

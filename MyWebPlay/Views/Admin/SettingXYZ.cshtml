@@ -74,7 +74,7 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 </style>
-<body style="background-color:@TempData["mau_background"]">
+<body name="backgroundX" style="background-color:@TempData["mau_background"]">
     <br />
 
     <script>
@@ -297,7 +297,7 @@ input:checked + .slider:before {
             <td>
                 @for (int i = 0; i < Model.Topics.Count; i++)
 {
- <h3 style="color:@TempData["mau_text"]" id="come-@i">@Html.Raw(Model.Topics[i].NoiDung)</h3>
+ <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-@i">@Html.Raw(Model.Topics[i].NoiDung)</h3>
  @if(Model.Topics[i].ID != "Password_Admin" && Model.Topics[i].ID != "Believe_IP")
  {
 <label class="switch">
@@ -336,21 +336,21 @@ input:checked + .slider:before {
     }
         <hr /><hr />
     <br />
-    <b id="labelActive" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG HOẠT ĐỘNG (một số thiết bị có thể chưa xác nhận cấp phép sử dụng)</b>
+    <b id="labelActive" name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG HOẠT ĐỘNG (một số thiết bị có thể chưa xác nhận cấp phép sử dụng)</b>
     <br />
     <select onclick="loadActive()" onchange="setActive()" id="ip_active">
     </select>&nbsp;<input type="text" id="txtIPActive" /><br />
     <button onclick="addActive()" style="color:green">THÊM (HOẠT ĐỘNG NHƯNG CHƯA XÁC NHẬN THIẾT BỊ)</button>&nbsp;<button onclick="removeActive()" style="color:red">XOÁ (HẾT HẠN)</button>
     <br />
      <br />
-    <b style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG BỊ KHOÁ (ADMIN)</b>
+    <b name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG BỊ KHOÁ (ADMIN)</b>
     <br />
     <select onclick="loadLockAdmin()" onchange="setLockAdmin()" id="ip_blockadmin">
     </select>&nbsp;<input type="text" id="txtIPLockAdmin" /><br />
     <button onclick="addLockAdmin()" style="color:green">THÊM (KHOÁ IP ADMIN)</button>&nbsp;<button onclick="removeLockAdmin()" style="color:red">XOÁ (MỞ KHOÁ IP ADMIN)</button>
     <br />
      <br />
-    <b style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG BỊ KHOÁ (CLIENT)</b>
+    <b name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG BỊ KHOÁ (CLIENT)</b>
     <br />
     <select onclick="loadLockClient()" onchange="setLockClient()" id="ip_blockclient">
     </select>&nbsp;<input type="text" id="txtIPLockClient" size="100" placeholder="Nhập với cấu trúc : IP<>Mật khẩu" /><br />

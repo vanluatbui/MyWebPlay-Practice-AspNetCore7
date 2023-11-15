@@ -24,6 +24,7 @@
     <Folder Include="wwwroot\GetColorAtPicture\" />
     <Folder Include="wwwroot\karaoke\music\" />
     <Folder Include="wwwroot\karaoke_Example\background\" />
+    <Folder Include="wwwroot\POST_DataResult\" />
     <Folder Include="wwwroot\zip-gmail\" />
   </ItemGroup>
 	

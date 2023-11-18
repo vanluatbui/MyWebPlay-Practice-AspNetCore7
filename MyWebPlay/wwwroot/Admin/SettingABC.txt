@@ -1,4 +1,4 @@
-Using_Website<3275>false<3275>Hoạt động website <span style="color:purple">[MASTER]</span> : sẽ không có tác dụng (sẽ luôn như là tắt) khi 3 setting "Request data nhanh, chế độ tàng hình và bỏ qua xác minh [ADMIN] bên dưới được bật cùng lúc"
+Using_Website<3275>true<3275>Hoạt động website <span style="color:purple">[MASTER]</span> : sẽ không có tác dụng (sẽ luôn như là tắt) khi 3 setting "Request data nhanh, chế độ tàng hình và bỏ qua xác minh [ADMIN] bên dưới được bật cùng lúc"
 Alert_UsingWebsite<3275>false<3275>Thông báo khi website tắt hoạt động (nếu tắt thì sẽ chuyển hướng sang website tạm khác (*) và không nói gì thêm/user sẽ khó biết được vấn đề) - kể cả bị lock website bởi admin hoặc client nội bộ,...vv... Hãy thật cẩn thận khi muốn tắt setting này!
 Post_Clipboard<3275>false<3275>Download nội dung kết quả POST từ file .txt (thay vì mặc định copy vào clipboard/giám thị hoạt dộng cho luồng gửi data quick request POST và chế độ tàng hình + không xác minh [ADMIN], còn bình thường cũng có thể áp dụng tất cả...)
 Off_RandomTab<3275>false<3275>Tắt chế độ random view tab website
@@ -14,7 +14,7 @@ Email_User_Continue<3275>false<3275>Thông báo email phát hiện user tiếp t
 Email_Note<3275>false<3275>Thông báo email note text mới
 Save_ComeHere<3275>false<3275>Save request of user/list request used (khi tắt các dữ liệu mới sẽ không được lưu trữ và các dữ liệu cũ vẫn sẽ được bảo toàn)
 Mail_ReportUrl<3275>false<3275>Auto send mail with IP request come used (if data than 100) - nếu bạn tắt thì dữ liệu vẫn sẽ bị khôi phục nhưng không gửi mail report
-Using_QuickData<3275>false<3275>[Admin] Áp dụng dịch vụ request POST excute data nhanh (nếu tắt sẽ được chuyển hướng đến website tạm khác (*))
+Using_QuickData<3275>true<3275>[Admin] Áp dụng dịch vụ request POST excute data nhanh (nếu tắt sẽ được chuyển hướng đến website tạm khác (*))
 Clear_Website<3275>false<3275>[Admin] Chế độ tàng hình website (một số tính năng sẽ rất khó hoặc không thể sử dụng)
 NotAlert_QuickData<3275>false<3275>[Admin] Bỏ qua bước xác minh - request POST excute data nhanh (chỉ dùng khi bạn bật setting UsingQuickData và chế độ tàng hình website - và phải bật hoạt động website)
 Random_Layout<3275>false<3275>Bật sử dụng RandomLayout ngẫu nhiên có sẵn (dành cho luồng REQUEST QUICK POST DATA - admin)

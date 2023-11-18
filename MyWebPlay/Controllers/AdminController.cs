@@ -494,7 +494,7 @@ namespace MyWebPlay.Controllers
                     var ss = s[i].Split("\r\n*\r\n", StringSplitOptions.RemoveEmptyEntries);
                     ss[1] = ss[1].Replace("[NULL]", "");
 
-                    chuoi += "<textarea name=\"" + ss[0] + "\" cols=\"80\" rows=\"30\">" + ss[1].Trim('\"') + "</textarea><br>\n";
+                    chuoi += "<textarea name=\"" + ss[0] + "\" cols=\"80\" rows=\"30\">" + ss[1].Trim('\"').Replace("[ngoackep_0000]", "\"") + "</textarea><br>\n";
                 }
 
                 TempData["Data"] = chuoi;

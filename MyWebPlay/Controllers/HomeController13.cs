@@ -12,6 +12,12 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult ViewNoteFile()
         {
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -39,6 +45,12 @@ namespace MyWebPlay.Controllers
 
         public ActionResult EditTextNote()
         {
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -62,7 +74,14 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult EditTextNote(string? txtText)
         {
-            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
+            /*HttpContext.Session.Remove("ok-data");*/
+            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -186,6 +205,12 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XoaTextNote()
         {
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "note", "textnote.txt");
 
             if (System.IO.File.Exists(path))
@@ -197,6 +222,12 @@ namespace MyWebPlay.Controllers
 
         public ActionResult PlayQuestion_Multiple()
         {
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -224,7 +255,14 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult PlayQuestion_Multiple (IFormCollection f, List<IFormFile> txtFile)
         {
-            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
+            /*HttpContext.Session.Remove("ok-data");*/
+            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -579,6 +617,12 @@ namespace MyWebPlay.Controllers
 
         public ActionResult PlayQuestion(TracNghiem tn)
         {
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -597,7 +641,14 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult PlayQuestion(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
+            /*HttpContext.Session.Remove("ok-data");*/
+            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -721,6 +772,12 @@ namespace MyWebPlay.Controllers
 
         public ActionResult CreateFile_Question()
         {
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -741,7 +798,14 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult CreateFile_Question(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
+            /*HttpContext.Session.Remove("ok-data");*/
+            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -883,6 +947,12 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XoaAllFile_X2()
         {
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
             var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
 
             foreach (var file in listFile)

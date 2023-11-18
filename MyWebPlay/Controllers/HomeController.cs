@@ -78,66 +78,8 @@ namespace MyWebPlay.Controllers
 
         public void khoawebsiteClient(List<string> listIP)
         {
-            TempData["UserIP"] = listIP[0];
-            TempData["fileResult"] = null;
-
-            if (HttpContext.Session.GetString("data-result") != null && HttpContext.Session.GetString("data-result") == "true")
-            {
-                TempData["data-result"] = "true";
-                HttpContext.Session.Remove("data-result");
-            }
-            else
-            {
-                TempData["data-result"] = "false";
-            }
-
-            if (HttpContext.Session.GetString("alert-trust") != null)
-            {
-                TempData["alert-trust"] = "true";
-            }
-            else
-            {
-                TempData["alert-trust"] = "false";
-            }
-
-            HttpContext.Session.Remove("alert-trust");
-
-            if (HttpContext.Session.GetString("trust-ok") != null && HttpContext.Session.GetString("trust-ok") == "true")
-            {
-                TempData["ok-tin-IP"] = "true";
-                HttpContext.Session.Remove("trust-ok");
-            }
-            else
-            {
-                TempData.Remove("ok-tin-IP");
-                //HttpContext.Session.Remove("trust-X-you");
-            }
-
-            TempData["current"] = HttpContext.Request.GetDisplayUrl();
-       
-            //var cu = System.IO.File.ReadAllText("D:/XemCode/ma.txt");
-            //System.IO.File.WriteAllText("D:/XemCode/ma.txt", cu + HttpContext.Session.GetString("adminDirectURL") + "- abc\n\n");
-            TempData["directURL"] = "false";
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
-
-            Calendar x = CultureInfo.InvariantCulture.Calendar;
-
-            var xuxu = x.AddHours(DateTime.UtcNow, 7);
-
-            if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
-            {
-                TempData["mau_background"] = "white";
-                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
-                 TempData["winx"] = "❤";
-            }
-            else
-            {
-                TempData["mau_background"] = "black";
-                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
-                 TempData["winx"] = "❤";
-            }
-
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
             var flx = 0;
@@ -192,7 +134,7 @@ namespace MyWebPlay.Controllers
                 }
 
                 if (flox == 0)
-               TempData["NotAlertQuickData"] = "false";
+                    TempData["NotAlertQuickData"] = "false";
 
                 if (flix == 1 && flx == 1 && info[0] == "NotAlert_QuickData")
                 {
@@ -210,7 +152,8 @@ namespace MyWebPlay.Controllers
                 if (flox == 1 && HttpContext.Session.GetString("ok-data") == "true")
                 {
                     TempData["BabyData"] = "true";
-                    /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
+                    /*HttpContext.Session.Remove("ok-data");*/
+                    TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
                 }
                 else
                 {
@@ -326,19 +269,79 @@ namespace MyWebPlay.Controllers
                 {
                     if (info[1] == "false")
                     {
-                        
+
                         TempData["mau_winx"] = "red";
                         flag = 1;
                     }
                     else
                     {
-                        
+
                         TempData["mau_winx"] = "deeppink";
                         flag = 0;
                     }
                 }
+            }
+            if (listIP == null)
+            {
+                return;
+            }
 
+            TempData["UserIP"] = listIP[0];
+            TempData["fileResult"] = null;
 
+            if (HttpContext.Session.GetString("data-result") != null && HttpContext.Session.GetString("data-result") == "true")
+            {
+                TempData["data-result"] = "true";
+                HttpContext.Session.Remove("data-result");
+            }
+            else
+            {
+                TempData["data-result"] = "false";
+            }
+
+            if (HttpContext.Session.GetString("alert-trust") != null)
+            {
+                TempData["alert-trust"] = "true";
+            }
+            else
+            {
+                TempData["alert-trust"] = "false";
+            }
+
+            HttpContext.Session.Remove("alert-trust");
+
+            if (HttpContext.Session.GetString("trust-ok") != null && HttpContext.Session.GetString("trust-ok") == "true")
+            {
+                TempData["ok-tin-IP"] = "true";
+                HttpContext.Session.Remove("trust-ok");
+            }
+            else
+            {
+                TempData.Remove("ok-tin-IP");
+                //HttpContext.Session.Remove("trust-X-you");
+            }
+
+            TempData["current"] = HttpContext.Request.GetDisplayUrl();
+       
+            //var cu = System.IO.File.ReadAllText("D:/XemCode/ma.txt");
+            //System.IO.File.WriteAllText("D:/XemCode/ma.txt", cu + HttpContext.Session.GetString("adminDirectURL") + "- abc\n\n");
+            TempData["directURL"] = "false";
+
+            Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+            var xuxu = x.AddHours(DateTime.UtcNow, 7);
+
+            if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
+            {
+                TempData["mau_background"] = "white";
+                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
+                 TempData["winx"] = "❤";
+            }
+            else
+            {
+                TempData["mau_background"] = "black";
+                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
+                 TempData["winx"] = "❤";
             }
 
             if (listIP[0] != tintuong)
@@ -445,22 +448,29 @@ namespace MyWebPlay.Controllers
         }
         public ActionResult Index()
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")))
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
             {
-                TempData["GetDataIP"] = "true";
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
             }
-            else
-            {
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-                var listIP = new List<string>();
 
-                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                    listIP.Add(HttpContext.Session.GetString("userIP"));
-                else
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")))
                 {
                     TempData["GetDataIP"] = "true";
-                    return RedirectToAction("Index");
                 }
+                else
+                {
+                    TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                    var listIP = new List<string>();
+
+                    if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                        listIP.Add(HttpContext.Session.GetString("userIP"));
+                    else
+                    {
+                        TempData["GetDataIP"] = "true";
+                        return RedirectToAction("Index");
+                    }
                 khoawebsiteClient(listIP);
                 HttpContext.Session.Remove("TracNghiem");
 
@@ -560,6 +570,12 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult CheckText()
         {
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -673,7 +689,14 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult CheckText(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
+            /*HttpContext.Session.Remove("ok-data");*/
+            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -814,6 +837,12 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult TextToColumn1()
         {
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -831,7 +860,14 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult TextToColumn1(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
+            /*HttpContext.Session.Remove("ok-data");*/
+            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -950,6 +986,12 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult TextToColumn2()
         {
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -967,7 +1009,14 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult TextToColumn2(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
+            /*HttpContext.Session.Remove("ok-data");*/
+            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -1091,6 +1140,12 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult ReadNumber()
         {
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -1108,7 +1163,14 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult ReadNumber(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
+            /*HttpContext.Session.Remove("ok-data");*/
+            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -1218,6 +1280,12 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult TextConvertX()
         {
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
 
             var listIP = new List<string>();
@@ -1236,7 +1304,14 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult TextConvertX (IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
+            /*HttpContext.Session.Remove("ok-data");*/
+            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -1339,6 +1414,12 @@ namespace MyWebPlay.Controllers
 
         public ActionResult CSDL_MainKey()
         {
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -1743,7 +1824,15 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult CSDL_MainKey (IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
+            /*HttpContext.Session.Remove("ok-data");*/
+            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 

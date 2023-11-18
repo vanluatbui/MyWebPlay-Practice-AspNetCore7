@@ -1,6 +1,0 @@
-1. MyWebPlay Asp Net Core
-2. Lê Xuân Thảo
-3. Trần Thị Mỹ Anh
-4. Dương Hoàng Ngọc Mỹ
-5. Lê Thị Cẩm Tiên
-6. Nguyễn Minh Đức

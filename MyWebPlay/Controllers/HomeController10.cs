@@ -18,6 +18,12 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult TracNghiem()
         {
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -58,7 +64,14 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult TracNghiem(IFormCollection f, IFormFile txtFile)
         {
-            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
+            /*HttpContext.Session.Remove("ok-data");*/
+            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -359,6 +372,12 @@ namespace MyWebPlay.Controllers
 
         public ActionResult PlayTracNghiem(TracNghiem tn)
         {
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
             if (TempData["TracNghiem_Online"] != null)
             {
                 var dapan = TempData["TracNghiem_Online"];
@@ -398,7 +417,14 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult PlayTracNghiem(IFormCollection f)
         {
-            /*HttpContext.Session.Remove("ok-data");*/ TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
+            /*HttpContext.Session.Remove("ok-data");*/
+            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
             TempData["online_null"] = null;
 
             Calendar xi = CultureInfo.InvariantCulture.Calendar;

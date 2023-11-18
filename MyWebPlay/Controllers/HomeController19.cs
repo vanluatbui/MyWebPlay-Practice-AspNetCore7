@@ -9,6 +9,12 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult XuLySQL13()
         {
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             var listIP = new List<string>();
 
@@ -30,6 +36,12 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult XuLySQL13 (IFormCollection f)
         {
+            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            {
+                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                TempData["skipIP"] = "true";
+            }
             /*HttpContext.Session.Remove("ok-data");*/
 
             TempData["dataPost"] = "[POST]";

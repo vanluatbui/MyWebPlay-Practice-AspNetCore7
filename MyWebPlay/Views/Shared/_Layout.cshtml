@@ -431,7 +431,7 @@
              window.close();
         }
 
-         if (ok != 100 && '@TempData["Logout_Message"]' != null && '@TempData["Logout_Message"]' == "true")
+         if (ok != 100 && '@TempData["Logout_Message"]' != null && '@TempData["Logout_Message"]' == "true" )
         {
             @{
             TempData["Logout_Message"] = "";
@@ -443,7 +443,7 @@
              window.close();
         }
 
-         if (ok == 0 && '@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true")
+         if (ok == 0 && '@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true" )
         {
             if ('@TempData["AlertUsingWebsite"]' == "true")
             {
@@ -464,7 +464,7 @@
         }
 
 
-        if (ok == 0 && '@TempData["continue"]' == "OK" && localStorage.getItem("keyX_PlayOnWeb") != "true")
+        if (ok == 0 && '@TempData["continue"]' == "OK" && localStorage.getItem("keyX_PlayOnWeb") != "true" )
         {
             ok = 2;
             window.location.href="/Home/AcceptContinueUseWeb";
@@ -490,12 +490,12 @@
             }
         }
 
-        if (ok == 0 && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true" && window.localStorage.getItem("TBTT") == null)
+        if (ok == 0 && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true" && window.localStorage.getItem("TBTT") == null )
         {
              if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
             {
             ok = 1;
-            alert("Để tiếp tục sử dụng, vui lòng tìm cách để có lại được sự cấp phép. Nếu không, hãy tắt sử dụng trang web và yêu cầu bật sử dụng lại! ");
+            alert("Để tiếp tục sử dụng, vui lòng tìm cách để có lại được sự cấp phép. Nếu không, hãy tắt sử dụng trang web và yêu cầu bật sử dụng lại!");
             window.location.href = "https://stackoverflow.com/questions";
             }
              else
@@ -523,7 +523,7 @@
              window.location.href = "/Home/RemoveTempData";
         }
 
-        if (ok == 0 && '@TempData["lock"]' == "true")
+        if (ok == 0 && '@TempData["lock"]' == "true" )
         {
              if ('@TempData["AlertUsingWebsite"]' == "true")
             {
@@ -542,7 +542,7 @@
             }
         }
         
-         if (xilip == 0 && ok == 0 && ('@TempData["PlayOnWebInLocal-X"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null)) && window.localStorage.getItem("TBTT") == null)
+         if (xilip == 0 && ok == 0 && ('@TempData["PlayOnWebInLocal-X"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null)) && window.localStorage.getItem("TBTT") == null && '@TempData["skipIP"]' != "true")
         {
              if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
             {
@@ -697,17 +697,20 @@
               window.localStorage.removeItem('trusted-you');
          }
 
-         if ('@TempData["alert-trust"]' == "false" && '@TempData["data-result"]' == "false" && '@TempData["directURL"]' == "false")
+         if ('@TempData["skipIP"]' != "true")
          {
-         if (window.localStorage.getItem('trusted-you') != null && window.localStorage.getItem('trusted-you') == "true")
-         {
-             window.location.href="/Home/BatSuTinTuong?url="+'@TempData["current"]';
-         }
+            if ('@TempData["alert-trust"]' == "false" && '@TempData["data-result"]' == "false" && '@TempData["directURL"]' == "false")
+            {
+             if (window.localStorage.getItem('trusted-you') != null && window.localStorage.getItem('trusted-you') == "true")
+             {
+                 window.location.href="/Home/BatSuTinTuong?url="+'@TempData["current"]';
+             }
          
-          if (window.localStorage.getItem('trusted-you') == null)
-         {
-             window.location.href="/Home/TatSuTinTuong?url="+'@TempData["current"]';
-         }
+              if (window.localStorage.getItem('trusted-you') == null)
+             {
+                 window.location.href="/Home/TatSuTinTuong?url="+'@TempData["current"]';
+             }
+            }
          }
 
          var sang = 0;

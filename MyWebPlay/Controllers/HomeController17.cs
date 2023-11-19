@@ -908,9 +908,13 @@ namespace MyWebPlay.Controllers
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
+            var code = "";
             for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "Code_LockedClient")
+                    code = info[3];
 
                 if (flag == 0 && (info[0] == "Email_Upload_User"
                     || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
@@ -970,7 +974,7 @@ namespace MyWebPlay.Controllers
 
                 if (noidung.Contains(IP + "<>[NOT-PASSWORD-3275]##") == true)
                 {
-                    if (LockedClientID == passOK || LockedClientID == "abc-xyz")
+                    if (LockedClientID == passOK || LockedClientID == code)
                         noidung = noidung.Replace(IP + "<>[NOT-PASSWORD-3275]##", "");
                 }
                 else

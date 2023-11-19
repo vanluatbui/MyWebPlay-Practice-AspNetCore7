@@ -21,8 +21,17 @@
         <tr style="height:40px">
             <td> </td>
             <td>
+                 <a href="#xuly" onclick="xoaValue('field')"><b>Nhập các fields - tách nhau bởi Enter (hoặc bỏ qua, có thể nhập dồn ở phần input chuỗi xử lý bên dưới) : <br>
+                    </b></a>
+                     <br>
+                    <textarea cols="50" rows="10" name="txtField" id="field">@ViewBag.Field</textarea>
                 <br>
-                    <a href="#xuly" onclick="xoaValue('chuoi')"><b>Chuỗi xử lý (admin tự hiều :)) - mỗi thành phần tách nhau bởi \n#3275#\n) : <br>
+                 <a href="#xuly" onclick="xoaValue('dauhieu')"><b>[Nếu bạn đã nhập input trên thì bắt buộc phải điền thêm input này] Nhập giá trị dấu hiệu từng record để xuống hàng - tách nhau bởi Enter (thường là cột đầu hoặc ID / hoặc bỏ qua, có thể nhập dồn ở phần input chuỗi xử lý bên dưới) : <br>
+                    </b></a>
+                     <br>
+                    <textarea cols="50" rows="10" name="txtDauHieu" id="dauhieu">@ViewBag.DauHieu</textarea>
+                <br>
+                    <a href="#xuly" onclick="xoaValue('chuoi')"><b>Chuỗi xử lý (admin tự hiều :)) - mỗi thành phần tách nhau bởi \n#3275#\n, hoặc nếu bạn đã liệt kê giá trị cho hai input trên thì khỏi (cứ paste giá trị output SQL vô bình thường)) : <br>
                     </b></a>
                      <br>
                     <textarea cols="100" rows="15" name="txtChuoi" id="chuoi">@ViewBag.Chuoi</textarea>

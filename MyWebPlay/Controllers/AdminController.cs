@@ -56,6 +56,9 @@ namespace MyWebPlay.Controllers
                 if (info[0] == "Password_Admin")
                     ViewBag.Password = info[3];
 
+                if (info[0] == "Code_LockedClient")
+                    ViewBag.CodeSocolar = info[3];
+
                 if (info[0] == "Believe_IP")
                 {
                     if (info[3] == "[NULL]")
@@ -153,7 +156,7 @@ namespace MyWebPlay.Controllers
                 }
 
 
-                if (info[0] != "Password_Admin" && info[0] != "Believe_IP")
+                if (info[0] != "Password_Admin" && info[0] != "Believe_IP" && info[0] != "Code_LockedClient")
                 {
                     if (xi != info[1])
                     {
@@ -182,6 +185,20 @@ namespace MyWebPlay.Controllers
                     var xinh = f[info[0]];
                     if (string.IsNullOrEmpty(xinh))
                         xinh = "[NULL]";
+
+                    if (xinh != info[3])
+                    {
+                        cometo = "#come-" + i;
+                        dix++;
+                    }
+
+                    noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
+                }
+                else if (info[0] == "Code_LockedClient")
+                {
+                    var xinh = f[info[0]];
+                    if (string.IsNullOrEmpty(xinh))
+                        xinh = "abc-xyz";
 
                     if (xinh != info[3])
                     {

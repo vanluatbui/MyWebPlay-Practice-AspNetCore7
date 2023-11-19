@@ -686,6 +686,10 @@ namespace MyWebPlay.Controllers
 
         public ActionResult Setting_AddIPLockClient(string ip_pass)
         {
+            if (ip_pass.Contains("<>") == false)
+            {
+                ip_pass = ip_pass + "<>[NOT-PASSWORD-3275]";
+            }
             if (string.IsNullOrEmpty(ip_pass) == false && ip_pass.Contains("<>"))
             {
                 var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/LockedIPClient.txt");
@@ -695,6 +699,33 @@ namespace MyWebPlay.Controllers
 
                 if (noidung2.Contains(ip) == false)
                     System.IO.File.WriteAllText(path2, noidung2 + ip_pass + "##");
+            }
+            return Redirect("/Admin/SettingXYZ#labelActive");
+        }
+
+        public ActionResult Setting_ChangePassLockClient(string ip_pass)
+        {
+            if (ip_pass.Contains("<>") == false)
+            {
+                ip_pass = ip_pass + "<>[NOT-PASSWORD-3275]";
+            }
+            if (string.IsNullOrEmpty(ip_pass) == false && ip_pass.Contains("<>"))
+            {
+                var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/LockedIPClient.txt");
+                var noidung2 = docfile(path2);
+
+                var ip = ip_pass.Split("<>")[0];
+
+                var sd = noidung2.Split("##");
+                for (int i = 0; i < sd.Length;i++)
+                {
+                    if (sd[i].Contains(ip))
+                    {
+                        noidung2 = noidung2.Replace(sd[i], ip_pass);
+                        System.IO.File.WriteAllText(path2, noidung2);
+                        break;
+                    }
+                }
             }
             return Redirect("/Admin/SettingXYZ#labelActive");
         }

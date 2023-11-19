@@ -52,7 +52,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult AcceptContinueUseWeb()
         {
-            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            khoawebsiteClient(null);  if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
@@ -72,6 +72,11 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
+            if (TempData["UserIP"] == "0.0.0.0")
+                return RedirectToAction("LockedWeb");
+            if (TempData["UserIP"] == "0.0.0.0")
+                return RedirectToAction("LockedWeb");
+
             if (TempData["lock"].ToString() == "true")
                 return RedirectToAction("LockedWeb");
 
@@ -99,7 +104,11 @@ namespace MyWebPlay.Controllers
 
         public ActionResult ContinueUsedWebX (string? code)
         {
-            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            khoawebsiteClient(null); 
+            if (TempData["BlockRegistUsing"] == "true")
+                return RedirectToAction("LockedWeb");
+
+            if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
@@ -116,6 +125,8 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
+            if (TempData["UserIP"] == "0.0.0.0")
+                return RedirectToAction("LockedWeb");
             HttpContext.Session.SetString("data-result", "true");
             if (TempData["lock"].ToString() == "true")
                 return RedirectToAction("LockedWeb");
@@ -146,8 +157,16 @@ namespace MyWebPlay.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult AcceptContinue(int id) 
+        public ActionResult AcceptContinue(int id, string? cmt) 
         {
+            khoawebsiteClient(null); 
+
+            if (TempData["BlockRegistUsing"] == "true")
+                return RedirectToAction("LockedWeb");
+
+            if (string.IsNullOrEmpty(cmt))
+                return RedirectToAction("Index");
+
                 Calendar x = CultureInfo.InvariantCulture.Calendar;
                 var d = x.AddHours(DateTime.UtcNow, 7);
                 var hour = String.Join("", d.Hour.ToString("00").Reverse().ToList());
@@ -174,8 +193,21 @@ namespace MyWebPlay.Controllers
                 else
                    ID = HttpContext.Session.GetString("userIP");
 
-                string message = "Báo cáo hành động [tiếp tục] bật sử dụng trang web của khách hàng mới (ID client đã được đăng kí mở trước đây, yêu cầu lại cấp phép mới) :\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@end\r\n\r\n--------------------------------------------------------\r\n\r\n[DỰ PHÒNG 1]\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@1_lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@1_unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@1_end\r\n\r\n\r\n--------------------------------------------------------\r\n\r\n[DỰ PHÒNG 2]\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@2_lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@2_unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@2_end\r\n\r\nThanks!"
+
+                if (ID == "0.0.0.0")
+                    return RedirectToAction("LockedWeb");
+
+                string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+
+                var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/InfoIPRegist.txt");
+                var noidung1 = docfile(path1);
+
+                if (ID != "0.0.0.0")
+                System.IO.File.WriteAllText(path1, noidung1 + "\n" +ID + "\t" + xuxu + "\t" + "[continue] " + cmt);
+
+                string message = "Báo cáo hành động [tiếp tục] bật sử dụng trang web của khách hàng @info (ID client đã được đăng kí mở trước đây, yêu cầu lại cấp phép mới) :\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@end\r\n\r\n--------------------------------------------------------\r\n\r\n[DỰ PHÒNG 1]\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@1_lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@1_unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@1_end\r\n\r\n\r\n--------------------------------------------------------\r\n\r\n[DỰ PHÒNG 2]\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@2_lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@2_unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@2_end\r\n\r\nThanks!"
                 .Replace("@lock", "http://" + Request.Host + "/Home/LockThisClient?ip=" + ID)
+                .Replace("@info", cmt)
                 .Replace("@unlock", "http://" + Request.Host + "/Home/UnlockThisClient?ip=" + ID)
                 .Replace("@end", "http://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + ID)
              .Replace("@1_lock", "http://" + Request.Host + "/Home/LockThisClient?ip=" + IPx)
@@ -185,7 +217,6 @@ namespace MyWebPlay.Controllers
                 .Replace("@2_unlock", "http://" + Request.Host + "/Home/UnlockThisClient?ip=" + Request.HttpContext.Connection.RemoteIpAddress)
                 .Replace("@2_end", "http://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + Request.HttpContext.Connection.RemoteIpAddress);
 
-                string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
 
                     //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
                     string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + IPx + " *** " + ID + "] - " + xuxu;
@@ -226,7 +257,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult PlayTracNghiem_Online()
         {
-            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            khoawebsiteClient(null);  if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
@@ -249,7 +280,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult PlayTracNghiem_Online(IFormCollection f)
         {
-            khoawebsiteClient(null); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+            khoawebsiteClient(null);  if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
@@ -545,6 +576,9 @@ namespace MyWebPlay.Controllers
 
         public ActionResult KiemTraTinTuong(string ip, string pass, string url)
         {
+            if (ip == "0.0.0.0")
+                return RedirectToAction("Index");
+
             var passAd = "";
             var IPbelieve = "";
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");

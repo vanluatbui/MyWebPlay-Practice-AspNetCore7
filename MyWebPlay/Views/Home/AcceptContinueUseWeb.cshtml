@@ -60,7 +60,7 @@ body {
         },1);
     function accept(i)
     {
-        window.location.href = "/Home/AcceptContinue?id="+i;
+        window.location.href = "/Home/AcceptContinue?id="+i+"&&cmt="+document.getElementById("info").value;
     }
 
     function show()
@@ -88,7 +88,11 @@ body {
     }
 
  </script>
- <button onclick="show()" id="ok" style="color:red"><h2>Displays a list of all button IDs to open and allow continued use of the Web (you must click exactly one ID 😎)</h2></button>
+ <div id="ok">
+ <input type="text" id="info" placeholder="Nhập info to regist..." size="100"/>
+<br /><br />
+ <button onclick="show()" style="color:red"><h2>Displays a list of all button IDs to open and allow continued use of the Web (you must click exactly one ID 😎)</h2></button>
+ </div>
  <div id="maika">
          <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

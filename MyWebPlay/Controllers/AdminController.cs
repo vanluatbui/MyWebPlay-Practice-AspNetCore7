@@ -377,7 +377,13 @@ namespace MyWebPlay.Controllers
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                if (info[0] == "Post_Clipboard")
+                if (info[0] == "OffWebsite_All")
+                {
+                    if (info[1] == "true")
+                        return RedirectToAction("Error","Home");
+                }
+
+                        if (info[0] == "Post_Clipboard")
                 {
                     if (info[1] == "false")
                     {
@@ -511,11 +517,6 @@ namespace MyWebPlay.Controllers
 
         public ActionResult PlayDataInWeb()
         {
-            if (HttpContext.Session.GetString("ok-data") != "true")
-            {
-                return Redirect("http://stackoverflow.com/questions/206820/how-do-i-prevent-and-or-handle-a-stackoverflowexception");
-            }
-
             Random ri = new Random();
             ViewBag.NumberRandom = ri.Next(3) + 1;
 
@@ -525,6 +526,18 @@ namespace MyWebPlay.Controllers
             for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "OffWebsite_All")
+                {
+                    if (info[1] == "true")
+                        return RedirectToAction("Error","Home");
+                }
+
+                if (HttpContext.Session.GetString("ok-data") != "true")
+                {
+                    return Redirect("http://stackoverflow.com/questions/206820/how-do-i-prevent-and-or-handle-a-stackoverflowexception");
+                }
+
                 if (TempData["NotAlertQuickData"] == "false")
                 {
                     if (info[0] == "Using_QuickData" || info[0] == "Using_Website")
@@ -579,6 +592,13 @@ namespace MyWebPlay.Controllers
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomLayOut.txt");
             TempData["RandomLayout"] = docfile(path);
             return View();
+        }
+
+        public ActionResult RefreshInfoIPRegist()
+        {
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/InfoIPRegist.txt");
+            System.IO.File.WriteAllText(path, "IP\tDateTime\tInfo");
+            return Redirect("/Admin/SettingXYZ#labelActive");
         }
     }
 }

@@ -1,8 +1,13 @@
-Using_Website<3275>true<3275>Hoạt động website <span style="color:purple">[MASTER]</span> : sẽ không có tác dụng (sẽ luôn như là tắt) khi 3 setting "Request data nhanh, chế độ tàng hình và bỏ qua xác minh [ADMIN] bên dưới được bật cùng lúc"
+OffWebsite_All<3275>true<3275>Tắt hoạt động web site (<b style="color:blue">áp dụng tất cả</b>, sẽ không thông báo và tự động chuyển hướng sang trang lỗi (404))
+Using_Website<3275>false<3275>Hoạt động website <span style="color:purple">[MASTER]</span> : sẽ không có tác dụng (sẽ luôn như là tắt) khi 3 setting "Request data nhanh, chế độ tàng hình và bỏ qua xác minh [ADMIN] bên dưới được bật cùng lúc"
 Alert_UsingWebsite<3275>false<3275>Thông báo khi website tắt hoạt động (nếu tắt thì sẽ chuyển hướng sang website tạm khác (*) và không nói gì thêm/user sẽ khó biết được vấn đề) - kể cả bị lock website bởi admin hoặc client nội bộ,...vv... Hãy thật cẩn thận khi muốn tắt setting này!
 Post_Clipboard<3275>false<3275>Download nội dung kết quả POST từ file .txt (thay vì mặc định copy vào clipboard/giám thị hoạt dộng cho luồng gửi data quick request POST và chế độ tàng hình + không xác minh [ADMIN], còn bình thường cũng có thể áp dụng tất cả...)
+Using_QuickData<3275>false<3275>[Admin] Áp dụng dịch vụ request POST excute data nhanh (nếu tắt sẽ được chuyển hướng đến website tạm khác (*))
+Clear_Website<3275>false<3275>[Admin] Chế độ tàng hình website (một số tính năng sẽ rất khó hoặc không thể sử dụng)
+NotAlert_QuickData<3275>false<3275>[Admin] Bỏ qua bước xác minh - request POST excute data nhanh (chỉ dùng khi bạn bật setting UsingQuickData và chế độ tàng hình website - và phải bật hoạt động website)
+Random_Layout<3275>false<3275>Bật sử dụng RandomLayout ngẫu nhiên có sẵn (dành cho luồng REQUEST QUICK POST DATA - admin)
 Off_RandomTab<3275>false<3275>Tắt chế độ random view tab website
-ViewSite_Pattern<3275>false<3275>Bật chế độ giao diện pattern (cho phép website với mọi người)
+ViewSite_Pattern<3275>false<3275>Bật chế độ giao diện pattern
 ViewSite_Basic<3275>false<3275>Bật chế độ giao diện cơ bản - xấu (cho phép website với mọi người - khó để xác minh user)
 Email_Upload_User<3275>false<3275>Thông báo email khi user upload file
 MegaIo_Upload_User<3275>false<3275>Lưu trữ các file của user tại Mega.Io
@@ -11,12 +16,9 @@ Email_TracNghiem_Update<3275>false<3275>Thông báo email bài trắc nghiệm �
 Email_Question<3275>false<3275>Thông báo email bài question được tạo
 Email_User_Website<3275>false<3275>Thông báo email phát hiện user bật website
 Email_User_Continue<3275>false<3275>Thông báo email phát hiện user tiếp tục sử dụng website
+Block_RegistUsing<3275>false<3275>Tạm ngưng nhận đơn đăng kí sử dụng web site tiếp theo
 Email_Note<3275>false<3275>Thông báo email note text mới
 Save_ComeHere<3275>false<3275>Save request of user/list request used (khi tắt các dữ liệu mới sẽ không được lưu trữ và các dữ liệu cũ vẫn sẽ được bảo toàn)
 Mail_ReportUrl<3275>false<3275>Auto send mail with IP request come used (if data than 100) - nếu bạn tắt thì dữ liệu vẫn sẽ bị khôi phục nhưng không gửi mail report
-Using_QuickData<3275>true<3275>[Admin] Áp dụng dịch vụ request POST excute data nhanh (nếu tắt sẽ được chuyển hướng đến website tạm khác (*))
-Clear_Website<3275>false<3275>[Admin] Chế độ tàng hình website (một số tính năng sẽ rất khó hoặc không thể sử dụng)
-NotAlert_QuickData<3275>false<3275>[Admin] Bỏ qua bước xác minh - request POST excute data nhanh (chỉ dùng khi bạn bật setting UsingQuickData và chế độ tàng hình website - và phải bật hoạt động website)
-Random_Layout<3275>false<3275>Bật sử dụng RandomLayout ngẫu nhiên có sẵn (dành cho luồng REQUEST QUICK POST DATA - admin)
 Password_Admin<3275>true<3275>Mật khẩu admin (nếu để trống mật khẩu mặc định sẽ là : <b style="color:red">mywebplay-ADMIN</b>)<3275>mywebplay-ADMIN
 Believe_IP<3275>true<3275>IP tin tưởng - bỏ qua xác minh và báo cáo hành động user (lưu ý vì có nhiều đối tượng có cùng nhóm, nội bộ và địa chỉ IP nên chỉ các thiết bị cần thiết nên bật <b>chế độ tin tưởng</b> để có sự tác dụng này, và chỉ dành cho duy nhất 1 IP : nếu IP sự tin tưởng mới được thay thế thì các IP tin tưởng cũ trước đó sẽ bị xoá - và xin lưu ý, nếu IP của bạn bị khoá bởi admin hay một số vấn đề khác vẫn có thể bị xác minh như thường), và cũng lưu ý tính năng này sẽ không thể tác dụng ngay lập tức, hãy vui lòng thử lại nhiều lần...<3275>[NULL]

@@ -269,6 +269,11 @@ input:checked + .slider:before {
             window.location.href = "/Home/Setting_RemoveIPLockClient?ip_pass="+document.getElementById("txtIPLockClient").value;
         }
 
+        function xoachitiet()
+        {
+            window.location.href = "/Admin/RefreshInfoIPRegist";
+        }
+
 
      </script>
 
@@ -336,11 +341,11 @@ input:checked + .slider:before {
     }
         <hr /><hr />
     <br />
-    <b id="labelActive" name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG HOẠT ĐỘNG (một số thiết bị có thể chưa xác nhận cấp phép sử dụng)</b>
+    <b id="labelActive" name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG HOẠT ĐỘNG (một số thiết bị có thể chưa xác nhận cấp phép sử dụng hoặc họ đã xoá dữ liệu trình duyệt)</b>
     <br />
     <select onclick="loadActive()" onchange="setActive()" id="ip_active">
     </select>&nbsp;<input type="text" id="txtIPActive" /><br />
-    <button onclick="addActive()" style="color:green">THÊM (HOẠT ĐỘNG NHƯNG CHƯA XÁC NHẬN THIẾT BỊ)</button>&nbsp;<button onclick="removeActive()" style="color:red">XOÁ (HẾT HẠN)</button>
+    <button onclick="addActive()" style="color:green">THÊM (HOẠT ĐỘNG NHƯNG CHƯA XÁC NHẬN THIẾT BỊ)</button>&nbsp;<button onclick="removeActive()" style="color:red">XOÁ (HẾT HẠN)</button>&nbsp;(<a href="/ClientConnect/InfoIPRegist.txt" target="_blank">Xem Chi Tiết (có thể chưa đủ thông tin)</a><b> || </b><a href="/ClientConnect/InfoIPRegist.txt" onclick="xoachitiet()" download="">Tải xuống và refresh</a>)
     <br />
      <br />
     <b name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG BỊ KHOÁ (ADMIN)</b>

@@ -522,7 +522,7 @@ namespace BigSchool_THBuoi4.Controllers<br>
             // Require that the user has already logged in via username/password or external login<br>
             if (!await SignInManager.HasBeenVerifiedAsync())<br>
             {<br>
-                return View("Error");<br>
+                return RedirectToAction("Error");<br>
             }<br>
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });<br>
         }<br>
@@ -604,7 +604,7 @@ namespace BigSchool_THBuoi4.Controllers<br>
         {<br>
             if (userId == null || code == null)<br>
             {<br>
-                return View("Error");<br>
+                return RedirectToAction("Error");<br>
             }<br>
             var result = await UserManager.ConfirmEmailAsync(userId, code);<br>
             return View(result.Succeeded ? "ConfirmEmail" : "Error");<br>
@@ -715,7 +715,7 @@ namespace BigSchool_THBuoi4.Controllers<br>
             var userId = await SignInManager.GetVerifiedUserIdAsync();<br>
             if (userId == null)<br>
             {<br>
-                return View("Error");<br>
+                return RedirectToAction("Error");<br>
             }<br>
             var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);<br>
             var factorOptions = userFactors.Select(purpose =&gt; new SelectListItem { Text = purpose, Value = purpose }).ToList();<br>
@@ -737,7 +737,7 @@ namespace BigSchool_THBuoi4.Controllers<br>
             // Generate the token and send it<br>
             if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))<br>
             {<br>
-                return View("Error");<br>
+                return RedirectToAction("Error");<br>
             }<br>
             return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });<br>
         }<br>

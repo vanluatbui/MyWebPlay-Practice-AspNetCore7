@@ -116,9 +116,28 @@ input:checked + .slider:before {
              document.getElementById("ok").click();
         }
 
+        function saveX(x)
+        {
+            if (document.getElementById("chon").options.selectedIndex == 0)
+            {
+                document.getElementById("ok").click();
+            }
+            else
+            {
+                 var n = new Number(document.getElementById("count").value) - 3;
+                for (var i = 0; i < n;i++)
+                {
+                    if (i == x)
+                    document.getElementById("save-"+i).style.display = "block";
+                    else
+                    document.getElementById("save-"+i).style.display = "none";
+                }
+            }
+        }
+
         function chonall()
         {
-            var n = new Number(document.getElementById("count").value) - 2;
+            var n = new Number(document.getElementById("count").value) - 3;
             for (var i = 0; i < n;i++)
             {
                 document.getElementById("check-"+i).checked = true;
@@ -128,7 +147,7 @@ input:checked + .slider:before {
 
         function boall()
         {
-            var n = new Number(document.getElementById("count").value) - 2;
+            var n = new Number(document.getElementById("count").value) - 3;
             for (var i = 0; i < n;i++)
             {
                 document.getElementById("check-"+i).checked = false;
@@ -294,7 +313,11 @@ input:checked + .slider:before {
         @Html.ValidationSummary(true)
 
         <input type="number" id="count" hidden value ="@Model.Topics.Count" />
-
+        <select id="chon">
+            <option>Chọn một - lưu lại liền</option>
+            <option>Chọn nhiều liên tục - lưu lại sau</option>
+        </select>
+        <br /><br />
          <tr style="height:40px">
             <td></td>
             <td><br>
@@ -315,14 +338,16 @@ input:checked + .slider:before {
 <label class="switch">
     @if (Model.Topics[i].Option == false)
     {
-                <input id="check-@i" onchange="xong()" name="@Model.Topics[i].ID" type="checkbox">
+                <input id="check-@i" onchange="saveX(@i)" name="@Model.Topics[i].ID" type="checkbox" />
      }
             else
             {
-                <input id="check-@i" onchange="xong()" name="@Model.Topics[i].ID" type="checkbox" checked>
+                <input id="check-@i" onchange="saveX(@i)" name="@Model.Topics[i].ID" type="checkbox" checked />
             }
             <span class="slider round"></span>
                         </label>
+                        <br /><br />
+                <h3 id="save-@i" style="display:none"><a onclick="xong()" href="#save" style="color:crimson">SAVE</a></h3>
                     }
                     else
                     if (Model.Topics[i].ID == "Password_Admin")
@@ -390,6 +415,18 @@ input:checked + .slider:before {
         <textarea readonly cols="500" rows="100">@TempData["showIPCome"]</textarea>
     }
     <br /><br /><hr /><hr />
+    <h3 style="color:orangered">
+        - [Quy tắc link rút gọn bom.so, còn link gốc bạn có thể không cần quan tâm cái này] Lưu ý, các hướng dẫn ở đây có thể sau này sẽ cũ hoặc một số bây giờ sẽ không thể sử dụng được. Mặc dù vậy, bạn hãy thử nghĩ và random thử nhiều cách khác nhau (vì nhiều cái muốn đổi thay mà giờ làm biếng đổi quá 🤣😄). Mà không sao đâu, mấy này cũng tương tự à : bạn tự mò nha 😁. Ví dụ ở hướng dẫn là <b>abc1</b> (nhưng giờ thử không được) thì bạn có thể thử nhiều cái cách khác như : <b>abc2, abc3, abc4, ...</b> (hên xui ahihi 🤩).
+        <br />
+        - Bạn chỉ cần nhớ thêm các quy tắc sau : thường link rút gọn của <b>bom.so</b> mình sẽ tự đặt ra cái tên và phía cuối là con số (VD : bom.so/abc1). Mà web hoạt động hiện tại dựa trên 2 dịch vụ host server : somee và bsite. 
+        Bây giờ hãy nhớ, nếu số cuối là số chẵn thì thuộc về somee; ngược lại nếu số cuối lẻ là của bsite. 
+        Ngoại trừ link đăng kí bật web (VD : bom.so/batweb11), nếu các số cuối (có số lượng chẵn) đều là lẻ thì là của somee/các số cuối (có số lượng lẻ) đều là các số lẻ thì là của bsite (thông tin của tôi/tuyệt đối ở nhà); 
+        và ngược lại nếu các số cuối (có số lượng chẵn) đều là chẵn thì là của somee/các số cuối (có số lượng lẻ) đều là các số chẵn thì là của bsite (thông tin của người khác/tôi xài bên ngoài - w2) ⭐⭐⭐
+        <br />
+        - Còn nếu bạn quá mệt mỏi với cái này, hãy tự tìm đến <b>bom.so</b> và tự đặt ra link rút gọn phù hợp đi nha (nhiều khi tui làm biếng nên mấy quy tắc tào lao này tui cũng chưa nghĩ ra 😪😀) :)) ...
+        </h3>
+        </h3>
+        <br />
     <h3 style="color:deeppink">
 * Email support : mywebplay.website@gmail.com<br>* Email save data/message (secret 🔒) :  mywebplay.savefile@gmail.com<br /><br />* Đăng nhập :<br><br>http://freeasphosting.net/<br><br>ID : kienthuccode<br>Pass : #=vanluat3275=#<br><br>somee.com<br><br>ID : mywebplay<br>Pass : #=vanluat3275=#<br><br>* Link sử dụng web :<br><br>http://bom.so/playweb1<br>kienthuccode.bsite.net<br><br>http://bom.so/playweb2<br>kienthuccongnghe.somee.com<br><br>* Cài đặt admin (chỉ nên truy cập cá nhân) :<br><br>http://bom.so/adset1<br>http://bom.so/adset2<br><br>/Admin/SettingXYZ<br><br>* Password web admin (cho tất cả - riêng tư cá nhân) :<br><br>Mặc định : mywebplay-ADMIN<br>Hoặc tuỳ thuộc sự thay đổi tại : /Admin/SettingXYZ<br><br>* Link bật web :<br><br>http://bom.so/batweb1 | http://bom.so/batweb11 (ở nhà)<br><br>http://bom.so/batweb2 | http://bom.so/batweb22 (bên ngoài - W2 solution my work)<br><br>Thông tin bật web cho người khác/nơi khác :<br><br>/Home/PlayOnWebInLocalX?key=true&info=[THÔNG-TIN-NGƯỜI-MUỐN-ĐĂNG-KÍ-BẬT-WEB]<br><br>* Link tắt web (đồng thời xoá luôn cấp phép truy cập) :<br><br>http://bom.so/tatweb1<br>http://bom.so/tatweb2<br><br>/Home/PlayOnWebInLocalX?key=false<br><br>* Link cấp phép tiếp tục sử dụng (thiết bị mới) :<br><br>http://bom.so/capphep1<br>http://bom.so/capphep2<br><br>/Home/ContinueUsedWebX?code=1234567890qwertyuiopasdfghjklzxcvbnm<br><br>Sau khi vào link cấp phép, cần phải xác nhận :<br><br>=> Ví dụ lúc đó đang là 10 giờ 05 phút (đọc ngược lại ta có dãy số 5001), thì ta sẽ Ctrl+ F và tìm button đang có dãy số này và chỉ nhấn vào button đó thôi.<br><br>* Link xoá cấp phép truy cập web cho thiết bị hiện tại (tuy nhiên vẫn còn đăng kí) :<br><br>http://bom.so/traiphep1<br>http://bom.so/traiphep2<br><br>/Home/ContinueUsedWebX?code=<br><br>* Nếu bị khoá web bởi admin :<br><br>[Kiểm tra và tìm lại email admin để xử lý - các link nhấn (chỉ admin mới quyết định)]<br><br>* Nếu bị khoá web bởi khoá LockedClientID (user) :<br><br>18:08<br>02/12<br><br>Ví dụ, lúc cần mở khoá đang 18 giờ 08 phút, ngày 02 tháng 12 thì mật khẩu LockedClientID sẽ là : <span style="color:darkred">00</span>81212080 (trừ khi password đã được user tự thiết kế riêng) - nghĩa là cấu trúc : 00 đầu - giờ đảo - tháng đảo - phút đảo - ngày đảo<br><br>Hoặc password chung (dự phòng) dễ hơn là : abc-xyz (nhưng khuyên hạn chế xài/riêng tư, hoặc có thể đổi lại tại phần setting ở trên)<br><br>* Mega.io :<br><br>ID : mywebplay.savefile@gmail.com<br>Pass : vanluat12345#<br><br>* Điều khiển session :<br><br>/Home/SessionPlay<br><br>* Các link ngoại khoá (tham khảo thêm) :<br><br>Home/SendMailSave1?email=[...]&message=[...] (này cũng tạm được)<br>Home/SecretWeb?email=[...]<br><br>💚 Tuy nhiên thường sẽ xài cái dưới : <br><br>* Hướng dẫn COPY :<br><br>- LƯU Ý : phải thực sự cần xài thì mới vào đây, nếu lỡ đã vào thì phải xài cho hết.<br>Dấu hiệu xài xong và ok là khi mình được chuyển hướng sang trang google.com<br><br>________________________________________________________<br><br>- Copy nội dung bạn muốn (copy lại lần nữa cho chắc), phải đảm bảo nội dung bạn đang copy hiện có thể Ctrl+V được và phải chính xác nội dung bạn đang mong muốn và cần copy.<br><br>- Truy cập : http://bom.so/copy_on<br><br>- Nếu muốn thay đổi có thể thêm param ?email=[your-email] trên thanh url (không thì sẽ là mặc định).<br><br>- <b>/Home/RandomLayout</b> : html layout ngẫu nhiên thiết kế cho các site secret, (admin) send POST quick data...<br><br>- Như đã nói, vô đây là phải xài. Mà dù lỡ xài hay không xài cũng ráng mà click vào link chuyển hướng sang google.con là ok tất :)), chứ đừng có thoát hay X close nha ...<br><br>Bye!<br /><br />bom.so/remove1 hoặc bom.so/remove2 : Xoá all session và tempdata in this web<br />
 <br /><br />

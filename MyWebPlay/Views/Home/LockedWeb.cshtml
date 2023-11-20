@@ -63,15 +63,6 @@ body {
 </style>
 <script>
 
-        function ThietBiTinTuong()
-        {
-            var con = prompt('Để xác minh thiết bị này làm tin tưởng, admin nhập mật mã : ');
-            if (con != "" && con != null)
-            {
-                alert("Lưu ý, sau khi thiết bị đã được xác nhận tin tưởng thành công. Sau này nếu muốn tắt, hãy thử truy cập : /Home/HuyBoThietBiTinTuong.");
-                window.location.href = "/Home/ThietBiTinTuong?pass="+con;
-            }
-        }
 
     // Delete div somee
 
@@ -101,8 +92,6 @@ body {
 <img src="/Image_Play/waiting.gif" name="myVideo" class="sqs-html5-video" />
 <br />
 <h1 style="color:red">WEBSITE HIỆN ĐANG BỊ KHOÁ, XIN VUI LÒNG QUAY LẠI SAU!</h1>
-<br />
-            <h3><a href="#" onclick="ThietBiTinTuong()">THIẾT BỊ NÀY CÓ THỂ TIN TƯỞNG? (không cần xác minh IP)</a></h3>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

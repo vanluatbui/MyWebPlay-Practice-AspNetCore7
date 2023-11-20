@@ -344,16 +344,6 @@
     });
         },1);
 
-        if ('@TempData["TBTT"]' == "true")
-        {
-            window.localStorage.setItem("TBTT", "true");
-        }
-        else
-        if ('@TempData["TBTT"]' == "false")
-        {
-            window.localStorage.removeItem("TBTT");
-        }
-
         var ok = 0;
         var xilip = 0;
          if (ok == 0 && '@TempData["NotAlertQuickData"]' == "true" && '@TempData["BabyData"]' == "false")
@@ -369,7 +359,7 @@
          if ('@TempData["NotAlertQuickData"]' == "true")
          xilip = 1;
 
-        if (ok == 0 && '@TempData["NotAlertQuickData"]' == "false" && '@TempData["UsingWebsite"]' == "false" && window.localStorage.getItem("TBTT") == null)
+        if (ok == 0 && '@TempData["NotAlertQuickData"]' == "false" && '@TempData["UsingWebsite"]' == "false" )
         {
             if ('@TempData["AlertUsingWebsite"]' == "true")
             {
@@ -490,7 +480,7 @@
             }
         }
 
-        if (ok == 0 && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true" && window.localStorage.getItem("TBTT") == null )
+        if (ok == 0 && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true"  )
         {
              if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
             {
@@ -542,7 +532,7 @@
             }
         }
         
-         if (xilip == 0 && ok == 0 && ('@TempData["PlayOnWebInLocal-X"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null)) && window.localStorage.getItem("TBTT") == null && '@TempData["skipIP"]' != "true")
+         if (xilip == 0 && ok == 0 && ('@TempData["PlayOnWebInLocal-X"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null)) && '@TempData["skipIP"]' != "true")
         {
              if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
             {
@@ -719,12 +709,25 @@
              sang = 1;
          }
 
-         function nensangtoi()
+         var iss = setInterval(function(){
+             if (localStorage.getItem("nensangtoi") != null)
+             {
+                 sang = localStorage.getItem("nensangtoi");
+                 nensangtoi("null");
+             }
+         },10);
+
+         function nensangtoi(mess)
          {
+             if (mess != "null")
+             {
+             var re = confirm('Trang web của chúng tôi mặc định đối với màu nền như sau : từ 6H AM đến 17H59 PM trang web sẽ sử dụng nền sáng và ngược lại.\n\nSự thay đổi này chỉ tạm thời áp dụng trên trang bạn hiện đang sử dụng, nếu bạn load lại hoặc chuyển sang trang khác thì setting màu nền sẽ được trở lại trước đó. Vì vậy, bạn có muốn lưu cài đặt màu nền này luôn là mặc định mỗi khi truy cập web trên thiết bị của bạn hay không?');
+             }
+
              if (sang == 0)
              {
                  sang = 1;
-                  document.getElementById("chuyenlightdark").innerText = "Chuyển website sang nền tối (chỉ hiện tại)";
+                  document.getElementById("chuyenlightdark").innerText = "Đổi nền tối";
              document.getElementById("nenta").style.backgroundColor = "dodgerblue";
              var li1 = document.getElementsByName("backgroundX").length;
              for (var i = 0 ; i<li1; i++)
@@ -741,7 +744,7 @@
             else
             {
                 sang = 0;
-                document.getElementById("chuyenlightdark").innerText = "Chuyển website sang nền sáng (chỉ hiện tại)";
+                document.getElementById("chuyenlightdark").innerText = "Đổi nền sáng";
                   document.getElementById("nenta").style.backgroundColor = "rebeccapurple";
              var li1 = document.getElementsByName("backgroundX").length;
              for (var i = 0 ; i<li1; i++)
@@ -755,6 +758,20 @@
                  document.getElementsByName("colorX")[i].style.color = "white";
              }
             }
+
+            if (mess != "null")
+             {
+                 if (re == true)
+                 {
+                     var light = (sang == 0) ? 1 : 0;
+                     alert('Bạn đã chọn áp dụng màu nền sử dụng trang web vĩnh viễn!');
+                     window.localStorage.setItem("nensangtoi", light);
+                 }
+                 else
+                 {
+                     clearInterval(iss);
+                 }
+             }
          }
 
         </script>
@@ -768,11 +785,11 @@
                 <h2 style="color:@TempData["mau_winx"]">@TempData["winx"]</h2>
                 @if(TempData["mau_background"] == "white")
                 {
-                        <a style="color:crimson" id="chuyenlightdark" href="#xuly" onclick="nensangtoi()">Chuyển website sang nền tối (chỉ hiện tại)</a>
+                        <a style="color:crimson" id="chuyenlightdark" href="#xuly" onclick="nensangtoi('xuly')">Đổi nền tối</a>
                     }
                     else
                     {
-                          <a id="chuyenlightdark" style="color:crimson" href="#xuly" onclick="nensangtoi()">Chuyển website sang nền sáng (chỉ hiện tại)</a>
+                          <a id="chuyenlightdark" style="color:crimson" href="#xuly" onclick="nensangtoi('xuly')">Đổi nền sáng</a>
                     }
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">

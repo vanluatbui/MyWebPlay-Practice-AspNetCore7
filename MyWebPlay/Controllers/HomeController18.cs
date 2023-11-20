@@ -742,37 +742,5 @@ namespace MyWebPlay.Controllers
             }
             return Redirect("/Admin/SettingXYZ#labelActive");
         }
-
-        public ActionResult ThietBiTinTuong(string pass)
-        {
-
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
-            var noidung = System.IO.File.ReadAllText(path);
-
-            var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            SettingAdmin settingAdmin = new SettingAdmin();
-            settingAdmin.Topics = new List<SettingAdmin.Topic>();
-            var password = "";
-            for (int i = 0; i < listSetting.Length; i++)
-            {
-                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-                settingAdmin.Topics.Add(new SettingAdmin.Topic(info[0], info[2], bool.Parse(info[1])));
-
-                if (info[0] == "Password_Admin")
-                    password = info[3];
-            }
-
-            if (pass == password)
-                TempData["TBTT"] = "true";
-
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult HuyBoThietBiTinTuong()
-        {
-            TempData["TBTT"] = "false";
-
-            return RedirectToAction("Index");
-        }
     }
 }

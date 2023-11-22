@@ -56,6 +56,9 @@ namespace MyWebPlay.Controllers
                 if (info[0] == "Password_Admin")
                     ViewBag.Password = info[3];
 
+                if (info[0] == "MatDoTuyetDoi")
+                    ViewBag.MaMatDo = info[3];
+
                 if (info[0] == "Code_LockedClient")
                     ViewBag.CodeSocolar = info[3];
 
@@ -156,7 +159,7 @@ namespace MyWebPlay.Controllers
                 }
 
 
-                if (info[0] != "Password_Admin" && info[0] != "Believe_IP" && info[0] != "Code_LockedClient")
+                if (info[0] != "Password_Admin" && info[0] != "Believe_IP" && info[0] != "Code_LockedClient" && info[0] != "MatDoTuyetDoi")
                 {
                     if (xi != info[1])
                     {
@@ -182,9 +185,17 @@ namespace MyWebPlay.Controllers
                 }
                 else if (info[0] == "Believe_IP")
                 {
-                    var xinh = f[info[0]];
+                    var xinh = f[info[0]].ToString();
                     if (string.IsNullOrEmpty(xinh))
                         xinh = "[NULL]";
+                    else
+                    {
+                        if (xinh.StartsWith(",") == false)
+                            xinh = "," + xinh;
+
+                        if (xinh.EndsWith(",") == false)
+                            xinh = xinh + ",";
+                    }
 
                     if (xinh != info[3])
                     {
@@ -199,6 +210,20 @@ namespace MyWebPlay.Controllers
                     var xinh = f[info[0]];
                     if (string.IsNullOrEmpty(xinh))
                         xinh = "abc-xyz";
+
+                    if (xinh != info[3])
+                    {
+                        cometo = "#come-" + i;
+                        dix++;
+                    }
+
+                    noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
+                }
+                else if (info[0] == "MatDoTuyetDoi")
+                {
+                    var xinh = f[info[0]];
+                    if (string.IsNullOrEmpty(xinh))
+                        xinh = "believix-123";
 
                     if (xinh != info[3])
                     {
@@ -394,7 +419,7 @@ namespace MyWebPlay.Controllers
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                if (info[0] == "OffWebsite_All")
+                if (HttpContext.Session.GetString("TuyetDoi") != "true" && info[0] == "OffWebsite_All")
                 {
                     if (info[1] == "true")
                         return RedirectToAction("Error","Home");
@@ -450,7 +475,7 @@ namespace MyWebPlay.Controllers
 
                 if (flox == 0)
                 {
-                    if (info[0] == "Using_QuickData" || info[0] == "Using_Website")
+                    if (HttpContext.Session.GetString("TuyetDoi") != "true" && (info[0] == "Using_QuickData" || info[0] == "Using_Website"))
                     {
                         if (info[1] == "false")
                         {
@@ -544,7 +569,7 @@ namespace MyWebPlay.Controllers
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                if (info[0] == "OffWebsite_All")
+                if (HttpContext.Session.GetString("TuyetDoi") != "true" &&  info[0] == "OffWebsite_All")
                 {
                     if (info[1] == "true")
                         return RedirectToAction("Error","Home");
@@ -557,7 +582,7 @@ namespace MyWebPlay.Controllers
 
                 if (TempData["NotAlertQuickData"] == "false")
                 {
-                    if (info[0] == "Using_QuickData" || info[0] == "Using_Website")
+                    if (HttpContext.Session.GetString("TuyetDoi") != "true" && (info[0] == "Using_QuickData" || info[0] == "Using_Website"))
                     {
                         if (info[1] == "false")
                         {

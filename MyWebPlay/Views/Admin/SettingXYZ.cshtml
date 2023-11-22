@@ -124,7 +124,7 @@ input:checked + .slider:before {
             }
             else
             {
-                 var n = new Number(document.getElementById("count").value) - 3;
+                 var n = new Number(document.getElementById("count").value) - 4;
                 for (var i = 0; i < n;i++)
                 {
                     if (i == x)
@@ -137,7 +137,7 @@ input:checked + .slider:before {
 
         function chonall()
         {
-            var n = new Number(document.getElementById("count").value) - 3;
+            var n = new Number(document.getElementById("count").value) - 4;
             for (var i = 0; i < n;i++)
             {
                 document.getElementById("check-"+i).checked = true;
@@ -147,7 +147,7 @@ input:checked + .slider:before {
 
         function boall()
         {
-            var n = new Number(document.getElementById("count").value) - 3;
+            var n = new Number(document.getElementById("count").value) - 4;
             for (var i = 0; i < n;i++)
             {
                 document.getElementById("check-"+i).checked = false;
@@ -333,7 +333,7 @@ input:checked + .slider:before {
                 @for (int i = 0; i < Model.Topics.Count; i++)
 {
  <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-@i">@Html.Raw(Model.Topics[i].NoiDung)</h3>
- @if(Model.Topics[i].ID != "Password_Admin" && Model.Topics[i].ID != "Believe_IP" && Model.Topics[i].ID != "Code_LockedClient")
+ @if(Model.Topics[i].ID != "Password_Admin" && Model.Topics[i].ID != "Believe_IP" && Model.Topics[i].ID != "Code_LockedClient" && Model.Topics[i].ID != "MatDoTuyetDoi")
  {
 <label class="switch">
     @if (Model.Topics[i].Option == false)
@@ -363,6 +363,11 @@ input:checked + .slider:before {
                     if (Model.Topics[i].ID == "Code_LockedClient")
                     {
                         <input size="100" name="@Model.Topics[i].ID" type="text" value="@ViewBag.CodeSocolar" />
+                    }
+                     else
+                    if (Model.Topics[i].ID == "MatDoTuyetDoi")
+                    {
+                        <input size="100" name="@Model.Topics[i].ID" type="text" value="@ViewBag.MaMatDo" />
                     }
                     <br /><br />
 }

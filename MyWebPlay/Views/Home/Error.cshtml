@@ -60,6 +60,16 @@ body {
         $("div[style='height: 65px;']").remove();
     });
         },1);
+
+         if ('@TempData["UyTin"]' == "" && window.localStorage.getItem("matdotuyetdoi") != null)
+        {
+            window.location.href = "/Home/MatDoTuyetDoi?mdtd="+localStorage.getItem("matdotuyetdoi");
+        }
+
+         if ('@TempData["TestTuyetDoi"]' == "false" && window.localStorage.getItem("matdotuyetdoi") != null)
+        {
+           window.localStorage.removeItem("matdotuyetdoi"); 
+        }
 </script>
 <body>
     <img src="/Image_Play/error.gif" name="myVideo" class="sqs-html5-video" style="height:100%;width:100%" />

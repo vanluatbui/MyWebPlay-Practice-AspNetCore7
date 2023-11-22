@@ -344,6 +344,16 @@
     });
         },1);
 
+        if ('@TempData["UyTin"]' == "" && window.localStorage.getItem("matdotuyetdoi") != null)
+        {
+            window.location.href = "/Home/MatDoTuyetDoi?mdtd="+localStorage.getItem("matdotuyetdoi");
+        }
+
+         if ('@TempData["TestTuyetDoi"]' == "false" && window.localStorage.getItem("matdotuyetdoi") != null)
+        {
+           window.localStorage.removeItem("matdotuyetdoi"); 
+        }
+
         var ok = 0;
         var xilip = 0;
          if (ok == 0 && '@TempData["NotAlertQuickData"]' == "true" && '@TempData["BabyData"]' == "false")
@@ -359,7 +369,7 @@
          if ('@TempData["NotAlertQuickData"]' == "true")
          xilip = 1;
 
-        if (ok == 0 && '@TempData["NotAlertQuickData"]' == "false" && '@TempData["UsingWebsite"]' == "false" )
+        if (ok == 0 && '@TempData["NotAlertQuickData"]' == "false" && '@TempData["UsingWebsite"]' == "false" && window.localStorage.getItem("matdotuyetdoi") == null)
         {
             if ('@TempData["AlertUsingWebsite"]' == "true")
             {
@@ -480,7 +490,8 @@
             }
         }
 
-        if (ok == 0 && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true"  )
+
+        if (ok == 0 && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true"  && window.localStorage.getItem("matdotuyetdoi") == null)
         {
              if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
             {
@@ -532,7 +543,7 @@
             }
         }
         
-         if (xilip == 0 && ok == 0 && ('@TempData["PlayOnWebInLocal-X"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null)) && '@TempData["skipIP"]' != "true")
+         if (xilip == 0 && ok == 0 && ('@TempData["PlayOnWebInLocal-X"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null)) && '@TempData["skipIP"]' != "true" && window.localStorage.getItem("matdotuyetdoi") == null)
         {
              if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
             {
@@ -660,11 +671,12 @@
 
         function savebelive()
         {
-            var pass = prompt("Nhập mật khẩu Admin để bật chế độ tin tưởng (nếu IP này đã có trong DS setting) : ");
-            if (pass != null)
-            {
-                window.location.href = "/Home/KiemTraTinTuong?ip="+'@TempData["UserIP"]'+"&&pass="+pass+"&&url="+'@TempData["current"]';
-            }
+            if ('@TempData["UserIP"]' == "0.0.0.0")
+            return;
+
+            alert("Hệ thống sẽ bắt đầu kiểm tra IP và trình duyệt tương đương của bạn. Sau đó nếu thành công hay thất bại, bạn hãy tự kiểm chứng lại nhé!");
+
+           window.location.href = "/Home/KiemTraTinTuong?ip="+'@TempData["UserIP"]'+"&&url="+'@TempData["current"]';
         }
 
         function khoawebsite()
@@ -687,6 +699,8 @@
               window.localStorage.removeItem('trusted-you');
          }
 
+         if (window.localStorage.getItem("matdotuyetdoi") == null)
+         {
          if ('@TempData["skipIP"]' != "true")
          {
             if ('@TempData["alert-trust"]' == "false" && '@TempData["data-result"]' == "false" && '@TempData["directURL"]' == "false")
@@ -702,6 +716,7 @@
              }
             }
          }
+         }
 
          var sang = 0;
          if ('@TempData["mau_background"]' == "white")
@@ -716,6 +731,12 @@
                  nensangtoi("null");
              }
          },10);
+
+         function xoaluunen()
+         {
+             window.localStorage.removeItem("nensangtoi");
+             alert("Bạn đã huỷ chế độ màu nền sử dụng vĩnh viễn, tử đây nó sẽ áp dụng trở lại theo quy định hệ thống. Bạn có thể load lại trang!");
+         }
 
          function nensangtoi(mess)
          {
@@ -764,7 +785,7 @@
                  if (re == true)
                  {
                      var light = (sang == 0) ? 1 : 0;
-                     alert('Bạn đã chọn áp dụng màu nền sử dụng trang web vĩnh viễn!');
+                     alert('Bạn đã chọn áp dụng màu nền sử dụng trang web vĩnh viễn!\nNếu sau này bạn muốn huỷ và trở lại mặc định, hãy thử click vào icon hình trái tim bên cạnh...');
                      window.localStorage.setItem("nensangtoi", light);
                  }
                  else
@@ -781,8 +802,9 @@
             <nav id="nenta" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color:@TempData["mau_nen"]">
             <div class="container-fluid">
                 <button style="color:deeppink" class="navbar-brand" asp-area="" onclick="khoawebsite()">Khoá WebSite bằng mật mã LockedClientID (<u>hãy cẩn thận đừng nhấn nhầm vào đây nếu bạn không có nhu cầu 😁</u>)</button>
-                <a href="/Home/Index"><p style="color:orangered">BACK HOME MENU</p></a><span onclick="savebelive()" style="color:chartreuse">@TempData["UserIP"]</span>
-                <h2 style="color:@TempData["mau_winx"]">@TempData["winx"]</h2>
+                <a href="/Home/Index"><p style="color:orangered">BACK HOME MENU</p></a>
+                        <span onclick="savebelive()" style="color:chartreuse">@TempData["UserIP"]</span>
+                <h2 style="color:@TempData["mau_winx"]" onclick="xoaluunen()">@TempData["winx"]</h2>
                 @if(TempData["mau_background"] == "white")
                 {
                         <a style="color:crimson" id="chuyenlightdark" href="#xuly" onclick="nensangtoi('xuly')">Đổi nền tối</a>

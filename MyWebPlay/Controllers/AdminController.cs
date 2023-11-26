@@ -21,7 +21,7 @@ namespace MyWebPlay.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public ActionResult SettingXYZ()
+        public ActionResult SettingXYZ_DarkAdmin()
         {
             var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
             var noidung1 = docfile(path1);
@@ -42,7 +42,7 @@ namespace MyWebPlay.Controllers
                 TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
             }
 
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidung = System.IO.File.ReadAllText(path);
 
             var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
@@ -99,7 +99,7 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult SettingXYZ(IFormCollection f)
+        public ActionResult SettingXYZ_DarkAdmin(IFormCollection f)
         {
             var non = TempData["SaveComeHere"];
             TempData["SaveComeHere"] = non;
@@ -121,7 +121,7 @@ namespace MyWebPlay.Controllers
                  TempData["winx"] = "❤";
             }
 
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidung = System.IO.File.ReadAllText(path);
 
             var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
@@ -223,7 +223,7 @@ namespace MyWebPlay.Controllers
                 {
                     var xinh = f[info[0]];
                     if (string.IsNullOrEmpty(xinh))
-                        xinh = "believix-123";
+                        xinh = "matdotuyetdoi<>believix-123";
 
                     if (xinh != info[3])
                     {
@@ -237,7 +237,7 @@ namespace MyWebPlay.Controllers
             System.IO.File.WriteAllText(path, noidung);
             if (dix == listSetting.Length - 2)
                 cometo = "#welcome";
-            return Redirect("/Admin/SettingXYZ"+cometo);
+            return Redirect("/Admin/SettingXYZ_DarkAdmin"+cometo);
         }
 
         //-------------------------------------------------
@@ -302,7 +302,7 @@ namespace MyWebPlay.Controllers
                 TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
                  TempData["winx"] = "❤";
             }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
@@ -385,7 +385,7 @@ namespace MyWebPlay.Controllers
             SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
                "mywebplay.savefile@gmail.com", host + "[ADMIN] Báo cáo thủ công danh sách các IP user đã ghé thăm và request từng chức năng của trang web (tất cả/có thể chưa đầy đủ) In " + xuxu, noidung1, "teinnkatajeqerfl");
 
-            return RedirectToAction("SettingXYZ", new { key = "code" });
+            return RedirectToAction("SettingXYZ_DarkAdmin", new { key = "code" });
         }
 
         public ActionResult DeleteIPComeHere()
@@ -395,7 +395,7 @@ namespace MyWebPlay.Controllers
 
             System.IO.File.WriteAllText(path1, "");
        
-            return RedirectToAction("SettingXYZ", new { key = "code"});
+            return RedirectToAction("SettingXYZ_DarkAdmin", new { key = "code"});
         }
 
         public ActionResult QuickDataInWeb(string? first)
@@ -409,7 +409,7 @@ namespace MyWebPlay.Controllers
             Random ri = new Random();
             ViewBag.NumberRandom = ri.Next(3) + 1;
 
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flix = 0;
@@ -562,7 +562,7 @@ namespace MyWebPlay.Controllers
             Random ri = new Random();
             ViewBag.NumberRandom = ri.Next(3) + 1;
 
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < listSetting.Length; i++)
@@ -640,7 +640,7 @@ namespace MyWebPlay.Controllers
         {
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/InfoIPRegist.txt");
             System.IO.File.WriteAllText(path, "IP\tDateTime\tInfo");
-            return Redirect("/Admin/SettingXYZ#labelActive");
+            return Redirect("/Admin/SettingXYZ_DarkAdmin#labelActive");
         }
     }
 }

@@ -83,7 +83,7 @@ namespace MyWebPlay.Controllers
 
         public void khoawebsiteClient(List<string> listIP)
         {
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
@@ -148,7 +148,9 @@ namespace MyWebPlay.Controllers
 
                 if (info[0] == "MatDoTuyetDoi")
                 {
-                    TempData["MDTT"] = info[3];
+                    var please = info[3].Split("<>");
+                    TempData["keytuyetdoi"] = please[0];
+                    TempData["MDTT"] = please[1];
                 }
 
                 if (info[0] == "Clear_Website")
@@ -789,7 +791,7 @@ namespace MyWebPlay.Controllers
             string s = chuoi;
 
             // viết hoa chữ cái đầu mỗi câu...
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
 
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
@@ -950,7 +952,7 @@ namespace MyWebPlay.Controllers
                 TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
                  TempData["winx"] = "❤";
             }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
@@ -1099,7 +1101,7 @@ namespace MyWebPlay.Controllers
                 TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
                  TempData["winx"] = "❤";
             }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
@@ -1252,7 +1254,7 @@ namespace MyWebPlay.Controllers
                 TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
                  TempData["winx"] = "❤";
             }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
@@ -1401,7 +1403,7 @@ namespace MyWebPlay.Controllers
                 TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
                  TempData["winx"] = "❤";
             }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
@@ -1914,7 +1916,7 @@ namespace MyWebPlay.Controllers
                 TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
                  TempData["winx"] = "❤";
             }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;

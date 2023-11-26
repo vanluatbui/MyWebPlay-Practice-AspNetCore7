@@ -79,7 +79,7 @@ namespace MyWebPlay.Controllers
                 TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
                  TempData["winx"] = "❤";
             }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
@@ -277,7 +277,7 @@ namespace MyWebPlay.Controllers
                 TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
                  TempData["winx"] = "❤";
             }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flax = 0;
@@ -450,7 +450,7 @@ namespace MyWebPlay.Controllers
                 TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
                  TempData["winx"] = "❤";
             }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
@@ -572,7 +572,7 @@ namespace MyWebPlay.Controllers
                 TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
                  TempData["winx"] = "❤";
             }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
@@ -742,7 +742,7 @@ namespace MyWebPlay.Controllers
                 TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
                  TempData["winx"] = "❤";
             }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
@@ -791,7 +791,7 @@ namespace MyWebPlay.Controllers
             var phan2 = listCha[1].Replace("\r\n", "  ");
             var phan3 = listCha[2].Replace("\r\n", "  ");
 
-            var result = phan1 + "\n" + phan2 + "\n"+ phan3;
+            var result = phan1 + "\n" + phan2.Replace("<","").Replace(">","") + "\n"+ phan3.Replace("<", "").Replace(">", "");
             var nix = result;
             result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
 
@@ -869,7 +869,7 @@ namespace MyWebPlay.Controllers
                 TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
                  TempData["winx"] = "❤";
             }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
@@ -1038,7 +1038,7 @@ namespace MyWebPlay.Controllers
                 TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
                  TempData["winx"] = "❤";
             }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;

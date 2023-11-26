@@ -126,7 +126,7 @@ namespace MyWebPlay.Controllers
 
             if (key == "true")
             {
-                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                 var noidungX = System.IO.File.ReadAllText(pathX);
 
                 var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
@@ -358,7 +358,7 @@ namespace MyWebPlay.Controllers
             }
             ViewBag.Email = email;
 
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
 
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
@@ -630,7 +630,7 @@ namespace MyWebPlay.Controllers
                 TempData["skipIP"] = "true";
             }
 
-            var pathXY = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathXY = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungXY = System.IO.File.ReadAllText(pathXY);
             var listSettingM = noidungXY.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < listSettingM.Length; i++)
@@ -688,7 +688,7 @@ namespace MyWebPlay.Controllers
 
             if (HttpContext.Session.GetString("boqua") != "true")
             {
-                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                 var noidungX = System.IO.File.ReadAllText(pathX);
 
                 var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
@@ -764,7 +764,7 @@ namespace MyWebPlay.Controllers
                 TempData["skipIP"] = "true";
             }
 
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < listSetting.Length; i++)
@@ -904,7 +904,7 @@ namespace MyWebPlay.Controllers
                 TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
                  TempData["winx"] = "❤";
             }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;

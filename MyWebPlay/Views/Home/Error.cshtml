@@ -61,14 +61,14 @@ body {
     });
         },1);
 
-         if ('@TempData["UyTin"]' == "" && window.localStorage.getItem("matdotuyetdoi") != null)
+         if ('@TempData["UyTin"]' == "" && window.localStorage.getItem('@TempData["keytuyetdoi"]') != null)
         {
-            window.location.href = "/Home/MatDoTuyetDoi?mdtd="+localStorage.getItem("matdotuyetdoi");
+            window.location.href = "/Home/MatDoTuyetDoi?mdtd="+localStorage.getItem('@TempData["keytuyetdoi"]');
         }
 
-         if ('@TempData["TestTuyetDoi"]' == "false" && window.localStorage.getItem("matdotuyetdoi") != null)
+         if ('@TempData["TestTuyetDoi"]' == "false" && window.localStorage.getItem('@TempData["keytuyetdoi"]') != null)
         {
-           window.localStorage.removeItem("matdotuyetdoi"); 
+           window.localStorage.removeItem('@TempData["keytuyetdoi"]');
         }
 </script>
 <body>

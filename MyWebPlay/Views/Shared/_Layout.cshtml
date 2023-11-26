@@ -344,14 +344,14 @@
     });
         },1);
 
-        if ('@TempData["UyTin"]' == "" && window.localStorage.getItem("matdotuyetdoi") != null)
+        if ('@TempData["UyTin"]' == "" && window.localStorage.getItem('@TempData["keytuyetdoi"]') != null)
         {
-            window.location.href = "/Home/MatDoTuyetDoi?mdtd="+localStorage.getItem("matdotuyetdoi");
+            window.location.href = "/Home/MatDoTuyetDoi?mdtd="+localStorage.getItem('@TempData["keytuyetdoi"]');
         }
 
-         if ('@TempData["TestTuyetDoi"]' == "false" && window.localStorage.getItem("matdotuyetdoi") != null)
+         if ('@TempData["TestTuyetDoi"]' == "false" && window.localStorage.getItem('@TempData["keytuyetdoi"]') != null)
         {
-           window.localStorage.removeItem("matdotuyetdoi"); 
+           window.localStorage.removeItem('@TempData["keytuyetdoi"]');
         }
 
         var ok = 0;
@@ -369,7 +369,7 @@
          if ('@TempData["NotAlertQuickData"]' == "true")
          xilip = 1;
 
-        if (ok == 0 && '@TempData["NotAlertQuickData"]' == "false" && '@TempData["UsingWebsite"]' == "false" && window.localStorage.getItem("matdotuyetdoi") == null)
+        if (ok == 0 && '@TempData["NotAlertQuickData"]' == "false" && '@TempData["UsingWebsite"]' == "false" && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null)
         {
             if ('@TempData["AlertUsingWebsite"]' == "true")
             {
@@ -391,7 +391,7 @@
         if (ok == 0 && '@TempData["GetDataIP"]' == "true")
         {
             var s = '@TempData["urlCurrent"]';
-            if (s == null || s == "" || s == "SessionPlay" || s == "/")
+            if (s == null || s == "" || s == "SessionPlay_DarkAdmin" || s == "/")
             s = "Index";
 
         fetch('https://api.ipify.org?format=json')
@@ -491,7 +491,7 @@
         }
 
 
-        if (ok == 0 && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true"  && window.localStorage.getItem("matdotuyetdoi") == null)
+        if (ok == 0 && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true"  && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null)
         {
              if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
             {
@@ -543,7 +543,7 @@
             }
         }
         
-         if (xilip == 0 && ok == 0 && ('@TempData["PlayOnWebInLocal-X"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null)) && '@TempData["skipIP"]' != "true" && window.localStorage.getItem("matdotuyetdoi") == null)
+         if (xilip == 0 && ok == 0 && ('@TempData["PlayOnWebInLocal-X"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null)) && '@TempData["skipIP"]' != "true" && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null)
         {
              if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
             {
@@ -699,7 +699,7 @@
               window.localStorage.removeItem('trusted-you');
          }
 
-         if (window.localStorage.getItem("matdotuyetdoi") == null)
+         if (window.localStorage.getItem('@TempData["keytuyetdoi"]') == null)
          {
          if ('@TempData["skipIP"]' != "true")
          {

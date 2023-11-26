@@ -86,7 +86,7 @@ namespace MyWebPlay.Controllers
                 TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
                  TempData["winx"] = "❤";
             }
-            var pathX1  = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX1  = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX1);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
@@ -276,7 +276,7 @@ namespace MyWebPlay.Controllers
                 TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
                  TempData["winx"] = "❤";
             }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
@@ -377,7 +377,7 @@ namespace MyWebPlay.Controllers
                 TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
                  TempData["winx"] = "❤";
             }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
@@ -588,7 +588,7 @@ namespace MyWebPlay.Controllers
                 TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
                  TempData["winx"] = "❤";
             }
-            var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX1);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;

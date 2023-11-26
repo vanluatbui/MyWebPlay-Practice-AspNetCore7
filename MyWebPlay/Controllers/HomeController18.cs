@@ -225,7 +225,7 @@ namespace MyWebPlay.Controllers
                            .Replace("http://", "")
                            .Replace("/", "");
 
-                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                 var noidungX = System.IO.File.ReadAllText(pathX);
 
                 var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
@@ -580,7 +580,7 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
 
             var IPbelieve = "";
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC.txt");
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
 
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
@@ -636,7 +636,7 @@ namespace MyWebPlay.Controllers
                 if (noidung2.Contains(ip + "##") == false)
                     System.IO.File.WriteAllText(path2, noidung2 + ip + "##");
             }
-            return Redirect("/Admin/SettingXYZ#labelActive");
+            return Redirect("/Admin/SettingXYZ_DarkAdmin#labelActive");
         }
 
         public ActionResult Setting_RemoveIPActive(string ip)
@@ -649,7 +649,7 @@ namespace MyWebPlay.Controllers
 
                 System.IO.File.WriteAllText(path2, noidung2);
             }
-            return Redirect("/Admin/SettingXYZ#labelActive");
+            return Redirect("/Admin/SettingXYZ_DarkAdmin#labelActive");
         }
 
         //======
@@ -664,7 +664,7 @@ namespace MyWebPlay.Controllers
                 if (noidung2.Contains(ip + "##") == false)
                     System.IO.File.WriteAllText(path2, noidung2 + ip + "##");
             }
-            return Redirect("/Admin/SettingXYZ#labelActive");
+            return Redirect("/Admin/SettingXYZ_DarkAdmin#labelActive");
         }
 
         public ActionResult Setting_RemoveIPLockAdmin(string ip)
@@ -678,7 +678,7 @@ namespace MyWebPlay.Controllers
 
                     System.IO.File.WriteAllText(path2, noidung2);
             }
-            return Redirect("/Admin/SettingXYZ#labelActive");
+            return Redirect("/Admin/SettingXYZ_DarkAdmin#labelActive");
         }
 
         public ActionResult Setting_AddIPLockClient(string ip_pass)
@@ -697,7 +697,7 @@ namespace MyWebPlay.Controllers
                 if (noidung2.Contains(ip) == false)
                     System.IO.File.WriteAllText(path2, noidung2 + ip_pass + "##");
             }
-            return Redirect("/Admin/SettingXYZ#labelActive");
+            return Redirect("/Admin/SettingXYZ_DarkAdmin#labelActive");
         }
 
         public ActionResult Setting_ChangePassLockClient(string ip_pass)
@@ -724,7 +724,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
             }
-            return Redirect("/Admin/SettingXYZ#labelActive");
+            return Redirect("/Admin/SettingXYZ_DarkAdmin#labelActive");
         }
 
         public ActionResult Setting_RemoveIPLockClient(string ip_pass)
@@ -737,7 +737,7 @@ namespace MyWebPlay.Controllers
 
                 System.IO.File.WriteAllText(path2, noidung2);
             }
-            return Redirect("/Admin/SettingXYZ#labelActive");
+            return Redirect("/Admin/SettingXYZ_DarkAdmin#labelActive");
         }
     }
 }

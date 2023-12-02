@@ -12,7 +12,7 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult ViewNoteFile()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
@@ -45,7 +45,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult EditTextNote()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
@@ -74,7 +74,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult EditTextNote(string? txtText)
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
@@ -205,7 +205,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XoaTextNote()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
@@ -222,7 +222,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult PlayQuestion_Multiple()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
@@ -255,7 +255,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult PlayQuestion_Multiple (IFormCollection f, List<IFormFile> txtFile)
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
@@ -353,6 +353,11 @@ namespace MyWebPlay.Controllers
             {
                 ViewData["Loi1"] = "Mời bạn chọn file TXT trắc nghiệm (có thể chọn nhiều file thể hiện một môn học trắc nghiệm có nhiều chương/mục/phần/bài)...";
                 HttpContext.Session.SetString("data-result", "true"); return this.PlayQuestion_Multiple();
+            }
+
+            if (f["txtChangeJapan"].ToString() == "on")
+            {
+                TempData["chuyendoiJapan"] = "true";
             }
 
 
@@ -612,12 +617,14 @@ namespace MyWebPlay.Controllers
 
             ViewBag.KetQuaDung = "";
 
+            TempData["replaceJapan"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "ChangeJapan", "quy-tac-ki-tu-chuyen-doi.txt"));
+
             return View("PlayQuestion", tnX);
         }
 
         public ActionResult PlayQuestion(TracNghiem tn)
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
@@ -638,10 +645,225 @@ namespace MyWebPlay.Controllers
             return View(tn);
         }
 
+        public string chuyendoiJapan()
+        {
+            var s = "";
+
+
+            s += "--a\tァ\r\n";
+            s += "--u\tゥ\r\n";
+            s += "--e\tェ\r\n";
+            s += "--o\tォ\r\n";
+            s += "--ya\tャ\r\n";
+            s += "--yu\tュ\r\n";
+            s += "--yo\tョ\r\n";
+            s += "--tsu\tﾂ\r\n";
+            s += "--i\tィ\r\n";
+
+            s += "-a\tぁ\r\n";
+            s += "-u\tぅ\r\n";
+            s += "-e\tぇ\r\n";
+            s += "-o\tぉ\r\n";
+            s += "-ya\tゃ\r\n";
+            s += "-yu\tゅ\r\n";
+            s += "-yo\tょ\r\n";
+            s += "-tsu\tっ\r\n";
+            s += "-i\tぃ\r\n";
+
+            s += "[\t「\r\n";
+            s += "]\t」\r\n";
+            s += ".\t。\r\n";
+
+            s += "^mr\t゜\r\n";
+            s += "^tt\t゛\r\n";
+
+            s += "-=-\tー\r\n";
+
+            //==================================================
+
+            s += "=ga\tガ\r\n";
+            s += "=gi\tギ\r\n";
+            s += "=gu\tグ\r\n";
+            s += "=ge\tゲ\r\n";
+            s += "=go\tゴ\r\n";
+
+            s += "=za\tザ\r\n";
+            s += "=zi\tジ\r\n";
+            s += "=zu\tズ\r\n";
+            s += "=ze\tゼ\r\n";
+            s += "=zo\tゾ\r\n";
+
+            s += "=da\tダ\r\n";
+            s += "=di\tヂ\r\n";
+            s += "=du\tヅ\r\n";
+            s += "=de\tデ\r\n";
+            s += "=do\tド\r\n";
+
+            s += "=ba\tバ\r\n";
+            s += "=bi\tビ\r\n";
+            s += "=bu\tブ\r\n";
+            s += "=be\tベ\r\n";
+            s += "=bo\tボ\r\n";
+
+            s += "=pa\tパ\r\n";
+            s += "=pi\tピ\r\n";
+            s += "=pu\tプ\r\n";
+            s += "=pe\tペ\r\n";
+            s += "=po\tポ\r\n";
+
+            //-------------------------------
+
+            s += "ga\tが\r\n";
+            s += "gi\tぎ\r\n";
+            s += "gu\tぐ\r\n";
+            s += "ge\tげ\r\n";
+            s += "go\tご\r\n";
+
+            s += "za\tざ\r\n";
+            s += "zi\tじ\r\n";
+            s += "zu\tず\r\n";
+            s += "ze\tぜ\r\n";
+            s += "zo\tぞ\r\n";
+
+            s += "da\tだ\r\n";
+            s += "di\tぢ\r\n";
+            s += "du\tづ\r\n";
+            s += "de\tで\r\n";
+            s += "do\tど\r\n";
+
+            s += "ba\tば\r\n";
+            s += "bi\tび\r\n";
+            s += "bu\tぶ\r\n";
+            s += "be\tべ\r\n";
+            s += "bo\tぼ\r\n";
+
+            s += "pa\tぱ\r\n";
+            s += "pi\tぴ\r\n";
+            s += "pu\tぷ\r\n";
+            s += "pe\tぺ\r\n";
+            s += "po\tぽ\r\n";
+
+
+            //........................................................................
+
+            s += "=ka\tカ\r\n";
+            s += "=ki\tキ\r\n";
+            s += "=ku\tク\r\n";
+            s += "=ke\tケ\r\n";
+            s += "=ko\tコ\r\n";
+
+            s += "=ta\tタ\r\n";
+            s += "=chi\tチ\r\n";
+            s += "=tsu\tツ\r\n";
+            s += "=te\tテ\r\n";
+            s += "=to\tト\r\n";
+
+            s += "=sa\tサ\r\n";
+            s += "=shi\tシ\r\n";
+            s += "=su\tス\r\n";
+            s += "=se\tセ\r\n";
+            s += "=so\tソ\r\n";
+
+            s += "=na\tナ\r\n";
+            s += "=ni\tニ\r\n";
+            s += "=nu\tヌ\r\n";
+            s += "=ne\tネ\r\n";
+            s += "=no\tノ\r\n";
+
+            s += "=ha\tハ\r\n";
+            s += "=hi\tヒ\r\n";
+            s += "=fu\tフ\r\n";
+            s += "=he\tヘ\r\n";
+            s += "=ho\tホ\r\n";
+
+            s += "=ma\tマ\r\n";
+            s += "=mi\tミ\r\n";
+            s += "=mu\tム\r\n";
+            s += "=me\tメ\r\n";
+            s += "=mo\tモ\r\n";
+
+            s += "=ya\tヤ\r\n";
+            s += "=yu\tユ\r\n";
+            s += "=yo\tヨ\r\n";
+            s += "=wo\tヲ\r\n";
+            s += "=wa\tワ\r\n";
+
+            s += "=ra\tラ\r\n";
+            s += "=ri\tリ\r\n";
+            s += "=ru\tル\r\n";
+            s += "=re\tレ\r\n";
+            s += "=ro\tロ\r\n";
+            s += "=nn\tン\r\n";
+            s += "=a\tア\r\n";
+            s += "=i\tイ\r\n";
+            s += "=u\tウ\r\n";
+            s += "=e\tエ\r\n";
+            s += "=o\tオ\r\n";
+
+            //----------------------------------------------------------
+
+            s += "ka\tか\r\n";
+            s += "ki\tき\r\n";
+            s += "ku\tく\r\n";
+            s += "ke\tけ\r\n";
+            s += "ko\tこ\r\n";
+
+            s += "ta\tた\r\n";
+            s += "chi\tち\r\n";
+            s += "tsu\tつ\r\n";
+            s += "te\tて\r\n";
+            s += "to\tと\r\n";
+
+            s += "sa\tさ\r\n";
+            s += "shi\tし\r\n";
+            s += "su\tす\r\n";
+            s += "se\tせ\r\n";
+            s += "so\tそ\r\n";
+
+            s += "na\tな\r\n";
+            s += "ni\tに\r\n";
+            s += "nu\tぬ\r\n";
+            s += "ne\tね\r\n";
+            s += "no\tの\r\n";
+
+            s += "ha\tは\r\n";
+            s += "hi\tひ\r\n";
+            s += "fu\tふ\r\n";
+            s += "he\tへ\r\n";
+            s += "ho\tほ\r\n";
+
+            s += "ma\tま\r\n";
+            s += "mi\tみ\r\n";
+            s += "mu\tむ\r\n";
+            s += "me\tめ\r\n";
+            s += "mo\tも\r\n";
+
+            s += "ya\tや\r\n";
+            s += "yu\tゆ\r\n";
+            s += "yo\tよ\r\n";
+            s += "wo\tを\r\n";
+            s += "wa\tわ\r\n";
+
+            s += "ra\tら\r\n";
+            s += "ri\tり\r\n";
+            s += "ru\tる\r\n";
+            s += "re\tれ\r\n";
+            s += "ro\tろ\r\n";
+            s += "nn\tん\r\n";
+
+            s += "a\tあ\r\n";
+            s += "i\tい\r\n";
+            s += "u\tう\r\n";
+            s += "e\tえ\r\n";
+            s += "o\tお";
+
+            return s;
+        }
+
         [HttpPost]
         public ActionResult PlayQuestion(IFormCollection f)
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
@@ -705,6 +927,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
             }
+
             TracNghiem tn;
 
             if (HttpContext.Session.GetObject<TracNghiem>("TracNghiem") == null)
@@ -772,7 +995,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult CreateFile_Question()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
@@ -798,7 +1021,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult CreateFile_Question(IFormCollection f)
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
@@ -947,7 +1170,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XoaAllFile_X2()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0") HttpContext.Session.Remove("userIP");
+             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");

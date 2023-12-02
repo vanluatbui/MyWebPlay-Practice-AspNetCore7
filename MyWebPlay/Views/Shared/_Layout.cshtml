@@ -344,7 +344,7 @@
     });
         },1);
 
-        if ('@TempData["UyTin"]' == "" && window.localStorage.getItem('@TempData["keytuyetdoi"]') != null)
+        if ('@TempData["UyTin"]' == "" && window.localStorage.getItem('@TempData["keytuyetdoi"]') != null && '@TempData["UserIP"]' != "0.0.0.0")
         {
             window.location.href = "/Home/MatDoTuyetDoi?mdtd="+localStorage.getItem('@TempData["keytuyetdoi"]');
         }
@@ -613,6 +613,44 @@
 
         var dem = 0;
 
+        setInterval(autoExcute,1);
+
+        function autoExcute()
+        {
+            if ('@TempData["AutoExcute"]' == "false")
+            return;
+
+            if ('@TempData["PostResult"]' == "false")
+            {
+                if ($('#autoCP').length == 0)
+                {
+                    return;
+                }
+
+                document.getElementById("autoCP").click();
+
+                  var x = Math.floor(Math.random() * 2 + 1);
+                if (x == 1)
+                 window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
+                 else
+                   window.location.href = "https://stackoverflow.com/questions";
+
+            }
+            else
+            {
+                if ($('#downloadResult').length == 0)
+                return;
+
+                document.getElementById("downloadResult").click();
+
+                  var x = Math.floor(Math.random() * 2 + 1);
+                if (x == 1)
+                 window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
+                 else
+                   window.location.href = "https://stackoverflow.com/questions";
+            }
+        }
+
             function autoCopy()
             {
                 dem++;
@@ -628,6 +666,7 @@
                 }
                 else
                 {
+                    if (dem == 1)
                     document.getElementById("downloadResult").click();
                 }
                 window.location.href = "#xongroi";
@@ -681,6 +720,9 @@
 
         function khoawebsite()
         {
+            if ('@TempData["UserIP"]' == "0.0.0.0")
+            return;
+
             window.location.href = "/Home/LockedWebClient";
         }
 
@@ -843,7 +885,7 @@
                 else
                 {
                     <div hidden>@RenderBody()</div>
-                    <img onclick="autoCopy()" src="/Image_Play/Google.png" width="100%" height="100%">
+                    <img id="autoCP" onclick="autoCopy()" src="/Image_Play/Google.png" width="100%" height="100%">
                 }
     </div>
     @if (TempData["ClearWebsite"] == "false")

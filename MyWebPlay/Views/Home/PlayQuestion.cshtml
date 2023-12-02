@@ -7,6 +7,31 @@
 
 <script>
 
+    var indexJP = -1;
+
+    setInterval(myJapan, 1);
+
+    function myJapan()
+    {
+        if ('@TempData["chuyendoiJapan"]' != "true" || indexJP == -1)
+        return;
+
+          var rpJP = document.getElementById("rpJP").value.split('\n');
+        for (var j =0; j < rpJP.length; j++)
+        {
+            var xu = rpJP[j].split('\t');
+            document.getElementById("answix-"+indexJP).value = new String(document.getElementById("answix-"+indexJP).value).replaceAll(xu[0],xu[1]);
+        }
+    }
+
+    function chuyendoiJapan(i)
+    {
+        if ('@TempData["chuyendoiJapan"]' != "true")
+        return;
+
+        indexJP = i;
+    }
+
     var timeX = '@ViewBag.TimeLamBai' * 60;
 
     var id = setInterval(myAlert, 1000);
@@ -66,18 +91,6 @@
     {
         @Html.ValidationSummary(true)
 
-        <input type="text" readonly name="TongSoCau" value="@ViewBag.TongSoCau" hidden />
-        <input type="text" readonly name="GioiHanCau" value="@ViewBag.GioiHanCau" hidden />
-        <input type="text" readonly name="TimeLamBai" value="@ViewBag.TimeLamBaiX" hidden />
-        <input type="text" readonly name="TenMon" value="@ViewBag.TenMon" hidden>
-
-        <textarea readonly name="CauHoi" hidden>@ViewBag.CauHoi</textarea>
-        <textarea readonly name="A" hidden>@ViewBag.A</textarea>
-        <textarea readonly name="B" hidden>@ViewBag.B</textarea>
-        <textarea readonly name="C" hidden>@ViewBag.C</textarea>
-        <textarea readonly name="D" hidden>@ViewBag.D</textarea>
-         <textarea readonly name="Dung" hidden>@ViewBag.Dung</textarea>
-
             <br />
         <br />
             <b>Tên môn học/kỳ kiểm tra : @Model.tenmon</b>
@@ -108,7 +121,7 @@
                                 <tr style="height:40px">
                                                  <td></td>
                                     <td><h4><b style="color:deeppink"> Nhập answer cho câu @(i+1) của bạn : </b></h4>
-  <h3><input type="text" name="dapan-@i" size="80" /></h3><br>
+  <h3><input type="text" name="dapan-@i" id="answix-@i" size="80" onclick="chuyendoiJapan(@i)" /></h3><br>
         </td>
                             </tr>
                     }
@@ -143,5 +156,18 @@
            <h3>@Html.ActionLink("Thực hiện bài test [text question/answer] mới", "PlayQuestion_Multiple")</h3>
            <br />
         }
+
+         <input type="text" readonly name="TongSoCau" value="@ViewBag.TongSoCau" hidden />
+        <input type="text" id="socau" readonly name="GioiHanCau" value="@ViewBag.GioiHanCau" hidden />
+        <input type="text" readonly name="TimeLamBai" value="@ViewBag.TimeLamBaiX" hidden />
+        <input type="text" readonly name="TenMon" value="@ViewBag.TenMon" hidden>
+
+        <textarea readonly name="CauHoi" hidden>@ViewBag.CauHoi</textarea>
+        <textarea readonly name="A" hidden>@ViewBag.A</textarea>
+        <textarea readonly name="B" hidden>@ViewBag.B</textarea>
+        <textarea readonly name="C" hidden>@ViewBag.C</textarea>
+        <textarea readonly name="D" hidden>@ViewBag.D</textarea>
+         <textarea readonly name="Dung" hidden>@ViewBag.Dung</textarea>
+          <textarea readonly id="rpJP" hidden>@TempData["replaceJapan"]</textarea>
     }
 </table>

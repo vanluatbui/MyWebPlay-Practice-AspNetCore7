@@ -91,25 +91,30 @@ input:checked + .slider:before {
     });
         },1);
 
-        if (localStorage.getItem('@TempData["key-admin"]') != '@TempData["value-admin"]' && '@TempData["SecureAdmin"]' == "true")
+        //if (localStorage.getItem('@TempData["key-admin"]') != '@TempData["value-admin"]' && '@TempData["SecureAdmin"]' == "true")
+        //{
+        //     var Id = prompt("[SECURE SETTING] Nhập ID - Login Admin : ");
+
+        //     if (Id == null || Id == "")
+        //     {
+        //          var xi = Math.floor(Math.random() * 2 + 1);'@TempData["key-admin"]'
+        //        if (xi == 1)
+        //         window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
+        //         else
+        //           window.location.href = "https://stackoverflow.com/questions";
+        //     }
+        //     else
+        //     {
+        //     var Code = prompt("[SECURE SETTING] Nhập Code - Login Admin : ");
+        //     localStorage.setItem(Id, Code);
+
+        //     window.location.href = "/Admin/ComeInSetting?id="+Id+"&code="+Code;
+        //     }
+        //}
+
+        if ((localStorage.getItem('@TempData["key-admin"]') == null || localStorage.getItem('@TempData["key-admin"]') != '@TempData["value-admin"]') && '@TempData["SecureAdmin"]' == "true")
         {
-             var Id = prompt("[SECURE SETTING] Nhập ID - Login Admin : ");
-
-             if (Id == null || Id == "")
-             {
-                  var xi = Math.floor(Math.random() * 2 + 1);'@TempData["key-admin"]'
-                if (xi == 1)
-                 window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
-                 else
-                   window.location.href = "https://stackoverflow.com/questions";
-             }
-             else
-             {
-             var Code = prompt("[SECURE SETTING] Nhập Code - Login Admin : ");
-             localStorage.setItem(Id, Code);
-
-             window.location.href = "/Admin/ComeInSetting?id="+Id+"&code="+Code;
-             }
+            window.location.href = "/Home/Error";
         }
 
         if ('@TempData["SaveComeHere"]' == "true" && window.location.search == "?key=code")
@@ -321,6 +326,14 @@ input:checked + .slider:before {
             window.location.href = "/Admin/RefreshInfoIPRegist";
         }
 
+         function deletechitiet()
+        {
+            var re = confirm("Are you sure?");
+            if (re == false) return;
+
+             window.location.href = "/Admin/RefreshInfoIPRegist";
+        }
+
         function refreshHetHan()
         {
              window.location.href = "/Admin/RefreshFileHetHan";
@@ -429,7 +442,7 @@ input:checked + .slider:before {
     <br />
     <select onclick="loadActive()" onchange="setActive()" id="ip_active">
     </select>&nbsp;<input type="text" id="txtIPActive" /><br />
-    <button onclick="addActive()" style="color:green">THÊM (HOẠT ĐỘNG NHƯNG CHƯA XÁC NHẬN THIẾT BỊ)</button>&nbsp;<button onclick="removeActive()" style="color:red">XOÁ (HẾT HẠN)</button>&nbsp;(<a href="/ClientConnect/InfoIPRegist.txt" target="_blank">Xem Chi Tiết (có thể chưa đủ thông tin)</a><b> || </b><a href="/ClientConnect/InfoIPRegist.txt" onclick="xoachitiet()" download="">Tải xuống và refresh</a>)
+    <button onclick="addActive()" style="color:green">THÊM (HOẠT ĐỘNG NHƯNG CHƯA XÁC NHẬN THIẾT BỊ)</button>&nbsp;<button onclick="removeActive()" style="color:red">XOÁ (HẾT HẠN)</button>&nbsp;(<a href="/ClientConnect/InfoIPRegist.txt" target="_blank">Xem Chi Tiết (có thể chưa đủ thông tin)</a><b> || </b><a href="/ClientConnect/InfoIPRegist.txt" onclick="xoachitiet()" download="">Tải xuống và refresh</a> || </b><a href="#xuly" onclick="deletechitiet()">Delete</a>)
     <br />
      <br />
     <b name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG BỊ KHOÁ (ADMIN)</b>

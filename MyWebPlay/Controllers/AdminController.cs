@@ -23,7 +23,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult ComeInSetting (string id, string code)
         {
-            var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordSetting.txt");
+            var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
             var nd = System.IO.File.ReadAllText(pth).Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
 
             TempData.Remove("trust-setting");
@@ -98,26 +98,26 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-                if (info[0] == "Password_Setting")
-                {
-                    if (info[1] == "false")
-                    {
-                        TempData["SecureAdmin"] = "false";
-                    }
-                    else
-                    {
-                        TempData["SecureAdmin"] = "true";
-                    }
-                }
+                //if (info[0] == "Password_Setting")
+                //{
+                //    if (info[1] == "false")
+                //    {
+                //        TempData["SecureAdmin"] = "false";
+                //    }
+                //    else
+                //    {
+                //        TempData["SecureAdmin"] = "true";
+                //    }
+                //}
 
-                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordSetting.txt");
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var nd = System.IO.File.ReadAllText(pth).Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
                 TempData["key-admin"] = nd[0];
                 TempData["value-admin"] = nd[1];
-                if (HttpContext.Session.GetString(nd[0]) == nd[1])
-                {
-                    TempData["SecureAdmin"] = "false";
-                }
+                //if (HttpContext.Session.GetString(nd[0]) == nd[1])
+                //{
+                //    TempData["SecureAdmin"] = "false";
+                //}
             }
 
             var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");

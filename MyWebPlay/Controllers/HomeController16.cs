@@ -393,7 +393,7 @@ namespace MyWebPlay.Controllers
                 var id = session.Replace("[32752262]", "");
                 var code = giatri.Replace("[32752262]", "");
 
-                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordSetting.txt");
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 System.IO.File.WriteAllText(pth, id + "\r\n" + code);
             }
 

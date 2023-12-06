@@ -112,7 +112,7 @@ input:checked + .slider:before {
         //     }
         //}
 
-        if ((localStorage.getItem('@TempData["key-admin"]') == null || localStorage.getItem('@TempData["key-admin"]') != '@TempData["value-admin"]') && '@TempData["SecureAdmin"]' == "true")
+        if ((localStorage.getItem('@TempData["key-admin"]') == null || localStorage.getItem('@TempData["key-admin"]') != '@TempData["value-admin"]') /*&& '@TempData["SecureAdmin"]' == "true" */)
         {
             window.location.href = "/Home/Error";
         }

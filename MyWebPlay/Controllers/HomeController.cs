@@ -245,6 +245,18 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
+                //if (info[0] == "Website_Admin")
+                //{
+                //    if (info[1] == "false")
+                //    {
+                //        TempData["WebsitePrivate"] = "false";
+                //    }
+                //    else
+                //    {
+                //        TempData["WebsitePrivate"] = "true";
+                //    }
+                //}
+
                 if (info[0] == "ViewSite_Basic")
                 {
                     if (info[1] == "false")
@@ -374,6 +386,11 @@ namespace MyWebPlay.Controllers
                     }
                 }
             }
+
+            //var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+            //var nd = System.IO.File.ReadAllText(pth).Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
+            //TempData["key-admin"] = nd[0];
+            //TempData["value-admin"] = nd[1];
 
             Calendar x = CultureInfo.InvariantCulture.Calendar;
 

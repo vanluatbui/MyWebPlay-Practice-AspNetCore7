@@ -775,12 +775,16 @@
              sang = 1;
          }
 
+         var xongmau = 0;
          var iss = setInterval(function(){
+             if (xongmau == 1) return;
+
              if (localStorage.getItem("nensangtoi") != null)
              {
                  sang = localStorage.getItem("nensangtoi");
                  nensangtoi("null");
              }
+             xongmau++;
          },10);
 
          function xoaluunen()

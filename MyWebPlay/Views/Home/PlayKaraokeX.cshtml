@@ -143,6 +143,12 @@ body {
             document.getElementById("online").value = '@ViewBag.Background';
              document.getElementById("online").style.display = "inline-block";
         }
+        else if ('@ViewBag.Option' == "5")
+        {
+            document.getElementById("chonKarax").value = 5;
+            document.getElementById("chonKara").options.selectedIndex = 4;
+             document.getElementById("online").style.display = "none";
+        }
 
        document.getElementById("okxem").click();
        }
@@ -313,6 +319,13 @@ function showlist()
          online.style.display = "inline-block";
          help.style.display = "inline-block";
          help2.style.display = "inline-block";
+        }
+        else  if (chon == 4)
+        {
+        chonX.value = "5";
+         online.style.display = "none";
+         help.style.display = "none";
+         help2.style.display = "none";
         }
     }
 
@@ -1190,12 +1203,14 @@ function showlist()
                            <option>Sử dụng link ảnh/background online của bạn</option>
                            <option>Sử dụng link video/background online của bạn</option>
                             <option>Nhập link video Youtube online</option>
+                            <option>Lấy ngẫu nhiên link video Youtube hiện có (một số link có thể không còn tồn tại)</option>
                       </select>
-                      <input type="number" hidden id="chonKarax" name="KaraChon" value="1" min="1" max="4" />
+                      <input type="number" hidden id="chonKarax" name="KaraChon" value="1" min="1" max="5" />
                       <br><br>
                       <input name="txtOnline" id="online" size="100" style="display:none" type="text" placeholder="Nhập link online background của bạn thực hiện karaoke..." />
                      <br><span id="helpYoutube" style="color:red; display:none"><u>Lưu ý</u> : một số link Youtube có thể không khả dụng hoặc bạn nên cố gắng thử lại (và hãy tìm video youtube dài phút nhất có thể 😃)</span>
-                     <br><span id="Youtubehelp" style="color:blueviolet; display:none">Với lựa chọn này, để đảm bảo sự tuyệt đối thì ban đầu nhạc sẽ không được phát tự động như bình thường. Bạn vui lòng tự canh đợi sau khi video Youtube trên background của bạn đã bắt đầu vừa phát, hãy nhấn phím link <span style="color:orangered">Play & Start</span> để mới bắt đầu hành trình nhé 😁</span>
+                     <br><span id="Youtubehelp" style="color:blueviolet; display:none">Với lựa chọn này, để đảm bảo sự tuyệt đối thì ban đầu nhạc sẽ không được phát tự động như bình thường.<br>
+                         Bạn vui lòng tự canh đợi sau khi video Youtube trên background của bạn đã bắt đầu vừa phát, hãy nhấn phím link <span style="color:orangered">Play & Start</span> để mới bắt đầu hành trình nhé 😁</span>
                 </td>
             </tr>
 
@@ -1545,12 +1560,14 @@ else if (ViewBag.SuDung == "Video")
                            <option>Sử dụng link ảnh/background online của bạn</option>
                            <option>Sử dụng link video/background online của bạn</option>
                             <option>Nhập link video Youtube online</option>
+                             <option>Lấy ngẫu nhiên link video Youtube hiện có (một số link có thể không còn tồn tại)</option>
                       </select>
-                      <input type="number" hidden id="chonKarax" name="KaraChon" value="1" min="1" max="4" />
+                      <input type="number" hidden id="chonKarax" name="KaraChon" value="1" min="1" max="5" />
                       <br><br>
                       <input name="txtOnline" id="online" size="100" style="display:none" type="text" placeholder="Nhập link online background của bạn thực hiện karaoke..." />
                      <br><span id="helpYoutube" style="color:red; display:none"><u>Lưu ý</u> : một số link Youtube có thể không khả dụng hoặc bạn nên cố gắng thử lại (và hãy tìm video youtube dài phút nhất có thể 😃)</span>
-                      <br><span id="Youtubehelp" style="color:blueviolet; display:none">Với lựa chọn này, để đảm bảo sự tuyệt đối thì ban đầu nhạc sẽ không được phát tự động như bình thường. Bạn vui lòng tự canh đợi sau khi video Youtube trên background của bạn đã bắt đầu vừa phát, hãy nhấn phím link <span style="color:orangered">Play & Start</span> để mới bắt đầu hành trình nhé 😁</span>
+                      <br><span id="Youtubehelp" style="color:blueviolet; display:none">Với lựa chọn này, để đảm bảo sự tuyệt đối thì ban đầu nhạc sẽ không được phát tự động như bình thường.<br>
+                          Bạn vui lòng tự canh đợi sau khi video Youtube trên background của bạn đã bắt đầu vừa phát, hãy nhấn phím link <span style="color:orangered">Play & Start</span> để mới bắt đầu hành trình nhé 😁</span>
                 </td>
             </tr>
 

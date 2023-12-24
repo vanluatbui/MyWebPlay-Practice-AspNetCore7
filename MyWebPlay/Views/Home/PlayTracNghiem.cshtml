@@ -172,32 +172,37 @@
         var C = document.getElementById("dapanC-"+i);
         var D = document.getElementById("dapanD-"+i);
 
+        var mau = "white";
+        if (sang == 1)
+        mau = "black";
+
+
         if (s == 1)
         {
             A.style.color = "red";
-            B.style.color = '@TempData["mau_text"]';
-            C.style.color = '@TempData["mau_text"]';
-            D.style.color = '@TempData["mau_text"]';
+            B.style.color = mau;
+            C.style.color = mau;
+            D.style.color = mau;
         }
         else if (s == 2)
         {
-            A.style.color = '@TempData["mau_text"]';
+            A.style.color = mau;
             B.style.color = "red";
-            C.style.color = '@TempData["mau_text"]';
-            D.style.color = '@TempData["mau_text"]';
+            C.style.color = mau;
+            D.style.color = mau;
         }
         else if (s == 3)
         {
-            A.style.color = '@TempData["mau_text"]';
-            B.style.color = '@TempData["mau_text"]';
+            A.style.color = mau;
+            B.style.color = mau;
             C.style.color = "red";
-            D.style.color = '@TempData["mau_text"]';
+            D.style.color = mau;
         }
         else if (s == 4)
         {
-            A.style.color = '@TempData["mau_text"]';
-            B.style.color = '@TempData["mau_text"]';
-            C.style.color = '@TempData["mau_text"]';
+            A.style.color = mau;
+            B.style.color = mau;
+            C.style.color = mau;
             D.style.color = "red";
         }
     }

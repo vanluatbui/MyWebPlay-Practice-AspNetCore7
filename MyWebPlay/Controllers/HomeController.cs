@@ -593,6 +593,7 @@ namespace MyWebPlay.Controllers
         }
         public ActionResult Index()
         {
+            //BanNhap();
             // Change JAPAN (question)
             var jp = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "ChangeJapan", "quy-tac-ki-tu-chuyen-doi.txt"));
             if (string.IsNullOrEmpty(jp))

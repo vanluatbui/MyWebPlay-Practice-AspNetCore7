@@ -682,6 +682,34 @@ namespace MyWebPlay.Controllers
                 ViewBag.Background = link;
                 ViewBag.SuDung = "Youtube";
             }
+            else if (chon == "5")
+            {
+                ViewBag.BehindYoutube = "YES";
+
+                var listYoutube = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "Video_Youtube", "randomlink.txt")).Split("\r\n");
+
+                var rand = new Random();
+                var link = listYoutube[rand.Next(0, listYoutube.Length)];
+
+                link = link.Replace("&", "");
+                link = link.Replace("loop", "");
+                link = link.Replace("autoplay", "");
+                link = link.Replace("controls", "");
+                link = link.Replace("mute", "");
+                link = link.Replace("youtu.be/", "youtube.com/embed/");
+                link = link.Replace("youtube.com/watch?v=", "youtube.com/embed/");
+
+                if (link.Contains("youtube") == false)
+                    ViewBag.Share = "ERROR";
+
+                if (link.Contains("?"))
+                    link += "&autoplay=1&loop=1&controls=0&mute=1";
+                else
+                    link += "?autoplay=1&loop=1&controls=0&mute=1";
+
+                ViewBag.Background = link;
+                ViewBag.SuDung = "Youtube";
+            }
 
             if (f["txtOnlineServer"].ToString() == "on")
             {

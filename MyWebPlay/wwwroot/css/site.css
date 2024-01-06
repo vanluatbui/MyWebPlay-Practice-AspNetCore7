@@ -101,6 +101,14 @@ body {
         text-shadow: 0 0 3px rgba(255,255,255,1);
     }
 
+#txtKaraoke1 {
+    font-family: "Times New Roman", Times, serif;
+}
+
+#txtKaraoke2 {
+    font-family: "Times New Roman", Times, serif;
+}
+
 .work {
     position: relative;
     white-space: nowrap;

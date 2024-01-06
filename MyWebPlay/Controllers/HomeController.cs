@@ -308,7 +308,15 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-                if (info[0] == "Off_CallIP")
+                if (info[0] == "All_People")
+                {
+                    if (info[1] == "false")
+                        TempData["AllConnect"] = "false";
+                    else
+                        TempData["AllConnect"] = "true";
+                }
+
+                    if (info[0] == "Off_CallIP")
                 {
                     if (info[1] == "false")
                     {

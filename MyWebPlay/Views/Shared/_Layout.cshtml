@@ -408,8 +408,6 @@
   .then(data => window.location.href ="/Home/GetUserIP?ip="+data.ip+"&currentUrl="+s);
         }
 
-        if ('@TempData["AdminControl"]' == "false")
-        {
         if (ok == 0 && '@TempData["lockedClient"]' == "true" && '@TempData["data-result"]' == "false")
         {
             ok = 1;
@@ -500,7 +498,7 @@
         }
 
 
-        if (ok == 0 && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true"  && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null)
+        if (ok == 0 && '@TempData["AllConnect"]' == "false" && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true"  && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null)
         {
              if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
             {
@@ -552,7 +550,7 @@
             }
         }
         
-         if (xilip == 0 && ok == 0 && ('@TempData["PlayOnWebInLocal-X"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null)) && '@TempData["skipIP"]' != "true" && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null)
+         if (xilip == 0 && ok == 0 && '@TempData["AllConnect"]' == "false" && ('@TempData["PlayOnWebInLocal-X"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null)) && '@TempData["skipIP"]' != "true" && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null)
         {
              if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
             {
@@ -574,7 +572,6 @@
                    ok = 1;
             }
          }
-        }
 
         function muaxuan()
         {

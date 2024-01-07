@@ -91,6 +91,58 @@ input:checked + .slider:before {
     });
         },1);
 
+         var sang = 0;
+         if ('@TempData["mau_background"]' == "white")
+         {
+             sang = 1;
+         }
+
+         var xongmau = 0;
+         var iss = setInterval(function(){
+             if (xongmau == 1) return;
+
+             if (localStorage.getItem("nensangtoi") != null)
+             {
+                 sang = localStorage.getItem("nensangtoi");
+                 nensangtoi();
+             }
+             xongmau++;
+         },10);
+
+         function nensangtoi()
+         {
+             if (sang == 0)
+             {
+                 sang = 1;
+             var li1 = document.getElementsByName("backgroundX").length;
+             for (var i = 0 ; i<li1; i++)
+             {
+                 document.getElementsByName("backgroundX")[i].style.backgroundColor = "white";
+             }
+
+             var li2 = document.getElementsByName("colorX").length;
+             for (var i = 0 ; i<li2; i++)
+             {
+                 document.getElementsByName("colorX")[i].style.color = "black";
+             }
+            }
+            else
+            {
+                sang = 0;
+             var li1 = document.getElementsByName("backgroundX").length;
+             for (var i = 0 ; i<li1; i++)
+             {
+                 document.getElementsByName("backgroundX")[i].style.backgroundColor = "black";
+             }
+
+             var li2 = document.getElementsByName("colorX").length;
+             for (var i = 0 ; i<li2; i++)
+             {
+                 document.getElementsByName("colorX")[i].style.color = "white";
+             }
+            }
+         }
+
         //if (localStorage.getItem('@TempData["key-admin"]') != '@TempData["value-admin"]' && '@TempData["SecureAdmin"]' == "true")
         //{
         //     var Id = prompt("[SECURE SETTING] Nhập ID - Login Admin : ");

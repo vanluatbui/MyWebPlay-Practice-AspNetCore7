@@ -434,6 +434,11 @@ namespace MyWebPlay.Controllers
             TempData["UserIP"] = listIP[0];
             TempData["fileResult"] = null;
 
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0")
+                TempData["belix"] = "true";
+            else
+                TempData["belix"] = "false";
+
             if (HttpContext.Session.GetString("data-result") != null && HttpContext.Session.GetString("data-result") == "true")
             {
                 TempData["data-result"] = "true";

@@ -168,12 +168,25 @@ namespace MyWebPlay.Controllers
             for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-       
-                        var xi = "false";
+
+                var baby1 = false;
+                var baby2 = false;
+
+                var xi = "false";
                         if (f[info[0]] == "on")
                         {
                             xi = "true";
                         }
+
+                if (info[0] == "Off_CallIP" && (xi != info[1]) && xi == "true")
+                {
+                    baby1 = true;
+                }
+
+                if (info[0] == "All_People" && (xi != info[1]) && xi == "true")
+                {
+                    baby2 = true;
+                }
 
                 if (flag == 0 && (info[0] == "Email_Upload_User"
                     || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
@@ -195,7 +208,6 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-
                 if (info[0] != "Password_Admin" && info[0] != "Believe_IP" && info[0] != "Code_LockedClient" && info[0] != "MatDoTuyetDoi")
                 {
                     if (xi != info[1])
@@ -205,6 +217,16 @@ namespace MyWebPlay.Controllers
                     }
 
                     noidung = noidung.Replace(info[0] + "<3275>" + info[1], info[0] + "<3275>" + xi);
+
+                        if (baby1 == true)
+                        {
+                            noidung = noidung.Replace("All_People" + "<3275>" + "true", "All_People" + "<3275>" + "false");
+                        }
+
+                        if (baby2 == true)
+                        {
+                            noidung = noidung.Replace("Off_CallIP" + "<3275>" + "true", "Off_CallIP" + "<3275>" + "false");
+                        }
                 }
                 else if (info[0] == "Password_Admin")
                 {

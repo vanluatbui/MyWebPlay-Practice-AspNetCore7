@@ -353,7 +353,7 @@
     });
         },1);
 
-        if ('@TempData["UyTin"]' == "" && window.localStorage.getItem('@TempData["keytuyetdoi"]') != null && '@TempData["UserIP"]' != "0.0.0.0")
+        if ('@TempData["UyTin"]' == "" && window.localStorage.getItem('@TempData["keytuyetdoi"]') != null && '@TempData["belix"]' == "false")
         {
             window.location.href = "/Home/MatDoTuyetDoi?mdtd="+localStorage.getItem('@TempData["keytuyetdoi"]');
         }
@@ -716,7 +716,7 @@
 
         function savebelive()
         {
-            if ('@TempData["UserIP"]' == "0.0.0.0")
+            if ('@TempData["belix"]' == "true")
             return;
 
             alert("Hệ thống sẽ bắt đầu kiểm tra IP và trình duyệt tương đương của bạn. Sau đó nếu thành công hay thất bại, bạn hãy tự kiểm chứng lại nhé!");
@@ -726,7 +726,7 @@
 
         function khoawebsite()
         {
-            if ('@TempData["UserIP"]' == "0.0.0.0")
+            if ('@TempData["belix"]' == "true")
             return;
 
             window.location.href = "/Home/LockedWebClient";
@@ -853,9 +853,21 @@
         <header>
             <nav id="nenta" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color:@TempData["mau_nen"]">
             <div class="container-fluid">
-                <button style="color:deeppink" class="navbar-brand" asp-area="" onclick="khoawebsite()">Khoá WebSite bằng mật mã LockedClientID (<u>hãy cẩn thận đừng nhấn nhầm vào đây nếu bạn không có nhu cầu 😁</u>)</button>
-                <a href="/Home/Index"><p style="color:orangered">BACK HOME MENU</p></a>
+            @if (TempData["belix"] == "false")
+            {
+                        <button style="color:deeppink" class="navbar-brand" asp-area="" onclick="khoawebsite()">Khoá WebSite bằng mật mã LockedClientID (<u>hãy cẩn thận đừng nhấn nhầm vào đây nếu bạn không có nhu cầu 😁</u>)</button>
+            }
+                    else
+                    {
+                         {
+                        <button style="color:deeppink" class="navbar-brand" asp-area="" >Chào mừng bạn đến với website miễn phí với các tính năng cơ bản của MyWebPlay 👋👋👋</button>
+            }
+                    }
+                    <a href="/Home/Index"><p style="color:orangered">BACK HOME MENU</p></a>
+                 @if (TempData["belix"] == "false")
+                 {
                         <span onclick="savebelive()" style="color:chartreuse">@TempData["UserIP"]</span>
+                 }
                 <h2 style="color:@TempData["mau_winx"]" onclick="xoaluunen()">@TempData["winx"]</h2>
                 @if(TempData["mau_background"] == "white")
                 {

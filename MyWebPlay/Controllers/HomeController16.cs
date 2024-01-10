@@ -367,6 +367,23 @@ namespace MyWebPlay.Controllers
 
         public ActionResult SessionPlay_DarkAdmin()
         {
+            Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+            var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
+
+            if (xuxu1.Hour >= 6 && xuxu1.Hour <= 17)
+            {
+                TempData["mau_background"] = "white";
+                TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
+                TempData["winx"] = "❤";
+            }
+            else
+            {
+                TempData["mau_background"] = "black";
+                TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
+                TempData["winx"] = "❤";
+            }
+
             // TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } }if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
             //TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
 
@@ -376,6 +393,23 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult SessionPlay_DarkAdmin(IFormCollection f)
         {
+            Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+            var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
+
+            if (xuxu1.Hour >= 6 && xuxu1.Hour <= 17)
+            {
+                TempData["mau_background"] = "white";
+                TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
+                TempData["winx"] = "❤";
+            }
+            else
+            {
+                TempData["mau_background"] = "black";
+                TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
+                TempData["winx"] = "❤";
+            }
+
             // TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } }if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
             TempData["dataPost"] = "[POST]";
             HttpContext.Session.Remove("ok-data");

@@ -143,27 +143,6 @@ input:checked + .slider:before {
             }
          }
 
-        //if (localStorage.getItem('@TempData["key-admin"]') != '@TempData["value-admin"]' && '@TempData["SecureAdmin"]' == "true")
-        //{
-        //     var Id = prompt("[SECURE SETTING] Nhập ID - Login Admin : ");
-
-        //     if (Id == null || Id == "")
-        //     {
-        //          var xi = Math.floor(Math.random() * 2 + 1);'@TempData["key-admin"]'
-        //        if (xi == 1)
-        //         window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
-        //         else
-        //           window.location.href = "https://stackoverflow.com/questions";
-        //     }
-        //     else
-        //     {
-        //     var Code = prompt("[SECURE SETTING] Nhập Code - Login Admin : ");
-        //     localStorage.setItem(Id, Code);
-
-        //     window.location.href = "/Admin/ComeInSetting?id="+Id+"&code="+Code;
-        //     }
-        //}
-
         if ((localStorage.getItem('@TempData["key-admin"]') == null || localStorage.getItem('@TempData["key-admin"]') != '@TempData["value-admin"]') /*&& '@TempData["SecureAdmin"]' == "true" */)
         {
             window.location.href = "/Home/Error";
@@ -215,7 +194,7 @@ input:checked + .slider:before {
 
         function chonall()
         {
-            var n = new Number(document.getElementById("count").value) - 4;
+            var n = new Number(document.getElementById("count").value) - 5;
             for (var i = 0; i < n;i++)
             {
                 document.getElementById("check-"+i).checked = true;
@@ -225,7 +204,7 @@ input:checked + .slider:before {
 
         function boall()
         {
-            var n = new Number(document.getElementById("count").value) - 4;
+            var n = new Number(document.getElementById("count").value) - 5;
             for (var i = 0; i < n;i++)
             {
                 document.getElementById("check-"+i).checked = false;
@@ -440,7 +419,7 @@ input:checked + .slider:before {
                 @for (int i = 0; i < Model.Topics.Count; i++)
 {
  <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-@i">@Html.Raw(Model.Topics[i].NoiDung)</h3>
- @if(Model.Topics[i].ID != "Password_Admin" && Model.Topics[i].ID != "Believe_IP" && Model.Topics[i].ID != "Code_LockedClient" && Model.Topics[i].ID != "MatDoTuyetDoi")
+ @if(Model.Topics[i].ID != "Password_Admin" && Model.Topics[i].ID != "Believe_IP" && Model.Topics[i].ID != "Code_LockedClient" && Model.Topics[i].ID != "MatDoTuyetDoi" && Model.Topics[i].ID != "Encode_Url")
  {
 <label class="switch">
     @if (Model.Topics[i].Option == false)
@@ -475,6 +454,11 @@ input:checked + .slider:before {
                     if (Model.Topics[i].ID == "MatDoTuyetDoi")
                     {
                         <input size="100" name="@Model.Topics[i].ID" type="text" value="@ViewBag.MaMatDo" />
+                    }
+                     else
+                    if (Model.Topics[i].ID == "Encode_Url")
+                    {
+                        <input placeholder="Ví dụ bạn chỉ cần nhập Home/Index là được (không cần kèm theo https://)" size="100" name="@Model.Topics[i].ID" type="text" value="@ViewBag.EncodeUrl" />
                     }
                     <br /><br />
 }
@@ -596,7 +580,7 @@ txtSoThuHai<br>
 </h3>
     <hr />
     <h3 style="color:firebrick">
-        * Đối với giáo viên :<br><br>- Sử dụng chức năng Upload File - khuyên nên tạm bật setting chế độ View site pattern cho đẹp :)) (bsite hoặc somee) và tạo thư mục trong wwroot là file/TracNghiemOnline_323752262 và tạo tiếp thư mục là một chuỗi mã (TNID) tuỳ ý (VD : qwerty). Nên upload file bằng user vì nó có giới hạn sử dụng và tự xoá sau khi.<br><br>- Mỗi thư mục mã (TNID) là một loại trắc nghiệm dành riêng/phân biệt cho một môn học theo mỗi đợt. Bên trong thư mục này, hãy gán tất cả các file txt trắc nghiệm có liên quan đến môn học đó.<br><br>- Để xem điểm học sinh : /Admin/TracNghiemOnline_ViewMark (không tiết lộ cho HS)<br><br>* Đối với học sinh (mỗi bạn tự biết MSSV của mình) :<br><br>- ID liên kết thực hiện trắc nghiệm : A_B_C_D<br><br>#Trong đó :<br><br>A : tên thư mục mã TNID chứa các file txt cần thực hiện<br>B : tổng số câu phải làm<br>C : thời gian làm bài<br>D : tên môn học (để phân biệt và hiển thị)<br>
+        * Đối với giáo viên :<br><br>- Sử dụng chức năng Upload File - khuyên nên tạm bật setting chế độ View site pattern cho đẹp :)) (bsite hoặc somee) và tạo thư mục trong wwroot là file/TracNghiemOnline_32752262 và tạo tiếp thư mục là một chuỗi mã (TNID) tuỳ ý (VD : qwerty). Nên upload file bằng user vì nó có giới hạn sử dụng và tự xoá sau khi.<br><br>- Mỗi thư mục mã (TNID) là một loại trắc nghiệm dành riêng/phân biệt cho một môn học theo mỗi đợt. Bên trong thư mục này, hãy gán tất cả các file txt trắc nghiệm có liên quan đến môn học đó.<br><br>- Để xem điểm học sinh : /Admin/TracNghiemOnline_ViewMark (không tiết lộ cho HS)<br><br>* Đối với học sinh (mỗi bạn tự biết MSSV của mình) :<br><br>- ID liên kết thực hiện trắc nghiệm : A_B_C_D<br><br>#Trong đó :<br><br>A : tên thư mục mã TNID chứa các file txt cần thực hiện<br>B : tổng số câu phải làm<br>C : thời gian làm bài<br>D : tên môn học (để phân biệt và hiển thị)<br /><br />- Link dành cho HS làm bài : <span style="color:red">Home/PlayTracNghiem_Online</span><br />
     </h3><br />
 <hr /><hr /><br /><br />
     <span style="color:olive" id="hahaha">

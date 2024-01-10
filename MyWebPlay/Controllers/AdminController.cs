@@ -72,6 +72,9 @@ namespace MyWebPlay.Controllers
                 if (info[0] == "Password_Admin")
                     ViewBag.Password = info[3];
 
+                if (info[0] == "Encode_Url")
+                    ViewBag.EncodeUrl = info[3];
+
                 if (info[0] == "MatDoTuyetDoi")
                     ViewBag.MaMatDo = info[3];
 
@@ -208,7 +211,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-                if (info[0] != "Password_Admin" && info[0] != "Believe_IP" && info[0] != "Code_LockedClient" && info[0] != "MatDoTuyetDoi")
+                if (info[0] != "Password_Admin" && info[0] != "Believe_IP" && info[0] != "Code_LockedClient" && info[0] != "MatDoTuyetDoi" && info[0] != "Encode_Url")
                 {
                     if (xi != info[1])
                     {
@@ -227,6 +230,20 @@ namespace MyWebPlay.Controllers
                         {
                             noidung = noidung.Replace("Off_CallIP" + "<3275>" + "true", "Off_CallIP" + "<3275>" + "false");
                         }
+                }
+                else if (info[0] == "Encode_Url")
+                {
+                    var xinh = f[info[0]];
+                    if (string.IsNullOrEmpty(xinh))
+                        xinh = "/Home/Index";
+
+                    if (xinh != info[3])
+                    {
+                        cometo = "#come-" + i;
+                        dix++;
+                    }
+
+                    noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
                 }
                 else if (info[0] == "Password_Admin")
                 {
@@ -316,6 +333,24 @@ namespace MyWebPlay.Controllers
 
         public ActionResult TracNghiemOnline_ViewMark()
         {
+
+            Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+            var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
+
+            if (xuxu1.Hour >= 6 && xuxu1.Hour <= 17)
+            {
+                TempData["mau_background"] = "white";
+                TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
+                TempData["winx"] = "❤";
+            }
+            else
+            {
+                TempData["mau_background"] = "black";
+                TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
+                TempData["winx"] = "❤";
+            }
+
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "TracNghiem_XOnline", "DiemHocSinh.txt");
 
             var file = new FileInfo(path);
@@ -332,6 +367,24 @@ namespace MyWebPlay.Controllers
 
         public ActionResult EditStudentMark()
         {
+
+            Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+            var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
+
+            if (xuxu1.Hour >= 6 && xuxu1.Hour <= 17)
+            {
+                TempData["mau_background"] = "white";
+                TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
+                TempData["winx"] = "❤";
+            }
+            else
+            {
+                TempData["mau_background"] = "black";
+                TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
+                TempData["winx"] = "❤";
+            }
+
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "TracNghiem_XOnline", "DiemHocSinh.txt");
             if (System.IO.File.Exists(path))
             {
@@ -344,7 +397,6 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult EditStudentMark(string? txtText)
         {
-
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);

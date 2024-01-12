@@ -235,7 +235,7 @@ namespace MyWebPlay.Controllers
                 {
                     var xinh = f[info[0]];
                     if (string.IsNullOrEmpty(xinh))
-                        xinh = "/Home/Index";
+                        xinh = "/Home/Index***/Home/SecretWeb***/Admin/QuickDataInWeb";
 
                     if (xinh != info[3])
                     {

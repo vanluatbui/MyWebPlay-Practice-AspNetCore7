@@ -6,30 +6,6 @@ namespace MyWebPlay.Controllers
 {
     public partial class HomeController : Controller
     {
-        public ActionResult c2c73fb518fd41a153bb0615e91369d6()
-        {
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
-            var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            for (int i = 0; i < listSetting.Length; i++)
-            {
-                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-
-                if (info[0] == "Play_EncodeUrl")
-                {
-                    if (info[1] == "false")
-                        return RedirectToAction("Error");
-                }
-
-                if (info[0] == "Encode_Url")
-                {
-                        ViewBag.Link = info[3];
-                        break;
-                }
-            }
-
-            return View();
-        }
 
         // Check link url exist and respone OK?
 

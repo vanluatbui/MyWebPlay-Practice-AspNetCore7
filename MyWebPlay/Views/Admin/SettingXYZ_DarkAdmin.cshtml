@@ -181,7 +181,7 @@ input:checked + .slider:before {
             }
             else
             {
-                 var n = new Number(document.getElementById("count").value) - 4;
+                 var n = new Number(document.getElementById("count").value) - 5;
                 for (var i = 0; i < n;i++)
                 {
                     if (i == x)
@@ -189,6 +189,170 @@ input:checked + .slider:before {
                     else
                     document.getElementById("save-"+i).style.display = "none";
                 }
+            }
+        }
+
+        function chonnhanh()
+        {
+            var ch = document.getElementById("chonXY").options.selectedIndex;
+
+            if (ch == 0)
+            return;
+
+            if (ch == 1)
+            {
+                 var n = new Number(document.getElementById("count").value) - 5;
+            for (var i = 0; i < n;i++)
+            {
+                if (i == 0 || i == 20)
+                document.getElementById("check-"+i).checked = true;
+                else
+                document.getElementById("check-"+i).checked = false;
+            }
+            document.getElementById("ok").click();
+            }
+
+             if (ch == 2)
+            {
+                 var n = new Number(document.getElementById("count").value) - 5;
+            for (var i = 0; i < n;i++)
+            {
+                if (i == 1 || i == 2)
+                document.getElementById("check-"+i).checked = true;
+                else
+                document.getElementById("check-"+i).checked = false;
+            }
+            document.getElementById("ok").click();
+            }
+
+              if (ch == 3)
+            {
+                 var n = new Number(document.getElementById("count").value) - 5;
+            for (var i = 0; i < n;i++)
+            {
+                if (i == 1 || i == 20)
+                document.getElementById("check-"+i).checked = true;
+                else
+                document.getElementById("check-"+i).checked = false;
+            }
+            document.getElementById("ok").click();
+            }
+
+              if (ch == 4)
+            {
+                 var n = new Number(document.getElementById("count").value) - 5;
+            for (var i = 0; i < n;i++)
+            {
+                if (i == 1 || i == 2 || i == 25)
+                document.getElementById("check-"+i).checked = true;
+                else
+                document.getElementById("check-"+i).checked = false;
+            }
+            document.getElementById("ok").click();
+            }
+
+              if (ch == 5)
+            {
+                 var n = new Number(document.getElementById("count").value) - 5;
+            for (var i = 0; i < n;i++)
+            {
+                if (i == 1 || i == 2 || i == 26)
+                document.getElementById("check-"+i).checked = true;
+                else
+                document.getElementById("check-"+i).checked = false;
+            }
+            document.getElementById("ok").click();
+            }
+
+              if (ch == 6)
+            {
+                 var n = new Number(document.getElementById("count").value) - 5;
+            for (var i = 0; i < n;i++)
+            {
+                if (i == 2 || i == 20)
+                document.getElementById("check-"+i).checked = true;
+                else
+                document.getElementById("check-"+i).checked = false;
+            }
+            document.getElementById("ok").click();
+            }
+
+               if (ch == 7)
+            {
+                 var n = new Number(document.getElementById("count").value) - 5;
+            for (var i = 0; i < n;i++)
+            {
+                if (i == 20)
+                document.getElementById("check-"+i).checked = true;
+                else
+                document.getElementById("check-"+i).checked = false;
+            }
+            document.getElementById("ok").click();
+            }
+
+              if (ch == 8)
+            {
+                 var n = new Number(document.getElementById("count").value) - 5;
+            for (var i = 0; i < n;i++)
+            {
+                if (i == 1 || i == 2 || i == 25 || i == 3 || i == 4 || i == 5 || i == 6)
+                document.getElementById("check-"+i).checked = true;
+                else
+                document.getElementById("check-"+i).checked = false;
+            }
+            document.getElementById("ok").click();
+            }
+
+              if (ch == 9)
+            {
+                 var n = new Number(document.getElementById("count").value) - 5;
+            for (var i = 0; i < n;i++)
+            {
+                if (i == 1 || i == 2 || i == 25 || i == 3 || i == 4 || i == 5 || i == 6 || i == 7 )
+                document.getElementById("check-"+i).checked = true;
+                else
+                document.getElementById("check-"+i).checked = false;
+            }
+            document.getElementById("ok").click();
+            }
+
+              if (ch == 10)
+            {
+                 var n = new Number(document.getElementById("count").value) - 5;
+            for (var i = 0; i < n;i++)
+            {
+                if (i >=13 && i<= 19 || i >= 21 && i <= 23)
+                document.getElementById("check-"+i).checked = true;
+                else
+                continue;
+            }
+            document.getElementById("ok").click();
+            }
+
+              if (ch == 11)
+            {
+                 var n = new Number(document.getElementById("count").value) - 5;
+            for (var i = 0; i < n;i++)
+            {
+                if (i >=13 && i<= 19 || i >= 21 && i <= 23)
+                document.getElementById("check-"+i).checked = false;
+                else
+                continue;
+            }
+            document.getElementById("ok").click();
+            }
+
+              if (ch == 12)
+            {
+                 var n = new Number(document.getElementById("count").value) - 5;
+            for (var i = 0; i < n;i++)
+            {
+                if (i == 24)
+                document.getElementById("check-"+i).checked = true;
+                else
+                continue;
+            }
+            document.getElementById("ok").click();
             }
         }
 
@@ -408,7 +572,23 @@ input:checked + .slider:before {
             <td><br>
                 <h2 style="color:deeppink">Cài ĐẶT ADMIN</h2><br />
                 <h4><a href="#xuly" onclick="refreshHetHan()" style="color:purple">Refresh hoặc xoá tất cả thư mục và các file hết hạn</a></h4><br>
-                <h4><a href="#xuly" id="#welcome" onclick="chonall()" style="color:green">CHỌN TẤT CẢ</a> | <a href="#xuly" onclick="boall()" style="color:red">BỎ CHỌN TẤT CẢ</a></h4>
+                <h4><a href="#xuly" id="#welcome" onclick="chonall()" style="color:green">CHỌN TẤT CẢ</a> | <a href="#xuly" onclick="boall()" style="color:red">BỎ CHỌN TẤT CẢ</a> <br> 
+                   <br> <select id="chonXY">
+                        <option></option>
+                        <option>Tắt hoạt động web site (tất cả, không nhận đơn đăng kí tiếp theo), ngoại trừ mật độ tuyệt đối</option>
+                        <option>Bật hoạt động web site (chỉ người đã đăng kí, bật TB, nhận đơn đăng kí tiếp theo)</option>
+                         <option>Bật hoạt động web site (chỉ người đã đăng kí, tắt TB, không nhận đơn đăng kí tiếp theo)</option>
+                         <option>Bật hoạt động website (cho phép tất cả mọi người, không get IP)</option>
+                         <option>Bật hoạt động website (cho phép tất cả mọi người, get IP)</option>
+                         <option>Tắt hoạt động web site (không nhận đơn đăng kí tiếp theo, bật thông báo), ngoài trừ các IP đã đăng kí và tin tưởng</option>
+                         <option>Tắt hoạt động web site (không nhận đơn đăng kí tiếp theo, tắt thông báo), ngoài trừ các IP đã đăng kí và tin tưởng</option>
+                         <option>Sử dụng POST QUICK DATA và tàng hình (copy), get IP - cho phép mọi người</option>
+                         <option>Sử dụng POST QUICK DATA và tàng hình (download *.txt), get IP - cho phép mọi người</option>
+                         <option>Bật thông báo tất cả nội dung liên quan email và MegaIO File and list user get to link request - giữ nguyên còn lại</option>
+                         <option>Tắt thông báo tất cả nội dung liên quan email và MegaIO File and list user get to link request - giữ nguyên còn lại</option>
+                         <option>Bật sử dụng website url encode play - giữ nguyên còn lại (nên chọn cái này lại hoặc sau cùng)</option>
+                    </select>&nbsp;&nbsp;<a href="#xuly" onclick="chonnhanh()">Xử lý setting nhanh (có sẵn)</a>
+                </h4>
                 <br>
             </td>
         </tr>

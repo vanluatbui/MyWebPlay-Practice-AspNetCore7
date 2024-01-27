@@ -711,37 +711,6 @@ namespace MyWebPlay.Controllers
                 ViewBag.SuDung = "Youtube";
             }
 
-
-            if (f["txtThietKe"] == "on")
-            {
-                var lUser = new List<string>();
-                var lMau = new List<string>();
-
-                var NDTK = f["txtNDThietKe1"].ToString().Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
-                for (int i = 0; i < NDTK.Length; i++)
-                {
-                    var x = NDTK[i].Split("=");
-                    lUser.Add(x[0]);
-                    lMau.Add(x[1]);
-                }
-
-                var nd = "";
-                var lIndex = f["txtNDThietKe2"].ToString().Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
-                for (int i = 0; i < lIndex.Length; i++)
-                {
-                    var x = lIndex[i].Split("=");
-                    var y = int.Parse(x[1]);
-                    nd += x[0] + "=" + lUser[y] + "=" + lMau[y];
-                    if (i < lIndex.Length - 1)
-                        nd += "\r\n";
-                }
-                TempData["TK-KARA"] = nd;
-            }
-            else
-            {
-                TempData["TK-KARA"] = "";
-            }
-
             if (f["txtOnlineServer"].ToString() == "on")
             {
                 var server = f["txtServer"].ToString();
@@ -760,7 +729,34 @@ namespace MyWebPlay.Controllers
 
                     ViewBag.Music = "http://" + url_kara;
                     ViewBag.Musix = "http://" + url_goc;
-                    ViewBag.Karaoke = content;
+
+                    if (content.Contains("<>") == false)
+                    {
+                        ViewBag.Karaoke = content;
+                        TempData["TK-KARA"] = "";
+                    }
+                    else
+                    {
+                        var xa = content.Split("\n");
+                        var noidung = "";
+                        for (int i = 0; i < xa.Length; i++)
+                        {
+                            if (xa[i].Contains("<>"))
+                            {
+                                var xb = xa[i].Split("<>");
+                                var xc = xb[1].Split("#");
+                                var xd = xb[0].Split("-");
+                                noidung += xc[0] + "=" + xd[0] + "=" + xd[1];
+
+                                content = content.Replace(xb[0] + "<>", "");
+
+                                if (i < xa.Length - 1)
+                                    noidung += "\n";
+                            }
+                        }
+                        TempData["TK-KARA"] = noidung;
+                        ViewBag.Karaoke = content;
+                    }
                 }
                 catch
                 {
@@ -797,8 +793,34 @@ namespace MyWebPlay.Controllers
                 {
                     txtKaraoke.CopyTo(fileStream);
                 }
+                var nd = System.IO.File.ReadAllText(path);
+                if (nd.Contains("<>") == false)
+                {
+                    ViewBag.Karaoke = System.IO.File.ReadAllText(path);
+                    TempData["TK-KARA"] = "";
+                }
+                else
+                {
+                    var xa = nd.Split("\n");
+                    var noidung = "";
+                    for (int i = 0; i< xa.Length;i++)
+                    {
+                        if (xa[i].Contains("<>"))
+                        {
+                            var xb = xa[i].Split("<>");
+                            var xc = xb[1].Split("#");
+                            var xd = xb[0].Split("-");
+                            noidung += xc[0] + "=" + xd[0] + "=" + xd[1];
 
-                ViewBag.Karaoke = System.IO.File.ReadAllText(path);
+                            nd = nd.Replace(xb[0] + "<>", "");
+
+                            if (i < xa.Length - 1)
+                                noidung += "\n";
+                        }
+                    }
+                    TempData["TK-KARA"] = noidung;
+                    ViewBag.Karaoke = nd;
+                }
             }
             else
             {

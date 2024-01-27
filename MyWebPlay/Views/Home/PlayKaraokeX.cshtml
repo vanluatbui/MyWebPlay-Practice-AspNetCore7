@@ -82,20 +82,6 @@ body {
     });
         },1);
 
-        function useThietKe()
-        {
-            if (document.getElementById("ckKara").checked == true)
-            {
-                document.getElementById("tkKara1").style.display = "inline-block";
-                document.getElementById("tkKara2").style.display = "inline-block";
-            }
-            else
-            {
-                document.getElementById("tkKara1").style.display = "none";
-                document.getElementById("tkKara2").style.display = "none";
-            }
-        }
-
      function xong()
     {
         document.getElementById("okxem").style.display = "none";
@@ -104,14 +90,6 @@ body {
 
     function copyshare()
     {
-         if ('@TempData["TK-KARA"]' != "")
-        {
-         document.getElementById("message").style.display = "inline-block";
-          document.getElementById("error").style.display = "inline-block";
-        document.getElementById("error").innerHTML = "⚠️ Đã xảy ra lỗi không thể thực hiện. Vui lòng thử lại sau !";
-            return;
-        }
-
         var url =  "http://" +'@ViewBag.Host' + "/Home/Share_Karaoke?id=" + document.getElementById("linkKara").value;
         navigator.clipboard.writeText(url);
 
@@ -198,12 +176,17 @@ function showlist()
     if (document.getElementById("getlist").innerHTML == "<span style=\"color:green\">Successful!</span>")
     return;
 
+    if (document.getElementById("serverX").value == "")
+    {
+        document.getElementById("serverX").value = "demokaraoke.bsite.net";
+    }
+
     if (document.getElementById("songlist").value == "")
     {
     var url = document.getElementById("serverX").value;
     var baihat = document.getElementById("baihatX").value;
 
-  alert("Xử lý thành công, hệ thống sẽ khởi động lại trang web.\nNếu danh sách của bạn chưa được tải xuống, vui lòng click lại vào link nút này một lần nữa để hoàn tất thử lại việc tải các bài hát đã get trên Server host của bạn...");
+  alert("Xử lý thành công, hệ thống sẽ khởi động lại trang web (nếu bạn chưa nhập, hệ thống sẽ tự động lấy mẫu demo cho bạn).\nNếu danh sách của bạn chưa được tải xuống, vui lòng click lại vào link nút này một lần nữa để hoàn tất thử lại việc tải các bài hát đã get trên Server host của bạn...");
 
        var thongtin = url+"[NONE]" + "-.-" + baihat+"[NONE]" + "-.-[NOT]-.-0";
 
@@ -242,9 +225,6 @@ function showlist()
     {
         if (document.getElementById("onlineServer").checked == true)
         {
-            document.getElementById("sakura").style.display = "none";
-            document.getElementById("ckKara").checked = false;
-            useThietKe();
             document.getElementById("phan1").style.display = "none";
             document.getElementById("phan2").style.display = "none";
             document.getElementById("phan3").style.display = "none";
@@ -255,7 +235,6 @@ function showlist()
         }
         else
         {
-            document.getElementById("sakura").style.display = "inline-block";
             document.getElementById("phan1").style.display = "inline-block";
             document.getElementById("phan2").style.display = "inline-block";
             document.getElementById("phan3").style.display = "inline-block";
@@ -522,15 +501,10 @@ function showlist()
             return;
         }
 
-        if ('@TempData["TK-KARA"]' != "")
+          if ('@TempData["TK-KARA"]' == "")
         {
-         document.getElementById("message").style.display = "inline-block";
-          document.getElementById("error").style.display = "inline-block";
-        document.getElementById("error").innerHTML = "⚠️ Đã xảy ra lỗi không thể thực hiện. Vui lòng thử lại sau !";
-            return;
-        }
-
         localStorage.setItem("mau", document.getElementById("mau").value);
+        }
         localStorage.setItem("mauX", document.getElementById("mauX").value);
         localStorage.setItem("mauY", document.getElementById("mauY").value);
         localStorage.setItem("kichthuoc", document.getElementById("kichthuoc").value);
@@ -792,7 +766,7 @@ function showlist()
 
                     var id = setInterval(myAlert, 100);
 
-        var ndTK = '@TempData["TK-KARA"]'.replaceAll("&#xD;&#xA;","\n").split('\n');
+        var ndTK = '@TempData["TK-KARA"]'.replaceAll("&#xA;","\n").split('\n');
 
                     function myAlert()
                     {
@@ -822,6 +796,11 @@ function showlist()
 
                         var kichthuoc = new Number(width/19).toFixed();
                         var vitri = new Number(height/170).toFixed();
+
+                        if ('@TempData["TK-Kara"]' != "")
+                        {
+                            vitri = 0;
+                        }
 
                         document.getElementById("kichthuoc").value = kichthuoc;
                         document.getElementById("hang").value = vitri;
@@ -1366,22 +1345,6 @@ function showlist()
                 </td>
             </tr>
 
-                        <tr style="height:40px">
-                            <td></td>
-                <td id="sakura">
-                     <input id="ckKara" type="checkbox" name="txtThietKe" onchange="useThietKe()" /> <b style="color:chartreuse">Sử dụng thiết kế phân đoạn karaoke? (chỉ admin hoặc nếu có thể sử dụng)</b>
-                     <br />
-                     <textarea id="tkKara1" placeholder="Nhập theo mẫu : tên người hát/icon đại diện=mã màu sắc thể hiện (index tính từ 0)" rows="5" cols="50" name="txtNDThietKe1"  style="display:none">[The Man]=#FF0000
-[The Woman]=#0000FF
-[Song Ca]=#FFFF00</textarea>
-<br />
-                     <textarea id="tkKara2" placeholder="Nhập theo mẫu : time/vị trí bắt đầu/xuất hiện (dựa trên file txt)=index trên tương ứng (liệt kê thứ tự tăng dần)" rows="10" cols="15" name="txtNDThietKe2"  style="display:none">0=0
-15=1
-25=2
-38=2
-45=0</textarea>
-                </td>
-            </tr>
 
             <tr style="height:40px">
                 <td></td>
@@ -1751,23 +1714,6 @@ else if (ViewBag.SuDung == "Video")
                 </td>
             </tr>
 
-                         <tr style="height:40px">
-                            <td></td>
-                <td id="sakura">
-                     <input id="ckKara" type="checkbox" name="txtThietKe" onchange="useThietKe()" /> <b style="color:chartreuse">Sử dụng thiết kế phân đoạn karaoke? (chỉ admin hoặc nếu có thể sử dụng)</b>
-                     <br />
-                     <textarea id="tkKara1" placeholder="Nhập theo mẫu : tên người hát/icon đại diện=mã màu sắc thể hiện (index tính từ 0)" rows="5" cols="50" name="txtNDThietKe1"  style="display:none">[The Man]=#FF0000
-[The Woman]=#0000FF
-[Song Ca]=#FFFF00</textarea>
-<br />
-                     <textarea id="tkKara2" placeholder="Nhập theo mẫu : time/vị trí bắt đầu/xuất hiện (dựa trên file txt)=index trên tương ứng (liệt kê thứ tự tăng dần)" rows="10" cols="15" name="txtNDThietKe2"  style="display:none">0=0
-15=1
-25=2
-38=2
-45=0</textarea>
-                </td>
-            </tr>
-
             <tr style="height:40px">
                 <td></td>
                 <td>
@@ -1803,7 +1749,7 @@ else
     &nbsp;&nbsp;&nbsp;<b id="xemmauthu" style="color:#efe6e6">Chọn màu đoạn text ban đầu</b> : <input type="color" onchange="doimauX()" id="mauX" value="#efe6e6" />
      &nbsp;&nbsp;&nbsp;<b id="xemmaudi" style="color:#e3f207">Chọn màu cho time đếm ngược bắt đầu karaoke</b> : <input type="color" onchange="doimauY()" id="mauY" value="#e3f207" />
       &nbsp;&nbsp;&nbsp; <br /><span style="color:red">Kích thước chữ : </span><input id="kichthuoc" type="number" min="0" value="90" onchange="doikichthuoc()"/>
-        &nbsp;&nbsp;&nbsp;<span style="color:red">Vị trí xuất hiện : </span> <input id="hang" type="number" min="0" value="10" onchange="doihang()"/>
+        &nbsp;&nbsp;&nbsp;<span style="color:red">Vị trí xuất hiện : </span> <input id="hang" type="number" min="0" value="0" onchange="doihang()"/>
         &nbsp;&nbsp;&nbsp; <button onclick="ghinho()"><b style="color:lightcoral">Ghi nhớ các cài đặt</b></button>
         &nbsp;&nbsp;&nbsp; <b style="color:aqua"><a onclick="xemplay()" href="#xuly">Restart & full screen</a></b>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="StopKaraoke()"><b style="color:darkgreen">THOÁT</b></button>

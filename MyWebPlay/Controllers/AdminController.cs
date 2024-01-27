@@ -61,6 +61,10 @@ namespace MyWebPlay.Controllers
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidung = System.IO.File.ReadAllText(path);
 
+            var pathS = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/Setting_Status.txt");
+            var noidungS = System.IO.File.ReadAllText(pathS);
+            ViewBag.SettingStatus = noidungS;
+
             var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             SettingAdmin settingAdmin = new SettingAdmin();
             settingAdmin.Topics = new List<SettingAdmin.Topic>();
@@ -143,6 +147,8 @@ namespace MyWebPlay.Controllers
         {
             var non = TempData["SaveComeHere"];
             TempData["SaveComeHere"] = non;
+
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/Setting_Status.txt");
 
             Calendar x = CultureInfo.InvariantCulture.Calendar;
 
@@ -886,6 +892,84 @@ namespace MyWebPlay.Controllers
                 RedirectToAction("SettingXYZ_DarkAdmin");
             }
 
+            return RedirectToAction("SettingXYZ_DarkAdmin");
+        }
+
+        public ActionResult SettingStatusUpdate(string type)
+        {
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/Setting_Status.txt");
+
+            Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+            var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+
+            var noidung = System.IO.File.ReadAllText(path);
+
+            switch (type)
+            {
+                case "1":
+                    System.IO.File.WriteAllText(path, "Tắt hoạt động web site (tất cả, không nhận đơn đăng kí tiếp theo), ngoại trừ mật độ tuyệt đối # " + xuxu);
+                    break;
+
+                case "2":
+                    System.IO.File.WriteAllText(path, "Bật hoạt động web site (chỉ người đã đăng kí, bật TB, nhận đơn đăng kí tiếp theo) # " + xuxu);
+                    break;
+
+                case "3":
+                    System.IO.File.WriteAllText(path, "Bật hoạt động web site (chỉ người đã đăng kí, tắt TB, không nhận đơn đăng kí tiếp theo) # " + xuxu);
+                    break;
+
+                case "4":
+                    System.IO.File.WriteAllText(path, "Bật hoạt động website (cho phép tất cả mọi người, không get IP) # " + xuxu);
+                    break;
+
+                case "5":
+                    System.IO.File.WriteAllText(path, "Bật hoạt động website (cho phép tất cả mọi người, get IP) # " + xuxu);
+                    break;
+
+                case "6":
+                    System.IO.File.WriteAllText(path, "Tắt hoạt động web site (không nhận đơn đăng kí tiếp theo, bật thông báo), ngoại trừ các IP đã đăng kí và tin tưởng # " + xuxu);
+                    break;
+
+                case "7":
+                    System.IO.File.WriteAllText(path, "Tắt hoạt động web site (không nhận đơn đăng kí tiếp theo, tắt thông báo), ngoại trừ các IP đã đăng kí và tin tưởng # " + xuxu);
+                    break;
+
+                case "8":
+                    System.IO.File.WriteAllText(path, "Sử dụng POST QUICK DATA và tàng hình (copy), get IP - cho phép mọi người # " + xuxu);
+                    break;
+
+                case "9":
+                    System.IO.File.WriteAllText(path, "Sử dụng POST QUICK DATA và tàng hình (download *.txt), get IP - cho phép mọi người # " + xuxu);
+                    break;
+
+                case "10":
+                    var nd = noidung.Split(" # ");
+                    System.IO.File.WriteAllText(path, nd[0] + " + Bật thông báo tất cả nội dung liên quan email và MegaIO File and list user get to link request # " + xuxu);
+                    break;
+
+                case "11":
+                    var nd1 = noidung.Split(" # ");
+                    System.IO.File.WriteAllText(path, nd1[0] +" + Tắt thông báo tất cả nội dung liên quan email và MegaIO File and list user get to link request # " + xuxu);
+                    break;
+
+                case "12":
+                    var nd2 = noidung.Split(" # ");
+                    System.IO.File.WriteAllText(path, nd2[0] + " + Bật sử dụng website with url encode secret play # " + xuxu);
+                    break;
+
+                case "ON-ALL":
+                    System.IO.File.WriteAllText(path, "Đã bật hết tất cả các item setting (ngoại trừ mục cho phép website với mọi người nhưng sẽ ưu tiên việc get IP) và hãy cẩn thận sự mâu thuẫn giữa các item setting lúc này # " + xuxu);
+                    break;
+
+                case "OFF-ALL":
+                    System.IO.File.WriteAllText(path, "Đã tắt hết tất cả các item setting  # " + xuxu);
+                    break;
+
+                default:
+                    System.IO.File.WriteAllText(path, "UNKNOW # " + xuxu);
+                    break;
+            }
             return RedirectToAction("SettingXYZ_DarkAdmin");
         }
     }

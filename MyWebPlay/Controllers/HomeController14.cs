@@ -550,9 +550,9 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult PlayKaraokeX (IFormCollection f, IFormFile txtKaraoke, IFormFile txtMusic, IFormFile txtMusix)
+        public ActionResult PlayKaraokeX(IFormCollection f, IFormFile txtKaraoke, IFormFile txtMusic, IFormFile txtMusix)
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true"; if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi"); if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
@@ -579,14 +579,14 @@ namespace MyWebPlay.Controllers
             if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
             {
                 TempData["mau_background"] = "white";
-                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
-                 TempData["winx"] = "❤";
+                TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
+                TempData["winx"] = "❤";
             }
             else
             {
                 TempData["mau_background"] = "black";
-                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
-                 TempData["winx"] = "❤";
+                TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
+                TempData["winx"] = "❤";
             }
             var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX1);
@@ -604,13 +604,13 @@ namespace MyWebPlay.Controllers
                 {
                     if (info[1] == "false")
                     {
-                        
+
                         TempData["mau_winx"] = "red";
                         flag = 1;
                     }
                     else
                     {
-                        
+
                         TempData["mau_winx"] = "deeppink";
                         flag = 0;
                     }
@@ -674,7 +674,7 @@ namespace MyWebPlay.Controllers
                 if (link.Contains("youtube") == false)
                     ViewBag.Share = "ERROR";
 
-                    if (link.Contains("?"))
+                if (link.Contains("?"))
                     link += "&autoplay=1&loop=1&controls=0&mute=1";
                 else
                     link += "?autoplay=1&loop=1&controls=0&mute=1";
@@ -709,6 +709,37 @@ namespace MyWebPlay.Controllers
 
                 ViewBag.Background = link;
                 ViewBag.SuDung = "Youtube";
+            }
+
+
+            if (f["txtThietKe"] == "on")
+            {
+                var lUser = new List<string>();
+                var lMau = new List<string>();
+
+                var NDTK = f["txtNDThietKe1"].ToString().Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < NDTK.Length; i++)
+                {
+                    var x = NDTK[i].Split("=");
+                    lUser.Add(x[0]);
+                    lMau.Add(x[1]);
+                }
+
+                var nd = "";
+                var lIndex = f["txtNDThietKe2"].ToString().Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < lIndex.Length; i++)
+                {
+                    var x = lIndex[i].Split("=");
+                    var y = int.Parse(x[1]);
+                    nd += x[0] + "=" + lUser[y] + "=" + lMau[y];
+                    if (i < lIndex.Length - 1)
+                        nd += "\r\n";
+                }
+                TempData["TK-KARA"] = nd;
+            }
+            else
+            {
+                TempData["TK-KARA"] = "";
             }
 
             if (f["txtOnlineServer"].ToString() == "on")

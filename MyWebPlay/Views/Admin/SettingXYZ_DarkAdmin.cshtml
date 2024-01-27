@@ -91,6 +91,13 @@ input:checked + .slider:before {
     });
         },1);
 
+        if (localStorage.getItem("setting-status") != null)
+        {
+            var type = localStorage.getItem("setting-status");
+            localStorage.removeItem("setting-status");
+            window.location.href = "/Admin/SettingStatusUpdate?type="+type;
+        }
+
          var sang = 0;
          if ('@TempData["mau_background"]' == "white")
          {
@@ -170,11 +177,13 @@ input:checked + .slider:before {
 
         function xong()
         {
+            localStorage.setItem("setting-status","0");
              document.getElementById("ok").click();
         }
 
         function saveX(x)
         {
+            localStorage.setItem("setting-status","0");
             if (document.getElementById("chon").options.selectedIndex == 0)
             {
                 document.getElementById("ok").click();
@@ -209,6 +218,7 @@ input:checked + .slider:before {
                 else
                 document.getElementById("check-"+i).checked = false;
             }
+            localStorage.setItem("setting-status", "1");
             document.getElementById("ok").click();
             }
 
@@ -222,6 +232,7 @@ input:checked + .slider:before {
                 else
                 document.getElementById("check-"+i).checked = false;
             }
+            localStorage.setItem("setting-status", "2");
             document.getElementById("ok").click();
             }
 
@@ -235,6 +246,7 @@ input:checked + .slider:before {
                 else
                 document.getElementById("check-"+i).checked = false;
             }
+            localStorage.setItem("setting-status", "3");
             document.getElementById("ok").click();
             }
 
@@ -248,6 +260,7 @@ input:checked + .slider:before {
                 else
                 document.getElementById("check-"+i).checked = false;
             }
+            localStorage.setItem("setting-status", "4");
             document.getElementById("ok").click();
             }
 
@@ -261,6 +274,7 @@ input:checked + .slider:before {
                 else
                 document.getElementById("check-"+i).checked = false;
             }
+            localStorage.setItem("setting-status", "5");
             document.getElementById("ok").click();
             }
 
@@ -274,6 +288,7 @@ input:checked + .slider:before {
                 else
                 document.getElementById("check-"+i).checked = false;
             }
+            localStorage.setItem("setting-status", "6");
             document.getElementById("ok").click();
             }
 
@@ -287,6 +302,7 @@ input:checked + .slider:before {
                 else
                 document.getElementById("check-"+i).checked = false;
             }
+            localStorage.setItem("setting-status", "7");
             document.getElementById("ok").click();
             }
 
@@ -300,6 +316,7 @@ input:checked + .slider:before {
                 else
                 document.getElementById("check-"+i).checked = false;
             }
+            localStorage.setItem("setting-status", "8");
             document.getElementById("ok").click();
             }
 
@@ -313,6 +330,7 @@ input:checked + .slider:before {
                 else
                 document.getElementById("check-"+i).checked = false;
             }
+            localStorage.setItem("setting-status", "9");
             document.getElementById("ok").click();
             }
 
@@ -326,6 +344,7 @@ input:checked + .slider:before {
                 else
                 continue;
             }
+            localStorage.setItem("setting-status", "10");
             document.getElementById("ok").click();
             }
 
@@ -339,6 +358,7 @@ input:checked + .slider:before {
                 else
                 continue;
             }
+            localStorage.setItem("setting-status", "11");
             document.getElementById("ok").click();
             }
 
@@ -352,12 +372,14 @@ input:checked + .slider:before {
                 else
                 continue;
             }
+            localStorage.setItem("setting-status", "12");
             document.getElementById("ok").click();
             }
         }
 
         function chonall()
         {
+             localStorage.setItem("setting-status","ON-ALL");
             var n = new Number(document.getElementById("count").value) - 5;
             for (var i = 0; i < n;i++)
             {
@@ -368,6 +390,7 @@ input:checked + .slider:before {
 
         function boall()
         {
+            localStorage.setItem("setting-status","OFF-ALL");
             var n = new Number(document.getElementById("count").value) - 5;
             for (var i = 0; i < n;i++)
             {
@@ -570,7 +593,7 @@ input:checked + .slider:before {
          <tr style="height:40px">
             <td></td>
             <td><br>
-                <h2 style="color:deeppink">Cài ĐẶT ADMIN</h2><br />
+                <h2 style="color:deeppink">Cài ĐẶT ADMIN</h2> - <h2 style="color:goldenrod">Trạng thái lần cuối : @ViewBag.SettingStatus</h2><br />
                 <h4><a href="#xuly" onclick="refreshHetHan()" style="color:purple">Refresh hoặc xoá tất cả thư mục và các file hết hạn</a></h4><br>
                 <h4><a href="#xuly" id="#welcome" onclick="chonall()" style="color:green">CHỌN TẤT CẢ</a> | <a href="#xuly" onclick="boall()" style="color:red">BỎ CHỌN TẤT CẢ</a> <br> 
                    <br> <select id="chonXY">
@@ -580,14 +603,15 @@ input:checked + .slider:before {
                          <option>Bật hoạt động web site (chỉ người đã đăng kí, tắt TB, không nhận đơn đăng kí tiếp theo)</option>
                          <option>Bật hoạt động website (cho phép tất cả mọi người, không get IP)</option>
                          <option>Bật hoạt động website (cho phép tất cả mọi người, get IP)</option>
-                         <option>Tắt hoạt động web site (không nhận đơn đăng kí tiếp theo, bật thông báo), ngoài trừ các IP đã đăng kí và tin tưởng</option>
-                         <option>Tắt hoạt động web site (không nhận đơn đăng kí tiếp theo, tắt thông báo), ngoài trừ các IP đã đăng kí và tin tưởng</option>
+                         <option>Tắt hoạt động web site (không nhận đơn đăng kí tiếp theo, bật thông báo), ngoại trừ các IP đã đăng kí và tin tưởng</option>
+                         <option>Tắt hoạt động web site (không nhận đơn đăng kí tiếp theo, tắt thông báo), ngoại trừ các IP đã đăng kí và tin tưởng</option>
                          <option>Sử dụng POST QUICK DATA và tàng hình (copy), get IP - cho phép mọi người</option>
                          <option>Sử dụng POST QUICK DATA và tàng hình (download *.txt), get IP - cho phép mọi người</option>
                          <option>Bật thông báo tất cả nội dung liên quan email và MegaIO File and list user get to link request - giữ nguyên còn lại</option>
                          <option>Tắt thông báo tất cả nội dung liên quan email và MegaIO File and list user get to link request - giữ nguyên còn lại</option>
-                         <option>Bật sử dụng website url encode play - giữ nguyên còn lại (nên chọn cái này lại hoặc sau cùng)</option>
-                    </select>&nbsp;&nbsp;<a href="#xuly" onclick="chonnhanh()">Xử lý setting nhanh (có sẵn)</a>
+                         <option>Bật sử dụng website with url encode secret play - giữ nguyên còn lại (nên chọn cái này lại hoặc sau cùng)</option>
+                    </select><br /><br /><a href="#xuly" onclick="chonnhanh()">Xử lý setting nhanh (có sẵn)</a>
+                    <br /><br />
                 </h4>
                 <br>
             </td>

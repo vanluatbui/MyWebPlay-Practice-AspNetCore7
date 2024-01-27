@@ -82,6 +82,20 @@ body {
     });
         },1);
 
+        function useThietKe()
+        {
+            if (document.getElementById("ckKara").checked == true)
+            {
+                document.getElementById("tkKara1").style.display = "inline-block";
+                document.getElementById("tkKara2").style.display = "inline-block";
+            }
+            else
+            {
+                document.getElementById("tkKara1").style.display = "none";
+                document.getElementById("tkKara2").style.display = "none";
+            }
+        }
+
      function xong()
     {
         document.getElementById("okxem").style.display = "none";
@@ -90,6 +104,14 @@ body {
 
     function copyshare()
     {
+         if ('@TempData["TK-KARA"]' != "")
+        {
+         document.getElementById("message").style.display = "inline-block";
+          document.getElementById("error").style.display = "inline-block";
+        document.getElementById("error").innerHTML = "⚠️ Đã xảy ra lỗi không thể thực hiện. Vui lòng thử lại sau !";
+            return;
+        }
+
         var url =  "http://" +'@ViewBag.Host' + "/Home/Share_Karaoke?id=" + document.getElementById("linkKara").value;
         navigator.clipboard.writeText(url);
 
@@ -220,6 +242,9 @@ function showlist()
     {
         if (document.getElementById("onlineServer").checked == true)
         {
+            document.getElementById("sakura").style.display = "none";
+            document.getElementById("ckKara").checked = false;
+            useThietKe();
             document.getElementById("phan1").style.display = "none";
             document.getElementById("phan2").style.display = "none";
             document.getElementById("phan3").style.display = "none";
@@ -230,6 +255,7 @@ function showlist()
         }
         else
         {
+            document.getElementById("sakura").style.display = "inline-block";
             document.getElementById("phan1").style.display = "inline-block";
             document.getElementById("phan2").style.display = "inline-block";
             document.getElementById("phan3").style.display = "inline-block";
@@ -325,7 +351,7 @@ function showlist()
         chonX.value = "5";
          online.style.display = "none";
          help.style.display = "none";
-         help2.style.display = "none";
+         help2.style.display = "inline-block";
         }
     }
 
@@ -452,6 +478,7 @@ function showlist()
         var flag = 0;
          var n = 0;
         var kf = 0;
+        var ix = 0;
 
     function resetKaraoke()
     {
@@ -466,12 +493,15 @@ function showlist()
         flag = 0;
          n = 0;
         kf = 0;
+
                    document.getElementById("txtKaraoke1").innerHTML = "";
                    document.getElementById("txtKaraoke2").innerHTML = "";
                     document.getElementById("txtKara1").value = "";
                     document.getElementById("txtKara2").value = "";
                     document.getElementById("number").innerHTML = "";
 
+                        document.getElementById("thietkeKara").innerHTML = "";
+                        ix = 0;
     }
 
     function xoaerror()
@@ -492,11 +522,22 @@ function showlist()
             return;
         }
 
+        if ('@TempData["TK-KARA"]' != "")
+        {
+         document.getElementById("message").style.display = "inline-block";
+          document.getElementById("error").style.display = "inline-block";
+        document.getElementById("error").innerHTML = "⚠️ Đã xảy ra lỗi không thể thực hiện. Vui lòng thử lại sau !";
+            return;
+        }
+
         localStorage.setItem("mau", document.getElementById("mau").value);
         localStorage.setItem("mauX", document.getElementById("mauX").value);
         localStorage.setItem("mauY", document.getElementById("mauY").value);
         localStorage.setItem("kichthuoc", document.getElementById("kichthuoc").value);
         localStorage.setItem("hang", document.getElementById("hang").value);
+        localStorage.setItem("kieuchu", document.getElementById("kieuchu").value);
+        localStorage.setItem("kieudemnguoc", document.getElementById("kieudemnguoc").value);
+         localStorage.setItem("dotre", document.getElementById("dotre").value);
 
          document.getElementById("message").style.display = "inline-block";
          document.getElementById("error").style.display = "inline-block";
@@ -613,13 +654,16 @@ function showlist()
 
         var mau = "#2900f5";
         var mauX = "#efe6e6";
+        var kieuchu = "Times New Roman,Times,serif";
+        var kieudemnguoc = "N";
+        var dotre = "0.3";
 
         function doimau()
         {
-            mau = document.getElementById("mau").value;
-            document.getElementById("xemthumau").style.color = mau;
-            document.getElementById("xanhX1").style.setProperty("--color", mau);
-            document.getElementById("xanhX2").style.setProperty("--color", mau);
+           mau = document.getElementById("mau").value;
+           document.getElementById("xemthumau").style.color = mau;
+           document.getElementById("xanhX1").style.setProperty("--color", mau);
+           document.getElementById("xanhX2").style.setProperty("--color", mau);
         }
 
         function doimau_Save()
@@ -675,11 +719,80 @@ function showlist()
             document.getElementById("number").style.color = document.getElementById("mauY").value;
         }
 
+         function doidotre_Save()
+        {
+            if (localStorage.getItem("dotre") == null)
+            return;
+
+             dotre = localStorage.getItem("dotre");
+             document.getElementById("dotre").value = dotre;
+        }
+
+
+        function doikieuchu_Save()
+        {
+            if (localStorage.getItem("kieuchu") == null)
+            return;
+
+             kieuchu = localStorage.getItem("kieuchu");
+             document.getElementById("kieuchu").value = kieuchu;
+        }
+
+        function doikieuchu()
+        {
+            var kieuchu = document.getElementById("kieuchu").value;
+            if (kieuchu == "")
+            {
+                kieuchu = "Times New Roman,Times,serif";
+                document.getElementById("kieuchu").value = kieuchu;
+            }
+            document.getElementById("txtKaraoke1").style.fontFamily = kieuchu;
+            document.getElementById("txtKaraoke2").style.fontFamily =  kieuchu;
+        }
+
+         function doidotre()
+        {
+            var dotre = document.getElementById("dotre").value;
+            if (isNaN(dotre))
+            {
+                dotre = "0.3";
+                document.getElementById("dotre").value = dotre;
+            }
+        }
+
+         function doikieudemnguoc()
+        {
+            var kieudemnguoc = document.getElementById("kieudemnguoc").value;
+            if (kieudemnguoc == "N" || kieudemnguoc == "")
+            {
+                kieudemnguoc = "N";
+                document.getElementById("kieudemnguoc").value = kieudemnguoc;
+                var kt = document.getElementById("kichthuoc").value + "px";
+                document.getElementById("number").style.fontSize = kt;
+            }
+            else
+            {
+                document.getElementById("number").style.fontSize = "50px";
+                alert
+            }
+        }
+
+         function doikieudemnguoc_Save()
+        {
+            if (localStorage.getItem("kieudemnguoc") == null)
+            return;
+
+             kieudemnguoc = localStorage.getItem("kieudemnguoc");
+             document.getElementById("kieudemnguoc").value = kieudemnguoc;
+        }
+
         var LBH;
         var flg = 0;
         var flix = 0;
 
                     var id = setInterval(myAlert, 100);
+
+        var ndTK = '@TempData["TK-KARA"]'.replaceAll("&#xD;&#xA;","\n").split('\n');
 
                     function myAlert()
                     {
@@ -726,6 +839,11 @@ function showlist()
                         doimauY_Save();
                         doihang_Save();
                         doikichthuoc_Save();
+                        doikieuchu_Save();
+                        doikieuchu();
+                        doikieudemnguoc_Save();
+                        doikieudemnguoc();
+                        doidotre_Save();
                         flg = 1;
                         }
 
@@ -769,9 +887,11 @@ function showlist()
                 //    }
                 //}
 
+                 document.getElementById("thietkeKara").style.fontSize = document.getElementById("kichthuoc").value + "px";
 
             if (t == time_xuathien[n])
             {
+       
                 h_xh = [];
                 h_le = [];
 
@@ -786,7 +906,20 @@ function showlist()
                         h_le[kk] = new Number(ss[1]);
                         kk++;
                     }
+
+                if ('@TempData["TK-KARA"]' != "")
+                {
+                        var x = ndTK[ix%ndTK.length].split('=');
+                       if (x[0] == time_xuathien[n]+"")
+                       {
+                           document.getElementById("mau").value = x[2];
+                           mau = document.getElementById("mau").value;
+                           document.getElementById("thietkeKara").innerHTML = x[1];
+                           document.getElementById("thietkeKara").style.color = x[2];
+                           ix++;
+                       }
                 }
+         }
 
                   document.getElementById("txtKaraoke1").innerHTML = "<span id=\"xanhX1\" class=\"word\"></span>";
                     document.getElementById("txtKaraoke2").innerHTML = "<span id=\"xanhX2\" class=\"work\"></span>";
@@ -794,12 +927,19 @@ function showlist()
                          $('#xanhX2').addClass('work').attr('data-content',"");
                         $('#xanhX1').addClass('word').attr('data-content',"");
 
+                        if ('@TempData["TK-KARA"]' != "" && LBH[n] == "\t*")
+                        {
+                            document.getElementById("thietkeKara").innerHTML = "";
+                        }
+
                 if (LBH[n] == "[Empty]" || LBH[n] == "[Empty-X]")
                 {
                    document.getElementById("txtKaraoke1").innerHTML = "";
                    document.getElementById("txtKaraoke2").innerHTML = "";
                     document.getElementById("txtKara1").value = "";
                     document.getElementById("txtKara2").value = "";
+                    if ('@TempData["TK-KARA"]' != "")
+                    document.getElementById("thietkeKara").innerHTML = "";
                 }
                 else
                 {
@@ -849,7 +989,7 @@ function showlist()
                else
                so2 = h_xh[kf+1];
 
-               so = ((so2 - so1) /10) + 0.3;
+               so = ((so2 - so1) /10) + new Number(document.getElementById("dotre").value);
 
               //if (so2 - so1 < 3)
               // so = 0.3;
@@ -904,17 +1044,29 @@ function showlist()
 
             if (h_xh != null && (t == h_xh[0] - 8 || empty != -1 && t == h_xh[empty] - 8))
             {
+                var xa = document.getElementById("kieudemnguoc").value;
+                if (xa == "N")
                document.getElementById("number").innerHTML = "1";
+               else 
+                   document.getElementById("number").innerHTML = xa;
             }
 
             if (h_xh != null && (t == h_xh[0] - 18 || empty != -1 && t == h_xh[empty] - 18))
             {
+                var xa = document.getElementById("kieudemnguoc").value;
+                if (xa == "N")
                document.getElementById("number").innerHTML = "2";
+               else 
+                   document.getElementById("number").innerHTML = xa + " " + " " + xa;
             }
 
             if (h_xh != null && (t == h_xh[0] - 28 || empty != -1 && t == h_xh[empty] - 28))
             {
+                var xa = document.getElementById("kieudemnguoc").value;
+                if (xa == "N")
                document.getElementById("number").innerHTML = "3";
+               else 
+                   document.getElementById("number").innerHTML = xa + " " + " " + xa + " " + xa;
             }
 
 
@@ -1214,6 +1366,23 @@ function showlist()
                 </td>
             </tr>
 
+                        <tr style="height:40px">
+                            <td></td>
+                <td id="sakura">
+                     <input id="ckKara" type="checkbox" name="txtThietKe" onchange="useThietKe()" /> <b style="color:chartreuse">Sử dụng thiết kế phân đoạn karaoke? (chỉ admin hoặc nếu có thể sử dụng)</b>
+                     <br />
+                     <textarea id="tkKara1" placeholder="Nhập theo mẫu : tên người hát/icon đại diện=mã màu sắc thể hiện (index tính từ 0)" rows="5" cols="50" name="txtNDThietKe1"  style="display:none">[The Man]=#FF0000
+[The Woman]=#0000FF
+[Song Ca]=#FFFF00</textarea>
+<br />
+                     <textarea id="tkKara2" placeholder="Nhập theo mẫu : time/vị trí bắt đầu/xuất hiện (dựa trên file txt)=index trên tương ứng (liệt kê thứ tự tăng dần)" rows="10" cols="15" name="txtNDThietKe2"  style="display:none">0=0
+15=1
+25=2
+38=2
+45=0</textarea>
+                </td>
+            </tr>
+
             <tr style="height:40px">
                 <td></td>
                 <td>
@@ -1250,11 +1419,23 @@ else
                         </select>
     }
     &nbsp; &nbsp; &nbsp
-    <button style="color:brown" onclick="loadsolar()" id="xanh"><b>FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp;<b id="xemthumau" style="color:#2900f5">Chọn màu tô điểm text</b> : <input type="color" onchange="doimau()" id="mau" value="#2900f5" />
-    &nbsp;&nbsp;&nbsp;<b id="xemmauthu" style="color:#efe6e6">Chọn màu đoạn text ban đầu</b> : <input type="color" onchange="doimauX()" id="mauX" value="#efe6e6" />
+    <button style="color:brown" onclick="loadsolar()" id="xanh"><b>FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp;
+         @if(TempData["TK-KARA"] == "")
+         {
+                            <b id="xemthumau" style="color:#2900f5">Chọn màu tô điểm text</b><span> : </span><input type="color" onchange="doimau()" id="mau" value="#2900f5" />
+                        }
+                        else
+                        {
+                            <span style="display:none"> <b id="xemthumau" style="color:#2900f5">Chọn màu tô điểm text</b><span> : </span><input type="color" onchange="doimau()" id="mau" value="#2900f5" /></span>
+                        }
+                        &nbsp;&nbsp;&nbsp;<b id="xemmauthu" style="color:#efe6e6">Chọn màu đoạn text ban đầu</b> : <input type="color" onchange="doimauX()" id="mauX" value="#efe6e6" />
      &nbsp;&nbsp;&nbsp;<b id="xemmaudi" style="color:#e3f207">Chọn màu cho time đếm ngược bắt đầu karaoke</b> : <input type="color" onchange="doimauY()" id="mauY" value="#e3f207" />
-      &nbsp;&nbsp;&nbsp; <br /><span style="color:deeppink"><b>Kích thước chữ : </b></span><input id="kichthuoc" type="number" min="0" value="80" onchange="doikichthuoc()"/>
+     &nbsp;&nbsp;&nbsp;<input id="kieuchu" placeholder="Nhập kiểu chữ" onchange="doikieuchu()" value="Times New Roman,Times,serif"/>
+     <br />
+      <span style="color:deeppink"><b>Kích thước chữ : </b></span><input id="kichthuoc" type="number" min="0" value="80" onchange="doikichthuoc()"/>
         &nbsp;&nbsp;&nbsp;<span style="color:deeppink"><b>Vị trí xuất hiện : </b></span> <input id="hang" type="number" min="0" value="0" onchange="doihang()"/>
+         &nbsp;&nbsp;&nbsp;<input id="kieudemnguoc" maxlength="2" placeholder="Nhập kiểu/icon đếm ngược để bắt đầu karaoke" onchange="doikieudemnguoc()" value="N" />
+         &nbsp;&nbsp;&nbsp;<input id="dotre" placeholder="Nhập độ trễ bổ sung..." value="0.3" onchange="doidotre()" />
         &nbsp;&nbsp;&nbsp; <button onclick="ghinho()"><b style="color:lightcoral">Ghi nhớ các cài đặt</b></button> &nbsp;&nbsp;&nbsp; 
         @if (ViewBag.BehindYoutube != "YES")
         {
@@ -1270,11 +1451,8 @@ else
         {
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><b style="color:red"><a onclick="copyshare()" href="#xuly">Share Karaoke</a></b>
         }
-        @if (ViewBag.BehindYoutube != "YES")
-        {
     <br /><br /><b><span style="color:white">Xin lỗi, đôi khi vì sự cố kết nối mạng mà khiến cho chức năng Karaoke : nhạc và đoạn text lời xuất hiện không đồng nhất với nhau hay dữ liệu chưa được tải lên hết.
         <br>Mỗi khi gặp sự cố này, phiền bạn hãy nhấn nút <button style="color:purple" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI</b></button> để tải lại dữ liệu cho đến khi một cách hoàn tất. Xin cảm ơn!</span></b>
-        }
     <br />
     </div>
 
@@ -1311,8 +1489,10 @@ else
                 <td></td>
                 <td>
                        <span id="number" style="color:#e3f207; font-size:100px"></span>
+                       <br />
                          <div style="text-align:center">
                         <div style="display:inline-block">
+                            <p id="thietkeKara"></p>
                           <p id="txtKaraoke1"><span id="xanhX1" class="word"></span></p>
                         <p id="txtKaraoke2"><span id="xanhX2" class="work"></span></p>
                         <span id="xui"></span>
@@ -1571,6 +1751,23 @@ else if (ViewBag.SuDung == "Video")
                 </td>
             </tr>
 
+                         <tr style="height:40px">
+                            <td></td>
+                <td id="sakura">
+                     <input id="ckKara" type="checkbox" name="txtThietKe" onchange="useThietKe()" /> <b style="color:chartreuse">Sử dụng thiết kế phân đoạn karaoke? (chỉ admin hoặc nếu có thể sử dụng)</b>
+                     <br />
+                     <textarea id="tkKara1" placeholder="Nhập theo mẫu : tên người hát/icon đại diện=mã màu sắc thể hiện (index tính từ 0)" rows="5" cols="50" name="txtNDThietKe1"  style="display:none">[The Man]=#FF0000
+[The Woman]=#0000FF
+[Song Ca]=#FFFF00</textarea>
+<br />
+                     <textarea id="tkKara2" placeholder="Nhập theo mẫu : time/vị trí bắt đầu/xuất hiện (dựa trên file txt)=index trên tương ứng (liệt kê thứ tự tăng dần)" rows="10" cols="15" name="txtNDThietKe2"  style="display:none">0=0
+15=1
+25=2
+38=2
+45=0</textarea>
+                </td>
+            </tr>
+
             <tr style="height:40px">
                 <td></td>
                 <td>
@@ -1649,8 +1846,10 @@ else
                 <td></td>
                 <td>
                        <span id="number" style="color:#e3f207; font-size:100px"></span>
+                       <br />
                          <div style="text-align:center">
                         <div style="display:inline-block">
+                            <p id="thietkeKara"></p>
                           <p id="txtKaraoke1"><span id="xanhX1" class="word"></span></p>
                         <p id="txtKaraoke2"><span id="xanhX2" class="work"></span></p>
                         <span id="xui"></span>

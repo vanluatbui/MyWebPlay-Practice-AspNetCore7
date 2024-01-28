@@ -91,6 +91,32 @@ input:checked + .slider:before {
     });
         },1);
 
+        if (window.localStorage.getItem("mokhoa-web") != null)
+        {
+            if (localStorage.getItem("mokhoa-web") == '@ViewBag.Password')
+            {
+                var t = 0;
+               setInterval(function(){
+            
+                   if (t == 3)
+                   {
+                       window.localStorage.removeItem("mokhoa-web");
+                       window.location.href="/Admin/SettingXYZ_DarkAdmin";
+                   }
+                   t++;
+         },1000);
+            }
+            else
+            {
+                 window.localStorage.removeItem("mokhoa-web");
+            }
+        }
+
+        if (window.localStorage.getItem("mokhoa-web") == null && '@TempData["tathoatdong"]' == "true")
+        {
+            window.location.href="/Home/Error";
+        }
+
         if (localStorage.getItem("setting-status") != null)
         {
             var type = localStorage.getItem("setting-status");
@@ -181,6 +207,12 @@ input:checked + .slider:before {
              document.getElementById("ok").click();
         }
 
+        function saveXY()
+        {
+             localStorage.setItem("setting-status","0");
+             document.getElementById("ok-X").click();
+        }
+
         function saveX(x)
         {
             localStorage.setItem("setting-status","0");
@@ -190,7 +222,7 @@ input:checked + .slider:before {
             }
             else
             {
-                 var n = new Number(document.getElementById("count").value) - 5;
+                 var n = new Number(document.getElementById("count").value)- 6;
                 for (var i = 0; i < n;i++)
                 {
                     if (i == x)
@@ -210,7 +242,7 @@ input:checked + .slider:before {
 
             if (ch == 1)
             {
-                 var n = new Number(document.getElementById("count").value) - 5;
+                 var n = new Number(document.getElementById("count").value)- 6;
             for (var i = 0; i < n;i++)
             {
                 if (i == 0 || i == 20)
@@ -224,7 +256,7 @@ input:checked + .slider:before {
 
              if (ch == 2)
             {
-                 var n = new Number(document.getElementById("count").value) - 5;
+                 var n = new Number(document.getElementById("count").value)- 6;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2)
@@ -238,7 +270,7 @@ input:checked + .slider:before {
 
               if (ch == 3)
             {
-                 var n = new Number(document.getElementById("count").value) - 5;
+                 var n = new Number(document.getElementById("count").value)- 6;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 20)
@@ -252,7 +284,7 @@ input:checked + .slider:before {
 
               if (ch == 4)
             {
-                 var n = new Number(document.getElementById("count").value) - 5;
+                 var n = new Number(document.getElementById("count").value)- 6;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2 || i == 25)
@@ -266,7 +298,7 @@ input:checked + .slider:before {
 
               if (ch == 5)
             {
-                 var n = new Number(document.getElementById("count").value) - 5;
+                 var n = new Number(document.getElementById("count").value)- 6;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2 || i == 26)
@@ -280,7 +312,7 @@ input:checked + .slider:before {
 
               if (ch == 6)
             {
-                 var n = new Number(document.getElementById("count").value) - 5;
+                 var n = new Number(document.getElementById("count").value)- 6;
             for (var i = 0; i < n;i++)
             {
                 if (i == 2 || i == 20)
@@ -294,7 +326,7 @@ input:checked + .slider:before {
 
                if (ch == 7)
             {
-                 var n = new Number(document.getElementById("count").value) - 5;
+                 var n = new Number(document.getElementById("count").value)- 6;
             for (var i = 0; i < n;i++)
             {
                 if (i == 20)
@@ -308,7 +340,7 @@ input:checked + .slider:before {
 
               if (ch == 8)
             {
-                 var n = new Number(document.getElementById("count").value) - 5;
+                 var n = new Number(document.getElementById("count").value)- 6;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2 || i == 25 || i == 3 || i == 4 || i == 5 || i == 6)
@@ -322,7 +354,7 @@ input:checked + .slider:before {
 
               if (ch == 9)
             {
-                 var n = new Number(document.getElementById("count").value) - 5;
+                 var n = new Number(document.getElementById("count").value)- 6;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2 || i == 25 || i == 3 || i == 4 || i == 5 || i == 6 || i == 7 )
@@ -336,7 +368,7 @@ input:checked + .slider:before {
 
               if (ch == 10)
             {
-                 var n = new Number(document.getElementById("count").value) - 5;
+                 var n = new Number(document.getElementById("count").value)- 6;
             for (var i = 0; i < n;i++)
             {
                 if (i >=13 && i<= 19 || i >= 21 && i <= 23)
@@ -350,7 +382,7 @@ input:checked + .slider:before {
 
               if (ch == 11)
             {
-                 var n = new Number(document.getElementById("count").value) - 5;
+                 var n = new Number(document.getElementById("count").value)- 6;
             for (var i = 0; i < n;i++)
             {
                 if (i >=13 && i<= 19 || i >= 21 && i <= 23)
@@ -364,7 +396,7 @@ input:checked + .slider:before {
 
               if (ch == 12)
             {
-                 var n = new Number(document.getElementById("count").value) - 5;
+                 var n = new Number(document.getElementById("count").value)- 6;
             for (var i = 0; i < n;i++)
             {
                 if (i == 24)
@@ -375,12 +407,19 @@ input:checked + .slider:before {
             localStorage.setItem("setting-status", "12");
             document.getElementById("ok").click();
             }
+
+               if (ch == 13)
+            {
+                localStorage.setItem("setting-status","0");
+                 document.getElementById("check-27").checked = true;
+                  document.getElementById("ok-X").click();
+            }
         }
 
         function chonall()
         {
              localStorage.setItem("setting-status","ON-ALL");
-            var n = new Number(document.getElementById("count").value) - 5;
+            var n = new Number(document.getElementById("count").value)- 6;
             for (var i = 0; i < n;i++)
             {
                 document.getElementById("check-"+i).checked = true;
@@ -391,7 +430,7 @@ input:checked + .slider:before {
         function boall()
         {
             localStorage.setItem("setting-status","OFF-ALL");
-            var n = new Number(document.getElementById("count").value) - 5;
+            var n = new Number(document.getElementById("count").value)- 6;
             for (var i = 0; i < n;i++)
             {
                 document.getElementById("check-"+i).checked = false;
@@ -593,7 +632,7 @@ input:checked + .slider:before {
          <tr style="height:40px">
             <td></td>
             <td><br>
-                <h2 style="color:deeppink">Cài ĐẶT ADMIN</h2> - <h2 style="color:goldenrod">Trạng thái lần cuối : @ViewBag.SettingStatus</h2><br />
+                <h2 style="color:deeppink">Cài ĐẶT ADMIN</h2><h2 style="color:goldenrod">Trạng thái lần cuối : @ViewBag.SettingStatus</h2><br />
                 <h4><a href="#xuly" onclick="refreshHetHan()" style="color:purple">Refresh hoặc xoá tất cả thư mục và các file hết hạn</a></h4><br>
                 <h4><a href="#xuly" id="#welcome" onclick="chonall()" style="color:green">CHỌN TẤT CẢ</a> | <a href="#xuly" onclick="boall()" style="color:red">BỎ CHỌN TẤT CẢ</a> <br> 
                    <br> <select id="chonXY">
@@ -610,6 +649,7 @@ input:checked + .slider:before {
                          <option>Bật thông báo tất cả nội dung liên quan email và MegaIO File and list user get to link request - giữ nguyên còn lại</option>
                          <option>Tắt thông báo tất cả nội dung liên quan email và MegaIO File and list user get to link request - giữ nguyên còn lại</option>
                          <option>Bật sử dụng website with url encode secret play - giữ nguyên còn lại (nên chọn cái này lại hoặc sau cùng)</option>
+                         <option>[Đặc biệt] Khoá trang web tuyệt đối/vĩnh viễn, không thể truy cập trang nào (kể cả admin) => error all web page</option>
                     </select><br /><br /><a href="#xuly" onclick="chonnhanh()">Xử lý setting nhanh (có sẵn)</a>
                     <br /><br />
                 </h4>
@@ -622,16 +662,21 @@ input:checked + .slider:before {
             <td>
                 @for (int i = 0; i < Model.Topics.Count; i++)
 {
- <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-@i">@Html.Raw(Model.Topics[i].NoiDung)</h3>
+                    if (i == 27) continue; // Item setting khoá all page web nằm tuốt phía cuối trang
+
+                    <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-@i">@Html.Raw(Model.Topics[i].NoiDung)</h3>
  @if(Model.Topics[i].ID != "Password_Admin" && Model.Topics[i].ID != "Believe_IP" && Model.Topics[i].ID != "Code_LockedClient" && Model.Topics[i].ID != "MatDoTuyetDoi" && Model.Topics[i].ID != "Encode_Url")
  {
 <label class="switch">
     @if (Model.Topics[i].Option == false)
     {
-                <input id="check-@i" onchange="saveX(@i)" name="@Model.Topics[i].ID" type="checkbox" />
+
+          <input id="check-@i" onchange="saveX(@i)" name="@Model.Topics[i].ID" type="checkbox" />
+                                
      }
             else
             {
+               
                 <input id="check-@i" onchange="saveX(@i)" name="@Model.Topics[i].ID" type="checkbox" checked />
             }
             <span class="slider round"></span>
@@ -1402,6 +1447,45 @@ txtModelCs<br>
 <span style="color:purple">(Mã số bí mật - giúp đỡ admin hoạn nạn come in setting (tự biết cách dùng 😎): <b>32752262</b>)</span><br />
 <span style="color:lawngreen">(Kí tự sẽ replace tượng trưng cho dấu ngoặc kép " (sử dụng khi request quick POST data) : <b>[ngoackep_0000]</b>)</span><br />
     </span>
+    <br />
+    <br />
+    <br />
+
+    @using (Html.BeginForm("UnlockAllWeb","Admin"))
+    {
+        @Html.ValidationSummary(true)
+
+      <tr style="height:40px">
+            <td> </td>
+            <td>
+    
+                    <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-27">@Html.Raw(Model.Topics[27].NoiDung)</h3>
+
+<label class="switch">
+    @if (Model.Topics[27].Option == false)
+    {
+
+          <input id="check-27" onchange="saveXY()" name="@Model.Topics[27].ID" type="checkbox" />
+                                
+     }
+            else
+            {
+               
+                <input id="check-27" onchange="saveXY()" name="@Model.Topics[27].ID" type="checkbox" checked />
+            }
+            <span class="slider round"></span>
+                        </label>
+            </td>
+        </tr>
+      
+        <tr style="height:40px">
+            <td></td>
+            <td><br>
+                <input id="ok-X" type="submit" hidden value="LƯU CÀI ĐẶT" />
+            </td>
+        </tr>
+    }
+    <br />
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

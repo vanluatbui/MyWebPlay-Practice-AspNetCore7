@@ -1,17 +1,35 @@
-Khi bạn run build và mở web site này trên trình duyệt (sau khi get từ git hub) thường sẽ chưa vào được do một số cài đặt...
+Play : http://localhost:5000/
 
-* Hướng dẫn :
+Setting : http://localhost:5000/Admin/SettingXYZ_DarkAdmin
 
-1. Truy cập /Home/SessionPlay_DarkAdmin và thêm localStorage JS với thông tin :
-
-Key : myadmin
+ID : myadmin
 Value : admin12345#
 
-2.Truy cập /Admin/SettingXYZ_DarkAdmin và tạm thời tuỳ chỉnh các setting sau
+Session : http://localhost:5000/Home/SessionPlay_DarkAdmin
 
-+ Bật hoạt động website (tắt luôn chế độ không hoạt động)
-+ Tắt kết nối tìm IP user (cho phép website với mọi người)
-+ Bật thông báo về hoạt động web site
+Thay đổi mật khẩu vào setting admin (nếu quên) -> trang SessionPlay :
 
-Lưu ý : chỉ áp dụng khi bạn mở web site trên visual studio và local của bạn.
-Vui lòng reset lại cài đặt như ban đầu trước khi up lại git hub!
++ ID : [32752262]<ID key của bạn>
+
++ Value : [32752262]<Mật mã value của bạn>
+
+=> Sau đó nhấn button add session C#.
+
+Nếu bạn lỡ cài đặt khoá trang web vĩnh viễn, vào trang error bất kỳ của web :
+
+Nhấn F12 để mở giao diện Dev Tool của trình duyệt, tại console gõ :
+
+window.localStorage.setItem("mokhoa-web","<mật khẩu admin>");
+
+=> Sau đó thử truy cập trang admin setting...
+
+Khi bạn đã truy cập được trang setting admin này (chỉ là tạm thời)
+
+Hãy thật là nhanh chóng dùng hết sức công lực vuốt thẳng tuốt phía cuối trang sẽ có
+cái item setting [Khoá all web site page - kể cả admin] đang bật thì mau mau tắt nó đi trong vòng 3 giây 🤣 => không kịp 3 giây thì làm lại đi nhé!!!
+
+//Các hướng dẫn và web page còn lại cũng có ghi (tạm) trên trang setting hoặc bạn tự tìm hiểu thêm nhé. Thanks you!❤🤩😁...
+
+------------------------------------------------------------------------
+
+

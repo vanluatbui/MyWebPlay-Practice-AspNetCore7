@@ -1,1 +1,1 @@
-Bật hoạt động website (cho phép tất cả mọi người, không get IP) # 27/01/2024 8:16:12 PM
+Tắt hoạt động web site (tất cả, không nhận đơn đăng kí tiếp theo), ngoại trừ mật độ tuyệt đối # 28/01/2024 7:17:19 PM

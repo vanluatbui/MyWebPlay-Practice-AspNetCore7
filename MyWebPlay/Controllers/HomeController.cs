@@ -111,7 +111,19 @@ namespace MyWebPlay.Controllers
                         TempData["tathoatdong"] = "false";
                 }
 
-                if (info[0] == "Block_RegistUsing")
+                if (info[0] == "LockedAll_Web")
+                {
+                    if (info[1] == "true")
+                    {
+                        TempData["tathetweb"] = "true";
+                    }
+                    else
+                    {
+                        TempData["tathetweb"] = "false";
+                    }
+                }
+
+                    if (info[0] == "Block_RegistUsing")
                 {
                     if (info[1] == "true")
                     {

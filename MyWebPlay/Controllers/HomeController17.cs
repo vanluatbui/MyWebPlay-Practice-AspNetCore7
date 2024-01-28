@@ -637,6 +637,14 @@ namespace MyWebPlay.Controllers
             {
                 var info = listSettingM[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
+                if (info[0] == "LockedAll_Web")
+                {
+                    if (info[1] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                }
+
                 if (HttpContext.Session.GetString("trust-X-you") == null)
                 {
                     if (info[0] == "Alert_UsingWebsite")
@@ -770,6 +778,16 @@ namespace MyWebPlay.Controllers
             for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+
+                if (info[0] == "LockedAll_Web")
+                {
+                    if (info[1] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                }
+
 
                 if (HttpContext.Session.GetString("trust-X-you") == null)
                 {
@@ -913,6 +931,14 @@ namespace MyWebPlay.Controllers
             for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "LockedAll_Web")
+                {
+                    if (info[1] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                }
 
                 if (info[0] == "Code_LockedClient")
                     code = info[3];

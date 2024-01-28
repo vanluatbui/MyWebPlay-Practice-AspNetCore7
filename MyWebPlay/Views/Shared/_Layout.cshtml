@@ -342,6 +342,11 @@
 
         // Delete div somee
 
+         if ('@TempData["tathetweb"]' == "true")
+        {
+            window.location.href="/Home/Error";
+        }
+
         setInterval(function()
         {
              $(document).ready(function () {

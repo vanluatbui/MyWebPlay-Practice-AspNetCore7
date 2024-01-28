@@ -369,7 +369,24 @@ namespace MyWebPlay.Controllers
         {
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
-            var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "LockedAll_Web")
+                {
+                    if (info[1] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                }
+            }
+
+                    var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
 
             if (xuxu1.Hour >= 6 && xuxu1.Hour <= 17)
             {
@@ -394,6 +411,23 @@ namespace MyWebPlay.Controllers
         public ActionResult SessionPlay_DarkAdmin(IFormCollection f)
         {
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "LockedAll_Web")
+                {
+                    if (info[1] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                }
+            }
 
             var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
 

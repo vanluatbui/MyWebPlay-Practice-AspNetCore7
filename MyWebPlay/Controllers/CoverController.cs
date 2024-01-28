@@ -22,6 +22,14 @@ namespace MyWebPlay.Controllers
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
+                if (info[0] == "LockedAll_Web")
+                {
+                    if (info[1] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                }
+
                 if (info[0] == "Play_EncodeUrl")
                 {
                     if (info[1] == "false")
@@ -47,6 +55,14 @@ namespace MyWebPlay.Controllers
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
+                if (info[0] == "LockedAll_Web")
+                {
+                    if (info[1] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                }
+
                 if (info[0] == "Play_EncodeUrl")
                 {
                     if (info[1] == "false")
@@ -71,6 +87,14 @@ namespace MyWebPlay.Controllers
             for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "LockedAll_Web")
+                {
+                    if (info[1] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                }
 
                 if (info[0] == "Play_EncodeUrl")
                 {

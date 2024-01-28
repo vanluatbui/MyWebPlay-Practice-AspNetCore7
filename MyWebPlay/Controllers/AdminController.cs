@@ -21,8 +21,49 @@ namespace MyWebPlay.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public ActionResult ComeInSetting (string id, string code)
+        public void khoawebsiteAdmin()
         {
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "LockedAll_Web")
+                {
+                    if (info[1] == "true")
+                    {
+                        TempData["tathoatdong"] = "true";
+                    }
+                    else
+                    {
+                        TempData["tathoatdong"] = "false";
+                    }
+
+                }
+            }
+        }
+
+                public ActionResult ComeInSetting (string id, string code)
+              {
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "LockedAll_Web")
+                {
+                    if (info[1] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                }
+            }
             var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
             var nd = System.IO.File.ReadAllText(pth).Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
 
@@ -37,6 +78,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult SettingXYZ_DarkAdmin()
         {
+            khoawebsiteAdmin();
             var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
             var noidung1 = docfile(path1);
             TempData["showIPCome"] = noidung1;
@@ -143,8 +185,49 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
+        public ActionResult UnlockAllWeb(IFormCollection f)
+        {
+            khoawebsiteAdmin();
+
+            Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+            var xuxu = x.AddHours(DateTime.UtcNow, 7);
+
+            if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
+            {
+                TempData["mau_background"] = "white";
+                TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
+                TempData["winx"] = "❤";
+            }
+            else
+            {
+                TempData["mau_background"] = "black";
+                TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
+                TempData["winx"] = "❤";
+            }
+
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            var noidung = System.IO.File.ReadAllText(path);
+
+            var xinh = "false";
+            if (f["LockedAll_Web"] == "on")
+            {
+                xinh = "true";
+            }
+
+            var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            var infoX = listSetting[27].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+            noidung = noidung.Replace(listSetting[27], infoX[0] + "<3275>" + xinh + "<3275>" + infoX[2]);
+            System.IO.File.WriteAllText(path, noidung);
+            
+            return RedirectToAction("SettingXYZ_DarkAdmin");
+        }
+
+        [HttpPost]
         public ActionResult SettingXYZ_DarkAdmin(IFormCollection f)
         {
+            khoawebsiteAdmin();
             var non = TempData["SaveComeHere"];
             TempData["SaveComeHere"] = non;
 
@@ -174,9 +257,13 @@ namespace MyWebPlay.Controllers
             var flag = 0;
             var cometo = "#";
             var dix = 0;
-            for (int i = 0; i < listSetting.Length; i++)
+
+             for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "LockedAll_Web")
+                    continue;
 
                 var baby1 = false;
                 var baby2 = false;
@@ -339,7 +426,22 @@ namespace MyWebPlay.Controllers
 
         public ActionResult TracNghiemOnline_ViewMark()
         {
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "LockedAll_Web")
+                {
+                    if (info[1] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                }
+            }
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
@@ -373,7 +475,22 @@ namespace MyWebPlay.Controllers
 
         public ActionResult EditStudentMark()
         {
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "LockedAll_Web")
+                {
+                    if (info[1] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                }
+            }
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
@@ -427,6 +544,14 @@ namespace MyWebPlay.Controllers
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
+                if (info[0] == "LockedAll_Web")
+                {
+                    if (info[1] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                }
+
                 if (flag == 0 && (info[0] == "Email_Upload_User"
                     || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
                     || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
@@ -468,6 +593,22 @@ namespace MyWebPlay.Controllers
 
         public ActionResult XoaViewMark()
         {
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "LockedAll_Web")
+                {
+                    if (info[1] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                }
+            }
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "TracNghiem_XOnline", "DiemHocSinh.txt");
 
             if (System.IO.File.Exists(path))
@@ -480,6 +621,22 @@ namespace MyWebPlay.Controllers
 
         public ActionResult ReportListIPComeHere() 
         {
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "LockedAll_Web")
+                {
+                    if (info[1] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                }
+            }
             var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
             var noidung1 = docfile(path1);
 
@@ -507,6 +664,22 @@ namespace MyWebPlay.Controllers
 
         public ActionResult DeleteIPComeHere()
         {
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "LockedAll_Web")
+                {
+                    if (info[1] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                }
+            }
             var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
             var noidung1 = docfile(path1);
 
@@ -535,6 +708,14 @@ namespace MyWebPlay.Controllers
             for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "LockedAll_Web")
+                {
+                    if (info[1] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                }
 
                 if (HttpContext.Session.GetString("TuyetDoi") != "true" && info[0] == "OffWebsite_All")
                 {
@@ -638,6 +819,22 @@ namespace MyWebPlay.Controllers
 
         public ActionResult RemoveAllSessionAndTempData()
         {
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "LockedAll_Web")
+                {
+                    if (info[1] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                }
+            }
             HttpContext.Session.Clear();
             TempData.Clear();
             return Redirect("https://stackoverflow.com/questions");
@@ -646,6 +843,22 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult QuickDataInWeb(IFormCollection f)
         {
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "LockedAll_Web")
+                {
+                    if (info[1] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                }
+            }
             HttpContext.Session.Remove("ok-data");
             try
             {
@@ -685,6 +898,14 @@ namespace MyWebPlay.Controllers
             for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "LockedAll_Web")
+                {
+                    if (info[1] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                }
 
                 if (HttpContext.Session.GetString("TuyetDoi") != "true" &&  info[0] == "OffWebsite_All")
                 {
@@ -755,6 +976,22 @@ namespace MyWebPlay.Controllers
 
         public ActionResult RefreshInfoIPRegist()
         {
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "LockedAll_Web")
+                {
+                    if (info[1] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                }
+            }
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/InfoIPRegist.txt");
             System.IO.File.WriteAllText(path, "IP\tDateTime\tInfo");
             return Redirect("/Admin/SettingXYZ_DarkAdmin#labelActive");
@@ -801,6 +1038,22 @@ namespace MyWebPlay.Controllers
 
         public ActionResult RefreshFileHetHan()
         {
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "LockedAll_Web")
+                {
+                    if (info[1] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                }
+            }
             if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Exists == true)
                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Delete(true);
 
@@ -897,6 +1150,7 @@ namespace MyWebPlay.Controllers
 
         public ActionResult SettingStatusUpdate(string type)
         {
+            khoawebsiteAdmin();
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/Setting_Status.txt");
 
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
@@ -905,7 +1159,7 @@ namespace MyWebPlay.Controllers
 
             var noidung = System.IO.File.ReadAllText(path);
 
-            switch (type)
+              switch (type)
             {
                 case "1":
                     System.IO.File.WriteAllText(path, "Tắt hoạt động web site (tất cả, không nhận đơn đăng kí tiếp theo), ngoại trừ mật độ tuyệt đối # " + xuxu);

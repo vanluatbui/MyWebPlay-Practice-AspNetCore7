@@ -79,6 +79,8 @@ namespace MyWebPlay.Controllers
         public ActionResult SettingXYZ_DarkAdmin()
         {
             khoawebsiteAdmin();
+            HttpContext.Session.Remove("mini-web");
+            TempData.Remove("mini-web");
             var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
             var noidung1 = docfile(path1);
             TempData["showIPCome"] = noidung1;
@@ -217,7 +219,7 @@ namespace MyWebPlay.Controllers
 
             var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-            var infoX = listSetting[27].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+            var infoX = listSetting[28].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
             noidung = noidung.Replace(listSetting[27], infoX[0] + "<3275>" + xinh + "<3275>" + infoX[2]);
             System.IO.File.WriteAllText(path, noidung);
             
@@ -228,8 +230,24 @@ namespace MyWebPlay.Controllers
         public ActionResult SettingXYZ_DarkAdmin(IFormCollection f)
         {
             khoawebsiteAdmin();
+            HttpContext.Session.Remove("mini-web");
             var non = TempData["SaveComeHere"];
             TempData["SaveComeHere"] = non;
+
+            var pathXY = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SecurePasswordAdmin.txt");
+            var matpassAd = System.IO.File.ReadAllText(pathXY).Split("\n")[1];
+
+            var passUserEnter = f["txtMatPassAd"].ToString();
+
+            if (passUserEnter != matpassAd)
+            {
+                TempData["loisave"] = "true";
+                return RedirectToAction("SettingXYZ_DarkAdmin");
+            }
+            else
+            {
+                TempData["loisave"] = "false";
+            }
 
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/Setting_Status.txt");
 
@@ -251,6 +269,7 @@ namespace MyWebPlay.Controllers
             }
 
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+
             var noidung = System.IO.File.ReadAllText(path);
 
             var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
@@ -466,7 +485,7 @@ namespace MyWebPlay.Controllers
             if (System.IO.File.Exists(path))
             {
                 ViewBag.Text1 = System.IO.File.ReadAllText(path);
-                ViewBag.Text2 = "<p id=\"preX\" style=\"color:" + TempData["mau_text"] + ";font-size:22px; display:none\">" + ViewBag.Text1.Replace("\n", "<br>") + "</p>";
+                ViewBag.Text2 = "<p id=\"preX\" name=\"colorX\" style=\"color:" + TempData["mau_text"] + ";font-size:22px; display:none\">" + ViewBag.Text1.Replace("\n", "<br>") + "</p>";
                 Calendar x = CultureInfo.InvariantCulture.Calendar;
                 ViewBag.DateTime = x.AddHours(file.LastWriteTimeUtc, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
             }

@@ -184,8 +184,7 @@
 
     function xoaallfile(){
         
-        var check = prompt('Để xác nhận xoá tất cả các file trên Server, admin nhập đúng mật mã : ');
-         if (check != null && check != "")
+        var check = document.getElementById("matkhauadmin").value;
          window.location.href = "/Home/LoginAdmin?password="+check+"&&id=1&&url=UploadFile";
     }
 
@@ -274,7 +273,7 @@
     <br />*@
 <table align="center">
     <h2 style="text-align:center">UPLOAD YOUR FILE - lưu ý nếu thao tác bạn thực hiện đã xảy ra lỗi (mặc dù các thông tin của bạn cung cấp đúng và đầy đủ), tuy nhiên một số trường hợp các file của bạn vẫn có thể upload lên Server thành công bằng một cách kỳ diệu nào đó :)) - vì vậy bạn có thể kiểm tra tồn tại file của bạn đã được đăng tải hoặc thử lại sau :v</h2>
-    
+    <input type="password" id="matkhauadmin" size="30" />
     <button style="color:purple" onclick="xoaallfile()">Xoá tất cả các file và folder trên Server - toàn bộ (dành cho admin)</button>
     <br />
     <br />

@@ -1,11 +1,13 @@
+[Lưu ý : thiết đặt mật khẩu mới (Admin) nên tránh 1 số các kí tự đặc biệt, bị nhầm lẫn với URL và mã hoá với HTML...]
+
 Play : http://localhost:5000/
 
-Setting : http://localhost:5000/Admin/SettingXYZ_DarkAdmin
+1. Setting : http://localhost:5000/Admin/SettingXYZ_DarkAdmin
 
 ID : myadmin
-Value : admin12345#
+Value : admin_3275
 
-Session : http://localhost:5000/Home/SessionPlay_DarkAdmin
+2. Session : http://localhost:5000/Home/SessionPlay_DarkAdmin
 
 Thay đổi mật khẩu vào setting admin (nếu quên) -> trang SessionPlay :
 
@@ -15,7 +17,9 @@ Thay đổi mật khẩu vào setting admin (nếu quên) -> trang SessionPlay :
 
 => Sau đó nhấn button add session C#.
 
-Nếu bạn lỡ cài đặt khoá trang web vĩnh viễn, vào trang error bất kỳ của web :
+3. Nếu bạn lỡ cài đặt khoá trang web vĩnh viễn, vào trang error bất kỳ của web :
+
+[Đảm bảo hãy thực hiện điều 1 ở trên trước]
 
 Nhấn F12 để mở giao diện Dev Tool của trình duyệt, tại console gõ :
 

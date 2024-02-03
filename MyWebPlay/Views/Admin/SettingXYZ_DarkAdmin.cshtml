@@ -78,6 +78,9 @@ input:checked + .slider:before {
     <br />
 
     <script>
+
+        localStorage.removeItem("mini-Web");
+
         // Delete div somee
 
         setInterval(function()
@@ -90,6 +93,36 @@ input:checked + .slider:before {
         $("div[style='height: 65px;']").remove();
     });
         },1);
+
+         function sudungMini()
+         {
+             var n = new Number(document.getElementById("count").value)- 6;
+            for (var i = 0; i < n;i++)
+            {
+                if (document.getElementById("check-"+i).checked == true)
+                {
+                    alert("Vui lòng tắt tất cả các item setting bên dưới để có thể tiếp tục...");
+                    return;
+                }
+            }
+
+            var fr = document.getElementById("frameplay");
+            fr.style.display = "inline-block";
+            fr.src = '/Home/Index';
+            fr.style.width = "100%";
+            fr.style.height = "100%";
+            fr.style.position = "fixed";
+            fr.style.right = "0";
+            fr.style.bottom = "0";
+
+            document.getElementById("caidatchung").style.display = "none";
+            localStorage.setItem("mini-Web", document.getElementById("matpassAd").value);
+         }
+
+        function xoapassAd()
+        {
+            localStorage.removeItem("matpassAd");
+        }
 
         if (window.localStorage.getItem("mokhoa-web") != null)
         {
@@ -117,7 +150,7 @@ input:checked + .slider:before {
             window.location.href="/Home/Error";
         }
 
-        if (localStorage.getItem("setting-status") != null)
+        if ('@TempData["loisave"]' == "false" && localStorage.getItem("setting-status") != null)
         {
             var type = localStorage.getItem("setting-status");
             localStorage.removeItem("setting-status");
@@ -130,9 +163,20 @@ input:checked + .slider:before {
              sang = 1;
          }
 
+         if ('@TempData["loisave"]' == "true")
+         {
+             alert("Đã xảy ra lỗi sau khi xử lý yêu cầu, mời bạn thử lại !");
+         }
+
          var xongmau = 0;
          var iss = setInterval(function(){
+
              if (xongmau == 1) return;
+
+             if (localStorage.getItem("matpassAd") != null)
+             {
+                 document.getElementById("matpassAd").value = localStorage.getItem("matpassAd");
+             }
 
              if (localStorage.getItem("nensangtoi") != null)
              {
@@ -178,6 +222,7 @@ input:checked + .slider:before {
 
         if ((localStorage.getItem('@TempData["key-admin"]') == null || localStorage.getItem('@TempData["key-admin"]') != '@TempData["value-admin"]') /*&& '@TempData["SecureAdmin"]' == "true" */)
         {
+           localStorage.removeItem('@TempData["key-admin"]');
             window.location.href = "/Home/Error";
         }
 
@@ -203,18 +248,29 @@ input:checked + .slider:before {
 
         function xong()
         {
+             if (document.getElementById("luupass").checked == true)
+            {
+                localStorage.setItem("matpassAd", document.getElementById("matpassAd").value);
+            }
+
             localStorage.setItem("setting-status","0");
              document.getElementById("ok").click();
         }
 
-        function saveXY()
+          function saveXY()
         {
+             localStorage.removeItem("matpassAd");
              localStorage.setItem("setting-status","0");
              document.getElementById("ok-X").click();
         }
 
         function saveX(x)
         {
+             if (document.getElementById("luupass").checked == true)
+            {
+                localStorage.setItem("matpassAd", document.getElementById("matpassAd").value);
+            }
+
             localStorage.setItem("setting-status","0");
             if (document.getElementById("chon").options.selectedIndex == 0)
             {
@@ -235,6 +291,11 @@ input:checked + .slider:before {
 
         function chonnhanh()
         {
+             if (document.getElementById("luupass").checked == true)
+            {
+                localStorage.setItem("matpassAd", document.getElementById("matpassAd").value);
+            }
+
             var ch = document.getElementById("chonXY").options.selectedIndex;
 
             if (ch == 0)
@@ -419,6 +480,10 @@ input:checked + .slider:before {
         function chonall()
         {
              localStorage.setItem("setting-status","ON-ALL");
+              if (document.getElementById("luupass").checked == true)
+            {
+                localStorage.setItem("matpassAd", document.getElementById("matpassAd").value);
+            }
             var n = new Number(document.getElementById("count").value)- 6;
             for (var i = 0; i < n;i++)
             {
@@ -430,6 +495,10 @@ input:checked + .slider:before {
         function boall()
         {
             localStorage.setItem("setting-status","OFF-ALL");
+             if (document.getElementById("luupass").checked == true)
+            {
+                localStorage.setItem("matpassAd", document.getElementById("matpassAd").value);
+            }
             var n = new Number(document.getElementById("count").value)- 6;
             for (var i = 0; i < n;i++)
             {
@@ -618,11 +687,19 @@ input:checked + .slider:before {
   <input type="checkbox">
   <span class="slider"></span>
 </label>*@
-
+<button onclick="sudungMini()"><b>Bật sử dụng Mini Web - Admin (load lại trang nếu muốn tắt)</b></button><b style="color:orangered">Chú ý : hãy nhớ load lại trang ngay khi sử dụng xong ✔</b><br />
+<br />
+ <iframe style="display:none" id="frameplay"></iframe>
+<br />
+<br />
+<hr />
+<br />
+<div id="caidatchung">
  @using (Html.BeginForm())
     {
         @Html.ValidationSummary(true)
-
+        <input type="password" name="txtMatPassAd" id="matpassAd" size="30" /><input type="checkbox" id="luupass" onchange="xoapassAd()" />
+        <br />
         <input type="number" id="count" hidden value ="@Model.Topics.Count" />
         <select id="chon">
             <option>Chọn một - lưu lại liền</option>
@@ -632,7 +709,7 @@ input:checked + .slider:before {
          <tr style="height:40px">
             <td></td>
             <td><br>
-                <h2 style="color:deeppink">Cài ĐẶT ADMIN</h2><h2 style="color:goldenrod">Trạng thái lần cuối : @ViewBag.SettingStatus</h2><br />
+                <h2 style="color:deeppink" href="#mini-X">Cài ĐẶT ADMIN</h2><h2 style="color:goldenrod">Trạng thái lần cuối : @ViewBag.SettingStatus</h2><br />
                 <h4><a href="#xuly" onclick="refreshHetHan()" style="color:purple">Refresh hoặc xoá tất cả thư mục và các file hết hạn</a></h4><br>
                 <h4><a href="#xuly" id="#welcome" onclick="chonall()" style="color:green">CHỌN TẤT CẢ</a> | <a href="#xuly" onclick="boall()" style="color:red">BỎ CHỌN TẤT CẢ</a> <br> 
                    <br> <select id="chonXY">
@@ -662,7 +739,7 @@ input:checked + .slider:before {
             <td>
                 @for (int i = 0; i < Model.Topics.Count; i++)
 {
-                    if (i == 27) continue; // Item setting khoá all page web nằm tuốt phía cuối trang
+                    if (i == 28) continue; // Item setting khoá all page web nằm tuốt phía cuối trang
 
                     <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-@i">@Html.Raw(Model.Topics[i].NoiDung)</h3>
  @if(Model.Topics[i].ID != "Password_Admin" && Model.Topics[i].ID != "Believe_IP" && Model.Topics[i].ID != "Code_LockedClient" && Model.Topics[i].ID != "MatDoTuyetDoi" && Model.Topics[i].ID != "Encode_Url")
@@ -1454,29 +1531,31 @@ txtModelCs<br>
     @using (Html.BeginForm("UnlockAllWeb","Admin"))
     {
         @Html.ValidationSummary(true)
-
+        <br />
       <tr style="height:40px">
             <td> </td>
             <td>
     
-                    <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-27">@Html.Raw(Model.Topics[27].NoiDung)</h3>
+                    <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-28">@Html.Raw(Model.Topics[28].NoiDung)</h3>
 
 <label class="switch">
-    @if (Model.Topics[27].Option == false)
+    @if (Model.Topics[28].Option == false)
     {
 
-          <input id="check-27" onchange="saveXY()" name="@Model.Topics[27].ID" type="checkbox" />
+          <input id="check-28" onchange="saveXY()" name="@Model.Topics[28].ID" type="checkbox" />
                                 
      }
             else
             {
                
-                <input id="check-27" onchange="saveXY()" name="@Model.Topics[27].ID" type="checkbox" checked />
+                <input id="check-28" onchange="saveXY()" name="@Model.Topics[28].ID" type="checkbox" checked />
             }
             <span class="slider round"></span>
                         </label>
             </td>
         </tr>
+         <br /><br />
+            <b style="color:yellow">[Cẩn thận] Chỉ cần vô tình một cái gạt bật item setting này lên, toàn bộ website giống như bị tiêu diệt (tệ hơn nếu sau đó bạn đã mất đi dữ liệu quyền admin)...</b>
       
         <tr style="height:40px">
             <td></td>
@@ -1486,6 +1565,8 @@ txtModelCs<br>
         </tr>
     }
     <br />
+    <br/>
+    </div>
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

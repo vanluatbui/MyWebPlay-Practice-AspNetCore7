@@ -26,14 +26,14 @@ namespace MyWebPlay.Controllers
                 {
                     if (info[1] == "true")
                     {
-                        return RedirectToAction("Error");
+                        return RedirectToAction("Error","Home");
                     }
                 }
 
                 if (info[0] == "Play_EncodeUrl")
                 {
                     if (info[1] == "false")
-                        return RedirectToAction("Error");
+                        return RedirectToAction("Error","Home");
                 }
 
                 if (info[0] == "Encode_Url")
@@ -59,14 +59,14 @@ namespace MyWebPlay.Controllers
                 {
                     if (info[1] == "true")
                     {
-                        return RedirectToAction("Error");
+                        return RedirectToAction("Error","Home");
                     }
                 }
 
                 if (info[0] == "Play_EncodeUrl")
                 {
                     if (info[1] == "false")
-                        return RedirectToAction("Error");
+                        return RedirectToAction("Error","Home");
                 }
 
                 if (info[0] == "Encode_Url")
@@ -92,14 +92,14 @@ namespace MyWebPlay.Controllers
                 {
                     if (info[1] == "true")
                     {
-                        return RedirectToAction("Error");
+                        return RedirectToAction("Error","Home");
                     }
                 }
 
                 if (info[0] == "Play_EncodeUrl")
                 {
                     if (info[1] == "false")
-                        return RedirectToAction("Error");
+                        return RedirectToAction("Error","Home");
                 }
 
                 if (info[0] == "Encode_Url")

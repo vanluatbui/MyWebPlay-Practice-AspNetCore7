@@ -331,16 +331,14 @@
         //var urlParams = new URLSearchParams(queryString);
         //var closex = urlParams.get('closex');
 
-        // if ((localStorage.getItem('@TempData["key-admin"]') == null || localStorage.getItem('@TempData["key-admin"]') != '@TempData["value-admin"]') && '@TempData["WebsitePrivate"]' == "true")
-        //{
-        //    var xi = Math.floor(Math.random() * 2 + 1);'@TempData["key-admin"]'
-        //         if (xi == 1)
-        //          window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
-        //         else
-        //           window.location.href = "https://stackoverflow.com/questions";
-        //}
-
         // Delete div somee
+
+        if ('@TempData["mini-web"]' == "" || '@TempData["mini-web"]' == null || '@TempData["mini-web"]' == "false")
+    {
+        if ('@TempData["mini-web"]' == "false")
+        {
+            localStorage.removeItem("mini-Web");
+        }
 
          if ('@TempData["tathetweb"]' == "true")
         {
@@ -394,11 +392,30 @@
             else
             {
                 ok = 1;
+
                 var x = Math.floor(Math.random() * 2 + 1);
                 if (x == 1)
+                {
+                     if (('@TempData["mini-web"]' == "" || '@TempData["mini-web"]' == null ) && localStorage.getItem("mini-Web") != null)
+                    {
+                        var xd = localStorage.getItem("mini-Web");
+                        //localStorage.removeItem("mini-Web");
+                    window.location.href = "/Home/KiemTraMini?test="+xd+"&&url="+'@TempData["urlCurrent"]';
+                     }
+                     else
                  window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
+                }
                  else
+                 {
+                     if (('@TempData["mini-web"]' == "" || '@TempData["mini-web"]' == null ) && localStorage.getItem("mini-Web") != null)
+                    {
+                        var xd = localStorage.getItem("mini-Web");
+                        //localStorage.removeItem("mini-Web");
+                     window.location.href = "/Home/KiemTraMini?test="+xd+"&&url="+'@TempData["urlCurrent"]';
+                     }
+                     else
                    window.location.href = "https://stackoverflow.com/questions";
+                 }
             }
         }
 
@@ -577,6 +594,7 @@
                    ok = 1;
             }
          }
+      }
 
         function muaxuan()
         {
@@ -852,6 +870,27 @@
              }
          }
 
+         function go_full_screen(){
+  var elem = document.documentElement;
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.msRequestFullscreen) {
+    elem.msRequestFullscreen();
+  } else if (elem.mozRequestFullScreen) {
+    elem.mozRequestFullScreen();
+  } else if (elem.webkitRequestFullscreen) {
+    elem.webkitRequestFullscreen();
+  }
+}
+
+    setInterval(function()
+    {
+        if ('@TempData["toanmanhinh"]' == "false")
+        return;
+
+        go_full_screen();
+    },10);
+
         </script>
         @if (TempData["AdminControl"] == "false" && TempData["ClearWebsite"] == "false")
     {
@@ -865,7 +904,7 @@
                     else
                     {
                          {
-                        <button style="color:deeppink" class="navbar-brand" asp-area="" >Chào mừng bạn đến với website miễn phí với các tính năng cơ bản của MyWebPlay 👋👋👋</button>
+                        <button style="color:deeppink" class="navbar-brand" asp-area="">Chào mừng bạn đến với website miễn phí với các tính năng cơ bản của MyWebPlay 👋👋👋</button>
             }
                     }
                     <a href="/Home/Index"><p style="color:orangered">BACK HOME MENU</p></a>

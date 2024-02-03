@@ -60,7 +60,6 @@
     
        document.getElementById("ketqua").value = sessionStorage.getItem(session);
         
-        alert("Xử lý thành công!")
 
         window.location.href="#ketqua";
     }
@@ -70,8 +69,6 @@
          var session = document.getElementById("session").value;
     
        document.getElementById("ketqua").value = localStorage.getItem(session);
-        
-        alert("Xử lý thành công!")
 
         window.location.href="#ketqua";
     }
@@ -86,8 +83,8 @@
     function docsessionC()
     {
        document.getElementById("chon").value = 2;
+        alert("Xử lý thành công, mời bạn tự trượt phía dưới để xem thử kết quả !")
        document.getElementById("ok").click();
-       alert("Xử lý thành công!")
     }
 
     function xoasessionJS()

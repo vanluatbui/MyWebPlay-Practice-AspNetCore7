@@ -81,8 +81,35 @@ namespace MyWebPlay.Controllers
             return View();
         }
 
+        public ActionResult KiemTraMini (string? test, string? url)
+        {
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SecurePasswordAdmin.txt");
+            var mini = System.IO.File.ReadAllText(pathX).Split("\n")[1];
+
+            if (mini == test)
+            {
+                TempData["mini-web"] = "true";
+                HttpContext.Session.SetString("mini-web", "true");
+            }
+            else
+            {
+                TempData["mini-web"] = "false";
+                HttpContext.Session.Remove("mini-web");
+            }
+
+            if (url == null || url == "" || url == "/")
+                url = "Index";
+
+            return RedirectToAction(url);
+        }
+
         public void khoawebsiteClient(List<string> listIP)
         {
+            if (HttpContext.Session.GetString("mini-web") == "true")
+            {
+                TempData["mini-web"] = "true";
+            }
+
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
@@ -132,6 +159,18 @@ namespace MyWebPlay.Controllers
                     else
                     {
                         TempData["BlockRegistUsing"] = "false";
+                    }
+                }
+
+                if (info[0] == "FullScreen_Web")
+                {
+                    if (info[1] == "true")
+                    {
+                        TempData["toanmanhinh"] = "true";
+                    }
+                    else
+                    {
+                        TempData["toanmanhinh"] = "false";
                     }
                 }
 

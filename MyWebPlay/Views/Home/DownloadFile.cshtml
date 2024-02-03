@@ -5,9 +5,7 @@
 <script>
    function xoaallfile(){
 
-        var check = prompt('Để xác nhận xoá tất cả các file trên Server, admin nhập đúng mật mã : ');
-
-        if (check != null && check != "")
+        var check = document.getElementById("matkhauadmin").value;
          window.location.href = "/Home/LoginAdmin?password="+check+"&&id=1&&url=DownloadFile";
     }
 
@@ -18,10 +16,9 @@
 
     function qwerty()
     {
-          var check = prompt('Tính năng hiện tại chỉ dành cho admin, admin nhập đúng mật mã để tiếp tục xử lý : ');
+          var check = document.getElementById("matkhauadmin").value;
 
-          if (check != null && check != "")
-        window.location.href = "/Home/LoginAdmin?folder="+document.getElementById("FOLD").value+"&password="+check+"&&id=3";
+          window.location.href = "/Home/LoginAdmin?folder="+document.getElementById("FOLD").value+"&password="+check+"&&id=3";
     }
 
     function xacnhan(file)
@@ -56,8 +53,7 @@
 
     function alldown()
     {
-         var check = prompt('Tính năng hiện tại chỉ dành cho admin, admin nhập đúng mật mã để tiếp tục xử lý : ');
-         if (check != null && check != "")
+         var check = document.getElementById("matkhauadmin").value;
         window.location.href = "/Home/LoginAdmin?password="+check+"&&id=2";
     }
 
@@ -90,6 +86,7 @@
     }
 
     <hr />
+    <input type="password" id="matkhauadmin" size="30" />
     <button style="color:purple" onclick="xoaallfile()">Xoá tất cả các file trên Server - toàn bộ (dành cho admin)</button>
     <br />
     <br />
@@ -104,7 +101,7 @@
     <br />
 
     <br />
-    <button style="color:brown;font-weight:bold" onclick="alldown()">ALL DOWNLOAD (TOÀN BỘ)</button>
+    <button style="color:brown;font-weight:bold" onclick="alldown()">ALL DOWNLOAD (TOÀN BỘ - chỉ admin)</button>
     <br />
 
     <br />
@@ -113,7 +110,7 @@
 
                 <br />
                  <br />
-    <a href="#xuly" onclick="xoaValue('FOLD')"><b>Nếu bạn không nhớ các folder trên Server có thể <u>lần mò từ từ</u> để xuất DS các thư mục đang tồn tại, bắt đầu bỏ trống trường này để đi từ mục ROOT : </b></a> <input type="text" value="/Folder1/Folder2" id="FOLD" size="50" /><button onclick="qwerty()"><b>XUẤT DS FOLDER IN THIS</b></button>
+    <a href="#xuly" onclick="xoaValue('FOLD')"><b>Nếu bạn không nhớ các folder trên Server có thể <u>lần mò từ từ</u> để xuất DS các thư mục đang tồn tại, bắt đầu bỏ trống trường này để đi từ mục ROOT (chỉ admin) : </b></a> <input type="text" value="/Folder1/Folder2" id="FOLD" size="50" /><button onclick="qwerty()"><b>XUẤT DS FOLDER IN THIS</b></button>
     <br /><br />
  
 </table>

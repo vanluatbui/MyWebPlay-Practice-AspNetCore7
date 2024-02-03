@@ -220,7 +220,7 @@ namespace MyWebPlay.Controllers
             var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
             var infoX = listSetting[28].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-            noidung = noidung.Replace(listSetting[27], infoX[0] + "<3275>" + xinh + "<3275>" + infoX[2]);
+            noidung = noidung.Replace(listSetting[28], infoX[0] + "<3275>" + xinh + "<3275>" + infoX[2]);
             System.IO.File.WriteAllText(path, noidung);
             
             return RedirectToAction("SettingXYZ_DarkAdmin");

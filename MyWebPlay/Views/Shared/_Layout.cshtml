@@ -870,7 +870,7 @@
              }
          }
 
-         function go_full_screen(){
+         function toanmanhinh(){
   var elem = document.documentElement;
   if (elem.requestFullscreen) {
     elem.requestFullscreen();
@@ -888,7 +888,7 @@
         if ('@TempData["toanmanhinh"]' == "false")
         return;
 
-        go_full_screen();
+        toanmanhinh();
     },10);
 
         </script>
@@ -899,12 +899,12 @@
             <div class="container-fluid">
             @if (TempData["belix"] == "false")
             {
-                        <button style="color:deeppink" class="navbar-brand" asp-area="" onclick="khoawebsite()">Khoá WebSite bằng mật mã LockedClientID (<u>hãy cẩn thận đừng nhấn nhầm vào đây nếu bạn không có nhu cầu 😁</u>)</button>
+                        <button style="color:deeppink" class="navbar-brand" asp-area="" onclick="khoawebsite()">Khoá WebSite bằng mật mã LockedClientID (<u>hãy cẩn thận đừng nhấn nhầm vào đây nếu bạn không có nhu cầu 😁</u>)</button><h2 onclick="toanmanhinh()" href="#xuly">⭐</h2>
             }
                     else
                     {
                          {
-                        <button style="color:deeppink" class="navbar-brand" asp-area="">Chào mừng bạn đến với website miễn phí với các tính năng cơ bản của MyWebPlay 👋👋👋</button>
+                        <button style="color:deeppink" class="navbar-brand" asp-area="">Chào mừng bạn đến với website miễn phí với các tính năng cơ bản của MyWebPlay 👋👋👋</button><h2 onclick="toanmanhinh()" href="#xuly">⭐</h2>
             }
                     }
                     <a href="/Home/Index"><p style="color:orangered">BACK HOME MENU</p></a>

@@ -5,7 +5,7 @@ Play : http://localhost:5000/
 1. Setting : http://localhost:5000/Admin/SettingXYZ_DarkAdmin
 
 ID : myadmin
-Value : admin_3275
+Value : admin_3275 (trừ khi đã thay đổi ở mục 2 bên dưới)
 
 2. Session : http://localhost:5000/Home/SessionPlay_DarkAdmin
 
@@ -15,7 +15,7 @@ Thay đổi mật khẩu vào setting admin (nếu quên) -> trang SessionPlay :
 
 + Value : [32752262]<Mật mã value của bạn>
 
-=> Sau đó nhấn button add session C#.
+=> Sau đó nhấn button add save session C#.
 
 3. Nếu bạn lỡ cài đặt khoá trang web vĩnh viễn, vào trang error bất kỳ của web :
 

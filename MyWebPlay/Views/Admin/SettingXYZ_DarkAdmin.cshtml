@@ -81,6 +81,13 @@ input:checked + .slider:before {
 
         localStorage.removeItem("mini-Web");
 
+        var checkme = 0;
+
+        if ('@TempData["check-me"]' == "true")
+        {
+            checkme = 1;
+        }
+
         // Delete div somee
 
         setInterval(function()
@@ -96,6 +103,12 @@ input:checked + .slider:before {
 
          function sudungMini()
          {
+             if (checkme == 0)
+             {
+                 alert("Trước tiên, hãy kiểm tra và cấp quyền sử dụng web mini admin.\nNếu sau đó vẫn chưa được, tức là bạn đã thực hiện không thành công thì bạn phải thử lại sau...");
+                 return;
+             }
+
              var n = new Number(document.getElementById("count").value)- 6;
             for (var i = 0; i < n;i++)
             {
@@ -108,7 +121,7 @@ input:checked + .slider:before {
 
             var fr = document.getElementById("frameplay");
             fr.style.display = "inline-block";
-            fr.src = '/Home/Index';
+            fr.src = document.getElementById("urlPlay").value;
             fr.style.width = "100%";
             fr.style.height = "100%";
             fr.style.position = "fixed";
@@ -681,13 +694,18 @@ input:checked + .slider:before {
              window.location.href = "/Home/ResetJPReplace";
         }
 
+        function checkmeMiniWeb()
+        {
+            window.location.href= "/Admin/CheckMeMiniWeb?code="+document.getElementById("matpassAd").value;
+        }
+
      </script>
 
 @*<label class="switch">
   <input type="checkbox">
   <span class="slider"></span>
 </label>*@
-<button onclick="sudungMini()"><b>Bật sử dụng Mini Web - Admin (load lại trang nếu muốn tắt)</b></button><b style="color:orangered">Chú ý : hãy nhớ load lại trang ngay khi sử dụng xong ✔</b><br />
+<a href="#xuly" style="color:seagreen" onclick="checkmeMiniWeb()">Hãy kiểm tra tôi? (cấp quyền sử dụng mini web)</a>&nbsp;<input id="urlPlay" size="30" value="/Home/Index" /><button onclick="sudungMini()"><b>Bật sử dụng Mini Web - Admin (load lại trang nếu muốn tắt)</b></button><b style="color:orangered">Chú ý : hãy nhớ load lại trang ngay khi sử dụng xong ✔</b><br />
 <br />
  <iframe style="display:none" id="frameplay"></iframe>
 <br />

@@ -1245,5 +1245,22 @@ namespace MyWebPlay.Controllers
             }
             return RedirectToAction("SettingXYZ_DarkAdmin");
         }
+
+        public ActionResult CheckMeMiniWeb(string? code)
+        {
+            var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+            var pass = System.IO.File.ReadAllText(pth).Split("\r\n", StringSplitOptions.RemoveEmptyEntries)[1];
+
+            if (pass == code)
+            {
+                TempData["check-me"] = "true";
+            }
+            else
+            {
+                TempData.Remove("check-me");
+            }
+
+            return RedirectToAction("SettingXYZ_DarkAdmin");
+        }
     }
 }

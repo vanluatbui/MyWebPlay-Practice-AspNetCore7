@@ -137,7 +137,7 @@ namespace MyWebPlay.Controllers
                     {
                         if (infox[1] == "true")
                         {
-                            SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+                            SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath,"mywebplay.savefile@gmail.com",
                         "mywebplay.savefile@gmail.com", host + " [THONG BAO ADMIN] Play On Web In Client Local  In " + name, message, "teinnkatajeqerfl");
                         }
                         break;
@@ -239,7 +239,7 @@ namespace MyWebPlay.Controllers
                     email = "mywebplay.savefile@gmail.com";
                 }
 
-                SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+                SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath,"mywebplay.savefile@gmail.com",
    email, host + " ~1 Quick Send Text Mail By Url To Save In " + name, message, "teinnkatajeqerfl");
             }
             catch(Exception ex) 
@@ -251,7 +251,7 @@ namespace MyWebPlay.Controllers
                 if (email != "mywebplay.savefile@gmail.com")
                 {
                     var err = (loi == 0) ? " - SUCCESS # "+email : " - ERROR # "+email;
-                    SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath,"mywebplay.savefile@gmail.com",
                     "mywebplay.savefile@gmail.com", host + " [~1 THONG BAO ADMIN" + err + "] Quick Send Text Mail By Url To Save In " + name, message, "teinnkatajeqerfl");
                 }
             }
@@ -310,7 +310,7 @@ namespace MyWebPlay.Controllers
                     email = "mywebplay.savefile@gmail.com";
                 }
 
-                SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+                SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath,"mywebplay.savefile@gmail.com",
    email, host + " ~2 Quick Send Text Mail By Url To Save In " + name, message, "teinnkatajeqerfl");
             }
             catch (Exception ex)
@@ -322,7 +322,7 @@ namespace MyWebPlay.Controllers
                 if (email != "mywebplay.savefile@gmail.com")
                 {
                     var err = (loi == 0) ? " - SUCCESS # " + email : " - ERROR # " + email;
-                    SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath,"mywebplay.savefile@gmail.com",
                     "mywebplay.savefile@gmail.com", host + " [~2 THONG BAO ADMIN" + err + "] Quick Send Text Mail By Url To Save In " + name, message, "teinnkatajeqerfl");
                 }
             }
@@ -601,7 +601,7 @@ namespace MyWebPlay.Controllers
                 var loi = 0;
                 try
                 {
-                    SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath,"mywebplay.savefile@gmail.com",
        email, host + " ~3 Quick Send Text Mail By Url To Save In " + name, message, "teinnkatajeqerfl");
                 }
                 catch (Exception ex)
@@ -613,7 +613,7 @@ namespace MyWebPlay.Controllers
                     if (email != "mywebplay.savefile@gmail.com")
                     {
                         var err = (loi == 0) ? " - SUCCESS # " + email : " - ERROR # " + email;
-                        SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+                        SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath,"mywebplay.savefile@gmail.com",
                         "mywebplay.savefile@gmail.com", host + " [~3 THONG BAO ADMIN" + err + "] Quick Send Text Mail By Url To Save In " + name, message, "teinnkatajeqerfl");
                     }
                 }

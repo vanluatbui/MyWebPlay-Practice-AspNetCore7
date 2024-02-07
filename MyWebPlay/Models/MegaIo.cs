@@ -8,15 +8,32 @@ namespace MyWebPlay.Models
 {
     public static class MegaIo
     {
-        public static async Task UploadFile(List<IFormFile> listFile)
+        public static async Task UploadFile(string rootPth, List<IFormFile> listFile)
         {
+            var email = "mywebplay.savefile@gmail.com";
+            var password = "vanluat12345#";
+
+            var path = Path.Combine(rootPth, "Admin/SettingABC_DarkBVL.txt");
+            var noidung = System.IO.File.ReadAllText(path);
+
+            var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            var infoX = listSetting[35].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+            if (infoX[3] != "[NULL]")
+            {
+                var info = infoX[3].Split("<5828>", StringSplitOptions.RemoveEmptyEntries);
+                email = info[0];
+                password = info[1];
+            }
+
             using var memoryStream = new MemoryStream();
             var megaClient = new MegaApiClient();
 
             foreach (var file in listFile)
             {
                 await file.CopyToAsync(memoryStream);
-                await megaClient.LoginAsync("mywebplay.savefile@gmail.com", "vanluat12345#");
+                await megaClient.LoginAsync(email, password);
                 IEnumerable<INode> nodes = await megaClient.GetNodesAsync();
                 var root = nodes.First(x => x.Type == NodeType.Directory && x.Name == "SAVE FILE - MY WEB PLAY");
 

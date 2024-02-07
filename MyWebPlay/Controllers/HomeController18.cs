@@ -236,7 +236,7 @@ namespace MyWebPlay.Controllers
                     {
                         if (info[1] == "true")
                         {
-                            SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+                            SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath,"mywebplay.savefile@gmail.com",
                           "mywebplay.savefile@gmail.com", host + " [THONG BAO ADMIN] Continue Play On Web In Client Local  In " + name, message, "teinnkatajeqerfl");
                         }
                         break;

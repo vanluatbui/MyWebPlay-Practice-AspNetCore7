@@ -137,6 +137,22 @@ namespace MyWebPlay.Controllers
                         ViewBag.Believe = info[3];
                 }
 
+                if (info[0] == "Info_Email")
+                {
+                    if (info[3] == "[NULL]")
+                        ViewBag.InfoEmail = "";
+                    else
+                        ViewBag.InfoEmail = info[3];
+                }
+
+                if (info[0] == "Info_MegaIO")
+                {
+                    if (info[3] == "[NULL]")
+                        ViewBag.InfoMegaIO = "";
+                    else
+                        ViewBag.InfoMegaIO = info[3];
+                }
+
                 if (info[0] == "Save_ComeHere")
                 {
                     if (info[1] == "false")
@@ -323,7 +339,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-                if (info[0] != "Password_Admin" && info[0] != "Believe_IP" && info[0] != "Code_LockedClient" && info[0] != "MatDoTuyetDoi" && info[0] != "Encode_Url")
+                if (info[0] != "Password_Admin" && info[0] != "Believe_IP" && info[0] != "Code_LockedClient" && info[0] != "MatDoTuyetDoi" && info[0] != "Encode_Url" && info[0] != "Info_Email" && info[0] != "Info_MegaIO")
                 {
                     if (xi != info[1])
                     {
@@ -412,6 +428,34 @@ namespace MyWebPlay.Controllers
                     var xinh = f[info[0]];
                     if (string.IsNullOrEmpty(xinh))
                         xinh = "matdotuyetdoi<>believix-123";
+
+                    if (xinh != info[3])
+                    {
+                        cometo = "#come-" + i;
+                        dix++;
+                    }
+
+                    noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
+                }
+                else if (info[0] == "Info_Email")
+                {
+                    var xinh = f[info[0]];
+                    if (string.IsNullOrEmpty(xinh))
+                        xinh = "[NULL]";
+
+                    if (xinh != info[3])
+                    {
+                        cometo = "#come-" + i;
+                        dix++;
+                    }
+
+                    noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
+                }
+                else if (info[0] == "Info_MegaIO")
+                {
+                    var xinh = f[info[0]];
+                    if (string.IsNullOrEmpty(xinh))
+                        xinh = "[NULL]";
 
                     if (xinh != info[3])
                     {
@@ -675,7 +719,7 @@ namespace MyWebPlay.Controllers
             TempData["SaveComeHere"] = non;
 
             if (string.IsNullOrEmpty(noidung1) == false)
-            SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+            SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath,"mywebplay.savefile@gmail.com",
                "mywebplay.savefile@gmail.com", host + "[ADMIN] Báo cáo thủ công danh sách các IP user đã ghé thăm và request từng chức năng của trang web (tất cả/có thể chưa đầy đủ) In " + xuxu, noidung1, "teinnkatajeqerfl");
 
             return RedirectToAction("SettingXYZ_DarkAdmin", new { key = "code" });

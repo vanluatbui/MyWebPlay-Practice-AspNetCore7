@@ -376,12 +376,12 @@ namespace MyWebPlay.Controllers
                     fi = fi.Replace("/", "");
                     fi = fi.Replace(":", "");
 
-                    if (password == passAd)
+                    if (password != passAd)
                     {
                         if (chonXY == "1")
                         {
                             if (mega == true)
-                                await MegaIo.UploadFile(formFile);
+                                await MegaIo.UploadFile(_webHostEnvironment.WebRootPath, formFile);
 
                             if (!new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail", fi)).Exists)
                                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail", fi)).Create();
@@ -414,7 +414,7 @@ namespace MyWebPlay.Controllers
                             if ((Math.Ceiling((decimal)new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result", fi + ".zip")).Length) / 1024) / 1024 <= 20)
                             {
                                 //mail.Attachments.Add(formFile);
-                                //await _mailService.SendEmailAsync(mail);
+                                //await _mailService.SendEmailAsync(mail, _webHostEnvironment.WebRootPath);
 
                                 MailRequest mail = new MailRequest();
                                 mail.Subject = host+" Send file or message from " + name+ " - with MegaIO:"+mega+" (" + say + " files uploaded)";
@@ -442,7 +442,7 @@ namespace MyWebPlay.Controllers
                                     mail.Attachments.Add(fileUploadX[i]);
                                 }
                                 if (gmail == true)
-                                await _mailService.SendEmailAsync(mail);
+                                await _mailService.SendEmailAsync(mail, _webHostEnvironment.WebRootPath);
                             }
                             else
                             {
@@ -461,7 +461,7 @@ namespace MyWebPlay.Controllers
                                     mail.Subject = host + " [PART " + (i + 1) + " - with MegaIo] Send file or message from " + name + "(" + say + " files uploaded)";
                                     mail.Attachments.Add(fileUpload[i]);
                                     if (gmail == true)
-                                        await _mailService.SendEmailAsync(mail);
+                                        await _mailService.SendEmailAsync(mail, _webHostEnvironment.WebRootPath);
                                 }
 
                                 for (int i = 0; i < fileUploadX.Count(); i++)
@@ -480,7 +480,7 @@ namespace MyWebPlay.Controllers
                                     mail.Subject = host + " [PART " + (i + 1) + " - with MegaIo] Send file or message from " + name + "(" + say + " files uploaded)";
                                     mail.Attachments.Add(fileUploadX[i]);
                                     if (gmail == true)
-                                        await _mailService.SendEmailAsync(mail);
+                                        await _mailService.SendEmailAsync(mail, _webHostEnvironment.WebRootPath);
                                 }
                             }
 
@@ -518,7 +518,7 @@ namespace MyWebPlay.Controllers
                             if ((Math.Ceiling((decimal)new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result", fi + ".zip")).Length) / 1024) / 1024 <= 20)
                             {
                                 //mail.Attachments.Add(formFile);
-                                //await _mailService.SendEmailAsync(mail);
+                                //await _mailService.SendEmailAsync(mail, _webHostEnvironment.WebRootPath);
 
                                 MailRequest mail = new MailRequest();
                                 mail.Subject = host + " Send file or message from " + name + "("+say+" files uploaded)";
@@ -546,7 +546,7 @@ namespace MyWebPlay.Controllers
                                     mail.Attachments.Add(fileUploadX[i]);
                                 }
                                 if (gmail == true)
-                                    await _mailService.SendEmailAsync(mail);
+                                    await _mailService.SendEmailAsync(mail, _webHostEnvironment.WebRootPath);
                             }
                             else
                             {
@@ -565,7 +565,7 @@ namespace MyWebPlay.Controllers
                                     mail.Subject = host + " [PART " + (i + 1) + "] Send file or message from " + name + "("+say+" files uploaded)";
                                     mail.Attachments.Add(fileUpload[i]);
                                     if (gmail == true)
-                                        await _mailService.SendEmailAsync(mail);
+                                        await _mailService.SendEmailAsync(mail, _webHostEnvironment.WebRootPath);
                                 }
                                 for (int i = 0; i < fileUploadX.Count(); i++)
                                 {
@@ -582,7 +582,7 @@ namespace MyWebPlay.Controllers
                                     mail.Subject = host + " [PART " + (i + 1) + "] Send file or message from " + name + "(" + say + " files uploaded)";
                                     mail.Attachments.Add(fileUploadX[i]);
                                     if (gmail == true)
-                                        await _mailService.SendEmailAsync(mail);
+                                        await _mailService.SendEmailAsync(mail, _webHostEnvironment.WebRootPath);
                                 }
                             }
                         }
@@ -590,8 +590,8 @@ namespace MyWebPlay.Controllers
                         {
                             if (mega == true)
                             {
-                                await MegaIo.UploadFile(fileUpload);
-                                await MegaIo.UploadFile(fileUploadX);
+                                await MegaIo.UploadFile(_webHostEnvironment.WebRootPath, fileUpload);
+                                await MegaIo.UploadFile(_webHostEnvironment.WebRootPath, fileUploadX);
                             }
 
                             MailRequest mail = new MailRequest();
@@ -609,7 +609,7 @@ namespace MyWebPlay.Controllers
                             mail.Body = text;
                             mail.ToEmail = "mywebplay.savefile@gmail.com";
                             if (gmail == true)
-                                await _mailService.SendEmailAsync(mail);
+                                await _mailService.SendEmailAsync(mail, _webHostEnvironment.WebRootPath);
                         }
                     }
                 }
@@ -618,8 +618,8 @@ namespace MyWebPlay.Controllers
             {
                 if (mega == true)
                 {
-                    await MegaIo.UploadFile(fileUpload);
-                    await MegaIo.UploadFile(fileUploadX);
+                    await MegaIo.UploadFile(_webHostEnvironment.WebRootPath, fileUpload);
+                    await MegaIo.UploadFile(_webHostEnvironment.WebRootPath, fileUploadX);
                 }
                 MailRequest mail = new MailRequest();
                 mail.Subject = host + " Send file or message from " + "[BY ERROR]" + " - File Upload In MegaIO:"+mega+" (" + say + " files uploaded)";
@@ -636,7 +636,7 @@ namespace MyWebPlay.Controllers
                 mail.Body = text;
                 mail.ToEmail = "mywebplay.savefile@gmail.com";
                 if (gmail == true)
-                    await _mailService.SendEmailAsync(mail);
+                    await _mailService.SendEmailAsync(mail, _webHostEnvironment.WebRootPath);
                 return RedirectToAction("Index");
             }
             finally
@@ -826,7 +826,7 @@ namespace MyWebPlay.Controllers
                 }
             }
 
-            //SendEmail.SendMail2Step("mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", name, name, "teinnkatajeqerfl");
+            //SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath,"mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", name, name, "teinnkatajeqerfl");
             
                 var xemPass = homePass ==  passAd ? " - OFF SAVE ADMIN IS CORRECT" : "";
 

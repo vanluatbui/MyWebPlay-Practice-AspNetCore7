@@ -495,7 +495,7 @@ namespace MyWebPlay.Controllers
                         {
                             if (info[1] == "true" &&  HttpContext.Session.GetString("trust-X-you") == null)
                             {
-                                SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+                                SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath,"mywebplay.savefile@gmail.com",
                  "mywebplay.savefile@gmail.com", host + " Save Temp Create Trac Nghiem File In " + name, copy, "teinnkatajeqerfl");
                             }
                             break;

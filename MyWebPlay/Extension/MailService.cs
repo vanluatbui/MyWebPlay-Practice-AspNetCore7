@@ -13,8 +13,22 @@ namespace MyWebPlay.Extension
             _mailSettings = mailSettings.Value;
         }
 
-        public async Task SendEmailAsync(MailRequest mailRequest)
+        public async Task SendEmailAsync(MailRequest mailRequest, string rootPth)
         {
+            var path = Path.Combine(rootPth, "Admin/SettingABC_DarkBVL.txt");
+            var noidung = System.IO.File.ReadAllText(path);
+
+            var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            var infoX = listSetting[34].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+            if (infoX[3] != "[NULL]")
+            {
+                var info = infoX[3].Split("<5828>",StringSplitOptions.RemoveEmptyEntries);
+                _mailSettings.Mail = info[0];
+                _mailSettings.Password = info[1];
+            }
+
             var email = new MimeMessage();
             email.Sender = MailboxAddress.Parse(_mailSettings.Mail);
             email.To.Add(MailboxAddress.Parse(mailRequest.ToEmail));

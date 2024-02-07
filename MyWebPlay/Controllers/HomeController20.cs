@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyWebPlay.Model;
 using System.Net;
+using System.Text.RegularExpressions;
 
 namespace MyWebPlay.Controllers
 {
     public partial class HomeController : Controller
     {
-
         // Check link url exist and respone OK?
 
         public bool UrlIsValid(string url)

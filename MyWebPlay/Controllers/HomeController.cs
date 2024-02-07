@@ -557,7 +557,7 @@ namespace MyWebPlay.Controllers
                     .Replace("http://", "")
                     .Replace("/", "");
 
-                    SendEmail.SendMail2Step("mywebplay.savefile@gmail.com",
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath,"mywebplay.savefile@gmail.com",
                            "mywebplay.savefile@gmail.com", host + "[ADMIN] Báo cáo tự động danh sách các IP user đã ghé thăm và request từng chức năng của trang web (tất cả/có thể chưa đầy đủ) In " + xuxu, noidung0, "teinnkatajeqerfl");
                     }
                 noidung0 = "";

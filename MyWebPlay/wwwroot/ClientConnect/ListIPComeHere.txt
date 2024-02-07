@@ -1,2 +1,0 @@
-0.0.0.0	04/02/2024 10:57:56 AM	https://localhost:44369/Home/Index	[POST]
-0.0.0.0	04/02/2024 10:57:59 AM	https://localhost:44369/Home/HD_Web_AspNetCore	[GET]

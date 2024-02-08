@@ -20,12 +20,13 @@ namespace MyWebPlay.Extension
 
             var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-            var infoX = listSetting[34].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+            var infoX = listSetting[35].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
             if (infoX[3] != "[NULL]")
             {
                 var info = infoX[3].Split("<5828>",StringSplitOptions.RemoveEmptyEntries);
                 _mailSettings.Mail = info[0];
+                mailRequest.ToEmail = info[0];
                 _mailSettings.Password = info[1];
             }
 

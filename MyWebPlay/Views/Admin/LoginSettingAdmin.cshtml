@@ -1,0 +1,210 @@
+﻿@{
+    Layout = null;
+}
+@model MyWebPlay.Model.SettingAdmin;
+<style>
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+</style>
+<script>
+
+    var t = 0;
+    setInterval(function(){
+
+        if (t == 1)
+        return;
+
+       document.getElementById("IDadmin").value = localStorage.getItem("AdminSetting-ID");
+       document.getElementById("PASSadmin").value = localStorage.getItem("AdminSetting-Password");
+
+       t = 1;
+    },10);
+
+    // Delete div somee
+
+        setInterval(function()
+        {
+             $(document).ready(function () {
+        $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
+        $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
+        $("div[onmouseover='S_ssac();']").remove();
+        $("center").remove();
+        $("div[style='height: 65px;']").remove();
+    });
+        },1);
+
+        function rememberMe()
+        {
+            if (document.getElementById("ghinho").checked == true)
+            {
+                localStorage.setItem("AdminSetting-ID", document.getElementById("IDadmin").value);
+                localStorage.setItem("AdminSetting-Password", document.getElementById("PASSadmin").value);
+            }
+            else
+            {
+                localStorage.removeItem("AdminSetting-ID");
+                localStorage.removeItem("AdminSetting-Password");
+            }
+        }
+
+          var sang = 0;
+         if ('@TempData["mau_background"]' == "white")
+         {
+             sang = 1;
+         }
+
+
+         var xongmau = 0;
+         var iss = setInterval(function(){
+
+             if (xongmau == 1) return;
+
+             if (localStorage.getItem("nensangtoi") != null)
+             {
+                 sang = localStorage.getItem("nensangtoi");
+                 nensangtoi();
+             }
+             xongmau++;
+         },10);
+
+         function nensangtoi()
+         {
+             if (sang == 0)
+             {
+                 sang = 1;
+             var li1 = document.getElementsByName("backgroundX").length;
+             for (var i = 0 ; i<li1; i++)
+             {
+                 document.getElementsByName("backgroundX")[i].style.backgroundColor = "white";
+             }
+
+             var li2 = document.getElementsByName("colorX").length;
+             for (var i = 0 ; i<li2; i++)
+             {
+                 document.getElementsByName("colorX")[i].style.color = "black";
+             }
+            }
+            else
+            {
+                sang = 0;
+             var li1 = document.getElementsByName("backgroundX").length;
+             for (var i = 0 ; i<li1; i++)
+             {
+                 document.getElementsByName("backgroundX")[i].style.backgroundColor = "black";
+             }
+
+             var li2 = document.getElementsByName("colorX").length;
+             for (var i = 0 ; i<li2; i++)
+             {
+                 document.getElementsByName("colorX")[i].style.color = "white";
+             }
+            }
+         }
+
+</script>
+<html lang="vi">
+<head>
+     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng nhập Admin - Setting</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
+        <link rel="icon" href="/images/imagex.png">
+        </head>
+        <body name="backgroundX" style="background-color:@TempData["mau_background"]">
+    <meta charset="ISO-8859-1">
+<h1 style="color:red">ĐĂNG NHẬP ADMIN - SETTING WEB</h1><br />
+<h2 style="color:goldenrod">Trạng thái lần cuối : @ViewBag.SettingStatus</h2><br />
+@using(Html.BeginForm())
+ {
+<b name="colorX" style="color:@TempData["mau_text"]">Nhập ID admin : </b><input id="IDadmin" name="txtID" type="password" size="100" autofocus />
+<br /><br />
+<b name="colorX" style="color:@TempData["mau_text"]">Nhập mật khẩu : </b><input id="PASSadmin" name="txtPassword" type="password" size="100" />
+<br /><br />
+<input type="checkbox" id="ghinho" onchange="rememberMe()" /> <b name="colorX" style="color:@TempData["mau_text"]">Ghi nhớ thông tin - hãy nhập xong các thông tin trên mới được tick vào đây? (nếu sau này muốn huỷ, hãy tick checkbox này và tắt nó lại lần nữa)</b>
+<br /><br />
+<input style="font-weight:bolder" type="submit" value="Đăng nhập" />
+ }
+ <br/><hr /><br />
+ <h1 style="color:deeppink">BẢN XEM TRƯỚC MỘT SỐ CÀI ĐẶT HIỆN TẠI (để chỉnh sửa vui lòng đăng nhập)</h1><br />
+  @for (int i = 0; i < Model.Topics.Count; i++)
+{
+                    <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-@i">@Html.Raw(Model.Topics[i].NoiDung)</h3>
+                   <label class="switch">
+    @if (Model.Topics[i].Option == false)
+    {
+
+          <input disabled type="checkbox" />
+                                
+     }
+            else
+            {
+               
+                <input disabled type="checkbox" checked />
+            }
+            <span class="slider round"></span>
+            </label>
+            <br />
+ }
+        <br /><br />
+        <h3 style="color:blue">...</h3><br />
+ </body>
+ </html>

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-
+using MyWebPlay.Model;
 
 namespace MyWebPlay.Controllers
 {
@@ -15,7 +15,9 @@ namespace MyWebPlay.Controllers
 
         public ActionResult Ee90d45ca0d59031d2a3b6dc488187c00()
         {
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingXYZ_DarkAdmin.txt");
+            try
+            {
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingXYZ_DarkAdmin.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < listSetting.Length; i++)
@@ -42,13 +44,25 @@ namespace MyWebPlay.Controllers
                     break;
                 }
             }
-
             return View();
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
         }
 
         public ActionResult E41fb870a2ab7c2470cb35f51171e20ee()
         {
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingXYZ_DarkAdmin.txt");
+            try
+            {
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingXYZ_DarkAdmin.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < listSetting.Length; i++)
@@ -77,11 +91,24 @@ namespace MyWebPlay.Controllers
             }
 
             return View();
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
         }
 
         public ActionResult E8ecb5a3a2b4fdbda327335d19f3ca7fa()
         {
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingXYZ_DarkAdmin.txt");
+            try
+            {
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingXYZ_DarkAdmin.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < listSetting.Length; i++)
@@ -110,6 +137,17 @@ namespace MyWebPlay.Controllers
             }
 
             return View();
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
         }
     }
 }

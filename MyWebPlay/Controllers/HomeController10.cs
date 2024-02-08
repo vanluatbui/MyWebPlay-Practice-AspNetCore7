@@ -18,7 +18,9 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult TracNghiem()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["errorXY"] == "true") return RedirectToAction("Error"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            try
+            {
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["errorXY"] == "true") return RedirectToAction("Error"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
@@ -46,6 +48,17 @@ namespace MyWebPlay.Controllers
             }
 
             return View();
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
         }
 
         private String docfile(String filename)
@@ -64,7 +77,9 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult TracNghiem(IFormCollection f, IFormFile txtFile)
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["errorXY"] == "true") return RedirectToAction("Error"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            try
+            {
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["errorXY"] == "true") return RedirectToAction("Error"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
@@ -112,7 +127,7 @@ namespace MyWebPlay.Controllers
                     || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
                     || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
                     || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
-                    || info[0] == "Email_Note"))
+                    || info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
                 {
                     if (info[1] == "false")
                     {
@@ -368,11 +383,25 @@ namespace MyWebPlay.Controllers
             
 
             return View("PlayTracNghiem", tn);
+
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
         }
 
         public ActionResult PlayTracNghiem(TracNghiem tn)
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["errorXY"] == "true") return RedirectToAction("Error"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            try
+            {
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["errorXY"] == "true") return RedirectToAction("Error"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
@@ -412,377 +441,403 @@ namespace MyWebPlay.Controllers
             }
 
                 return View(tn);
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
         }
 
         [HttpPost]
         public ActionResult PlayTracNghiem(IFormCollection f)
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["errorXY"] == "true") return RedirectToAction("Error"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            try
             {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
-                TempData["skipIP"] = "true";
-            }
-            /*HttpContext.Session.Remove("ok-data");*/
-            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
-            TempData["online_null"] = null;
-
-            Calendar xi = CultureInfo.InvariantCulture.Calendar;
-
-            var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
-
-            if (xuxu1.Hour >= 6 && xuxu1.Hour <= 17)
-            {
-                TempData["mau_background"] = "white";
-                TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
-                 TempData["winx"] = "❤";
-            }
-            else
-            {
-                TempData["mau_background"] = "black";
-                TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
-                 TempData["winx"] = "❤";
-            }
-            var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
-            var noidungX1 = System.IO.File.ReadAllText(pathX1);
-            var listSetting1 = noidungX1.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            var flah = 0;
-            for (int i = 0; i < listSetting1.Length; i++)
-            {
-                var info = listSetting1[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-
-                if (flah == 0 && (info[0] == "Email_Upload_User"
-                    || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
-                    || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
-                    || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
-                    || info[0] == "Email_Note"))
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["errorXY"] == "true") return RedirectToAction("Error"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true"; if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi"); if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } }
+                if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); }
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
                 {
-                    if (info[1] == "false")
-                    {
-
-                        TempData["mau_winx"] = "red";
-                        flah = 1;
-                    }
-                    else
-                    {
-
-                        TempData["mau_winx"] = "deeppink";
-                        flah = 0;
-                    }
+                    HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                    TempData["skipIP"] = "true";
                 }
-            }
+                /*HttpContext.Session.Remove("ok-data");*/
+                TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
+                TempData["online_null"] = null;
 
-            TracNghiem tn;
-            var onlineX = f["OnlineX"].ToString();
+                Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
+                var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            khoawebsiteClient(listIP);
-            HttpContext.Session.Remove("ok-data");
-            var IP = HttpContext.Session.GetString("userIP");
-
-            if (HttpContext.Session.GetObject<TracNghiem>("TracNghiem") == null)
-            {
-                tn = new TracNghiem();
-                tn.tongsocau = int.Parse(f["TongSoCau"].ToString());
-                tn.gioihancau = int.Parse(f["GioiHanCau"].ToString());
-                tn.timelambai = int.Parse(f["TimeLamBai"].ToString());
-                tn.tenmon = f["TenMon"].ToString();
-
-                tn.ch = f["CauHoi"].ToString().Split("\r\n");
-                tn.a = f["A"].ToString().Split("\r\n");
-                tn.b = f["B"].ToString().Split("\r\n");
-                tn.c = f["C"].ToString().Split("\r\n");
-                tn.d = f["D"].ToString().Split("\r\n");
-                tn.dung = f["Dung"].ToString().Split("\r\n");
-            }
-            else
-                tn = HttpContext.Session.GetObject<TracNghiem>("TracNghiem");
-
-            if (tn == null)
-                return RedirectToAction("TracNghiemX_Multiple");
-
-            if (f["File_ND"] == "")
-            {
-                int dung = 0;
-                int sai = 0;
-                int chualam = 0;
-
-                for (int i = 0; i < tn.gioihancau; i++)
+                if (xuxu1.Hour >= 6 && xuxu1.Hour <= 17)
                 {
-                    string da = f["dapan-" + i].ToString();
-
-                    int flag = 0;
-                    if (da == "")
-                    {
-                        chualam++;
-
-                        ViewData["KetQua-" + i] = "<h2 style=\"color:orange\">CHƯA TRẢ LỜI</h2>";
-                    }
-                    else if (da == "A")
-                    {
-                        ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Đáp án bạn đã chọn</span> : A. " + tn.a[i] + "</b>";
-
-                        if (tn.dung[i] == tn.a[i])
-                        {
-                            dung++;
-                            flag = 1;
-                            ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG RỒI</h2>";
-                        }
-                        else
-                        {
-                            ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI RỒI</h2>";
-                            sai++;
-                        }
-                    }
-                    else if (da == "B")
-                    {
-                        ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Đáp án bạn đã chọn</span> : B. " + tn.b[i] + "</b>";
-
-                        if (tn.dung[i] == tn.b[i])
-                        {
-                            dung++;
-                            flag = 1;
-                            ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG RỒI</h2>";
-                        }
-                        else
-                        {
-                            ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI RỒI</h2>";
-                            sai++;
-                        }
-                    }
-                    else if (da == "C")
-                    {
-                        ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Đáp án bạn đã chọn</span> : C. " + tn.c[i] + "</b>";
-
-                        if (tn.dung[i] == tn.c[i])
-                        {
-                            dung++;
-                            flag = 1;
-                            ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG RỒI</h2>";
-                        }
-                        else
-                        {
-                            ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI RỒI</h2>";
-                            sai++;
-                        }
-                    }
-                    else if (da == "D")
-                    {
-                        ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Đáp án bạn đã chọn</span> : D. " + tn.d[i] + "</b>";
-
-                        if (tn.dung[i] == tn.d[i])
-                        {
-                            dung++;
-                            flag = 1;
-                            ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG RỒI</h2>";
-                        }
-                        else
-                        {
-                            ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI RỒI</h2>";
-                            sai++;
-                        }
-
-                    }
-                    if (flag == 0)
-                    {
-                        if (tn.dung[i] == tn.a[i])
-                            ViewData["dapandung-" + i] = "<b><span style=\"color:deeppink\">Đáp án đúng</span> : A. " + tn.a[i] + "</b>";
-                        else if (tn.dung[i] == tn.b[i])
-                            ViewData["dapandung-" + i] = "<b><span style=\"color:deeppink\">Đáp án đúng</span> : B. " + tn.b[i] + "</b>";
-                        else if (tn.dung[i] == tn.c[i])
-                            ViewData["dapandung-" + i] = "<b><span style=\"color:deeppink\">Đáp án đúng</span> : C. " + tn.c[i] + "</b>";
-                        else if (tn.dung[i] == tn.d[i])
-                            ViewData["dapandung-" + i] = "<b><span style=\"color:deeppink\">Đáp án đúng</span> : D. " + tn.d[i] + "</b>";
-                    }
-                }
-
-
-                ViewBag.KetQuaDung = "Số câu đúng : " + dung;
-                ViewBag.KetQuaSai = "Số câu sai : " + sai;
-                ViewBag.KetQuaChuaLam = "Số câu chưa làm : " + chualam;
-
-                double diem = ((double)10 / (double)tn.gioihancau) * dung;
-
-                diem = Math.Round(diem, 1);
-
-                ViewBag.KetQuaDiem = "Điểm Đánh Giá : " + diem + "/10";
-                if (string.IsNullOrEmpty(onlineX))
-                {
-                    return View(tn);
+                    TempData["mau_background"] = "white";
+                    TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
+                    TempData["winx"] = "❤";
                 }
                 else
                 {
-                    var spi = onlineX.Split("#");
-                    var xuxu = spi[0];
-                    var mssv = spi[1];
-                    var id = spi[2];
-                    Calendar xix = CultureInfo.InvariantCulture.Calendar;
-                    var xong = xix.AddHours(DateTime.UtcNow, 7);
-                    var path = Path.Combine(_webHostEnvironment.WebRootPath, "TracNghiem_XOnline/DiemHocSinh.txt");
-                    var noidung = System.IO.File.ReadAllText(path);
-                    if (noidung.Contains(mssv + "\t" + id))
-                    {
-                        noidung = noidung.Replace(xuxu + "\t" + IP + "\t" + mssv + "\t" + id + "\t[NULL]\t[NULL]\n", xuxu + "\t" + IP + "\t" + mssv + "\t" + id + "\t"+xong+"\t"+diem+"\n");
-                        System.IO.File.WriteAllText(path, noidung);
-                    }
-                    TempData["online_null"] = "true";
-                    return View(tn);
+                    TempData["mau_background"] = "black";
+                    TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
+                    TempData["winx"] = "❤";
                 }
-            }
-            else
-            {
-                var ND_File = f["File_ND"].ToString();
-                ViewBag.ND_File = null;
-
-                TempData["Socola"] = "hay";
-                var flag = 0;
-
-                for (int i = 0; i < tn.gioihancau; i++)
+                var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                var noidungX1 = System.IO.File.ReadAllText(pathX1);
+                var listSetting1 = noidungX1.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var flah = 0;
+                for (int i = 0; i < listSetting1.Length; i++)
                 {
+                    var info = listSetting1[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                    tn.ch[i] = Regex.Replace(tn.ch[i], "<br><img.*><br>", "");
-
-                    //---------------------------------------------------------------------------
-
-                    var anh = f["anh-" + i].ToString().Split("\r\n");
-
-                    for (int j = 0; j < anh.Length; j++)
+                    if (flah == 0 && (info[0] == "Email_Upload_User"
+                        || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
+                        || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
+                        || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
+                        || info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
                     {
-                        var ax = anh[j].Split("\t");
-                        if (ax[0] == "")
-                            continue;
+                        if (info[1] == "false")
+                        {
 
-                        var kt1 = 0;
-                        var kt2=0;
-
-                        if (ax[1] == "0")
-                        {
-                            kt1 = 100;
-                            kt2 = 100;
-                        }
-                        else if (ax[1] == "1")
-                        {
-                            kt1 = 300;
-                            kt2 = 300;
-                        }
-                        else if (ax[1] == "2")
-                        {
-                            kt1 = 500;
-                            kt2 = 500;
-                        }
-                        else if (ax[1] == "3")
-                        {
-                            kt1 = 1000;
-                            kt2 = 500;
+                            TempData["mau_winx"] = "red";
+                            flah = 1;
                         }
                         else
                         {
-                            kt1 = 300;
-                            kt2 = 500;
+
+                            TempData["mau_winx"] = "deeppink";
+                            flah = 0;
                         }
-
-
-                        string ch = tn.ch[i] + "<br><img name=\"hinhcau"+i+"\" src=\"" + ax[0] + "\" alt=\"Image Error\" width=\"" + kt1+"\" height=\""+kt2+"\" /><br>";
-                        ND_File = ND_File.Replace(tn.ch[i], ch);
-                    }
-
-                    string da = f["dapan-" + i].ToString();
-
-                    if (da == "")
-                    {
-                        ND_File = ND_File.Replace("["+tn.dung[i]+"]", "[<?" + i + "?>]");
-                        flag = 1;
-                    }
-
-                    if (da == "A")
-                    {
-                        ND_File = ND_File.Replace("<?" + i + "?>", tn.a[i]).Replace("[" + tn.dung[i] + "]", "["+tn.a[i]+"]");
-                    }
-                    else if (da == "B")
-                    {
-                        ND_File = ND_File.Replace("<?" + i + "?>", tn.b[i]).Replace("[" + tn.dung[i] + "]", "[" + tn.b[i] + "]");
-                    }
-                    else if (da == "C")
-                    {
-                        ND_File = ND_File.Replace("<?" + i + "?>", tn.c[i]).Replace("[" + tn.dung[i] + "]", "[" + tn.c[i] + "]");
-                    }
-                    else if (da == "D")
-                    {
-                        ND_File = ND_File.Replace("<?" + i + "?>", tn.d[i]).Replace("[" + tn.dung[i] + "]", "[" + tn.d[i] + "]");
                     }
                 }
 
-                Calendar x = CultureInfo.InvariantCulture.Calendar;
+                TracNghiem tn;
+                var onlineX = f["OnlineX"].ToString();
 
-                string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                var listIP = new List<string>();
 
-                string fi = HttpContext.Session.GetString("userIP") + "_TracNghiem_" + xuxu + ".txt";
-                fi = fi.Replace("\\", "");
-                fi = fi.Replace("/", "");
-                fi = fi.Replace(":", "");
-
-                var path = Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", fi);
-
-                    System.IO.File.WriteAllText(path, ND_File);
-
-                string localIP = "";
-                var IPx = "";
-
-                using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
-                {
-                    socket.Connect("8.8.8.8", 65530);
-                    IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
-                    IPx = endPoint.Address.ToString();
-                }
-
-                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")))
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                    listIP.Add(HttpContext.Session.GetString("userIP"));
+                else
                 {
                     TempData["GetDataIP"] = "true";
                     return RedirectToAction("Index");
                 }
-                else
-                    localIP = HttpContext.Session.GetString("userIP");
+                khoawebsiteClient(listIP);
+                HttpContext.Session.Remove("ok-data");
+                var IP = HttpContext.Session.GetString("userIP");
 
-                //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + IPx + " *** " + localIP + "] - " + xuxu;
-
-                if (flag == 0)
+                if (HttpContext.Session.GetObject<TracNghiem>("TracNghiem") == null)
                 {
-                    string host = "{" + Request.Host.ToString() + "}"
-                       .Replace("http://", "")
-                   .Replace("http://", "")
-                   .Replace("/", "");
-                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
-                    var noidungX = System.IO.File.ReadAllText(pathX);
+                    tn = new TracNghiem();
+                    tn.tongsocau = int.Parse(f["TongSoCau"].ToString());
+                    tn.gioihancau = int.Parse(f["GioiHanCau"].ToString());
+                    tn.timelambai = int.Parse(f["TimeLamBai"].ToString());
+                    tn.tenmon = f["TenMon"].ToString();
 
-                    var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-                    for (int i = 0; i < listSetting.Length; i++)
+                    tn.ch = f["CauHoi"].ToString().Split("\r\n");
+                    tn.a = f["A"].ToString().Split("\r\n");
+                    tn.b = f["B"].ToString().Split("\r\n");
+                    tn.c = f["C"].ToString().Split("\r\n");
+                    tn.d = f["D"].ToString().Split("\r\n");
+                    tn.dung = f["Dung"].ToString().Split("\r\n");
+                }
+                else
+                    tn = HttpContext.Session.GetObject<TracNghiem>("TracNghiem");
+
+                if (tn == null)
+                    return RedirectToAction("TracNghiemX_Multiple");
+
+                if (f["File_ND"] == "")
+                {
+                    int dung = 0;
+                    int sai = 0;
+                    int chualam = 0;
+
+                    for (int i = 0; i < tn.gioihancau; i++)
                     {
-                        var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-                        if (info[0] == "Email_TracNghiem_Update")
+                        string da = f["dapan-" + i].ToString();
+
+                        int flag = 0;
+                        if (da == "")
                         {
-                            if (info[1] == "true" && HttpContext.Session.GetString("trust-X-you") == null)
+                            chualam++;
+
+                            ViewData["KetQua-" + i] = "<h2 style=\"color:orange\">CHƯA TRẢ LỜI</h2>";
+                        }
+                        else if (da == "A")
+                        {
+                            ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Đáp án bạn đã chọn</span> : A. " + tn.a[i] + "</b>";
+
+                            if (tn.dung[i] == tn.a[i])
                             {
-                                SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath,"mywebplay.savefile@gmail.com",
-                  "mywebplay.savefile@gmail.com", host + " Save Temp Create/Update Trac Nghiem File In " + name, ND_File, "teinnkatajeqerfl");
+                                dung++;
+                                flag = 1;
+                                ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG RỒI</h2>";
                             }
-                            break;
+                            else
+                            {
+                                ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI RỒI</h2>";
+                                sai++;
+                            }
+                        }
+                        else if (da == "B")
+                        {
+                            ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Đáp án bạn đã chọn</span> : B. " + tn.b[i] + "</b>";
+
+                            if (tn.dung[i] == tn.b[i])
+                            {
+                                dung++;
+                                flag = 1;
+                                ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG RỒI</h2>";
+                            }
+                            else
+                            {
+                                ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI RỒI</h2>";
+                                sai++;
+                            }
+                        }
+                        else if (da == "C")
+                        {
+                            ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Đáp án bạn đã chọn</span> : C. " + tn.c[i] + "</b>";
+
+                            if (tn.dung[i] == tn.c[i])
+                            {
+                                dung++;
+                                flag = 1;
+                                ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG RỒI</h2>";
+                            }
+                            else
+                            {
+                                ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI RỒI</h2>";
+                                sai++;
+                            }
+                        }
+                        else if (da == "D")
+                        {
+                            ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Đáp án bạn đã chọn</span> : D. " + tn.d[i] + "</b>";
+
+                            if (tn.dung[i] == tn.d[i])
+                            {
+                                dung++;
+                                flag = 1;
+                                ViewData["KetQua-" + i] = "<h2 style=\"color:green\">ĐÚNG RỒI</h2>";
+                            }
+                            else
+                            {
+                                ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI RỒI</h2>";
+                                sai++;
+                            }
+
+                        }
+                        if (flag == 0)
+                        {
+                            if (tn.dung[i] == tn.a[i])
+                                ViewData["dapandung-" + i] = "<b><span style=\"color:deeppink\">Đáp án đúng</span> : A. " + tn.a[i] + "</b>";
+                            else if (tn.dung[i] == tn.b[i])
+                                ViewData["dapandung-" + i] = "<b><span style=\"color:deeppink\">Đáp án đúng</span> : B. " + tn.b[i] + "</b>";
+                            else if (tn.dung[i] == tn.c[i])
+                                ViewData["dapandung-" + i] = "<b><span style=\"color:deeppink\">Đáp án đúng</span> : C. " + tn.c[i] + "</b>";
+                            else if (tn.dung[i] == tn.d[i])
+                                ViewData["dapandung-" + i] = "<b><span style=\"color:deeppink\">Đáp án đúng</span> : D. " + tn.d[i] + "</b>";
                         }
                     }
-                }
 
-                ViewBag.KetQua = "<p style=\"color:blue\">Thành công, một file TXT trắc nghiệm của bạn đã được xử lý/cập nhật...</p><a href=\"/tracnghiem/" + fi + "\" download>Click vào đây để tải về</a><br><p style=\"color:red\">Hãy nhanh tay tải về vì sau <span style=\"color:deeppink\" id=\"thoigian1\" class=\"thoigian1\">30</span> giây nữa, file này sẽ bị xoá hoặc sẽ bị lỗi nếu có!<br>Nếu file tải về của bạn bị lỗi hoặc chưa kịp tải về, hãy refresh/quay lại trang này và thử lại...<br><span style=\"color:aqua\">Mặc dù file này đã được thông qua một số xử lý, tuy nhiên nó vẫn có thể xảy ra lỗi và sai sót không mong muốn. Vì vậy tạm thời bạn cứ tải file này về, sử dụng file này để làm bài trắc nghiệm và hệ thống sẽ thông báo vị trí của câu hỏi đang bị nghi ngờ là lỗi, bạn hãy mở file này và Ctrl + F để tìm câu hỏi đó, quan sát xung quanh tương tự và tự chỉnh sửa file thủ công sao cho thích hợp nhé!<br></span></p>";
-             
-                return View();
+
+                    ViewBag.KetQuaDung = "Số câu đúng : " + dung;
+                    ViewBag.KetQuaSai = "Số câu sai : " + sai;
+                    ViewBag.KetQuaChuaLam = "Số câu chưa làm : " + chualam;
+
+                    double diem = ((double)10 / (double)tn.gioihancau) * dung;
+
+                    diem = Math.Round(diem, 1);
+
+                    ViewBag.KetQuaDiem = "Điểm Đánh Giá : " + diem + "/10";
+                    if (string.IsNullOrEmpty(onlineX))
+                    {
+                        return View(tn);
+                    }
+                    else
+                    {
+                        var spi = onlineX.Split("#");
+                        var xuxu = spi[0];
+                        var mssv = spi[1];
+                        var id = spi[2];
+                        Calendar xix = CultureInfo.InvariantCulture.Calendar;
+                        var xong = xix.AddHours(DateTime.UtcNow, 7);
+                        var path = Path.Combine(_webHostEnvironment.WebRootPath, "TracNghiem_XOnline/DiemHocSinh.txt");
+                        var noidung = System.IO.File.ReadAllText(path);
+                        if (noidung.Contains(mssv + "\t" + id))
+                        {
+                            noidung = noidung.Replace(xuxu + "\t" + IP + "\t" + mssv + "\t" + id + "\t[NULL]\t[NULL]\n", xuxu + "\t" + IP + "\t" + mssv + "\t" + id + "\t" + xong + "\t" + diem + "\n");
+                            System.IO.File.WriteAllText(path, noidung);
+                        }
+                        TempData["online_null"] = "true";
+                        return View(tn);
+                    }
+                }
+                else
+                {
+                    var ND_File = f["File_ND"].ToString();
+                    ViewBag.ND_File = null;
+
+                    TempData["Socola"] = "hay";
+                    var flag = 0;
+
+                    for (int i = 0; i < tn.gioihancau; i++)
+                    {
+
+                        tn.ch[i] = Regex.Replace(tn.ch[i], "<br><img.*><br>", "");
+
+                        //---------------------------------------------------------------------------
+
+                        var anh = f["anh-" + i].ToString().Split("\r\n");
+
+                        for (int j = 0; j < anh.Length; j++)
+                        {
+                            var ax = anh[j].Split("\t");
+                            if (ax[0] == "")
+                                continue;
+
+                            var kt1 = 0;
+                            var kt2 = 0;
+
+                            if (ax[1] == "0")
+                            {
+                                kt1 = 100;
+                                kt2 = 100;
+                            }
+                            else if (ax[1] == "1")
+                            {
+                                kt1 = 300;
+                                kt2 = 300;
+                            }
+                            else if (ax[1] == "2")
+                            {
+                                kt1 = 500;
+                                kt2 = 500;
+                            }
+                            else if (ax[1] == "3")
+                            {
+                                kt1 = 1000;
+                                kt2 = 500;
+                            }
+                            else
+                            {
+                                kt1 = 300;
+                                kt2 = 500;
+                            }
+
+
+                            string ch = tn.ch[i] + "<br><img name=\"hinhcau" + i + "\" src=\"" + ax[0] + "\" alt=\"Image Error\" width=\"" + kt1 + "\" height=\"" + kt2 + "\" /><br>";
+                            ND_File = ND_File.Replace(tn.ch[i], ch);
+                        }
+
+                        string da = f["dapan-" + i].ToString();
+
+                        if (da == "")
+                        {
+                            ND_File = ND_File.Replace("[" + tn.dung[i] + "]", "[<?" + i + "?>]");
+                            flag = 1;
+                        }
+
+                        if (da == "A")
+                        {
+                            ND_File = ND_File.Replace("<?" + i + "?>", tn.a[i]).Replace("[" + tn.dung[i] + "]", "[" + tn.a[i] + "]");
+                        }
+                        else if (da == "B")
+                        {
+                            ND_File = ND_File.Replace("<?" + i + "?>", tn.b[i]).Replace("[" + tn.dung[i] + "]", "[" + tn.b[i] + "]");
+                        }
+                        else if (da == "C")
+                        {
+                            ND_File = ND_File.Replace("<?" + i + "?>", tn.c[i]).Replace("[" + tn.dung[i] + "]", "[" + tn.c[i] + "]");
+                        }
+                        else if (da == "D")
+                        {
+                            ND_File = ND_File.Replace("<?" + i + "?>", tn.d[i]).Replace("[" + tn.dung[i] + "]", "[" + tn.d[i] + "]");
+                        }
+                    }
+
+                    Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+                    string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+
+                    string fi = HttpContext.Session.GetString("userIP") + "_TracNghiem_" + xuxu + ".txt";
+                    fi = fi.Replace("\\", "");
+                    fi = fi.Replace("/", "");
+                    fi = fi.Replace(":", "");
+
+                    var path = Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", fi);
+
+                    System.IO.File.WriteAllText(path, ND_File);
+
+                    string localIP = "";
+                    var IPx = "";
+
+                    using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+                    {
+                        socket.Connect("8.8.8.8", 65530);
+                        IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                        IPx = endPoint.Address.ToString();
+                    }
+
+                    if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")))
+                    {
+                        TempData["GetDataIP"] = "true";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                        localIP = HttpContext.Session.GetString("userIP");
+
+                    //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + IPx + " *** " + localIP + "] - " + xuxu;
+
+                    if (flag == 0)
+                    {
+                        string host = "{" + Request.Host.ToString() + "}"
+                           .Replace("http://", "")
+                       .Replace("http://", "")
+                       .Replace("/", "");
+                        var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                        var noidungX = System.IO.File.ReadAllText(pathX);
+
+                        var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                        for (int i = 0; i < listSetting.Length; i++)
+                        {
+                            var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                            if (info[0] == "Email_TracNghiem_Update")
+                            {
+                                if (info[1] == "true" && HttpContext.Session.GetString("trust-X-you") == null)
+                                {
+                                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
+                      "mywebplay.savefile@gmail.com", host + " Save Temp Create/Update Trac Nghiem File In " + name, ND_File, "teinnkatajeqerfl");
+                                }
+                                break;
+                            }
+                        }
+                    }
+
+                    ViewBag.KetQua = "<p style=\"color:blue\">Thành công, một file TXT trắc nghiệm của bạn đã được xử lý/cập nhật...</p><a href=\"/tracnghiem/" + fi + "\" download>Click vào đây để tải về</a><br><p style=\"color:red\">Hãy nhanh tay tải về vì sau <span style=\"color:deeppink\" id=\"thoigian1\" class=\"thoigian1\">30</span> giây nữa, file này sẽ bị xoá hoặc sẽ bị lỗi nếu có!<br>Nếu file tải về của bạn bị lỗi hoặc chưa kịp tải về, hãy refresh/quay lại trang này và thử lại...<br><span style=\"color:aqua\">Mặc dù file này đã được thông qua một số xử lý, tuy nhiên nó vẫn có thể xảy ra lỗi và sai sót không mong muốn. Vì vậy tạm thời bạn cứ tải file này về, sử dụng file này để làm bài trắc nghiệm và hệ thống sẽ thông báo vị trí của câu hỏi đang bị nghi ngờ là lỗi, bạn hãy mở file này và Ctrl + F để tìm câu hỏi đó, quan sát xung quanh tương tự và tự chỉnh sửa file thủ công sao cho thích hợp nhé!<br></span></p>";
+
+                    return View();
+                }
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
             }
         }
      }

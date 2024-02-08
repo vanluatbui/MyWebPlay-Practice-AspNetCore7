@@ -21,16 +21,64 @@ namespace MyWebPlay.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public ActionResult Password_Admin()
+        public ActionResult LoginSettingAdmin()
         {
+            try
+            {
+                Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+            var xuxu = x.AddHours(DateTime.UtcNow, 7);
+
+            if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
+            {
+                TempData["mau_background"] = "white";
+                TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
+            }
+            else
+            {
+                TempData["mau_background"] = "black";
+                TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
+            }
+
+            var pathS = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/Setting_Status.txt");
+            var noidungS = System.IO.File.ReadAllText(pathS);
+            ViewBag.SettingStatus = noidungS;
+
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            var noidung = System.IO.File.ReadAllText(path);
+
+            var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            SettingAdmin settingAdmin = new SettingAdmin();
+            settingAdmin.Topics = new List<SettingAdmin.Topic>();
+            for (int i = 0; i < 29; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                settingAdmin.Topics.Add(new SettingAdmin.Topic(info[0], info[2], bool.Parse(info[1])));
+            }
+
             HttpContext.Session.Remove("adminSetting");
-            return View();
+                return View(settingAdmin);
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
+
+            //return View();
         }
 
         [HttpPost]
-        public ActionResult Password_Admin(IFormCollection f)
+        public ActionResult LoginSettingAdmin(IFormCollection f)
         {
-            HttpContext.Session.Remove("adminSetting");
+            try
+            {
+                HttpContext.Session.Remove("adminSetting");
 
             var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
             var password = System.IO.File.ReadAllText(pth).Split("\r\n", StringSplitOptions.RemoveEmptyEntries)[1];
@@ -40,13 +88,25 @@ namespace MyWebPlay.Controllers
             {
                 HttpContext.Session.SetString("adminSetting", "true");
             }
+          }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
 
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
             return RedirectToAction("SettingXYZ_DarkAdmin");
         }
 
         public void khoawebsiteAdmin()
         {
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            try
+            {
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
@@ -67,11 +127,24 @@ namespace MyWebPlay.Controllers
 
                 }
             }
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+               // return RedirectToAction("Error", new { exception = "true" });
+            }
         }
 
                 public ActionResult ComeInSetting (string id, string code)
               {
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            try
+            {
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
@@ -96,24 +169,26 @@ namespace MyWebPlay.Controllers
             {
                 HttpContext.Session.SetString(nd[0], nd[1]);
             }
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
             return RedirectToAction("SettingXYZ_DarkAdmin");
         }
 
         public ActionResult SettingXYZ_DarkAdmin()
         {
-            if (HttpContext.Session.GetString("adminSetting") == null)
-            {
-                return RedirectToAction("Password_Admin");
-            }
-
+            try {
             khoawebsiteAdmin();
             HttpContext.Session.Remove("mini-web");
             TempData.Remove("mini-web");
-            var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
-            var noidung1 = docfile(path1);
-            TempData["showIPCome"] = noidung1;
-
-            TempData["rexJP"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "ChangeJapan", "quy-tac-ki-tu-chuyen-doi.txt")).Replace("\t"," ➡ ");
 
             Calendar x = CultureInfo.InvariantCulture.Calendar;
 
@@ -129,6 +204,17 @@ namespace MyWebPlay.Controllers
                 TempData["mau_background"] = "black";
                 TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
             }
+
+            if (HttpContext.Session.GetString("adminSetting") == null)
+            {
+                return RedirectToAction("LoginSettingAdmin");
+            }
+
+            var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
+            var noidung1 = docfile(path1);
+            TempData["showIPCome"] = noidung1;
+
+            TempData["rexJP"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "ChangeJapan", "quy-tac-ki-tu-chuyen-doi.txt")).Replace("\t", " ➡ ");
 
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidung = System.IO.File.ReadAllText(path);
@@ -218,15 +304,16 @@ namespace MyWebPlay.Controllers
                 //    }
                 //}
 
-                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
-                var nd = System.IO.File.ReadAllText(pth).Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
-                TempData["key-admin"] = nd[0];
-                TempData["value-admin"] = nd[1];
                 //if (HttpContext.Session.GetString(nd[0]) == nd[1])
                 //{
                 //    TempData["SecureAdmin"] = "false";
                 //}
             }
+
+            var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+            var nd = System.IO.File.ReadAllText(pth).Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
+            TempData["key-admin"] = nd[0];
+            TempData["value-admin"] = nd[1];
 
             var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
             var noidung2 = docfile(path2);
@@ -241,12 +328,25 @@ namespace MyWebPlay.Controllers
             TempData["ListIPLockClient"] = noidung4;
 
             return View(settingAdmin);
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
         }
 
         [HttpPost]
         public ActionResult UnlockAllWeb(IFormCollection f)
         {
-            khoawebsiteAdmin();
+            try
+            {
+                khoawebsiteAdmin();
 
             Calendar x = CultureInfo.InvariantCulture.Calendar;
 
@@ -276,119 +376,132 @@ namespace MyWebPlay.Controllers
 
             var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-            var infoX = listSetting[28].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-            noidung = noidung.Replace(listSetting[28], infoX[0] + "<3275>" + xinh + "<3275>" + infoX[2]);
+            var infoX = listSetting[29].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+            noidung = noidung.Replace(listSetting[29], infoX[0] + "<3275>" + xinh + "<3275>" + infoX[2]);
             System.IO.File.WriteAllText(path, noidung);
             
             return RedirectToAction("SettingXYZ_DarkAdmin");
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
         }
 
         [HttpPost]
         public ActionResult SettingXYZ_DarkAdmin(IFormCollection f)
         {
-            khoawebsiteAdmin();
-            HttpContext.Session.Remove("mini-web");
-            var non = TempData["SaveComeHere"];
-            TempData["SaveComeHere"] = non;
-
-            var pathXY = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SecurePasswordAdmin.txt");
-            var matpassAd = System.IO.File.ReadAllText(pathXY).Split("\n")[1];
-
-            var passUserEnter = f["txtMatPassAd"].ToString();
-
-            if (passUserEnter != matpassAd)
+            try
             {
-                TempData["loisave"] = "true";
-                return RedirectToAction("SettingXYZ_DarkAdmin");
-            }
-            else
-            {
-                TempData["loisave"] = "false";
-            }
+                khoawebsiteAdmin();
+                HttpContext.Session.Remove("mini-web");
+                var non = TempData["SaveComeHere"];
+                TempData["SaveComeHere"] = non;
 
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/Setting_Status.txt");
+                var pathXY = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SecurePasswordAdmin.txt");
+                var matpassAd = System.IO.File.ReadAllText(pathXY).Split("\n")[1];
 
-            Calendar x = CultureInfo.InvariantCulture.Calendar;
+                var passUserEnter = f["txtMatPassAd"].ToString();
 
-            var xuxu = x.AddHours(DateTime.UtcNow, 7);
+                if (passUserEnter != matpassAd)
+                {
+                    TempData["loisave"] = "true";
+                    return RedirectToAction("SettingXYZ_DarkAdmin");
+                }
+                else
+                {
+                    TempData["loisave"] = "false";
+                }
 
-            if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
-            {
-                TempData["mau_background"] = "white";
-                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
-                 TempData["winx"] = "❤";
-            }
-            else
-            {
-                TempData["mau_background"] = "black";
-                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
-                 TempData["winx"] = "❤";
-            }
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/Setting_Status.txt");
 
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                Calendar x = CultureInfo.InvariantCulture.Calendar;
 
-            var noidung = System.IO.File.ReadAllText(path);
+                var xuxu = x.AddHours(DateTime.UtcNow, 7);
 
-            var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            var flag = 0;
-            var cometo = "#";
-            var dix = 0;
+                if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
+                {
+                    TempData["mau_background"] = "white";
+                    TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
+                    TempData["winx"] = "❤";
+                }
+                else
+                {
+                    TempData["mau_background"] = "black";
+                    TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
+                    TempData["winx"] = "❤";
+                }
 
-             for (int i = 0; i < listSetting.Length; i++)
-            {
-                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
 
-                if (info[0] == "LockedAll_Web")
-                    continue;
+                var noidung = System.IO.File.ReadAllText(path);
 
-                var baby1 = false;
-                var baby2 = false;
+                var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var flag = 0;
+                var cometo = "#";
+                var dix = 0;
 
-                var xi = "false";
-                        if (f[info[0]] == "on")
+                for (int i = 0; i < listSetting.Length; i++)
+                {
+                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                    if (info[0] == "LockedAll_Web")
+                        continue;
+
+                    var baby1 = false;
+                    var baby2 = false;
+
+                    var xi = "false";
+                    if (f[info[0]] == "on")
+                    {
+                        xi = "true";
+                    }
+
+                    if (info[0] == "Off_CallIP" && (xi != info[1]) && xi == "true")
+                    {
+                        baby1 = true;
+                    }
+
+                    if (info[0] == "All_People" && (xi != info[1]) && xi == "true")
+                    {
+                        baby2 = true;
+                    }
+
+                    if (flag == 0 && (info[0] == "Email_Upload_User"
+                        || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
+                        || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
+                        || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
+                        || info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                    {
+                        if (info[1] == "false")
                         {
-                            xi = "true";
+
+                            TempData["mau_winx"] = "red";
+                            flag = 1;
+                        }
+                        else
+                        {
+
+                            TempData["mau_winx"] = "deeppink";
+                            flag = 0;
+                        }
+                    }
+
+                    if (info[0] != "Password_Admin" && info[0] != "Believe_IP" && info[0] != "Code_LockedClient" && info[0] != "MatDoTuyetDoi" && info[0] != "Encode_Url" && info[0] != "Info_Email" && info[0] != "Info_MegaIO" && info[0] != "Color_BackgroundAndText" && info[0] != "Color_TracNghiem")
+                    {
+                        if (xi != info[1])
+                        {
+                            cometo = "#come-" + i;
+                            dix++;
                         }
 
-                if (info[0] == "Off_CallIP" && (xi != info[1]) && xi == "true")
-                {
-                    baby1 = true;
-                }
-
-                if (info[0] == "All_People" && (xi != info[1]) && xi == "true")
-                {
-                    baby2 = true;
-                }
-
-                if (flag == 0 && (info[0] == "Email_Upload_User"
-                    || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
-                    || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
-                    || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
-                    || info[0] == "Email_Note"))
-                {
-                    if (info[1] == "false")
-                    {
-                        
-                        TempData["mau_winx"] = "red";
-                        flag = 1;
-                    }
-                    else
-                    {
-                        
-                        TempData["mau_winx"] = "deeppink";
-                        flag = 0;
-                    }
-                }
-
-                if (info[0] != "Password_Admin" && info[0] != "Believe_IP" && info[0] != "Code_LockedClient" && info[0] != "MatDoTuyetDoi" && info[0] != "Encode_Url" && info[0] != "Info_Email" && info[0] != "Info_MegaIO" && info[0] != "Color_BackgroundAndText" && info[0] != "Color_TracNghiem")
-                {
-                    if (xi != info[1])
-                    {
-                        cometo = "#come-" + i;
-                        dix++;
-                    }
-
-                    noidung = noidung.Replace(info[0] + "<3275>" + info[1], info[0] + "<3275>" + xi);
+                        noidung = noidung.Replace(info[0] + "<3275>" + info[1], info[0] + "<3275>" + xi);
 
                         if (baby1 == true)
                         {
@@ -399,146 +512,158 @@ namespace MyWebPlay.Controllers
                         {
                             noidung = noidung.Replace("Off_CallIP" + "<3275>" + "true", "Off_CallIP" + "<3275>" + "false");
                         }
-                }
-                else if (info[0] == "Encode_Url")
-                {
-                    var xinh = f[info[0]];
-                    if (string.IsNullOrEmpty(xinh))
-                        xinh = "/Home/Index***/Home/SecretWeb***/Admin/QuickDataInWeb";
-
-                    if (xinh != info[3])
-                    {
-                        cometo = "#come-" + i;
-                        dix++;
                     }
-
-                    noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
-                }
-                else if (info[0] == "Password_Admin")
-                {
-                    var xinh = f[info[0]];
-                    if (string.IsNullOrEmpty(xinh))
-                        xinh = "mywebplay-ADMIN";
-
-                    if (xinh != info[3])
+                    else if (info[0] == "Encode_Url")
                     {
-                        cometo = "#come-" + i;
-                        dix++;
-                    }
+                        var xinh = f[info[0]];
+                        if (string.IsNullOrEmpty(xinh))
+                            xinh = "/Home/Index***/Home/SecretWeb***/Admin/QuickDataInWeb";
 
-                    noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
-                }
-                else if (info[0] == "Believe_IP")
-                {
-                    var xinh = f[info[0]].ToString();
-                    if (string.IsNullOrEmpty(xinh))
-                        xinh = "[NULL]";
-                    else
+                        if (xinh != info[3])
+                        {
+                            cometo = "#come-" + i;
+                            dix++;
+                        }
+
+                        noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
+                    }
+                    else if (info[0] == "Password_Admin")
                     {
-                        if (xinh.StartsWith(",") == false)
-                            xinh = "," + xinh;
+                        var xinh = f[info[0]];
+                        if (string.IsNullOrEmpty(xinh))
+                            xinh = "mywebplay-ADMIN";
 
-                        if (xinh.EndsWith(",") == false)
-                            xinh = xinh + ",";
+                        if (xinh != info[3])
+                        {
+                            cometo = "#come-" + i;
+                            dix++;
+                        }
+
+                        noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
                     }
-
-                    if (xinh != info[3])
+                    else if (info[0] == "Believe_IP")
                     {
-                        cometo = "#come-" + i;
-                        dix++;
+                        var xinh = f[info[0]].ToString();
+                        if (string.IsNullOrEmpty(xinh))
+                            xinh = "[NULL]";
+                        else
+                        {
+                            if (xinh.StartsWith(",") == false)
+                                xinh = "," + xinh;
+
+                            if (xinh.EndsWith(",") == false)
+                                xinh = xinh + ",";
+                        }
+
+                        if (xinh != info[3])
+                        {
+                            cometo = "#come-" + i;
+                            dix++;
+                        }
+
+                        noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
                     }
-
-                    noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
-                }
-                else if (info[0] == "Code_LockedClient")
-                {
-                    var xinh = f[info[0]];
-                    if (string.IsNullOrEmpty(xinh))
-                        xinh = "abc-xyz";
-
-                    if (xinh != info[3])
+                    else if (info[0] == "Code_LockedClient")
                     {
-                        cometo = "#come-" + i;
-                        dix++;
+                        var xinh = f[info[0]];
+                        if (string.IsNullOrEmpty(xinh))
+                            xinh = "abc-xyz";
+
+                        if (xinh != info[3])
+                        {
+                            cometo = "#come-" + i;
+                            dix++;
+                        }
+
+                        noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
                     }
-
-                    noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
-                }
-                else if (info[0] == "MatDoTuyetDoi")
-                {
-                    var xinh = f[info[0]];
-                    if (string.IsNullOrEmpty(xinh))
-                        xinh = "matdotuyetdoi<>believix-123";
-
-                    if (xinh != info[3])
+                    else if (info[0] == "MatDoTuyetDoi")
                     {
-                        cometo = "#come-" + i;
-                        dix++;
+                        var xinh = f[info[0]];
+                        if (string.IsNullOrEmpty(xinh))
+                            xinh = "matdotuyetdoi<>believix-123";
+
+                        if (xinh != info[3])
+                        {
+                            cometo = "#come-" + i;
+                            dix++;
+                        }
+
+                        noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
                     }
-
-                    noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
-                }
-                else if (info[0] == "Info_Email")
-                {
-                    var xinh = f[info[0]];
-                    if (string.IsNullOrEmpty(xinh))
-                        xinh = "[NULL]";
-
-                    if (xinh != info[3])
+                    else if (info[0] == "Info_Email")
                     {
-                        cometo = "#come-" + i;
-                        dix++;
+                        var xinh = f[info[0]];
+                        if (string.IsNullOrEmpty(xinh))
+                            xinh = "[NULL]";
+
+                        if (xinh != info[3])
+                        {
+                            cometo = "#come-" + i;
+                            dix++;
+                        }
+
+                        noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
                     }
-
-                    noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
-                }
-                else if (info[0] == "Info_MegaIO")
-                {
-                    var xinh = f[info[0]];
-                    if (string.IsNullOrEmpty(xinh))
-                        xinh = "[NULL]";
-
-                    if (xinh != info[3])
+                    else if (info[0] == "Info_MegaIO")
                     {
-                        cometo = "#come-" + i;
-                        dix++;
+                        var xinh = f[info[0]];
+                        if (string.IsNullOrEmpty(xinh))
+                            xinh = "[NULL]";
+
+                        if (xinh != info[3])
+                        {
+                            cometo = "#come-" + i;
+                            dix++;
+                        }
+
+                        noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
                     }
-
-                    noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
-                }
-                else if (info[0] == "Color_BackgroundAndText")
-                {
-                    var xinh = f[info[0]];
-                    if (string.IsNullOrEmpty(xinh))
-                        xinh = "[NULL]";
-
-                    if (xinh != info[3])
+                    else if (info[0] == "Color_BackgroundAndText")
                     {
-                        cometo = "#come-" + i;
-                        dix++;
+                        var xinh = f[info[0]];
+                        if (string.IsNullOrEmpty(xinh))
+                            xinh = "[NULL]";
+
+                        if (xinh != info[3])
+                        {
+                            cometo = "#come-" + i;
+                            dix++;
+                        }
+
+                        noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
                     }
-
-                    noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
-                }
-                else if (info[0] == "Color_TracNghiem")
-                {
-                    var xinh = f[info[0]];
-                    if (string.IsNullOrEmpty(xinh))
-                        xinh = "red";
-
-                    if (xinh != info[3])
+                    else if (info[0] == "Color_TracNghiem")
                     {
-                        cometo = "#come-" + i;
-                        dix++;
-                    }
+                        var xinh = f[info[0]];
+                        if (string.IsNullOrEmpty(xinh))
+                            xinh = "red";
 
-                    noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
+                        if (xinh != info[3])
+                        {
+                            cometo = "#come-" + i;
+                            dix++;
+                        }
+
+                        noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
+                    }
                 }
+                System.IO.File.WriteAllText(path, noidung);
+                if (dix == listSetting.Length - 2)
+                    cometo = "#welcome";
+
+                return Redirect("/Admin/SettingXYZ_DarkAdmin" + cometo);
             }
-            System.IO.File.WriteAllText(path, noidung);
-            if (dix == listSetting.Length - 2)
-                cometo = "#welcome";
-            return Redirect("/Admin/SettingXYZ_DarkAdmin"+cometo);
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
         }
 
         //-------------------------------------------------
@@ -558,7 +683,9 @@ namespace MyWebPlay.Controllers
 
         public ActionResult TracNghiemOnline_ViewMark()
         {
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            try
+            {
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
@@ -603,11 +730,24 @@ namespace MyWebPlay.Controllers
                 ViewBag.DateTime = x.AddHours(file.LastWriteTimeUtc, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
             }
             return View();
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
         }
 
         public ActionResult EditStudentMark()
         {
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            try
+            {
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
@@ -647,12 +787,25 @@ namespace MyWebPlay.Controllers
             }
 
             return View();
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
         }
 
         [HttpPost]
         public ActionResult EditStudentMark(string? txtText)
         {
-            Calendar xi = CultureInfo.InvariantCulture.Calendar;
+            try
+            {
+                Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
 
@@ -688,7 +841,7 @@ namespace MyWebPlay.Controllers
                     || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
                     || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
                     || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
-                    || info[0] == "Email_Note"))
+                    || info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
                 {
                     if (info[1] == "false")
                     {
@@ -719,13 +872,25 @@ namespace MyWebPlay.Controllers
                 System.IO.File.WriteAllText(path, noidung);
             }
 
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
 
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
             return RedirectToAction("TracNghiemOnline_ViewMark");
         }
 
         public ActionResult XoaViewMark()
         {
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            try
+            {
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
@@ -748,12 +913,25 @@ namespace MyWebPlay.Controllers
                 var noidung = "Thời gian bắt đầu\tIP Address\tMSSV\tID Link\tThời gian kết thúc\tĐiểm\r\n";
                 System.IO.File.WriteAllText(path, noidung);
             }
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
             return RedirectToAction("TracNghiemOnline_ViewMark");
         }
 
         public ActionResult ReportListIPComeHere() 
         {
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            try
+            {
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
@@ -791,12 +969,25 @@ namespace MyWebPlay.Controllers
             SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath,"mywebplay.savefile@gmail.com",
                "mywebplay.savefile@gmail.com", host + "[ADMIN] Báo cáo thủ công danh sách các IP user đã ghé thăm và request từng chức năng của trang web (tất cả/có thể chưa đầy đủ) In " + xuxu, noidung1, "teinnkatajeqerfl");
 
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
             return RedirectToAction("SettingXYZ_DarkAdmin", new { key = "code" });
         }
 
         public ActionResult DeleteIPComeHere()
         {
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            try
+            {
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
@@ -816,13 +1007,26 @@ namespace MyWebPlay.Controllers
             var noidung1 = docfile(path1);
 
             System.IO.File.WriteAllText(path1, "");
-       
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
+
             return RedirectToAction("SettingXYZ_DarkAdmin", new { key = "code"});
         }
 
         public ActionResult QuickDataInWeb(string? first)
         {
-            HttpContext.Session.Remove("ok-data");
+            try
+            {
+                HttpContext.Session.Remove("ok-data");
             if (string.IsNullOrEmpty(first) == false)
                 ViewBag.FirstGoTo = "true";
             else
@@ -947,11 +1151,24 @@ namespace MyWebPlay.Controllers
             TempData["RandomLayout"] = docfile(path);
 
             return View();
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
         }
 
         public ActionResult RemoveAllSessionAndTempData()
         {
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            try
+            {
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
@@ -970,12 +1187,25 @@ namespace MyWebPlay.Controllers
             HttpContext.Session.Clear();
             TempData.Clear();
             return Redirect("https://stackoverflow.com/questions");
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
         }
 
         [HttpPost]
         public ActionResult QuickDataInWeb(IFormCollection f)
         {
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            try
+            {
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
@@ -1013,15 +1243,35 @@ namespace MyWebPlay.Controllers
 
                 return RedirectToAction("PlayDataInWeb");
             }
-            catch
+            catch(Exception ex)
             {
-                return Redirect("http://stackoverflow.com/questions/4733878/how-to-debug-a-stackoverflowexception-in-net");
+                    var req = Request.Path;
+
+                    if (req == "/" || string.IsNullOrEmpty(req))
+                        req = "/Home/Index";
+
+                    HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+
+                    return Redirect("http://stackoverflow.com/questions/4733878/how-to-debug-a-stackoverflowexception-in-net");
+            }
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
             }
         }
 
         public ActionResult PlayDataInWeb()
         {
-            Random ri = new Random();
+            try
+            {
+                Random ri = new Random();
             ViewBag.NumberRandom = ri.Next(3) + 1;
 
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
@@ -1103,12 +1353,25 @@ namespace MyWebPlay.Controllers
             }
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomLayOut.txt");
             TempData["RandomLayout"] = docfile(path);
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
             return View();
         }
 
         public ActionResult RefreshInfoIPRegist()
         {
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            try
+            {
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
@@ -1126,6 +1389,17 @@ namespace MyWebPlay.Controllers
             }
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/InfoIPRegist.txt");
             System.IO.File.WriteAllText(path, "IP\tDateTime\tInfo");
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
             return Redirect("/Admin/SettingXYZ_DarkAdmin#labelActive");
         }
 
@@ -1170,7 +1444,9 @@ namespace MyWebPlay.Controllers
 
         public ActionResult RefreshFileHetHan()
         {
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            try
+            {
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
@@ -1278,11 +1554,24 @@ namespace MyWebPlay.Controllers
             }
 
             return RedirectToAction("SettingXYZ_DarkAdmin");
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
         }
 
         public ActionResult SettingStatusUpdate(string type)
         {
-            khoawebsiteAdmin();
+            try
+            {
+                khoawebsiteAdmin();
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/Setting_Status.txt");
 
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
@@ -1357,11 +1646,24 @@ namespace MyWebPlay.Controllers
                     break;
             }
             return RedirectToAction("SettingXYZ_DarkAdmin");
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
         }
 
         public ActionResult CheckMeMiniWeb(string? code)
         {
-            var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+            try
+            {
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
             var pass = System.IO.File.ReadAllText(pth).Split("\r\n", StringSplitOptions.RemoveEmptyEntries)[1];
 
             if (pass == code)
@@ -1374,6 +1676,17 @@ namespace MyWebPlay.Controllers
             }
 
             return RedirectToAction("SettingXYZ_DarkAdmin");
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
         }
     }
 }

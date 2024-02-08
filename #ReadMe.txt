@@ -34,6 +34,8 @@ cái item setting [Khoá all web site page - kể cả admin] đang bật thì m
 
 //Các hướng dẫn và web page còn lại cũng có ghi (tạm) trên trang setting hoặc bạn tự tìm hiểu thêm nhé. Thanks you!❤🤩😁...
 
+4. Hiện tại, mỗi khi văng lỗi hay exception => sẽ đều chuyển hướng đến trang page Error. Để xem nội dung log lỗi/exception vừa gặp, có thể vào trang SessionPlay và đọc data của session C# "error_exception_log"... (dấu hiệu để nhận biết đã có một data log về error hay exception vừa được lưu vào session là trang error page - URL có truyền param : exception = true) [và hãy tự kiểm tra ngay và nhanh chóng]
+
 ------------------------------------------------------------------------
 
 

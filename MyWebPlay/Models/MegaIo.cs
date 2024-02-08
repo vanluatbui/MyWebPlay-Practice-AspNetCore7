@@ -18,7 +18,7 @@ namespace MyWebPlay.Models
 
             var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-            var infoX = listSetting[35].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+            var infoX = listSetting[36].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
             if (infoX[3] != "[NULL]")
             {

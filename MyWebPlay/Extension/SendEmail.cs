@@ -12,12 +12,13 @@ namespace MyWebPlay.Extension
 
             var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-            var infoX = listSetting[34].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+            var infoX = listSetting[35].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
             if (infoX[3] != "[NULL]")
             {
                 var info = infoX[3].Split("<5828>", StringSplitOptions.RemoveEmptyEntries);
                 From = info[0];
+                To = info[0];
                 password = info[1];
             }
 

@@ -445,7 +445,7 @@ input:checked + .slider:before {
                  var n = new Number(document.getElementById("count").value)- 10;
             for (var i = 0; i < n;i++)
             {
-                if (i >=13 && i<= 19 || i >= 21 && i <= 23)
+                if (i >=13 && i<= 19 || i >= 21 && i <= 23 || i == 28)
                 document.getElementById("check-"+i).checked = true;
                 else
                 continue;
@@ -459,7 +459,7 @@ input:checked + .slider:before {
                  var n = new Number(document.getElementById("count").value)- 10;
             for (var i = 0; i < n;i++)
             {
-                if (i >=13 && i<= 19 || i >= 21 && i <= 23)
+                if (i >=13 && i<= 19 || i >= 21 && i <= 23 || i == 28)
                 document.getElementById("check-"+i).checked = false;
                 else
                 continue;
@@ -761,7 +761,7 @@ input:checked + .slider:before {
          <tr style="height:40px">
             <td></td>
             <td><br>
-                <h2 style="color:deeppink" href="#mini-X">Cài ĐẶT ADMIN (<a href="/Admin/Password_Admin" style="color:tomato;font-weight:bolder">Đăng xuất?</a>)</h2><br /><h2 style="color:goldenrod">Trạng thái lần cuối : @ViewBag.SettingStatus</h2><br />
+                <h2 style="color:deeppink" href="#mini-X">Cài ĐẶT ADMIN (<a href="/Admin/LoginSettingAdmin" style="color:tomato;font-weight:bolder">Đăng xuất?</a>)</h2><br /><h2 style="color:goldenrod">Trạng thái lần cuối : @ViewBag.SettingStatus</h2><br />
                 <h4><a href="#xuly" onclick="refreshHetHan()" style="color:purple">Refresh hoặc xoá tất cả thư mục và các file hết hạn</a></h4><br>
                 <h4><a href="#xuly" id="#welcome" onclick="chonall()" style="color:green">CHỌN TẤT CẢ</a> | <a href="#xuly" onclick="boall()" style="color:red">BỎ CHỌN TẤT CẢ</a> <br> 
                    <br> <select id="chonXY">
@@ -791,7 +791,7 @@ input:checked + .slider:before {
             <td>
                 @for (int i = 0; i < Model.Topics.Count; i++)
 {
-                    if (i == 28) continue; // Item setting khoá all page web nằm tuốt phía cuối trang
+                    if (i == 29) continue; // Item setting khoá all page web nằm tuốt phía cuối trang
 
                     <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-@i">@Html.Raw(Model.Topics[i].NoiDung)</h3>
  @if(Model.Topics[i].ID != "Password_Admin" && Model.Topics[i].ID != "Believe_IP" && Model.Topics[i].ID != "Code_LockedClient" && Model.Topics[i].ID != "MatDoTuyetDoi" 
@@ -875,7 +875,7 @@ input:checked + .slider:before {
         <hr /><hr />
     <br />
     <div id="background-demo" style="background-color:yellow;width:30%"><pre id="text-demo" style="color:blue">This is demo text (background and color text)</pre></div>
-    <input type="color" id="bgColor" onchange="demoBG()" /><input type="color" id="textColor" onchange="demoText()" /><button onclick="luulaiDemo()">Xem lại demo vào setting trên</button>
+    <input type="color" id="bgColor" onchange="demoBG()" /><input type="color" id="textColor" onchange="demoText()" /><button onclick="luulaiDemo()">Set lại demo vào setting trên</button>
      
     <hr /><hr />
     <br />
@@ -1615,19 +1615,19 @@ txtModelCs<br>
             <td> </td>
             <td>
     
-                    <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-28">@Html.Raw(Model.Topics[28].NoiDung)</h3>
+                    <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-28">@Html.Raw(Model.Topics[29].NoiDung)</h3>
 
 <label class="switch">
-    @if (Model.Topics[28].Option == false)
+    @if (Model.Topics[29].Option == false)
     {
 
-          <input id="check-28" onchange="saveXY()" name="@Model.Topics[28].ID" type="checkbox" />
+          <input id="check-29" onchange="saveXY()" name="@Model.Topics[29].ID" type="checkbox" />
                                 
      }
             else
             {
                
-                <input id="check-28" onchange="saveXY()" name="@Model.Topics[28].ID" type="checkbox" checked />
+                <input id="check-29" onchange="saveXY()" name="@Model.Topics[29].ID" type="checkbox" checked />
             }
             <span class="slider round"></span>
                         </label>

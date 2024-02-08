@@ -21,10 +21,16 @@
         if (sang == 1)
         mau = "black";
 
+         if('@TempData["demo-mau"]' == "true")
+        {
+            mau = '@TempData["demo-text"]';
+        }
+
+        var tomau = '@TempData["mau-TN"]';
 
         if (s == 1)
         {
-            A.style.color = "red";
+            A.style.color = tomau;
             B.style.color = mau;
             C.style.color = mau;
             D.style.color = mau;
@@ -32,7 +38,7 @@
         else if (s == 2)
         {
             A.style.color = mau;
-            B.style.color = "red";
+            B.style.color = tomau;
             C.style.color = mau;
             D.style.color = mau;
         }
@@ -40,7 +46,7 @@
         {
             A.style.color = mau;
             B.style.color = mau;
-            C.style.color = "red";
+            C.style.color = tomau;
             D.style.color = mau;
         }
         else if (s == 4)
@@ -48,7 +54,7 @@
             A.style.color = mau;
             B.style.color = mau;
             C.style.color = mau;
-            D.style.color = "red";
+            D.style.color = tomau;
         }
              }
         }
@@ -222,10 +228,16 @@
         if (sang == 1)
         mau = "black";
 
+        if('@TempData["demo-mau"]' == "true")
+        {
+            mau = '@TempData["demo-text"]';
+        }
+
+        var tomau = '@TempData["mau-TN"]';
 
         if (s == 1)
         {
-            A.style.color = "red";
+            A.style.color = tomau;
             B.style.color = mau;
             C.style.color = mau;
             D.style.color = mau;
@@ -233,7 +245,7 @@
         else if (s == 2)
         {
             A.style.color = mau;
-            B.style.color = "red";
+            B.style.color = tomau;
             C.style.color = mau;
             D.style.color = mau;
         }
@@ -241,7 +253,7 @@
         {
             A.style.color = mau;
             B.style.color = mau;
-            C.style.color = "red";
+            C.style.color = tomau;
             D.style.color = mau;
         }
         else if (s == 4)
@@ -249,7 +261,7 @@
             A.style.color = mau;
             B.style.color = mau;
             C.style.color = mau;
-            D.style.color = "red";
+            D.style.color = tomau;
         }
     }
 
@@ -341,9 +353,16 @@
         if (sang == 1)
         mau = "black";
 
+         if('@TempData["demo-mau"]' == "true")
+        {
+            mau = '@TempData["demo-text"]';
+        }
+
+        var tomau = '@TempData["mau-TN"]';
+
        if (answer == 1)
        {
-             A.style.color = "red";
+             A.style.color = tomau;
             B.style.color = mau;
             C.style.color = mau;
             D.style.color = mau;
@@ -351,7 +370,7 @@
        else if (answer == 2)
        {
             A.style.color = mau;
-            B.style.color = "red";
+            B.style.color = tomau;
             C.style.color = mau;
             D.style.color = mau;
        }
@@ -359,7 +378,7 @@
        {
             A.style.color = mau;
             B.style.color = mau;
-            C.style.color = "red";
+            C.style.color = tomau;
             D.style.color = mau;
        }
         else if (answer == 4)
@@ -367,7 +386,7 @@
             A.style.color = mau;
             B.style.color = mau;
             C.style.color = mau;
-            D.style.color = "red";
+            D.style.color = tomau;
        }
 
      }
@@ -382,6 +401,11 @@
           var mau = "white";
         if (sang == 1)
         mau = "black";
+
+         if('@TempData["demo-mau"]' == "true")
+        {
+            mau = '@TempData["demo-text"]';
+        }
 
         if (check == true)
       {

@@ -870,6 +870,33 @@
              }
          }
 
+         var demo = 0;
+         if ('@TempData["demo-mau"]' == "true")
+         {       
+             setInterval(function()
+             {
+                 if (demo == 1) return;
+
+                 var maubg = '@TempData["demo-bg"]';
+                 var mautext = '@TempData["demo-text"]';
+
+                    document.getElementById("nenta").style.backgroundColor = "grey";
+             var li1 = document.getElementsByName("backgroundX").length;
+             for (var i = 0 ; i<li1; i++)
+             {
+                 document.getElementsByName("backgroundX")[i].style.backgroundColor = maubg;
+             }
+
+             var li2 = document.getElementsByName("colorX").length;
+             for (var i = 0 ; i<li2; i++)
+             {
+                 document.getElementsByName("colorX")[i].style.color = mautext;
+             }
+
+                 demo = 1;
+             }, 10);
+         }
+
          function toanmanhinh(){
   var elem = document.documentElement;
   if (elem.requestFullscreen) {
@@ -913,6 +940,8 @@
                         <span onclick="savebelive()" style="color:chartreuse">@TempData["UserIP"]</span>
                  }
                 <h2 style="color:@TempData["mau_winx"]" onclick="xoaluunen()">@TempData["winx"]</h2>
+                @if (TempData["demo-mau"] == "false")
+                {
                 @if(TempData["mau_background"] == "white")
                 {
                         <a style="color:crimson" id="chuyenlightdark" href="#xuly" onclick="nensangtoi('xuly')">Đổi nền tối</a>
@@ -921,6 +950,7 @@
                     {
                           <a id="chuyenlightdark" style="color:crimson" href="#xuly" onclick="nensangtoi('xuly')">Đổi nền sáng</a>
                     }
+                }
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

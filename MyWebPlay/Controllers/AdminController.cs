@@ -21,6 +21,29 @@ namespace MyWebPlay.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
+        public ActionResult Password_Admin()
+        {
+            HttpContext.Session.Remove("adminSetting");
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Password_Admin(IFormCollection f)
+        {
+            HttpContext.Session.Remove("adminSetting");
+
+            var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+            var password = System.IO.File.ReadAllText(pth).Split("\r\n", StringSplitOptions.RemoveEmptyEntries)[1];
+            var ID = System.IO.File.ReadAllText(pth).Split("\r\n", StringSplitOptions.RemoveEmptyEntries)[0];
+
+            if (password == f["txtPassword"].ToString() && ID == f["txtID"].ToString())
+            {
+                HttpContext.Session.SetString("adminSetting", "true");
+            }
+
+            return RedirectToAction("SettingXYZ_DarkAdmin");
+        }
+
         public void khoawebsiteAdmin()
         {
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
@@ -78,6 +101,11 @@ namespace MyWebPlay.Controllers
 
         public ActionResult SettingXYZ_DarkAdmin()
         {
+            if (HttpContext.Session.GetString("adminSetting") == null)
+            {
+                return RedirectToAction("Password_Admin");
+            }
+
             khoawebsiteAdmin();
             HttpContext.Session.Remove("mini-web");
             TempData.Remove("mini-web");
@@ -151,6 +179,19 @@ namespace MyWebPlay.Controllers
                         ViewBag.InfoMegaIO = "";
                     else
                         ViewBag.InfoMegaIO = info[3];
+                }
+
+                if (info[0] == "Color_BackgroundAndText")
+                {
+                    if (info[3] == "[NULL]")
+                        ViewBag.SetColor = "";
+                    else
+                        ViewBag.SetColor = info[3];
+                }
+
+                if (info[0] == "Color_TracNghiem")
+                {
+                    ViewBag.TNColor = info[3];
                 }
 
                 if (info[0] == "Save_ComeHere")
@@ -339,7 +380,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-                if (info[0] != "Password_Admin" && info[0] != "Believe_IP" && info[0] != "Code_LockedClient" && info[0] != "MatDoTuyetDoi" && info[0] != "Encode_Url" && info[0] != "Info_Email" && info[0] != "Info_MegaIO")
+                if (info[0] != "Password_Admin" && info[0] != "Believe_IP" && info[0] != "Code_LockedClient" && info[0] != "MatDoTuyetDoi" && info[0] != "Encode_Url" && info[0] != "Info_Email" && info[0] != "Info_MegaIO" && info[0] != "Color_BackgroundAndText" && info[0] != "Color_TracNghiem")
                 {
                     if (xi != info[1])
                     {
@@ -456,6 +497,34 @@ namespace MyWebPlay.Controllers
                     var xinh = f[info[0]];
                     if (string.IsNullOrEmpty(xinh))
                         xinh = "[NULL]";
+
+                    if (xinh != info[3])
+                    {
+                        cometo = "#come-" + i;
+                        dix++;
+                    }
+
+                    noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
+                }
+                else if (info[0] == "Color_BackgroundAndText")
+                {
+                    var xinh = f[info[0]];
+                    if (string.IsNullOrEmpty(xinh))
+                        xinh = "[NULL]";
+
+                    if (xinh != info[3])
+                    {
+                        cometo = "#come-" + i;
+                        dix++;
+                    }
+
+                    noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
+                }
+                else if (info[0] == "Color_TracNghiem")
+                {
+                    var xinh = f[info[0]];
+                    if (string.IsNullOrEmpty(xinh))
+                        xinh = "red";
 
                     if (xinh != info[3])
                     {

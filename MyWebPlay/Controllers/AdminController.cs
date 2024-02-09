@@ -21,10 +21,13 @@ namespace MyWebPlay.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public ActionResult LoginSettingAdmin()
+        public ActionResult LoginSettingAdmin(string code)
         {
             try
             {
+                if (string.IsNullOrEmpty(code) || code != "fc460a0b05de01cc3578e97bbda4a4c3_841099dfe526044cad55ece0ea568afb_bddeb195a6ddeff203aa7b9f59d23be9bddeb195a6ddeff203aa7b9f59d23be9_841099dfe526044cad55ece0ea568afb_fc460a0b05de01cc3578e97bbda4a4c3_true")
+                    return RedirectToAction("Error", "Home");
+
                 Calendar x = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = x.AddHours(DateTime.UtcNow, 7);
@@ -188,6 +191,7 @@ namespace MyWebPlay.Controllers
             try {
             khoawebsiteAdmin();
             HttpContext.Session.Remove("mini-web");
+            HttpContext.Session.Remove("mini-error");
             TempData.Remove("mini-web");
 
             Calendar x = CultureInfo.InvariantCulture.Calendar;
@@ -207,7 +211,7 @@ namespace MyWebPlay.Controllers
 
             if (HttpContext.Session.GetString("adminSetting") == null)
             {
-                return RedirectToAction("LoginSettingAdmin");
+                return RedirectToAction("LoginSettingAdmin", new {code = "fc460a0b05de01cc3578e97bbda4a4c3_841099dfe526044cad55ece0ea568afb_bddeb195a6ddeff203aa7b9f59d23be9bddeb195a6ddeff203aa7b9f59d23be9_841099dfe526044cad55ece0ea568afb_fc460a0b05de01cc3578e97bbda4a4c3_true" });
             }
 
             var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");

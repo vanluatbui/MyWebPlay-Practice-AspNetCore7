@@ -141,7 +141,7 @@ namespace MyWebPlay.Controllers
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                if (i!= 28 && yes == false && info.Length == 3)
+                if (i!= 30 && yes == false && info.Length == 3)
                 {
                     if (info[1] == "true")
                         yes = true;
@@ -494,12 +494,18 @@ namespace MyWebPlay.Controllers
             else
                 TempData["errorXY"] = "false";
 
-            //var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
-            //var nd = System.IO.File.ReadAllText(pth).Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
-            //TempData["key-admin"] = nd[0];
-            //TempData["value-admin"] = nd[1];
+                if (HttpContext.Session.GetString("mini-error") == "true")
+                {
+                    TempData["errorXY"] = "false";
+                    HttpContext.Session.SetString("mini-error", "true");
+                }
 
-            Calendar x = CultureInfo.InvariantCulture.Calendar;
+                //var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                //var nd = System.IO.File.ReadAllText(pth).Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
+                //TempData["key-admin"] = nd[0];
+                //TempData["value-admin"] = nd[1];
+
+                Calendar x = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = x.AddHours(DateTime.UtcNow, 7);
 
@@ -727,10 +733,16 @@ namespace MyWebPlay.Controllers
             }
             return View();
         }
-        public ActionResult Index()
+        public ActionResult Index(string? mini)
         {
             try
             {
+                if (string.IsNullOrEmpty(mini) == false && mini == "true" || HttpContext.Session.GetString("mini-error") == "true")
+                {
+                    TempData["errorXY"] = "false";
+                    HttpContext.Session.SetString("mini-error", "true");
+                }
+
                 //BanNhap();
                 // Change JAPAN (question)
                 var jp = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "ChangeJapan", "quy-tac-ki-tu-chuyen-doi.txt"));

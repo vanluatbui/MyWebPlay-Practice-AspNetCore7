@@ -1,0 +1,83 @@
+Arial
+Arial Black
+Arial Narrow
+Bahnschrift
+Bahnschrift Condensed
+Bahnschrift Light
+Bahnschrift Light Condensed
+Bahnschrift SemiBold
+Bahnschrift SemiBold Condensed
+Book Antiqua
+Bookman Old Style
+Buxton Sketch
+Calibri
+Calibri Light
+Cambria
+Cambria Math
+Candara
+Cascadia Code
+Cascadia Code ExtraLight
+Cascadia Code SemiBold
+Century
+Comic Sans MS
+Consolas
+Constantia
+Corbel
+Courier New
+Ebrima
+Franklin Gothic Medium
+Gabriola
+Gadugi
+Garamond
+Georgia
+HoloLens MDL2 Assets
+Impact
+Ink Free
+Javanese Text
+Leelawadee
+Lucida Console
+Lucida Sans Unicode
+Malgun Gothic
+Marlett
+Microsoft JhengHei
+Microsoft New Tai Lue
+Microsoft Sans Serif
+Microsoft Uighur
+Microsoft YaHei
+MingLiU_HKSCS-ExtB
+Mongolian Baiti
+Monotype Corsiva
+MS Gothic
+MS PGothic
+MS Reference Specialty
+MT Extra
+Myanmar Text
+Nirmala UI
+NSimSun
+Palatino Linotype
+PMingLiU-ExtB
+Segoe Marker
+Segoe MDL2 Assets
+Segoe Script
+Segoe UI Black
+Segoe UI Emoji
+Segoe UI Semibold
+SimSun
+SimSun-ExtB
+Sitka Banner
+Sitka Display
+Sitka Small
+Sitka Text
+SketchFlow Print
+Symbol
+Tahoma
+Trebuchet MS
+Times New Roman
+Trebuchet MS
+Verdana
+Webdings
+Yu Gothic
+Yu Gothic Light
+Yu Gothic Medium
+Yu Gothic UI Semibold
+Yu Gothic UI Semilight

@@ -660,10 +660,10 @@ input:checked + .slider:before {
             window.location.href = "/Home/Setting_RemoveIPLockClient?ip_pass="+document.getElementById("txtIPLockClient").value;
         }
 
-        function xoachitiet()
-        {
-            window.location.href = "/Admin/RefreshInfoIPRegist";
-        }
+        //function xoachitiet()
+        //{
+        //    window.location.href = "/Admin/RefreshInfoIPRegist";
+        //}
 
          function deletechitiet()
         {
@@ -686,6 +686,14 @@ input:checked + .slider:before {
              window.location.href = "/Home/AddJPReplace?nd="+document.getElementById("JPrex").value.replaceAll("\n","⭐");
         }
 
+         function addFontReplace()
+        {
+            var re = confirm("(⚠) Are you sure?");
+            if (re == false) return;
+
+             window.location.href = "/Home/AddFontReplace?nd="+document.getElementById("txtFont").value.replaceAll("\n","⭐");
+        }
+
           function resetJPReplace()
         {
             var re = confirm("(⚠) Are you sure?");
@@ -693,6 +701,16 @@ input:checked + .slider:before {
 
              window.location.href = "/Home/ResetJPReplace";
         }
+
+           function resetFontReplace()
+        {
+            var re = confirm("(⚠) Are you sure?");
+            if (re == false) return;
+
+             window.location.href = "/Home/ResetFontReplace";
+        }
+
+
 
         function checkmeMiniWeb()
         {
@@ -791,7 +809,7 @@ input:checked + .slider:before {
             <td>
                 @for (int i = 0; i < Model.Topics.Count; i++)
 {
-                    if (i == 29) continue; // Item setting khoá all page web nằm tuốt phía cuối trang
+                    if (i == 30) continue; // Item setting khoá all page web nằm tuốt phía cuối trang
 
                     <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-@i">@Html.Raw(Model.Topics[i].NoiDung)</h3>
  @if(Model.Topics[i].ID != "Password_Admin" && Model.Topics[i].ID != "Believe_IP" && Model.Topics[i].ID != "Code_LockedClient" && Model.Topics[i].ID != "MatDoTuyetDoi" 
@@ -883,7 +901,7 @@ input:checked + .slider:before {
     <br />
     <select onclick="loadActive()" onchange="setActive()" id="ip_active">
     </select>&nbsp;<input type="text" id="txtIPActive" /><br />
-    <button onclick="addActive()" style="color:green">THÊM (HOẠT ĐỘNG NHƯNG CHƯA XÁC NHẬN THIẾT BỊ)</button>&nbsp;<button onclick="removeActive()" style="color:red">XOÁ (HẾT HẠN)</button>&nbsp;(<a href="/ClientConnect/InfoIPRegist.txt" target="_blank">Xem Chi Tiết (có thể chưa đủ thông tin)</a><b> || </b><a href="/ClientConnect/InfoIPRegist.txt" onclick="xoachitiet()" download="">Tải xuống và refresh</a> || </b><a href="#xuly" onclick="deletechitiet()">Delete</a>)
+    <button onclick="addActive()" style="color:green">THÊM (HOẠT ĐỘNG NHƯNG CHƯA XÁC NHẬN THIẾT BỊ)</button>&nbsp;<button onclick="removeActive()" style="color:red">XOÁ (HẾT HẠN)</button>&nbsp;(<a href="/ClientConnect/InfoIPRegist.txt" target="_blank">Xem Chi Tiết (có thể chưa đủ thông tin)</a><b> || </b><a href="/ClientConnect/InfoIPRegist.txt" @*onclick="xoachitiet()"*@ download="">Tải xuống và refresh</a> || </b><a href="#xuly" onclick="deletechitiet()">Delete</a>)
     <br />
      <br />
     <b name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG BỊ KHOÁ (ADMIN)</b>
@@ -920,10 +938,22 @@ input:checked + .slider:before {
     
     <button onclick="resetJPReplace()"><b style="color:red">RESET LẠI MẶC ĐỊNH HỆ THỐNG</b></button>
 
-    <br /><br />
+       <br /><br />
     <h1 style="color:red">QUY TẮC CÁCH CHUYỂN ĐỔI CÁC KÍ TỰ SANG JAPAN - QUESTION (hiện có) : </h1>
         <textarea id="JPrex" cols="100" rows="20">@TempData["rexJP"]</textarea>
     <br /><br /><hr /><hr />
+    
+    
+     <br /><br /><hr /><hr />
+    <button id="fontHere" onclick="addFontReplace()"><b style="color:green">CẬP NHẬT NỘI DUNG</b></button>
+    
+    <button onclick="resetFontReplace()"><b style="color:red">RESET LẠI MẶC ĐỊNH HỆ THỐNG</b></button>
+
+    <br /><br />
+    <h1 style="color:red">DANH SÁCH CÁC FONT CHỮ KHI PLAY KARAOKE (hiện có) : </h1>
+        <textarea id="txtFont" cols="30" rows="20">@TempData["fontKara"]</textarea>
+    <br /><br /><hr /><hr />
+
     <h3 style="color:orangered">
         - [Quy tắc link rút gọn bom.so, còn link gốc bạn có thể không cần quan tâm cái này] Lưu ý, các hướng dẫn ở đây có thể sau này sẽ cũ hoặc một số bây giờ sẽ không thể sử dụng được. Mặc dù vậy, bạn hãy thử nghĩ và random thử nhiều cách khác nhau (vì nhiều cái muốn đổi thay mà giờ làm biếng đổi quá 🤣😄). Mà không sao đâu, mấy này cũng tương tự à : bạn tự mò nha 😁. Ví dụ ở hướng dẫn là <b>abc1</b> (nhưng giờ thử không được) thì bạn có thể thử nhiều cái cách khác như : <b>abc2, abc3, abc4, ...</b> (hên xui ahihi 🤩).
         <br />
@@ -1615,19 +1645,19 @@ txtModelCs<br>
             <td> </td>
             <td>
     
-                    <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-28">@Html.Raw(Model.Topics[29].NoiDung)</h3>
+                    <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-30">@Html.Raw(Model.Topics[30].NoiDung)</h3>
 
 <label class="switch">
-    @if (Model.Topics[29].Option == false)
+    @if (Model.Topics[30].Option == false)
     {
 
-          <input id="check-29" onchange="saveXY()" name="@Model.Topics[29].ID" type="checkbox" />
+          <input id="check-30" onchange="saveXY()" name="@Model.Topics[30].ID" type="checkbox" />
                                 
      }
             else
             {
                
-                <input id="check-29" onchange="saveXY()" name="@Model.Topics[29].ID" type="checkbox" checked />
+                <input id="check-30" onchange="saveXY()" name="@Model.Topics[30].ID" type="checkbox" checked />
             }
             <span class="slider round"></span>
                         </label>

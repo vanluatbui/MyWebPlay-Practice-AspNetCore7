@@ -449,6 +449,19 @@ function showlist()
         document.getElementById("music").play();
         youX = true;
     }
+
+    var mi = 0;
+    setInterval(function()
+    {
+        if (mi == 1) return;
+
+         var fontKara = '@TempData["fontKara"]'.replaceAll("&#xD;&#xA;","\n").split('\n');
+
+          for (var i = 0; i< fontKara.length; i++)
+          document.getElementById("fontKieu").innerHTML += "<option style=\"font-family:"+fontKara[i]+"\">"+fontKara[i]+"</option>";
+
+          mi = 1;
+    },10);
   
     var t=10;
       var kk = 0;
@@ -509,7 +522,7 @@ function showlist()
         localStorage.setItem("mauY", document.getElementById("mauY").value);
         localStorage.setItem("kichthuoc", document.getElementById("kichthuoc").value);
         localStorage.setItem("hang", document.getElementById("hang").value);
-        localStorage.setItem("kieuchu", document.getElementById("kieuchu").value);
+        localStorage.setItem("kieuchu", document.getElementById("fontKieu").options.selectedIndex);
         localStorage.setItem("kieudemnguoc", document.getElementById("kieudemnguoc").value);
          localStorage.setItem("dotre", document.getElementById("dotre").value);
 
@@ -628,7 +641,7 @@ function showlist()
 
         var mau = "#2900f5";
         var mauX = "#efe6e6";
-        var kieuchu = "Times New Roman,Times,serif";
+        var kieuchu = 0;
         var kieudemnguoc = "N";
         var dotre = "0.3";
 
@@ -708,18 +721,16 @@ function showlist()
             if (localStorage.getItem("kieuchu") == null)
             return;
 
-             kieuchu = localStorage.getItem("kieuchu");
-             document.getElementById("kieuchu").value = kieuchu;
+            kieuchu = localStorage.getItem("kieuchu");
+             
+            document.getElementById("fontKieu").options.selectedIndex = kieuchu;
         }
 
-        function doikieuchu()
+        function doiFontKieu()
         {
-            var kieuchu = document.getElementById("kieuchu").value;
-            if (kieuchu == "")
-            {
-                kieuchu = "Times New Roman,Times,serif";
-                document.getElementById("kieuchu").value = kieuchu;
-            }
+            var index = document.getElementById("fontKieu").options.selectedIndex;
+            var kieuchu = document.getElementById("fontKieu").options[index].value;
+
             document.getElementById("txtKaraoke1").style.fontFamily = kieuchu;
             document.getElementById("txtKaraoke2").style.fontFamily =  kieuchu;
         }
@@ -767,8 +778,8 @@ function showlist()
                     var id = setInterval(myAlert, 100);
 
         var ndTK = '@TempData["TK-KARA"]'.replaceAll("&#xA;","\n").split('\n');
-
-                    function myAlert()
+    
+        function myAlert()
                     {
                         if (flag == 0)
                         {
@@ -786,6 +797,7 @@ function showlist()
                         }
                         k++;
                     }
+
                     flag = 1;
                         }
 
@@ -819,7 +831,7 @@ function showlist()
                         doihang_Save();
                         doikichthuoc_Save();
                         doikieuchu_Save();
-                        doikieuchu();
+                        doiFontKieu();
                         doikieudemnguoc_Save();
                         doikieudemnguoc();
                         doidotre_Save();
@@ -851,6 +863,7 @@ function showlist()
             resetKaraoke();
             resetKaraoke();
             resetKaraoke();
+
             flix = 1;
         }
 
@@ -1393,7 +1406,9 @@ else
                         }
                         &nbsp;&nbsp;&nbsp;<b id="xemmauthu" style="color:#efe6e6">Chọn màu đoạn text ban đầu</b> : <input type="color" onchange="doimauX()" id="mauX" value="#efe6e6" />
      &nbsp;&nbsp;&nbsp;<b id="xemmaudi" style="color:#e3f207">Chọn màu cho time đếm ngược bắt đầu karaoke</b> : <input type="color" onchange="doimauY()" id="mauY" value="#e3f207" />
-     &nbsp;&nbsp;&nbsp;<input id="kieuchu" placeholder="Nhập kiểu chữ" onchange="doikieuchu()" value="Times New Roman,Times,serif"/>
+     &nbsp;&nbsp;&nbsp;
+     <select id="fontKieu" onchange="doiFontKieu()">
+     </select>
      <br />
       <span style="color:deeppink"><b>Kích thước chữ : </b></span><input id="kichthuoc" type="number" min="0" value="80" onchange="doikichthuoc()"/>
         &nbsp;&nbsp;&nbsp;<span style="color:deeppink"><b>Vị trí xuất hiện : </b></span> <input id="hang" type="number" min="0" value="0" onchange="doihang()"/>

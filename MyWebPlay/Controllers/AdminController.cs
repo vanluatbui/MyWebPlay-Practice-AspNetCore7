@@ -28,6 +28,8 @@ namespace MyWebPlay.Controllers
                 if (string.IsNullOrEmpty(code) || code != "fc460a0b05de01cc3578e97bbda4a4c3_841099dfe526044cad55ece0ea568afb_bddeb195a6ddeff203aa7b9f59d23be9bddeb195a6ddeff203aa7b9f59d23be9_841099dfe526044cad55ece0ea568afb_fc460a0b05de01cc3578e97bbda4a4c3_true")
                     return RedirectToAction("Error", "Home");
 
+                HttpContext.Session.Remove("open-admin");
+
                 Calendar x = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = x.AddHours(DateTime.UtcNow, 7);
@@ -190,7 +192,19 @@ namespace MyWebPlay.Controllers
         {
             try {
             khoawebsiteAdmin();
-            HttpContext.Session.Remove("mini-web");
+
+            if (HttpContext.Session.GetString("open-admin") == "true")
+            {
+                    TempData["admin-open"] = "true";
+            }
+            else
+             if (HttpContext.Session.GetString("open-admin") == "false")
+             {
+                    TempData["admin-open"] = "false";
+                    HttpContext.Session.Remove("open-admin");
+             }
+
+                HttpContext.Session.Remove("mini-web");
             HttpContext.Session.Remove("mini-error");
             TempData.Remove("mini-web");
 
@@ -319,7 +333,7 @@ namespace MyWebPlay.Controllers
             var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
             var nd = System.IO.File.ReadAllText(pth).Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
             TempData["key-admin"] = nd[0];
-            TempData["value-admin"] = nd[1];
+           // TempData["value-admin"] = nd[1];
 
             var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
             var noidung2 = docfile(path2);
@@ -1640,7 +1654,7 @@ namespace MyWebPlay.Controllers
                     break;
 
                 case "ON-ALL":
-                    System.IO.File.WriteAllText(path, "Đã bật hết tất cả các item setting (ngoại trừ mục cho phép website với mọi người nhưng sẽ ưu tiên việc get IP) và hãy cẩn thận sự mâu thuẫn giữa các item setting lúc này # " + xuxu);
+                    System.IO.File.WriteAllText(path, "Đã bật hết tất cả các item setting (ngoại trừ mục cho phép website với mọi người thì sẽ ưu tiên việc get IP; và về setting nhận thông báo email dữ liệu Karaoke của user thì nhận luôn cả hai bản : Text và MP3) và hãy cẩn thận sự mâu thuẫn giữa các item setting lúc này # " + xuxu);
                     break;
 
                 case "OFF-ALL":
@@ -1693,6 +1707,25 @@ namespace MyWebPlay.Controllers
                 HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
                 return RedirectToAction("Error", new { exception = "true" });
             }
+        }
+
+        public ActionResult OpenAdmin(string? code)
+        {
+            var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+            var nd = System.IO.File.ReadAllText(pth).Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
+
+            if (code == nd[1])
+            {
+                HttpContext.Session.SetString("open-admin", "true");
+                TempData["admin-open"] = "true";
+            }
+            else
+            {
+                HttpContext.Session.SetString("open-admin", "false");
+                TempData["admin-open"] = "false";
+            }
+
+            return RedirectToAction("SettingXYZ_DarkAdmin");
         }
     }
 }

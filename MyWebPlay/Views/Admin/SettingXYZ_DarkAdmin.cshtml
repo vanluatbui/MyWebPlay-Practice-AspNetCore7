@@ -233,7 +233,12 @@ input:checked + .slider:before {
             }
          }
 
-        if ((localStorage.getItem('@TempData["key-admin"]') == null || localStorage.getItem('@TempData["key-admin"]') != '@TempData["value-admin"]') /*&& '@TempData["SecureAdmin"]' == "true" */)
+         if (('@TempData["admin-open"]' == "" || '@TempData["admin-open"]' == null) && localStorage.getItem('@TempData["key-admin"]') != null)
+         {
+             window.location.href = "/Admin/OpenAdmin?code="+localStorage.getItem('@TempData["key-admin"]');
+         }
+
+        if (localStorage.getItem('@TempData["key-admin"]') == null || '@TempData["admin-open"]' == "false")
         {
            localStorage.removeItem('@TempData["key-admin"]');
             window.location.href = "/Home/Error";
@@ -497,7 +502,7 @@ input:checked + .slider:before {
             {
                 localStorage.setItem("matpassAd", document.getElementById("matpassAd").value);
             }
-            var n = new Number(document.getElementById("count").value)- 10;
+            var n = new Number(document.getElementById("count").value)- 11;
             for (var i = 0; i < n;i++)
             {
                 document.getElementById("check-"+i).checked = true;

@@ -69,6 +69,9 @@ body {
 <body>
 <meta charset="ISO-8859-1">
 <script>
+
+    var useMauNen = 0;
+
     // Delete div somee
 
         setInterval(function()
@@ -244,6 +247,38 @@ function showlist()
               document.getElementById("phan6").style.display = "none";
         }
     }
+
+    function doimaunenX()
+    {
+        var mau = document.getElementById("maunenX").value;
+        document.getElementById("demo_nen").style.color = mau;
+
+        var x = document.getElementById("background-X");
+        x.style.backgroundColor = mau;
+
+        useMauNen = 1;
+    }
+
+    function xoamaunen()
+    {
+        document.getElementById("demo_nen").style.color = "#FFFFFF";
+        document.getElementById("maunenX").value = "#FFFFFF";
+
+        var x = document.getElementById("background-X");
+
+        if (useMauNen == 0 || useMauNen == 1)
+        {
+              x.style.backgroundColor = "rgba(0, 0, 0, 0.4)";
+              useMauNen = 2;
+        }
+        else
+        {
+       x.style.backgroundColor = "transparent";
+        useMauNen = 0;
+        }
+    }
+
+
     function doikichthuoc()
     {
         var kt = document.getElementById("kichthuoc").value + "px";
@@ -281,7 +316,11 @@ function showlist()
             return;
 
              var hang = new Number(localStorage.getItem("hang"));
-             document.getElementById("hang").value = localStorage.getItem("hang");
+
+             if ('@TempData["TK-KARA"]' != "")
+             hang = 0;
+
+            document.getElementById("hang").value = hang;
 
         var hax = "";
         for (var i  =0; i < hang; i++)
@@ -526,9 +565,18 @@ function showlist()
         localStorage.setItem("kieudemnguoc", document.getElementById("kieudemnguoc").value);
          localStorage.setItem("dotre", document.getElementById("dotre").value);
 
+         if (useMauNen == 0)
+         localStorage.setItem("maunen", "none");
+         else
+         if (useMauNen == 1)
+          localStorage.setItem("maunen", document.getElementById("maunenX").value);
+           else
+         if (useMauNen == 2)
+          localStorage.setItem("maunen", "blue");
+
          document.getElementById("message").style.display = "inline-block";
          document.getElementById("error").style.display = "inline-block";
-        document.getElementById("error").innerHTML = "✔️ Các cài đặt Karaoke của bạn đã được ghi nhớ thành công !"
+        document.getElementById("error").innerHTML = "✔️ Các cài đặt Karaoke của bạn đã được ghi nhớ thành công (chú ý : một số setting có thể sẽ tự ý thay đổi một chút để phù hợp với hoàn cảnh) !"
 
            var menu = document.getElementById("menu");
         var hienlinh = document.getElementById("hienlinh");
@@ -651,6 +699,31 @@ function showlist()
            document.getElementById("xemthumau").style.color = mau;
            document.getElementById("xanhX1").style.setProperty("--color", mau);
            document.getElementById("xanhX2").style.setProperty("--color", mau);
+        }
+
+        function doimaunen_Save()
+        {
+             if (localStorage.getItem("maunen") == null)
+            return;
+
+            if (localStorage.getItem("maunen") != "none" && localStorage.getItem("maunen") != "blue")
+            {
+                var maunen = localStorage.getItem("maunen");
+                document.getElementById("maunenX").value = maunen;
+
+                doimaunenX();
+            }
+            else
+            if (localStorage.getItem("maunen") == "none")
+            {
+                useMauNen = 2;
+                xoamaunen();
+            }
+            else
+            if (localStorage.getItem("maunen") == "blue")
+            {
+                xoamaunen();
+            }
         }
 
         function doimau_Save()
@@ -835,6 +908,7 @@ function showlist()
                         doikieudemnguoc_Save();
                         doikieudemnguoc();
                         doidotre_Save();
+                        doimaunen_Save();
                         flg = 1;
                         }
 
@@ -1427,10 +1501,10 @@ else
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="StopKaraoke()"><b style="color:darkgreen">THOÁT</b></button>
       @if (ViewBag.Share != "YES - OK" && ViewBag.BHServer != "" && ViewBag.LoginServer != "")
         {
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><b style="color:red"><a onclick="copyshare()" href="#xuly">Share Karaoke</a></b>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><b style="color:red"><a onclick="copyshare()" href="#xuly">Share Karaoke</a></b>
         }
-    <br /><br /><b><span style="color:white">Xin lỗi, đôi khi vì sự cố kết nối mạng mà khiến cho chức năng Karaoke : nhạc và đoạn text lời xuất hiện không đồng nhất với nhau hay dữ liệu chưa được tải lên hết.
-        <br>Mỗi khi gặp sự cố này, phiền bạn hãy nhấn nút <button style="color:purple" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI</b></button> để tải lại dữ liệu cho đến khi một cách hoàn tất. Xin cảm ơn!</span></b>
+    <br /><br /><button style="color:purple" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI</b></button>
+     &nbsp;&nbsp;&nbsp;&nbsp;<b id="demo_nen" style="color:#FFFFFF">Sử dụng màu nền cho phần text : </b><input type="color" onchange="doimaunenX()" id="maunenX" value="#FFFFFF"/>&nbsp;<a href="#xuly" onclick="xoamaunen()"><b>Làm mờ nền/Xoá màu nền</b></a>
     <br />
     </div>
 
@@ -1469,7 +1543,7 @@ else
                        <span id="number" style="color:#e3f207; font-size:100px"></span>
                        <br />
                          <div style="text-align:center">
-                        <div style="display:inline-block">
+                        <div id="background-X" style="display:inline-block">
                             <p id="thietkeKara"></p>
                           <p id="txtKaraoke1"><span id="xanhX1" class="word"></span></p>
                         <p id="txtKaraoke2"><span id="xanhX2" class="work"></span></p>
@@ -1768,9 +1842,8 @@ else
         &nbsp;&nbsp;&nbsp; <button onclick="ghinho()"><b style="color:lightcoral">Ghi nhớ các cài đặt</b></button>
         &nbsp;&nbsp;&nbsp; <b style="color:aqua"><a onclick="xemplay()" href="#xuly">Restart & full screen</a></b>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="StopKaraoke()"><b style="color:darkgreen">THOÁT</b></button>
-
-    <br /><br /><b><span style="color:white">Xin lỗi, đôi khi vì sự cố kết nối mạng mà khiến cho chức năng Karaoke : nhạc và đoạn text lời xuất hiện không đồng nhất với nhau hay dữ liệu chưa được tải lên hết.
-        <br>Mỗi khi gặp sự cố này, phiền bạn hãy nhấn nút <button style="color:purple" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI</b></button> để tải lại dữ liệu cho đến khi một cách hoàn tất. Xin cảm ơn!</span></b>
+    <br /><br /><button style="color:purple" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI</b></button>
+    &nbsp;&nbsp;&nbsp;&nbsp;<b id="demo_nen" style="color:#FFFFFF">Sử dụng màu nền cho phần text : </b><input type="color" onchange="doimaunenX()" id="maunenX" value="#FFFFFF"/>&nbsp;<a href="#xuly" onclick="xoamaunen()"><b>Xoá màu nền</b></a>
     <br />
     </div>
 
@@ -1809,7 +1882,7 @@ else
                        <span id="number" style="color:#e3f207; font-size:100px"></span>
                        <br />
                          <div style="text-align:center">
-                        <div style="display:inline-block">
+                        <div id="background-X" style="display:inline-block">
                             <p id="thietkeKara"></p>
                           <p id="txtKaraoke1"><span id="xanhX1" class="word"></span></p>
                         <p id="txtKaraoke2"><span id="xanhX2" class="work"></span></p>

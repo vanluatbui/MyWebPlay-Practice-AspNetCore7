@@ -72,6 +72,45 @@ body {
 
     var useMauNen = 0;
 
+    var sd = 0;
+
+    function loadauto()
+    {
+         if (sd == 1 || '@TempData["index-auto"]' == null || '@TempData["index-auto"]' == "" || document.getElementById("getlist").innerHTML != "<span style=\"color:green\">Successful!</span>") return;
+
+        if ('@TempData["post-kara"]' == "false")
+        {
+         var index = new Number('@TempData["index-auto"]');
+
+         document.getElementById("listsong").options.selectedIndex = index;
+        changesong();
+        document.getElementById("chonKara").options.selectedIndex = 4;
+        document.getElementById("chonKarax").value = "5";
+        document.getElementById("autoSong").checked = "true";
+        document.getElementById("okxem").click();
+        }
+        else
+        {
+            loadsolar();
+        }
+        sd = 1;
+    }
+
+    setInterval(function()
+    {
+       loadauto();
+    },10);
+
+    function playAutoList()
+    {
+        document.getElementById("listsong").options.selectedIndex = 0;
+        changesong();
+        document.getElementById("chonKara").options.selectedIndex = 4;
+          document.getElementById("chonKarax").value = "5";
+        document.getElementById("autoSong").checked = "true";
+        document.getElementById("okxem").click();
+    }
+
     // Delete div somee
 
         setInterval(function()
@@ -106,7 +145,6 @@ body {
     var so =0;
     function myAlertX()
     {
-
         if ('@ViewBag.Share' != "YES" && '@ViewBag.Share' != "OK")
         {
              clearInterval(idX);
@@ -208,7 +246,7 @@ function showlist()
         {
             if (noidung[i] != "")
             {
-        listsong.innerHTML += "<option>"+noidung[i]+"</option>";
+        listsong.innerHTML += "<option value=\""+noidung[i]+"\">"+noidung[i]+"</option>";
         dem++;
             }
         }
@@ -454,10 +492,12 @@ function showlist()
 
     function PlayKaraoke()
     {
-        if (sai == 0 && '@ViewBag.BehindYoutube' == "YES" && '@ViewBag.Share' != "YES" && '@ViewBag.Share' != "YES - OK")
+        //if (sai == 0 && '@ViewBag.BehindYoutube' == "YES" && '@ViewBag.Share' != "YES" && '@ViewBag.Share' != "YES - OK")
+
+        if (sai == 0 && '@TempData["auto-play"]' == "false" )
         {
-             document.getElementById("musix").pause();
-             document.getElementById("music").pause();
+            document.getElementById("musix").pause();
+            document.getElementById("music").pause();
            you = false;
            sai = 1;
             return;
@@ -473,10 +513,10 @@ function showlist()
 
     function PlayKaraokeX()
     {
-         if (sai == 0 && '@ViewBag.BehindYoutube' == "YES" && '@ViewBag.Share' != "YES" && '@ViewBag.Share' != "YES - OK")
+          if (sai == 0 && '@TempData["auto-play"]' == "false")
         {
-             document.getElementById("music").pause();
-             document.getElementById("musix").pause();
+           document.getElementById("music").pause();
+           document.getElementById("musix").pause();
            you = false;
            sai = 1;
             return;
@@ -604,25 +644,7 @@ function showlist()
         you = false;
     }
 
-    function playxem()
-    {
-         document.getElementById("music").play();
-             document.getElementById("musix").play();
-          document.getElementById("music").currentTime = 0;
-          document.getElementById("musix").currentTime = 0;
-         dongmomenu();
-        if (elem.requestFullscreen)
-                    elem.requestFullscreen();
-                     else if (elem.webkitRequestFullscreen) /* Safari */
-                    elem.webkitRequestFullscreen();
-                   else if (elem.msRequestFullscreen) /* IE11 */
-                    elem.msRequestFullscreen();
-
-                    document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - ON</b>";
-                    document.getElementById("sorry").style.display = "none";
-    }
-
-    function xemplay()
+    function restart_Youtube()
     {
         if ('@ViewBag.SuDung' == "Youtube")
         {
@@ -632,6 +654,33 @@ function showlist()
         {
             document.getElementById("myVideo").currentTime = 0;
         }
+    }
+
+     function replay_Youtube()
+    {
+        if ('@ViewBag.SuDung' == "Youtube")
+        {
+        document.getElementById("phanphoi").innerHTML= "<iframe id=\"myVideo\" src=\""+'@ViewBag.Background'+"\"></iframe>";
+        }
+        else if ('@ViewBag.SuDung' == "Video")
+        {
+            document.getElementById("myVideo").currentTime = 0;
+        }
+
+        resetKaraoke();
+    }
+
+    function xemplay()
+    {
+        //if ('@ViewBag.SuDung' == "Youtube")
+        //{
+        //document.getElementById("phanphoi").innerHTML= "<iframe id=\"myVideo\" src=\""+'@ViewBag.Background'+"\"></iframe>";
+        //}
+        //else if ('@ViewBag.SuDung' == "Video")
+        //{
+        //    document.getElementById("myVideo").currentTime = 0;
+        //}
+
         dongmomenu();
         if (elem.requestFullscreen)
                     elem.requestFullscreen();
@@ -641,7 +690,43 @@ function showlist()
                     elem.msRequestFullscreen();
 
                     document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - ON</b>";
-        resetKaraoke();
+
+                    document.getElementById("musix").play();
+                    document.getElementById("music").play();
+
+                    document.getElementById("xplay1").style.display = "none";
+                    document.getElementById("xplay2").style.display = "none";
+       // resetKaraoke();
+    }
+
+     function xemplayX()
+    {
+        //if ('@ViewBag.SuDung' == "Youtube")
+        //{
+        //document.getElementById("phanphoi").innerHTML= "<iframe id=\"myVideo\" src=\""+'@ViewBag.Background'+"\"></iframe>";
+        //}
+       //else if ('@ViewBag.SuDung' == "Video")
+       // {
+       //     document.getElementById("myVideo").currentTime = 0;
+       // }
+
+
+        //dongmomenu();
+        //if (elem.requestFullscreen)
+        //            elem.requestFullscreen();
+        //             else if (elem.webkitRequestFullscreen) /* Safari */
+        //            elem.webkitRequestFullscreen();
+        //           else if (elem.msRequestFullscreen) /* IE11 */
+        //            elem.msRequestFullscreen();
+
+        //            document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - ON</b>";
+
+                    document.getElementById("musix").play();
+                    document.getElementById("music").play();
+
+                    document.getElementById("xplay1").style.display = "none";
+                    document.getElementById("xplay2").style.display = "none";
+       // resetKaraoke();
     }
 
     function PlayXKaraokeX()
@@ -677,6 +762,19 @@ function showlist()
         window.location.href="/Home/XoaKaraoke?id=" + thongtin;
         else
         window.location.href="/Home/XoaKaraoke";
+    }
+
+    function DungKaraoke()
+    {
+        var url = '@ViewBag.LoginServer';
+        var baihat = '@ViewBag.BHServer';
+
+        var thongtin = url+"[NONE]" + "-.-" + baihat+"[NONE]" + "-.-[NOT]-.-0";
+
+        if ('@ViewBag.Share' != "YES - OK")
+        window.location.href="/Home/XoaKaraoke?id=" + thongtin + "&&cancel=true";
+        else
+        window.location.href="/Home/XoaKaraoke&&cancel=true";
     }
 
         var time_xuathien = [];
@@ -821,17 +919,16 @@ function showlist()
          function doikieudemnguoc()
         {
             var kieudemnguoc = document.getElementById("kieudemnguoc").value;
+             var kt = new Number(document.getElementById("kichthuoc").value);
             if (kieudemnguoc == "N" || kieudemnguoc == "")
             {
                 kieudemnguoc = "N";
                 document.getElementById("kieudemnguoc").value = kieudemnguoc;
-                var kt = document.getElementById("kichthuoc").value + "px";
-                document.getElementById("number").style.fontSize = kt;
+                document.getElementById("number").style.fontSize = kt + "px";
             }
             else
             {
-                document.getElementById("number").style.fontSize = "50px";
-                alert
+              document.getElementById("number").style.fontSize = (kt/2) + "px";
             }
         }
 
@@ -1300,6 +1397,12 @@ function showlist()
                     <td id="phan6" style="display:none">
                         <br>
                         <b style="color:aqua"> Bật mí tại thư mục root trên host server của bạn, bạn có thể tạo file <span style="color:deeppinkgreen">MyListSong.txt</span>, trong đó liệt kê các bài hát Karaoke (thư mục) đang tồn tại trên host server của bạn, mỗi bài hát phân biệt và cách nhau bởi kí tự Enter : </b>  <a href="#xuly" onclick="showlist()" style="color:crimson" id="getlist">Get all list song of your host server</a>
+                        &nbsp;||&nbsp;
+                        @if (ViewBag.Share != null && ViewBag.Share != "" && ViewBag.Share != "ERROR")
+                        {
+                            <a href="#xuly" style="color:red" onclick="playAutoList()">Play Karaoke (tự động) theo thứ tự của list song</a>
+                            <input hidden type="checkbox" id="autoSong" name="txtAutoSong" />
+                        }
                         <br>
                         <br>
                     </td>
@@ -1348,6 +1451,12 @@ function showlist()
                     <td id="phan6" style="display:inline-block">
                         <br>
                         <b style="color:aqua"> Bật mí tại thư mục root trên host server của bạn, bạn có thể tạo file <span style="color:deeppinkgreen">MyListSong.txt</span>, trong đó liệt kê các bài hát Karaoke (thư mục) đang tồn tại trên host server của bạn, mỗi bài hát phân biệt và cách nhau bởi kí tự Enter : </b>  <a id="getlist" href="#xuly" onclick="showlist()" style="color:crimson">Get all list song of your host server (click try again to finish)</a>
+                        &nbsp;||&nbsp;
+                        @if (ViewBag.Share != null && ViewBag.Share != "" && ViewBag.Share != "ERROR")
+                        {
+                            <a href="#xuly" style="color:red" onclick="playAutoList()">Play Karaoke (tự động) theo thứ tự của list song</a>
+                            <input hidden type="checkbox" id="autoSong" name="txtAutoSong" />
+                        }
                         <br>
                         <br>
                         <b id="soluongSong" style="color:chartreuse"></b>
@@ -1427,8 +1536,10 @@ function showlist()
                       <br><br>
                       <input name="txtOnline" id="online" size="100" style="display:none" type="text" placeholder="Nhập link online background của bạn thực hiện karaoke..." />
                      <br><span id="helpYoutube" style="color:red; display:none"><u>Lưu ý</u> : một số link Youtube có thể không khả dụng hoặc bạn nên cố gắng thử lại (và hãy tìm video youtube dài phút nhất có thể 😃)</span>
-                     <br><span id="Youtubehelp" style="color:blueviolet; display:none">Với lựa chọn này, để đảm bảo sự tuyệt đối thì ban đầu nhạc sẽ không được phát tự động như bình thường.<br>
-                         Bạn vui lòng tự canh đợi sau khi video Youtube trên background của bạn đã bắt đầu vừa phát, hãy nhấn phím link <span style="color:orangered">Play & Start</span> để mới bắt đầu hành trình nhé 😁</span>
+                     @*<br><span id="Youtubehelp" style="color:blueviolet; display:none">Với lựa chọn này, để đảm bảo sự tuyệt đối thì ban đầu nhạc sẽ không được phát tự động như bình thường.<br>
+                         Bạn vui lòng tự canh đợi sau khi video Youtube trên background của bạn đã bắt đầu vừa phát, hãy nhấn phím link <span style="color:orangered">Play & Start</span> để mới bắt đầu hành trình nhé 😁</span>*@
+                          <br /><br />
+                          <input type="checkbox" name="auto_play" />&nbsp;<b>Không tự động phát nhạc khi bắt đầu</b>
                 </td>
             </tr>
 
@@ -1485,26 +1596,65 @@ else
      </select>
      <br />
       <span style="color:deeppink"><b>Kích thước chữ : </b></span><input id="kichthuoc" type="number" min="0" value="80" onchange="doikichthuoc()"/>
-        &nbsp;&nbsp;&nbsp;<span style="color:deeppink"><b>Vị trí xuất hiện : </b></span> <input id="hang" type="number" min="0" value="0" onchange="doihang()"/>
-         &nbsp;&nbsp;&nbsp;<input id="kieudemnguoc" maxlength="2" placeholder="Nhập kiểu/icon đếm ngược để bắt đầu karaoke" onchange="doikieudemnguoc()" value="N" />
-         &nbsp;&nbsp;&nbsp;<input id="dotre" placeholder="Nhập độ trễ bổ sung..." value="0.3" onchange="doidotre()" />
-        &nbsp;&nbsp;&nbsp; <button onclick="ghinho()"><b style="color:lightcoral">Ghi nhớ các cài đặt</b></button> &nbsp;&nbsp;&nbsp; 
-        @if (ViewBag.BehindYoutube != "YES")
-        {
-       <b style="color:aqua"><a onclick="xemplay()" href="#xuly">Restart & full screen</a></b>
-        }
-        &nbsp;&nbsp;&nbsp; 
-         @if (ViewBag.BehindYoutube == "YES")
-                        {
-                            <b id="sorry" style="color:coral"><a onclick="playxem()" href="#xuly">Play & full screen</a></b>
+        &nbsp;&nbsp;&nbsp;
+           @if(TempData["TK-KARA"] == "")
+         {
+                            <span style="color:deeppink"><b>Vị trí xuất hiện : </b></span> <input id="hang" type="number" min="0" value="0" onchange="doihang()"/>
                         }
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="StopKaraoke()"><b style="color:darkgreen">THOÁT</b></button>
+                        else
+                        {
+                            <span style="display:none;color:deeppink"><b>Vị trí xuất hiện : </b></span> <input style="display:none" id="hang" type="number" min="0" value="0" onchange="doihang()"/>
+                        }
+                        &nbsp;&nbsp;&nbsp;<input id="kieudemnguoc" maxlength="2" placeholder="Nhập kiểu/icon đếm ngược để bắt đầu karaoke" onchange="doikieudemnguoc()" value="N" />
+         &nbsp;&nbsp;&nbsp;<input id="dotre" placeholder="Nhập độ trễ bổ sung..." value="0.3" onchange="doidotre()" />
+        &nbsp;&nbsp;&nbsp; <button onclick="ghinho()"><b style="color:lightcoral">Ghi nhớ các cài đặt</b></button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @if (TempData["index-auto"] == null || TempData["index-auto"] == "")
+                        {
+                            <button onclick="StopKaraoke()"><b style="color:darkgreen">THOÁT</b></button>
+                        }
+                        else
+                        {
+                            var i1 = TempData["index-auto"] + "";
+                            var i2 = TempData["length-list-auto"] + "";
+                            TempData["index-auto"] = i1;
+                            TempData["length-list-auto"] = i2;
+                            if (i1 != i2)
+                            {
+                                <button onclick="StopKaraoke()"><b style="color:darkgreen">Đi đến bài hát tiếp theo</b></button>
+                            }
+                            else
+                            {
+                                    <button style="display:none" onclick="StopKaraoke()"><b style="color:darkgreen;display:none">Đi đến bài hát tiếp theo</b></button>
+                            }
+                            <button onclick="DungKaraoke()"><b style="color:red">Huỷ trình phát Karaoke tự động (đã phát : @i1/@i2)</b></button>
+                        }
+    
       @if (ViewBag.Share != "YES - OK" && ViewBag.BHServer != "" && ViewBag.LoginServer != "")
         {
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><b style="color:red"><a onclick="copyshare()" href="#xuly">Share Karaoke</a></b>
         }
-    <br /><br /><button style="color:purple" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI</b></button>
-     &nbsp;&nbsp;&nbsp;&nbsp;<b id="demo_nen" style="color:#FFFFFF">Sử dụng màu nền cho phần text : </b><input type="color" onchange="doimaunenX()" id="maunenX" value="#FFFFFF"/>&nbsp;<a href="#xuly" onclick="xoamaunen()"><b>Làm mờ nền/Xoá màu nền</b></a>
+    <br /><br /><button style="color:purple" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI/PHÁT</b></button>
+     &nbsp;&nbsp;&nbsp;&nbsp;<b id="demo_nen" style="color:#FFFFFF">Sử dụng màu nền cho phần text : </b><input type="color" onchange="doimaunenX()" id="maunenX" value="#FFFFFF"/>&nbsp;<a href="#xuly" onclick="xoamaunen()"><b>Làm mờ nền/Xoá màu nền</b></a>&nbsp;
+      @if (TempData["auto-play"] == "false")
+                        {
+                            <b id="xplay1" style="color:aqua"><a onclick="xemplayX()" href="#xuly">Play</a></b>
+                        }
+                         &nbsp;
+        @if (TempData["auto-play"] == "false")
+                        {
+                             <b id="xplay2" style="color:aqua"><a onclick="xemplay()" href="#xuly">Play & full screen</a></b>
+                        }
+                        &nbsp;
+                         @if (ViewBag.SuDung == "Youtube")
+                        {
+                            <b style="color:aqua"><a onclick="restart_Youtube()" href="#xuly">Restart video/Youtube</a></b>
+                        }
+                        &nbsp;
+                          @if (ViewBag.SuDung == "Youtube")
+                        {
+                             <b style="color:aqua"><a onclick="replay_Youtube()" href="#xuly">Restart video/Youtube and karaoke</a></b>
+                        }
     <br />
     </div>
 
@@ -1798,8 +1948,10 @@ else if (ViewBag.SuDung == "Video")
                       <br><br>
                       <input name="txtOnline" id="online" size="100" style="display:none" type="text" placeholder="Nhập link online background của bạn thực hiện karaoke..." />
                      <br><span id="helpYoutube" style="color:red; display:none"><u>Lưu ý</u> : một số link Youtube có thể không khả dụng hoặc bạn nên cố gắng thử lại (và hãy tìm video youtube dài phút nhất có thể 😃)</span>
-                      <br><span id="Youtubehelp" style="color:blueviolet; display:none">Với lựa chọn này, để đảm bảo sự tuyệt đối thì ban đầu nhạc sẽ không được phát tự động như bình thường.<br>
-                          Bạn vui lòng tự canh đợi sau khi video Youtube trên background của bạn đã bắt đầu vừa phát, hãy nhấn phím link <span style="color:orangered">Play & Start</span> để mới bắt đầu hành trình nhé 😁</span>
+                     @* <br><span id="Youtubehelp" style="color:blueviolet; display:none">Với lựa chọn này, để đảm bảo sự tuyệt đối thì ban đầu nhạc sẽ không được phát tự động như bình thường.<br>
+                          Bạn vui lòng tự canh đợi sau khi video Youtube trên background của bạn đã bắt đầu vừa phát, hãy nhấn phím link <span style="color:orangered">Play & Start</span> để mới bắt đầu hành trình nhé 😁</span>*@
+                          <br /><br />
+                          <input type="checkbox" name="auto_play" />&nbsp;<b>Không tự động phát nhạc khi bắt đầu</b>
                 </td>
             </tr>
 
@@ -1838,12 +1990,59 @@ else
     &nbsp;&nbsp;&nbsp;<b id="xemmauthu" style="color:#efe6e6">Chọn màu đoạn text ban đầu</b> : <input type="color" onchange="doimauX()" id="mauX" value="#efe6e6" />
      &nbsp;&nbsp;&nbsp;<b id="xemmaudi" style="color:#e3f207">Chọn màu cho time đếm ngược bắt đầu karaoke</b> : <input type="color" onchange="doimauY()" id="mauY" value="#e3f207" />
       &nbsp;&nbsp;&nbsp; <br /><span style="color:red">Kích thước chữ : </span><input id="kichthuoc" type="number" min="0" value="90" onchange="doikichthuoc()"/>
-        &nbsp;&nbsp;&nbsp;<span style="color:red">Vị trí xuất hiện : </span> <input id="hang" type="number" min="0" value="0" onchange="doihang()"/>
+        &nbsp;&nbsp;&nbsp;
+         @if(TempData["TK-KARA"] == "")
+         {
+                            <span style="color:deeppink"><b>Vị trí xuất hiện : </b></span> <input id="hang" type="number" min="0" value="0" onchange="doihang()"/>
+                        }
+                        else
+                        {
+                            <span style="display:none;color:deeppink"><b>Vị trí xuất hiện : </b></span> <input style="display:none" id="hang" type="number" min="0" value="0" onchange="doihang()"/>
+                        }
         &nbsp;&nbsp;&nbsp; <button onclick="ghinho()"><b style="color:lightcoral">Ghi nhớ các cài đặt</b></button>
-        &nbsp;&nbsp;&nbsp; <b style="color:aqua"><a onclick="xemplay()" href="#xuly">Restart & full screen</a></b>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="StopKaraoke()"><b style="color:darkgreen">THOÁT</b></button>
-    <br /><br /><button style="color:purple" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI</b></button>
-    &nbsp;&nbsp;&nbsp;&nbsp;<b id="demo_nen" style="color:#FFFFFF">Sử dụng màu nền cho phần text : </b><input type="color" onchange="doimaunenX()" id="maunenX" value="#FFFFFF"/>&nbsp;<a href="#xuly" onclick="xoamaunen()"><b>Xoá màu nền</b></a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    @if (TempData["index-auto"] == null || TempData["index-auto"] == "")
+                        {
+                            <button onclick="StopKaraoke()"><b style="color:darkgreen">THOÁT</b></button>
+                        }
+                        else
+                        {
+                             var i1 = TempData["index-auto"];
+                            var i2 = TempData["length-list-auto"];
+                            TempData["index-auto"] = i1;
+                            TempData["length-list-auto"] = i2;
+                            if (i1 != i2)
+                            {
+                                    <button onclick="StopKaraoke()"><b style="color:darkgreen">Đi đến bài hát tiếp theo</b></button>
+                                }
+                                else
+                                {
+                                    <button style="display:none" onclick="StopKaraoke()"><b style="color:darkgreen;display:none">Đi đến bài hát tiếp theo</b></button>
+                                }
+                                <button onclick="DungKaraoke()"><b style="color:red">Huỷ trình phát Karaoke tự động (đã phát : @i1/@i2)</b></button>
+                        }
+    <br /><br /><button style="color:purple" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI/PHÁT</b></button>
+    &nbsp;&nbsp;&nbsp;&nbsp;<b id="demo_nen" style="color:#FFFFFF">Sử dụng màu nền cho phần text : </b><input type="color" onchange="doimaunenX()" id="maunenX" value="#FFFFFF"/>&nbsp;<a href="#xuly" onclick="xoamaunen()"><b>Xoá màu nền</b></a>&nbsp;
+     &nbsp;&nbsp;&nbsp; 
+       @if (TempData["auto-play"] == "false")
+                        {
+                            <b id="xplay1" style="color:aqua"><a onclick="xemplayX()" href="#xuly">Play</a></b>
+                        }
+                         &nbsp;
+        @if (TempData["auto-play"] == "false")
+                        {
+                             <b id="xplay2" style="color:aqua"><a onclick="xemplay()" href="#xuly">Play & full screen</a></b>
+                        }
+                        &nbsp;
+                         @if (ViewBag.SuDung == "Youtube")
+                        {
+                            <b style="color:aqua"><a onclick="restart_Youtube()" href="#xuly">Restart video Youtube</a></b>
+                        }
+                        &nbsp;
+                          @if (ViewBag.SuDung == "Youtube")
+                        {
+                             <b style="color:aqua"><a onclick="replay_Youtube()" href="#xuly">Restart video Youtube and karaoke</a></b>
+                        }
     <br />
     </div>
 

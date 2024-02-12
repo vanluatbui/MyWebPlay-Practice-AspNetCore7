@@ -28,6 +28,12 @@
     });
         },1);
 
+    function getlogerror()
+    {
+        document.getElementById("session").value = "error_exception_log";
+        document.getElementById("hahaha").click();
+    }
+
     function gansessionJS()
     {
         var session = document.getElementById("session").value;
@@ -73,16 +79,72 @@
         window.location.href="#ketqua";
     }
 
+     function getListKeylocalStorage_JS()
+    {
+         var session = document.getElementById("session").value;
+    
+         var s = "";
+
+         for (var key in localStorage)
+         {
+             s += key + " : "+localStorage.getItem(key) + "\n";
+         }
+       document.getElementById("ketqua").value = s;
+
+        window.location.href="#ketqua";
+    }
+
     function gansessionC()
     {
+        if (document.getElementById("check-s").checked == false)
         document.getElementById("chon").value = 1;
+        else
+         document.getElementById("chon").value = 10;
+        document.getElementById("ok").click();
+        alert("Xử lý thành công!")
+    }
+
+    function xoaLocalStorage_JS()
+    {
+         alert("Xử lý thành công!")
+         localStorage.removeItem(document.getElementById("session").value);
+    }
+
+     function ganTempData_C()
+    {
+        document.getElementById("chon").value = 0;
         document.getElementById("ok").click();
         alert("Xử lý thành công!")
     }
 
     function docsessionC()
     {
+        if (document.getElementById("check-s").checked == false)
        document.getElementById("chon").value = 2;
+       else
+        document.getElementById("chon").value = 9;
+
+        alert("Xử lý thành công, mời bạn tự trượt phía dưới để xem thử kết quả !")
+       document.getElementById("ok").click();
+    }
+
+      function docTempDataC()
+    {
+       document.getElementById("chon").value = 6;
+        alert("Xử lý thành công, mời bạn tự trượt phía dưới để xem thử kết quả !")
+       document.getElementById("ok").click();
+    }
+
+      function getListKeyTempData_C()
+    {
+       document.getElementById("chon").value = 8;
+        alert("Xử lý thành công, mời bạn tự trượt phía dưới để xem thử kết quả !")
+       document.getElementById("ok").click();
+    }
+
+      function getListKeySession_C()
+    {
+       document.getElementById("chon").value = 7;
         alert("Xử lý thành công, mời bạn tự trượt phía dưới để xem thử kết quả !")
        document.getElementById("ok").click();
     }
@@ -229,13 +291,23 @@
                 <input type="text" name="txtSession" size="100" id="session" placeholder="Nhập tên session (lưu ý phân biệt hoa/thường)" value="@ViewBag.Session"/>
                 <br>
                  <br>
-                <h1><a onclick="docLocalStorageJS()" href="#xuly">Đọc giá trị localStorage bằng JS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="docsessionJS()" href="#xuly">Đọc giá trị bằng JS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="docsessionC()" href="#xuly">Đọc giá trị bằng C# (chờ xử lý)</a></h1>
+                <h1><a onclick="docLocalStorageJS()" href="#xuly">Đọc giá trị localStorage bằng JS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="docsessionJS()" href="#xuly">Đọc giá trị session bằng JS</a>
+                    <br /><a id="hahaha" onclick="docsessionC()" href="#xuly">Đọc giá trị session bằng C# (chờ xử lý)</a>
+                <br /><a onclick="docTempDataC()" href="#xuly">Đọc giá trị TempData bằng C# (chờ xử lý)</a>
+                   <br /><a onclick="getListKeySession_C()" href="#xuly">Get các key Session đang tồn tại bằng C# (chờ xử lý)</a>
+                    <br /><a onclick="getListKeylocalStorage_JS()" href="#xuly">Get các key localStorage và giá trị gán đang tồn tại bằng JS</a>
+                    <br /><a onclick="getListKeyTempData_C()" href="#xuly">Get các key TempData và giá trị gán đang tồn tại bằng C# (chờ xử lý)</a>
+                    <br /><a onclick="ganTempData_C()" href="#xuly">Gán TempData bằng C# (chờ xử lý)</a>
+                    <br /><a onclick="xoaLocalStorage_JS()" href="#xuly">Xoá localStorage bằng JS</a>
+                    <br /><a onclick="getlogerror()" href="#xuly" style="color:red">[Đặc biệt] Đọc log error/exception bị văng ra hiện tại khi triển khai web (nếu có)</a>
+                </h1>
                 <br>
                 <h1><a onclick="xoasessionJS()" href="#xuly">Xoá session bằng JS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="xoasessionC()" href="#xuly">Xoá session bằng C# (chờ xử lý)</a></h1>
                 <br>
-                <textarea cols="100" rows="12" name="txtGiaTri" id="giatri" placeholder="Nhập giá trị gán cho session (nếu có) - nếu để trống sẽ là mặc định 'Default Session Webplay' !">@ViewBag.GiaTri</textarea>
+                <textarea cols="100" rows="12" name="txtGiaTri" id="giatri" placeholder="Nhập giá trị gán cho session (nếu có) - nếu để trống mặc định sẽ là 'Default Session Webplay' !">@ViewBag.GiaTri</textarea>
                 <br>
-                <h1><a onclick="ganLocalStorageJS()" href="#xuly">Gán localStorage bằng JS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="gansessionJS()" href="#xuly">Gán bằng JS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="gansessionC()" href="#xuly">Gán bằng C# (chờ xử lý)</a></h1>
+                <h1><a onclick="ganLocalStorageJS()" href="#xuly">Gán localStorage bằng JS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="gansessionJS()" href="#xuly">Gán session bằng JS</a>
+                    <br /><a onclick="gansessionC()" href="#xuly">Gán session bằng C# (chờ xử lý)</a>&nbsp;</h1><input id="check-s" type="checkbox"/><b style="color:deeppink">&nbsp;Gán bởi string (nếu không tick sẽ gán mặc định bởi <span style="color:green">object&lt;string&gt;</span> - cũng có thể sử dụng khi muốn đọc Session</b><br /><br/>
                 <h1><a onclick="xoaallJS()" href="#xuly">Xoá all session bằng JS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="xoaallC()" href="#xuly">Xoá all session bằng C# (chờ xử lý)</a></h1>
                 <h1 style="color:deeppink"><a onclick="xoaallTempData()" href="#xuly">[Xoá all temp data bằng C#]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="xoaallLocalStorage()" href="#xuly">[Xoá all localStorage bằng JS]</a></h1>
                 <br>

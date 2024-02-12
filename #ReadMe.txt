@@ -32,9 +32,17 @@ Khi bạn đã truy cập được trang setting admin này (chỉ là tạm th�
 Hãy thật là nhanh chóng dùng hết sức công lực vuốt thẳng tuốt phía cuối trang sẽ có
 cái item setting [Khoá all web site page - kể cả admin] đang bật thì mau mau tắt nó đi trong vòng 3 giây 🤣 => không kịp 3 giây thì làm lại đi nhé!!!
 
-//Các hướng dẫn và web page còn lại cũng có ghi (tạm) trên trang setting hoặc bạn tự tìm hiểu thêm nhé. Thanks you!❤🤩😁...
-
 4. Hiện tại, mỗi khi văng lỗi hay exception => sẽ đều chuyển hướng đến trang page Error. Để xem nội dung log lỗi/exception vừa gặp, có thể vào trang SessionPlay và đọc data của session C# "error_exception_log"... (dấu hiệu để nhận biết đã có một data log về error hay exception vừa được lưu vào session là trang error page - URL có truyền param : exception = true) [và hãy tự kiểm tra ngay và nhanh chóng]
+
+5. Ngoài ra, trong setting admin có thể liệt kê các tiện ích/page của web (/Controller/ActionName) bị cấm truy cập và sử dụng. Nhưng nếu gặp sự cố hay muốn huỷ bỏ có thể chỉnh sửa gián tiếp của cài đặt này thông qua trang SessionPlay :
+
++ ID : [20062000]<Mật khẩu admin hiện tại (ở mục 2)>
+
++ Value : [20062000]</Controller/ActionName mà bạn muốn huỷ bỏ sự chặn từ setting>
+
+=> Sau đó nhấn button add save session C#.
+
+//Các hướng dẫn và web page còn lại cũng có ghi (tạm) trên trang setting hoặc bạn tự tìm hiểu thêm nhé. Thanks you!❤🤩😁...
 
 ------------------------------------------------------------------------
 

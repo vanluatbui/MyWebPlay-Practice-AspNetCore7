@@ -21,13 +21,10 @@ namespace MyWebPlay.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public ActionResult LoginSettingAdmin(string code)
+        public ActionResult LoginSettingAdmin()
         {
             try
             {
-                if (string.IsNullOrEmpty(code) || code != "fc460a0b05de01cc3578e97bbda4a4c3_841099dfe526044cad55ece0ea568afb_bddeb195a6ddeff203aa7b9f59d23be9bddeb195a6ddeff203aa7b9f59d23be9_841099dfe526044cad55ece0ea568afb_fc460a0b05de01cc3578e97bbda4a4c3_true")
-                    return RedirectToAction("Error", "Home");
-
                 HttpContext.Session.Remove("open-admin");
 
                 Calendar x = CultureInfo.InvariantCulture.Calendar;
@@ -53,9 +50,17 @@ namespace MyWebPlay.Controllers
             var noidung = System.IO.File.ReadAllText(path);
 
             var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var lockedApp = listSetting[41].Split("<3275>");
+                if (lockedApp[3] != "[NULL]")
+                {
+                    if (lockedApp[3].Contains(Request.Path))
+                    {
+                        return RedirectToAction("Error", "Home");
+                    }
+                }
             SettingAdmin settingAdmin = new SettingAdmin();
             settingAdmin.Topics = new List<SettingAdmin.Topic>();
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 31; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
                 settingAdmin.Topics.Add(new SettingAdmin.Topic(info[0], info[2], bool.Parse(info[1])));
@@ -85,7 +90,20 @@ namespace MyWebPlay.Controllers
             {
                 HttpContext.Session.Remove("adminSetting");
 
-            var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                var noidungX = System.IO.File.ReadAllText(pathX);
+                var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var lockedApp = listSetting[41].Split("<3275>");
+                if (lockedApp[3] != "[NULL]")
+                {
+                    if (lockedApp[3].Contains(Request.Path))
+                    {
+                        return RedirectToAction("Error", "Home");
+                    }
+                }
+
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
             var password = System.IO.File.ReadAllText(pth).Split("\r\n", StringSplitOptions.RemoveEmptyEntries)[1];
             var ID = System.IO.File.ReadAllText(pth).Split("\r\n", StringSplitOptions.RemoveEmptyEntries)[0];
 
@@ -115,7 +133,20 @@ namespace MyWebPlay.Controllers
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-            for (int i = 0; i < listSetting.Length; i++)
+                var lockedApp = listSetting[41].Split("<3275>");
+                if (lockedApp[3] != "[NULL]")
+                {
+                    if (lockedApp[3].Contains(Request.Path))
+                    {
+                        TempData["locked-app"] = "true";
+                    }
+                    else
+                    {
+                        TempData["locked-app"] = "false";
+                    }
+                }
+
+                for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
@@ -131,7 +162,7 @@ namespace MyWebPlay.Controllers
                     }
 
                 }
-            }
+              }
             }
             catch (Exception ex)
             {
@@ -153,7 +184,16 @@ namespace MyWebPlay.Controllers
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-            for (int i = 0; i < listSetting.Length; i++)
+                var lockedApp = listSetting[41].Split("<3275>");
+                if (lockedApp[3] != "[NULL]")
+                {
+                    if (lockedApp[3].Contains(Request.Path))
+                    {
+                        return RedirectToAction("Error", "Home");
+                    }
+                }
+
+                for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
@@ -192,6 +232,8 @@ namespace MyWebPlay.Controllers
         {
             try {
             khoawebsiteAdmin();
+                if (TempData["locked-app"] == "true")
+                    return RedirectToAction("Error", "Home");
 
             if (HttpContext.Session.GetString("open-admin") == "true")
             {
@@ -225,7 +267,7 @@ namespace MyWebPlay.Controllers
 
             if (HttpContext.Session.GetString("adminSetting") == null)
             {
-                return RedirectToAction("LoginSettingAdmin", new {code = "fc460a0b05de01cc3578e97bbda4a4c3_841099dfe526044cad55ece0ea568afb_bddeb195a6ddeff203aa7b9f59d23be9bddeb195a6ddeff203aa7b9f59d23be9_841099dfe526044cad55ece0ea568afb_fc460a0b05de01cc3578e97bbda4a4c3_true" });
+                return RedirectToAction("LoginSettingAdmin");
             }
 
             var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
@@ -295,7 +337,15 @@ namespace MyWebPlay.Controllers
                         ViewBag.SetColor = info[3];
                 }
 
-                if (info[0] == "Color_TracNghiem")
+                    if (info[0] == "AppWeb_LockedUse")
+                    {
+                        if (info[3] == "[NULL]")
+                            ViewBag.LockedUseApp = "";
+                        else
+                            ViewBag.LockedUseApp = info[3];
+                    }
+
+                    if (info[0] == "Color_TracNghiem")
                 {
                     ViewBag.TNColor = info[3];
                 }
@@ -367,8 +417,10 @@ namespace MyWebPlay.Controllers
             try
             {
                 khoawebsiteAdmin();
+                if (TempData["locked-app"] == "true")
+                    return RedirectToAction("Error", "Home");
 
-            Calendar x = CultureInfo.InvariantCulture.Calendar;
+                Calendar x = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = x.AddHours(DateTime.UtcNow, 7);
 
@@ -396,8 +448,8 @@ namespace MyWebPlay.Controllers
 
             var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-            var infoX = listSetting[30].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-            noidung = noidung.Replace(listSetting[30], infoX[0] + "<3275>" + xinh + "<3275>" + infoX[2]);
+            var infoX = listSetting[31].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+            noidung = noidung.Replace(listSetting[31], infoX[0] + "<3275>" + xinh + "<3275>" + infoX[2]);
             System.IO.File.WriteAllText(path, noidung);
             
             return RedirectToAction("SettingXYZ_DarkAdmin");
@@ -420,6 +472,9 @@ namespace MyWebPlay.Controllers
             try
             {
                 khoawebsiteAdmin();
+                if (TempData["locked-app"] == "true")
+                    return RedirectToAction("Error", "Home");
+
                 HttpContext.Session.Remove("mini-web");
                 var non = TempData["SaveComeHere"];
                 TempData["SaveComeHere"] = non;
@@ -513,7 +568,8 @@ namespace MyWebPlay.Controllers
                         }
                     }
 
-                    if (info[0] != "Password_Admin" && info[0] != "Believe_IP" && info[0] != "Code_LockedClient" && info[0] != "MatDoTuyetDoi" && info[0] != "Encode_Url" && info[0] != "Info_Email" && info[0] != "Info_MegaIO" && info[0] != "Color_BackgroundAndText" && info[0] != "Color_TracNghiem")
+                    if (info[0] != "Password_Admin" && info[0] != "Believe_IP" && info[0] != "Code_LockedClient" && info[0] != "MatDoTuyetDoi" && info[0] != "Encode_Url" && info[0] != "Info_Email" && info[0] != "Info_MegaIO" && info[0] != "Color_BackgroundAndText" 
+                        && info[0] != "Color_TracNghiem" && info[0] != "AppWeb_LockedUse")
                     {
                         if (xi != info[1])
                         {
@@ -639,6 +695,21 @@ namespace MyWebPlay.Controllers
 
                         noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
                     }
+                    else if (info[0] == "AppWeb_LockedUse")
+                    {
+                        var xinh = f[info[0]].ToString();
+                        xinh = xinh.Replace("/Home/SessionPlay_DarkAdmin","").Replace("/Cover/Ee90d45ca0d59031d2a3b6dc488187c00", "").Replace("/Cover/E41fb870a2ab7c2470cb35f51171e20ee", "").Replace("/Cover/E8ecb5a3a2b4fdbda327335d19f3ca7fa", "").Replace("/Home/Error", "").Replace(",,",",").Trim(',');
+                        if (string.IsNullOrEmpty(xinh))
+                            xinh = "[NULL]";
+
+                        if (xinh != info[3])
+                        {
+                            cometo = "#come-" + i;
+                            dix++;
+                        }
+
+                        noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
+                    }
                     else if (info[0] == "Color_BackgroundAndText")
                     {
                         var xinh = f[info[0]];
@@ -669,8 +740,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
                 System.IO.File.WriteAllText(path, noidung);
-                if (dix == listSetting.Length - 2)
-                    cometo = "#welcome";
+                HttpContext.Session.SetString("index-setting", cometo);
 
                 return Redirect("/Admin/SettingXYZ_DarkAdmin" + cometo);
             }
@@ -708,8 +778,16 @@ namespace MyWebPlay.Controllers
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var lockedApp = listSetting[41].Split("<3275>");
+                if (lockedApp[3] != "[NULL]")
+                {
+                    if (lockedApp[3].Contains(Request.Path))
+                    {
+                        return RedirectToAction("Error", "Home");
+                    }
+                }
 
-            for (int i = 0; i < listSetting.Length; i++)
+                for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
@@ -844,7 +922,15 @@ namespace MyWebPlay.Controllers
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            var flag = 0;
+                var lockedApp = listSetting[41].Split("<3275>");
+                if (lockedApp[3] != "[NULL]")
+                {
+                    if (lockedApp[3].Contains(Request.Path))
+                    {
+                        return RedirectToAction("Error", "Home");
+                    }
+                }
+                var flag = 0;
             for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -913,8 +999,16 @@ namespace MyWebPlay.Controllers
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var lockedApp = listSetting[41].Split("<3275>");
+                if (lockedApp[3] != "[NULL]")
+                {
+                    if (lockedApp[3].Contains(Request.Path))
+                    {
+                        return RedirectToAction("Error", "Home");
+                    }
+                }
 
-            for (int i = 0; i < listSetting.Length; i++)
+                for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
@@ -954,8 +1048,16 @@ namespace MyWebPlay.Controllers
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var lockedApp = listSetting[41].Split("<3275>");
+                if (lockedApp[3] != "[NULL]")
+                {
+                    if (lockedApp[3].Contains(Request.Path))
+                    {
+                        return RedirectToAction("Error", "Home");
+                    }
+                }
 
-            for (int i = 0; i < listSetting.Length; i++)
+                for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
@@ -1010,8 +1112,16 @@ namespace MyWebPlay.Controllers
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var lockedApp = listSetting[41].Split("<3275>");
+                if (lockedApp[3] != "[NULL]")
+                {
+                    if (lockedApp[3].Contains(Request.Path))
+                    {
+                        return RedirectToAction("Error", "Home");
+                    }
+                }
 
-            for (int i = 0; i < listSetting.Length; i++)
+                for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
@@ -1058,7 +1168,15 @@ namespace MyWebPlay.Controllers
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            var flix = 0;
+                var lockedApp = listSetting[41].Split("<3275>");
+                if (lockedApp[3] != "[NULL]")
+                {
+                    if (lockedApp[3].Contains(Request.Path))
+                    {
+                        return RedirectToAction("Error", "Home");
+                    }
+                }
+                var flix = 0;
             var flox = 0;
             var flx = 0;
             for (int i = 0; i < listSetting.Length; i++)
@@ -1192,7 +1310,16 @@ namespace MyWebPlay.Controllers
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-            for (int i = 0; i < listSetting.Length; i++)
+                var lockedApp = listSetting[41].Split("<3275>");
+                if (lockedApp[3] != "[NULL]")
+                {
+                    if (lockedApp[3].Contains(Request.Path))
+                    {
+                        return RedirectToAction("Error", "Home");
+                    }
+                }
+
+                for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
@@ -1229,7 +1356,16 @@ namespace MyWebPlay.Controllers
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-            for (int i = 0; i < listSetting.Length; i++)
+                var lockedApp = listSetting[41].Split("<3275>");
+                if (lockedApp[3] != "[NULL]")
+                {
+                    if (lockedApp[3].Contains(Request.Path))
+                    {
+                        return RedirectToAction("Error", "Home");
+                    }
+                }
+
+                for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
@@ -1297,7 +1433,16 @@ namespace MyWebPlay.Controllers
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            for (int i = 0; i < listSetting.Length; i++)
+                var lockedApp = listSetting[41].Split("<3275>");
+                if (lockedApp[3] != "[NULL]")
+                {
+                    if (lockedApp[3].Contains(Request.Path))
+                    {
+                        return RedirectToAction("Error", "Home");
+                    }
+                }
+
+                for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
@@ -1395,7 +1540,16 @@ namespace MyWebPlay.Controllers
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-            for (int i = 0; i < listSetting.Length; i++)
+                var lockedApp = listSetting[41].Split("<3275>");
+                if (lockedApp[3] != "[NULL]")
+                {
+                    if (lockedApp[3].Contains(Request.Path))
+                    {
+                        return RedirectToAction("Error", "Home");
+                    }
+                }
+
+                for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
@@ -1470,7 +1624,16 @@ namespace MyWebPlay.Controllers
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-            for (int i = 0; i < listSetting.Length; i++)
+                var lockedApp = listSetting[41].Split("<3275>");
+                if (lockedApp[3] != "[NULL]")
+                {
+                    if (lockedApp[3].Contains(Request.Path))
+                    {
+                        return RedirectToAction("Error", "Home");
+                    }
+                }
+
+                for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
@@ -1587,12 +1750,15 @@ namespace MyWebPlay.Controllers
             }
         }
 
-        public ActionResult SettingStatusUpdate(string type)
+        public ActionResult SettingStatusUpdate(string type, bool come)
         {
             try
             {
                 khoawebsiteAdmin();
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/Setting_Status.txt");
+                if (TempData["locked-app"] == "true")
+                    return RedirectToAction("Error", "Home");
+
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/Setting_Status.txt");
 
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
@@ -1603,7 +1769,7 @@ namespace MyWebPlay.Controllers
               switch (type)
             {
                 case "1":
-                    System.IO.File.WriteAllText(path, "Tắt hoạt động web site (tất cả, không nhận đơn đăng kí tiếp theo), ngoại trừ mật độ tuyệt đối # " + xuxu);
+                    System.IO.File.WriteAllText(path, "Tắt hoạt động web site (tất cả, không nhận đơn đăng kí tiếp theo, mở chiến dịch xoá localStorage JS), ngoại trừ mật độ tuyệt đối # " + xuxu);
                     break;
 
                 case "2":
@@ -1665,7 +1831,14 @@ namespace MyWebPlay.Controllers
                     System.IO.File.WriteAllText(path, "UNKNOW # " + xuxu);
                     break;
             }
+                if (come == false || HttpContext.Session.GetString("index-setting") == null)
             return RedirectToAction("SettingXYZ_DarkAdmin");
+                else
+                {
+                    var cometo = HttpContext.Session.GetString("index-setting");
+                    HttpContext.Session.Remove("index-setting");
+                    return Redirect("/Admin/SettingXYZ_DarkAdmin" + cometo);
+                }
             }
             catch (Exception ex)
             {

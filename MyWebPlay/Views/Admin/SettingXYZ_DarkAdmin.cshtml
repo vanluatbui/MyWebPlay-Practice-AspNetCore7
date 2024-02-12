@@ -115,6 +115,7 @@ input:checked + .slider:before {
                 if (document.getElementById("check-"+i).checked == true)
                 {
                     alert("Vui lòng tắt tất cả các item setting bên dưới để có thể tiếp tục...");
+                    window.location.href = "/Admin/SettingXYZ_DarkAdmin";
                     return;
                 }
             }
@@ -167,7 +168,11 @@ input:checked + .slider:before {
         {
             var type = localStorage.getItem("setting-status");
             localStorage.removeItem("setting-status");
-            window.location.href = "/Admin/SettingStatusUpdate?type="+type;
+
+            if (type != "0" || localStorage.getItem("setting-status") == "ON-ALL" || localStorage.getItem("setting-status") == "OFF-ALL")
+            window.location.href = "/Admin/SettingStatusUpdate?type="+type+"&&come=false";
+            else if (type == "0")
+            window.location.href = "/Admin/SettingStatusUpdate?type="+type+"&&come=true";
         }
 
          var sang = 0;
@@ -324,7 +329,7 @@ input:checked + .slider:before {
                  var n = new Number(document.getElementById("count").value)- 10;
             for (var i = 0; i < n;i++)
             {
-                if (i == 0 || i == 20)
+                if (i == 0 || i == 20 || i == 30)
                 document.getElementById("check-"+i).checked = true;
                 else
                 document.getElementById("check-"+i).checked = false;
@@ -490,7 +495,7 @@ input:checked + .slider:before {
                if (ch == 13)
             {
                 localStorage.setItem("setting-status","0");
-                 document.getElementById("check-30").checked = true;
+                 document.getElementById("check-31").checked = true;
                   document.getElementById("ok-X").click();
             }
         }
@@ -502,9 +507,11 @@ input:checked + .slider:before {
             {
                 localStorage.setItem("matpassAd", document.getElementById("matpassAd").value);
             }
-            var n = new Number(document.getElementById("count").value)- 11;
+            var n = new Number(document.getElementById("count").value)- 10;
             for (var i = 0; i < n;i++)
             {
+                if (i == 29) continue;
+
                 document.getElementById("check-"+i).checked = true;
             }
             document.getElementById("ok").click();
@@ -730,12 +737,14 @@ input:checked + .slider:before {
           function demoText()
         {
             document.getElementById("text-demo").style.color = document.getElementById("textColor").value;
+            
         }
 
           function luulaiDemo()
         {
             document.getElementById("txtDEMO").value = document.getElementById("bgColor").value + "<>" + document.getElementById("textColor").value;
-            window.location.href = "#demo-X";
+            //window.location.href = "#demo-X";
+            document.getElementById("ok").click();
         }
 
         var dm = 0
@@ -784,12 +793,12 @@ input:checked + .slider:before {
          <tr style="height:40px">
             <td></td>
             <td><br>
-                <h2 style="color:deeppink" href="#mini-X">Cài ĐẶT ADMIN (<a href="/Admin/LoginSettingAdmin?code=fc460a0b05de01cc3578e97bbda4a4c3_841099dfe526044cad55ece0ea568afb_bddeb195a6ddeff203aa7b9f59d23be9bddeb195a6ddeff203aa7b9f59d23be9_841099dfe526044cad55ece0ea568afb_fc460a0b05de01cc3578e97bbda4a4c3_true" style="color:tomato;font-weight:bolder">Đăng xuất?</a>)</h2><br /><h2 style="color:goldenrod">Trạng thái lần cuối : @ViewBag.SettingStatus</h2><br />
+                <h2 style="color:deeppink" href="#mini-X">Cài ĐẶT ADMIN (<a href="/Admin/LoginSettingAdmin" style="color:tomato;font-weight:bolder">Đăng xuất?</a>)</h2><br /><h2 style="color:goldenrod">Trạng thái lần cuối : @ViewBag.SettingStatus</h2><br />
                 <h4><a href="#xuly" onclick="refreshHetHan()" style="color:purple">Refresh hoặc xoá tất cả thư mục và các file hết hạn</a></h4><br>
                 <h4><a href="#xuly" id="#welcome" onclick="chonall()" style="color:green">CHỌN TẤT CẢ</a> | <a href="#xuly" onclick="boall()" style="color:red">BỎ CHỌN TẤT CẢ</a> <br> 
                    <br> <select id="chonXY">
                         <option></option>
-                        <option>Tắt hoạt động web site (tất cả, không nhận đơn đăng kí tiếp theo), ngoại trừ mật độ tuyệt đối</option>
+                        <option>Tắt hoạt động web site (tất cả, không nhận đơn đăng kí tiếp theo, mở chiến dịch xoá localStorage JS), ngoại trừ mật độ tuyệt đối</option>
                         <option>Bật hoạt động web site (chỉ người đã đăng kí, bật TB, nhận đơn đăng kí tiếp theo)</option>
                          <option>Bật hoạt động web site (chỉ người đã đăng kí, tắt TB, không nhận đơn đăng kí tiếp theo)</option>
                          <option>Bật hoạt động website (cho phép tất cả mọi người, không get IP)</option>
@@ -814,12 +823,12 @@ input:checked + .slider:before {
             <td>
                 @for (int i = 0; i < Model.Topics.Count; i++)
 {
-                    if (i == 30) continue; // Item setting khoá all page web nằm tuốt phía cuối trang
+                    if (i == 31) continue; // Item setting khoá all page web nằm tuốt phía cuối trang
 
                     <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-@i">@Html.Raw(Model.Topics[i].NoiDung)</h3>
  @if(Model.Topics[i].ID != "Password_Admin" && Model.Topics[i].ID != "Believe_IP" && Model.Topics[i].ID != "Code_LockedClient" && Model.Topics[i].ID != "MatDoTuyetDoi" 
  && Model.Topics[i].ID != "Encode_Url" && Model.Topics[i].ID != "Info_Email" && Model.Topics[i].ID != "Info_MegaIO" 
- && Model.Topics[i].ID != "Color_BackgroundAndText" && Model.Topics[i].ID != "Color_TracNghiem")
+ && Model.Topics[i].ID != "Color_BackgroundAndText" && Model.Topics[i].ID != "Color_TracNghiem"  && Model.Topics[i].ID != "AppWeb_LockedUse")
  {
 <label class="switch">
     @if (Model.Topics[i].Option == false)
@@ -883,6 +892,11 @@ input:checked + .slider:before {
                     {
                         <input size="100" name="@Model.Topics[i].ID" type="text" value="@ViewBag.TNColor" />
                     }
+                     else
+                    if (Model.Topics[i].ID == "AppWeb_LockedUse")
+                    {
+                        <input size="100" name="@Model.Topics[i].ID" type="text" value="@ViewBag.LockedUseApp" />
+                    }
                     <br /><br />
 }
             </td>
@@ -898,7 +912,7 @@ input:checked + .slider:before {
         <hr /><hr />
     <br />
     <div id="background-demo" style="background-color:yellow;width:30%"><pre id="text-demo" style="color:blue">This is demo text (background and color text)</pre></div>
-    <input type="color" id="bgColor" onchange="demoBG()" /><input type="color" id="textColor" onchange="demoText()" /><button onclick="luulaiDemo()">Set lại demo vào setting trên</button>
+    <input type="color" id="bgColor" onchange="demoBG()" /><input type="color" id="textColor" onchange="demoText()" /><button onclick="luulaiDemo()">Set lại demo này vào setting trên</button>
      
     <hr /><hr />
     <br />
@@ -1650,19 +1664,19 @@ txtModelCs<br>
             <td> </td>
             <td>
     
-                    <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-30">@Html.Raw(Model.Topics[30].NoiDung)</h3>
+                    <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-31">@Html.Raw(Model.Topics[31].NoiDung)</h3>
 
 <label class="switch">
-    @if (Model.Topics[30].Option == false)
+    @if (Model.Topics[31].Option == false)
     {
 
-          <input id="check-30" onchange="saveXY()" name="@Model.Topics[30].ID" type="checkbox" />
+          <input id="check-31" onchange="saveXY()" name="@Model.Topics[31].ID" type="checkbox" />
                                 
      }
             else
             {
                
-                <input id="check-30" onchange="saveXY()" name="@Model.Topics[30].ID" type="checkbox" checked />
+                <input id="check-31" onchange="saveXY()" name="@Model.Topics[31].ID" type="checkbox" checked />
             }
             <span class="slider round"></span>
                         </label>

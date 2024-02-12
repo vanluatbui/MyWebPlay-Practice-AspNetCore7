@@ -170,7 +170,7 @@ namespace MyWebPlay.Controllers
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                if (i!= 30 && yes == false && info.Length == 3)
+                if (i!= 31 && yes == false && info.Length == 3)
                 {
                     if (info[1] == "true")
                         yes = true;

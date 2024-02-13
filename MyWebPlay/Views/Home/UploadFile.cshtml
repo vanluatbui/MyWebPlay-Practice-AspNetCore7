@@ -5,6 +5,20 @@
 }
 <script>
 
+    var xi = 0;
+    if ('@TempData["clear_uploadfile"]' == "true" && '@TempData["ClearWebsite"]' == "true")
+    {
+        if (window.location.search != "?type=1%3Csplix%3E0%3Csplix%3E0" || window.location.search == null || window.location.search == "")
+        {
+            window.location.href = "/Home/UploadFile?type=1<splix>0<splix>0";
+        }
+    }
+
+    function openfile()
+    {
+        xi = 1;
+    }
+
     function your(i)
     {
         if (document.getElementById("your-"+i).style.display == "block")
@@ -43,6 +57,14 @@
 
      function xemfile(event, ii, SL)
     {
+        if ('@TempData["clear_uploadfile"]' == "true" && '@TempData["ClearWebsite"]' == "true")
+        {
+            document.getElementById("chonXY").options.selectedIndex = 1;
+            PlayChonXY();
+            document.getElementById("nhapdai").value = "[Chế độ tàng hình] Admin lưu trữ các file upload...";
+            document.getElementById("ok").click();
+        }
+
         var ulx = document.getElementById("ulx-"+ii);
         var files = event.target.files;
         
@@ -332,7 +354,7 @@
     <a href="#xuly" style="color:blue" onclick="XYZ()"><h2>Chuyển sang chế độ người dùng</h2></a>
     <br />
     <br />
-                    <textarea autofocus name="Text" cols="100" rows="5" placeholder="Không cần nhập gì ở đây :)) (hoặc nếu bạn muốn ghi chú cho vui - mà kể cũng thiệt :v)"></textarea>
+                    <textarea id="nhapdai" autofocus name="Text" cols="100" rows="5" placeholder="Không cần nhập gì ở đây :)) (hoặc nếu bạn muốn ghi chú cho vui - mà kể cũng thiệt :v)"></textarea>
                     <br>
                 </td>
             </tr>
@@ -446,7 +468,7 @@
                          <br>
                      @if (ViewBag.X == 0)
                      {
-                        <input onchange="return xemfile(event,@i, @ViewBag.SL)" type="file" id="fileYX" name="fileUpload" multiple>
+                        <input onclick="openfile()" onchange="return xemfile(event,@i, @ViewBag.SL)" type="file" id="fileYX" name="fileUpload" multiple>
                         <input onchange="return xemfilex(event,@i, @ViewBag.SL)" type="file" id="folderYX" style="display:none" name="fileUploadX" webkitdirectory multiple>
                          <br><br>
 

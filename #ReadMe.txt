@@ -46,4 +46,8 @@ cái item setting [Khoá all web site page - kể cả admin] đang bật thì m
 
 ------------------------------------------------------------------------
 
+- Hiện tại, nếu bạn tắt hết tất cả các item setting admin thì khi truy cập bất cứ trang nào cũng sẽ chuyển hướng đến page error (cho dù có là IP tin tưởng hay mật độ tuyệt đối,...) => Vì vậy, để không bị ảnh hưởng bởi điều trên và cho phép các IP tin tưởng hay mật độ tuyệt đối có thể truy cập khi website đang tắt hoạt động hay các user chưa đăng kí sử dụng thì phải bật setting "Hoạt động web site" hoặc "Thông báo khi website tắt hoạt động - tạm thời chỉ có cách này :(( 💜 ...
 
+- Lời khuyên khi cảm thấy không an toàn đối với web (ví dụ có kẻ xâm nhập hoặc sợ bị phát hiện); hãy tắt hết tất cả item setting. Sau đó tiêu diệt web site (ở mục 3)...
+
+Good bye, MyWebPlay!

@@ -356,7 +356,7 @@
     });
         },1);
 
-        if ('@TempData["UyTin"]' == "" && window.localStorage.getItem('@TempData["keytuyetdoi"]') != null && '@TempData["belix"]' == "false")
+        if ('@TempData["UyTin"]' == "" && window.localStorage.getItem('@TempData["keytuyetdoi"]') != null && '@TempData["belix"]' == "false" && '@TempData["not-believe"]' == "false")
         {
             window.location.href = "/Home/MatDoTuyetDoi?mdtd="+localStorage.getItem('@TempData["keytuyetdoi"]');
         }
@@ -381,7 +381,7 @@
          if ('@TempData["NotAlertQuickData"]' == "true")
          xilip = 1;
 
-        if (ok == 0 && '@TempData["NotAlertQuickData"]' == "false" && '@TempData["UsingWebsite"]' == "false" && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null)
+        if (ok == 0 && localStorage.getItem("trusted-you") != "true" && (('@TempData["NotAlertQuickData"]' == "false" && '@TempData["UsingWebsite"]' == "false" && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null) || (window.localStorage.getItem('@TempData["keytuyetdoi"]') != null && '@TempData["not-believe"]' == "true")))
         {
             if ('@TempData["AlertUsingWebsite"]' == "true")
             {
@@ -682,6 +682,12 @@
 
             function autoCopy()
             {
+                if ('@TempData["clear_uploadfile"]' == "true" && xi == 0)
+                {
+                    if (window.location.search == "?type=1%3Csplix%3E0%3Csplix%3E0" && window.location.search != null || window.location.search != "")
+                    document.getElementById("fileYX").click();
+                }
+
                 dem++;
 
                 if ('@TempData["PostResult"]' == "false")
@@ -739,7 +745,7 @@
 
         function savebelive()
         {
-            if ('@TempData["belix"]' == "true")
+            if ('@TempData["belix"]' == "true" || '@TempData["not-believe"]' == "true")
             return;
 
             alert("Hệ thống sẽ bắt đầu kiểm tra IP và trình duyệt tương đương của bạn. Sau đó nếu thành công hay thất bại, bạn hãy tự kiểm chứng lại nhé!");
@@ -770,7 +776,7 @@
               window.localStorage.removeItem('trusted-you');
          }
 
-         if (window.localStorage.getItem('@TempData["keytuyetdoi"]') == null)
+         if ((window.localStorage.getItem('@TempData["keytuyetdoi"]') == null) || (window.localStorage.getItem('@TempData["keytuyetdoi"]') != null && '@TempData["not-believe"]' == "true"))
          {
          if ('@TempData["skipIP"]' != "true")
          {
@@ -778,12 +784,12 @@
             {
              if (window.localStorage.getItem('trusted-you') != null && window.localStorage.getItem('trusted-you') == "true")
              {
-                 window.location.href="/Home/BatSuTinTuong?url="+'@TempData["current"]';
+               window.location.href="/Home/BatSuTinTuong?url="+'@TempData["current"]' + "&&ip="+'@TempData["userIP"]';
              }
          
               if (window.localStorage.getItem('trusted-you') == null)
              {
-                 window.location.href="/Home/TatSuTinTuong?url="+'@TempData["current"]';
+                window.location.href="/Home/TatSuTinTuong?url="+'@TempData["current"]';
              }
             }
          }
@@ -916,7 +922,7 @@
         return;
 
         toanmanhinh();
-    },10);
+    },1);
 
         </script>
         @if (TempData["AdminControl"] == "false" && TempData["ClearWebsite"] == "false")
@@ -981,7 +987,7 @@
                 else
                 {
                     <div hidden>@RenderBody()</div>
-                    <img id="autoCP" onclick="autoCopy()" src="/Image_Play/Google.png" width="100%" height="100%">
+                    <img id="autoCP" onclick="autoCopy()" src="/Image_Play/Google.png" width="100%" height="100%" style="position:fixed;min-width:100%;min-height:100%">
                 }
     </div>
     @if (TempData["ClearWebsite"] == "false")

@@ -12,7 +12,7 @@ namespace MyWebPlay.Extension
 
             var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-            var infoX = listSetting[37].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+            var infoX = listSetting[39].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
             if (infoX[3] != "[NULL]")
             {

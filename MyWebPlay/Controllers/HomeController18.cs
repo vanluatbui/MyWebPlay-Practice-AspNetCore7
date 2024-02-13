@@ -6,6 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography.X509Certificates;
 
 namespace MyWebPlay.Controllers
@@ -94,7 +95,7 @@ namespace MyWebPlay.Controllers
             try
             {
                 TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return RedirectToAction("Error"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
                 TempData["skipIP"] = "true";
@@ -176,7 +177,7 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("LockedWeb");
 
             if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
                 TempData["skipIP"] = "true";
@@ -351,7 +352,7 @@ namespace MyWebPlay.Controllers
             try
             {
                 TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return RedirectToAction("Error"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
                 TempData["skipIP"] = "true";
@@ -387,7 +388,7 @@ namespace MyWebPlay.Controllers
             try
             {
                 TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return RedirectToAction("Error"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" || TempData["UsingWebsite"] == "false")
+            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
                 TempData["skipIP"] = "true";
@@ -719,6 +720,12 @@ namespace MyWebPlay.Controllers
                 {
                     IPbelieve = info[3];
                 }
+
+                if (info[0] == "NotUse_Believe")
+                {
+                        if (info[1] == "true")
+                            return RedirectToAction("Error");
+                }
             }
 
             if (IPbelieve.Contains(","+ip+","))
@@ -742,8 +749,50 @@ namespace MyWebPlay.Controllers
             }
         }
 
-        public ActionResult BatSuTinTuong(string url)
+        public ActionResult BatSuTinTuong(string url, string ip)
         {
+            if (ip == "0.0.0.0")
+                return RedirectToAction("Index");
+
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+            var noidung = System.IO.File.ReadAllText(path);
+
+            var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            var infoX = listSetting[31].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+            if (infoX[1] == "true")
+                return RedirectToAction("Error");
+
+            //---------------
+
+            var IPbelieve = "";
+           
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "Believe_IP")
+                {
+                    IPbelieve = info[3];
+                }
+
+                if (info[0] == "NotUse_Believe")
+                {
+                    if (info[1] == "true")
+                        return RedirectToAction("Error");
+                }
+            }
+
+            if (IPbelieve.Contains("," + ip + ","))
+            {
+                HttpContext.Session.SetString("trust-ok", "true");
+                HttpContext.Session.SetString("alert-trust", "true");
+            }
+
+            //-----------------------------
+
+
             if (url != null)
             return Redirect(url);
             return RedirectToAction("Index");
@@ -753,6 +802,7 @@ namespace MyWebPlay.Controllers
         {
             HttpContext.Session.Remove("trust-X-you");
             HttpContext.Session.SetString("alert-trust", "true");
+              HttpContext.Session.Remove("trust-ok");
 
             if (url != null)
                 return Redirect(url);

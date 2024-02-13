@@ -60,7 +60,7 @@ namespace MyWebPlay.Controllers
                 }
             SettingAdmin settingAdmin = new SettingAdmin();
             settingAdmin.Topics = new List<SettingAdmin.Topic>();
-            for (int i = 0; i < 31; i++)
+            for (int i = 0; i < 33; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
                 settingAdmin.Topics.Add(new SettingAdmin.Topic(info[0], info[2], bool.Parse(info[1])));
@@ -345,6 +345,14 @@ namespace MyWebPlay.Controllers
                             ViewBag.LockedUseApp = info[3];
                     }
 
+                    if (info[0] == "DownloadFile_Quick")
+                    {
+                        if (info[3] == "[NULL]")
+                            ViewBag.DownloadFileQuick = "";
+                        else
+                            ViewBag.DownloadFileQuick = info[3];
+                    }
+
                     if (info[0] == "Color_TracNghiem")
                 {
                     ViewBag.TNColor = info[3];
@@ -420,6 +428,11 @@ namespace MyWebPlay.Controllers
                 if (TempData["locked-app"] == "true")
                     return RedirectToAction("Error", "Home");
 
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
                 Calendar x = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = x.AddHours(DateTime.UtcNow, 7);
@@ -448,8 +461,8 @@ namespace MyWebPlay.Controllers
 
             var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-            var infoX = listSetting[31].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-            noidung = noidung.Replace(listSetting[31], infoX[0] + "<3275>" + xinh + "<3275>" + infoX[2]);
+            var infoX = listSetting[33].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+            noidung = noidung.Replace(listSetting[33], infoX[0] + "<3275>" + xinh + "<3275>" + infoX[2]);
             System.IO.File.WriteAllText(path, noidung);
             
             return RedirectToAction("SettingXYZ_DarkAdmin");
@@ -569,7 +582,7 @@ namespace MyWebPlay.Controllers
                     }
 
                     if (info[0] != "Password_Admin" && info[0] != "Believe_IP" && info[0] != "Code_LockedClient" && info[0] != "MatDoTuyetDoi" && info[0] != "Encode_Url" && info[0] != "Info_Email" && info[0] != "Info_MegaIO" && info[0] != "Color_BackgroundAndText" 
-                        && info[0] != "Color_TracNghiem" && info[0] != "AppWeb_LockedUse")
+                        && info[0] != "Color_TracNghiem" && info[0] != "AppWeb_LockedUse" && info[0] != "DownloadFile_Quick")
                     {
                         if (xi != info[1])
                         {
@@ -711,6 +724,20 @@ namespace MyWebPlay.Controllers
                         noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
                     }
                     else if (info[0] == "Color_BackgroundAndText")
+                    {
+                        var xinh = f[info[0]];
+                        if (string.IsNullOrEmpty(xinh))
+                            xinh = "[NULL]";
+
+                        if (xinh != info[3])
+                        {
+                            cometo = "#come-" + i;
+                            dix++;
+                        }
+
+                        noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
+                    }
+                    else if (info[0] == "DownloadFile_Quick")
                     {
                         var xinh = f[info[0]];
                         if (string.IsNullOrEmpty(xinh))
@@ -1806,7 +1833,7 @@ namespace MyWebPlay.Controllers
 
                 case "10":
                     var nd = noidung.Split(" # ");
-                    System.IO.File.WriteAllText(path, nd[0] + " + Bật thông báo tất cả nội dung liên quan email và MegaIO File and list user get to link request # " + xuxu);
+                    System.IO.File.WriteAllText(path, nd[0] + " + Bật thông báo tất cả nội dung liên quan email và MegaIO File and list user get to link request (riêng karaoke sẽ nhận cả hai bản : Text và MP3) # " + xuxu);
                     break;
 
                 case "11":
@@ -1819,7 +1846,17 @@ namespace MyWebPlay.Controllers
                     System.IO.File.WriteAllText(path, nd2[0] + " + Bật sử dụng website with url encode secret play # " + xuxu);
                     break;
 
-                case "ON-ALL":
+                    case "13":
+                        var nd3 = noidung.Split(" # ");
+                        System.IO.File.WriteAllText(path, nd3[0] + " + Không cho phép sử dụng mật độ tuyệt đối hay IP tin tưởng để truy cập website # " + xuxu);
+                        break;
+
+                    case "14":
+                        var nd4 = noidung.Split(" # ");
+                        System.IO.File.WriteAllText(path, nd4[0] + " + Cho phép upload file nhanh (UploadFile_ClearWeb) và chế độ tàng hình # " + xuxu);
+                        break;
+
+                    case "ON-ALL":
                     System.IO.File.WriteAllText(path, "Đã bật hết tất cả các item setting (ngoại trừ mục cho phép website với mọi người thì sẽ ưu tiên việc get IP; và về setting nhận thông báo email dữ liệu Karaoke của user thì nhận luôn cả hai bản : Text và MP3) và hãy cẩn thận sự mâu thuẫn giữa các item setting lúc này # " + xuxu);
                     break;
 

@@ -50,7 +50,7 @@ namespace MyWebPlay.Controllers
             var noidung = System.IO.File.ReadAllText(path);
 
             var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-                var lockedApp = listSetting[41].Split("<3275>");
+                var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
                     if (lockedApp[3].Contains(Request.Path))
@@ -94,7 +94,7 @@ namespace MyWebPlay.Controllers
                 var noidungX = System.IO.File.ReadAllText(pathX);
                 var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-                var lockedApp = listSetting[41].Split("<3275>");
+                var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
                     if (lockedApp[3].Contains(Request.Path))
@@ -133,7 +133,7 @@ namespace MyWebPlay.Controllers
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-                var lockedApp = listSetting[41].Split("<3275>");
+                var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
                     if (lockedApp[3].Contains(Request.Path))
@@ -184,7 +184,7 @@ namespace MyWebPlay.Controllers
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-                var lockedApp = listSetting[41].Split("<3275>");
+                var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
                     if (lockedApp[3].Contains(Request.Path))
@@ -805,7 +805,7 @@ namespace MyWebPlay.Controllers
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-                var lockedApp = listSetting[41].Split("<3275>");
+                var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
                     if (lockedApp[3].Contains(Request.Path))
@@ -949,7 +949,7 @@ namespace MyWebPlay.Controllers
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-                var lockedApp = listSetting[41].Split("<3275>");
+                var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
                     if (lockedApp[3].Contains(Request.Path))
@@ -1026,7 +1026,7 @@ namespace MyWebPlay.Controllers
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-                var lockedApp = listSetting[41].Split("<3275>");
+                var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
                     if (lockedApp[3].Contains(Request.Path))
@@ -1075,7 +1075,7 @@ namespace MyWebPlay.Controllers
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-                var lockedApp = listSetting[41].Split("<3275>");
+                var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
                     if (lockedApp[3].Contains(Request.Path))
@@ -1139,7 +1139,7 @@ namespace MyWebPlay.Controllers
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-                var lockedApp = listSetting[41].Split("<3275>");
+                var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
                     if (lockedApp[3].Contains(Request.Path))
@@ -1195,7 +1195,7 @@ namespace MyWebPlay.Controllers
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-                var lockedApp = listSetting[41].Split("<3275>");
+                var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
                     if (lockedApp[3].Contains(Request.Path))
@@ -1337,7 +1337,7 @@ namespace MyWebPlay.Controllers
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-                var lockedApp = listSetting[41].Split("<3275>");
+                var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
                     if (lockedApp[3].Contains(Request.Path))
@@ -1383,7 +1383,7 @@ namespace MyWebPlay.Controllers
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-                var lockedApp = listSetting[41].Split("<3275>");
+                var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
                     if (lockedApp[3].Contains(Request.Path))
@@ -1460,7 +1460,7 @@ namespace MyWebPlay.Controllers
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-                var lockedApp = listSetting[41].Split("<3275>");
+                var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
                     if (lockedApp[3].Contains(Request.Path))
@@ -1567,7 +1567,7 @@ namespace MyWebPlay.Controllers
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-                var lockedApp = listSetting[41].Split("<3275>");
+                var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
                     if (lockedApp[3].Contains(Request.Path))
@@ -1651,7 +1651,7 @@ namespace MyWebPlay.Controllers
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-                var lockedApp = listSetting[41].Split("<3275>");
+                var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
                     if (lockedApp[3].Contains(Request.Path))

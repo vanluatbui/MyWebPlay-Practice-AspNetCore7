@@ -568,14 +568,14 @@ namespace MyWebPlay.Controllers
                     var matkhauAd = System.IO.File.ReadAllText(pth).Split("\r\n", StringSplitOptions.RemoveEmptyEntries)[1];
                     if (matkhauAd == id)
                     {
-                        var infoX = listSetting[41].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                        var infoX = listSetting[43].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
                         if (infoX[3] != "[NULL]")
                         {
                             infoX[3] = infoX[3].Replace(code, "").Replace(",,", ",").Trim(',');
                             if (string.IsNullOrEmpty(infoX[3]) || string.IsNullOrWhiteSpace(infoX[3]))
                                 infoX[3] = "[NULL]";
 
-                            noidungX = noidungX.Replace(listSetting[41], infoX[0] + "<3275>true<3275>" + infoX[2] + "<3275>" + infoX[3]);
+                            noidungX = noidungX.Replace(listSetting[43], infoX[0] + "<3275>true<3275>" + infoX[2] + "<3275>" + infoX[3]);
                             System.IO.File.WriteAllText(pathX, noidungX);
                         }
                     }

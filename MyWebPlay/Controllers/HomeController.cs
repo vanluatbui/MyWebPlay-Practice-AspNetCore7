@@ -156,7 +156,7 @@ namespace MyWebPlay.Controllers
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-                var lockedApp = listSetting[41].Split("<3275>");
+                var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
                     if (lockedApp[3].Contains(Request.Path))

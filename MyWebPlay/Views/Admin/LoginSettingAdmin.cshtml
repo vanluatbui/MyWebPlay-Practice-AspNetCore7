@@ -171,6 +171,7 @@ input:checked + .slider:before {
         </head>
         <body name="backgroundX" style="background-color:@TempData["mau_background"]">
     <meta charset="ISO-8859-1">
+<div style="background-color:aqua">
 <h1 style="color:red">ĐĂNG NHẬP ADMIN - SETTING WEB</h1><br />
 <h2 style="color:goldenrod">Trạng thái lần cuối : @ViewBag.SettingStatus</h2><br />
 @using(Html.BeginForm())
@@ -182,7 +183,9 @@ input:checked + .slider:before {
 <input type="checkbox" id="ghinho" onchange="rememberMe()" /> <b name="colorX" style="color:@TempData["mau_text"]">Ghi nhớ thông tin - hãy nhập xong các thông tin trên mới được tick vào đây? (nếu sau này muốn huỷ, hãy tick checkbox này và tắt nó lại lần nữa)</b>
 <br /><br />
 <input style="font-weight:bolder" type="submit" value="Đăng nhập" />
+<br />
  }
+ </div>
  <br/><hr /><br />
  <h1 style="color:deeppink">BẢN XEM TRƯỚC MỘT SỐ CÀI ĐẶT HIỆN TẠI (để chỉnh sửa vui lòng đăng nhập)</h1><br />
   @for (int i = 0; i < Model.Topics.Count; i++)

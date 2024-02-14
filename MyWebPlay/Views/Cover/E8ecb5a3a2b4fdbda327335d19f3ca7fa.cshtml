@@ -21,7 +21,9 @@
             return;
 
             var fr = document.getElementById("frameplay");
-            fr.src = '@ViewBag.Link';
+            var url = '@ViewBag.Link';
+            url = url.replaceAll("&lt;","<").replaceAll("&gt;",">");
+            fr.src = url;
             fr.style.minWidth = "100%";
             fr.style.minHeight = "100%";
             fr.style.position = "fixed";

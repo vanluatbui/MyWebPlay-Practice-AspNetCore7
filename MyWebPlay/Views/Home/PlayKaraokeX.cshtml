@@ -1581,7 +1581,7 @@ else
     }
     &nbsp; &nbsp; &nbsp
     <button style="color:brown" onclick="loadsolar()" id="xanh"><b>FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp;
-         @if(TempData["TK-KARA"] == "")
+         @if(TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null)
          {
                             <b id="xemthumau" style="color:#2900f5">Chọn màu tô điểm text</b><span> : </span><input type="color" onchange="doimau()" id="mau" value="#2900f5" />
                         }
@@ -1597,7 +1597,7 @@ else
      <br />
       <span style="color:deeppink"><b>Kích thước chữ : </b></span><input id="kichthuoc" type="number" min="0" value="80" onchange="doikichthuoc()"/>
         &nbsp;&nbsp;&nbsp;
-           @if(TempData["TK-KARA"] == "")
+           @if(TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null)
          {
                             <span style="color:deeppink"><b>Vị trí xuất hiện : </b></span> <input id="hang" type="number" min="0" value="0" onchange="doihang()"/>
                         }
@@ -1986,12 +1986,20 @@ else
                         </select>
     }
     &nbsp; &nbsp; &nbsp
-    <button style="color:brown" onclick="loadsolar()" id="xanh"><b>FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp;<b id="xemthumau" style="color:#2900f5">Chọn màu tô điểm text</b> : <input type="color" onchange="doimau()" id="mau" value="#2900f5" />
+    <button style="color:brown" onclick="loadsolar()" id="xanh"><b>FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp;
+      @if(TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null)
+         {
+                            <b id="xemthumau" style="color:#2900f5">Chọn màu tô điểm text</b><span> : </span><input type="color" onchange="doimau()" id="mau" value="#2900f5" />
+                        }
+                        else
+                        {
+                            <span style="display:none"> <b id="xemthumau" style="color:#2900f5">Chọn màu tô điểm text</b><span> : </span><input type="color" onchange="doimau()" id="mau" value="#2900f5" /></span>
+                        }
     &nbsp;&nbsp;&nbsp;<b id="xemmauthu" style="color:#efe6e6">Chọn màu đoạn text ban đầu</b> : <input type="color" onchange="doimauX()" id="mauX" value="#efe6e6" />
      &nbsp;&nbsp;&nbsp;<b id="xemmaudi" style="color:#e3f207">Chọn màu cho time đếm ngược bắt đầu karaoke</b> : <input type="color" onchange="doimauY()" id="mauY" value="#e3f207" />
       &nbsp;&nbsp;&nbsp; <br /><span style="color:red">Kích thước chữ : </span><input id="kichthuoc" type="number" min="0" value="90" onchange="doikichthuoc()"/>
         &nbsp;&nbsp;&nbsp;
-         @if(TempData["TK-KARA"] == "")
+         @if(TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null)
          {
                             <span style="color:deeppink"><b>Vị trí xuất hiện : </b></span> <input id="hang" type="number" min="0" value="0" onchange="doihang()"/>
                         }

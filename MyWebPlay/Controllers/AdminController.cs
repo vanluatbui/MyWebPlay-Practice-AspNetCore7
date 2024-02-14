@@ -606,7 +606,7 @@ namespace MyWebPlay.Controllers
                     {
                         var xinh = f[info[0]];
                         if (string.IsNullOrEmpty(xinh))
-                            xinh = "/Home/Index***/Home/SecretWeb***/Admin/QuickDataInWeb";
+                            xinh = "/Home/Index***/Home/SecretWeb***/Admin/QuickDataInWeb***/Home/UploadFile***/Home/UploadFile?type=1<splix>0<splix>0***/Home/DownloadFile***/Home/EditTextNote***/Home/DownloadFile_ClearWeb";
 
                         if (xinh != info[3])
                         {
@@ -711,7 +711,7 @@ namespace MyWebPlay.Controllers
                     else if (info[0] == "AppWeb_LockedUse")
                     {
                         var xinh = f[info[0]].ToString();
-                        xinh = xinh.Replace("/Home/SessionPlay_DarkAdmin","").Replace("/Cover/Ee90d45ca0d59031d2a3b6dc488187c00", "").Replace("/Cover/E41fb870a2ab7c2470cb35f51171e20ee", "").Replace("/Cover/E8ecb5a3a2b4fdbda327335d19f3ca7fa", "").Replace("/Home/Error", "").Replace(",,",",").Trim(',');
+                        xinh = xinh.Replace("/Home/SessionPlay_DarkAdmin","").Replace("/Cover/Ee90d45ca0d59031d2a3b6dc488187c00", "").Replace("/Cover/E41fb870a2ab7c2470cb35f51171e20ee", "").Replace("/Cover/E8ecb5a3a2b4fdbda327335d19f3ca7fa", "").Replace("/Home/Error", "").Replace(",,",",").Replace("/Cover/E003e16661a80c9451f46587afb2ec5c3", "").Replace("/Cover/Ef8e2d510133438f980423324078e0939", "").Replace("/Cover/E72fd1425ee00a7192a7261c5b45fcab2", "").Replace("/Cover/E86a31cf62149eaf28543a8a639d91309", "").Replace("/Cover/E8b5931c6ba81548e4b0a06e07fdd5282", "").Replace("/Cover/Ee98b70f046cbdf12b3eee2d65e625373", "").Replace("/Cover/E10f628a33fcf828bb57d497794a34094", "").Trim(',');
                         if (string.IsNullOrEmpty(xinh))
                             xinh = "[NULL]";
 

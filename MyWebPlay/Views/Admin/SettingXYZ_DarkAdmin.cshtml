@@ -511,6 +511,7 @@ input:checked + .slider:before {
             {
                 localStorage.setItem("setting-status","0");
                  document.getElementById("check-33").checked = true;
+                 localStorage.removeItem("matpassAd");
                   document.getElementById("ok-X").click();
             }
         }
@@ -869,57 +870,57 @@ input:checked + .slider:before {
                     else
                     if (Model.Topics[i].ID == "Password_Admin")
                     {
-                        <input size="100" name="@Model.Topics[i].ID" type="text" value="@ViewBag.Password" />
+                        <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.Password" />
                     }
                     else
                     if (Model.Topics[i].ID == "Believe_IP")
                     {
-                        <input size="100" name="@Model.Topics[i].ID" type="text" value="@ViewBag.Believe" />
+                        <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.Believe" />
                     }
                     else
                     if (Model.Topics[i].ID == "Code_LockedClient")
                     {
-                        <input size="100" name="@Model.Topics[i].ID" type="text" value="@ViewBag.CodeSocolar" />
+                        <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.CodeSocolar" />
                     }
                      else
                     if (Model.Topics[i].ID == "MatDoTuyetDoi")
                     {
-                        <input size="100" name="@Model.Topics[i].ID" type="text" value="@ViewBag.MaMatDo" />
+                        <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.MaMatDo" />
                     }
                      else
                     if (Model.Topics[i].ID == "Encode_Url")
                     {
-                        <input placeholder="Ví dụ bạn chỉ cần nhập Home/Index là được (không cần kèm theo https://)" size="100" name="@Model.Topics[i].ID" type="text" value="@ViewBag.EncodeUrl" />
+                        <input placeholder="Ví dụ bạn chỉ cần nhập Home/Index là được (không cần kèm theo https://)" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.EncodeUrl" />
                     }
-                       else
+                    else
                     if (Model.Topics[i].ID == "Info_Email")
                     {
-                        <input size="100" name="@Model.Topics[i].ID" type="text" value="@ViewBag.InfoEmail" />
+                        <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.InfoEmail" />
                     }
                     else
                     if (Model.Topics[i].ID == "Info_MegaIO")
                     {
-                        <input size="100" name="@Model.Topics[i].ID" type="text" value="@ViewBag.InfoMegaIO" />
+                        <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.InfoMegaIO" />
                     }
                     else
                     if (Model.Topics[i].ID == "Color_BackgroundAndText")
                     {
-                        <input id="txtDEMO" size="100" name="@Model.Topics[i].ID" type="text" value="@ViewBag.SetColor" />
+                        <input id="txtDEMO" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.SetColor" />
                     }
                     else
                     if (Model.Topics[i].ID == "Color_TracNghiem")
                     {
-                        <input size="100" name="@Model.Topics[i].ID" type="text" value="@ViewBag.TNColor" />
+                        <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.TNColor" />
                     }
                      else
                     if (Model.Topics[i].ID == "AppWeb_LockedUse")
                     {
-                        <input size="100" name="@Model.Topics[i].ID" type="text" value="@ViewBag.LockedUseApp" />
+                        <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.LockedUseApp" />
                     }
                      else
                     if (Model.Topics[i].ID == "DownloadFile_Quick")
                     {
-                        <input size="100" name="@Model.Topics[i].ID" type="text" value="@ViewBag.DownloadFileQuick" />
+                        <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.DownloadFileQuick" />
                     }
                     <br /><br />
 }
@@ -940,11 +941,12 @@ input:checked + .slider:before {
      
     <hr /><hr />
     <br />
+    <div style="background-color:grey">
     <b id="labelActive" name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG HOẠT ĐỘNG (một số thiết bị có thể chưa xác nhận cấp phép sử dụng hoặc họ đã xoá dữ liệu trình duyệt)</b>
     <br />
     <select onclick="loadActive()" onchange="setActive()" id="ip_active">
     </select>&nbsp;<input type="text" id="txtIPActive" /><br />
-    <button onclick="addActive()" style="color:green">THÊM (HOẠT ĐỘNG NHƯNG CHƯA XÁC NHẬN THIẾT BỊ)</button>&nbsp;<button onclick="removeActive()" style="color:red">XOÁ (HẾT HẠN)</button>&nbsp;(<a href="/ClientConnect/InfoIPRegist.txt" target="_blank">Xem Chi Tiết (có thể chưa đủ thông tin)</a><b> || </b><a href="/ClientConnect/InfoIPRegist.txt" @*onclick="xoachitiet()"*@ download="">Tải xuống và refresh</a> || </b><a href="#xuly" onclick="deletechitiet()">Delete</a>)
+    <button onclick="addActive()" style="color:green">THÊM (HOẠT ĐỘNG NHƯNG CHƯA XÁC NHẬN THIẾT BỊ)</button>&nbsp;<button onclick="removeActive()" style="color:red">XOÁ (HẾT HẠN)</button>&nbsp;(<a href="/ClientConnect/InfoIPRegist.txt" target="_blank" style="color:yellow">Xem Chi Tiết (có thể chưa đủ thông tin)</a><b> || </b><a style="color:yellow" href="/ClientConnect/InfoIPRegist.txt" @*onclick="xoachitiet()"*@ download="">Tải xuống và refresh</a> || </b><a style="color:yellow" href="#xuly" onclick="deletechitiet()">Delete</a>)
     <br />
      <br />
     <b name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG BỊ KHOÁ (ADMIN)</b>
@@ -957,10 +959,11 @@ input:checked + .slider:before {
     <b name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG BỊ KHOÁ (CLIENT)</b>
     <br />
     <select onclick="loadLockClient()" onchange="setLockClient()" id="ip_blockclient">
-    </select>&nbsp;<input type="text" id="txtIPLockClient" size="100" placeholder="Nhập với cấu trúc : IP<>Mật khẩu; hoặc nếu bạn muốn sử dụng mật khẩu mặc định thì nhập như sau : IP" /><br />
+    </select>&nbsp;<input type="text" id="txtIPLockClient" size="180" placeholder="Nhập với cấu trúc : IP<>Mật khẩu; hoặc nếu bạn muốn sử dụng mật khẩu mặc định thì nhập như sau : IP" /><br />
     <button onclick="addLockClient()" style="color:green">THÊM (KHOÁ IP CLIENT)</button>&nbsp;<button onclick="removeLockClient()" style="color:red">XOÁ (MỞ KHOÁ IP CLIENT)</button>&nbsp;<button onclick="changeCodeLockClient()" style="color:orangered">ĐỔI MẬT KHẨU</button>
       <hr /><hr />
     <br />
+    </div>
      @if (TempData["SaveComeHere"] == "true")
     {
     <button id="listIPcomehere" onclick="listIPcomehere()"><b style="color:red">RELOAD THIS HERE</b></button>
@@ -977,6 +980,7 @@ input:checked + .slider:before {
         <textarea readonly cols="500" rows="100">@TempData["showIPCome"]</textarea>
     }
     <br /><br /><hr /><hr />
+    <div style="background-color:yellow">
     <button id="rexJPhere" onclick="addJPReplace()"><b style="color:green">CẬP NHẬT NỘI DUNG (⚠ lưu ý nên xác định ví trí phù hợp để thêm vào, phải nhập bắt chước theo cấu trúc cũ)</b></button>
     
     <button onclick="resetJPReplace()"><b style="color:red">RESET LẠI MẶC ĐỊNH HỆ THỐNG</b></button>
@@ -985,9 +989,11 @@ input:checked + .slider:before {
     <h1 style="color:red">QUY TẮC CÁCH CHUYỂN ĐỔI CÁC KÍ TỰ SANG JAPAN - QUESTION (hiện có) : </h1>
         <textarea id="JPrex" cols="100" rows="20">@TempData["rexJP"]</textarea>
     <br /><br /><hr /><hr />
+    </div>
     
     
      <br /><br /><hr /><hr />
+     <div style="background-color:lightpink">
     <button id="fontHere" onclick="addFontReplace()"><b style="color:green">CẬP NHẬT NỘI DUNG</b></button>
     
     <button onclick="resetFontReplace()"><b style="color:red">RESET LẠI MẶC ĐỊNH HỆ THỐNG</b></button>
@@ -996,6 +1002,7 @@ input:checked + .slider:before {
     <h1 style="color:red">DANH SÁCH CÁC FONT CHỮ KHI PLAY KARAOKE (hiện có) : </h1>
         <textarea id="txtFont" cols="30" rows="20">@TempData["fontKara"]</textarea>
     <br /><br /><hr /><hr />
+    </div>
 
     <h3 style="color:orangered">
         - [Quy tắc link rút gọn bom.so, còn link gốc bạn có thể không cần quan tâm cái này] Lưu ý, các hướng dẫn ở đây có thể sau này sẽ cũ hoặc một số bây giờ sẽ không thể sử dụng được. Mặc dù vậy, bạn hãy thử nghĩ và random thử nhiều cách khác nhau (vì nhiều cái muốn đổi thay mà giờ làm biếng đổi quá 🤣😄). Mà không sao đâu, mấy này cũng tương tự à : bạn tự mò nha 😁. Ví dụ ở hướng dẫn là <b>abc1</b> (nhưng giờ thử không được) thì bạn có thể thử nhiều cái cách khác như : <b>abc2, abc3, abc4, ...</b> (hên xui ahihi 🤩).
@@ -1487,7 +1494,7 @@ CheckText
 <br>*
 <br>&lt;Input Name="user_id" Type="varchar" Size="10" /&gt;
 <br>&lt;Input Name="user_id_extend" Type="char" Size="50" /&gt;
-<br>&lt;Input Name="user_name" Type="nvarchar" Size="100" /&gt;
+<br>&lt;Input Name="user_name" Type="nvarchar" size="180" /&gt;
 <br>&lt;Input Name="user_name_day" Type="datetime" /&gt;
 <br>&lt;Input Name="user_age" Type="int" /&gt;
 <br>#
@@ -1680,6 +1687,7 @@ txtModelCs<br>
     <br />
     <br />
 
+    <div style="background-color:blueviolet">
     @using (Html.BeginForm("UnlockAllWeb","Admin"))
     {
         @Html.ValidationSummary(true)
@@ -1716,6 +1724,7 @@ txtModelCs<br>
             </td>
         </tr>
     }
+    </div>
     <br />
     <br/>
     </div>

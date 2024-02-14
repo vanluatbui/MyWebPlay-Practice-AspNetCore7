@@ -40,6 +40,9 @@ namespace MyWebPlay.Controllers
 
                 if (info[0] == "Encode_Url")
                 {
+                    if (info[3].Split("***", StringSplitOptions.RemoveEmptyEntries).Length < 1)
+                    return RedirectToAction("Error","Home");
+
                     ViewBag.Link = info[3].Split("***", StringSplitOptions.RemoveEmptyEntries)[0];
                     break;
                 }
@@ -85,7 +88,10 @@ namespace MyWebPlay.Controllers
 
                 if (info[0] == "Encode_Url")
                 {
-                    ViewBag.Link = info[3].Split("***", StringSplitOptions.RemoveEmptyEntries)[1];
+                        if (info[3].Split("***", StringSplitOptions.RemoveEmptyEntries).Length < 2)
+                            return RedirectToAction("Error", "Home");
+
+                        ViewBag.Link = info[3].Split("***", StringSplitOptions.RemoveEmptyEntries)[1];
                     break;
                 }
             }
@@ -131,12 +137,358 @@ namespace MyWebPlay.Controllers
 
                 if (info[0] == "Encode_Url")
                 {
-                    ViewBag.Link = info[3].Split("***", StringSplitOptions.RemoveEmptyEntries)[2];
+                        if (info[3].Split("***", StringSplitOptions.RemoveEmptyEntries).Length < 3)
+                            return RedirectToAction("Error", "Home");
+
+                        ViewBag.Link = info[3].Split("***", StringSplitOptions.RemoveEmptyEntries)[2];
                     break;
                 }
             }
 
             return View();
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
+        }
+
+        public ActionResult E003e16661a80c9451f46587afb2ec5c3()
+        {
+            try
+            {
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                var noidungX = System.IO.File.ReadAllText(pathX);
+                var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < listSetting.Length; i++)
+                {
+                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                    if (info[0] == "LockedAll_Web")
+                    {
+                        if (info[1] == "true")
+                        {
+                            return RedirectToAction("Error", "Home");
+                        }
+                    }
+
+                    if (info[0] == "Play_EncodeUrl")
+                    {
+                        if (info[1] == "false")
+                            return RedirectToAction("Error", "Home");
+                    }
+
+                    if (info[0] == "Encode_Url")
+                    {
+                        if (info[3].Split("***", StringSplitOptions.RemoveEmptyEntries).Length < 4)
+                            return RedirectToAction("Error", "Home");
+
+                        ViewBag.Link = info[3].Split("***", StringSplitOptions.RemoveEmptyEntries)[3];
+                        break;
+                    }
+                }
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
+        }
+
+        public ActionResult Ef8e2d510133438f980423324078e0939()
+        {
+            try
+            {
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                var noidungX = System.IO.File.ReadAllText(pathX);
+                var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < listSetting.Length; i++)
+                {
+                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                    if (info[0] == "LockedAll_Web")
+                    {
+                        if (info[1] == "true")
+                        {
+                            return RedirectToAction("Error", "Home");
+                        }
+                    }
+
+                    if (info[0] == "Play_EncodeUrl")
+                    {
+                        if (info[1] == "false")
+                            return RedirectToAction("Error", "Home");
+                    }
+
+                    if (info[0] == "Encode_Url")
+                    {
+                        if (info[3].Split("***", StringSplitOptions.RemoveEmptyEntries).Length < 5)
+                            return RedirectToAction("Error", "Home");
+
+                        ViewBag.Link = info[3].Split("***", StringSplitOptions.RemoveEmptyEntries)[4];
+                        break;
+                    }
+                }
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
+        }
+
+        public ActionResult E72fd1425ee00a7192a7261c5b45fcab2()
+        {
+            try
+            {
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                var noidungX = System.IO.File.ReadAllText(pathX);
+                var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < listSetting.Length; i++)
+                {
+                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                    if (info[0] == "LockedAll_Web")
+                    {
+                        if (info[1] == "true")
+                        {
+                            return RedirectToAction("Error", "Home");
+                        }
+                    }
+
+                    if (info[0] == "Play_EncodeUrl")
+                    {
+                        if (info[1] == "false")
+                            return RedirectToAction("Error", "Home");
+                    }
+
+                    if (info[0] == "Encode_Url")
+                    {
+                        if (info[3].Split("***", StringSplitOptions.RemoveEmptyEntries).Length < 6)
+                            return RedirectToAction("Error", "Home");
+
+                        ViewBag.Link = info[3].Split("***", StringSplitOptions.RemoveEmptyEntries)[5];
+                        break;
+                    }
+                }
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
+        }
+
+        public ActionResult E86a31cf62149eaf28543a8a639d91309()
+        {
+            try
+            {
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                var noidungX = System.IO.File.ReadAllText(pathX);
+                var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < listSetting.Length; i++)
+                {
+                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                    if (info[0] == "LockedAll_Web")
+                    {
+                        if (info[1] == "true")
+                        {
+                            return RedirectToAction("Error", "Home");
+                        }
+                    }
+
+                    if (info[0] == "Play_EncodeUrl")
+                    {
+                        if (info[1] == "false")
+                            return RedirectToAction("Error", "Home");
+                    }
+
+                    if (info[0] == "Encode_Url")
+                    {
+                        if (info[3].Split("***", StringSplitOptions.RemoveEmptyEntries).Length < 7)
+                            return RedirectToAction("Error", "Home");
+
+                        ViewBag.Link = info[3].Split("***", StringSplitOptions.RemoveEmptyEntries)[6];
+                        break;
+                    }
+                }
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
+        }
+
+        public ActionResult E8b5931c6ba81548e4b0a06e07fdd5282()
+        {
+            try
+            {
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                var noidungX = System.IO.File.ReadAllText(pathX);
+                var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < listSetting.Length; i++)
+                {
+                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                    if (info[0] == "LockedAll_Web")
+                    {
+                        if (info[1] == "true")
+                        {
+                            return RedirectToAction("Error", "Home");
+                        }
+                    }
+
+                    if (info[0] == "Play_EncodeUrl")
+                    {
+                        if (info[1] == "false")
+                            return RedirectToAction("Error", "Home");
+                    }
+
+                    if (info[0] == "Encode_Url")
+                    {
+                        if (info[3].Split("***", StringSplitOptions.RemoveEmptyEntries).Length < 8)
+                            return RedirectToAction("Error", "Home");
+
+                        ViewBag.Link = info[3].Split("***", StringSplitOptions.RemoveEmptyEntries)[7];
+                        break;
+                    }
+                }
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
+        }
+
+        public ActionResult Ee98b70f046cbdf12b3eee2d65e625373()
+        {
+            try
+            {
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                var noidungX = System.IO.File.ReadAllText(pathX);
+                var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < listSetting.Length; i++)
+                {
+                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                    if (info[0] == "LockedAll_Web")
+                    {
+                        if (info[1] == "true")
+                        {
+                            return RedirectToAction("Error", "Home");
+                        }
+                    }
+
+                    if (info[0] == "Play_EncodeUrl")
+                    {
+                        if (info[1] == "false")
+                            return RedirectToAction("Error", "Home");
+                    }
+
+                    if (info[0] == "Encode_Url")
+                    {
+                        if (info[3].Split("***", StringSplitOptions.RemoveEmptyEntries).Length < 9)
+                            return RedirectToAction("Error", "Home");
+
+                        ViewBag.Link = info[3].Split("***", StringSplitOptions.RemoveEmptyEntries)[8];
+                        break;
+                    }
+                }
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
+        }
+
+        public ActionResult E10f628a33fcf828bb57d497794a34094()
+        {
+            try
+            {
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                var noidungX = System.IO.File.ReadAllText(pathX);
+                var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < listSetting.Length; i++)
+                {
+                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                    if (info[0] == "LockedAll_Web")
+                    {
+                        if (info[1] == "true")
+                        {
+                            return RedirectToAction("Error", "Home");
+                        }
+                    }
+
+                    if (info[0] == "Play_EncodeUrl")
+                    {
+                        if (info[1] == "false")
+                            return RedirectToAction("Error", "Home");
+                    }
+
+                    if (info[0] == "Encode_Url")
+                    {
+                        if (info[3].Split("***", StringSplitOptions.RemoveEmptyEntries).Length < 10)
+                            return RedirectToAction("Error", "Home");
+
+                        ViewBag.Link = info[3].Split("***", StringSplitOptions.RemoveEmptyEntries)[9];
+                        break;
+                    }
+                }
+
+                return View();
             }
             catch (Exception ex)
             {

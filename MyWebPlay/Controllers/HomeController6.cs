@@ -217,7 +217,7 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
-            ViewData["Loi6"] = "Nếu bạn nhận thấy có sự tồn tại ít nhất một dấu hiệu của input mà cũng có trong outout của bạn thì lời khuyên trường này bạn không nên chọn 0!";
+            ViewData["Loi6"] = "Nếu bạn nhận thấy có sự tồn tại ít nhất một dấu hiệu của input mà cũng có trong output của bạn thì lời khuyên trường này bạn không nên chọn 0!";
             return View();
             }
             catch (Exception ex)

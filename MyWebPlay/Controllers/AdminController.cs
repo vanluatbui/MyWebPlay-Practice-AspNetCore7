@@ -53,7 +53,9 @@ namespace MyWebPlay.Controllers
                 var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
-                    if (lockedApp[3].Contains(Request.Path))
+                    var xi = Request.Path; if (xi == "" || xi == "/" || xi == null) xi = "/Home/Index";
+
+                    if (lockedApp[3].Contains(xi))
                     {
                         return RedirectToAction("Error", "Home");
                     }
@@ -97,7 +99,7 @@ namespace MyWebPlay.Controllers
                 var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
-                    if (lockedApp[3].Contains(Request.Path))
+                    var xi = Request.Path; if (xi == "" || xi == "/" || xi == null) xi = "/Home/Index";  if (lockedApp[3].Contains(xi))
                     {
                         return RedirectToAction("Error", "Home");
                     }
@@ -136,7 +138,7 @@ namespace MyWebPlay.Controllers
                 var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
-                    if (lockedApp[3].Contains(Request.Path))
+                    var xi = Request.Path; if (xi == "" || xi == "/" || xi == null) xi = "/Home/Index";  if (lockedApp[3].Contains(xi))
                     {
                         TempData["locked-app"] = "true";
                     }
@@ -187,7 +189,7 @@ namespace MyWebPlay.Controllers
                 var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
-                    if (lockedApp[3].Contains(Request.Path))
+                    var xi = Request.Path; if (xi == "" || xi == "/" || xi == null) xi = "/Home/Index";  if (lockedApp[3].Contains(xi))
                     {
                         return RedirectToAction("Error", "Home");
                     }
@@ -808,7 +810,7 @@ namespace MyWebPlay.Controllers
                 var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
-                    if (lockedApp[3].Contains(Request.Path))
+                    var xa = Request.Path; if (xa == "" || xa == "/" || xa == null) xa = "/Home/Index";  if (lockedApp[3].Contains(xa))
                     {
                         return RedirectToAction("Error", "Home");
                     }
@@ -952,7 +954,7 @@ namespace MyWebPlay.Controllers
                 var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
-                    if (lockedApp[3].Contains(Request.Path))
+                    var xa = Request.Path; if (xa == "" || xa == "/" || xa == null) xa = "/Home/Index";  if (lockedApp[3].Contains(xa))
                     {
                         return RedirectToAction("Error", "Home");
                     }
@@ -1029,7 +1031,7 @@ namespace MyWebPlay.Controllers
                 var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
-                    if (lockedApp[3].Contains(Request.Path))
+                    var xi = Request.Path; if (xi == "" || xi == "/" || xi == null) xi = "/Home/Index";  if (lockedApp[3].Contains(xi))
                     {
                         return RedirectToAction("Error", "Home");
                     }
@@ -1078,7 +1080,7 @@ namespace MyWebPlay.Controllers
                 var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
-                    if (lockedApp[3].Contains(Request.Path))
+                    var xi = Request.Path; if (xi == "" || xi == "/" || xi == null) xi = "/Home/Index";  if (lockedApp[3].Contains(xi))
                     {
                         return RedirectToAction("Error", "Home");
                     }
@@ -1142,7 +1144,7 @@ namespace MyWebPlay.Controllers
                 var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
-                    if (lockedApp[3].Contains(Request.Path))
+                    var xi = Request.Path; if (xi == "" || xi == "/" || xi == null) xi = "/Home/Index";  if (lockedApp[3].Contains(xi))
                     {
                         return RedirectToAction("Error", "Home");
                     }
@@ -1198,7 +1200,7 @@ namespace MyWebPlay.Controllers
                 var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
-                    if (lockedApp[3].Contains(Request.Path))
+                    var xi = Request.Path; if (xi == "" || xi == "/" || xi == null) xi = "/Home/Index";  if (lockedApp[3].Contains(xi))
                     {
                         return RedirectToAction("Error", "Home");
                     }
@@ -1340,7 +1342,7 @@ namespace MyWebPlay.Controllers
                 var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
-                    if (lockedApp[3].Contains(Request.Path))
+                    var xi = Request.Path; if (xi == "" || xi == "/" || xi == null) xi = "/Home/Index";  if (lockedApp[3].Contains(xi))
                     {
                         return RedirectToAction("Error", "Home");
                     }
@@ -1386,7 +1388,7 @@ namespace MyWebPlay.Controllers
                 var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
-                    if (lockedApp[3].Contains(Request.Path))
+                    var xi = Request.Path; if (xi == "" || xi == "/" || xi == null) xi = "/Home/Index";  if (lockedApp[3].Contains(xi))
                     {
                         return RedirectToAction("Error", "Home");
                     }
@@ -1463,7 +1465,7 @@ namespace MyWebPlay.Controllers
                 var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
-                    if (lockedApp[3].Contains(Request.Path))
+                    var xi = Request.Path; if (xi == "" || xi == "/" || xi == null) xi = "/Home/Index";  if (lockedApp[3].Contains(xi))
                     {
                         return RedirectToAction("Error", "Home");
                     }
@@ -1570,7 +1572,7 @@ namespace MyWebPlay.Controllers
                 var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
-                    if (lockedApp[3].Contains(Request.Path))
+                    var xi = Request.Path; if (xi == "" || xi == "/" || xi == null) xi = "/Home/Index";  if (lockedApp[3].Contains(xi))
                     {
                         return RedirectToAction("Error", "Home");
                     }
@@ -1654,7 +1656,7 @@ namespace MyWebPlay.Controllers
                 var lockedApp = listSetting[43].Split("<3275>");
                 if (lockedApp[3] != "[NULL]")
                 {
-                    if (lockedApp[3].Contains(Request.Path))
+                    var xi = Request.Path; if (xi == "" || xi == "/" || xi == null) xi = "/Home/Index";  if (lockedApp[3].Contains(xi))
                     {
                         return RedirectToAction("Error", "Home");
                     }

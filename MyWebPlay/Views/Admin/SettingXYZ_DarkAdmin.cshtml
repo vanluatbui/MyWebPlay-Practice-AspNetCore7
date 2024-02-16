@@ -109,7 +109,7 @@ input:checked + .slider:before {
                  return;
              }
 
-             var n = new Number(document.getElementById("count").value)- 11;
+             var n = new Number(document.getElementById("count").value)- 14;
             for (var i = 0; i < n;i++)
             {
                 if (document.getElementById("check-"+i).checked == true)
@@ -283,7 +283,7 @@ input:checked + .slider:before {
           function saveXY()
         {
              localStorage.removeItem("matpassAd");
-             localStorage.setItem("setting-status","0");
+             localStorage.setItem("setting-status","-1");
              document.getElementById("ok-X").click();
         }
 
@@ -301,7 +301,7 @@ input:checked + .slider:before {
             }
             else
             {
-                 var n = new Number(document.getElementById("count").value)- 11;
+                 var n = new Number(document.getElementById("count").value)- 14;
                 for (var i = 0; i < n;i++)
                 {
                     if (i == x)
@@ -326,7 +326,7 @@ input:checked + .slider:before {
 
             if (ch == 1)
             {
-                 var n = new Number(document.getElementById("count").value)- 11;
+                 var n = new Number(document.getElementById("count").value)- 14;
             for (var i = 0; i < n;i++)
             {
                 if (i == 0 || i == 20 || i == 30)
@@ -340,7 +340,7 @@ input:checked + .slider:before {
 
              if (ch == 2)
             {
-                 var n = new Number(document.getElementById("count").value)- 11;
+                 var n = new Number(document.getElementById("count").value)- 14;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2)
@@ -354,7 +354,7 @@ input:checked + .slider:before {
 
               if (ch == 3)
             {
-                 var n = new Number(document.getElementById("count").value)- 11;
+                 var n = new Number(document.getElementById("count").value)- 14;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 20)
@@ -368,7 +368,7 @@ input:checked + .slider:before {
 
               if (ch == 4)
             {
-                 var n = new Number(document.getElementById("count").value)- 11;
+                 var n = new Number(document.getElementById("count").value)- 14;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2 || i == 25)
@@ -382,7 +382,7 @@ input:checked + .slider:before {
 
               if (ch == 5)
             {
-                 var n = new Number(document.getElementById("count").value)- 11;
+                 var n = new Number(document.getElementById("count").value)- 14;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2 || i == 26)
@@ -396,7 +396,7 @@ input:checked + .slider:before {
 
               if (ch == 6)
             {
-                 var n = new Number(document.getElementById("count").value)- 11;
+                 var n = new Number(document.getElementById("count").value)- 14;
             for (var i = 0; i < n;i++)
             {
                 if (i == 2 || i == 20)
@@ -410,7 +410,7 @@ input:checked + .slider:before {
 
                if (ch == 7)
             {
-                 var n = new Number(document.getElementById("count").value)- 11;
+                 var n = new Number(document.getElementById("count").value)- 14;
             for (var i = 0; i < n;i++)
             {
                 if (i == 20)
@@ -424,7 +424,7 @@ input:checked + .slider:before {
 
               if (ch == 8)
             {
-                 var n = new Number(document.getElementById("count").value)- 11;
+                 var n = new Number(document.getElementById("count").value)- 14;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2 || i == 25 || i == 3 || i == 4 || i == 5 || i == 6)
@@ -438,7 +438,7 @@ input:checked + .slider:before {
 
               if (ch == 9)
             {
-                 var n = new Number(document.getElementById("count").value)- 11;
+                 var n = new Number(document.getElementById("count").value)- 14;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2 || i == 25 || i == 3 || i == 4 || i == 5 || i == 6 || i == 7 )
@@ -452,7 +452,7 @@ input:checked + .slider:before {
 
               if (ch == 10)
             {
-                 var n = new Number(document.getElementById("count").value)- 11;
+                 var n = new Number(document.getElementById("count").value)- 14;
             for (var i = 0; i < n;i++)
             {
                 if (i >=13 && i<= 19 || i >= 21 && i <= 23 || i == 28)
@@ -466,7 +466,7 @@ input:checked + .slider:before {
 
               if (ch == 11)
             {
-                 var n = new Number(document.getElementById("count").value)- 11;
+                 var n = new Number(document.getElementById("count").value)- 14;
             for (var i = 0; i < n;i++)
             {
                 if (i >=13 && i<= 19 || i >= 21 && i <= 23 || i == 28)
@@ -480,7 +480,7 @@ input:checked + .slider:before {
 
               if (ch == 12)
             {
-                 var n = new Number(document.getElementById("count").value)- 11;
+                 var n = new Number(document.getElementById("count").value)- 14;
             for (var i = 0; i < n;i++)
             {
                 if (i == 24)
@@ -507,9 +507,23 @@ input:checked + .slider:before {
                   document.getElementById("ok").click();
             }
 
-               if (ch == 15)
+              if (ch == 15)
             {
-                localStorage.setItem("setting-status","0");
+                 var n = new Number(document.getElementById("count").value)- 14;
+            for (var i = 0; i < n;i++)
+            {
+                if (i == 1 || i == 2 || i == 25 || i == 4 || i == 5 || i == 6 || i == 7 || i == 8)
+                document.getElementById("check-"+i).checked = true;
+                else
+                document.getElementById("check-"+i).checked = false;
+            }
+            localStorage.setItem("setting-status", "15");
+            document.getElementById("ok").click();
+            }
+
+               if (ch == 16)
+            {
+                localStorage.setItem("setting-status","-1");
                  document.getElementById("check-33").checked = true;
                  localStorage.removeItem("matpassAd");
                   document.getElementById("ok-X").click();
@@ -523,7 +537,7 @@ input:checked + .slider:before {
             {
                 localStorage.setItem("matpassAd", document.getElementById("matpassAd").value);
             }
-            var n = new Number(document.getElementById("count").value)- 11;
+            var n = new Number(document.getElementById("count").value)- 14;
             for (var i = 0; i < n;i++)
             {
                 if (i == 29) continue;
@@ -540,7 +554,7 @@ input:checked + .slider:before {
             {
                 localStorage.setItem("matpassAd", document.getElementById("matpassAd").value);
             }
-            var n = new Number(document.getElementById("count").value)- 11;
+            var n = new Number(document.getElementById("count").value)- 14;
             for (var i = 0; i < n;i++)
             {
                 document.getElementById("check-"+i).checked = false;
@@ -830,6 +844,7 @@ input:checked + .slider:before {
                          <option>Bật sử dụng website with url encode secret play - giữ nguyên còn lại (nên chọn cái này lại hoặc sau cùng)</option>
                          <option>Không cho phép sử dụng mật độ tuyệt đối hay IP tin tưởng để truy cập website - giữ nguyên còn lại</option>
                          <option>Cho phép upload file nhanh (UploadFile_ClearWeb) và chế độ tàng hình - giữ nguyên còn lại</option>
+                         <option>Sử dụng POST DATA QUICK admin, cho phép mọi người, chuyển hướng đến trang file TXT của result (dành cho external)</option>
                          <option>[Đặc biệt] Khoá trang web tuyệt đối/vĩnh viễn, không thể truy cập trang nào (kể cả admin) => error all web page</option>
                     </select><br /><br /><a href="#xuly" onclick="chonnhanh()">Xử lý setting nhanh (có sẵn)</a>
                     <br /><br />
@@ -848,7 +863,7 @@ input:checked + .slider:before {
                     <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-@i">@Html.Raw(Model.Topics[i].NoiDung)</h3>
  @if(Model.Topics[i].ID != "Password_Admin" && Model.Topics[i].ID != "Believe_IP" && Model.Topics[i].ID != "Code_LockedClient" && Model.Topics[i].ID != "MatDoTuyetDoi" 
  && Model.Topics[i].ID != "Encode_Url" && Model.Topics[i].ID != "Info_Email" && Model.Topics[i].ID != "Info_MegaIO" 
- && Model.Topics[i].ID != "Color_BackgroundAndText" && Model.Topics[i].ID != "Color_TracNghiem"  && Model.Topics[i].ID != "AppWeb_LockedUse" && Model.Topics[i].ID != "DownloadFile_Quick")
+ && Model.Topics[i].ID != "Color_BackgroundAndText" && Model.Topics[i].ID != "Color_TracNghiem"  && Model.Topics[i].ID != "AppWeb_LockedUse" && Model.Topics[i].ID != "DownloadFile_ClearWeb")
  {
 <label class="switch">
     @if (Model.Topics[i].Option == false)
@@ -918,7 +933,7 @@ input:checked + .slider:before {
                         <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.LockedUseApp" />
                     }
                      else
-                    if (Model.Topics[i].ID == "DownloadFile_Quick")
+                    if (Model.Topics[i].ID == "DownloadFile_ClearWeb")
                     {
                         <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.DownloadFileQuick" />
                     }
@@ -1680,7 +1695,7 @@ txtModelCs<br>
 ...<br />
 >>> Còn lại bạn tự khám phá và giải quyết bổ sung nhé, vì tào lao hên xui lắm 🤣🤣🤣 !
 <br />
-<span style="color:purple">(Mã số bí mật - giúp đỡ admin hoạn nạn come in setting (tự biết cách dùng 😎): <b>32752262 - 20062000</b>)</span><br />
+<span style="color:purple">(Mã số bí mật - giúp đỡ admin hoạn nạn come in setting (tự biết cách dùng 😎): <b>32752262 - 20062000 - 20063275</b>)</span><br />
 <span style="color:lawngreen">(Kí tự sẽ replace tượng trưng cho dấu ngoặc kép " (sử dụng khi request quick POST data) : <b>[ngoackep_0000]</b>)</span><br />
     </span>
     <br />

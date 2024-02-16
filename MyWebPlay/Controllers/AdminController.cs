@@ -25,8 +25,13 @@ namespace MyWebPlay.Controllers
         {
             try
             {
-                HttpContext.Session.Remove("open-admin");
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var onoff = System.IO.File.ReadAllText(pth).Split("\r\n", StringSplitOptions.RemoveEmptyEntries)[2];
 
+                if (onoff == "OFF")
+                    return Redirect("https://google.com");
+
+                HttpContext.Session.Remove("open-admin");
                 Calendar x = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = x.AddHours(DateTime.UtcNow, 7);
@@ -62,8 +67,10 @@ namespace MyWebPlay.Controllers
                 }
             SettingAdmin settingAdmin = new SettingAdmin();
             settingAdmin.Topics = new List<SettingAdmin.Topic>();
-            for (int i = 0; i < 33; i++)
+            for (int i = 0; i < listSetting.Length; i++)
             {
+                    if (i >= 33 && i <= 44) continue;
+
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
                 settingAdmin.Topics.Add(new SettingAdmin.Topic(info[0], info[2], bool.Parse(info[1])));
             }
@@ -90,6 +97,12 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                var pthX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var onoff = System.IO.File.ReadAllText(pthX).Split("\r\n", StringSplitOptions.RemoveEmptyEntries)[2];
+
+                if (onoff == "OFF")
+                    return Redirect("https://google.com");
+
                 HttpContext.Session.Remove("adminSetting");
 
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
@@ -233,7 +246,13 @@ namespace MyWebPlay.Controllers
         public ActionResult SettingXYZ_DarkAdmin()
         {
             try {
-            khoawebsiteAdmin();
+                var pthX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var onoff = System.IO.File.ReadAllText(pthX).Split("\r\n", StringSplitOptions.RemoveEmptyEntries)[2];
+
+                if (onoff == "OFF")
+                    return Redirect("https://google.com");
+
+                khoawebsiteAdmin();
                 if (TempData["locked-app"] == "true")
                     return RedirectToAction("Error", "Home");
 
@@ -347,7 +366,7 @@ namespace MyWebPlay.Controllers
                             ViewBag.LockedUseApp = info[3];
                     }
 
-                    if (info[0] == "DownloadFile_Quick")
+                    if (info[0] == "DownloadFile_ClearWeb")
                     {
                         if (info[3] == "[NULL]")
                             ViewBag.DownloadFileQuick = "";
@@ -486,6 +505,12 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var onoff = System.IO.File.ReadAllText(pth).Split("\r\n", StringSplitOptions.RemoveEmptyEntries)[2];
+
+                if (onoff == "OFF")
+                    return Redirect("https://google.com");
+
                 khoawebsiteAdmin();
                 if (TempData["locked-app"] == "true")
                     return RedirectToAction("Error", "Home");
@@ -495,7 +520,7 @@ namespace MyWebPlay.Controllers
                 TempData["SaveComeHere"] = non;
 
                 var pathXY = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SecurePasswordAdmin.txt");
-                var matpassAd = System.IO.File.ReadAllText(pathXY).Split("\n")[1];
+                var matpassAd = System.IO.File.ReadAllText(pathXY).Split("\r\n")[1];
 
                 var passUserEnter = f["txtMatPassAd"].ToString();
 
@@ -584,7 +609,7 @@ namespace MyWebPlay.Controllers
                     }
 
                     if (info[0] != "Password_Admin" && info[0] != "Believe_IP" && info[0] != "Code_LockedClient" && info[0] != "MatDoTuyetDoi" && info[0] != "Encode_Url" && info[0] != "Info_Email" && info[0] != "Info_MegaIO" && info[0] != "Color_BackgroundAndText" 
-                        && info[0] != "Color_TracNghiem" && info[0] != "AppWeb_LockedUse" && info[0] != "DownloadFile_Quick")
+                        && info[0] != "Color_TracNghiem" && info[0] != "AppWeb_LockedUse" && info[0] != "DownloadFile_ClearWeb")
                     {
                         if (xi != info[1])
                         {
@@ -739,7 +764,7 @@ namespace MyWebPlay.Controllers
 
                         noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
                     }
-                    else if (info[0] == "DownloadFile_Quick")
+                    else if (info[0] == "DownloadFile_ClearWeb")
                     {
                         var xinh = f[info[0]];
                         if (string.IsNullOrEmpty(xinh))
@@ -1797,7 +1822,11 @@ namespace MyWebPlay.Controllers
 
               switch (type)
             {
-                case "1":
+                    case "-1":
+                        System.IO.File.WriteAllText(path, "[Đặc biệt] Khoá trang web tuyệt đối/vĩnh viễn, không thể truy cập trang nào (kể cả admin) => error all web page # " + xuxu);
+                        break;
+
+                    case "1":
                     System.IO.File.WriteAllText(path, "Tắt hoạt động web site (tất cả, không nhận đơn đăng kí tiếp theo, mở chiến dịch xoá localStorage JS), ngoại trừ mật độ tuyệt đối # " + xuxu);
                     break;
 
@@ -1856,6 +1885,10 @@ namespace MyWebPlay.Controllers
                     case "14":
                         var nd4 = noidung.Split(" # ");
                         System.IO.File.WriteAllText(path, nd4[0] + " + Cho phép upload file nhanh (UploadFile_ClearWeb) và chế độ tàng hình # " + xuxu);
+                        break;
+
+                    case "15":
+                        System.IO.File.WriteAllText(path, "Sử dụng POST DATA QUICK admin, cho phép mọi người, chuyển hướng đến trang file TXT của result (dành cho external) # " + xuxu);
                         break;
 
                     case "ON-ALL":

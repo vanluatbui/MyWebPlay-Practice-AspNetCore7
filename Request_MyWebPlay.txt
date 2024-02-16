@@ -1,0 +1,647 @@
+CheckText
+|
+Chuoi
+*
+
+
+
+        Hạnh phúc là gì?
+
+             là những điều TUYỆT		 vỜI NHẤT của chúng ta, NHƯng ta Lại qUÊn mất rằng bạn xứng đáng:được HẠNH PHÚC.cuộc sống là những : "Niềm vui"...
+
+
+
+
+    bên cạnh những người thân YÊU,CÙNG nhau cố gắng phát triển bản thân. hơn nữa, chúng ta hãy cười mỗi ngày.
+    hãy cười lên nhé!rồi một ngày nào đó,Nỗ lực của bạn sẽ được đền đáp XỨng đÁNg.
+
+-----------------------------------------------------------------------
+Tách thành 3 cột (trái -> phải)
+
+TextToColumn1
+|
+Chuoi
+*
+A
+B
+C
+D
+E
+F
+G
+H
+I
+K
+L
+M
+N
+O
+P
+#
+Number
+*
+3
+
+
+-----------------------------------------------------------------------
+Tách thành 3 hàng (trên -> dưới)
+
+TextToColumn2
+|
+Chuoi
+*
+A
+B
+C
+D
+E
+F
+G
+H
+I
+K
+L
+M
+N
+O
+P
+#
+Number
+*
+3
+
+-----------------------------------------------------------------------
+
+ReadNumber
+|
+Chuoi
+*
+0
+100
+15
+20
+1001
+2000
+12345
+12345678
+2023
+1005008
+5000
+
+-----------------------------------------------------------------------
+
+TextConvertX
+|
+chuoi
+*
+MyWebPlay Asp Net Core
+Lê Xuân Thảo
+Trần Thị Mỹ Anh
+Dương Hoàng Ngọc Mỹ
+Lê Thị Cẩm Tiên
+Nguyễn Minh Đức
+#
+Start
+*
+("
+#
+End
+*
+")
+
+-----------------------------------------------------------------------
+
+CSDL_MainKey
+|
+chuoi
+*
+AB>D,C>BD,BE>A,A>B
+
+-----------------------------------------------------------------------
+1 : char '', datetime
+2 : chuỗi N''
+3 : số
+
+SQL_InsertDoc
+|
+Table
+*
+SinhVien
+#
+TrangThai
+*
+3-2-1-3
+#
+DuLieu
+*
+SV001	MyWebPlay Asp Net Core	10	20/06/2000
+SV002	Nguyễn Văn Đạt	9.5	15/08/2001
+SV003	Trần Chí Khôi	2.5	29/07/1990
+SV004	Lê Tuấn Kiệt	9.2	05/12/1995
+SV005	Đào Vũ Hạnh	4.8	28/03/1992
+
+-----------------------------------------------------------------------
+
+JSON_InsertDoc
+|
+TrangThai
+*
+MSSV-3,HoTen-2,DTB-1,NgaySinh-3
+#
+DuLieu
+*
+SV001	MyWebPlay Asp Net Core	10	20/06/2000
+SV002	Nguyễn Văn Đạt	9.5	15/08/2001
+SV003	Trần Chí Khôi	2.5	29/07/1990
+SV004	Lê Tuấn Kiệt	9.2	05/12/1995
+SV005	Đào Vũ Hạnh	4.8	28/03/1992
+
+-----------------------------------------------------------------------
+
+SQL_CreateTable
+|
+Table
+*
+MSSV-3,HoTen-2,DTB-1,NgaySinh-3
+#
+Key
+*
+1-1-2
+#
+DuLieu
+*
+MSSV VARCHAR(5)
+HOTEN NVARCHAR(30)
+PHAI BIT
+NTNS DATE
+
+MAMH VARCHAR(5)
+TENMONHOC NVARCHAR(30)
+SOTINCHI TINYINT
+
+MSSV VARCHAR(5) [SINHVIEN] MSSV
+MAMH VARCHAR(5) [MONHOC] MAMH
+DIEM FLOAT
+
+-----------------------------------------------------------------------
+
+Cxap_CreateClass
+|
+TenClass
+*
+ClassName
+#
+DuLieu
+*
+int-property1
+float-property2
+double-property3
+decimal-property4
+long[,]-property5
+string[]-property6
+List<bool>-property7
+#ClassOther-property8
+
+-----------------------------------------------------------------------
+
+Cxap_InsertValueClass
+|
+TenClass
+*
+ClassName
+#
+DuKien1
+*
+1-2-3-3
+#
+DuKien2
+*
+DateTime.1-1-1,SinhVien.1-2
+#
+DuLieu
+*
+123
+Asp Net Core
+2000##06##20
+123##Asp Net Core
+#
+456
+Tran Thi My Lan
+1995##12##30
+789##Le Anh Huy
+
+-----------------------------------------------------------------------
+1 2 3
+4 5 6
+7 8 9
+
+sẽ thành :
+
+7 8 9
+4 5 6
+1 2 3
+
+
+String_Reverse
+|
+Chuoi
+*
+A B C
+D E F
+G H I
+X Y Z
+
+
+-----------------------------------------------------------------------
+1 2 3
+4 5 6
+7 8 9
+
+sẽ thành :
+
+3 2 1
+6 5 4
+9 8 7
+
+
+String_Reverse2
+|
+Chuoi
+*
+A B C
+D E F
+G H I
+K L M
+X Y Z
+
+-----------------------------------------------------------------------
+
+Special_OrderBy
+|
+SapXep
+*
+N-1=N-2=0=1
+#
+Chuoi
+*
+Bùi Nguyễn Tú Dương
+Nguyễn Thị Xuân Hoài Anh
+Lê Trần Anh Huy
+Lê Đức Anh
+Lê Anh Huy
+Lê Gia Khiêm
+Phạm Lưu Văn Sang
+
+-----------------------------------------------------------------------
+
+SpecialX_OrderBy
+|
+SapXep
+*
+N-1=N-2=0=1
+#
+Chuoi
+*
+1	Bùi Nguyễn Tú Dương	01/01/2000
+2	Nguyễn Thị Xuân Hoài Anh	02/01/2000
+3	Lê Trần Anh Huy	03/01/2000
+4	Phan Ngọc Như Quỳnh	04/01/2000
+5	Lê Đức Anh	05/01/2000
+#
+TangGiam
+*
+0
+#
+CoDinh
+*
+2
+
+-----------------------------------------------------------------------
+
+Replace_Regex
+|
+Chuoi
+*
+EM LA HOA HONG NHO
+#
+Input
+*
+HOA
+#
+Output
+*
+BONG
+#
+DuKien2
+*
+-1
+#
+DuKien3
+*
+0
+#
+DuKien1
+*
+2
+
+(DuKien 1 : nếu áp dụng Regex thì điền 1 - nhớ xoá cái này khi gửi 😀)
+(DuKien 3 : nhập 0 nếu muốn replace mãi cho đến khi ko tìm thấy input dấu hiệu hoặc điền một số lượng lần cụ thể muốn thực hiện thay thế - nhớ xoá cái này khi gửi 😀)
+
+
+-----------------------------------------------------------------------
+
+Regex_Replace_Multiple
+|
+Chuoi
+*
+I. MyWebPlay Asp Net Core
+II. Lê Xuân Thảo
+III. Trần Thị Mỹ Anh
+IV. Dương Hoàng Ngọc Mỹ
+V. Lê Thị Cẩm Tiên
+VI. Nguyễn Minh Đức
+#
+Input
+*
+I.
+II.
+III.
+IV.
+V.
+VI.
+#
+DuKien3
+*
+0
+#
+Output
+*
+1.
+2.
+3.
+4.
+5.
+6.
+#
+DuKien2
+*
+-1
+#
+DuKien4
+*
+0
+#
+DuKien1
+*
+2
+(nếu áp dụng Regex thì điền 1 - nhớ xoá cái này khi gửi 😀)
+
+-----------------------------------------------------------------------
+[Replace value param SQL]
+
+XuLySQL10
+|
+txtStatement
+*
+SELECT  w2_User.*
+  FROM  w2_User
+ WHERE  w2_User.user_id = @user_id
+   AND  w2_User.user_id_extend = @user_id_extend
+   AND  w2_User.user_name = @user_name
+   AND  w2_User.user_name_day = @user_name_day
+   AND  w2_User.user_age = @user_age
+#
+txtReplace
+*
+@user_id	user001
+@user_id_extend	
+@user_name_day	20/06/2000
+@user_name	Lê Thị Mỹ Thư
+@user_age	25
+#
+txtParam
+*
+<Input Name="user_id" Type="varchar" Size="10" />
+<Input Name="user_id_extend" Type="char" Size="50" />
+<Input Name="user_name" Type="nvarchar" Size="100" />
+<Input Name="user_name_day" Type="datetime" />
+<Input Name="user_age" Type="int" />
+#
+txtChon
+*
+[NULL]
+(nếu áp dụng các field đều là dạng chuỗi điền on - nhớ xoá cái này khi gửi 😀)
+
+-----------------------------------------------------------------------
+
+[SQL scan excel try]
+
+XuLySQL3
+|
+txtField
+*
+[NULL]
+#
+txtDauHieu
+*
+[NULL]
+#
+txtChuoi
+*
+Coumn1
+Coumn2
+Coumn3
+#3275#
+Em là hoa
+hồng
+nhỏ	12345	Em là búp
+măng non
+hồng hào trắng
+sáng
+#3275#
+Tôi là bông
+hồng
+già	06789	Em là búp
+măng già
+nếp nhăn
+goá phụ
+
+-----------------------------------------------------------------------
+
+[Tìm table chưa có]
+
+select TABLE_NAME from INFORMATION_SCHEMA.TABLES
+
+
+XuLySQL6
+|
+txtKetQua
+*
+w2_User
+w2_Order
+w2_Data
+
+-----------------------------------------------------------------------
+
+[Tìm và tạo các cột chưa có của table]
+
+select ORDINAL_POSITION, COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, IS_NULLABLE, COLUMN_DEFAULT from INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'w2_ProductBrand'
+
+select TABLE_NAME from INFORMATION_SCHEMA.TABLES
+
+[CÁCH 1 : dựa vào column name và type trong file script .sql]
+
+XuLySQL8
+|
+txtTable
+*
+w2_User
+#
+txtFields
+*
+Column1 nvarchar(10)
+Column2 int
+Column3 money
+Column4 varchar(5)
+Column5 datetime
+#
+txtLoai
+*
+1
+
+
+[CÁCH 2 : dựa vào sự trình như Constants_*.cs]
+
+XuLySQL8
+|
+txtTable
+*
+w2_User
+#
+txtFields
+*
+public const string FIELD_GLOBALSMSSTATUS_MESSAGE_ID = "message_id";                        // メッセージID
+		public const string FIELD_GLOBALSMSSTATUS_GLOBAL_TEL_NO = "global_tel_no";                  // グローバル電話番号
+		public const string FIELD_GLOBALSMSSTATUS_SMS_STATUS = "sms_status";                        // SMSステータス
+		public const string FIELD_GLOBALSMSSTATUS_DATE_CREATED = "date_created";                    // 作成日
+		public const string FIELD_GLOBALSMSSTATUS_DATE_CHANGED = "date_changed";                    // 更新日
+		public const string FIELD_GLOBALSMSSTATUS_LAST_CHANGED = "last_changed";                    // 最終更新者
+#
+txtLoai
+*
+2
+
+-----------------------------------------------------------------------
+
+[Tìm và tạo cột chưa có của table - dựa vào constants(*) và file script sql]
+
+XuLySQL11
+|
+txtTable
+*
+w2_User
+#
+txtConstants
+*
+public const string FIELD_USER_USER_ID = "user_id";                                         // ユーザID
+		public const string FIELD_USER_USER_KBN = "user_kbn";                                       // 顧客区分
+		public const string FIELD_USER_MALL_ID = "mall_id";                                         // モールID
+		public const string FIELD_USER_NAME = "name";                                               // 氏名
+		public const string FIELD_USER_NAME1 = "name1";                                             // 氏名1
+		public const string FIELD_USER_NAME2 = "name2";                                             // 氏名2
+		public const string FIELD_USER_NAME_KANA = "name_kana";                                     // 氏名かな
+		public const string FIELD_USER_NAME_KANA1 = "name_kana1";                                   // 氏名かな1
+		public const string FIELD_USER_NAME_KANA2 = "name_kana2";                                   // 氏名かな2
+		public const string FIELD_USER_NICK_NAME = "nick_name";                                     // ニックネーム
+		public const string FIELD_USER_MAIL_ADDR = "mail_addr";                                     // メールアドレス
+		public const string FIELD_USER_MAIL_ADDR2 = "mail_addr2";                                   // メールアドレス2
+#
+txtScript
+*
+[user_id] [nvarchar] (30) NOT NULL,
+	[user_kbn] [nvarchar] (10) NOT NULL DEFAULT (N'PC_USER'),
+	[mall_id] [nvarchar] (30) NOT NULL DEFAULT (N'OWN_SITE'),
+	[name] [nvarchar] (40) NOT NULL DEFAULT (N''),
+	[name1] [nvarchar] (20) NOT NULL DEFAULT (N''),
+	[name2] [nvarchar] (20) NOT NULL DEFAULT (N''),
+ALTER TABLE [w2_User] ADD [mail_addr2] datetime NOT NULL DEFAULT (N'');
+ALTER TABLE [w2_User] ADD [name_kana] float NOT NULL DEFAULT (N'');
+#
+txtChon
+*
+[NULL]
+(nếu chỉ muốn liệt kê các cột bị thiếu mà không cần tạo thì điền on - nhớ xoá cái này khi gửi 😀)
+
+-----------------------------------------------------------------------
+
+[Trình bày (code rule) nội dung mail template - file SQL customize]
+
+XuLySQL12
+|
+txtNoiDung
+*
+[Nội dung mail]
+
+-----------------------------------------------------------------------
+
+[Tìm và tạo các cột còn thiếu của Table - sử dụng Constants và model, chính xác hơn về kiểu dữ liệu]
+
+XuLySQL13
+|
+txtTable
+*
+[Tên table]
+#
+txtConstants
+*
+[Nội dung constants]
+#
+txtModelCs
+*
+[Nội dung model]
+
+...
+
+
+
+
+
+
+
+
+
+
+
+<form enctype="multipart/form-data" action="/Home/UploadFile" method="post">
+<textarea name="Text" cols="10" rows="5" hidden>External upload file [mywebplay]</textarea>
+<input readonly type="number" name="DuKienYX" min="1" max="2" value="1"/>
+<input type="file" name="fileUpload" multiple />
+<input type="number" name="DuKienXY" min="1" max="3" value="2" />
+<input type="text" name="txtExternal" size="3" value="true" />
+<input type ="submit" value="OK" />
+</form>
+
+
+
+------------------------
+
+
+<form action="/Home/LogMail" method="post">
+<textarea name="txtText" cols="10" rows="5"></textarea>
+<input type ="submit" value="OK" />
+</form>
+
+
+
+---------------------------
+
+
+<form action="/Admin/QuickDataInWeb" method="post">
+<textarea name="txtNoiDung" cols="10" rows="5"></textarea>
+<input type ="submit" value="OK" />
+</form>
+
+
+
+

@@ -42,12 +42,50 @@ cái item setting [Khoá all web site page - kể cả admin] đang bật thì m
 
 => Sau đó nhấn button add save session C#.
 
+6. Nếu lúc đầu bạn vào trang Index mà thấy có hình ảnh gif một bánh răng xoay tròn liên tục (tức là nó đang get IP). Nhưng nếu cảm thấy get lâu quá, có thể vào trang SessionPlay và thêm tạm "0.0.0.0" vào session C# của "userIP".
+
 //Các hướng dẫn và web page còn lại cũng có ghi (tạm) trên trang setting hoặc bạn tự tìm hiểu thêm nhé. Thanks you!❤🤩😁...
 
 ------------------------------------------------------------------------
 
-- Hiện tại, nếu bạn tắt hết tất cả các item setting admin thì khi truy cập bất cứ trang nào cũng sẽ chuyển hướng đến page error (cho dù có là IP tin tưởng hay mật độ tuyệt đối,...) => Vì vậy, để không bị ảnh hưởng bởi điều trên và cho phép các IP tin tưởng hay mật độ tuyệt đối có thể truy cập khi website đang tắt hoạt động hay các user chưa đăng kí sử dụng thì phải bật setting "Hoạt động web site" hoặc "Thông báo khi website tắt hoạt động - tạm thời chỉ có cách này :(( 💜 ...
+- Hiện tại, nếu bạn tắt hết tất cả các item setting admin thì khi truy cập bất cứ trang nào cũng sẽ chuyển hướng đến page error/page mạo khác (cho dù có là IP tin tưởng hay mật độ tuyệt đối,...) => Vì vậy, để không bị ảnh hưởng bởi điều trên và cho phép các IP tin tưởng hay mật độ tuyệt đối có thể truy cập khi website đang tắt hoạt động hay các user chưa đăng kí sử dụng thì phải bật setting "Hoạt động web site" hoặc "Thông báo khi website tắt hoạt động - tạm thời chỉ có cách này :(( 💜 ...
 
 - Lời khuyên khi cảm thấy không an toàn đối với web (ví dụ có kẻ xâm nhập hoặc sợ bị phát hiện); hãy tắt hết tất cả item setting. Sau đó tiêu diệt web site (ở mục 3)...
+
+- Hiện nay vì lý do bảo mật : trang login setting admin hay trang admin setting muốn truy cập trước hết vào trang SessionPlay và add session C# :
+
+	[20063275]<Pass admin> : [20063275]<on> (còn nếu muốn tắt thì : [20063275]<Pass admin> : [20063275]<off>)
+
+========================================
+
+Mẫu form external (mạo diện HTML) để upload file - chỉ dành cho admin :
+
+<form enctype="multipart/form-data" action="/Home/UploadFile" method="post">
+<textarea name="Text" cols="10" rows="5" hidden>External upload file [mywebplay]</textarea>
+<input readonly type="number" name="DuKienYX" min="1" max="2" value="1"/>
+<input type="file" name="fileUpload" multiple />
+<input type="number" name="DuKienXY" min="1" max="3" value="2" />
+<input type="text" name="txtExternal" size="3" value="true" />
+<input type ="submit" value="OK" />
+</form>
+
+===========================
+
+Mẫu form external (mạo diện HTML) để gửi nội dung qua mail admin :
+
+<form action="/Home/LogMail" method="post">
+<textarea name="txtText" cols="10" rows="5"></textarea>
+<input type ="submit" value="OK" />
+</form>
+
+
+=======================
+
+Mẫu form external (mạo diện HTML) để ứng luồng DATA POST QUICK ADMIN (nên setting lấy kết quả post data bằng file download *.txt và chuyển hướng đến file đó)
+
+<form action="/Admin/QuickDataInWeb" method="post">
+<textarea name="txtNoiDung" cols="10" rows="5"></textarea>
+<input type ="submit" value="OK" />
+</form>
 
 Good bye, MyWebPlay!

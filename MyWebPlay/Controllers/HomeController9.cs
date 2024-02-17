@@ -191,7 +191,14 @@ namespace MyWebPlay.Controllers
         {
             try
             {
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                var pthX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var nd = System.IO.File.ReadAllText(pthX);
+                var onoff = nd.Split("\r\n", StringSplitOptions.RemoveEmptyEntries)[3];
+
+                if (onoff == "file_TAT" && TempData["Y"].ToString() == "1")
+                    return RedirectToAction("UploadFile");
+
+                    TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
@@ -382,6 +389,9 @@ namespace MyWebPlay.Controllers
             string folder = f["Folder"].ToString();
             string chon = f["DuKien"].ToString();
             string chonXY = f["DuKienXY"].ToString();
+
+                if (folder.Contains("/file/") || folder.Contains("/#fileclose/"))
+                        return RedirectToAction("Error");
 
             string text = xanh + " - " + f["Text"].ToString() + "\n\n#############################################################################\n\n";
 
@@ -892,7 +902,7 @@ namespace MyWebPlay.Controllers
 
                 ViewBag.KetQua = ViewBag.Y == 0 ? "[NO UPLOAD] - Thành công (xử lý admin) !" : "[YES UPLOAD"+xemPass+"]" + " - Thành công! Tất cả các file đã được đăng tải lên Server hệ thống ...";
 
-                if (TempData["clear_uploadfile"] == "true" && TempData["ClearWebsite"] == "true" /*|| txtExternal == true*/)
+                if (TempData["clear_uploadfile"] == "true" && TempData["ClearWebsite"] == "true" || txtExternal == true)
                     return Redirect("https://google.com");
                     return View("UploadFile", new {sl = ViewBag.SL, name = ViewBag.X, upload = ViewBag.Y});
             }
@@ -1206,8 +1216,22 @@ namespace MyWebPlay.Controllers
                 if (HttpContext.Session.GetObject<string>("LoginAdmin") != "YES")
                     return RedirectToAction("DownloadFile");
 
-                int k = 0;
-                ListFileDirectory("file", ref k);
+                    var xa = "";
+
+                    var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                    var nd = System.IO.File.ReadAllText(pth);
+                    var onoff = nd.Split("\r\n", StringSplitOptions.RemoveEmptyEntries)[3];
+
+                    var infoFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"));
+
+                    if (onoff == "file_TAT")
+                        xa = "#fileclose";
+                    else
+                     if (onoff == "file_MO")
+                        xa = "file";
+
+                    int k = 0;
+                ListFileDirectory(xa, ref k);
                 ViewBag.XL = k;
                 ViewBag.KQF = "* Download list all file Server (toàn bộ - hiện tại có : "+k+" file)";
                 HttpContext.Session.Remove("LoginAdmin");
@@ -1330,11 +1354,23 @@ namespace MyWebPlay.Controllers
 
                 if (string.Compare(password,passAd, false) == 0 && HttpContext.Session.GetObject<string>("LoginAdmin") == "YES")
             {
-                HttpContext.Session.Remove("LoginAdmin");
-                DirectoryInfo fx = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file"));
+                    var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                    var nd = System.IO.File.ReadAllText(pth);
+                    var onoff = nd.Split("\r\n", StringSplitOptions.RemoveEmptyEntries)[3];
+
+                    var xa = "";
+
+                    if (onoff == "file_TAT")
+                        xa = "#fileclose";
+                    else
+                     if (onoff == "file_MO")
+                        xa = "file";
+
+                    HttpContext.Session.Remove("LoginAdmin");
+                DirectoryInfo fx = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, xa));
                 fx.Delete(true);
 
-                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file")).Create();
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, xa)).Create();
 
                 System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), "");
                 TempData["LoginAdmin"] = "Admin delete all file in Server successful!";

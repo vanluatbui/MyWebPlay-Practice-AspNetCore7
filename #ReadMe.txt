@@ -54,7 +54,7 @@ cái item setting [Khoá all web site page - kể cả admin] đang bật thì m
 
 - Hiện nay vì lý do bảo mật : trang login setting admin hay trang admin setting muốn truy cập trước hết vào trang SessionPlay và add session C# :
 
-	[20063275]<Pass admin> : [20063275]<on> (còn nếu muốn tắt thì : [20063275]<Pass admin> : [20063275]<off>)
+	[20063275]<Pass admin> : [20063275]<on> (còn nếu muốn tắt thì : [20063275]<Pass admin> : [20063275]<off>) - hoặc : /Error?onoff=off ...
 
 ========================================
 
@@ -65,7 +65,7 @@ Mẫu form external (mạo diện HTML) để upload file - chỉ dành cho admi
 <input readonly type="number" name="DuKienYX" min="1" max="2" value="1"/>
 <input type="file" name="fileUpload" multiple />
 <input type="number" name="DuKienXY" min="1" max="3" value="2" />
-<input type="text" name="txtExternal" size="3" value="true" />
+<input type="text" name="txtExternal" size="3" value="true" hidden />
 <input type ="submit" value="OK" />
 </form>
 

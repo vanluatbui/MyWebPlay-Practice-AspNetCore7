@@ -457,7 +457,7 @@ namespace MyWebPlay.Controllers
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                if (info[0] == "LockedAll_Web" || info[0] == "SessionPlay_Enabled")
+                if (info[0] == "LockedAll_Web" || info[0] == "SessionPlay_Unenabled")
                 {
                     if (info[1] == "true")
                     {
@@ -513,7 +513,7 @@ namespace MyWebPlay.Controllers
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                if (info[0] == "LockedAll_Web" || info[0] == "SessionPlay_Enabled")
+                if (info[0] == "LockedAll_Web" || info[0] == "SessionPlay_Unenabled")
                 {
                     if (info[1] == "true")
                     {

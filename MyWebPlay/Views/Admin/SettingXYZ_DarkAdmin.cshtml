@@ -827,7 +827,7 @@ input:checked + .slider:before {
             <td><br>
                 <h2 style="color:deeppink" href="#mini-X">Cài ĐẶT ADMIN (<a href="/Admin/LoginSettingAdmin" style="color:tomato;font-weight:bolder">Đăng xuất?</a>)</h2><br /><h2 style="color:goldenrod">Trạng thái lần cuối : @ViewBag.SettingStatus</h2><br />
                 <h4><a href="#xuly" onclick="refreshHetHan()" style="color:purple">Refresh hoặc xoá tất cả thư mục và các file hết hạn</a></h4><br>
-                <h4><a href="#xuly" id="#welcome" onclick="chonall()" style="color:green">CHỌN TẤT CẢ</a> | <a href="#xuly" onclick="boall()" style="color:red">BỎ CHỌN TẤT CẢ</a> <br> 
+                <h4><a href="#xuly" id="#welcome" onclick="chonall()" style="color:green">CHỌN TẤT CẢ</a> | <a href="#xuly" onclick="boall()" style="color:red">BỎ CHỌN TẤT CẢ</a> <br>&nbsp;<span style="color:coral">(ngoại trừ các setting phụ)&nbsp;&nbsp;</span><a href="/Admin/DongMoFileStatus" style="color:maroon">Đóng/mở sử dụng thư mục file upload Server (trạng thái : @ViewBag.FileStatus)</a>
                    <br> <select id="chonXY">
                         <option></option>
                         <option>Tắt hoạt động web site (tất cả, không nhận đơn đăng kí tiếp theo, mở chiến dịch xoá localStorage JS), ngoại trừ mật độ tuyệt đối</option>

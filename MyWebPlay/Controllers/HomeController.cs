@@ -77,8 +77,23 @@ namespace MyWebPlay.Controllers
             return 1;
         }
 
-        public ActionResult Error()
+        public ActionResult Error(string? onoff)
         {
+            try 
+            {
+            if (onoff != null)
+            {
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var nd = System.IO.File.ReadAllText(pth);
+                if (onoff == "on")
+                    nd = nd.Replace("OFF", "ON");
+                        else
+                            if (onoff == "off")
+                    nd = nd.Replace("ON", "OFF");
+
+                    System.IO.File.WriteAllText(pth, nd);
+            }
+
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidung = System.IO.File.ReadAllText(path);
 
@@ -106,6 +121,17 @@ namespace MyWebPlay.Controllers
                 TempData["not-believe"] = "false";
             }
             return View();
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
         }
 
         public ActionResult KiemTraMini (string? test, string? url)
@@ -822,10 +848,28 @@ namespace MyWebPlay.Controllers
                 if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Exists == true)
                     new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Delete(true);
 
-                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file")).Exists == false)
-                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file")).Create();
+                var pthY = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var ndY = System.IO.File.ReadAllText(pthY);
+                var onoffY = ndY.Split("\r\n", StringSplitOptions.RemoveEmptyEntries)[3];
 
-                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Exists)
+                if (onoffY == "file_MO")
+                {
+                    if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file")).Exists == false)
+                        new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file")).Create();
+
+                    if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "#fileclose")).Exists == true)
+                        new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "#fileclose")).Delete(true);
+                }
+                else if (onoffY == "file_TAT")
+                {
+                    if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "#fileclose")).Exists == false)
+                        new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "#fileclose")).Create();
+
+                    if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file")).Exists == true)
+                        new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file")).Delete(true);
+                }
+
+                    if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Exists)
                     new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Delete(true);
 
                 if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Exists == false)
@@ -862,50 +906,67 @@ namespace MyWebPlay.Controllers
                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
 
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var nd = System.IO.File.ReadAllText(pth);
+                var onoff = nd.Split("\r\n", StringSplitOptions.RemoveEmptyEntries)[3];
 
-                var infoFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"));
+                    var infoFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"));
+
+                var xa = "";
+
+                if (onoff == "file_TAT")
+                {
+                    infoFile = infoFile.Replace("file/", "#fileclose/");
+                    xa = "#fileclose";
+                }
+                else
+                     if (onoff == "file_MO")
+                {
+                    infoFile = infoFile.Replace("#fileclose/", "file/");
+                    xa = "file";
+                }
 
                 var files = infoFile.Split("\n", StringSplitOptions.RemoveEmptyEntries);
 
-                Calendar x = CultureInfo.InvariantCulture.Calendar;
+                    Calendar x = CultureInfo.InvariantCulture.Calendar;
 
-                string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
 
-                for (int xx = 0; xx < files.Length; xx++)
-                {
-                    if (files[xx] == "") continue;
-
-                    var fi = files[xx].Split("\t");
-
-                    var today = xuxu.Split("/");
-                    var hethan = fi[1].Split("/");
-
-                    var d1 = int.Parse(today[0]);
-                    var m1 = int.Parse(today[1]);
-                    var y1 = int.Parse(today[2]);
-
-                    var d2 = int.Parse(hethan[0]);
-                    var m2 = int.Parse(hethan[1]);
-                    var y2 = int.Parse(hethan[2]);
-
-                    if (SoSanh2Ngay(d1, m1, y1, d2, m2, y2) >= 0 || new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0])).Exists == false)
+                    for (int xx = 0; xx < files.Length; xx++)
                     {
-                        FileInfo fx = new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0].TrimStart('/')));
-                        fx.Delete();
-                        infoFile = infoFile.Replace(fi[0] + "\t" + fi[1] + "\n", "");
-                    }
+                        if (files[xx] == "") continue;
 
-                }
-                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile);
-                try
-                {
-                    XoaDirectoryNull("file");
-                }
-                catch (Exception ex)
-                {
-                    ViewBag.Loi = "";
-                    return View();
-                }
+                        var fi = files[xx].Split("\t");
+
+                        var today = xuxu.Split("/");
+                        var hethan = fi[1].Split("/");
+
+                        var d1 = int.Parse(today[0]);
+                        var m1 = int.Parse(today[1]);
+                        var y1 = int.Parse(today[2]);
+
+                        var d2 = int.Parse(hethan[0]);
+                        var m2 = int.Parse(hethan[1]);
+                        var y2 = int.Parse(hethan[2]);
+
+                        if (SoSanh2Ngay(d1, m1, y1, d2, m2, y2) >= 0 || new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0])).Exists == false)
+                        {
+                            FileInfo fx = new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0].TrimStart('/')));
+                            fx.Delete();
+                            infoFile = infoFile.Replace(fi[0] + "\t" + fi[1] + "\n", "");
+                        }
+
+                    }
+                    System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile);
+                    try
+                    {
+                        XoaDirectoryNull(xa);
+                    }
+                    catch (Exception ex)
+                    {
+                        ViewBag.Loi = "";
+                        return View();
+                    }
 
 
                 //-------------------------------------------------------------INDEX---

@@ -1765,6 +1765,11 @@ namespace MyWebPlay.Controllers
                 var ndY = System.IO.File.ReadAllText(pthY);
                 var onoff = ndY.Split("\r\n", StringSplitOptions.RemoveEmptyEntries)[3];
 
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "apiUpload")).Exists == true)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "apiUpload")).Delete(true);
+
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "apiUpload")).Create();
+
                 if (onoff == "file_MO")
                 {
                     if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file")).Exists == false)

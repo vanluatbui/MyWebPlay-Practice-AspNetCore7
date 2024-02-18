@@ -9,9 +9,11 @@ using Microsoft.Extensions.Hosting;
 using MyWebPlay.Extension;
 using MyWebPlay.Model;
 using MyWebPlay.Models;
+using Newtonsoft.Json;
 using Org.BouncyCastle.Asn1.X509;
 using System;
 using System.Diagnostics;
+using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.Globalization;
 using System.Management;
@@ -852,6 +854,11 @@ namespace MyWebPlay.Controllers
                 var ndY = System.IO.File.ReadAllText(pthY);
                 var onoffY = ndY.Split("\r\n", StringSplitOptions.RemoveEmptyEntries)[3];
 
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "apiUpload")).Exists == true)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "apiUpload")).Delete(true);
+
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "apiUpload")).Create();
+
                 if (onoffY == "file_MO")
                 {
                     if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file")).Exists == false)
@@ -1148,57 +1155,79 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult CheckText(IFormCollection f)
         {
+            var nix = "";
+            var exter = false;
+            var listIP = new List<string>();
             try
             {
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
-            {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
-                TempData["skipIP"] = "true";
-            }
-            /*HttpContext.Session.Remove("ok-data");*/
-            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                var noidung = System.IO.File.ReadAllText(path);
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            string chuoi = f["Chuoi"].ToString();
+                var listSettingS = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
-            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
-            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
+                var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoX[1] == "true")
+                    exter = true;
+
+                if (exter == false)
+                {
+                    TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true"; if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi"); if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } }
+                    if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); }
+                    if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                    if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+                    {
+                        HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                        TempData["skipIP"] = "true";
+                    }
+                    /*HttpContext.Session.Remove("ok-data");*/
+                    TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
+                    TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                    
+
+                    if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                        listIP.Add(HttpContext.Session.GetString("userIP"));
+                    else
+                    {
+                        TempData["GetDataIP"] = "true";
+                        return RedirectToAction("Index");
+                    }
+                }
+            string chuoi = f["Chuoi"].ToString().Replace("\r\n","\n").Replace("\n","\r\n");
+
+            chuoi = chuoi.Replace("[T-PLAY]", "\t");
+            chuoi = chuoi.Replace("[N-PLAY]", "\n");
+            chuoi = chuoi.Replace("[R-PLAY]", "\r");
 
             TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
-            khoawebsiteClient(listIP);
-            HttpContext.Session.Remove("ok-data");
-            Calendar x = CultureInfo.InvariantCulture.Calendar;
 
-            var xuxu = x.AddHours(DateTime.UtcNow, 7);
+                if (exter == false)
+                {
+                    khoawebsiteClient(listIP);
+                    HttpContext.Session.Remove("ok-data");
+                    Calendar x = CultureInfo.InvariantCulture.Calendar;
 
-            if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
-            {
-                TempData["mau_background"] = "white";
-                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
-                 TempData["winx"] = "❤";
-            }
-            else
-            {
-                TempData["mau_background"] = "black";
-                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
-                 TempData["winx"] = "❤";
-            }
+                    var xuxu = x.AddHours(DateTime.UtcNow, 7);
 
-            if (string.IsNullOrEmpty(chuoi))
-            {
-                ViewData["Loi"] = "Trường này không được để trống!";
-                HttpContext.Session.SetString("data-result", "true"); return this.CheckText();
-            }
+                    if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
+                    {
+                        TempData["mau_background"] = "white";
+                        TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
+                        TempData["winx"] = "❤";
+                    }
+                    else
+                    {
+                        TempData["mau_background"] = "black";
+                        TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
+                        TempData["winx"] = "❤";
+                    }
+                }
+
+                    if (string.IsNullOrEmpty(chuoi))
+                    {
+                        ViewData["Loi"] = "Trường này không được để trống!";
+                        HttpContext.Session.SetString("data-result", "true"); return this.CheckText();
+                    }
 
             string s = chuoi;
 
@@ -1286,7 +1315,7 @@ namespace MyWebPlay.Controllers
             //TextCopy.ClipboardService.SetText(s);
 
             // s = "<p style=\"color:blue\"" + s + "</p>";
-            var nix = s;
+            nix = s;
             s = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + s + "</textarea>";
 
               Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = s;
@@ -1302,9 +1331,14 @@ namespace MyWebPlay.Controllers
                     req = "/Home/Index";
 
                 HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
-                return RedirectToAction("Error", new { exception = "true" });
+                if (exter == false)
+                    return RedirectToAction("Error", new { exception = "true" });
+                return Ok(new { error = HttpContext.Session.GetObject<string>("error_exception_log") });
             }
-            return View();
+
+            if (exter == false)
+                return View();
+            return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") });
         }
 
         [HttpGet]
@@ -1346,79 +1380,102 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult TextToColumn1(IFormCollection f)
         {
+            var nix = "";
+            var exter = false;
+            var listIP = new List<string>();
             try
             {
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
-            {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
-                TempData["skipIP"] = "true";
-            }
-            /*HttpContext.Session.Remove("ok-data");*/
-            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                var noidung = System.IO.File.ReadAllText(path);
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            string chuoi = f["Chuoi"].ToString();
-            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
-            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
-            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
+                var listSettingS = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoX[1] == "true")
+                    exter = true;
+
+                if (exter == false)
+                {
+                    TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true"; if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi"); if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } }
+                    if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); }
+                    if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                    if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+                    {
+                        HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                        TempData["skipIP"] = "true";
+                    }
+                    /*HttpContext.Session.Remove("ok-data");*/
+                    TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
+                    TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                    // var listIP = new List<string>();
+
+                    if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                        listIP.Add(HttpContext.Session.GetString("userIP"));
+                    else
+                    {
+                        TempData["GetDataIP"] = "true";
+                        return RedirectToAction("Index");
+                    }
+                }
+            string chuoi = f["Chuoi"].ToString().Replace("\r\n","\n").Replace("\n","\r\n");
+
+            chuoi = chuoi.Replace("[T-PLAY]", "\t");
+            chuoi = chuoi.Replace("[N-PLAY]", "\n");
+            chuoi = chuoi.Replace("[R-PLAY]", "\r");
             int n = int.Parse(f["Number"].ToString());
 
             TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
-            khoawebsiteClient(listIP);
-            HttpContext.Session.Remove("ok-data");
-            Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
-            var xuxu = xi.AddHours(DateTime.UtcNow, 7);
-
-            if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
-            {
-                TempData["mau_background"] = "white";
-                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
-                 TempData["winx"] = "❤";
-            }
-            else
-            {
-                TempData["mau_background"] = "black";
-                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
-                 TempData["winx"] = "❤";
-            }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
-            var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            var flag = 0;
-            for (int i = 0; i < listSetting.Length; i++)
-            {
-                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-
-                if (flag == 0 && (info[0] == "Email_Upload_User"
-                    || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
-                    || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
-                    || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
-                    || info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                if (exter == false)
                 {
-                    if (info[1] == "false")
+                    khoawebsiteClient(listIP);
+                    HttpContext.Session.Remove("ok-data");
+                    Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+                    var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+
+                    if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
                     {
-                        
-                        TempData["mau_winx"] = "red";
-                        flag = 1;
+                        TempData["mau_background"] = "white";
+                        TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
+                        TempData["winx"] = "❤";
                     }
                     else
                     {
-                        
-                        TempData["mau_winx"] = "deeppink";
-                        flag = 0;
+                        TempData["mau_background"] = "black";
+                        TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
+                        TempData["winx"] = "❤";
+                    }
+                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                    var noidungX = System.IO.File.ReadAllText(pathX);
+                    var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    var flag = 0;
+                    for (int i = 0; i < listSetting.Length; i++)
+                    {
+                        var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                        if (flag == 0 && (info[0] == "Email_Upload_User"
+                            || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
+                            || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
+                            || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
+                            || info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                        {
+                            if (info[1] == "false")
+                            {
+
+                                TempData["mau_winx"] = "red";
+                                flag = 1;
+                            }
+                            else
+                            {
+
+                                TempData["mau_winx"] = "deeppink";
+                                flag = 0;
+                            }
+                        }
                     }
                 }
-            }
            
 
             if (string.IsNullOrEmpty(f["Chuoi"].ToString()))
@@ -1462,7 +1519,7 @@ namespace MyWebPlay.Controllers
 
             //ss = "\r\n" + ss;
             //ss = ss.Replace("\r\n", "<br>");
-            var nix = ss;
+             nix = ss;
             ss = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + ss + "</textarea>";
 
               Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = ss;
@@ -1477,9 +1534,13 @@ namespace MyWebPlay.Controllers
                     req = "/Home/Index";
 
                 HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
-                return RedirectToAction("Error", new { exception = "true" });
+                if (exter == false)
+                    return RedirectToAction("Error", new { exception = "true" });
+                return Ok(new { error = HttpContext.Session.GetObject<string>("error_exception_log") });
             }
+             if (exter == false)
             return View();
+            return Ok(new { result = nix.Replace("\r","[R-PLAY]").Replace("\n","[N-PLAY]").Replace("\t","[T-PLAY]") });
         }
 
         [HttpGet]
@@ -1521,79 +1582,101 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult TextToColumn2(IFormCollection f)
         {
+            var nix = "";
+            var exter = false;
+            var listIP = new List<string>();
             try
             {
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
-            {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
-                TempData["skipIP"] = "true";
-            }
-            /*HttpContext.Session.Remove("ok-data");*/
-            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                var noidung = System.IO.File.ReadAllText(path);
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
+                var listSettingS = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoX[1] == "true")
+                    exter = true;
+
+                if (exter == false)
+                {
+                    TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true"; if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi"); if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } }
+                    if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); }
+                    if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                    if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+                    {
+                        HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                        TempData["skipIP"] = "true";
+                    }
+                    /*HttpContext.Session.Remove("ok-data");*/
+                    TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
+                    TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                    // var listIP = new List<string>();
+
+                    if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                        listIP.Add(HttpContext.Session.GetString("userIP"));
+                    else
+                    {
+                        TempData["GetDataIP"] = "true";
+                        return RedirectToAction("Index");
+                    }
             }
-            string chuoi = f["Chuoi"].ToString();
-            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
-            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
-            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
+            string chuoi = f["Chuoi"].ToString().Replace("\r\n","\n").Replace("\n","\r\n");
+            chuoi = chuoi.Replace("[T-PLAY]", "\t");
+            chuoi = chuoi.Replace("[N-PLAY]", "\n");
+            chuoi = chuoi.Replace("[R-PLAY]", "\r");
             int n = int.Parse(f["Number"].ToString());
 
             TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
-            khoawebsiteClient(listIP);
-            HttpContext.Session.Remove("ok-data");
-            Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
-            var xuxu = xi.AddHours(DateTime.UtcNow, 7);
-
-            if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
-            {
-                TempData["mau_background"] = "white";
-                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
-                 TempData["winx"] = "❤";
-            }
-            else
-            {
-                TempData["mau_background"] = "black";
-                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
-                 TempData["winx"] = "❤";
-            }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
-            var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            var flag = 0;
-            for (int i = 0; i < listSetting.Length; i++)
-            {
-                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-
-                if (flag == 0 && (info[0] == "Email_Upload_User"
-                    || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
-                    || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
-                    || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
-                    || info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                if (exter == false)
                 {
-                    if (info[1] == "false")
+                    khoawebsiteClient(listIP);
+                    HttpContext.Session.Remove("ok-data");
+                    Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+                    var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+
+                    if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
                     {
-                        
-                        TempData["mau_winx"] = "red";
-                        flag = 1;
+                        TempData["mau_background"] = "white";
+                        TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
+                        TempData["winx"] = "❤";
                     }
                     else
                     {
-                        
-                        TempData["mau_winx"] = "deeppink";
-                        flag = 0;
+                        TempData["mau_background"] = "black";
+                        TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
+                        TempData["winx"] = "❤";
+                    }
+                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                    var noidungX = System.IO.File.ReadAllText(pathX);
+                    var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    var flag = 0;
+                    for (int i = 0; i < listSetting.Length; i++)
+                    {
+                        var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                        if (flag == 0 && (info[0] == "Email_Upload_User"
+                            || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
+                            || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
+                            || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
+                            || info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                        {
+                            if (info[1] == "false")
+                            {
+
+                                TempData["mau_winx"] = "red";
+                                flag = 1;
+                            }
+                            else
+                            {
+
+                                TempData["mau_winx"] = "deeppink";
+                                flag = 0;
+                            }
+                        }
                     }
                 }
-            }
          
 
 
@@ -1642,7 +1725,7 @@ namespace MyWebPlay.Controllers
 
             //ss = "\r\n" + ss;
             //ss = ss.Replace("\r\n", "<br>");
-            var nix = ss;
+            nix = ss;
             ss = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + ss + "</textarea>";
 
               Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = ss;
@@ -1657,9 +1740,13 @@ namespace MyWebPlay.Controllers
                     req = "/Home/Index";
 
                 HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
-                return RedirectToAction("Error", new { exception = "true" });
+                if (exter == false)
+                    return RedirectToAction("Error", new { exception = "true" });
+                return Ok(new { error = HttpContext.Session.GetObject<string>("error_exception_log") });
             }
-            return View();
+            if (exter == false)
+                return View();
+            return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") });
         }
 
         [HttpGet]
@@ -1701,78 +1788,100 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult ReadNumber(IFormCollection f)
         {
+            var nix = "";
+            var exter = false;
+            var listIP = new List<string>();
             try
             {
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
-            {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
-                TempData["skipIP"] = "true";
-            }
-            /*HttpContext.Session.Remove("ok-data");*/
-            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                var noidung = System.IO.File.ReadAllText(path);
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            string chuoi = f["Chuoi"].ToString();
-            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
-            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
-            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
+                var listSettingS = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoX[1] == "true")
+                    exter = true;
+
+                if (exter == false)
+                {
+                    TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true"; if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi"); if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } }
+                    if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); }
+                    if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                    if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+                    {
+                        HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                        TempData["skipIP"] = "true";
+                    }
+                    /*HttpContext.Session.Remove("ok-data");*/
+                    TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
+                    TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                    //var listIP = new List<string>();
+
+                    if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                        listIP.Add(HttpContext.Session.GetString("userIP"));
+                    else
+                    {
+                        TempData["GetDataIP"] = "true";
+                        return RedirectToAction("Index");
+                    }
+                }
+            string chuoi = f["Chuoi"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n");
+            chuoi = chuoi.Replace("[T-PLAY]", "\t");
+            chuoi = chuoi.Replace("[N-PLAY]", "\n");
+            chuoi = chuoi.Replace("[R-PLAY]", "\r");
 
             TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
-            khoawebsiteClient(listIP);
-            HttpContext.Session.Remove("ok-data");
-            Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
-            var xuxu = xi.AddHours(DateTime.UtcNow, 7);
-
-            if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
-            {
-                TempData["mau_background"] = "white";
-                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
-                 TempData["winx"] = "❤";
-            }
-            else
-            {
-                TempData["mau_background"] = "black";
-                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
-                 TempData["winx"] = "❤";
-            }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
-            var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            var flag = 0;
-            for (int i = 0; i < listSetting.Length; i++)
-            {
-                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-
-                if (flag == 0 && (info[0] == "Email_Upload_User"
-                    || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
-                    || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
-                    || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
-                    || info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                if (exter == false)
                 {
-                    if (info[1] == "false")
+                    khoawebsiteClient(listIP);
+                    HttpContext.Session.Remove("ok-data");
+                    Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+                    var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+
+                    if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
                     {
-                        
-                        TempData["mau_winx"] = "red";
-                        flag = 1;
+                        TempData["mau_background"] = "white";
+                        TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
+                        TempData["winx"] = "❤";
                     }
                     else
                     {
-                        
-                        TempData["mau_winx"] = "deeppink";
-                        flag = 0;
+                        TempData["mau_background"] = "black";
+                        TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
+                        TempData["winx"] = "❤";
+                    }
+                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                    var noidungX = System.IO.File.ReadAllText(pathX);
+                    var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    var flag = 0;
+                    for (int i = 0; i < listSetting.Length; i++)
+                    {
+                        var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                        if (flag == 0 && (info[0] == "Email_Upload_User"
+                            || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
+                            || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
+                            || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
+                            || info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                        {
+                            if (info[1] == "false")
+                            {
+
+                                TempData["mau_winx"] = "red";
+                                flag = 1;
+                            }
+                            else
+                            {
+
+                                TempData["mau_winx"] = "deeppink";
+                                flag = 0;
+                            }
+                        }
                     }
                 }
-            }
            
             if (string.IsNullOrEmpty(f["Chuoi"].ToString()))
             {
@@ -1807,7 +1916,7 @@ namespace MyWebPlay.Controllers
 
             result = "\r\n" + result+"\r\n\r\n"+re;
             result = result.Replace("\r\n", "<br>");
-            var nix = result;
+            nix = result;
             result = "<p>" + result + "</p>";
 
               Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix.Replace("<br>","\n")); ViewBag.Result = result;
@@ -1822,9 +1931,14 @@ namespace MyWebPlay.Controllers
                     req = "/Home/Index";
 
                 HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
-                return RedirectToAction("Error", new { exception = "true" });
+
+                if (exter == false)
+                    return RedirectToAction("Error", new { exception = "true" });
+                return Ok(new { error = HttpContext.Session.GetObject<string>("error_exception_log")});
             }
-            return View();
+            if (exter == false)
+                return View();
+            return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") });
         }
 
         [HttpGet]
@@ -1867,86 +1981,108 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult TextConvertX (IFormCollection f)
         {
+            var nix = "";
+            var exter = false;
+            var listIP = new List<string>();
             try
             {
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
-            {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
-                TempData["skipIP"] = "true";
-            }
-            /*HttpContext.Session.Remove("ok-data");*/
-            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                var noidung = System.IO.File.ReadAllText(path);
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            string chuoi = f["Chuoi"].ToString();
-            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
-            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
-            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
+                var listSettingS = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoX[1] == "true")
+                    exter = true;
+
+                if (exter == false)
+                {
+                    TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true"; if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi"); if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } }
+                    if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); }
+                    if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                    if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+                    {
+                        HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                        TempData["skipIP"] = "true";
+                    }
+                    /*HttpContext.Session.Remove("ok-data");*/
+                    TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
+                    TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                    //var listIP = new List<string>();
+
+                    if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                        listIP.Add(HttpContext.Session.GetString("userIP"));
+                    else
+                    {
+                        TempData["GetDataIP"] = "true";
+                        return RedirectToAction("Index");
+                    }
+                }
+            string chuoi = f["Chuoi"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n");
+            chuoi = chuoi.Replace("[T-PLAY]", "\t");
+            chuoi = chuoi.Replace("[N-PLAY]", "\n");
+            chuoi = chuoi.Replace("[R-PLAY]", "\r");
             string start = f["Start"].ToString();
-            start = start.Replace("[TAB-TPLAY]", "\t");
-            start = start.Replace("[ENTER-NPLAY]", "\n");
-            start = start.Replace("[ENTER-RPLAY]", "\r");
+            start = start.Replace("[T-PLAY]", "\t");
+            start = start.Replace("[N-PLAY]", "\n");
+            start = start.Replace("[R-PLAY]", "\r");
             string end = f["End"].ToString();
-            end = end.Replace("[TAB-TPLAY]", "\t");
-            end = end.Replace("[ENTER-NPLAY]", "\n");
-            end = end.Replace("[ENTER-RPLAY]", "\r");
+            end = end.Replace("[T-PLAY]", "\t");
+            end = end.Replace("[N-PLAY]", "\n");
+            end = end.Replace("[R-PLAY]", "\r");
 
             TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
-            khoawebsiteClient(listIP);
-            HttpContext.Session.Remove("ok-data");
-            Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
-            var xuxu = xi.AddHours(DateTime.UtcNow, 7);
-
-            if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
-            {
-                TempData["mau_background"] = "white";
-                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
-                 TempData["winx"] = "❤";
-            }
-            else
-            {
-                TempData["mau_background"] = "black";
-                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
-                 TempData["winx"] = "❤";
-            }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
-            var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            var flag = 0;
-            for (int i = 0; i < listSetting.Length; i++)
-            {
-                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-
-                if (flag == 0 && (info[0] == "Email_Upload_User"
-                    || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
-                    || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
-                    || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
-                    || info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                if (exter == false)
                 {
-                    if (info[1] == "false")
+                    khoawebsiteClient(listIP);
+                    HttpContext.Session.Remove("ok-data");
+                    Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+                    var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+
+                    if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
                     {
-                        
-                        TempData["mau_winx"] = "red";
-                        flag = 1;
+                        TempData["mau_background"] = "white";
+                        TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
+                        TempData["winx"] = "❤";
                     }
                     else
                     {
-                        
-                        TempData["mau_winx"] = "deeppink";
-                        flag = 0;
+                        TempData["mau_background"] = "black";
+                        TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
+                        TempData["winx"] = "❤";
+                    }
+                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                    var noidungX = System.IO.File.ReadAllText(pathX);
+                    var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    var flag = 0;
+                    for (int i = 0; i < listSetting.Length; i++)
+                    {
+                        var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                        if (flag == 0 && (info[0] == "Email_Upload_User"
+                            || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
+                            || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
+                            || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
+                            || info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                        {
+                            if (info[1] == "false")
+                            {
+
+                                TempData["mau_winx"] = "red";
+                                flag = 1;
+                            }
+                            else
+                            {
+
+                                TempData["mau_winx"] = "deeppink";
+                                flag = 0;
+                            }
+                        }
                     }
                 }
-            }
             
 
             if (string.IsNullOrEmpty(chuoi))
@@ -1957,17 +2093,17 @@ namespace MyWebPlay.Controllers
 
 
             String[] sx = Regex.Split(chuoi, "\r\n");
-            String noidung = "";
+            String noidungD = "";
             for (int i = 0; i < sx.Length; i++)
             {
-                noidung += start + sx[i] + end + "\r\n";
+                noidungD += start + sx[i] + end + "\r\n";
             }
 
             ////TextCopy.ClipboardService.SetText(noidung);
 
             //noidung = "\r\n" + noidung;
             //noidung= noidung.Replace("\r\n", "<br>").Replace(" ","&nbsp;");
-            var nix = noidung;
+             nix = noidungD;
             noidung = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + noidung + "</textarea>";
 
               Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = noidung;
@@ -1983,9 +2119,13 @@ namespace MyWebPlay.Controllers
                     req = "/Home/Index";
 
                 HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
-                return RedirectToAction("Error", new { exception = "true" });
+                if (exter == false)
+                    return RedirectToAction("Error", new { exception = "true" });
+                return Ok(new { error = HttpContext.Session.GetObject<string>("error_exception_log") });
             }
-            return View();
+            if (exter == false)
+                return View();
+            return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") });
         }
 
         public ActionResult CSDL_MainKey()
@@ -2413,79 +2553,101 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult CSDL_MainKey (IFormCollection f)
         {
+            var nix = "";
+            var exter = false;
             try
             {
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                var noidung = System.IO.File.ReadAllText(path);
 
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
-            {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
-                TempData["skipIP"] = "true";
-            }
-            /*HttpContext.Session.Remove("ok-data");*/
-            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
+                var listSettingS = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            string chuoi = f["Chuoi"].ToString();
-            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
-            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
-            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
+                var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoX[1] == "true")
+                    exter = true;
+
+                var listIP = new List<string>();
+                if (exter == false)
+                {
+                    TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true"; if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi"); if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } }
+                    if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); }
+                    if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+
+                    if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+                    {
+                        HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                        TempData["skipIP"] = "true";
+                    }
+                    /*HttpContext.Session.Remove("ok-data");*/
+                    TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
+                    TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+
+                    if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                        listIP.Add(HttpContext.Session.GetString("userIP"));
+                    else
+                    {
+                        TempData["GetDataIP"] = "true";
+                        return RedirectToAction("Index");
+                    }
+                }
+
+                string chuoi = f["Chuoi"].ToString();
+            chuoi = chuoi.Replace("[T-PLAY]", "\t");
+            chuoi = chuoi.Replace("[N-PLAY]", "\n");
+            chuoi = chuoi.Replace("[R-PLAY]", "\r");
 
             TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
-            khoawebsiteClient(listIP);
-            HttpContext.Session.Remove("ok-data");
-            Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
-            var xuxu = xi.AddHours(DateTime.UtcNow, 7);
-
-            if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
-            {
-                TempData["mau_background"] = "white";
-                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
-                 TempData["winx"] = "❤";
-            }
-            else
-            {
-                TempData["mau_background"] = "black";
-                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
-                 TempData["winx"] = "❤";
-            }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
-            var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            var flag = 0;
-            for (int i = 0; i < listSetting.Length; i++)
-            {
-                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-
-                if (flag == 0 && (info[0] == "Email_Upload_User"
-                    || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
-                    || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
-                    || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
-                    || info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                if (exter == false)
                 {
-                    if (info[1] == "false")
-                    {
+                    khoawebsiteClient(listIP);
+                    HttpContext.Session.Remove("ok-data");
+                    Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
-                        TempData["mau_winx"] = "red";
-                        flag = 1;
+                    var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+
+                    if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
+                    {
+                        TempData["mau_background"] = "white";
+                        TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
+                        TempData["winx"] = "❤";
                     }
                     else
                     {
+                        TempData["mau_background"] = "black";
+                        TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
+                        TempData["winx"] = "❤";
+                    }
+                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                    var noidungX = System.IO.File.ReadAllText(pathX);
+                    var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    var flag = 0;
+                    for (int i = 0; i < listSetting.Length; i++)
+                    {
+                        var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                        TempData["mau_winx"] = "deeppink";
-                        flag = 0;
+                        if (flag == 0 && (info[0] == "Email_Upload_User"
+                            || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
+                            || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
+                            || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
+                            || info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                        {
+                            if (info[1] == "false")
+                            {
+
+                                TempData["mau_winx"] = "red";
+                                flag = 1;
+                            }
+                            else
+                            {
+
+                                TempData["mau_winx"] = "deeppink";
+                                flag = 0;
+                            }
+                        }
                     }
                 }
-            }
 
             if (string.IsNullOrEmpty(chuoi))
             {
@@ -2520,7 +2682,6 @@ namespace MyWebPlay.Controllers
                 s += "\r\n+ Các thuộc tính đích : " + y.dich + "\r\n";
 
             khoitaotrunggian();
-            var nix = "";
             var sox = "";
             var cuctac = "";
             var chim = "";
@@ -2592,9 +2753,13 @@ namespace MyWebPlay.Controllers
                     req = "/Home/Index";
 
                 HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
-                return RedirectToAction("Error", new { exception = "true" });
+                if (exter == false)
+                    return RedirectToAction("Error", new { exception = "true" });
+                return Ok(new { error = HttpContext.Session.GetObject<string>("error_exception_log") });
             }
+            if (exter == false)
             return View();
+            return Ok(new { result = nix.Replace("\r","[R-PLAY]").Replace("\n","[N-PLAY]").Replace("\t","[T-PLAY]") });
         }
 
     }

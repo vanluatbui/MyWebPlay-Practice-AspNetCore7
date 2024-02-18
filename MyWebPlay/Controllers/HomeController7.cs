@@ -164,9 +164,9 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             string chuoi = f["Chuoi"].ToString();
-            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
-            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
-            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
+            chuoi = chuoi.Replace("[T-PLAY]", "\t");
+            chuoi = chuoi.Replace("[N-PLAY]", "\n");
+            chuoi = chuoi.Replace("[R-PLAY]", "\r");
             chuoi = chuoi.Replace("[PHU]", "#");
             chuoi = chuoi.Replace("[HOI]", "Λ");
             chuoi = chuoi.Replace("[TUYEN]", "∨");
@@ -221,9 +221,9 @@ namespace MyWebPlay.Controllers
             }
 
             string bandau = f["ThuocTinh"].ToString();
-            bandau = bandau.Replace("[TAB-TPLAY]", "\t");
-            bandau = bandau.Replace("[ENTER-NPLAY]", "\n");
-            bandau = bandau.Replace("[ENTER-RPLAY]", "\r");
+            bandau = bandau.Replace("[T-PLAY]", "\t");
+            bandau = bandau.Replace("[N-PLAY]", "\n");
+            bandau = bandau.Replace("[R-PLAY]", "\r");
             if (string.IsNullOrEmpty(bandau))
             {
                 ViewData["Loi1"] = "Trường này không được để trống!";

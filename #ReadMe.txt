@@ -69,6 +69,10 @@ Mẫu form external (mạo diện HTML) để upload file - chỉ dành cho admi
 <input type ="submit" value="OK" />
 </form>
 
+Tại chỗ txtExternal có thể đổi thành External (API).
+
+[API upload file] thư mục /apiUpload (cũng là Home/ApiUpload - nhưng không cần name External)
+
 ===========================
 
 Mẫu form external (mạo diện HTML) để gửi nội dung qua mail admin :
@@ -78,6 +82,7 @@ Mẫu form external (mạo diện HTML) để gửi nội dung qua mail admin :
 <input type ="submit" value="OK" />
 </form>
 
+[Thêm name External - API]
 
 =======================
 

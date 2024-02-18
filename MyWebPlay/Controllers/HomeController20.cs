@@ -13,28 +13,78 @@ namespace MyWebPlay.Controllers
         // Check link url exist and respone OK?
 
         [HttpPost]
-        public ActionResult LogMail(string txtText)
+        public ActionResult ApiUpload(List<IFormFile> fileUpload)
         {
             try
             {
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                var noidung = System.IO.File.ReadAllText(path);
+
+                var listSettingS = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoX[1] == "false")
+                    return Ok(new { error = "Dịch vụ đang bị tạm ngừng, mời quay lại sau !" });
+
+                var formFile = new List<IFormFile>(fileUpload);
+                for (int i = 0; i < formFile.Count(); i++)
+                {
+                    var fileName = Path.GetFileName(formFile[i].FileName);
+
+                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "apiUpload", fileName);
+
+                    using (Stream fileStream = new FileStream(pathX, FileMode.Create))
+                    {
+                        formFile[i].CopyTo(fileStream);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return Ok(new { error = HttpContext.Session.GetObject<string>("error_exception_log") });
+            }
+            return Ok(new { message = "Đã xử lý thành công !" });
+        }
+
+        [HttpPost]
+        public ActionResult LogMail(string txtText, string? External = "false")
+        {
+            try
+            {
+                txtText = txtText.Replace("\r\n", "\n").Replace("\n", "\r\n");
+
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            var flah = 0;
-            for (int i = 0; i < listSetting.Length; i++)
-            {
-                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-
-                if (info[0] == "External_Enable")
+                for (int i = 0; i < listSetting.Length; i++)
                 {
-                    if (info[1] == "true")
-                        return Redirect("https://google.com");
+                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                    if (External == "false" && info[0] == "External_Unenable")
+                    {
+                        if (info[1] == "true")
+                            return Redirect("https://google.com");
+                    }
+                    else if (External == "true" && info[0] == "External_Post")
+                    {
+                        if (info[1] == "false")
+                            return Ok(new { error = "Bạn không được phép liên lạc tính năng này!" });
+                    }
                 }
-            }
 
             SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", "[ADMIN] External send mail with data log", txtText, "teinnkatajeqerfl");
-            return Redirect("https://google.com");
-        }
+            
+                if (External == "false")
+                return Redirect("https://google.com");
+                return Ok(new { error = "Đã xử lý thành công!" });
+            }
             catch (Exception ex)
             {
                 var req = Request.Path;

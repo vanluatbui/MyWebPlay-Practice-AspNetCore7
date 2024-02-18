@@ -2,7 +2,7 @@
 
 namespace MyWebPlay.Model
 {
-    public static class SessionExtensions
+    public static class CSDL_MainKey
     {
         public static void SetObject(this ISession session, string key, object value)
         {

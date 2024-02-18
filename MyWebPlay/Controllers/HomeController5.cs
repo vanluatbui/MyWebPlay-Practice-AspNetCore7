@@ -67,9 +67,9 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             string chuoi = f["Chuoi"].ToString();
-            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
-            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
-            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
+            chuoi = chuoi.Replace("[T-PLAY]", "\t");
+            chuoi = chuoi.Replace("[N-PLAY]", "\n");
+            chuoi = chuoi.Replace("[R-PLAY]", "\r");
 
             TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
             khoawebsiteClient(listIP);
@@ -126,9 +126,9 @@ namespace MyWebPlay.Controllers
             }
 
             string dukien1 = f["DuKien1"].ToString();
-            dukien1 = dukien1.Replace("[TAB-TPLAY]", "\t");
-            dukien1 = dukien1.Replace("[ENTER-NPLAY]", "\n");
-            dukien1 = dukien1.Replace("[ENTER-RPLAY]", "\r");
+            dukien1 = dukien1.Replace("[T-PLAY]", "\t");
+            dukien1 = dukien1.Replace("[N-PLAY]", "\n");
+            dukien1 = dukien1.Replace("[R-PLAY]", "\r");
             if (string.IsNullOrEmpty(dukien1))
             {
                 ViewData["Loi2"] = "Trường này không được để trống!";
@@ -142,9 +142,9 @@ namespace MyWebPlay.Controllers
                 HttpContext.Session.SetString("data-result", "true"); return this.String_Split_Regex();
             }
 
-            pattern = pattern.Replace("[TAB-TPLAY]", "\t");
-            pattern = pattern.Replace("[ENTER-NPLAY]", "\n");
-            pattern = pattern.Replace("[ENTER-RPLAY]", "\r");
+            pattern = pattern.Replace("[T-PLAY]", "\t");
+            pattern = pattern.Replace("[N-PLAY]", "\n");
+            pattern = pattern.Replace("[R-PLAY]", "\r");
 
             string dukien2 = f["DuKien2"].ToString();
             if (string.IsNullOrEmpty(dukien2))
@@ -153,15 +153,15 @@ namespace MyWebPlay.Controllers
                 HttpContext.Session.SetString("data-result", "true"); return this.String_Split_Regex();
             }
 
-            dukien2 = dukien2.Replace("[TAB-TPLAY]", "\t");
-            dukien2 = dukien2.Replace("[ENTER-NPLAY]", "\n");
-            dukien2 = dukien2.Replace("[ENTER-RPLAY]", "\r");
+            dukien2 = dukien2.Replace("[T-PLAY]", "\t");
+            dukien2 = dukien2.Replace("[N-PLAY]", "\n");
+            dukien2 = dukien2.Replace("[R-PLAY]", "\r");
 
             string X = f["X"].ToString();
 
-            X = X.Replace("[TAB-TPLAY]", "\t");
-            X = X.Replace("[ENTER-NPLAY]", "\n");
-            X = X.Replace("[ENTER-RPLAY]", "\r");
+            X = X.Replace("[T-PLAY]", "\t");
+            X = X.Replace("[N-PLAY]", "\n");
+            X = X.Replace("[R-PLAY]", "\r");
             //if (string.IsNullOrEmpty(X))
             //{
             //    ViewData["Loi5"] = "Trường này không được để trống!";
@@ -169,9 +169,9 @@ namespace MyWebPlay.Controllers
             //}
 
             string Y = f["Y"].ToString();
-            Y = Y.Replace("[TAB-TPLAY]", "\t");
-            Y = Y.Replace("[ENTER-NPLAY]", "\n");
-            Y = Y.Replace("[ENTER-RPLAY]", "\r");
+            Y = Y.Replace("[T-PLAY]", "\t");
+            Y = Y.Replace("[N-PLAY]", "\n");
+            Y = Y.Replace("[R-PLAY]", "\r");
             //if (string.IsNullOrEmpty(Y))
             //{
             //    ViewData["Loi6"] = "Trường này không được để trống!";
@@ -338,9 +338,9 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             string chuoi = f["Chuoi"].ToString();
-            chuoi = chuoi.Replace("[TAB-TPLAY]", "\t");
-            chuoi = chuoi.Replace("[ENTER-NPLAY]", "\n");
-            chuoi = chuoi.Replace("[ENTER-RPLAY]", "\r");
+            chuoi = chuoi.Replace("[T-PLAY]", "\t");
+            chuoi = chuoi.Replace("[N-PLAY]", "\n");
+            chuoi = chuoi.Replace("[R-PLAY]", "\r");
 
             TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
             khoawebsiteClient(listIP);
@@ -398,9 +398,9 @@ namespace MyWebPlay.Controllers
            
 
             string pattern = f["Pattern"].ToString();
-            pattern = pattern.Replace("[TAB-TPLAY]", "\t");
-            pattern = pattern.Replace("[ENTER-NPLAY]", "\n");
-            pattern = pattern.Replace("[ENTER-RPLAY]", "\r");
+            pattern = pattern.Replace("[T-PLAY]", "\t");
+            pattern = pattern.Replace("[N-PLAY]", "\n");
+            pattern = pattern.Replace("[R-PLAY]", "\r");
             if (string.IsNullOrEmpty(pattern))
             {
                 ViewData["Loi2"] = "Trường này không được để trống!";

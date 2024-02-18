@@ -26,6 +26,8 @@
                         <b> Tải file TXT trắc nghiệm của bạn (đã xử lý) : </b>
                     <br>
                         <input type="file" name="txtFile"/>  <b>@Html.ActionLink("Bạn chưa có file trắc nghiệm?","CreateFile_TracNghiem")</b>
+                        <br /><br />
+                          <input type="checkbox" name="encrypt_data" />&nbsp;<b>Giải mã nội dung file TXT của tôi tải lên (hãy thử nếu bạn gặp vấn đề về xử lý)</b>
                     <br>
                     <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
                 </td>

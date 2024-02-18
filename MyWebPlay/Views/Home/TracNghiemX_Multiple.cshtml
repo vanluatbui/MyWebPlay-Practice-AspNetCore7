@@ -99,6 +99,8 @@
                     <b> Đưa tất cả các file trắc nghiệm (chương bài học) của bạn vào cùng 1 thư mục sau đó sẽ dễ dàng kéo tất cả các file vào đây...</b>
                     <br>
                     <input type="file" onchange="return xemfile(event)" name="txtFile" multiple/>  <b>@Html.ActionLink("Bạn chưa có file trắc nghiệm?","CreateFile_TracNghiem")</b>
+                    <br /><br />
+                          <input type="checkbox" name="encrypt_data" />&nbsp;<b>Giải mã nội dung file TXT của tôi tải lên (hãy thử nếu bạn gặp vấn đề về xử lý)</b>
                    <br>
                     <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
                      <br><br>

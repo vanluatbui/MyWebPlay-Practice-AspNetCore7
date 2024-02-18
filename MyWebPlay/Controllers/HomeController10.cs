@@ -188,7 +188,13 @@ namespace MyWebPlay.Controllers
 
             }
 
-            String ND_file = docfile(path);
+                var xu = docfile(path);
+                if (f["encrypt_data"].ToString() == "on")
+                {
+                    xu = StringMaHoaExtension.Decrypt(xu).Replace("\r\n", "\n");
+                }
+
+                String ND_file = xu;
 
             FileInfo fx = new FileInfo(path);
             fx.Delete();
@@ -775,6 +781,17 @@ namespace MyWebPlay.Controllers
                     fi = fi.Replace(":", "");
 
                     var path = Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", fi);
+
+                    var pathXY = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                    var noidung = System.IO.File.ReadAllText(pathXY);
+
+                    var listSettingX = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                    var infoX = listSettingX[49].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                    var passAd = listSettingX[34].Split("<3275>", StringSplitOptions.RemoveEmptyEntries)[3];
+
+                    if (infoX[1] == "true")
+                        ND_File = StringMaHoaExtension.Encrypt(ND_File, passAd);
 
                     System.IO.File.WriteAllText(path, ND_File);
 

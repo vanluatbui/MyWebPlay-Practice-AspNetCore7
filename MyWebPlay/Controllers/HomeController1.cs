@@ -446,7 +446,12 @@ namespace MyWebPlay.Controllers
 
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", fi);
 
-                System.IO.File.WriteAllText(path, copy);
+                    var infoX = listSetting[49].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                    if (infoX[1] == "true")
+                        copy = StringMaHoaExtension.Encrypt(copy);
+
+                    System.IO.File.WriteAllText(path, copy);
 
                 //------------------------------------
 

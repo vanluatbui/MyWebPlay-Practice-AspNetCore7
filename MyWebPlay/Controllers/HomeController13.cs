@@ -446,7 +446,13 @@ namespace MyWebPlay.Controllers
 
                 }
 
-                String ND_file = docfile(path);
+                    var xu = docfile(path);
+                    if (f["encrypt_data"].ToString() == "on")
+                    {
+                        xu = StringMaHoaExtension.Decrypt(xu).Replace("\r\n", "\n");
+                    }
+
+                    String ND_file = xu;
 
                 FileInfo fx = new FileInfo(path);
                 fx.Delete();
@@ -1234,7 +1240,12 @@ namespace MyWebPlay.Controllers
 
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", fi);
 
-            System.IO.File.WriteAllText(path, s);
+                var infoX = listSetting[49].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoX[1] == "true")
+                    s = StringMaHoaExtension.Encrypt(s);
+
+                System.IO.File.WriteAllText(path, s);
 
             //------------------------------------
 

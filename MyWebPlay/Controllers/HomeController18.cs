@@ -471,7 +471,12 @@ namespace MyWebPlay.Controllers
                         Stream stream = client.OpenRead(ssl + Request.Host + "/file/TracNghiemOnline_32752262/" + split[0] + "/" + listTN[h].Name);
                         StreamReader reader = new StreamReader(stream);
                         ND_file = reader.ReadToEnd();
-                    }
+
+                            if (f["encrypt_data"].ToString() == "on")
+                            {
+                                ND_file = StringMaHoaExtension.Decrypt(ND_file);
+                            }
+                        }
                     catch
                     {
                         ViewData["Loi1"] = "Đã xảy ra lỗi khi cố gắng liên kết với ID bài test trắc nghiệm. Vui lòng thử lại sau!";

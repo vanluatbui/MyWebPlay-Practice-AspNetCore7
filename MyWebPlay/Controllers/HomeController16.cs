@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyWebPlay.Extension;
 using MyWebPlay.Model;
 using System;
 using System.Collections;
@@ -631,23 +632,45 @@ namespace MyWebPlay.Controllers
 
                 if (chon == "0")
                 {
+                    if (giatri != "[null]")
                     TempData[session] = giatri;
+                    else
+                    {
+                        TempData.Remove(session);
+                        ViewBag.KetQua = "Do bạn vô tình gán giá trị [null] nên phần tử đã bị xoá.";
+                    }
                 }
                 else
             if (chon == "1")
             {
-                if (giatri != "")
-                    HttpContext.Session.SetObject(session, giatri);
-                else
-                    HttpContext.Session.SetObject(session, "Default Session Webplay");
-            }
+                    if (giatri != "[null]")
+                    {
+                        if (giatri != "")
+                            HttpContext.Session.SetObject(session, giatri);
+                        else
+                            HttpContext.Session.SetObject(session, "Default Session Webplay");
+                    }
+                    else
+                    {
+                        HttpContext.Session.Remove(session);
+                        ViewBag.KetQua = "Do bạn vô tình gán giá trị [null] nên phần tử đã bị xoá.";
+                    }
+                }
             else
             if (chon == "10")
                 {
-                    if (giatri != "")
-                        HttpContext.Session.SetString(session, giatri);
+                    if (giatri != "[null]")
+                    {
+                        if (giatri != "")
+                            HttpContext.Session.SetString(session, giatri);
+                        else
+                            HttpContext.Session.SetString(session, "Default Session Webplay");
+                    }
                     else
-                        HttpContext.Session.SetString(session, "Default Session Webplay");
+                    {
+                        HttpContext.Session.Remove(session);
+                        ViewBag.KetQua = "Do bạn vô tình gán giá trị [null] nên phần tử đã bị xoá.";
+                    }
                 }
                 else
             if (chon == "2")
@@ -702,9 +725,18 @@ namespace MyWebPlay.Controllers
             else
             if (chon == "7")
             {
-                    if (HttpContext.Session.Keys.Count() > 0)
-                    ViewBag.KetQua = String.Join("\r\n", HttpContext.Session.Keys);
-            }
+                    var s = "";
+
+                     foreach(var key in HttpContext.Session.Keys)
+                        {
+
+                            if (HttpContext.Session.GetString(key) != null)
+                             s += key + " : " + HttpContext.Session.GetString(key) + "\r\n";
+                            else
+                            s += key + " : " + HttpContext.Session.GetObject<string>(key) + "\r\n";
+                    }
+                    ViewBag.KetQua = s;
+                }
             else
             if (chon == "8")
                 {
@@ -714,6 +746,51 @@ namespace MyWebPlay.Controllers
                         s += key + " : " + TempData[key] + "\r\n";
                     }
                     ViewBag.KetQua = s;
+                }
+                else
+            if (chon == "11")
+                {
+                    ViewBag.KetQua = StringMaHoaExtension.Encrypt(giatri, session);
+                }
+                else
+            if (chon == "12")
+                {
+                    ViewBag.KetQua = StringMaHoaExtension.Decrypt(giatri, session);
+                }
+                else
+            if (chon == "13")
+                {
+                    ViewBag.KetQua = "";
+                    ViewData.Clear();
+                }
+                else
+            if (chon == "14")
+                {
+                    if (giatri != "[null]")
+                    {
+                        ViewBag.KetQua = "";
+                        ViewData[session] = giatri;
+                    }
+                    else
+                    {
+                        ViewData.Remove(session);
+                        ViewBag.KetQua = "Do bạn vô tình gán giá trị [null] nên phần tử đã bị xoá.";
+                    }
+                }
+                else
+            if (chon == "15")
+                {
+                    var s = "";
+                    foreach (var key in ViewData.Keys)
+                    {
+                        s += key + " : " + ViewData[key] + "\r\n";
+                    }
+                    ViewBag.KetQua = s;
+                }
+                else
+            if (chon == "16")
+                {
+                    ViewBag.KetQua = ViewData[session].ToString();
                 }
 
                 return View();

@@ -214,11 +214,22 @@ namespace MyWebPlay.Controllers
                     txtKaraoke.CopyTo(fileStream);
                 }
 
-                ViewBag.Karaoke = System.IO.File.ReadAllText(path);
+                    var xu = System.IO.File.ReadAllText(path);
+                    if (f["encrypt_data"].ToString() == "on")
+                    {
+                        xu = StringMaHoaExtension.Decrypt(xu);
+                    }
+                    ViewBag.Karaoke = xu ;
             }
             else
             {
-                ViewBag.Karaoke = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "Tinh_Text.txt"));
+                    var xu = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "Tinh_Text.txt"));
+                    if (f["encrypt_data"].ToString() == "on")
+                    {
+                        xu = StringMaHoaExtension.Decrypt(xu);
+                    }
+
+                    ViewBag.Karaoke = xu;
                 ViewBag.Music = "/karaoke_Example/Tinh_Karaoke.mp3";
                 ViewBag.Musix = "/karaoke_Example/Tinh.mp3";
             }
@@ -533,9 +544,17 @@ namespace MyWebPlay.Controllers
             fi = fi.Replace("/", "");
             fi = fi.Replace(":", "");
 
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text", fi);
+                var xanh = f["txtLyric"].ToString().Replace("undefined", "").Replace(" *", "*");
 
-            System.IO.File.WriteAllText(path, f["txtLyric"].ToString().Replace("undefined","").Replace(" *","*"));
+                var infoX = listSetting[49].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoX[1] == "true")
+                    xanh = StringMaHoaExtension.Encrypt(xanh);
+
+
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text", fi);
+
+            System.IO.File.WriteAllText(path, xanh);
             ViewBag.KaraX = "OK";
             ViewBag.FileKaraoke = "<p style=\"color:blue\">Thành công, một file TXT Karaoke của bạn đã được xử lý...</p><a href=\"/karaoke/text/" + fi + "\" download>Click vào đây để tải về</a><br><p style=\"color:red\">Hãy nhanh tay tải về vì sau <span style=\"color:deeppink\" id=\"thoigian3\" class=\"thoigian3\">30</span> giây nữa, file này sẽ bị xoá hoặc sẽ bị lỗi nếu có!<br>";
 
@@ -606,6 +625,7 @@ namespace MyWebPlay.Controllers
                 if (HttpContext.Session.GetString("auto-kara-index") != null || HttpContext.Session.GetString("auto-kara-index") != "")
                     TempData["index-auto"] = HttpContext.Session.GetString("auto-kara-index");
 
+
                 TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
             {
@@ -637,12 +657,13 @@ namespace MyWebPlay.Controllers
             if (TempData["option"] == null)
                 TempData["option"] = 0;
 
-            string? url = TempData["url"].ToString();
+                string? url = TempData["url"].ToString();
             string? baihat = TempData["baihat"].ToString();
             string? background = TempData["background"].ToString();
             int? option = int.Parse(TempData["option"].ToString());
 
-            var n1 = StringMaHoaExtension.Encrypt(url);
+
+                var n1 = StringMaHoaExtension.Encrypt(url);
             var n2 = StringMaHoaExtension.Encrypt(baihat);
             var n3 = StringMaHoaExtension.Encrypt(background);
 
@@ -846,7 +867,12 @@ namespace MyWebPlay.Controllers
                 ViewBag.LoginServer = f["txtServer"].ToString();
             ViewBag.BHServer = f["txtSong"].ToString();
 
-            var chon = f["KaraChon"].ToString();
+                if (f["encrypt_data"].ToString() == "on")
+                    TempData["data-encrypt"] = "true";
+                else
+                    TempData["data-encrypt"] = "false";
+
+                var chon = f["KaraChon"].ToString();
 
             if (f["auto_play"].ToString() == "on")
                 {
@@ -857,7 +883,7 @@ namespace MyWebPlay.Controllers
                     TempData["auto-play"] = "true";
                 }
 
-            ViewBag.Option = chon;
+                ViewBag.Option = chon;
 
             if (chon == "1")
             {
@@ -951,7 +977,14 @@ namespace MyWebPlay.Controllers
                     StreamReader reader = new StreamReader(stream);
                     String content = reader.ReadToEnd();
 
-                    ViewBag.Music = "http://" + url_kara;
+                        if (f["encrypt_data"].ToString() == "on" || HttpContext.Session.GetString("encrypt_yes") == "true")
+                        {
+                            content = StringMaHoaExtension.Decrypt(content);
+                        }
+
+                        HttpContext.Session.Remove("encrypt_yes");
+
+                        ViewBag.Music = "http://" + url_kara;
                     ViewBag.Musix = "http://" + url_goc;
 
                     if (content.Contains("<>") == false)
@@ -1018,9 +1051,15 @@ namespace MyWebPlay.Controllers
                     txtKaraoke.CopyTo(fileStream);
                 }
                 var nd = System.IO.File.ReadAllText(path);
+
+                if (f["encrypt_data"].ToString() == "on")
+                    {
+                        nd = StringMaHoaExtension.Decrypt(nd);
+                    }
+
                 if (nd.Contains("<>") == false)
                 {
-                    ViewBag.Karaoke = System.IO.File.ReadAllText(path);
+                    ViewBag.Karaoke = nd;
                     TempData["TK-KARA"] = "";
                 }
                 else
@@ -1048,7 +1087,12 @@ namespace MyWebPlay.Controllers
             }
             else
             {
-                ViewBag.Karaoke = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "Tinh_Text.txt"));
+                    var xu = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "Tinh_Text.txt"));
+                    if (f["encrypt_data"].ToString() == "on")
+                    {
+                        xu = StringMaHoaExtension.Decrypt(xu);
+                    }
+                    ViewBag.Karaoke = xu;
                 ViewBag.Music = "/karaoke_Example/Tinh_Karaoke.mp3";
                 ViewBag.Musix = "/karaoke_Example/Tinh.mp3";
             }

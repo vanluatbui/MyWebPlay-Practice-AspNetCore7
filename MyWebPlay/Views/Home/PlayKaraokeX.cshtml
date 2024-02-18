@@ -132,7 +132,12 @@ body {
 
     function copyshare()
     {
-        var url =  "http://" +'@ViewBag.Host' + "/Home/Share_Karaoke?id=" + document.getElementById("linkKara").value;
+        var mi = "";
+
+        if ('@TempData["data-encrypt"]' == "true")
+        mi = "<encrypt>";
+
+        var url =  "http://" +'@ViewBag.Host' + "/Home/Share_Karaoke?id=" + document.getElementById("linkKara").value+ mi;
         navigator.clipboard.writeText(url);
 
         document.getElementById("message").style.display = "inline-block";
@@ -1400,7 +1405,7 @@ function showlist()
                         &nbsp;||&nbsp;
                         @if (ViewBag.Share != null && ViewBag.Share != "" && ViewBag.Share != "ERROR")
                         {
-                            <a href="#xuly" style="color:red" onclick="playAutoList()">Play Karaoke (tự động) theo thứ tự của list song</a>
+                            <a href="#xuly" style="color:red" onclick="playAutoList()">Play Karaoke (tự động) theo thứ tự của list song - ngoại trừ các file Karaoke mã hoá có thể xảy ra lỗi</a>
                             <input hidden type="checkbox" id="autoSong" name="txtAutoSong" />
                         }
                         <br>
@@ -1454,7 +1459,7 @@ function showlist()
                         &nbsp;||&nbsp;
                         @if (ViewBag.Share != null && ViewBag.Share != "" && ViewBag.Share != "ERROR")
                         {
-                            <a href="#xuly" style="color:red" onclick="playAutoList()">Play Karaoke (tự động) theo thứ tự của list song</a>
+                            <a href="#xuly" style="color:red" onclick="playAutoList()">Play Karaoke (tự động) theo thứ tự của list song - ngoại trừ các file Karaoke mã hoá có thể xảy ra lỗi</a>
                             <input hidden type="checkbox" id="autoSong" name="txtAutoSong" />
                         }
                         <br>
@@ -1540,6 +1545,8 @@ function showlist()
                          Bạn vui lòng tự canh đợi sau khi video Youtube trên background của bạn đã bắt đầu vừa phát, hãy nhấn phím link <span style="color:orangered">Play & Start</span> để mới bắt đầu hành trình nhé 😁</span>*@
                           <br /><br />
                           <input type="checkbox" name="auto_play" />&nbsp;<b>Không tự động phát nhạc khi bắt đầu</b>
+                           <br /><br />
+                          <input type="checkbox" name="encrypt_data" id="txtEncr" />&nbsp;<b>Giải mã nội dung file TXT của tôi tải lên (hãy thử nếu bạn gặp vấn đề về xử lý)</b>
                 </td>
             </tr>
 
@@ -1952,6 +1959,8 @@ else if (ViewBag.SuDung == "Video")
                           Bạn vui lòng tự canh đợi sau khi video Youtube trên background của bạn đã bắt đầu vừa phát, hãy nhấn phím link <span style="color:orangered">Play & Start</span> để mới bắt đầu hành trình nhé 😁</span>*@
                           <br /><br />
                           <input type="checkbox" name="auto_play" />&nbsp;<b>Không tự động phát nhạc khi bắt đầu</b>
+                          <br /><br />
+                          <input type="checkbox" name="encrypt_data" id="txtEncr" />&nbsp;<b>Giải mã nội dung file TXT của tôi tải lên (hãy thử nếu bạn gặp vấn đề về xử lý)</b>
                 </td>
             </tr>
 

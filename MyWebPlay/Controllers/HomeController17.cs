@@ -193,7 +193,15 @@ namespace MyWebPlay.Controllers
             HttpContext.Session.SetString("data-result", "true");
             if (id != null)
             {
-                var noidung = id.Split("-.-", StringSplitOptions.RemoveEmptyEntries);
+                    if (id.Contains("<encrypt>"))
+                    {
+                        id = id.Replace("<encrypt>", "");
+                        HttpContext.Session.SetString("encrypt_yes", "true");
+                    }
+                    else
+                        HttpContext.Session.SetString("encrypt_yes", "false");
+
+                    var noidung = id.Split("-.-", StringSplitOptions.RemoveEmptyEntries);
 
                 if (noidung.Length == 4)
                 {

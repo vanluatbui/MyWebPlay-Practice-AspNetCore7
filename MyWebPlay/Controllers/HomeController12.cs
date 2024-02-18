@@ -227,7 +227,13 @@ namespace MyWebPlay.Controllers
 
                 }
 
-                String ND_file = docfile(path);
+                    var xu = docfile(path);
+                    if (f["encrypt_data"].ToString() == "on")
+                    {
+                        xu = StringMaHoaExtension.Decrypt(xu).Replace("\r\n", "\n");
+                    }
+
+                    String ND_file = xu;
 
                 FileInfo fx = new FileInfo(path);
                 fx.Delete();
@@ -616,7 +622,13 @@ namespace MyWebPlay.Controllers
 
                 }
 
-                String ND_file = docfile(path);
+                    var xu = docfile(path);
+                    if (f["encrypt_data"].ToString() == "on")
+                    {
+                        xu = StringMaHoaExtension.Decrypt(xu).Replace("\r\n","\n");
+                    }
+
+                    String ND_file = xu;
                 cFile = ND_file;
 
                 FileInfo fx = new FileInfo(path);

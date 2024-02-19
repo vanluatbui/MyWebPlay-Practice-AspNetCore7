@@ -141,13 +141,15 @@ namespace MyWebPlay.Controllers
             try
             {
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SecurePasswordAdmin.txt");
-            var mini = System.IO.File.ReadAllText(pathX).Split("\n")[1];
+            var mini = System.IO.File.ReadAllText(pathX).Split("\r\n")[1];
 
             if (mini == test)
             {
                 TempData["mini-web"] = "true";
                 HttpContext.Session.SetString("mini-web", "true");
-            }
+                    if (HttpContext.Session.GetString("userIP") == null)
+                HttpContext.Session.SetString("userIP", "0.0.0.0");
+                }
             else
             {
                 TempData["mini-web"] = "false";

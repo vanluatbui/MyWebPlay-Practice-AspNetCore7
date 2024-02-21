@@ -1698,7 +1698,7 @@ namespace MyWebPlay.Controllers
                 XoaDirectoryNull(path + "/" + item.Name);
             }
 
-            if (listFile.Length == 0 && folders.Length == 0 && path != "file")
+            if (listFile.Length == 0 && folders.Length == 0 && path != "file" && path != "#fileclose")
             {
                 System.IO.Directory.Delete(Path.Combine(_webHostEnvironment.WebRootPath, path), true);
             }

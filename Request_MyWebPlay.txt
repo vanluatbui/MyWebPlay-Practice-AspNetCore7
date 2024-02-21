@@ -318,6 +318,46 @@ CoDinh
 
 -----------------------------------------------------------------------
 
+String_Split_Regex
+|
+Chuoi
+*
+[Chuoi cua ban]
+#
+DuKien1
+*
+2 (1 : regex)
+#
+txtPattern
+*
+[Dau hieu can tach]
+#
+DuKien2
+*
+1 (1 : X -> Y(N); 2 : 0 + X -> N - Y; 3 : X; 4 : Y)
+#
+X
+*
+[Nhap X]
+#
+Y
+*
+[Nhap Y]
+
+-----------------------------------------------------------------------
+
+Check_Regex
+|
+Chuoi
+*
+[Chuoi]
+#
+Pattern
+*
+{pattern cần test]
+
+-----------------------------------------------------------------------
+
 Replace_Regex
 |
 Chuoi
@@ -397,6 +437,23 @@ DuKien1
 (nếu áp dụng Regex thì điền 1 - nhớ xoá cái này khi gửi 😀)
 
 -----------------------------------------------------------------------
+
+[tìm kiếm và đếm pattern]
+
+ResultCheck_Regex
+|
+Chuoi
+*
+[Chuoi]
+#
+Pattern
+*
+[pattern kiểm tra]
+
+
+-----------------------------------------------------------------------
+
+
 [Replace value param SQL]
 
 XuLySQL10

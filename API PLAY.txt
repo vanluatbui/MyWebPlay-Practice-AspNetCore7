@@ -1,0 +1,36 @@
+1. Replace_Regex :
+
+- Chuoi
+- Input
+- Output
+- Dukien2 : -1
+- DuKien3 : 0
+- DuKien1 : 2 (1 nếu Regex)
+
+2. Regex_Replace_Multiple :
+
+- Chuoi
+- Input
+- Output
+- DuKien3 : 0
+- DuKien2 : -1
+- DuKien4 : 0
+- DuKien1 : 2 (1 nếu Regex)
+
+3. XuLySQL12 : mail template Customize SQL
+
+- txtNoiDung
+
+4. UploadFile : save file admin
+
+- fileUpload
+- External : true
+
+5. LogMail : save log and send mail admin
+
+- txtText
+- External : true
+
+6. ApiUpload : upload file to folder wwroot/apiUpload
+
+- fileUpload

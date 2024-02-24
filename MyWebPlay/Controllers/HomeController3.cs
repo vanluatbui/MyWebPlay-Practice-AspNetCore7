@@ -48,7 +48,7 @@ namespace MyWebPlay.Controllers
         public ActionResult SQL_CreateTable(IFormCollection f)
         {
             var nix = "";
-            var exter = false;
+            var exter = false; var linkdown = false;
             var listIP = new List<string>();
             try
             {
@@ -60,7 +60,7 @@ namespace MyWebPlay.Controllers
                 var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
                 if (infoX[1] == "true")
-                    exter = true;
+                    exter = true; var infoY = listSettingS[8].Split("<3275>", StringSplitOptions.RemoveEmptyEntries); if (infoY[1] == "true") linkdown = true;
 
                 if (exter == false)
                 {
@@ -248,7 +248,7 @@ namespace MyWebPlay.Controllers
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
                 if (exter == false)
                     return View();
-                return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") });
+               else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") }); }
             }
             catch (Exception ex)
             {
@@ -355,7 +355,7 @@ namespace MyWebPlay.Controllers
         public ActionResult Cxap_CreateClass(IFormCollection f)
         {
             var nix = "";
-            var exter = false;
+            var exter = false; var linkdown = false;
             var listIP = new List<string>();
             try
             {
@@ -367,7 +367,7 @@ namespace MyWebPlay.Controllers
                 var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
                 if (infoX[1] == "true")
-                    exter = true;
+                    exter = true; var infoY = listSettingS[8].Split("<3275>", StringSplitOptions.RemoveEmptyEntries); if (infoY[1] == "true") linkdown = true;
 
                 if (exter == false)
                 {
@@ -552,7 +552,7 @@ namespace MyWebPlay.Controllers
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
                 if (exter == false)
                     return View();
-                return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") });
+               else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") }); }
             }
             catch (Exception ex)
             {
@@ -610,7 +610,7 @@ namespace MyWebPlay.Controllers
         public ActionResult Cxap_InsertValueClass (IFormCollection f)
         {
             var nix = "";
-            var exter = false;
+            var exter = false; var linkdown = false;
             var listIP = new List<string>();
             try
             {
@@ -622,7 +622,7 @@ namespace MyWebPlay.Controllers
                 var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
                 if (infoX[1] == "true")
-                    exter = true;
+                    exter = true; var infoY = listSettingS[8].Split("<3275>", StringSplitOptions.RemoveEmptyEntries); if (infoY[1] == "true") linkdown = true;
 
                 if (exter == false)
                 {
@@ -842,7 +842,7 @@ namespace MyWebPlay.Controllers
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
                 if (exter == false)
                     return View();
-                return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") });
+               else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") }); }
             }
             catch (Exception ex)
             {

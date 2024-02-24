@@ -1207,6 +1207,23 @@ return RedirectToAction("Index");
             {
                 HttpContext.Session.SetString("userIP", ip);
             }
+
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "ListIPComeToHereTheFirst.txt");
+
+                var listIP = System.IO.File.ReadAllText(path);
+
+                Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+                var xuxu = x.AddHours(DateTime.UtcNow, 7);
+
+                if (listIP.Contains(ip) == false)
+                {
+                    if (string.IsNullOrEmpty(listIP))
+                        System.IO.File.WriteAllText(path, ip + "\t" + xuxu);
+                    else
+                    System.IO.File.WriteAllText(path, listIP + "\r\n" + ip + "\t" + xuxu);
+                }
+
             return RedirectToAction(currentUrl);
             }
             catch(Exception ex)

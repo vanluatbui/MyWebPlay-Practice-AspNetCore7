@@ -210,7 +210,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-                var flag = 0;
+            var flag = 0;
             var flx = 0;
             var flix = 0;
             var flox = 0;
@@ -480,20 +480,17 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-                if (flx == 1 && TempData["PostResult"] == "true")
-                {
-                    if (info[0] == "Connect_LinkDown")
-                    {
-                        if (info[1] == "true")
+                        if (info[0] == "Connect_LinkDown")
                         {
-                            TempData["ConnectLinkDown"] = "true";
+                            if (info[1] == "true")
+                            {
+                                TempData["ConnectLinkDown"] = "true";
+                            }
+                            else
+                            {
+                                TempData["ConnectLinkDown"] = "false";
+                            }
                         }
-                    }
-                }
-                else
-                {
-                    TempData["ConnectLinkDown"] = "false";
-                }
 
                 if (info[0] == "Save_ComeHere")
                 {
@@ -1192,7 +1189,7 @@ namespace MyWebPlay.Controllers
         public ActionResult CheckText(IFormCollection f)
         {
             var nix = "";
-            var exter = false;
+            var exter = false; var linkdown = false;
             var listIP = new List<string>();
             try
             {
@@ -1204,7 +1201,7 @@ namespace MyWebPlay.Controllers
                 var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
                 if (infoX[1] == "true")
-                    exter = true;
+                    exter = true; var infoY = listSettingS[8].Split("<3275>", StringSplitOptions.RemoveEmptyEntries); if (infoY[1] == "true") linkdown = true;
 
                 if (exter == false)
                 {
@@ -1374,7 +1371,7 @@ namespace MyWebPlay.Controllers
 
             if (exter == false)
                 return View();
-            return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") });
+           else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") }); }
         }
 
         [HttpGet]
@@ -1417,7 +1414,7 @@ namespace MyWebPlay.Controllers
         public ActionResult TextToColumn1(IFormCollection f)
         {
             var nix = "";
-            var exter = false;
+            var exter = false; var linkdown = false;
             var listIP = new List<string>();
             try
             {
@@ -1429,7 +1426,7 @@ namespace MyWebPlay.Controllers
                 var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
                 if (infoX[1] == "true")
-                    exter = true;
+                    exter = true; var infoY = listSettingS[8].Split("<3275>", StringSplitOptions.RemoveEmptyEntries); if (infoY[1] == "true") linkdown = true;
 
                 if (exter == false)
                 {
@@ -1574,9 +1571,9 @@ namespace MyWebPlay.Controllers
                     return RedirectToAction("Error", new { exception = "true" });
                 return Ok(new { error = HttpContext.Session.GetObject<string>("error_exception_log") });
             }
-             if (exter == false)
-            return View();
-            return Ok(new { result = nix.Replace("\r","[R-PLAY]").Replace("\n","[N-PLAY]").Replace("\t","[T-PLAY]") });
+            if (exter == false)
+                return View();
+            else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") }); }
         }
 
         [HttpGet]
@@ -1619,7 +1616,7 @@ namespace MyWebPlay.Controllers
         public ActionResult TextToColumn2(IFormCollection f)
         {
             var nix = "";
-            var exter = false;
+            var exter = false; var linkdown = false;
             var listIP = new List<string>();
             try
             {
@@ -1631,7 +1628,7 @@ namespace MyWebPlay.Controllers
                 var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
                 if (infoX[1] == "true")
-                    exter = true;
+                    exter = true; var infoY = listSettingS[8].Split("<3275>", StringSplitOptions.RemoveEmptyEntries); if (infoY[1] == "true") linkdown = true;
 
                 if (exter == false)
                 {
@@ -1782,7 +1779,7 @@ namespace MyWebPlay.Controllers
             }
             if (exter == false)
                 return View();
-            return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") });
+           else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") }); }
         }
 
         [HttpGet]
@@ -1825,7 +1822,7 @@ namespace MyWebPlay.Controllers
         public ActionResult ReadNumber(IFormCollection f)
         {
             var nix = "";
-            var exter = false;
+            var exter = false; var linkdown = false;
             var listIP = new List<string>();
             try
             {
@@ -1837,7 +1834,7 @@ namespace MyWebPlay.Controllers
                 var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
                 if (infoX[1] == "true")
-                    exter = true;
+                    exter = true; var infoY = listSettingS[8].Split("<3275>", StringSplitOptions.RemoveEmptyEntries); if (infoY[1] == "true") linkdown = true;
 
                 if (exter == false)
                 {
@@ -1974,7 +1971,7 @@ namespace MyWebPlay.Controllers
             }
             if (exter == false)
                 return View();
-            return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") });
+           else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") }); }
         }
 
         [HttpGet]
@@ -2018,7 +2015,7 @@ namespace MyWebPlay.Controllers
         public ActionResult TextConvertX (IFormCollection f)
         {
             var nix = "";
-            var exter = false;
+            var exter = false; var linkdown = false;
             var listIP = new List<string>();
             try
             {
@@ -2030,7 +2027,7 @@ namespace MyWebPlay.Controllers
                 var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
                 if (infoX[1] == "true")
-                    exter = true;
+                    exter = true; var infoY = listSettingS[8].Split("<3275>", StringSplitOptions.RemoveEmptyEntries); if (infoY[1] == "true") linkdown = true;
 
                 if (exter == false)
                 {
@@ -2161,7 +2158,7 @@ namespace MyWebPlay.Controllers
             }
             if (exter == false)
                 return View();
-            return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") });
+           else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") }); }
         }
 
         public ActionResult CSDL_MainKey()
@@ -2590,7 +2587,7 @@ namespace MyWebPlay.Controllers
         public ActionResult CSDL_MainKey (IFormCollection f)
         {
             var nix = "";
-            var exter = false;
+            var exter = false; var linkdown = false;
             try
             {
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
@@ -2601,7 +2598,7 @@ namespace MyWebPlay.Controllers
                 var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
                 if (infoX[1] == "true")
-                    exter = true;
+                    exter = true; var infoY = listSettingS[8].Split("<3275>", StringSplitOptions.RemoveEmptyEntries); if (infoY[1] == "true") linkdown = true;
 
                 var listIP = new List<string>();
                 if (exter == false)
@@ -2794,8 +2791,13 @@ namespace MyWebPlay.Controllers
                 return Ok(new { error = HttpContext.Session.GetObject<string>("error_exception_log") });
             }
             if (exter == false)
-            return View();
-            return Ok(new { result = nix.Replace("\r","[R-PLAY]").Replace("\n","[N-PLAY]").Replace("\t","[T-PLAY]") });
+                return View();
+            else
+            {
+                                    if (linkdown == true)
+                                        return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+                                    return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") });
+            }
         }
 
     }

@@ -10,6 +10,7 @@ using System.Reflection.Metadata.Ecma335;
 using MailKit.Security;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
 
 namespace MyWebPlay.Controllers
 {
@@ -19,6 +20,42 @@ namespace MyWebPlay.Controllers
         public AdminController(IWebHostEnvironment webHostEnvironment)
         {
             _webHostEnvironment = webHostEnvironment;
+        }
+
+        public ActionResult RefreshTheFistIP()
+        {
+            try
+            {
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "ListIPComeToHereTheFirst.txt");
+
+                var listIP = System.IO.File.ReadAllText(path);
+
+                System.IO.File.WriteAllText(path, "");
+
+                Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+                var xuxu = x.AddHours(DateTime.UtcNow, 7);
+
+                string host = "{" + Request.Host.ToString() + "}"
+                      .Replace("http://", "")
+                  .Replace("http://", "")
+                  .Replace("/", "");
+
+                if (string.IsNullOrEmpty(listIP) == false)
+                SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
+               "mywebplay.savefile@gmail.com", host + "[ADMIN] Báo cáo  danh sách các IP user đã ghé thăm lần đầu tiên có ghi lại (tất cả/có thể chưa đầy đủ) In " + xuxu, listIP, "teinnkatajeqerfl");
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
+            return Redirect("/Admin/SettingXYZ_DarkAdmin#labelActive");
         }
 
         public ActionResult DongMoFileStatus()

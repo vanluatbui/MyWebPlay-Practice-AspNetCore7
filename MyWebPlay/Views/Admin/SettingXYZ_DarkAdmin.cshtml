@@ -88,6 +88,15 @@ input:checked + .slider:before {
             checkme = 1;
         }
 
+        function mailthefirstIP()
+        {
+            var xn = confirm('Bạn có chắc chắn không?');
+            if (xn == true)
+            {
+                window.location.href = "/Admin/RefreshTheFistIP";
+            }
+        }
+
 
         function getmamau()
         {
@@ -982,14 +991,16 @@ input:checked + .slider:before {
     <br />
     <select onclick="loadLockAdmin()" onchange="setLockAdmin()" id="ip_blockadmin">
     </select>&nbsp;<input type="text" id="txtIPLockAdmin" /><br />
-    <button onclick="addLockAdmin()" style="color:green">THÊM (KHOÁ IP ADMIN)</button>&nbsp;<button onclick="removeLockAdmin()" style="color:red">XOÁ (MỞ KHOÁ IP ADMIN)</button>
+    <button onclick="addLockAdmin()" style="color:green">THÊM (KHOÁ IP ADMIN)</button>&nbsp;<button onclick="removeLockAdmin()" style="color:red">XOÁ (MỞ KHOÁ IP ADMIN)</button>&nbsp;<a href="/ClientConnect/ListIPLock.txt" target="_blank" style="color:yellow">Xem Chi Tiết</a
     <br />
      <br />
     <b name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG BỊ KHOÁ (CLIENT)</b>
     <br />
     <select onclick="loadLockClient()" onchange="setLockClient()" id="ip_blockclient">
     </select>&nbsp;<input type="text" id="txtIPLockClient" size="180" placeholder="Nhập với cấu trúc : IP<>Mật khẩu; hoặc nếu bạn muốn sử dụng mật khẩu mặc định thì nhập như sau : IP" /><br />
-    <button onclick="addLockClient()" style="color:green">THÊM (KHOÁ IP CLIENT)</button>&nbsp;<button onclick="removeLockClient()" style="color:red">XOÁ (MỞ KHOÁ IP CLIENT)</button>&nbsp;<button onclick="changeCodeLockClient()" style="color:orangered">ĐỔI MẬT KHẨU</button>
+    <button onclick="addLockClient()" style="color:green">THÊM (KHOÁ IP CLIENT)</button>&nbsp;<button onclick="removeLockClient()" style="color:red">XOÁ (MỞ KHOÁ IP CLIENT)</button>&nbsp;<button onclick="changeCodeLockClient()" style="color:orangered">ĐỔI MẬT KHẨU</button>&nbsp;<a href="/ClientConnect/LockedIPClient.txt" target="_blank" style="color:yellow">Xem Chi Tiết</a
+    <br/><br />
+    <a href="/Admin/ListIPComeToHereTheFirst.txt" style="color:aqua" target="_blank">Xem list các IP đã ghé thăm (save in the first) hiện có</a>&nbsp;&nbsp;&nbsp;<a href="#xuly" style="color:aqua" onclick="mailthefirstIP()">Báo cáo list các IP đã ghé thăm (save in the first) hiện có qua mail và refresh</a>
       <hr /><hr />
     <br />
     </div>

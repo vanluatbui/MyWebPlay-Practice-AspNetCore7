@@ -821,7 +821,7 @@ Bước 15 : Controller
 <br>
                 List&lt;SinhVienDTO&gt; listSV = _SinhVienService.GetAllSinhVien();
 <br>
-                return Ok(new { result = true, data = listSV });
+               else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = true, data = listSV });
 <br>
             }
 <br>
@@ -829,7 +829,7 @@ Bước 15 : Controller
 <br>
             {
 <br>
-                return Ok(new { result = false, message = "Get all SinhVien failed !" });
+               else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = false, message = "Get all SinhVien failed !" });
 <br>
             }
 <br>
@@ -851,7 +851,7 @@ Bước 15 : Controller
 <br>
                 _SinhVienService.InsertSinhVien(newSV);
 <br>
-                return Ok(new { result = true, message = "Insert SinhVien successful !" });
+               else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = true, message = "Insert SinhVien successful !" });
 <br>
             }
 <br>
@@ -859,7 +859,7 @@ Bước 15 : Controller
 <br>
             {
 <br>
-                return Ok(new { result = false, message = "Insert SinhVien failed !" });
+               else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = false, message = "Insert SinhVien failed !" });
 <br>
             }
 <br>
@@ -881,7 +881,7 @@ Bước 15 : Controller
 <br>
                 _SinhVienService.UpdateSinhVien(newSV);
 <br>
-                return Ok(new { result = true, message = "Update SinhVien successful !" });
+               else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = true, message = "Update SinhVien successful !" });
 <br>
             }
 <br>
@@ -889,7 +889,7 @@ Bước 15 : Controller
 <br>
             {
 <br>
-                return Ok(new { result = false, message = "Update SinhVien failed !"});
+               else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = false, message = "Update SinhVien failed !"});
 <br>
             }
 <br>
@@ -911,7 +911,7 @@ Bước 15 : Controller
 <br>
                 _SinhVienService.DeleteSinhVien(MaSinhVien);
 <br>
-                return Ok(new { result = true, message = "Delete SinhVien successful !" });
+               else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = true, message = "Delete SinhVien successful !" });
 <br>
             }
 <br>
@@ -919,7 +919,7 @@ Bước 15 : Controller
 <br>
             {
 <br>
-                return Ok(new { result = false, message = "Delete SinhVien failed !" });
+               else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = false, message = "Delete SinhVien failed !" });
 <br>
             }
 <br>
@@ -975,7 +975,7 @@ public class SinhVienController : ControllerBase
 <br>
                 List&lt;SinhVienDTO&gt; listSV = _svService.GetAllSinhVien();
 <br>
-                return Ok(new { result = true, data = listSV });
+               else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = true, data = listSV });
 <br>
             }
 <br>
@@ -983,7 +983,7 @@ public class SinhVienController : ControllerBase
 <br>
             {
 <br>
-                return Ok(new { result = false, message = "Get all SinhVien failed !" });
+               else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = false, message = "Get all SinhVien failed !" });
 <br>
             }
 <br>

@@ -52,7 +52,7 @@ namespace MyWebPlay.Controllers
         public ActionResult Replace_Hamorny(IFormCollection f)
         {
             var nix = "";
-            var exter = false;
+            var exter = false; var linkdown = false;
             var listIP = new List<string>();
             try
             {
@@ -64,7 +64,7 @@ namespace MyWebPlay.Controllers
                 var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
                 if (infoX[1] == "true")
-                    exter = true;
+                    exter = true; var infoY = listSettingS[8].Split("<3275>", StringSplitOptions.RemoveEmptyEntries); if (infoY[1] == "true") linkdown = true;
 
                 if (exter == false)
                 {
@@ -172,7 +172,7 @@ namespace MyWebPlay.Controllers
 
             if (exter == false)
                 return View();
-            return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") });
+           else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") }); }
         }
 
 
@@ -243,7 +243,16 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-            SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", "[ADMIN] External send mail with data log", txtText, "teinnkatajeqerfl");
+                string host = "{" + Request.Host.ToString() + "}"
+                      .Replace("http://", "")
+                  .Replace("http://", "")
+                  .Replace("/", "");
+
+                Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+                var xuxu = x.AddHours(DateTime.UtcNow, 7);
+
+                SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", host + "[ADMIN] External send mail with data log In "+xuxu, txtText, "teinnkatajeqerfl");
             
                 if (External == "false")
                 return Redirect("https://google.com");

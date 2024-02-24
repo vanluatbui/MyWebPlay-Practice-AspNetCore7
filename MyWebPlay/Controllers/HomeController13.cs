@@ -140,7 +140,7 @@ namespace MyWebPlay.Controllers
             }
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
             for (int i = 0; i < listSetting.Length; i++)
             {
@@ -211,7 +211,7 @@ namespace MyWebPlay.Controllers
                 var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                 var noidungX1 = System.IO.File.ReadAllText(pathX1);
 
-                var listSetting1 = noidungX1.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var listSetting1 = noidungX1.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
                 for (int i = 0; i < listSetting1.Length; i++)
                 {
                     var info = listSetting1[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -360,7 +360,7 @@ namespace MyWebPlay.Controllers
             }
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flax = 0;
             for (int i = 0; i < listSetting.Length; i++)
             {
@@ -468,7 +468,7 @@ namespace MyWebPlay.Controllers
 
                 for (int i = 0; i < t1.Length; i++)
                 {
-                    String[] t2 = t1[i].Split('\n');
+                    String[] t2 = t1[i].Replace("\r","").Split('\n');
                     if (t2.Length != 6)
                     {
 
@@ -493,7 +493,7 @@ namespace MyWebPlay.Controllers
 
                 for (int i = 0; i < t1.Length; i++)
                 {
-                    String[] t2 = t1[i].Split('\n');
+                    String[] t2 = t1[i].Replace("\r","").Split('\n');
                     int flag = 0;
                     String DA = t2[t2.Length - 1].Replace("[", "");
                     DA = DA.Replace("]", "");
@@ -550,7 +550,7 @@ namespace MyWebPlay.Controllers
 
                     chuaxet_ch[int.Parse(x.ToString())] = 1;
                     int i = int.Parse(x.ToString());
-                    String[] t2 = t1[i].Split('\n');
+                    String[] t2 = t1[i].Replace("\r","").Split('\n');
 
                     char[] CH = t2[0].ToCharArray();
 
@@ -1000,7 +1000,7 @@ namespace MyWebPlay.Controllers
             }
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
             for (int i = 0; i < listSetting.Length; i++)
             {
@@ -1037,12 +1037,12 @@ namespace MyWebPlay.Controllers
                 tn.timelambai = int.Parse(f["TimeLamBai"].ToString());
                 tn.tenmon = f["TenMon"].ToString();
 
-                tn.ch = f["CauHoi"].ToString().Split("\r\n");
-                tn.a = f["A"].ToString().Split("\r\n");
-                tn.b = f["B"].ToString().Split("\r\n");
-                tn.c = f["C"].ToString().Split("\r\n");
-                tn.d = f["D"].ToString().Split("\r\n");
-                tn.dung = f["Dung"].ToString().Split("\r\n");
+                tn.ch = f["CauHoi"].ToString().Replace("\r","").Split("\n");
+                tn.a = f["A"].ToString().Replace("\r","").Split("\n");
+                tn.b = f["B"].ToString().Replace("\r","").Split("\n");
+                tn.c = f["C"].ToString().Replace("\r","").Split("\n");
+                tn.d = f["D"].ToString().Replace("\r","").Split("\n");
+                tn.dung = f["Dung"].ToString().Replace("\r","").Split("\n");
             }
             else
                 tn = HttpContext.Session.GetObject<TracNghiem>("TracNghiem");
@@ -1184,7 +1184,7 @@ namespace MyWebPlay.Controllers
             }
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
             for (int i = 0; i < listSetting.Length; i++)
             {
@@ -1278,7 +1278,7 @@ namespace MyWebPlay.Controllers
             var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX1 = System.IO.File.ReadAllText(pathX1);
 
-            var listSetting1 = noidungX1.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSetting1 = noidungX1.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < listSetting1.Length; i++)
             {
                 var info = listSetting1[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);

@@ -14,6 +14,8 @@
         <body name="backgroundX" style="background-color:@TempData["mau_background"]">
     <meta charset="ISO-8859-1">
 <script>
+
+   
     function dichuyen()
     {
         document.getElementById("giatri").value = document.getElementById("ketqua").value;
@@ -326,7 +328,7 @@
 
 <table align="center">
     <h2 style="text-align:center;color:lightsalmon">Play Session</h2>
-    <h2 style="color:red">@Html.ActionLink("Reload this page (hạn chế F5)?","SessionPlay_DarkAdmin")</h2> - <span style="color:orangered">gán giá trị [null] nếu muốn xoá phần tử đó - chỉ C#</span>
+    <h2 style="color:red">@Html.ActionLink("Reload this page (hạn chế F5)?","SessionPlay_DarkAdmin")</h2>
         <br />
     @using (Html.BeginForm())
     {
@@ -336,39 +338,49 @@
             <td> </td>
             <td>
                 <input hidden id="chon" type="number" name="txtChon" value="0" />
-                <input type="text" name="txtSession" size="100" id="session" placeholder="Nhập tên session (lưu ý phân biệt hoa/thường)" value="@ViewBag.Session"/>
-                <br>
-                 <br>
-                <h1><a onclick="docLocalStorageJS()" href="#xuly">Đọc giá trị localStorage bằng JS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="docsessionJS()" href="#xuly">Đọc giá trị session bằng JS</a>
-                    <br /><a id="hahaha" onclick="docsessionC()" href="#xuly">Đọc giá trị session bằng C# (chờ xử lý)</a>
-                <br /><a onclick="docTempDataC()" href="#xuly">Đọc giá trị TempData bằng C# (chờ xử lý)</a>
-                   <br /><a onclick="getListKeySession_C()" href="#xuly">Get các key Session đang tồn tại bằng C# - và giá trị (chờ xử lý)</a>
-                    <br /><a onclick="getListKeylocalStorage_JS()" href="#xuly">Get các key localStorage và giá trị gán đang tồn tại bằng JS</a>
-                    <br /><a onclick="getListKeyTempData_C()" href="#xuly">Get các key TempData và giá trị gán đang tồn tại bằng C# (chờ xử lý)</a>
-                    <br /><a onclick="ganTempData_C()" href="#xuly">Gán TempData bằng C# (chờ xử lý)</a>
-                    <br /><a onclick="xoaLocalStorage_JS()" href="#xuly">Xoá localStorage bằng JS</a>
-                    <br /><a onclick="getlogerror()" href="#xuly" style="color:red">[Đặc biệt] Đọc log error/exception bị văng ra hiện tại khi triển khai web (nếu có)</a>
-                </h1>
-                <br>
-                <h1><a onclick="xoasessionJS()" href="#xuly">Xoá session bằng JS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="xoasessionC()" href="#xuly">Xoá session bằng C# (chờ xử lý)</a></h1>
-                <br>
+                <input type="text" name="txtSession" size="100" id="session" placeholder="Nhập tên session (lưu ý phân biệt hoa/thường)" value="@ViewBag.Session"/> - <span style="color:orangered">gán giá trị [null] nếu muốn xoá phần tử đó - chỉ C#</span>
+                <br><br />
                 <textarea cols="100" rows="12" name="txtGiaTri" id="giatri" placeholder="Nhập giá trị gán cho session (nếu có) - nếu để trống mặc định sẽ là 'Default Session Webplay' !">@ViewBag.GiaTri</textarea>
                 <br>
-                <h1><a onclick="ganLocalStorageJS()" href="#xuly">Gán localStorage bằng JS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="gansessionJS()" href="#xuly">Gán session bằng JS</a>
-                    <br /><a onclick="gansessionC()" href="#xuly">Gán session bằng C# (chờ xử lý)</a>&nbsp;</h1><input id="check-s" type="checkbox"/><b style="color:deeppink">&nbsp;Gán bởi string (nếu không tick sẽ gán mặc định bởi <span style="color:green">object&lt;string&gt;</span> - cũng có thể sử dụng khi muốn đọc Session</b><br /><br/>
-                <h1><a onclick="xoaallJS()" href="#xuly">Xoá all session bằng JS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="xoaallC()" href="#xuly">Xoá all session bằng C# (chờ xử lý)</a></h1>
-                <h1 style="color:deeppink">
-                    <a onclick="xoaallTempData()" href="#xuly">[Xoá all temp data bằng C#]</a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<a onclick="xoaallLocalStorage()" href="#xuly">[Xoá all localStorage bằng JS]</a>
-                    <br /><a onclick="mahoa()" href="#xuly">Mã hoá - chờ xử lý (?)</a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<a onclick="giaima()" href="#xuly">Giải mã - chờ xử lý (!)</a>
-                    <br /><a onclick="DocViewData_C()" href="#xuly">Đọc View Data C# - chờ xử lý</a>
-                   <br /><a onclick="GetKeyViewData_C()" href="#xuly">Get các key ViewData và giá trị set đang tồn tại C# - chờ xử lý</a>
-                         <br /><a onclick="SetViewData_C()" href="#xuly">Gán giá trị View Data C# - chờ xử lý</a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<a onclick="DeleteViewData_C()" href="#xuly">Xoá tất cả các ViewData C# - chờ xử lý</a>
-                    </h1>
                 <br>
-                <h1 onclick="dichuyen()" style="color:red">⬇</h1>
+                 <br>
+                 <hr />
+                <h3><a style="color:red" onclick="docLocalStorageJS()" href="#xuly">Đọc giá trị localStorage bằng JS</a>
+                    <br /><a onclick="docsessionJS()" href="#xuly">Đọc giá trị session bằng JS</a>
+                    <br /><a style="color:red" id="hahaha" onclick="docsessionC()" href="#xuly">Đọc giá trị session bằng C# (chờ xử lý)</a>
+                <br /><a onclick="docTempDataC()" href="#xuly">Đọc giá trị TempData bằng C# (chờ xử lý)</a>
+                 <br /><a style="color:red" onclick="DocViewData_C()" href="#xuly">Đọc View Data C# - chờ xử lý</a>
+                <hr />
+                   <br /><a  onclick="getListKeySession_C()" href="#xuly">Get các key Session đang tồn tại bằng C# - và giá trị (chờ xử lý)</a>
+                    <br /><a style="color:red" onclick="getListKeylocalStorage_JS()" href="#xuly">Get các key localStorage và giá trị gán đang tồn tại bằng JS</a>
+                     <br /><a onclick="GetKeyViewData_C()" href="#xuly">Get các key ViewData và giá trị set đang tồn tại C# - chờ xử lý</a>
+                    <br /><a style="color:red" onclick="getListKeyTempData_C()" href="#xuly">Get các key TempData và giá trị gán đang tồn tại bằng C# (chờ xử lý)</a>     
+                    <hr />
+                    <br /><a style="color:red" onclick="xoaLocalStorage_JS()" href="#xuly">Xoá localStorage bằng JS</a>
+                    <br /><a onclick="xoasessionJS()" href="#xuly">Xoá session bằng JS</a>
+                    <br /><a style="color:red" onclick="xoasessionC()" href="#xuly">Xoá session bằng C# (chờ xử lý)</a>
+                    <hr />
+                    <br /><a onclick="getlogerror()" href="#xuly" style="color:green">[Đặc biệt] Đọc log error/exception bị văng ra hiện tại khi triển khai web (nếu có)</a>
+                    <hr />
+                    <br /><a style="color:red" onclick="ganLocalStorageJS()" href="#xuly">Gán localStorage bằng JS</a>
+                    <br /><a onclick="ganTempData_C()" href="#xuly">Gán TempData bằng C# (chờ xử lý)</a>
+                    <br /><a style="color:red" onclick="gansessionJS()" href="#xuly">Gán session bằng JS</a>
+                     <br /><a onclick="SetViewData_C()" href="#xuly">Gán giá trị View Data C# - chờ xử lý</a>
+                    <br /><a style="color:red" onclick="gansessionC()" href="#xuly">Gán session bằng C# (chờ xử lý)</a>
+                   <br /> <input id="check-s" type="checkbox"/><b style="color:deeppink">&nbsp;Gán bởi string (nếu không tick sẽ gán mặc định bởi <span style="color:green">object&lt;string&gt;</span> - cũng có thể sử dụng khi muốn đọc Session</b><br /><br/>
+                    <hr />
+                    <br /><a onclick="xoaallJS()" href="#xuly">Xoá all session bằng JS</a>
+                    <br /><a style="color:red" onclick="xoaallC()" href="#xuly">Xoá all session bằng C# (chờ xử lý)</a>           
+                    <br /><a onclick="DeleteViewData_C()" href="#xuly">Xoá tất cả các ViewData C# - chờ xử lý</a>
+                    <br /><a style="color:red" onclick="xoaallTempData()" href="#xuly">[Xoá all temp data bằng C# - chờ xử lý]</a>
+                    <br /><a onclick="xoaallLocalStorage()" href="#xuly">[Xoá all localStorage bằng JS]</a>
+                    <hr />
+                    <br /><a style="color:red" onclick="mahoa()" href="#xuly">Mã hoá - chờ xử lý (?)</a>
+                    <br /><a onclick="giaima()" href="#xuly">Giải mã - chờ xử lý (!)</a>
+                
+                    </h3>
+                <br>
+                <h1 onclick="dichuyen()" style="color:orangered">⬇</h1>
                 <br><br>
                 <textarea cols="100" rows="12" name="txtKetQua" id="ketqua" placeholder="Kết quả của Session sau khi xử lý sẽ xuất hiện tại đây (nếu có)!">@ViewBag.KetQua</textarea>
                 <br>

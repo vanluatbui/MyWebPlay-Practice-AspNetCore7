@@ -438,6 +438,23 @@ DuKien1
 
 -----------------------------------------------------------------------
 
+Replace_Hamorny
+|
+txtIndex
+*3
+#
+txtChuoi
+*
+[1] + [2] = [3]
+#
+txtInput
+*
+1[T-PLAY]2[T-PLAY]3
+10[T-PLAY]10[T-PLAY]20
+500[T-PLAY]50[T-PLAY]550
+
+-----------------------------------------------------------------------
+
 [tìm kiếm và đếm pattern]
 
 ResultCheck_Regex

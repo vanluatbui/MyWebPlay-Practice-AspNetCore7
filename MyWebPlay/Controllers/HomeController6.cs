@@ -57,7 +57,7 @@ namespace MyWebPlay.Controllers
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                 var noidung = System.IO.File.ReadAllText(path);
 
-                var listSettingS = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var listSettingS = noidung.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
                 var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
@@ -116,7 +116,7 @@ namespace MyWebPlay.Controllers
                     }
                     var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                     var noidungX = System.IO.File.ReadAllText(pathX);
-                    var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
                     var flag = 0;
                     for (int i = 0; i < listSetting.Length; i++)
                     {
@@ -269,7 +269,7 @@ namespace MyWebPlay.Controllers
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                 var noidung = System.IO.File.ReadAllText(path);
 
-                var listSettingS = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var listSettingS = noidung.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
                 var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
@@ -328,7 +328,7 @@ namespace MyWebPlay.Controllers
                     }
                     var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                     var noidungX = System.IO.File.ReadAllText(pathX);
-                    var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
                     var flag = 0;
                     for (int i = 0; i < listSetting.Length; i++)
                     {

@@ -58,7 +58,7 @@ namespace MyWebPlay.Controllers
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                 var noidung = System.IO.File.ReadAllText(path);
 
-                var listSettingS = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var listSettingS = noidung.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
                 var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
@@ -91,7 +91,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
             var table = f["txtTable"].ToString();
-            var constants = f["txtConstants"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Trim('\t').Trim(' ').Split("\r\n");
+            var constants = f["txtConstants"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Trim('\t').Trim(' ').Replace("\r","").Split("\n");
             var modelCs = f["txtModelCs"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n");
 
                 TempData["dataPost"] = "[" + f["txtConstants"].ToString().Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
@@ -118,7 +118,7 @@ namespace MyWebPlay.Controllers
                     }
                     var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                     var noidungX = System.IO.File.ReadAllText(pathX);
-                    var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
                     var flag = 0;
                     for (int i = 0; i < listSetting.Length; i++)
                     {
@@ -174,7 +174,7 @@ namespace MyWebPlay.Controllers
 
             ss = ss.Replace("return (", "").Replace("this.DataSource","").Replace("];","");
 
-            var model = ss.Split("\n", StringSplitOptions.RemoveEmptyEntries);
+            var model = ss.Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries);
 
             for (int i = 0; i < model.Length; i++)
             {

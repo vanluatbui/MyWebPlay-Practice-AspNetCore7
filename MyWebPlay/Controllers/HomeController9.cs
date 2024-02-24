@@ -193,7 +193,7 @@ namespace MyWebPlay.Controllers
             {
                 var pthX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var nd = System.IO.File.ReadAllText(pthX);
-                var onoff = nd.Split("\r\n", StringSplitOptions.RemoveEmptyEntries)[3];
+                var onoff = nd.Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries)[3];
 
                 if (txtExternal == "true" || External == "true")
                     TempData["Y"] = 0;
@@ -249,7 +249,7 @@ namespace MyWebPlay.Controllers
 
                     var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                     var noidungX = System.IO.File.ReadAllText(pathX);
-                    var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
                     var flah = 0;
                     for (int i = 0; i < listSetting.Length; i++)
                     {
@@ -297,7 +297,7 @@ namespace MyWebPlay.Controllers
                 var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                 var noidungX1 = System.IO.File.ReadAllText(pathX1);
 
-                var listSetting1 = noidungX1.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var listSetting1 = noidungX1.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
                 for (int i = 0; i < listSetting1.Length; i++)
                 {
                     var info = listSetting1[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -837,7 +837,7 @@ namespace MyWebPlay.Controllers
                             if (homePass != passAd)
                             {
                                 var infoFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"));
-                                var files = infoFile.Split("\n");
+                                var files = infoFile.Replace("\r","").Split("\n");
 
                                 int flay = 0;
                                 for (int x = 0; x < files.Length; x++)
@@ -980,7 +980,7 @@ namespace MyWebPlay.Controllers
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
 
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -1034,7 +1034,7 @@ namespace MyWebPlay.Controllers
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
 
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -1257,7 +1257,7 @@ namespace MyWebPlay.Controllers
 
                     var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                     var nd = System.IO.File.ReadAllText(pth);
-                    var onoff = nd.Split("\r\n", StringSplitOptions.RemoveEmptyEntries)[3];
+                    var onoff = nd.Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries)[3];
 
                     var infoFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"));
 
@@ -1379,7 +1379,7 @@ namespace MyWebPlay.Controllers
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
 
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -1393,7 +1393,7 @@ namespace MyWebPlay.Controllers
             {
                     var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                     var nd = System.IO.File.ReadAllText(pth);
-                    var onoff = nd.Split("\r\n", StringSplitOptions.RemoveEmptyEntries)[3];
+                    var onoff = nd.Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries)[3];
 
                     var xa = "";
 
@@ -1610,7 +1610,7 @@ namespace MyWebPlay.Controllers
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                 var noidung = System.IO.File.ReadAllText(path);
 
-                var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var listSetting = noidung.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
                 var infoX = listSetting[31].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 

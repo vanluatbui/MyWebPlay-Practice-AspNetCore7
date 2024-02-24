@@ -16,7 +16,7 @@ namespace MyWebPlay.Models
             var path = Path.Combine(rootPth, "Admin/SettingABC_DarkBVL.txt");
             var noidung = System.IO.File.ReadAllText(path);
 
-            var listSetting = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSetting = noidung.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
             var infoX = listSetting[40].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 

@@ -127,7 +127,7 @@ namespace MyWebPlay.Controllers
             }
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
             for (int i = 0; i < listSetting.Length; i++)
             {
@@ -387,7 +387,7 @@ namespace MyWebPlay.Controllers
                 string copy = "";
                 int k = 0;
 
-                string[] hoanvi = f["txtHoanVi"].ToString().Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
+                string[] hoanvi = f["txtHoanVi"].ToString().Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries);
 
                 for (int i = 0; i < dulieu.Length; i = i + 5)
                 {
@@ -508,7 +508,7 @@ namespace MyWebPlay.Controllers
                     var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                     var noidungX1 = System.IO.File.ReadAllText(pathX1);
 
-                    var listSetting1 = noidungX1.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    var listSetting1 = noidungX1.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
                     for (int i = 0; i < listSetting1.Length; i++)
                     {
                         var info = listSetting1[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);

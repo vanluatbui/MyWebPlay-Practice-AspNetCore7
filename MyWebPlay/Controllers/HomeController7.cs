@@ -193,7 +193,7 @@ namespace MyWebPlay.Controllers
             }
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
             for (int i = 0; i < listSetting.Length; i++)
             {
@@ -259,7 +259,7 @@ namespace MyWebPlay.Controllers
                 // int dem = xuatDSbieuthuc(x1, n_BT);
 
                 int lc = 0;
-                string[] ch = chuoi.Split('\n');
+                string[] ch = chuoi.Replace("\r","").Split('\n');
 
                 for (int i =0; i < ch.Length; i++)
                 {

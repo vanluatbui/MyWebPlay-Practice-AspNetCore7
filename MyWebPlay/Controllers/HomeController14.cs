@@ -106,7 +106,7 @@ namespace MyWebPlay.Controllers
             }
             var pathX1  = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX1);
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
             for (int i = 0; i < listSetting.Length; i++)
             {
@@ -335,7 +335,7 @@ namespace MyWebPlay.Controllers
             }
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
             var email = false;
 
@@ -502,7 +502,7 @@ namespace MyWebPlay.Controllers
             }
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
             var email = false;
             for (int i = 0; i < listSetting.Length; i++)
@@ -716,7 +716,7 @@ namespace MyWebPlay.Controllers
 
                         HttpContext.Session.SetString("content-listsong", content);
 
-                        TempData["length-list-auto"] = (content.Split("\r\n", StringSplitOptions.RemoveEmptyEntries).Length).ToString();
+                        TempData["length-list-auto"] = (content.Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries).Length).ToString();
                         HttpContext.Session.SetString("length-list-auto", TempData["length-list-auto"].ToString());
 
                         ViewBag.ListSong = content;
@@ -745,7 +745,7 @@ namespace MyWebPlay.Controllers
                     String content = reader.ReadToEnd();
                         HttpContext.Session.SetString("content-listsong", content);
  
-                         TempData["length-list-auto"] = (content.Split("\r\n", StringSplitOptions.RemoveEmptyEntries).Length).ToString();
+                         TempData["length-list-auto"] = (content.Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries).Length).ToString();
                         HttpContext.Session.SetString("length-list-auto", TempData["length-list-auto"].ToString());
 
                         ViewBag.ListSong = content;
@@ -820,7 +820,7 @@ namespace MyWebPlay.Controllers
             }
             var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX1);
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
             for (int i = 0; i < listSetting.Length; i++)
             {
@@ -847,13 +847,13 @@ namespace MyWebPlay.Controllers
                 }
             }
 
-                TempData["post-kara"] = "true";
-
                 if (txtMusic == null || txtMusic.Length == 0)
-                txtMusic = txtMusix;
+                    txtMusic = txtMusix;
 
-            if (txtMusix == null || txtMusix.Length == 0)
-                txtMusix = txtMusic;
+                if (txtMusix == null || txtMusix.Length == 0)
+                    txtMusix = txtMusic;
+
+                TempData["post-kara"] = "true";
 
             ViewBag.Host = Request.Host;
 
@@ -934,7 +934,7 @@ namespace MyWebPlay.Controllers
             {
                 ViewBag.BehindYoutube = "YES";
 
-                var listYoutube = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "Video_Youtube", "randomlink.txt")).Split("\r\n");
+                var listYoutube = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "Video_Youtube", "randomlink.txt")).Replace("\r","").Split("\n");
 
                 var rand = new Random();
                 var link = listYoutube[rand.Next(0, listYoutube.Length)];
@@ -994,7 +994,7 @@ namespace MyWebPlay.Controllers
                     }
                     else
                     {
-                        var xa = content.Split("\n");
+                        var xa = content.Replace("\r","").Split("\n");
                         var noidung = "";
                         for (int i = 0; i < xa.Length; i++)
                         {
@@ -1029,6 +1029,7 @@ namespace MyWebPlay.Controllers
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", fileName);
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", nameFile);
 
+
                 using (Stream fileStream = new FileStream(path, FileMode.Create))
                 {
                     txtMusic.CopyTo(fileStream);
@@ -1042,7 +1043,7 @@ namespace MyWebPlay.Controllers
                 ViewBag.Music = "/karaoke/music/" + fileName;
                 ViewBag.Musix = "/karaoke/music/" + nameFile;
 
-                fileName = Path.GetFileName(txtKaraoke.FileName);
+                    fileName = Path.GetFileName(txtKaraoke.FileName);
 
                 path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text", fileName);
 
@@ -1064,7 +1065,7 @@ namespace MyWebPlay.Controllers
                 }
                 else
                 {
-                    var xa = nd.Split("\n");
+                    var xa = nd.Replace("\r","").Split("\n");
                     var noidung = "";
                     for (int i = 0; i< xa.Length;i++)
                     {
@@ -1109,7 +1110,7 @@ namespace MyWebPlay.Controllers
                         HttpContext.Session.SetString("auto-kara-index", x + "");
                     }
                     TempData["index-auto"] = HttpContext.Session.GetString("auto-kara-index");
-                    TempData["length-list-auto"] = (ct.Split("\r\n", StringSplitOptions.RemoveEmptyEntries).Length).ToString();
+                    TempData["length-list-auto"] = (ct.Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries).Length).ToString();
                     HttpContext.Session.SetString("length-list-auto", TempData["length-list-auto"].ToString());
                 }
 

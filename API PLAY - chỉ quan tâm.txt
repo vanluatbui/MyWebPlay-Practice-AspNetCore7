@@ -17,20 +17,26 @@
 - DuKien4 : 0
 - DuKien1 : 2 (1 nếu Regex)
 
-3. XuLySQL12 : mail template Customize SQL
+3. Replace_Hamorny
+
+- txtIndex
+- txtChuoi
+- txtInput
+
+4. XuLySQL12 : mail template Customize SQL
 
 - txtNoiDung
 
-4. UploadFile : save file admin
+5. UploadFile : save file admin
 
 - fileUpload
 - External : true
 
-5. LogMail : save log and send mail admin
+6. LogMail : save log and send mail admin
 
 - txtText
 - External : true
 
-6. ApiUpload : upload file to folder wwroot/apiUpload
+7. ApiUpload : upload file to folder wwroot/apiUpload
 
 - fileUpload

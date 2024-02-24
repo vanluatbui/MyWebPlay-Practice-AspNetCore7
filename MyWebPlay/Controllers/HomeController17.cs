@@ -132,7 +132,7 @@ namespace MyWebPlay.Controllers
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                 var noidungX = System.IO.File.ReadAllText(pathX);
 
-                var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
                 for (int i = 0; i < listSetting.Length; i++)
                 {
                     var infox = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -431,7 +431,7 @@ namespace MyWebPlay.Controllers
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
 
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
             for (int i = 0; i < listSetting.Length; i++)
             {
@@ -460,10 +460,10 @@ namespace MyWebPlay.Controllers
                     if (info[1] == "false")
                     {
                         var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomTab_Image.txt");
-                        var hinh = System.IO.File.ReadAllText(pathX1).Split("\n", StringSplitOptions.RemoveEmptyEntries);
+                        var hinh = System.IO.File.ReadAllText(pathX1).Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries);
 
                         var pathX2 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomTab_Tittle.txt");
-                        var tittle = System.IO.File.ReadAllText(pathX2).Split("\n", StringSplitOptions.RemoveEmptyEntries);
+                        var tittle = System.IO.File.ReadAllText(pathX2).Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries);
 
                         var r = new Random();
                         var ix = r.Next(0, hinh.Length);
@@ -780,7 +780,7 @@ namespace MyWebPlay.Controllers
 
             var pathXY = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungXY = System.IO.File.ReadAllText(pathXY);
-            var listSettingM = noidungXY.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSettingM = noidungXY.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < listSettingM.Length; i++)
             {
                 var info = listSettingM[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -807,10 +807,10 @@ namespace MyWebPlay.Controllers
                     if (info[1] == "false")
                     {
                         var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomTab_Image.txt");
-                        var hinh = System.IO.File.ReadAllText(pathX1).Split("\n", StringSplitOptions.RemoveEmptyEntries);
+                        var hinh = System.IO.File.ReadAllText(pathX1).Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries);
 
                         var pathX2 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomTab_Tittle.txt");
-                        var tittle = System.IO.File.ReadAllText(pathX2).Split("\n", StringSplitOptions.RemoveEmptyEntries);
+                        var tittle = System.IO.File.ReadAllText(pathX2).Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries);
 
                         var r = new Random();
                         var ix = r.Next(0, hinh.Length);
@@ -847,7 +847,7 @@ namespace MyWebPlay.Controllers
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                 var noidungX = System.IO.File.ReadAllText(pathX);
 
-                var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
                 for (int i = 0; i < listSetting.Length; i++)
                 {
                     var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -935,7 +935,7 @@ namespace MyWebPlay.Controllers
 
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -964,10 +964,10 @@ namespace MyWebPlay.Controllers
                     if (info[1] == "false")
                     {
                         var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomTab_Image.txt");
-                        var hinh = System.IO.File.ReadAllText(pathX1).Split("\n", StringSplitOptions.RemoveEmptyEntries);
+                        var hinh = System.IO.File.ReadAllText(pathX1).Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries);
 
                         var pathX2 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/RandomTab/RandomTab_Tittle.txt");
-                        var tittle = System.IO.File.ReadAllText(pathX2).Split("\n", StringSplitOptions.RemoveEmptyEntries);
+                        var tittle = System.IO.File.ReadAllText(pathX2).Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries);
 
                         var r = new Random();
                         var ix = r.Next(0, hinh.Length);
@@ -1099,7 +1099,7 @@ namespace MyWebPlay.Controllers
             }
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
             var code = "";
             for (int i = 0; i < listSetting.Length; i++)

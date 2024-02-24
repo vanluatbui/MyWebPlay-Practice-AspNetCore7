@@ -91,7 +91,7 @@ namespace MyWebPlay.Controllers
             }
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
             for (int i = 0; i < listSetting.Length; i++)
             {
@@ -118,7 +118,7 @@ namespace MyWebPlay.Controllers
                 }
             }
 
-            var listTable = f["txtKetQua"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
+            var listTable = f["txtKetQua"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries);
 
             var result = "CREATE PROC PROC_MYWEBPLAY\nAS\nBEGIN";
 
@@ -199,7 +199,7 @@ namespace MyWebPlay.Controllers
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                 var noidung = System.IO.File.ReadAllText(path);
 
-                var listSettingS = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var listSettingS = noidung.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
                 var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
@@ -253,7 +253,7 @@ namespace MyWebPlay.Controllers
                     }
                     var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                     var noidungX = System.IO.File.ReadAllText(pathX);
-                    var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
                     var flag = 0;
                     for (int i = 0; i < listSetting.Length; i++)
                     {
@@ -281,7 +281,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-            var listTable = f["txtKetQua"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
+            var listTable = f["txtKetQua"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries);
             
             var result = "CREATE PROC PROC_MYWEBPLAY1\nAS\nBEGIN\n\nPRINT N'Danh sách các table chưa tồn tại : '+NCHAR(10)+NCHAR(10)\n";
 
@@ -410,7 +410,7 @@ namespace MyWebPlay.Controllers
             }
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flag = 0;
             for (int i = 0; i < listSetting.Length; i++)
             {
@@ -441,7 +441,7 @@ namespace MyWebPlay.Controllers
             hientai = hientai.Replace("[N-PLAY]", "\n");
             hientai = hientai.Replace("[R-PLAY]", "\r");
 
-            var listDayDu = daydu.Split("\r\n");
+            var listDayDu = daydu.Replace("\r","").Split("\n");
             var result = "ALTAR TABLE " + table + " ADD";
 
             for (int i =0; i< listDayDu.Length; i++)
@@ -479,7 +479,7 @@ namespace MyWebPlay.Controllers
 
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
             for (int i = 0; i < listSetting.Length; i++)
             {
@@ -535,7 +535,7 @@ namespace MyWebPlay.Controllers
 
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
             for (int i = 0; i < listSetting.Length; i++)
             {
@@ -593,7 +593,7 @@ namespace MyWebPlay.Controllers
 
                     var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
 
-                    var matkhauAd = System.IO.File.ReadAllText(pth).Split("\r\n", StringSplitOptions.RemoveEmptyEntries)[1];
+                    var matkhauAd = System.IO.File.ReadAllText(pth).Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries)[1];
                     if (matkhauAd == id)
                     {
                         var infoX = listSetting[43].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -617,7 +617,7 @@ namespace MyWebPlay.Controllers
                     var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                     var nd = System.IO.File.ReadAllText(pth);
 
-                    var matkhauAd = nd.Split("\r\n", StringSplitOptions.RemoveEmptyEntries)[1];
+                    var matkhauAd = nd.Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries)[1];
                     if (matkhauAd == id)
                     {
                         if (code == "on")
@@ -891,7 +891,7 @@ namespace MyWebPlay.Controllers
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                 var noidung = System.IO.File.ReadAllText(path);
 
-                var listSettingS = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var listSettingS = noidung.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
                 var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
@@ -921,7 +921,7 @@ namespace MyWebPlay.Controllers
                         return RedirectToAction("Index");
                     }
                 }
-            var fields = f["txtFields"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Split("\n");
+            var fields = f["txtFields"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Replace("\r","").Split("\n");
             TempData["dataPost"] = "[" + f["txtFields"].ToString().Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
 
                 if (exter == false)
@@ -946,7 +946,7 @@ namespace MyWebPlay.Controllers
                     }
                     var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                     var noidungX = System.IO.File.ReadAllText(pathX);
-                    var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
                     var flag = 0;
                     for (int i = 0; i < listSetting.Length; i++)
                     {
@@ -994,7 +994,7 @@ namespace MyWebPlay.Controllers
 
                 list.Add(fix[0].Replace("\"", "") + " nvarchar(max)");
             }
-                fields = string.Join("\n", list).Split("\n");
+                fields = string.Join("\n", list).Replace("\r","").Split("\n");
         }
 
                 var result = "";
@@ -1047,7 +1047,7 @@ namespace MyWebPlay.Controllers
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                 var noidung = System.IO.File.ReadAllText(path);
 
-                var listSettingS = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var listSettingS = noidung.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
                 var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
@@ -1078,8 +1078,8 @@ namespace MyWebPlay.Controllers
                     }
                 }
             var statement = f["txtStatement"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
-            var replace = f["txtReplace"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
-            var param = f["txtParam"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
+            var replace = f["txtReplace"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+            var param = f["txtParam"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries);
             var chon = f["txtChon"].ToString();
 
             TempData["dataPost"] = "[" + statement.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
@@ -1106,7 +1106,7 @@ namespace MyWebPlay.Controllers
                     }
                     var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                     var noidungX = System.IO.File.ReadAllText(pathX);
-                    var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
                     var flag = 0;
                     for (int i = 0; i < listSetting.Length; i++)
                     {
@@ -1176,7 +1176,7 @@ namespace MyWebPlay.Controllers
                     s += "<Input Name=\"" + listInput[i].Replace("@","") + "\" Type=\"nvarchar\" Size=\"MAX\" />\n";
                 }
                 s = s.Trim('\n');
-                param = s.Split("\n", StringSplitOptions.RemoveEmptyEntries);
+                param = s.Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries);
                 ViewBag.Param = s;
             }
 
@@ -1351,7 +1351,7 @@ namespace MyWebPlay.Controllers
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
             var noidungX = System.IO.File.ReadAllText(pathX);
 
-            var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -1453,7 +1453,7 @@ namespace MyWebPlay.Controllers
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                 var noidung = System.IO.File.ReadAllText(path);
 
-                var listSettingS = noidung.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var listSettingS = noidung.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
                 var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
@@ -1484,8 +1484,8 @@ namespace MyWebPlay.Controllers
                     }
                 }
             var table = f["txtTable"].ToString();
-            var constants = f["txtConstants"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Trim('\t').Trim(' ').Split("\r\n");
-            var script = f["txtScript"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Trim('\t').Trim(' ').Split("\r\n");
+            var constants = f["txtConstants"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Trim('\t').Trim(' ').Replace("\r","").Split("\n");
+            var script = f["txtScript"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Trim('\t').Trim(' ').Replace("\r","").Split("\n");
 
             ViewBag.Table = table;
             ViewBag.Constants = f["txtConstants"].ToString();
@@ -1515,7 +1515,7 @@ namespace MyWebPlay.Controllers
                     }
                     var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                     var noidungX = System.IO.File.ReadAllText(pathX);
-                    var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
                     var flag = 0;
                     for (int i = 0; i < listSetting.Length; i++)
                     {
@@ -1669,7 +1669,7 @@ namespace MyWebPlay.Controllers
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                 var noidungXY = System.IO.File.ReadAllText(path);
 
-                var listSettingS = noidungXY.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var listSettingS = noidungXY.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
                 var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
@@ -1725,7 +1725,7 @@ namespace MyWebPlay.Controllers
                     }
                     var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
                     var noidungX = System.IO.File.ReadAllText(pathX);
-                    var listSetting = noidungX.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
                     var flag = 0;
                     for (int i = 0; i < listSetting.Length; i++)
                     {
@@ -1753,7 +1753,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-            var xuan = noidung.Split("\r\n");
+            var xuan = noidung.Replace("\r","").Split("\n");
 
             var result = "";
             for (var i =0; i <xuan.Length; i++)

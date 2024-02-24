@@ -29,12 +29,22 @@ body {
   font-size: 17px;
 }
 
-#myVideo {
+#myVidex {
   position: fixed;
   right: 0;
   bottom: 0;
   min-width: 100%; 
   min-height: 100%;
+  max-width: auto; 
+  max-height: auto;
+}
+
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 100%; 
+  height: 100%;
 }
 
 .content {
@@ -73,6 +83,20 @@ body {
     var useMauNen = 0;
 
     var sd = 0;
+
+    function videovua()
+    {
+        if (document.getElementById("vuavideo").checked == true)
+        {
+            document.getElementById("myVidex").style.maxHeight = "100%";
+            documentonprogress("myVidex").style.maxWidth = "100%";
+        }
+        else
+        {
+            document.getElementById("myVidex").style.maxHeight = "1000%";
+            documentonprogress("myVidex").style.maxWidth = "1000%";
+        }
+    }
 
     function loadauto()
     {
@@ -1615,6 +1639,12 @@ else
                         &nbsp;&nbsp;&nbsp;<input id="kieudemnguoc" maxlength="2" placeholder="Nhập kiểu/icon đếm ngược để bắt đầu karaoke" onchange="doikieudemnguoc()" value="N" />
          &nbsp;&nbsp;&nbsp;<input id="dotre" placeholder="Nhập độ trễ bổ sung..." value="0.3" onchange="doidotre()" />
         &nbsp;&nbsp;&nbsp; <button onclick="ghinho()"><b style="color:lightcoral">Ghi nhớ các cài đặt</b></button>
+        &nbsp;&nbsp;&nbsp; 
+        @if (ViewBag.SuDung == "Video")
+                        {
+                            <input type="checkbox" onchange="videovua()" id="vuavideo" />
+                            <b style="color:red">Tuỳ chỉnh video (option)</b>
+                        }
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         @if (TempData["index-auto"] == null || TempData["index-auto"] == "")
                         {
@@ -1719,7 +1749,7 @@ else
 }
 else if (ViewBag.SuDung == "Video")
 {
-<video muted loop autoplay id="myVideo" class="sqs-html5-video">
+<video muted loop autoplay id="myVidex" class="sqs-html5-video">
   <source src="@ViewBag.Background" >
             </video>
         }
@@ -2017,6 +2047,12 @@ else
                             <span style="display:none;color:deeppink"><b>Vị trí xuất hiện : </b></span> <input style="display:none" id="hang" type="number" min="0" value="0" onchange="doihang()"/>
                         }
         &nbsp;&nbsp;&nbsp; <button onclick="ghinho()"><b style="color:lightcoral">Ghi nhớ các cài đặt</b></button>
+        &nbsp;&nbsp;&nbsp; 
+        @if (ViewBag.SuDung == "Video")
+                        {
+                            <input type="checkbox" onchange="videovua()" id="vuavideo" />
+                            <b style="color:red">Tuỳ chỉnh video (option)</b>
+                        }
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     @if (TempData["index-auto"] == null || TempData["index-auto"] == "")
                         {
@@ -2117,7 +2153,7 @@ else
 }
 else if (ViewBag.SuDung == "Video")
 {
-<video muted loop autoplay id="myVideo" class="sqs-html5-video">
+<video muted loop autoplay id="myVidex" class="sqs-html5-video">
   <source src="@ViewBag.Background" >
             </video>
         }

@@ -19,6 +19,7 @@
 /Admin/DeleteAll_ThisIPRegist
 /Admin/DeleteAll_ThisIPLocked
 /Admin/DeleteAll_ThisIPLockedClient
+/Admin/DeleteFirstIP
 /Admin/ReplaceUpload
 /Cover/Ef8e2d510133438f980423324078e0939
 /Cover/Ee98b70f046cbdf12b3eee2d65e625373

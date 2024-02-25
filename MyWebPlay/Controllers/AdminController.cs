@@ -22,10 +22,63 @@ namespace MyWebPlay.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
+        public ActionResult DeleteFirstIP()
+        {
+            try
+            {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
+                khoawebsiteAdmin();
+                if (TempData["locked-app"] == "true")
+                    return RedirectToAction("Error", "Home");
+
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
+
+                if (onoff == "OFF")
+                    return Redirect("https://google.com");
+
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "ListIPComeToHereTheFirst.txt");
+
+                var listIP = System.IO.File.ReadAllText(path);
+
+                System.IO.File.WriteAllText(path, "");
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
+            return Redirect("/Admin/SettingXYZ_DarkAdmin#labelActive");
+        }
+
         public ActionResult DeleteAll_ThisIPRegist()
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
+                khoawebsiteAdmin();
+                if (TempData["locked-app"] == "true")
+                    return RedirectToAction("Error", "Home");
+
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
+
+                if (onoff == "OFF")
+                    return Redirect("https://google.com");
+
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect", "ListIPOnWebPlay.txt");
 
                 var listIP = System.IO.File.ReadAllText(path);
@@ -49,6 +102,21 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
+                khoawebsiteAdmin();
+                if (TempData["locked-app"] == "true")
+                    return RedirectToAction("Error", "Home");
+
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
+
+                if (onoff == "OFF")
+                    return Redirect("https://google.com");
+
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect", "ListIPLock.txt");
 
                 var listIP = System.IO.File.ReadAllText(path);
@@ -72,6 +140,21 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
+                khoawebsiteAdmin();
+                if (TempData["locked-app"] == "true")
+                    return RedirectToAction("Error", "Home");
+
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
+
+                if (onoff == "OFF")
+                    return Redirect("https://google.com");
+
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect", "LockedIPClient.txt");
 
                 var listIP = System.IO.File.ReadAllText(path);
@@ -96,6 +179,21 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
+                khoawebsiteAdmin();
+                if (TempData["locked-app"] == "true")
+                    return RedirectToAction("Error", "Home");
+
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
+
+                if (onoff == "OFF")
+                    return Redirect("https://google.com");
+
                 switch (txtChonX)
                 {
                     case 0:
@@ -274,6 +372,21 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
+                khoawebsiteAdmin();
+                if (TempData["locked-app"] == "true")
+                    return RedirectToAction("Error", "Home");
+
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
+
+                if (onoff == "OFF")
+                    return Redirect("https://google.com");
+
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "ListIPComeToHereTheFirst.txt");
 
                 var listIP = System.IO.File.ReadAllText(path);
@@ -316,6 +429,10 @@ namespace MyWebPlay.Controllers
 
                 if (onoff == "OFF")
                     return Redirect("https://google.com");
+
+                khoawebsiteAdmin();
+                if (TempData["locked-app"] == "true")
+                    return RedirectToAction("Error", "Home");
 
                 if (HttpContext.Session.GetString("adminSetting") == null)
                 {
@@ -540,6 +657,17 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
+                var pthA = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var onoff = System.IO.File.ReadAllText(pthA).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
+
+                if (onoff == "OFF")
+                    return Redirect("https://google.com");
+
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
                 for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -597,7 +725,12 @@ namespace MyWebPlay.Controllers
                 if (TempData["locked-app"] == "true")
                     return RedirectToAction("Error", "Home");
 
-            if (HttpContext.Session.GetString("open-admin") == "true")
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
+                if (HttpContext.Session.GetString("open-admin") == "true")
             {
                     TempData["admin-open"] = "true";
             }
@@ -815,6 +948,12 @@ namespace MyWebPlay.Controllers
                 {
                     return RedirectToAction("LoginSettingAdmin");
                 }
+
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
+
+                if (onoff == "OFF")
+                    return Redirect("https://google.com");
 
                 Calendar x = CultureInfo.InvariantCulture.Calendar;
 
@@ -1244,6 +1383,17 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
+
+                if (onoff == "OFF")
+                    return Redirect("https://google.com");
+
                 for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -1318,7 +1468,20 @@ namespace MyWebPlay.Controllers
                     }
                 }
             }
-            Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
+
+                if (onoff == "OFF")
+                    return Redirect("https://google.com");
+
+
+                Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
 
@@ -1465,6 +1628,12 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
+
+                if (onoff == "OFF")
+                    return Redirect("https://google.com");
+
                 for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -1477,7 +1646,13 @@ namespace MyWebPlay.Controllers
                     }
                 }
             }
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "TracNghiem_XOnline", "DiemHocSinh.txt");
+
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "TracNghiem_XOnline", "DiemHocSinh.txt");
 
             if (System.IO.File.Exists(path))
             {
@@ -1514,6 +1689,12 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
+
+                if (onoff == "OFF")
+                    return Redirect("https://google.com");
+
                 for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -1526,7 +1707,12 @@ namespace MyWebPlay.Controllers
                     }
                 }
             }
-            var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
+
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+                var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
             var noidung1 = docfile(path1);
 
             System.IO.File.WriteAllText(path1, "");
@@ -1590,7 +1776,14 @@ namespace MyWebPlay.Controllers
                     }
                 }
             }
-            var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
+
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
+
+                var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
             var noidung1 = docfile(path1);
 
             System.IO.File.WriteAllText(path1, "");
@@ -2006,6 +2199,17 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
+
+                if (onoff == "OFF")
+                    return Redirect("https://google.com");
+
                 for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -2102,7 +2306,18 @@ namespace MyWebPlay.Controllers
                     }
                 }
             }
-            if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Exists == true)
+
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
+                var pthA = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var onoffX = System.IO.File.ReadAllText(pthA).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
+
+                if (onoffX == "OFF")
+                    return Redirect("https://google.com");
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Exists == true)
                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Delete(true);
 
             if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Exists == true)
@@ -2248,6 +2463,17 @@ namespace MyWebPlay.Controllers
                 if (TempData["locked-app"] == "true")
                     return RedirectToAction("Error", "Home");
 
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
+
+                if (onoff == "OFF")
+                    return Redirect("https://google.com");
+
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/Setting_Status.txt");
 
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
@@ -2364,6 +2590,21 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+                
+                khoawebsiteAdmin();
+                if (TempData["locked-app"] == "true")
+                    return RedirectToAction("Error", "Home");
+
+                var pthA = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var onoff = System.IO.File.ReadAllText(pthA).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
+
+                if (onoff == "OFF")
+                    return Redirect("https://google.com");
+
                 var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
             var pass = System.IO.File.ReadAllText(pth).Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries)[1];
 

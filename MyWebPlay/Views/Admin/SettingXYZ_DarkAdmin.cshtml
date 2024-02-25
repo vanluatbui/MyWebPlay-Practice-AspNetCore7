@@ -760,6 +760,14 @@ input:checked + .slider:before {
             window.location.href = "/Home/Setting_RemoveIPLockClient?ip_pass="+document.getElementById("txtIPLockClient").value;
         }
 
+        function deleteFirstIP()
+        {
+             var re = confirm("Are you sure?");
+            if (re == false) return;
+
+            window.location.href = "/Admin/DeleteFirstIP";
+        }
+
         //function xoachitiet()
         //{
         //    window.location.href = "/Admin/RefreshInfoIPRegist";
@@ -1009,7 +1017,7 @@ input:checked + .slider:before {
                     else
                     if (Model.Topics[i].ID == "UploadFile_MaxSize")
                     {
-                        <input size="20" name="@Model.Topics[i].ID" type="number" value="@ViewBag.MaxSizeFile" min="0" max="9000000000" />
+                        <input size="30" name="@Model.Topics[i].ID" type="number" value="@ViewBag.MaxSizeFile" min="0" max="9000000000000" />
                     }
                     <br /><br />
 }
@@ -1052,7 +1060,7 @@ input:checked + .slider:before {
     </select>&nbsp;<input type="text" id="txtIPLockClient" size="180" placeholder="Nhập với cấu trúc : IP<>Mật khẩu; hoặc nếu bạn muốn sử dụng mật khẩu mặc định thì nhập như sau : IP" /><br />
     <button onclick="addLockClient()" style="color:green">THÊM (KHOÁ IP CLIENT)</button>&nbsp;<button onclick="removeLockClient()" style="color:red">XOÁ (MỞ KHOÁ IP CLIENT)</button>&nbsp;<button onclick="changeCodeLockClient()" style="color:orangered">ĐỔI MẬT KHẨU</button>&nbsp;<a href="/ClientConnect/LockedIPClient.txt" target="_blank" style="color:yellow">Xem Chi Tiết</a>|| <a style="color:yellow" href="#xuly" onclick="deleteZ()">Delete all this</a>
     <br/><br />
-    <a href="/Admin/ListIPComeToHereTheFirst.txt" style="color:aqua" target="_blank">Xem list các IP đã ghé thăm (save in the first) hiện có</a>&nbsp;&nbsp;&nbsp;<a href="#xuly" style="color:aqua" onclick="mailthefirstIP()">Báo cáo list các IP đã ghé thăm (save in the first) hiện có qua mail và refresh</a>
+    <a href="/Admin/ListIPComeToHereTheFirst.txt" style="color:aqua" target="_blank">Xem list các IP đã ghé thăm (save in the first) hiện có</a>&nbsp;&nbsp;&nbsp;<a href="#xuly" style="color:aqua" onclick="deleteFirstIP()">Delete</a>&nbsp;&nbsp;&nbsp;<a href="#xuly" style="color:aqua" onclick="mailthefirstIP()">Báo cáo list các IP đã ghé thăm (save in the first) hiện có qua mail và refresh</a>
       <hr /><hr />
     <br /><br />
     <select id="chonlua" onchange="doichonlua()">

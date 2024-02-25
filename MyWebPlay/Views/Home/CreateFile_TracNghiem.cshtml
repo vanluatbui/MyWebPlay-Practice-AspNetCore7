@@ -15,6 +15,12 @@
             return;
         }
 
+        if (document.getElementById("ticky0").checked == false && xd == 0)
+        {
+            alert("Nếu bài trắc nghiệm của bạn đã có đáp án, vui lòng sử dụng tính năng và liệt kê nội dung của bạn.");
+            return;
+        }
+
         document.getElementById("xong").style.display = "none";
         document.getElementById("loading").style.display = "inline-block";
         document.getElementById("Swap1").readOnly = true;
@@ -443,6 +449,7 @@
          alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...\n\n[Successful result : "+new Number (chuoi.length-1)+"/"+tongsocau+"]");
     }
 
+    var xd = 0;
     function upAnswer()
     {
          var tong = document.getElementById("CH_Num").value;
@@ -453,6 +460,7 @@
             return;
         }
 
+         xd = 1;
         document.getElementById("ticky0").style.display = "none";
          document.getElementById("tick0").style.display = "none";
         var up = document.getElementById("upAnswex");

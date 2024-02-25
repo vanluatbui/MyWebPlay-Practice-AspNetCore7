@@ -274,6 +274,30 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
+                    if (info[0] == "IPUser_UnVisible")
+                    {
+                        if (info[1] == "true")
+                        {
+                            TempData["IPUser_UnVisible"] = "true";
+                        }
+                        else
+                        {
+                            TempData["IPUser_UnVisible"] = "false";
+                        }
+                    }
+
+                    if (info[0] == "Karaoke_RandomImage")
+                    {
+                        if (info[1] == "true")
+                        {
+                            TempData["Karaoke_RandomImage"] = "true";
+                        }
+                        else
+                        {
+                            TempData["Karaoke_RandomImage"] = "false";
+                        }
+                    }
+
                     if (info[0] == "TangHinh_UseUploadFile")
                     {
                         if (info[1] == "true")
@@ -512,15 +536,13 @@ namespace MyWebPlay.Controllers
                         TempData["AllConnect"] = "true";
                 }
 
-                    if (info[0] == "Music_WebPage")
+                    if (info[0] == "TabTittle_NoiDung")
                     {
-                        if (info[1] == "true" && KiemTraWebNhacNen() == true)
-                            TempData["nhacnendemo"] = "/nhacnenweb/nhacnendemo.mp3";
-                        else
-                            TempData.Remove("nhacnendemo");
+                        TempData["TabTittleView"] = info[3];
                     }
 
-                    if (info[0] == "Off_CallIP")
+
+                        if (info[0] == "Off_CallIP")
                 {
                     if (info[1] == "false")
                     {

@@ -16,6 +16,21 @@
         idSA = setInterval(myAlertX, 1000);
     }
 
+    function changeID()
+    {
+        document.getElementById("ID-X").value = document.getElementById("ID-Y").value;
+    }
+
+    function changeMSSV()
+    {
+        document.getElementById("MSSV-X").value = document.getElementById("MSSV-Y").value;
+    }
+
+     function changeSecure()
+    {
+        document.getElementById("secure-X").checked = document.getElementById("secure-Y").checked;
+    }
+
     function myAlertX()
     {
         so++;
@@ -30,23 +45,35 @@
 <table align="center">
     <h2 style="text-align:center">Play Test Trắc Nghiệm - Online</h2>
 
+      <tr style="height:40px">
+            <td> </td>
+            <td>
+                <br>
+                <input onchange="changeID()" autofocus id="ID-Y" name="txtID" type="text" placeholder="Nhập ID liên kết bài với test trắc nghiệm" size="100" value="@ViewBag.ID" />
+                <br>
+                 <span id="loi1" style="color:red; font-style:italic">@ViewData["Loi1"]</span>
+                <br>
+                <input onchange="changeMSSV()" id="MSSV-Y" name="txtMSSV" type="text" size="100" placeholder="Nhập mã số học sinh" value="@ViewBag.MSSV" />
+                <br>
+                <span id="loi2" style="color:red; font-style:italic">@ViewData["Loi2"]</span>
+                <br />
+                 <input onchange="changeSecure()" id="secure-Y" type="checkbox" name="encrypt_data" />&nbsp;<b>Secure data locked</b>
+            </td>
+        </tr>
+
     @using (Html.BeginForm())
     {
         @Html.ValidationSummary(true)
 
         <tr style="height:40px">
             <td> </td>
-            <td>
+            <td style="display:none">
                 <br>
-                <input autofocus id="ID-X" name="txtID" type="text" placeholder="Nhập ID liên kết bài với test trắc nghiệm" size="100" value="@ViewBag.ID" />
-                <br>
-                 <span id="loi1" style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+                <input id="ID-X" name="txtID" type="text" placeholder="Nhập ID liên kết bài với test trắc nghiệm" size="100" value="@ViewBag.ID" />
                 <br>
                 <input id="MSSV-X" name="txtMSSV" type="text" size="100" placeholder="Nhập mã số học sinh" value="@ViewBag.MSSV" />
-                <br>
-                <span id="loi2" style="color:red; font-style:italic">@ViewData["Loi2"] </span>
-                <br /><br />
-                          <input type="checkbox" name="encrypt_data" />&nbsp;<b>Secure data locked</b>
+                <br />
+                <input type="checkbox" id="secure-X" name="encrypt_data" />&nbsp;<b>Secure data locked</b>
             </td>
         </tr>
       

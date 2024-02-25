@@ -80,6 +80,21 @@ body {
 <meta charset="ISO-8859-1">
 <script>
 
+    if ('@ViewBag.NgauNhien' == "true" && '@TempData["Karaoke_RandomImage"]' == "true")
+    {
+        var xs = 0;
+
+        setInterval(function()
+        {
+            xs++;
+            var n = new Number('@ViewBag.SoLuongNgauNhien');
+            if (xs >= n)
+            xs = 0;
+
+            document.getElementById("myVideo").src = "/karaoke_Example/background/" + (xs + 1) + ".jpg";
+        },5000);
+    }
+
     var useMauNen = 0;
 
     var sd = 0;
@@ -1555,7 +1570,7 @@ function showlist()
                 <td></td>
                 <td>
                       <select id="chonKara" onchange="chonKaraHay()">
-                          <option>Sử dụng ngẫu nhiên ảnh/background có sẵn trên hệ thống</option>
+                          <option>Sử dụng ngẫu nhiên ảnh/background có sẵn trên hệ thống - hoặc vòng lặp theo thứ tự</option>
                            <option>Sử dụng link ảnh/background online của bạn</option>
                            <option>Sử dụng link video/background online của bạn</option>
                             <option>Nhập link video Youtube online</option>
@@ -1975,7 +1990,7 @@ else if (ViewBag.SuDung == "Video")
                 <td></td>
                 <td>
                       <select id="chonKara" onchange="chonKaraHay()">
-                          <option>Sử dụng ngẫu nhiên ảnh/background có sẵn trên hệ thống</option>
+                          <option>Sử dụng ngẫu nhiên ảnh/background có sẵn trên hệ thống - hoặc vòng lặp theo thứ tự</option>
                            <option>Sử dụng link ảnh/background online của bạn</option>
                            <option>Sử dụng link video/background online của bạn</option>
                             <option>Nhập link video Youtube online</option>

@@ -816,7 +816,7 @@ namespace MyWebPlay.Controllers
 
         //---------------------------
 
-        public ActionResult Setting_AddIPActive(string ip)
+        public ActionResult Setting_AddIPActive(string ip, string? info)
         {
             try
             {
@@ -827,7 +827,17 @@ namespace MyWebPlay.Controllers
 
                 if (noidung2.Contains(ip + "##") == false)
                     System.IO.File.WriteAllText(path2, noidung2 + ip + "##");
-            }
+
+                    Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+                    string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+
+                    var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/InfoIPRegist.txt");
+                    var noidung1 = docfile(path1);
+
+                    if (ip != "0.0.0.0")
+                        System.IO.File.WriteAllText(path1, noidung1 + "\n" + ip + "\t" + xuxu + "\t" + "[admin added] "+info);
+                }
             return Redirect("/Admin/SettingXYZ_DarkAdmin#labelActive");
             }
             catch (Exception ex)

@@ -307,7 +307,7 @@
     {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>C# | Asp Net Core | Công nghệ thông tin</title>
+    <title>@TempData["TabTittleView"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
@@ -951,12 +951,16 @@
                     <a href="/Home/Index"><p style="color:orangered">BACK HOME MENU</p></a>
                  @if (TempData["belix"] == "false")
                  {
+                     if (TempData["IPUser_UnVisible"] == "false")
+                     {
                         <span onclick="savebelive()" style="color:chartreuse">@TempData["UserIP"]</span>
+                     }
+                     else
+                      {
+                        <span onclick="savebelive()" style="color:chartreuse">###</span>
+                     }
                  }
                 <h2 style="color:@TempData["mau_winx"]" onclick="xoaluunen()">@TempData["winx"]</h2>
-         <audio autoplay hidden loop id="ker_music">
-        <source src="@TempData["nhacnendemo"]" type="audio/mpeg">
-        </audio>
                 @if (TempData["demo-mau"] == "false")
                 {
                 @if(TempData["mau_background"] == "white")

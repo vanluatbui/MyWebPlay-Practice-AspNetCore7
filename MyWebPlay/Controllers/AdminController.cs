@@ -22,6 +22,254 @@ namespace MyWebPlay.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
+        public ActionResult DeleteAll_ThisIPRegist()
+        {
+            try
+            {
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect", "ListIPOnWebPlay.txt");
+
+                var listIP = System.IO.File.ReadAllText(path);
+
+                System.IO.File.WriteAllText(path, "");
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
+            return Redirect("/Admin/SettingXYZ_DarkAdmin#labelActive");
+        }
+
+        public ActionResult DeleteAll_ThisIPLocked()
+        {
+            try
+            {
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect", "ListIPLock.txt");
+
+                var listIP = System.IO.File.ReadAllText(path);
+
+                System.IO.File.WriteAllText(path, "");
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
+            return Redirect("/Admin/SettingXYZ_DarkAdmin#labelActive");
+        }
+
+        public ActionResult DeleteAll_ThisIPLockedClient()
+        {
+            try
+            {
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect", "LockedIPClient.txt");
+
+                var listIP = System.IO.File.ReadAllText(path);
+
+                System.IO.File.WriteAllText(path, "");
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
+            return Redirect("/Admin/SettingXYZ_DarkAdmin#labelActive");
+        }
+
+        [HttpPost]
+        public ActionResult ReplaceUpload(List<IFormFile> txtFile, int txtChonX)
+        {
+            try
+            {
+                switch (txtChonX)
+                {
+                    case 0:
+                        var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "background");
+                        for (int i = 0; i < txtFile.Count; i++)
+                        {
+                            if (txtFile[i].FileName.EndsWith(".jpg") == false)
+                                continue;
+
+                            var filename = (i + 1) + ".jpg";
+
+                            if (new FileInfo(path + "/" + filename).Exists)
+                                new FileInfo(path + "/" + filename).Delete();
+
+                            using (Stream fileStream = new FileStream(path + "/" + filename, FileMode.Create))
+                            {
+                                txtFile[i].CopyTo(fileStream);
+
+                            }
+                        }
+                        break;
+
+                    //-----------------------
+
+                    case 1:
+                        var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "Image_Play");
+                        for (int i = 0; i < txtFile.Count; i++)
+                        {
+                            if (txtFile[i].FileName.EndsWith(".gif") == false)
+                                continue;
+
+                            var filename = "error.gif";
+
+                            if (new FileInfo(path1 + "/" + filename).Exists)
+                                new FileInfo(path1 + "/" + filename).Delete();
+
+                            using (Stream fileStream = new FileStream(path1 + "/" + filename, FileMode.Create))
+                            {
+                                txtFile[i].CopyTo(fileStream);
+                            }
+
+                            break;
+                        }
+                        break;
+
+                    //-----------------------
+
+                    case 2:
+                        var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "Image_Play");
+                        for (int i = 0; i < txtFile.Count; i++)
+                        {
+                            if (txtFile[i].FileName.EndsWith(".gif") == false)
+                                continue;
+
+                            var filename = "waiting.gif";
+
+                            if (new FileInfo(path2 + "/" + filename).Exists)
+                                new FileInfo(path2 + "/" + filename).Delete();
+
+                            using (Stream fileStream = new FileStream(path2 + "/" + filename, FileMode.Create))
+                            {
+                                txtFile[i].CopyTo(fileStream);
+                            }
+
+                            break;
+                        }
+                        break;
+
+                    //-----------------------
+
+                    case 3:
+                        var path3 = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+                        for (int i = 0; i < txtFile.Count; i++)
+                        {
+                            if (txtFile[i].FileName.EndsWith(".png") == false)
+                                continue;
+
+                            var filename = "imagex.png";
+
+                            if (new FileInfo(path3 + "/" + filename).Exists)
+                                new FileInfo(path3 + "/" + filename).Delete();
+
+                            using (Stream fileStream = new FileStream(path3 + "/" + filename, FileMode.Create))
+                            {
+                                txtFile[i].CopyTo(fileStream);
+                            }
+
+                            break;
+                        }
+                        break;
+
+                    //-----------------------
+
+                    case 4:
+                        var path4 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "Random_Tab");
+                        for (int i = 0; i < txtFile.Count; i++)
+                        {
+                            if (txtFile[i].FileName.EndsWith(".txt") == false)
+                                continue;
+
+                            var filename = "RandomTab_Tittle.txt";
+
+                            if (new FileInfo(path4 + "/" + filename).Exists)
+                                new FileInfo(path4 + "/" + filename).Delete();
+
+                            using (Stream fileStream = new FileStream(path4 + "/" + filename, FileMode.Create))
+                            {
+                                txtFile[i].CopyTo(fileStream);
+                            }
+
+                            break;
+                        }
+                        break;
+
+                    //-----------------------
+
+                    case 5:
+                        var path5 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "Random_Tab");
+                        for (int i = 0; i < txtFile.Count; i++)
+                        {
+                            if (txtFile[i].FileName.EndsWith(".txt") == false)
+                                continue;
+
+                            var filename = "RandomTab_Image.txt";
+
+                            if (new FileInfo(path5 + "/" + filename).Exists)
+                                new FileInfo(path5 + "/" + filename).Delete();
+
+                            using (Stream fileStream = new FileStream(path5 + "/" + filename, FileMode.Create))
+                            {
+                                txtFile[i].CopyTo(fileStream);
+                            }
+
+                            break;
+                        }
+                        break;
+
+                    //-----------------------
+
+                    case 6:
+                        var path6 = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "Video_Youtube");
+                        for (int i = 0; i < txtFile.Count; i++)
+                        {
+                            if (txtFile[i].FileName.EndsWith(".txt") == false)
+                                continue;
+
+                            var filename = "randomlink.txt";
+
+                            if (new FileInfo(path6 + "/" + filename).Exists)
+                                new FileInfo(path6 + "/" + filename).Delete();
+
+                            using (Stream fileStream = new FileStream(path6 + "/" + filename, FileMode.Create))
+                            {
+                                txtFile[i].CopyTo(fileStream);
+                            }
+
+                            break;
+                        }
+                        break;
+                }
+              }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return RedirectToAction("Error", new { exception = "true" });
+            }
+            return Redirect("/Admin/SettingXYZ_DarkAdmin#labelActive");
+        }
+
         public ActionResult RefreshTheFistIP()
         {
             try
@@ -151,9 +399,9 @@ namespace MyWebPlay.Controllers
                 }
             SettingAdmin settingAdmin = new SettingAdmin();
             settingAdmin.Topics = new List<SettingAdmin.Topic>();
-            for (int i = 0; i < listSetting.Length; i++)
-            {
-                    if (i >= 33 && i <= 44 || i  == 50) continue;
+                for (int i = 0; i < listSetting.Length; i++)
+                {
+                    if (i >= 33 && i <= 44 || i == 50 || i == 52 || i == 51) continue;
 
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
                 settingAdmin.Topics.Add(new SettingAdmin.Topic(info[0], info[2], bool.Parse(info[1])));
@@ -475,6 +723,19 @@ namespace MyWebPlay.Controllers
                             ViewBag.AcceptListUrl = info[3];
                     }
 
+                    if (info[0] == "TabTittle_NoiDung")
+                    {
+                        if (info[3] == "[NULL]")
+                            ViewBag.TabTittle = "C# | Asp Net Core | Công nghệ thông tin";
+                        else
+                            ViewBag.TabTittle = info[3];
+                    }
+
+                    if (info[0] == "UploadFile_MaxSize")
+                    {
+                        ViewBag.MaxSizeFile = info[3];
+                    }
+
                     if (info[0] == "Color_TracNghiem")
                 {
                     ViewBag.TNColor = info[3];
@@ -710,7 +971,8 @@ namespace MyWebPlay.Controllers
                     }
 
                     if (info[0] != "Password_Admin" && info[0] != "Believe_IP" && info[0] != "Code_LockedClient" && info[0] != "MatDoTuyetDoi" && info[0] != "Encode_Url" && info[0] != "Info_Email" && info[0] != "Info_MegaIO" && info[0] != "Color_BackgroundAndText" 
-                        && info[0] != "Color_TracNghiem" && info[0] != "AppWeb_LockedUse" && info[0] != "DownloadFile_ClearWeb" && info[0] != "Accept_ListUrl")
+                        && info[0] != "Color_TracNghiem" && info[0] != "AppWeb_LockedUse" && info[0] != "DownloadFile_ClearWeb" && info[0] != "Accept_ListUrl"
+                        && info[0] != "UploadFile_MaxSize" && info[0] != "TabTittle_NoiDung")
                     {
                         if (xi != info[1])
                         {
@@ -785,6 +1047,18 @@ namespace MyWebPlay.Controllers
                         var xinh = f[info[0]];
                         if (string.IsNullOrEmpty(xinh))
                             xinh = "abc-xyz";
+
+                        if (xinh != info[3])
+                        {
+                            cometo = "#come-" + i;
+                            dix++;
+                        }
+
+                        noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
+                    }
+                    else if (info[0] == "UploadFile_MaxSize")
+                    {
+                        var xinh = f[info[0]];
 
                         if (xinh != info[3])
                         {
@@ -884,6 +1158,20 @@ namespace MyWebPlay.Controllers
                         var xinh = f[info[0]];
                         if (string.IsNullOrEmpty(xinh))
                             xinh = "[NULL]";
+
+                        if (xinh != info[3])
+                        {
+                            cometo = "#come-" + i;
+                            dix++;
+                        }
+
+                        noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
+                    }
+                    else if (info[0] == "TabTittle_NoiDung")
+                    {
+                        var xinh = f[info[0]];
+                        if (string.IsNullOrEmpty(xinh))
+                            xinh = "C# | Asp Net Core | Công nghệ thông tin";
 
                         if (xinh != info[3])
                         {

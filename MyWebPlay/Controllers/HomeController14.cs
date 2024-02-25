@@ -147,7 +147,9 @@ namespace MyWebPlay.Controllers
             if (chon == "1")
             {
                 var r = new Random();
-                int x = r.Next(10);
+
+                    var n = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example/background")).GetFiles().Length;
+                int x = r.Next(n);
 
                 ViewBag.Background = "/karaoke_Example/background/" + (x + 1) + ".jpg";
                 ViewBag.SuDung = "";
@@ -887,12 +889,20 @@ namespace MyWebPlay.Controllers
 
             if (chon == "1")
             {
-                var r = new Random();
-                int x = r.Next(10);
+                    var r = new Random();
 
-                ViewBag.Background = "/karaoke_Example/background/" + (x + 1) + ".jpg";
-                ViewBag.SuDung = "";
-            }
+                    var n = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example/background")).GetFiles().Length;
+                    ViewBag.SoLuongNgauNhien = n.ToString();
+                    int x = r.Next(n);
+
+                    if (TempData["Karaoke_RandomImage"] == "true")
+                    ViewBag.Background = "/karaoke_Example/background/1.jpg";
+                    else
+                    ViewBag.Background = "/karaoke_Example/background/" + (x + 1) + ".jpg";
+
+                    ViewBag.SuDung = "";
+                    ViewBag.NgauNhien = "true";
+                }
             else if (chon == "2")
             {
                 var link = f["txtOnline"].ToString();

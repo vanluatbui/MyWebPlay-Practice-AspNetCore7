@@ -104,6 +104,47 @@ input:checked + .slider:before {
             alert("Mã màu của bạn đang chọn là : "+mau);
         }
 
+        function deleteX()
+        {
+            var xn = confirm('Bạn có chắc chắn không?');
+            if (xn == true)
+            {
+                window.location.href = "/Admin/DeleteAll_ThisIPRegist";
+            }
+        }
+
+        function doichonlua()
+        {
+            document.getElementById("chonX").value = document.getElementById("chonlua").options.selectedIndex;
+        }
+
+        function okreplace()
+        {
+             var xn = confirm('Bạn có chắc chắn không? (tất cả dữ liệu liên quan sẽ được thay thế và được áp dụng vào lần tới, hệ thống sẽ lọc ra những file không cần thiết). Mọi sự thay đổi sẽ không thể khôi phục lại.');
+            if (xn == true)
+            {
+                document.getElementById("oki").click();
+            }
+        }
+
+         function deleteY()
+        {
+            var xn = confirm('Bạn có chắc chắn không?');
+            if (xn == true)
+            {
+                window.location.href = "/Admin/DeleteAll_ThisIPLocked";
+            }
+        }
+
+         function deleteZ()
+        {
+            var xn = confirm('Bạn có chắc chắn không?');
+            if (xn == true)
+            {
+                window.location.href = "/Admin/DeleteAll_ThisIPLockedClient";
+            }
+        }
+
 
         // Delete div somee
 
@@ -126,7 +167,7 @@ input:checked + .slider:before {
                  return;
              }
 
-             var n = new Number(document.getElementById("count").value)- 18;
+             var n = new Number(document.getElementById("count").value) - 21;
             for (var i = 0; i < n;i++)
             {
                 if (document.getElementById("check-"+i).checked == true)
@@ -318,7 +359,7 @@ input:checked + .slider:before {
             }
             else
             {
-                 var n = new Number(document.getElementById("count").value)- 18;
+                 var n = new Number(document.getElementById("count").value) - 21;
                 for (var i = 0; i < n;i++)
                 {
                     if (i == x)
@@ -343,7 +384,7 @@ input:checked + .slider:before {
 
             if (ch == 1)
             {
-                 var n = new Number(document.getElementById("count").value)- 18;
+                 var n = new Number(document.getElementById("count").value) - 21;
             for (var i = 0; i < n;i++)
             {
                 if (i == 0 || i == 20 || i == 30)
@@ -357,7 +398,7 @@ input:checked + .slider:before {
 
              if (ch == 2)
             {
-                 var n = new Number(document.getElementById("count").value)- 18;
+                 var n = new Number(document.getElementById("count").value) - 21;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2)
@@ -371,7 +412,7 @@ input:checked + .slider:before {
 
               if (ch == 3)
             {
-                 var n = new Number(document.getElementById("count").value)- 18;
+                 var n = new Number(document.getElementById("count").value) - 21;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 20)
@@ -385,7 +426,7 @@ input:checked + .slider:before {
 
               if (ch == 4)
             {
-                 var n = new Number(document.getElementById("count").value)- 18;
+                 var n = new Number(document.getElementById("count").value) - 21;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2 || i == 25)
@@ -399,7 +440,7 @@ input:checked + .slider:before {
 
               if (ch == 5)
             {
-                 var n = new Number(document.getElementById("count").value)- 18;
+                 var n = new Number(document.getElementById("count").value) - 21;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2 || i == 26)
@@ -413,7 +454,7 @@ input:checked + .slider:before {
 
               if (ch == 6)
             {
-                 var n = new Number(document.getElementById("count").value)- 18;
+                 var n = new Number(document.getElementById("count").value) - 21;
             for (var i = 0; i < n;i++)
             {
                 if (i == 2 || i == 20)
@@ -427,7 +468,7 @@ input:checked + .slider:before {
 
                if (ch == 7)
             {
-                 var n = new Number(document.getElementById("count").value)- 18;
+                 var n = new Number(document.getElementById("count").value) - 21;
             for (var i = 0; i < n;i++)
             {
                 if (i == 20)
@@ -441,7 +482,7 @@ input:checked + .slider:before {
 
               if (ch == 8)
             {
-                 var n = new Number(document.getElementById("count").value)- 18;
+                 var n = new Number(document.getElementById("count").value) - 21;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2 || i == 25 || i == 3 || i == 4 || i == 5 || i == 6)
@@ -455,7 +496,7 @@ input:checked + .slider:before {
 
               if (ch == 9)
             {
-                 var n = new Number(document.getElementById("count").value)- 18;
+                 var n = new Number(document.getElementById("count").value) - 21;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2 || i == 25 || i == 3 || i == 4 || i == 5 || i == 6 || i == 7 )
@@ -469,7 +510,7 @@ input:checked + .slider:before {
 
               if (ch == 10)
             {
-                 var n = new Number(document.getElementById("count").value)- 18;
+                 var n = new Number(document.getElementById("count").value) - 21;
             for (var i = 0; i < n;i++)
             {
                 if (i >=13 && i<= 19 || i >= 21 && i <= 23 || i == 28)
@@ -483,7 +524,7 @@ input:checked + .slider:before {
 
               if (ch == 11)
             {
-                 var n = new Number(document.getElementById("count").value)- 18;
+                 var n = new Number(document.getElementById("count").value) - 21;
             for (var i = 0; i < n;i++)
             {
                 if (i >=13 && i<= 19 || i >= 21 && i <= 23 || i == 28)
@@ -497,7 +538,7 @@ input:checked + .slider:before {
 
               if (ch == 12)
             {
-                 var n = new Number(document.getElementById("count").value)- 18;
+                 var n = new Number(document.getElementById("count").value) - 21;
             for (var i = 0; i < n;i++)
             {
                 if (i == 24)
@@ -526,7 +567,7 @@ input:checked + .slider:before {
 
               if (ch == 15)
             {
-                 var n = new Number(document.getElementById("count").value)- 18;
+                 var n = new Number(document.getElementById("count").value) - 21;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2 || i == 25 || i == 4 || i == 5 || i == 6 || i == 7 || i == 8)
@@ -554,7 +595,7 @@ input:checked + .slider:before {
             {
                 localStorage.setItem("matpassAd", document.getElementById("matpassAd").value);
             }
-            var n = new Number(document.getElementById("count").value)- 18;
+            var n = new Number(document.getElementById("count").value) - 21;
             for (var i = 0; i < n;i++)
             {
                 if (i == 29) continue;
@@ -571,7 +612,7 @@ input:checked + .slider:before {
             {
                 localStorage.setItem("matpassAd", document.getElementById("matpassAd").value);
             }
-            var n = new Number(document.getElementById("count").value)- 18;
+            var n = new Number(document.getElementById("count").value) - 21;
             for (var i = 0; i < n;i++)
             {
                 document.getElementById("check-"+i).checked = false;
@@ -673,7 +714,7 @@ input:checked + .slider:before {
         {
              var re = confirm("Are you sure?");
             if (re == false) return;
-            window.location.href = "/Home/Setting_AddIPActive?ip="+document.getElementById("txtIPActive").value;
+            window.location.href = "/Home/Setting_AddIPActive?ip="+document.getElementById("txtIPActive").value+"&info="+document.getElementById("ghichu").value;
         }
 
          function removeActive()
@@ -881,7 +922,7 @@ input:checked + .slider:before {
  @if(Model.Topics[i].ID != "Password_Admin" && Model.Topics[i].ID != "Believe_IP" && Model.Topics[i].ID != "Code_LockedClient" && Model.Topics[i].ID != "MatDoTuyetDoi" 
  && Model.Topics[i].ID != "Encode_Url" && Model.Topics[i].ID != "Info_Email" && Model.Topics[i].ID != "Info_MegaIO" 
  && Model.Topics[i].ID != "Color_BackgroundAndText" && Model.Topics[i].ID != "Color_TracNghiem"  && Model.Topics[i].ID != "AppWeb_LockedUse"
- && Model.Topics[i].ID != "DownloadFile_ClearWeb" && Model.Topics[i].ID != "Accept_ListUrl")
+ && Model.Topics[i].ID != "DownloadFile_ClearWeb" && Model.Topics[i].ID != "Accept_ListUrl" && Model.Topics[i].ID != "UploadFile_MaxSize" && Model.Topics[i].ID != "TabTittle_NoiDung")
  {
 <label class="switch">
     @if (Model.Topics[i].Option == false)
@@ -960,6 +1001,16 @@ input:checked + .slider:before {
                     {
                         <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.AcceptListUrl" />
                     }
+                      else
+                    if (Model.Topics[i].ID == "TabTittle_NoiDung")
+                    {
+                        <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.TabTittle" />
+                    }
+                    else
+                    if (Model.Topics[i].ID == "UploadFile_MaxSize")
+                    {
+                        <input size="20" name="@Model.Topics[i].ID" type="number" value="@ViewBag.MaxSizeFile" min="0" max="9000000000" />
+                    }
                     <br /><br />
 }
             </td>
@@ -984,25 +1035,44 @@ input:checked + .slider:before {
     <br />
     <select onclick="loadActive()" onchange="setActive()" id="ip_active">
     </select>&nbsp;<input type="text" id="txtIPActive" /><br />
-    <button onclick="addActive()" style="color:green">THÊM (HOẠT ĐỘNG NHƯNG CHƯA XÁC NHẬN THIẾT BỊ)</button>&nbsp;<button onclick="removeActive()" style="color:red">XOÁ (HẾT HẠN)</button>&nbsp;(<a href="/ClientConnect/InfoIPRegist.txt" target="_blank" style="color:yellow">Xem Chi Tiết (có thể chưa đủ thông tin)</a><b> || </b><a style="color:yellow" href="/ClientConnect/InfoIPRegist.txt" @*onclick="xoachitiet()"*@ download="">Tải xuống và refresh</a> || </b><a style="color:yellow" href="#xuly" onclick="deletechitiet()">Delete</a>)
+    <input type="text" size="100" placeholder="Nhập thông tin user hoặc ghi chú (nếu có)" id="ghichu" /><br />
+    <button onclick="addActive()" style="color:green">THÊM (HOẠT ĐỘNG NHƯNG CHƯA XÁC NHẬN THIẾT BỊ)</button>&nbsp;<button onclick="removeActive()" style="color:red">XOÁ (HẾT HẠN)</button>&nbsp;(<a href="/ClientConnect/InfoIPRegist.txt" target="_blank" style="color:yellow">Xem Chi Tiết (có thể chưa đủ thông tin)</a><b> || </b><a style="color:yellow" href="/ClientConnect/InfoIPRegist.txt" @*onclick="xoachitiet()"*@ download="">Tải xuống</a> || <a style="color:yellow" href="#xuly" onclick="deletechitiet()">Delete detail</a> || <a style="color:yellow" href="#xuly" onclick="deleteX()">Delete all this</a></b>)
     <br />
      <br />
     <b name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG BỊ KHOÁ (ADMIN)</b>
     <br />
     <select onclick="loadLockAdmin()" onchange="setLockAdmin()" id="ip_blockadmin">
     </select>&nbsp;<input type="text" id="txtIPLockAdmin" /><br />
-    <button onclick="addLockAdmin()" style="color:green">THÊM (KHOÁ IP ADMIN)</button>&nbsp;<button onclick="removeLockAdmin()" style="color:red">XOÁ (MỞ KHOÁ IP ADMIN)</button>&nbsp;<a href="/ClientConnect/ListIPLock.txt" target="_blank" style="color:yellow">Xem Chi Tiết</a
+    <button onclick="addLockAdmin()" style="color:green">THÊM (KHOÁ IP ADMIN)</button>&nbsp;<button onclick="removeLockAdmin()" style="color:red">XOÁ (MỞ KHOÁ IP ADMIN)</button>&nbsp;<a href="/ClientConnect/ListIPLock.txt" target="_blank" style="color:yellow">Xem Chi Tiết</a> || <a style="color:yellow" href="#xuly" onclick="deleteY()">Delete all this</a>
     <br />
      <br />
     <b name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG BỊ KHOÁ (CLIENT)</b>
     <br />
     <select onclick="loadLockClient()" onchange="setLockClient()" id="ip_blockclient">
     </select>&nbsp;<input type="text" id="txtIPLockClient" size="180" placeholder="Nhập với cấu trúc : IP<>Mật khẩu; hoặc nếu bạn muốn sử dụng mật khẩu mặc định thì nhập như sau : IP" /><br />
-    <button onclick="addLockClient()" style="color:green">THÊM (KHOÁ IP CLIENT)</button>&nbsp;<button onclick="removeLockClient()" style="color:red">XOÁ (MỞ KHOÁ IP CLIENT)</button>&nbsp;<button onclick="changeCodeLockClient()" style="color:orangered">ĐỔI MẬT KHẨU</button>&nbsp;<a href="/ClientConnect/LockedIPClient.txt" target="_blank" style="color:yellow">Xem Chi Tiết</a
+    <button onclick="addLockClient()" style="color:green">THÊM (KHOÁ IP CLIENT)</button>&nbsp;<button onclick="removeLockClient()" style="color:red">XOÁ (MỞ KHOÁ IP CLIENT)</button>&nbsp;<button onclick="changeCodeLockClient()" style="color:orangered">ĐỔI MẬT KHẨU</button>&nbsp;<a href="/ClientConnect/LockedIPClient.txt" target="_blank" style="color:yellow">Xem Chi Tiết</a>|| <a style="color:yellow" href="#xuly" onclick="deleteZ()">Delete all this</a>
     <br/><br />
     <a href="/Admin/ListIPComeToHereTheFirst.txt" style="color:aqua" target="_blank">Xem list các IP đã ghé thăm (save in the first) hiện có</a>&nbsp;&nbsp;&nbsp;<a href="#xuly" style="color:aqua" onclick="mailthefirstIP()">Báo cáo list các IP đã ghé thăm (save in the first) hiện có qua mail và refresh</a>
       <hr /><hr />
+    <br /><br />
+    <select id="chonlua" onchange="doichonlua()">
+        <option>Thay thế các ảnh ngẫu nhiên hệ thống khi play karaoke (có thể tải lên nhiều file *.jpg)</option>
+        <option>Thay thế ảnh gif error khi truy cập page Error (chỉ tải lên 1 file *.jpg hoặc lấy file đầu tiên)</option>
+         <option>Thay thế ảnh gif waiting đại diện cho tiến trình chờ xử lý (chỉ tải lên 1 file *.gif hoặc lấy file đầu tiên)</option>
+         <option>Thay thế ảnh hiển thị cho phần Tab Tittle View (chỉ tải lên 1 file *.png hoặc lấy file đầu tiên)</option>
+         <option>Thay thế nội dung các Tab Tittle View (chỉ tải lên 1 file *.txt hoặc lấy file đầu tiên)</option>
+         <option>Thay thế nội dung các link ảnh online cho Tab Tittle View (chỉ tải lên 1 file *.txt hoặc lấy file đầu tiên)</option>
+         <option>Thay thế nội dung các link video youtube ngẫu nhiên - background play karaoke (chỉ tải lên 1 file *.txt hoặc lấy file đầu tiên)</option>
+    </select>
+     @using (Html.BeginForm("ReplaceUpload", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        @Html.ValidationSummary(true)
+        <input type="file" multiple name="txtFile" />
+        <input type="number" value="0" size="10" name="txtChonX" id="chonX" hidden />
+        <input type="submit" hidden id="oki" />
+    }
     <br />
+    <button style="color:crimson" onclick="okreplace()">OK REPLACE</button><br />
     </div>
      @if (TempData["SaveComeHere"] == "true")
     {

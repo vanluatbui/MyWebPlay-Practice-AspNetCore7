@@ -744,7 +744,8 @@ namespace MyWebPlay.Controllers
             {
                 if (ViewBag.Y == 1)
                 {
-                        if (flag == 0 && homePass != passAd && tong > 2000000)
+                        var infoX = listSetting[52].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                        if (flag == 0 && homePass != passAd && tong > int.Parse(infoX[3]))
                     {
                         flag = 6;
                     }
@@ -921,8 +922,10 @@ namespace MyWebPlay.Controllers
                 }
                 else if (flag == 6 && homePass != passAd)
                 {
-                    ViewData["Loi"] = "⚠️ Hiện tại mỗi lượt bạn chỉ có thể tải lên hệ thống các file tổng kích thước tối đa không quá 2 MB!";
-                    ViewBag.KetQua = "⚠️ Hiện tại mỗi lượt bạn chỉ có thể tải lên hệ thống các file tổng kích thước tối đa không quá 2 MB!";
+                    var infoX = listSetting[52].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                        var max = int.Parse(infoX[3]);
+                    ViewData["Loi"] = "⚠️ Hiện tại mỗi lượt bạn chỉ có thể tải lên hệ thống các file tổng kích thước tối đa không quá "+max+" KB.";
+                    ViewBag.KetQua = "⚠️ Hiện tại mỗi lượt bạn chỉ có thể tải lên hệ thống các file tổng kích thước tối đa không quá "+max+" KB.";
                     HttpContext.Session.SetString("data-result", "true"); return this.UploadFile("",ViewBag.SL, ViewBag.X, ViewBag.Y);
                 }
             }

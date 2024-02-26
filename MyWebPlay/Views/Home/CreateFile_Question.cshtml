@@ -13,15 +13,17 @@
         id = setInterval(myAlertX, 1000);
     }
 
+    var xw = new Number('@TempData["Time_Waiting"]') * 3;
+
     function myAlertX()
     {
-        so++;
-        if (so == 3)
+        if (so == xw)
         {
             document.getElementById("ok").click();
              clearInterval(id);
             return;
         }
+                so++;
     }
 </script>
 <table align="center">

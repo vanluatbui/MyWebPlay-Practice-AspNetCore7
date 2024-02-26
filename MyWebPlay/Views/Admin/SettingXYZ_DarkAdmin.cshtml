@@ -79,6 +79,7 @@ input:checked + .slider:before {
 
     <script>
 
+
         localStorage.removeItem("mini-Web");
 
         var checkme = 0;
@@ -88,6 +89,32 @@ input:checked + .slider:before {
             checkme = 1;
         }
 
+        function changeShow(x1, x2, x3, x4)
+        {
+            var txtAcceptUrl1 = document.getElementById(x1);
+
+            var txtAcceptUrl2 = document.getElementById(x2);
+
+            if (document.getElementById(x3).checked == true)
+            {
+                if (txtAcceptUrl1.value.replaceAll(x4,"\n") != txtAcceptUrl2.value)
+                {
+                    alert("Có vẻ như bạn vẫn đang tiến hành chỉnh sửa, vui lòng hoàn tác hoặc hoàn tất quá trình này để xem lại kết quả sau !");
+                    document.getElementById(x3).checked = false;
+                }
+                else
+                {
+                    txtAcceptUrl1.style.display = "none";
+                    txtAcceptUrl2.style.display = "inline-block";
+                }
+            }
+            else
+            {
+                    txtAcceptUrl1.style.display = "inline-block";
+                    txtAcceptUrl2.style.display = "none";
+            }
+        }
+       
         function mailthefirstIP()
         {
             var xn = confirm('Bạn có chắc chắn không?');
@@ -167,7 +194,7 @@ input:checked + .slider:before {
                  return;
              }
 
-             var n = new Number(document.getElementById("count").value) - 21;
+             var n = new Number(document.getElementById("count").value) - 22;
             for (var i = 0; i < n;i++)
             {
                 if (document.getElementById("check-"+i).checked == true)
@@ -359,7 +386,7 @@ input:checked + .slider:before {
             }
             else
             {
-                 var n = new Number(document.getElementById("count").value) - 21;
+                 var n = new Number(document.getElementById("count").value) - 22;
                 for (var i = 0; i < n;i++)
                 {
                     if (i == x)
@@ -384,7 +411,7 @@ input:checked + .slider:before {
 
             if (ch == 1)
             {
-                 var n = new Number(document.getElementById("count").value) - 21;
+                 var n = new Number(document.getElementById("count").value) - 22;
             for (var i = 0; i < n;i++)
             {
                 if (i == 0 || i == 20 || i == 30)
@@ -398,7 +425,7 @@ input:checked + .slider:before {
 
              if (ch == 2)
             {
-                 var n = new Number(document.getElementById("count").value) - 21;
+                 var n = new Number(document.getElementById("count").value) - 22;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2)
@@ -412,7 +439,7 @@ input:checked + .slider:before {
 
               if (ch == 3)
             {
-                 var n = new Number(document.getElementById("count").value) - 21;
+                 var n = new Number(document.getElementById("count").value) - 22;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 20)
@@ -426,7 +453,7 @@ input:checked + .slider:before {
 
               if (ch == 4)
             {
-                 var n = new Number(document.getElementById("count").value) - 21;
+                 var n = new Number(document.getElementById("count").value) - 22;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2 || i == 25)
@@ -440,7 +467,7 @@ input:checked + .slider:before {
 
               if (ch == 5)
             {
-                 var n = new Number(document.getElementById("count").value) - 21;
+                 var n = new Number(document.getElementById("count").value) - 22;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2 || i == 26)
@@ -454,7 +481,7 @@ input:checked + .slider:before {
 
               if (ch == 6)
             {
-                 var n = new Number(document.getElementById("count").value) - 21;
+                 var n = new Number(document.getElementById("count").value) - 22;
             for (var i = 0; i < n;i++)
             {
                 if (i == 2 || i == 20)
@@ -468,7 +495,7 @@ input:checked + .slider:before {
 
                if (ch == 7)
             {
-                 var n = new Number(document.getElementById("count").value) - 21;
+                 var n = new Number(document.getElementById("count").value) - 22;
             for (var i = 0; i < n;i++)
             {
                 if (i == 20)
@@ -482,7 +509,7 @@ input:checked + .slider:before {
 
               if (ch == 8)
             {
-                 var n = new Number(document.getElementById("count").value) - 21;
+                 var n = new Number(document.getElementById("count").value) - 22;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2 || i == 25 || i == 3 || i == 4 || i == 5 || i == 6)
@@ -496,7 +523,7 @@ input:checked + .slider:before {
 
               if (ch == 9)
             {
-                 var n = new Number(document.getElementById("count").value) - 21;
+                 var n = new Number(document.getElementById("count").value) - 22;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2 || i == 25 || i == 3 || i == 4 || i == 5 || i == 6 || i == 7 )
@@ -510,7 +537,7 @@ input:checked + .slider:before {
 
               if (ch == 10)
             {
-                 var n = new Number(document.getElementById("count").value) - 21;
+                 var n = new Number(document.getElementById("count").value) - 22;
             for (var i = 0; i < n;i++)
             {
                 if (i >=13 && i<= 19 || i >= 21 && i <= 23 || i == 28)
@@ -524,7 +551,7 @@ input:checked + .slider:before {
 
               if (ch == 11)
             {
-                 var n = new Number(document.getElementById("count").value) - 21;
+                 var n = new Number(document.getElementById("count").value) - 22;
             for (var i = 0; i < n;i++)
             {
                 if (i >=13 && i<= 19 || i >= 21 && i <= 23 || i == 28)
@@ -538,7 +565,7 @@ input:checked + .slider:before {
 
               if (ch == 12)
             {
-                 var n = new Number(document.getElementById("count").value) - 21;
+                 var n = new Number(document.getElementById("count").value) - 22;
             for (var i = 0; i < n;i++)
             {
                 if (i == 24)
@@ -567,7 +594,7 @@ input:checked + .slider:before {
 
               if (ch == 15)
             {
-                 var n = new Number(document.getElementById("count").value) - 21;
+                 var n = new Number(document.getElementById("count").value) - 22;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2 || i == 25 || i == 4 || i == 5 || i == 6 || i == 7 || i == 8)
@@ -595,7 +622,7 @@ input:checked + .slider:before {
             {
                 localStorage.setItem("matpassAd", document.getElementById("matpassAd").value);
             }
-            var n = new Number(document.getElementById("count").value) - 21;
+            var n = new Number(document.getElementById("count").value) - 22;
             for (var i = 0; i < n;i++)
             {
                 if (i == 29) continue;
@@ -612,7 +639,7 @@ input:checked + .slider:before {
             {
                 localStorage.setItem("matpassAd", document.getElementById("matpassAd").value);
             }
-            var n = new Number(document.getElementById("count").value) - 21;
+            var n = new Number(document.getElementById("count").value) - 22;
             for (var i = 0; i < n;i++)
             {
                 document.getElementById("check-"+i).checked = false;
@@ -930,7 +957,8 @@ input:checked + .slider:before {
  @if(Model.Topics[i].ID != "Password_Admin" && Model.Topics[i].ID != "Believe_IP" && Model.Topics[i].ID != "Code_LockedClient" && Model.Topics[i].ID != "MatDoTuyetDoi" 
  && Model.Topics[i].ID != "Encode_Url" && Model.Topics[i].ID != "Info_Email" && Model.Topics[i].ID != "Info_MegaIO" 
  && Model.Topics[i].ID != "Color_BackgroundAndText" && Model.Topics[i].ID != "Color_TracNghiem"  && Model.Topics[i].ID != "AppWeb_LockedUse"
- && Model.Topics[i].ID != "DownloadFile_ClearWeb" && Model.Topics[i].ID != "Accept_ListUrl" && Model.Topics[i].ID != "UploadFile_MaxSize" && Model.Topics[i].ID != "TabTittle_NoiDung")
+ && Model.Topics[i].ID != "DownloadFile_ClearWeb" && Model.Topics[i].ID != "Accept_ListUrl" && Model.Topics[i].ID != "UploadFile_MaxSize" 
+ && Model.Topics[i].ID != "TabTittle_NoiDung" && Model.Topics[i].ID != "Time_Waiting")
  {
 <label class="switch">
     @if (Model.Topics[i].Option == false)
@@ -957,7 +985,10 @@ input:checked + .slider:before {
                     else
                     if (Model.Topics[i].ID == "Believe_IP")
                     {
-                        <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.Believe" />
+                        <input id="txtBelieve1" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.Believe" />
+                         <textarea readonly id="txtBelieve2" cols="30" rows="15" style="display:none">@ViewBag.Belive_Line</textarea>
+                            <br />
+                            <input type="checkbox" id="checkBelieve" onchange="changeShow('txtBelieve1','txtBelieve2','checkBelieve',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
                     }
                     else
                     if (Model.Topics[i].ID == "Code_LockedClient")
@@ -972,7 +1003,10 @@ input:checked + .slider:before {
                      else
                     if (Model.Topics[i].ID == "Encode_Url")
                     {
-                        <input placeholder="Ví dụ bạn chỉ cần nhập Home/Index là được (không cần kèm theo https://)" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.EncodeUrl" />
+                        <input id="txtEncode1" placeholder="Ví dụ bạn chỉ cần nhập Home/Index là được (không cần kèm theo https://)" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.EncodeUrl" />
+                        <textarea readonly id="txtEncode2" cols="100" rows="15" style="display:none">@ViewBag.EncodeUrl_Line</textarea>
+                            <br />
+                            <input type="checkbox" id="checkEncode" onchange="changeShow('txtEncode1','txtEncode2','checkEncode','***')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
                     }
                     else
                     if (Model.Topics[i].ID == "Info_Email")
@@ -997,7 +1031,10 @@ input:checked + .slider:before {
                      else
                     if (Model.Topics[i].ID == "AppWeb_LockedUse")
                     {
-                        <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.LockedUseApp" />
+                        <input size="180" id="txtLock1" name="@Model.Topics[i].ID" type="text" value="@ViewBag.LockedUseApp" />
+                        <textarea readonly id="txtLock2" cols="30" rows="15" style="display:none">@ViewBag.LockedUseApp_Line</textarea>
+                            <br />
+                            <input type="checkbox" id="checkLock" onchange="changeShow('txtLock1','txtLock2','checkLock',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
                     }
                      else
                     if (Model.Topics[i].ID == "DownloadFile_ClearWeb")
@@ -1007,8 +1044,11 @@ input:checked + .slider:before {
                      else
                     if (Model.Topics[i].ID == "Accept_ListUrl")
                     {
-                        <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.AcceptListUrl" />
-                    }
+                        <input id="txtAcceptUrl1" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.AcceptListUrl" />
+                        <textarea readonly id="txtAcceptUrl2" cols="30" rows="15" style="display:none">@ViewBag.AcceptListUrl_Line</textarea>
+                            <br />
+                            <input type="checkbox" id="checkAccept" onchange="changeShow('txtAcceptUrl1','txtAcceptUrl2','checkAccept',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
+                        }
                       else
                     if (Model.Topics[i].ID == "TabTittle_NoiDung")
                     {
@@ -1018,6 +1058,11 @@ input:checked + .slider:before {
                     if (Model.Topics[i].ID == "UploadFile_MaxSize")
                     {
                         <input size="30" name="@Model.Topics[i].ID" type="number" value="@ViewBag.MaxSizeFile" min="0" max="9000000000000" />
+                    }
+                     else
+                    if (Model.Topics[i].ID == "Time_Waiting")
+                    {
+                        <input size="15" name="@Model.Topics[i].ID" type="number" value="@ViewBag.TimeWaiting" min="0" max="100000" />
                     }
                     <br /><br />
 }
@@ -1105,7 +1150,7 @@ input:checked + .slider:before {
 
        <br /><br />
     <h1 style="color:red">QUY TẮC CÁCH CHUYỂN ĐỔI CÁC KÍ TỰ SANG JAPAN - QUESTION (hiện có) : </h1>
-        <textarea id="JPrex" cols="100" rows="20">@TempData["rexJP"]</textarea>
+        <textarea id="JPrex" cols="30" rows="20">@TempData["rexJP"]</textarea>
     <br /><br /><hr /><hr />
     </div>
     

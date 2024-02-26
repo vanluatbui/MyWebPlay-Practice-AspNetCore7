@@ -247,7 +247,12 @@ namespace MyWebPlay.Controllers
                     TempData["mau-TN"] = info[3];
                 }
 
-                if (info[0] == "OffWebsite_All")
+                    if (info[0] == "Time_Waiting")
+                    {
+                        TempData["Time_Waiting"] = info[3];
+                    }
+
+                    if (info[0] == "OffWebsite_All")
                 {
                     if (info[1] == "true")
                     {

@@ -518,7 +518,7 @@ namespace MyWebPlay.Controllers
             settingAdmin.Topics = new List<SettingAdmin.Topic>();
                 for (int i = 0; i < listSetting.Length; i++)
                 {
-                    if (i >= 33 && i <= 44 || i == 50 || i == 52 || i == 51) continue;
+                    if (i >= 33 && i <= 44 || i == 50 || i == 52 || i == 51 || i ==55) continue;
 
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
                 settingAdmin.Topics.Add(new SettingAdmin.Topic(info[0], info[2], bool.Parse(info[1])));
@@ -783,16 +783,19 @@ namespace MyWebPlay.Controllers
             var listSetting = noidung.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             SettingAdmin settingAdmin = new SettingAdmin();
             settingAdmin.Topics = new List<SettingAdmin.Topic>();
-            for (int i = 0; i < listSetting.Length; i++)
-            {
-                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-                settingAdmin.Topics.Add(new SettingAdmin.Topic(info[0], info[2], bool.Parse(info[1])));
+                for (int i = 0; i < listSetting.Length; i++)
+                {
+                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                    settingAdmin.Topics.Add(new SettingAdmin.Topic(info[0], info[2], bool.Parse(info[1])));
 
-                if (info[0] == "Password_Admin")
-                    ViewBag.Password = info[3];
+                    if (info[0] == "Password_Admin")
+                        ViewBag.Password = info[3];
 
-                if (info[0] == "Encode_Url")
-                    ViewBag.EncodeUrl = info[3];
+                    if (info[0] == "Encode_Url")
+                    {
+                        ViewBag.EncodeUrl = info[3];
+                        ViewBag.EncodeUrl_Line = info[3].Replace("***", "\r\n");
+                    }
 
                 if (info[0] == "MatDoTuyetDoi")
                     ViewBag.MaMatDo = info[3];
@@ -802,10 +805,13 @@ namespace MyWebPlay.Controllers
 
                 if (info[0] == "Believe_IP")
                 {
-                    if (info[3] == "[NULL]")
-                        ViewBag.Believe = "";
-                    else
-                        ViewBag.Believe = info[3];
+                        if (info[3] == "[NULL]")
+                            ViewBag.Believe = "";
+                        else
+                        {
+                            ViewBag.Believe = info[3];
+                            ViewBag.Belive_Line = info[3].Replace(",", "\r\n");
+                        }
                 }
 
                 if (info[0] == "Info_Email")
@@ -837,7 +843,10 @@ namespace MyWebPlay.Controllers
                         if (info[3] == "[NULL]")
                             ViewBag.LockedUseApp = "";
                         else
+                        {
                             ViewBag.LockedUseApp = info[3];
+                            ViewBag.LockedUseApp_Line = info[3].Replace(",","\r\n");
+                        }
                     }
 
                     if (info[0] == "DownloadFile_ClearWeb")
@@ -853,7 +862,10 @@ namespace MyWebPlay.Controllers
                         if (info[3] == "[NULL]")
                             ViewBag.AcceptListUrl = "";
                         else
+                        {
                             ViewBag.AcceptListUrl = info[3];
+                            ViewBag.AcceptListUrl_Line = info[3].Replace(",","\r\n");
+                        }
                     }
 
                     if (info[0] == "TabTittle_NoiDung")
@@ -867,6 +879,11 @@ namespace MyWebPlay.Controllers
                     if (info[0] == "UploadFile_MaxSize")
                     {
                         ViewBag.MaxSizeFile = info[3];
+                    }
+
+                    if (info[0] == "Time_Waiting")
+                    {
+                        ViewBag.TimeWaiting = info[3];
                     }
 
                     if (info[0] == "Color_TracNghiem")
@@ -1111,7 +1128,7 @@ namespace MyWebPlay.Controllers
 
                     if (info[0] != "Password_Admin" && info[0] != "Believe_IP" && info[0] != "Code_LockedClient" && info[0] != "MatDoTuyetDoi" && info[0] != "Encode_Url" && info[0] != "Info_Email" && info[0] != "Info_MegaIO" && info[0] != "Color_BackgroundAndText" 
                         && info[0] != "Color_TracNghiem" && info[0] != "AppWeb_LockedUse" && info[0] != "DownloadFile_ClearWeb" && info[0] != "Accept_ListUrl"
-                        && info[0] != "UploadFile_MaxSize" && info[0] != "TabTittle_NoiDung")
+                        && info[0] != "UploadFile_MaxSize" && info[0] != "TabTittle_NoiDung" && info[0] != "Time_Waiting")
                     {
                         if (xi != info[1])
                         {
@@ -1196,6 +1213,18 @@ namespace MyWebPlay.Controllers
                         noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
                     }
                     else if (info[0] == "UploadFile_MaxSize")
+                    {
+                        var xinh = f[info[0]];
+
+                        if (xinh != info[3])
+                        {
+                            cometo = "#come-" + i;
+                            dix++;
+                        }
+
+                        noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
+                    }
+                    else if (info[0] == "Time_Waiting")
                     {
                         var xinh = f[info[0]];
 

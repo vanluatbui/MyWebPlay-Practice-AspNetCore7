@@ -89,9 +89,10 @@
 
    var idSo;
    var so = 0;
+   var xw = new Number('@TempData["Time_Waiting"]') * 6;
                     function myAlertSo()
                     {
-                        if (so == 6)
+                        if (so == xw)
                         {
                              var ok = document.getElementById("ok");
                              ok.style.display = "block";

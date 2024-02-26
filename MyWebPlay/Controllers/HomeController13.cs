@@ -717,7 +717,11 @@ namespace MyWebPlay.Controllers
                 TempData["skipIP"] = "true";
             }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
+
+                if (tn == null || tn.tongsocau == 0)
+                    return RedirectToAction("Error");
+
+                var listIP = new List<string>();
 
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
                 listIP.Add(HttpContext.Session.GetString("userIP"));

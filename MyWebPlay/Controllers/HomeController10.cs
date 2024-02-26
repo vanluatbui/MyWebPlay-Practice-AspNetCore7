@@ -413,6 +413,10 @@ namespace MyWebPlay.Controllers
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
                 TempData["skipIP"] = "true";
             }
+
+                if (tn == null || tn.tongsocau == 0)
+                    return RedirectToAction("Error");
+
             if (TempData["TracNghiem_Online"] != null)
             {
                 var dapan = TempData["TracNghiem_Online"];

@@ -2648,6 +2648,10 @@ namespace MyWebPlay.Controllers
                         System.IO.File.WriteAllText(path, nd5[0] + " + Đã tắt hết các setting phụ (sub admin setting) # " + xuxu);
                         break;
 
+                    case "17":
+                        System.IO.File.WriteAllText(path, "Bí mật và sử dụng data External API # " + xuxu);
+                        break;
+
                     case "ON-ALL":
                     System.IO.File.WriteAllText(path, "Đã bật hết tất cả các item setting (ngoại trừ mục cho phép website với mọi người thì sẽ ưu tiên việc get IP; và về setting nhận thông báo email dữ liệu Karaoke của user thì nhận luôn cả hai bản : Text và MP3) và hãy cẩn thận sự mâu thuẫn giữa các item setting lúc này # " + xuxu);
                     break;

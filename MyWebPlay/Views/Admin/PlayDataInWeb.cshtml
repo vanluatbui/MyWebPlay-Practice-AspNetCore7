@@ -1,5 +1,6 @@
-﻿
-@if (TempData["Layout_Random"] == "false")
+﻿@if (TempData["HTML-visible"].ToString() == "0")
+{
+if (TempData["Layout_Random"] == "false")
 {
     Layout = null;
 
@@ -112,4 +113,5 @@ else
      <input id="ok" style="font-weight:bolder" type="Submit" value="OK SEND" />
  }
  </div>
+}
 }

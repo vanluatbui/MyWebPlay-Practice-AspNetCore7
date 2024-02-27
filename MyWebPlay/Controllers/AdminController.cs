@@ -514,11 +514,19 @@ namespace MyWebPlay.Controllers
                         return RedirectToAction("Error", "Home");
                     }
                 }
-            SettingAdmin settingAdmin = new SettingAdmin();
+
+                var infoYA = listSetting[56].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoYA[0] == "HTML_Visible")
+                {
+                    TempData["HTML-visible"] = infoYA[3];
+                }
+
+                SettingAdmin settingAdmin = new SettingAdmin();
             settingAdmin.Topics = new List<SettingAdmin.Topic>();
                 for (int i = 0; i < listSetting.Length; i++)
                 {
-                    if (i >= 33 && i <= 44 || i == 50 || i == 52 || i == 51 || i ==55) continue;
+                    if (i >= 33 && i <= 44 || i == 50 || i == 52 || i == 51 || i ==55 || i == 56) continue;
 
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
                 settingAdmin.Topics.Add(new SettingAdmin.Topic(info[0], info[2], bool.Parse(info[1])));
@@ -565,6 +573,13 @@ namespace MyWebPlay.Controllers
                     {
                         return RedirectToAction("Error", "Home");
                     }
+                }
+
+                var infoYA = listSetting[56].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoYA[0] == "HTML_Visible")
+                {
+                    TempData["HTML-visible"] = infoYA[3];
                 }
 
                 var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
@@ -626,7 +641,12 @@ namespace MyWebPlay.Controllers
                     }
 
                 }
-              }
+
+                    if (info[0] == "HTML_Visible")
+                    {
+                        TempData["HTML-visible"] = info[3] + "";
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -886,6 +906,11 @@ namespace MyWebPlay.Controllers
                         ViewBag.TimeWaiting = info[3];
                     }
 
+                    if (info[0] == "HTML_Visible")
+                    {
+                        ViewBag.HTMLVisible = info[3];
+                    }
+
                     if (info[0] == "Color_TracNghiem")
                 {
                     ViewBag.TNColor = info[3];
@@ -1128,7 +1153,7 @@ namespace MyWebPlay.Controllers
 
                     if (info[0] != "Password_Admin" && info[0] != "Believe_IP" && info[0] != "Code_LockedClient" && info[0] != "MatDoTuyetDoi" && info[0] != "Encode_Url" && info[0] != "Info_Email" && info[0] != "Info_MegaIO" && info[0] != "Color_BackgroundAndText" 
                         && info[0] != "Color_TracNghiem" && info[0] != "AppWeb_LockedUse" && info[0] != "DownloadFile_ClearWeb" && info[0] != "Accept_ListUrl"
-                        && info[0] != "UploadFile_MaxSize" && info[0] != "TabTittle_NoiDung" && info[0] != "Time_Waiting")
+                        && info[0] != "UploadFile_MaxSize" && info[0] != "TabTittle_NoiDung" && info[0] != "Time_Waiting" && info[0] != "HTML_Visible")
                     {
                         if (xi != info[1])
                         {
@@ -1225,6 +1250,18 @@ namespace MyWebPlay.Controllers
                         noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
                     }
                     else if (info[0] == "Time_Waiting")
+                    {
+                        var xinh = f[info[0]];
+
+                        if (xinh != info[3])
+                        {
+                            cometo = "#come-" + i;
+                            dix++;
+                        }
+
+                        noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
+                    }
+                    else if (info[0] == "HTML_Visible")
                     {
                         var xinh = f[info[0]];
 
@@ -1496,7 +1533,12 @@ namespace MyWebPlay.Controllers
                         return RedirectToAction("Error");
                     }
                 }
-            }
+
+                    if (info[0] == "HTML_Visible")
+                    {
+                        TempData["HTML-visible"] = info[3] + "";
+                    }
+                }
 
                 if (HttpContext.Session.GetString("adminSetting") == null)
                 {
@@ -1592,7 +1634,12 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-                if (flag == 0 && (info[0] == "Email_Upload_User"
+                    if (info[0] == "HTML_Visible")
+                    {
+                        TempData["HTML-visible"] = info[3] + "";
+                    }
+
+                    if (flag == 0 && (info[0] == "Email_Upload_User"
                     || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
                     || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
                     || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
@@ -1870,7 +1917,12 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-                if (HttpContext.Session.GetString("TuyetDoi") != "true" && info[0] == "OffWebsite_All")
+                    if (info[0] == "HTML_Visible")
+                    {
+                        TempData["HTML-visible"] = info[3] + "";
+                    }
+
+                    if (HttpContext.Session.GetString("TuyetDoi") != "true" && info[0] == "OffWebsite_All")
                 {
                     if (info[1] == "true")
                         return RedirectToAction("Error","Home");
@@ -2055,7 +2107,11 @@ namespace MyWebPlay.Controllers
                         return RedirectToAction("Error");
                     }
                 }
-            }
+                    if (info[0] == "HTML_Visible")
+                    {
+                        TempData["HTML-visible"] = info[3] + "";
+                    }
+                }
             HttpContext.Session.Remove("ok-data");
             try
             {
@@ -2133,7 +2189,12 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-                if (HttpContext.Session.GetString("TuyetDoi") != "true" &&  info[0] == "OffWebsite_All")
+                    if (info[0] == "HTML_Visible")
+                    {
+                        TempData["HTML-visible"] = info[3] + "";
+                    }
+
+                    if (HttpContext.Session.GetString("TuyetDoi") != "true" &&  info[0] == "OffWebsite_All")
                 {
                     if (info[1] == "true")
                         return RedirectToAction("Error","Home");
@@ -2580,6 +2641,11 @@ namespace MyWebPlay.Controllers
 
                     case "15":
                         System.IO.File.WriteAllText(path, "Sử dụng POST DATA QUICK admin, cho phép mọi người, chuyển hướng đến trang file TXT của result (dành cho external) # " + xuxu);
+                        break;
+
+                    case "16":
+                        var nd5 = noidung.Split(" # ");
+                        System.IO.File.WriteAllText(path, nd5[0] + " + Đã tắt hết các setting phụ (sub admin setting) # " + xuxu);
                         break;
 
                     case "ON-ALL":

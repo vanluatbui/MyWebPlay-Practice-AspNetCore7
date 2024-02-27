@@ -1,6 +1,9 @@
 ﻿@{
     Layout = null;
 }
+
+@if (TempData["HTML-visible"].ToString() == "0")
+{
 <html lang="vi">
 <head>
      <meta charset="utf-8" />
@@ -114,3 +117,4 @@
             <h3>@Html.ActionLink("Chỉnh sửa Student Test Mark", "EditStudentMark")</h3>
  </body>
  </html>
+ }

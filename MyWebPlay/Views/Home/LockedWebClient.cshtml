@@ -1,7 +1,8 @@
 ﻿@{
     Layout = null;
 }
-
+@if (TempData["HTML-visible"].ToString() == "0")
+{
 <html lang="vi">
 <head>
     @if (TempData["OffRandomTab"] == "true")
@@ -102,3 +103,4 @@ body {
 </body>
 </head>
 </html>
+}

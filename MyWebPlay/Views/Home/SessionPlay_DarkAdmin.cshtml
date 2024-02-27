@@ -1,6 +1,8 @@
 ﻿@{
     Layout = null;
 }
+@if (TempData["HTML-visible"].ToString() != "2")
+{
 <html lang="vi">
 <head>
      <meta charset="utf-8" />
@@ -15,6 +17,10 @@
     <meta charset="ISO-8859-1">
 <script>
 
+    function okhihi()
+    {
+        document.getElementById("ok").click();
+    }
    
     function dichuyen()
     {
@@ -342,6 +348,7 @@
                 <br><br />
                 <textarea cols="100" rows="12" name="txtGiaTri" id="giatri" placeholder="Nhập giá trị gán cho session (nếu có) - nếu để trống mặc định sẽ là 'Default Session Webplay' !">@ViewBag.GiaTri</textarea>
                 <br>
+                <button onclick="okhihi()">❤</button>
                 <br>
                  <br>
                  <hr />
@@ -403,3 +410,4 @@
 
 </body>
 </html>
+}

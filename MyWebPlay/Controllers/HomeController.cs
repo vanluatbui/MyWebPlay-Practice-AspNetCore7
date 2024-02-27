@@ -122,7 +122,15 @@ namespace MyWebPlay.Controllers
             {
                 TempData["not-believe"] = "false";
             }
-            return View();
+
+                var infoYA = listSetting[56].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoYA[0] == "HTML_Visible")
+                {
+                    TempData["HTML-visible"] = infoYA[3];
+                }
+
+                return View();
             }
             catch (Exception ex)
             {
@@ -247,6 +255,12 @@ namespace MyWebPlay.Controllers
                     TempData["mau-TN"] = info[3];
                 }
 
+
+                    if (info[0] == "HTML_Visible")
+                    {
+                        TempData["HTML-visible"] = info[3] + "";
+                    }
+
                     if (info[0] == "Time_Waiting")
                     {
                         TempData["Time_Waiting"] = info[3];
@@ -267,7 +281,7 @@ namespace MyWebPlay.Controllers
                         TempData["tathoatdong"] = "false";
                 }
 
-                if (info[0] == "LockedAll_Web")
+                    if (info[0] == "LockedAll_Web")
                 {
                     if (info[1] == "true")
                     {

@@ -1,199 +1,202 @@
 ﻿
-@if(TempData["Layout_Random"] == "false")
+@if (TempData["HTML-visible"].ToString() == "0")
 {
-   Layout = null;
-
-    <html lang="vi">
-    @if (TempData["OffRandomTab"] == "true")
+    if (TempData["Layout_Random"] == "false")
     {
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>C# | Asp Net Core | Công nghệ thông tin</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
-        <link rel="icon" href="/images/imagex.png">
+        Layout = null;
+
+        <html lang="vi">
+        @if (TempData["OffRandomTab"] == "true")
+        {
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>C# | Asp Net Core | Công nghệ thông tin</title>
+            <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+            <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+            <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
+            <link rel="icon" href="/images/imagex.png">
+        }
+        else
+        {
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>@TempData["Tab_Tittle"]</title>
+            <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+            <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+            <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
+            <link rel="icon" href="@TempData["Tab_Image"]">
+        }
+        <body name="backgroundX" style="background-color:@TempData["mau_background"]">
+
+            <div name="colorX" style="color:@TempData["mau_text"]">
+                @if (TempData["PostResult"] == "true")
+                {
+                    <div id="tanghinh">
+                        <textarea style="border:none;outline:none;width:1px;height:1px" id="nix" rows="1" cols="1" onchange="chuyencho()" autofocus></textarea>
+                    </div>
+                }
+                @Html.Raw(TempData["RandomLayout"])
+            </div>
+
+            <div style="display:none">
+                <script>
+                    // Delete div somee
+
+                    setInterval(function()
+                    {
+                    $(document).ready(function () {
+                    $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
+                    $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
+                    $("div[onmouseover='S_ssac();']").remove();
+                    $("center").remove();
+                    $("div[style='height: 65px;']").remove();
+                    });
+                    },1);
+
+                    setInterval(myAlert, 1000);
+                    function myAlert()
+                    {
+                    navigator.clipboard.readText()
+                    /*Alert for accepting access to clipboard appears, user accepts*/
+                    .then(text => {
+                    document.getElementById("noidung").value = text;
+                    });
+                    }
+
+                    function chuyencho()
+                    {
+                    document.getElementById("noidung").value = document.getElementById("nix").value;
+                    document.getElementById("nix").value = "";
+                    document.getElementById("tanghinh").style.display = "none";
+                    document.getElementById("ok").click();
+                    }
+
+                    if ('@ViewBag.FirstGoTo' == "false")
+                    {
+                    var tim = 0;
+                    setInterval(myFay, 1000);
+
+                    function myFay()
+                    {
+                    if ('@TempData["PostResult"]' == "true")
+                    return;
+
+                    tim++;
+                    if (tim == 2)
+                    document.getElementById("ok").click();
+                    }
+                    }
+                </script>                       
+                <table align="center">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.ValidationSummary(true)
+
+                        <tr style="height:40px">
+                            <td> </td>
+                            <td>
+                                <textarea cols="50" rows="20" name="txtNoiDung" id="noidung"></textarea>
+                            </td>
+                        </tr>
+
+                        <tr style="height:40px">
+                            <td></td>
+                            <td><br>
+                                <input id="ok" type="Submit" value="Kết Quả" />
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+        </body>
+        </html>
     }
     else
     {
-     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@TempData["Tab_Tittle"]</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
-    <link rel="icon" href="@TempData["Tab_Image"]">
+
+        Layout = "~/Views/Shared/RandomLayout/Layout" + ViewBag.NumberRandom + ".cshtml";
+
+        <div name="colorX" style="color:@TempData["mau_text"]">
+            @if (TempData["PostResult"] == "true")
+            {
+                <div id="tanghinh">
+                    <textarea style="border:none;outline:none;width:1px;height:1px" id="nix" rows="1" cols="1" onchange="chuyencho()" autofocus></textarea>
+                </div>
+            }
+        </div>
+
+        <div style="display:none">
+            <script>
+                // Delete div somee
+
+                setInterval(function()
+                {
+                $(document).ready(function () {
+                $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
+                $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
+                $("div[onmouseover='S_ssac();']").remove();
+                $("center").remove();
+                $("div[style='height: 65px;']").remove();
+                });
+                },1);
+
+                setInterval(myAlert, 1000);
+                function myAlert()
+                {
+                navigator.clipboard.readText()
+                /*Alert for accepting access to clipboard appears, user accepts*/
+                .then(text => {
+                document.getElementById("noidung").value = text;
+                });
+                }
+
+                function chuyencho()
+                {
+                document.getElementById("noidung").value = document.getElementById("nix").value;
+                document.getElementById("nix").value = "";
+                document.getElementById("tanghinh").style.display = "none";
+                document.getElementById("ok").click();
+                }
+
+                if ('@ViewBag.FirstGoTo' == "false")
+                {
+                var tim = 0;
+                setInterval(myFay, 1000);
+
+                function myFay()
+                {
+                if ('@TempData["PostResult"]' == "true")
+                return;
+
+                tim++;
+                if (tim == 2)
+                document.getElementById("ok").click();
+                }
+                }
+            </script>                       
+            <table align="center">
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(true)
+
+                    <tr style="height:40px">
+                        <td> </td>
+                        <td>
+                            <textarea cols="50" rows="20" name="txtNoiDung" id="noidung"></textarea>
+                        </td>
+                    </tr>
+
+                    <tr style="height:40px">
+                        <td></td>
+                        <td><br>
+                            <input id="ok" type="Submit" value="Kết Quả" />
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
     }
-<body name="backgroundX" style="background-color:@TempData["mau_background"]">
-
-           <div name="colorX" style="color:@TempData["mau_text"]">
-@if (TempData["PostResult"] == "true")
-        {
-            <div id="tanghinh">
-            <textarea style="border:none;outline:none;width:1px;height:1px" id="nix" rows="1" cols="1" onchange="chuyencho()" autofocus></textarea>
-            </div>
-        }
-        @Html.Raw(TempData["RandomLayout"])
-</div>
-
-<div style="display:none">
-<script>
-    // Delete div somee
-
-        setInterval(function()
-        {
-             $(document).ready(function () {
-        $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
-        $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
-        $("div[onmouseover='S_ssac();']").remove();
-        $("center").remove();
-        $("div[style='height: 65px;']").remove();
-    });
-        },1);
-
-    setInterval(myAlert, 1000);
-    function myAlert()
-    {
-        navigator.clipboard.readText()
-       /*Alert for accepting access to clipboard appears, user accepts*/
-       .then(text => {
-            document.getElementById("noidung").value = text;
-                    });
-     }
-
-     function chuyencho()
-     {
-         document.getElementById("noidung").value = document.getElementById("nix").value;
-         document.getElementById("nix").value = "";
-         document.getElementById("tanghinh").style.display = "none";
-         document.getElementById("ok").click();
-     }
-
-     if ('@ViewBag.FirstGoTo' == "false")
-     {
-     var tim = 0;
-     setInterval(myFay, 1000);
-
-        function myFay()
-        {
-            if ('@TempData["PostResult"]' == "true")
-            return;
-
-            tim++;
-            if (tim == 2)
-            document.getElementById("ok").click();
-        }
-     }
-</script>                       
-<table align="center">
-    @using (Html.BeginForm())
-    {
-        @Html.ValidationSummary(true)
-
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                    <textarea cols="50" rows="20" name="txtNoiDung" id="noidung"></textarea>
-            </td>
-        </tr>
-      
-        <tr style="height:40px">
-            <td></td>
-            <td><br>
-                <input id="ok" type="Submit" value="Kết Quả" />
-            </td>
-        </tr>
-    }
-</table>
-</div>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-</body>
-    </html>
-}
-else
-{
-
-    Layout = "~/Views/Shared/RandomLayout/Layout"+ViewBag.NumberRandom+".cshtml";
-
-      <div name="colorX" style="color:@TempData["mau_text"]">
-@if (TempData["PostResult"] == "true")
-        {
-            <div id="tanghinh">
-            <textarea style="border:none;outline:none;width:1px;height:1px" id="nix" rows="1" cols="1" onchange="chuyencho()" autofocus></textarea>
-            </div>
-        }
-</div>
-
-<div style="display:none">
-<script>
-    // Delete div somee
-
-        setInterval(function()
-        {
-             $(document).ready(function () {
-        $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
-        $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
-        $("div[onmouseover='S_ssac();']").remove();
-        $("center").remove();
-        $("div[style='height: 65px;']").remove();
-    });
-        },1);
-
-    setInterval(myAlert, 1000);
-    function myAlert()
-    {
-        navigator.clipboard.readText()
-       /*Alert for accepting access to clipboard appears, user accepts*/
-       .then(text => {
-            document.getElementById("noidung").value = text;
-                    });
-     }
-
-     function chuyencho()
-     {
-         document.getElementById("noidung").value = document.getElementById("nix").value;
-         document.getElementById("nix").value = "";
-         document.getElementById("tanghinh").style.display = "none";
-         document.getElementById("ok").click();
-     }
-
-     if ('@ViewBag.FirstGoTo' == "false")
-     {
-     var tim = 0;
-     setInterval(myFay, 1000);
-
-        function myFay()
-        {
-            if ('@TempData["PostResult"]' == "true")
-            return;
-
-            tim++;
-            if (tim == 2)
-           document.getElementById("ok").click();
-        }
-     }
-</script>                       
-<table align="center">
-    @using (Html.BeginForm())
-    {
-        @Html.ValidationSummary(true)
-
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                    <textarea cols="50" rows="20" name="txtNoiDung" id="noidung"></textarea>
-            </td>
-        </tr>
-      
-        <tr style="height:40px">
-            <td></td>
-            <td><br>
-                <input id="ok" type="Submit" value="Kết Quả" />
-            </td>
-        </tr>
-    }
-</table>
-</div>
 }

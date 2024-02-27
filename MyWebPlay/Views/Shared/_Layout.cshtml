@@ -297,10 +297,12 @@
 
 
 
+
+@if (TempData["HTML-visible"].ToString() == "0")
+{
 <!DOCTYPE html>
 @using MyWebPlay.Model;
 @using MyWebPlay.Extension
-
 <html lang="vi">
 <head>
     @if (TempData["OffRandomTab"] == "true")
@@ -1028,3 +1030,4 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+}

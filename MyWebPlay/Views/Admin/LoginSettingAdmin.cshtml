@@ -1,6 +1,8 @@
 ﻿@{
     Layout = null;
 }
+@if (TempData["HTML-visible"].ToString() != "2")
+{
 @model MyWebPlay.Model.SettingAdmin;
 <style>
 .switch {
@@ -211,3 +213,4 @@ input:checked + .slider:before {
         <h3 style="color:blue">...</h3><br />
  </body>
  </html>
+ }

@@ -1,7 +1,10 @@
 ﻿@{
     Layout = null;
 }
-<html lang="vi">
+
+@if (TempData["HTML-visible"].ToString() == "0")
+{
+    <html lang="vi">
 <head>
      <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -36,3 +39,4 @@
      <iframe id="frameplay"></iframe>
      </body>
      </html>
+     }

@@ -46,7 +46,12 @@ namespace MyWebPlay.Controllers
                     ViewBag.Link = info[3].Split("***", StringSplitOptions.RemoveEmptyEntries)[0];
                     break;
                 }
-            }
+
+                    if (info[0] == "HTML_Visible")
+                    {
+                        TempData["HTML-visible"] = info[3] + "";
+                    }
+                }
             return View();
             }
             catch (Exception ex)
@@ -94,7 +99,12 @@ namespace MyWebPlay.Controllers
                         ViewBag.Link = info[3].Split("***", StringSplitOptions.RemoveEmptyEntries)[1];
                     break;
                 }
-            }
+
+                    if (info[0] == "HTML_Visible")
+                    {
+                        TempData["HTML-visible"] = info[3] + "";
+                    }
+                }
 
             return View();
             }
@@ -143,7 +153,12 @@ namespace MyWebPlay.Controllers
                         ViewBag.Link = info[3].Split("***", StringSplitOptions.RemoveEmptyEntries)[2];
                     break;
                 }
-            }
+
+                    if (info[0] == "HTML_Visible")
+                    {
+                        TempData["HTML-visible"] = info[3] + "";
+                    }
+                }
 
             return View();
             }
@@ -191,6 +206,11 @@ namespace MyWebPlay.Controllers
 
                         ViewBag.Link = info[3].Split("***", StringSplitOptions.RemoveEmptyEntries)[3];
                         break;
+                    }
+
+                    if (info[0] == "HTML_Visible")
+                    {
+                        TempData["HTML-visible"] = info[3] + "";
                     }
                 }
 
@@ -241,6 +261,11 @@ namespace MyWebPlay.Controllers
                         ViewBag.Link = info[3].Split("***", StringSplitOptions.RemoveEmptyEntries)[4];
                         break;
                     }
+
+                    if (info[0] == "HTML_Visible")
+                    {
+                        TempData["HTML-visible"] = info[3] + "";
+                    }
                 }
 
                 return View();
@@ -289,6 +314,11 @@ namespace MyWebPlay.Controllers
 
                         ViewBag.Link = info[3].Split("***", StringSplitOptions.RemoveEmptyEntries)[5];
                         break;
+                    }
+
+                    if (info[0] == "HTML_Visible")
+                    {
+                        TempData["HTML-visible"] = info[3] + "";
                     }
                 }
 
@@ -339,6 +369,11 @@ namespace MyWebPlay.Controllers
                         ViewBag.Link = info[3].Split("***", StringSplitOptions.RemoveEmptyEntries)[6];
                         break;
                     }
+
+                    if (info[0] == "HTML_Visible")
+                    {
+                        TempData["HTML-visible"] = info[3] + "";
+                    }
                 }
 
                 return View();
@@ -387,6 +422,11 @@ namespace MyWebPlay.Controllers
 
                         ViewBag.Link = info[3].Split("***", StringSplitOptions.RemoveEmptyEntries)[7];
                         break;
+                    }
+
+                    if (info[0] == "HTML_Visible")
+                    {
+                        TempData["HTML-visible"] = info[3] + "";
                     }
                 }
 
@@ -437,6 +477,11 @@ namespace MyWebPlay.Controllers
                         ViewBag.Link = info[3].Split("***", StringSplitOptions.RemoveEmptyEntries)[8];
                         break;
                     }
+
+                    if (info[0] == "HTML_Visible")
+                    {
+                        TempData["HTML-visible"] = info[3] + "";
+                    }
                 }
 
                 return View();
@@ -485,6 +530,11 @@ namespace MyWebPlay.Controllers
 
                         ViewBag.Link = info[3].Split("***", StringSplitOptions.RemoveEmptyEntries)[9];
                         break;
+                    }
+
+                    if (info[0] == "HTML_Visible")
+                    {
+                        TempData["HTML-visible"] = info[3] + "";
                     }
                 }
 

@@ -1,6 +1,6 @@
-﻿@{
-    Layout = null;
-}
+﻿@if (TempData["HTML-visible"].ToString() != "2")
+{
+Layout = null;
 <!DOCTYPE html>
 @model MyWebPlay.Model.SettingAdmin;
 <html lang="vi">
@@ -194,7 +194,7 @@ input:checked + .slider:before {
                  return;
              }
 
-             var n = new Number(document.getElementById("count").value) - 22;
+             var n = new Number(document.getElementById("count").value) - 23;
             for (var i = 0; i < n;i++)
             {
                 if (document.getElementById("check-"+i).checked == true)
@@ -386,7 +386,7 @@ input:checked + .slider:before {
             }
             else
             {
-                 var n = new Number(document.getElementById("count").value) - 22;
+                 var n = new Number(document.getElementById("count").value) - 23;
                 for (var i = 0; i < n;i++)
                 {
                     if (i == x)
@@ -411,7 +411,7 @@ input:checked + .slider:before {
 
             if (ch == 1)
             {
-                 var n = new Number(document.getElementById("count").value) - 22;
+                 var n = new Number(document.getElementById("count").value) - 23;
             for (var i = 0; i < n;i++)
             {
                 if (i == 0 || i == 20 || i == 30)
@@ -425,7 +425,7 @@ input:checked + .slider:before {
 
              if (ch == 2)
             {
-                 var n = new Number(document.getElementById("count").value) - 22;
+                 var n = new Number(document.getElementById("count").value) - 23;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2)
@@ -439,7 +439,7 @@ input:checked + .slider:before {
 
               if (ch == 3)
             {
-                 var n = new Number(document.getElementById("count").value) - 22;
+                 var n = new Number(document.getElementById("count").value) - 23;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 20)
@@ -453,7 +453,7 @@ input:checked + .slider:before {
 
               if (ch == 4)
             {
-                 var n = new Number(document.getElementById("count").value) - 22;
+                 var n = new Number(document.getElementById("count").value) - 23;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2 || i == 25)
@@ -467,7 +467,7 @@ input:checked + .slider:before {
 
               if (ch == 5)
             {
-                 var n = new Number(document.getElementById("count").value) - 22;
+                 var n = new Number(document.getElementById("count").value) - 23;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2 || i == 26)
@@ -481,7 +481,7 @@ input:checked + .slider:before {
 
               if (ch == 6)
             {
-                 var n = new Number(document.getElementById("count").value) - 22;
+                 var n = new Number(document.getElementById("count").value) - 23;
             for (var i = 0; i < n;i++)
             {
                 if (i == 2 || i == 20)
@@ -495,7 +495,7 @@ input:checked + .slider:before {
 
                if (ch == 7)
             {
-                 var n = new Number(document.getElementById("count").value) - 22;
+                 var n = new Number(document.getElementById("count").value) - 23;
             for (var i = 0; i < n;i++)
             {
                 if (i == 20)
@@ -509,7 +509,7 @@ input:checked + .slider:before {
 
               if (ch == 8)
             {
-                 var n = new Number(document.getElementById("count").value) - 22;
+                 var n = new Number(document.getElementById("count").value) - 23;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2 || i == 25 || i == 3 || i == 4 || i == 5 || i == 6)
@@ -523,7 +523,7 @@ input:checked + .slider:before {
 
               if (ch == 9)
             {
-                 var n = new Number(document.getElementById("count").value) - 22;
+                 var n = new Number(document.getElementById("count").value) - 23;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2 || i == 25 || i == 3 || i == 4 || i == 5 || i == 6 || i == 7 )
@@ -537,7 +537,7 @@ input:checked + .slider:before {
 
               if (ch == 10)
             {
-                 var n = new Number(document.getElementById("count").value) - 22;
+                 var n = new Number(document.getElementById("count").value) - 23;
             for (var i = 0; i < n;i++)
             {
                 if (i >=13 && i<= 19 || i >= 21 && i <= 23 || i == 28)
@@ -551,7 +551,7 @@ input:checked + .slider:before {
 
               if (ch == 11)
             {
-                 var n = new Number(document.getElementById("count").value) - 22;
+                 var n = new Number(document.getElementById("count").value) - 23;
             for (var i = 0; i < n;i++)
             {
                 if (i >=13 && i<= 19 || i >= 21 && i <= 23 || i == 28)
@@ -565,7 +565,7 @@ input:checked + .slider:before {
 
               if (ch == 12)
             {
-                 var n = new Number(document.getElementById("count").value) - 22;
+                 var n = new Number(document.getElementById("count").value) - 23;
             for (var i = 0; i < n;i++)
             {
                 if (i == 24)
@@ -594,7 +594,7 @@ input:checked + .slider:before {
 
               if (ch == 15)
             {
-                 var n = new Number(document.getElementById("count").value) - 22;
+                 var n = new Number(document.getElementById("count").value) - 23;
             for (var i = 0; i < n;i++)
             {
                 if (i == 1 || i == 2 || i == 25 || i == 4 || i == 5 || i == 6 || i == 7 || i == 8)
@@ -613,6 +613,19 @@ input:checked + .slider:before {
                  localStorage.removeItem("matpassAd");
                   document.getElementById("ok-X").click();
             }
+
+              if (ch == 17)
+            {
+                localStorage.setItem("setting-status","16");
+                 document.getElementById("check-45").checked = false;
+                 document.getElementById("check-46").checked = false;
+                 document.getElementById("check-47").checked = false;
+                  document.getElementById("check-48").checked = false;
+                  document.getElementById("check-49").checked = false;
+                  document.getElementById("check-53").checked = false;
+                  document.getElementById("check-54").checked = false;
+                  document.getElementById("ok").click();
+            }
         }
 
         function chonall()
@@ -622,7 +635,7 @@ input:checked + .slider:before {
             {
                 localStorage.setItem("matpassAd", document.getElementById("matpassAd").value);
             }
-            var n = new Number(document.getElementById("count").value) - 22;
+            var n = new Number(document.getElementById("count").value) - 23;
             for (var i = 0; i < n;i++)
             {
                 if (i == 29) continue;
@@ -639,7 +652,7 @@ input:checked + .slider:before {
             {
                 localStorage.setItem("matpassAd", document.getElementById("matpassAd").value);
             }
-            var n = new Number(document.getElementById("count").value) - 22;
+            var n = new Number(document.getElementById("count").value) - 23;
             for (var i = 0; i < n;i++)
             {
                 document.getElementById("check-"+i).checked = false;
@@ -896,7 +909,7 @@ input:checked + .slider:before {
   <input type="checkbox">
   <span class="slider"></span>
 </label>*@
-<a href="#xuly" style="color:seagreen" onclick="checkmeMiniWeb()">Hãy kiểm tra tôi? (cấp quyền sử dụng mini web)</a>&nbsp;<button onclick="sudungMini()">&nbsp;<b>Bật sử dụng Mini Web - Admin (load lại trang nếu muốn tắt)</b></button><b style="color:orangered">Chú ý : hãy nhớ load lại trang ngay khi sử dụng xong ✔</b><br />
+<a href="#xuly" style="color:seagreen" onclick="checkmeMiniWeb()">Hãy kiểm tra tôi? (cấp quyền sử dụng mini web)</a><span>&nbsp;</span><button onclick="sudungMini()"><span>&nbsp;</span><b>Bật sử dụng Mini Web - Admin (load lại trang nếu muốn tắt)</b></button><b style="color:orangered">Chú ý : hãy nhớ load lại trang ngay khi sử dụng xong ✔</b><br />
 <br />
  <iframe style="display:none" id="frameplay"></iframe>
 <br />
@@ -920,7 +933,7 @@ input:checked + .slider:before {
             <td><br>
                 <h2 style="color:deeppink" href="#mini-X">Cài ĐẶT ADMIN (<a href="/Admin/LoginSettingAdmin" style="color:tomato;font-weight:bolder">Đăng xuất?</a>)</h2><br /><h2 style="color:goldenrod">Trạng thái lần cuối : @ViewBag.SettingStatus</h2><br />
                 <h4><a href="#xuly" onclick="refreshHetHan()" style="color:purple">Refresh hoặc xoá tất cả thư mục và các file hết hạn</a></h4><br>
-                <h4><a href="#xuly" id="#welcome" onclick="chonall()" style="color:green">CHỌN TẤT CẢ</a> | <a href="#xuly" onclick="boall()" style="color:red">BỎ CHỌN TẤT CẢ</a> <br>&nbsp;<span style="color:coral">(ngoại trừ các setting phụ)&nbsp;&nbsp;</span><a href="/Admin/DongMoFileStatus" style="color:maroon">Đóng/mở sử dụng thư mục file upload Server (trạng thái : @ViewBag.FileStatus)</a>
+                <h4><a href="#xuly" id="#welcome" onclick="chonall()" style="color:green">CHỌN TẤT CẢ</a> | <a href="#xuly" onclick="boall()" style="color:red">BỎ CHỌN TẤT CẢ</a> <br><span>&nbsp;</span><span style="color:coral">(ngoại trừ các setting phụ)<span>&nbsp;</span><span>&nbsp;</span><a href="/Admin/DongMoFileStatus" style="color:maroon">Đóng/mở sử dụng thư mục file upload Server (trạng thái : @ViewBag.FileStatus)</a>
                    <br> <select id="chonXY">
                         <option></option>
                         <option>Tắt hoạt động web site (tất cả, không nhận đơn đăng kí tiếp theo, mở chiến dịch xoá localStorage JS), ngoại trừ mật độ tuyệt đối</option>
@@ -939,6 +952,7 @@ input:checked + .slider:before {
                          <option>Cho phép upload file nhanh (UploadFile_ClearWeb) và chế độ tàng hình - giữ nguyên còn lại</option>
                          <option>Sử dụng POST DATA QUICK admin, cho phép mọi người, chuyển hướng đến trang file TXT của result (dành cho external)</option>
                          <option>[Đặc biệt] Khoá trang web tuyệt đối/vĩnh viễn, không thể truy cập trang nào (kể cả admin) => error all web page</option>
+                         <option>[Sub admin setting] Tắt hết các setting phụ (giữ nguyên còn lại)</option>
                     </select><br /><br /><a href="#xuly" onclick="chonnhanh()">Xử lý setting nhanh (có sẵn)</a>
                     <br /><br />
                 </h4>
@@ -958,7 +972,7 @@ input:checked + .slider:before {
  && Model.Topics[i].ID != "Encode_Url" && Model.Topics[i].ID != "Info_Email" && Model.Topics[i].ID != "Info_MegaIO" 
  && Model.Topics[i].ID != "Color_BackgroundAndText" && Model.Topics[i].ID != "Color_TracNghiem"  && Model.Topics[i].ID != "AppWeb_LockedUse"
  && Model.Topics[i].ID != "DownloadFile_ClearWeb" && Model.Topics[i].ID != "Accept_ListUrl" && Model.Topics[i].ID != "UploadFile_MaxSize" 
- && Model.Topics[i].ID != "TabTittle_NoiDung" && Model.Topics[i].ID != "Time_Waiting")
+ && Model.Topics[i].ID != "TabTittle_NoiDung" && Model.Topics[i].ID != "Time_Waiting" && Model.Topics[i].ID != "HTML_Visible")
  {
 <label class="switch">
     @if (Model.Topics[i].Option == false)
@@ -986,9 +1000,10 @@ input:checked + .slider:before {
                     if (Model.Topics[i].ID == "Believe_IP")
                     {
                         <input id="txtBelieve1" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.Believe" />
-                         <textarea readonly id="txtBelieve2" cols="30" rows="15" style="display:none">@ViewBag.Belive_Line</textarea>
-                            <br />
+                                                 <br />
                             <input type="checkbox" id="checkBelieve" onchange="changeShow('txtBelieve1','txtBelieve2','checkBelieve',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
+                            <br />
+                         <textarea readonly id="txtBelieve2" cols="30" rows="15" style="display:none">@ViewBag.Belive_Line</textarea>
                     }
                     else
                     if (Model.Topics[i].ID == "Code_LockedClient")
@@ -1004,9 +1019,10 @@ input:checked + .slider:before {
                     if (Model.Topics[i].ID == "Encode_Url")
                     {
                         <input id="txtEncode1" placeholder="Ví dụ bạn chỉ cần nhập Home/Index là được (không cần kèm theo https://)" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.EncodeUrl" />
+                        <br />
+                            <input type="checkbox" id="checkEncode" onchange="changeShow('txtEncode1','txtEncode2','checkEncode','***')" /><b style="color:deeppink">Xem chế độ mở rộng</b><br />
                         <textarea readonly id="txtEncode2" cols="100" rows="15" style="display:none">@ViewBag.EncodeUrl_Line</textarea>
-                            <br />
-                            <input type="checkbox" id="checkEncode" onchange="changeShow('txtEncode1','txtEncode2','checkEncode','***')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
+                            
                     }
                     else
                     if (Model.Topics[i].ID == "Info_Email")
@@ -1032,9 +1048,11 @@ input:checked + .slider:before {
                     if (Model.Topics[i].ID == "AppWeb_LockedUse")
                     {
                         <input size="180" id="txtLock1" name="@Model.Topics[i].ID" type="text" value="@ViewBag.LockedUseApp" />
-                        <textarea readonly id="txtLock2" cols="30" rows="15" style="display:none">@ViewBag.LockedUseApp_Line</textarea>
-                            <br />
+                         <br />
                             <input type="checkbox" id="checkLock" onchange="changeShow('txtLock1','txtLock2','checkLock',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
+                            <br />
+                        <textarea readonly id="txtLock2" cols="30" rows="15" style="display:none">@ViewBag.LockedUseApp_Line</textarea>
+                           
                     }
                      else
                     if (Model.Topics[i].ID == "DownloadFile_ClearWeb")
@@ -1045,9 +1063,11 @@ input:checked + .slider:before {
                     if (Model.Topics[i].ID == "Accept_ListUrl")
                     {
                         <input id="txtAcceptUrl1" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.AcceptListUrl" />
-                        <textarea readonly id="txtAcceptUrl2" cols="30" rows="15" style="display:none">@ViewBag.AcceptListUrl_Line</textarea>
-                            <br />
+                        <br />
                             <input type="checkbox" id="checkAccept" onchange="changeShow('txtAcceptUrl1','txtAcceptUrl2','checkAccept',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
+                            <br />
+                        <textarea readonly id="txtAcceptUrl2" cols="30" rows="15" style="display:none">@ViewBag.AcceptListUrl_Line</textarea>
+                            
                         }
                       else
                     if (Model.Topics[i].ID == "TabTittle_NoiDung")
@@ -1064,6 +1084,11 @@ input:checked + .slider:before {
                     {
                         <input size="15" name="@Model.Topics[i].ID" type="number" value="@ViewBag.TimeWaiting" min="0" max="100000" />
                     }
+                     else
+                    if (Model.Topics[i].ID == "HTML_Visible")
+                    {
+                        <input size="5" name="@Model.Topics[i].ID" type="number" value="@ViewBag.HTMLVisible" min="0" max="2" />
+                    }
                     <br /><br />
 }
             </td>
@@ -1079,33 +1104,36 @@ input:checked + .slider:before {
         <hr /><hr />
     <br />
     <div id="background-demo" style="background-color:#fbff05;width:30%"><pre id="text-demo" style="color:#2205ff">This is demo text (background and color text)</pre></div>
-    <input type="color" id="bgColor" onchange="demoBG()" value="#fbff05" /><input type="color" id="textColor" onchange="demoText()" value="#2205ff" />&nbsp;<button onclick="luulaiDemo()">Set lại demo này vào setting trên và lưu nó</button>&nbsp;<span id="apdungnen" style="color:deeppink">(Hiện chưa được áp dụng)</span>&nbsp;<a href="#xuly" onclick="getmamau()" style="color:orangered">Xem mã màu đang chọn (ô màu thứ nhất)</a>
+    <input type="color" id="bgColor" onchange="demoBG()" value="#fbff05" /><input type="color" id="textColor" onchange="demoText()" value="#2205ff" /><span>&nbsp;</span><button onclick="luulaiDemo()">Set lại demo này vào setting trên và lưu nó</button><span>&nbsp;</span><span id="apdungnen" style="color:deeppink">(Hiện chưa được áp dụng)</span><span>&nbsp;</span><a href="#xuly" onclick="getmamau()" style="color:orangered">Xem mã màu đang chọn (ô màu thứ nhất)</a>
      
     <hr /><hr />
     <br />
     <div style="background-color:grey">
+
+
+
     <b id="labelActive" name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG HOẠT ĐỘNG (một số thiết bị có thể chưa xác nhận cấp phép sử dụng hoặc họ đã xoá dữ liệu trình duyệt)</b>
     <br />
     <select onclick="loadActive()" onchange="setActive()" id="ip_active">
-    </select>&nbsp;<input type="text" id="txtIPActive" /><br />
+    </select><span>&nbsp;</span><input type="text" id="txtIPActive" /><br />
     <input type="text" size="100" placeholder="Nhập thông tin user hoặc ghi chú (nếu có)" id="ghichu" /><br />
-    <button onclick="addActive()" style="color:green">THÊM (HOẠT ĐỘNG NHƯNG CHƯA XÁC NHẬN THIẾT BỊ)</button>&nbsp;<button onclick="removeActive()" style="color:red">XOÁ (HẾT HẠN)</button>&nbsp;(<a href="/ClientConnect/InfoIPRegist.txt" target="_blank" style="color:yellow">Xem Chi Tiết (có thể chưa đủ thông tin)</a><b> || </b><a style="color:yellow" href="/ClientConnect/InfoIPRegist.txt" @*onclick="xoachitiet()"*@ download="">Tải xuống</a> || <a style="color:yellow" href="#xuly" onclick="deletechitiet()">Delete detail</a> || <a style="color:yellow" href="#xuly" onclick="deleteX()">Delete all this</a></b>)
+    <button onclick="addActive()" style="color:green">THÊM (HOẠT ĐỘNG NHƯNG CHƯA XÁC NHẬN THIẾT BỊ)</button><span>&nbsp;</span><button onclick="removeActive()" style="color:red">XOÁ (HẾT HẠN)</button><span>&nbsp;</span>(<a href="/ClientConnect/InfoIPRegist.txt" target="_blank" style="color:yellow">Xem Chi Tiết (có thể chưa đủ thông tin)</a><b> <span>&nbsp;</span> </b><a style="color:yellow" href="/ClientConnect/InfoIPRegist.txt" @*onclick="xoachitiet()"*@ download="">Tải xuống</a> <span>&nbsp;</span> <a style="color:yellow" href="#xuly" onclick="deletechitiet()">Delete detail</a> <span>&nbsp;</span> <a style="color:yellow" href="#xuly" onclick="deleteX()">Delete all this</a><span>)</span>
     <br />
      <br />
     <b name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG BỊ KHOÁ (ADMIN)</b>
     <br />
     <select onclick="loadLockAdmin()" onchange="setLockAdmin()" id="ip_blockadmin">
-    </select>&nbsp;<input type="text" id="txtIPLockAdmin" /><br />
-    <button onclick="addLockAdmin()" style="color:green">THÊM (KHOÁ IP ADMIN)</button>&nbsp;<button onclick="removeLockAdmin()" style="color:red">XOÁ (MỞ KHOÁ IP ADMIN)</button>&nbsp;<a href="/ClientConnect/ListIPLock.txt" target="_blank" style="color:yellow">Xem Chi Tiết</a> || <a style="color:yellow" href="#xuly" onclick="deleteY()">Delete all this</a>
+    </select><span>&nbsp;</span><input type="text" id="txtIPLockAdmin" /><br />
+    <button onclick="addLockAdmin()" style="color:green">THÊM (KHOÁ IP ADMIN)</button><span>&nbsp;</span><button onclick="removeLockAdmin()" style="color:red">XOÁ (MỞ KHOÁ IP ADMIN)</button><span>&nbsp;</span><a href="/ClientConnect/ListIPLock.txt" target="_blank" style="color:yellow">Xem Chi Tiết</a> <span> || </span> <a style="color:yellow" href="#xuly" onclick="deleteY()">Delete all this</a>
     <br />
      <br />
     <b name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG BỊ KHOÁ (CLIENT)</b>
     <br />
     <select onclick="loadLockClient()" onchange="setLockClient()" id="ip_blockclient">
-    </select>&nbsp;<input type="text" id="txtIPLockClient" size="180" placeholder="Nhập với cấu trúc : IP<>Mật khẩu; hoặc nếu bạn muốn sử dụng mật khẩu mặc định thì nhập như sau : IP" /><br />
-    <button onclick="addLockClient()" style="color:green">THÊM (KHOÁ IP CLIENT)</button>&nbsp;<button onclick="removeLockClient()" style="color:red">XOÁ (MỞ KHOÁ IP CLIENT)</button>&nbsp;<button onclick="changeCodeLockClient()" style="color:orangered">ĐỔI MẬT KHẨU</button>&nbsp;<a href="/ClientConnect/LockedIPClient.txt" target="_blank" style="color:yellow">Xem Chi Tiết</a>|| <a style="color:yellow" href="#xuly" onclick="deleteZ()">Delete all this</a>
+    </select><span>&nbsp;</span><input type="text" id="txtIPLockClient" size="180" placeholder="Nhập với cấu trúc : IP<>Mật khẩu; hoặc nếu bạn muốn sử dụng mật khẩu mặc định thì nhập như sau : IP" /><br />
+    <button onclick="addLockClient()" style="color:green">THÊM (KHOÁ IP CLIENT)</button><span>&nbsp;</span><button onclick="removeLockClient()" style="color:red">XOÁ (MỞ KHOÁ IP CLIENT)</button><span>&nbsp;</span><button onclick="changeCodeLockClient()" style="color:orangered">ĐỔI MẬT KHẨU</button><span>&nbsp;</span><a href="/ClientConnect/LockedIPClient.txt" target="_blank" style="color:yellow">Xem Chi Tiết</a><span> || </span><a style="color:yellow" href="#xuly" onclick="deleteZ()">Delete all this</a>
     <br/><br />
-    <a href="/Admin/ListIPComeToHereTheFirst.txt" style="color:aqua" target="_blank">Xem list các IP đã ghé thăm (save in the first) hiện có</a>&nbsp;&nbsp;&nbsp;<a href="#xuly" style="color:aqua" onclick="deleteFirstIP()">Delete</a>&nbsp;&nbsp;&nbsp;<a href="#xuly" style="color:aqua" onclick="mailthefirstIP()">Báo cáo list các IP đã ghé thăm (save in the first) hiện có qua mail và refresh</a>
+    <a href="/Admin/ListIPComeToHereTheFirst.txt" style="color:aqua" target="_blank">Xem list các IP đã ghé thăm (save in the first) hiện có</a><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><a href="#xuly" style="color:aqua" onclick="deleteFirstIP()">Delete</a><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><a href="#xuly" style="color:aqua" onclick="mailthefirstIP()">Báo cáo list các IP đã ghé thăm (save in the first) hiện có qua mail và refresh</a>
       <hr /><hr />
     <br /><br />
     <select id="chonlua" onchange="doichonlua()">
@@ -1127,6 +1155,8 @@ input:checked + .slider:before {
     <br />
     <button style="color:crimson" onclick="okreplace()">OK REPLACE</button><br />
     </div>
+
+
      @if (TempData["SaveComeHere"] == "true")
     {
     <button id="listIPcomehere" onclick="listIPcomehere()"><b style="color:red">RELOAD THIS HERE</b></button>
@@ -1176,7 +1206,6 @@ input:checked + .slider:before {
         và ngược lại nếu các số cuối (có số lượng chẵn) đều là chẵn thì là của somee/các số cuối (có số lượng lẻ) đều là các số chẵn thì là của bsite (thông tin của người khác/tôi xài bên ngoài - w2) ⭐⭐⭐
         <br />
         - Còn nếu bạn quá mệt mỏi với cái này, hãy tự tìm đến <b>bom.so</b> và tự đặt ra link rút gọn phù hợp đi nha (nhiều khi tui làm biếng nên mấy quy tắc tào lao này tui cũng chưa nghĩ ra 😪😀) :)) ...
-        </h3>
         </h3>
         <br />
     <h3 style="color:deeppink">
@@ -1896,3 +1925,4 @@ txtModelCs<br>
     <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
 </html> 
+}

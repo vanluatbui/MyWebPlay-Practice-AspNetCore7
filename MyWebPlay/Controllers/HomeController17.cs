@@ -793,7 +793,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-                if (HttpContext.Session.GetString("trust-X-you") == null)
+                    if (HttpContext.Session.GetString("trust-X-you") == null)
                 {
                     if (info[0] == "Alert_UsingWebsite")
                     {
@@ -940,8 +940,7 @@ namespace MyWebPlay.Controllers
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-
-                if (info[0] == "LockedAll_Web")
+                    if (info[0] == "LockedAll_Web")
                 {
                     if (info[1] == "true")
                     {

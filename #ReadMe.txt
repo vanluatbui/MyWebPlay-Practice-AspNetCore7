@@ -46,6 +46,15 @@ cái item setting [Khoá all web site page - kể cả admin] đang bật thì m
 
 //Các hướng dẫn và web page còn lại cũng có ghi (tạm) trên trang setting hoặc bạn tự tìm hiểu thêm nhé. Thanks you!❤🤩😁...
 
+- Ngoài ra bí mật bạn có thể thay đổi setting admin gián tiếp bằng cách Play trang Session và add session C# như sau :
+
+	+ Key :[ID admin<>Password admin-adsetdata]ID setting (bạn tự tìm ở project local)
+	+ Value : true/false hoặc giá trị cần thay đổi của setting đó (bạn tự đảm bảo)
+
+Còn nếu bạn muốn xem tình trạng hiện tại của setting nào đó gián tiếp, cũng có thể get value session Play C# như sau :
+
++ Key :[ID admin<>Password admin-adsetview]ID setting bạn muốn xem (bạn tự tìm ở project local)
+
 ------------------------------------------------------------------------
 
 - Hiện tại, nếu bạn tắt hết tất cả các item setting admin thì khi truy cập bất cứ trang nào cũng sẽ chuyển hướng đến page error/page mạo khác (cho dù có là IP tin tưởng hay mật độ tuyệt đối,...) => Vì vậy, để không bị ảnh hưởng bởi điều trên và cho phép các IP tin tưởng hay mật độ tuyệt đối có thể truy cập khi website đang tắt hoạt động hay các user chưa đăng kí sử dụng thì phải bật setting "Hoạt động web site" hoặc "Thông báo khi website tắt hoạt động - tạm thời chỉ có cách này :(( 💜 ...

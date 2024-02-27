@@ -1,7 +1,8 @@
 ﻿@{
     Layout = null;
 }
-
+@if (TempData["HTML-visible"].ToString() == "0")
+{
     <html lang="vi">
 <head>
      <meta charset="utf-8" />
@@ -19,3 +20,4 @@
 </body>
 </head>
 </html>
+}

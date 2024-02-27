@@ -481,18 +481,23 @@ namespace MyWebPlay.Controllers
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-            for (int i = 0; i < listSetting.Length; i++)
-            {
-                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-
-                if (info[0] == "LockedAll_Web" || info[0] == "SessionPlay_Unenabled")
+                for (int i = 0; i < listSetting.Length; i++)
                 {
-                    if (info[1] == "true")
+                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                    if (info[0] == "LockedAll_Web" || info[0] == "SessionPlay_Unenabled")
                     {
-                        return RedirectToAction("Error");
+                        if (info[1] == "true")
+                        {
+                            return RedirectToAction("Error");
+                        }
+                    }
+
+                    if (info[0] == "HTML_Visible")
+                    {
+                        TempData["HTML-visible"] = info[3] + "";
                     }
                 }
-            }
 
                     var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
 
@@ -537,18 +542,23 @@ namespace MyWebPlay.Controllers
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-            for (int i = 0; i < listSetting.Length; i++)
-            {
-                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-
-                if (info[0] == "LockedAll_Web" || info[0] == "SessionPlay_Unenabled")
+                for (int i = 0; i < listSetting.Length; i++)
                 {
-                    if (info[1] == "true")
+                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                    if (info[0] == "LockedAll_Web" || info[0] == "SessionPlay_Unenabled")
                     {
-                        return RedirectToAction("Error");
+                        if (info[1] == "true")
+                        {
+                            return RedirectToAction("Error");
+                        }
+                    }
+
+                    if (info[0] == "HTML_Visible")
+                    {
+                        TempData["HTML-visible"] = info[3] + "";
                     }
                 }
-            }
 
             var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
 
@@ -577,7 +587,65 @@ namespace MyWebPlay.Controllers
             ViewBag.Session = session;
             ViewBag.GiaTri = giatri;
 
-            if (session.Contains("[32752262]") && giatri.Contains("[32752262]"))
+                var pthU = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var idU = System.IO.File.ReadAllText(pthU).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[0];
+                var passU = System.IO.File.ReadAllText(pthU).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[1];
+
+                if (session.Contains("[" + idU + "<>" + passU + "-adsetdata]"))
+                {
+                    var set = giatri.Split("###", StringSplitOptions.RemoveEmptyEntries)[0];
+                    var gt = giatri.Split("###", StringSplitOptions.RemoveEmptyEntries)[1];
+
+                    var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                    var noidung = System.IO.File.ReadAllText(path);
+                    var listSettingI = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                    for (int i = 0; i < listSettingI.Length; i++)
+                    {
+                        var info = listSettingI[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                        if (info[0] == set)
+                        {
+                            if (info.Length == 3)
+                            {
+                                noidung = noidung.Replace(info[0] + "<3275>" + info[1], info[0] + "<3275>" + gt);
+                            }
+                            else
+                            {
+                                noidung = noidung.Replace(info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + info[3], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + gt);
+                            }
+                        }
+
+                    }
+
+                    System.IO.File.WriteAllText(path, noidung);
+                }
+
+                if (session.Contains("[" + idU + "<>" + passU + "-adsetview]"))
+                {
+                    var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SettingABC_DarkBVL.txt");
+                    var noidung = System.IO.File.ReadAllText(path);
+                    var listSettingI = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                    for (int i = 0; i < listSettingI.Length; i++)
+                    {
+                        var info = listSettingI[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                        if (info[0] == giatri)
+                        {
+                            if (info.Length == 3)
+                            {
+                                ViewBag.KetQua = info[1];
+                            }
+                            else
+                            {
+                                ViewBag.KetQua = info[3];
+                            }
+                        }
+                    }
+                }
+
+                if (session.Contains("[32752262]") && giatri.Contains("[32752262]"))
             {
                 var id = session.Replace("[32752262]", "");
                 var code = giatri.Replace("[32752262]", "");

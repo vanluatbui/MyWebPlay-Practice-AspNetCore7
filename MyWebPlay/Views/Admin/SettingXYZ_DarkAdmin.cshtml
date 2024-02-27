@@ -626,6 +626,27 @@ input:checked + .slider:before {
                   document.getElementById("check-54").checked = false;
                   document.getElementById("ok").click();
             }
+
+              if (ch == 18)
+            {
+                 var n = new Number(document.getElementById("count").value) - 23;
+            for (var i = 0; i < n;i++)
+            {
+                 if (i == 8)
+                document.getElementById("check-"+i).checked = true;
+                else
+                document.getElementById("check-"+i).checked = false;
+            }
+            localStorage.setItem("setting-status", "17");
+                 document.getElementById("check-45").checked = false;
+                 document.getElementById("check-46").checked = false;
+                 document.getElementById("check-47").checked = false;
+                  document.getElementById("check-48").checked = true;
+                  document.getElementById("check-49").checked = false;
+                  document.getElementById("check-53").checked = false;
+                  document.getElementById("check-54").checked = false;
+                  document.getElementById("ok").click();
+            }
         }
 
         function chonall()
@@ -953,6 +974,7 @@ input:checked + .slider:before {
                          <option>Sử dụng POST DATA QUICK admin, cho phép mọi người, chuyển hướng đến trang file TXT của result (dành cho external)</option>
                          <option>[Đặc biệt] Khoá trang web tuyệt đối/vĩnh viễn, không thể truy cập trang nào (kể cả admin) => error all web page</option>
                          <option>[Sub admin setting] Tắt hết các setting phụ (giữ nguyên còn lại)</option>
+                          <option>[Bonus secret] Bí mật và sử dụng data External API</option>
                     </select><br /><br /><a href="#xuly" onclick="chonnhanh()">Xử lý setting nhanh (có sẵn)</a>
                     <br /><br />
                 </h4>

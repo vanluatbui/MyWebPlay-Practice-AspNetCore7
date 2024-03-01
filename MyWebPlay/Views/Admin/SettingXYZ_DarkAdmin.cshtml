@@ -1101,17 +1101,17 @@ input:checked + .slider:before {
                     else
                     if (Model.Topics[i].ID == "UploadFile_MaxSize")
                     {
-                        <input size="30" name="@Model.Topics[i].ID" type="number" value="@ViewBag.MaxSizeFile" min="0" max="9000000000000" />
+                        <input size="30" name="@Model.Topics[i].ID" type="number" required value="@ViewBag.MaxSizeFile" min="0" max="9000000000000" />
                     }
                      else
                     if (Model.Topics[i].ID == "Time_Waiting")
                     {
-                        <input size="15" name="@Model.Topics[i].ID" type="number" value="@ViewBag.TimeWaiting" min="0" max="100000" />
+                        <input size="15" name="@Model.Topics[i].ID" type="number" required value="@ViewBag.TimeWaiting" min="0" max="100000" />
                     }
                      else
                     if (Model.Topics[i].ID == "HTML_Visible")
                     {
-                        <input size="5" name="@Model.Topics[i].ID" type="number" value="@ViewBag.HTMLVisible" min="0" max="2" />
+                        <input size="5" name="@Model.Topics[i].ID" type="number" required value="@ViewBag.HTMLVisible" min="0" max="2" />
                     }
                     else
                     if (Model.Topics[i].ID == "Admin_Setting")

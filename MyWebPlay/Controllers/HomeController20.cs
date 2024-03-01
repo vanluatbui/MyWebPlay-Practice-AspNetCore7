@@ -10,6 +10,147 @@ namespace MyWebPlay.Controllers
 {
     public partial class HomeController : Controller
     {
+        public ActionResult DeleteBin()
+        {
+            try
+            {
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Exists == true)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Delete(true);
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Exists == true)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Delete(true);
+
+                var pthY = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var ndY = System.IO.File.ReadAllText(pthY);
+                var onoff = ndY.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[3];
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "apiUpload")).Exists == true)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "apiUpload")).Delete(true);
+
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "apiUpload")).Create();
+
+                if (onoff == "file_MO")
+                {
+                    if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file")).Exists == false)
+                        new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file")).Create();
+
+                    if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "#fileclose")).Exists == true)
+                        new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "#fileclose")).Delete(true);
+                }
+                else if (onoff == "file_TAT")
+                {
+                    if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "#fileclose")).Exists == false)
+                        new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "#fileclose")).Create();
+
+                    if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file")).Exists == true)
+                        new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file")).Delete(true);
+                }
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Exists)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Delete(true);
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Exists == false)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Create();
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Exists == false)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Create();
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Exists == false)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Create();
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem")).Exists == false)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem")).Create();
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "note")).Exists == false)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "note")).Create();
+
+                var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
+
+                foreach (var file in listFile)
+                {
+                    FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", file));
+                    f.Delete();
+                }
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Exists)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Delete(true);
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult")).Exists)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult")).Delete(true);
+
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult")).Create();
+
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
+
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var nd = System.IO.File.ReadAllText(pth);
+                var onoffY = nd.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[3];
+
+
+                var infoFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"));
+
+                if (onoffY == "file_TAT")
+                    infoFile = infoFile.Replace("file/", "#fileclose/");
+                else
+                     if (onoffY == "file_MO")
+                    infoFile = infoFile.Replace("#fileclose/", "file/");
+
+                var files = infoFile.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+
+                Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+                string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+                for (int xx = 0; xx < files.Length; xx++)
+                {
+                    if (files[xx] == "") continue;
+
+                    var fi = files[xx].Split("\t");
+
+                    var today = xuxu.Split("/");
+                    var hethan = fi[1].Split("/");
+
+                    var d1 = int.Parse(today[0]);
+                    var m1 = int.Parse(today[1]);
+                    var y1 = int.Parse(today[2]);
+
+                    var d2 = int.Parse(hethan[0]);
+                    var m2 = int.Parse(hethan[1]);
+                    var y2 = int.Parse(hethan[2]);
+
+                    if (SoSanh2Ngay(d1, m1, y1, d2, m2, y2) >= 0 || new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0])).Exists == false)
+                    {
+                        FileInfo fx = new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0].TrimStart('/')));
+                        fx.Delete();
+                        infoFile = infoFile.Replace(fi[0] + "\t" + fi[1] + "\n", "");
+                    }
+
+                }
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "InfoWebFile", "InfoWebFile.txt"), infoFile);
+                try
+                {
+                    XoaDirectoryNull("file");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Loi = "";
+                    return Ok(new { error = "Đã xảy ra lỗi trong quá trình thực hiện (hoặc thành công được chút ít)" });
+                }
+
+                return Ok(new { result = "Đã xử lý thành công !" });
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return Ok(new { error = HttpContext.Session.GetObject<string>("error_exception_log") });
+            }
+        }
 
         public ActionResult Replace_Hamorny()
         {
@@ -45,6 +186,30 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Error", new { exception = "true" });
             }
             return View();
+        }
+
+
+        public ActionResult FindApiUpload(string name)
+        {
+            try
+            {
+                if (new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "apiUpload", name)).Exists == false)
+                {
+                    return Ok(new { alert = "File không tồn tại!" });
+                }
+
+                return Ok(new { url = "http://" + Request.Host + "/apiUpload/" + name, html = "<a href=\"/apiUpload/" + name + "\">Click here</a>" });
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                return Ok(new { error = HttpContext.Session.GetObject<string>("error_exception_log") });
+            }
         }
         // Check link url exist and respone OK?
 
@@ -172,7 +337,7 @@ namespace MyWebPlay.Controllers
 
             if (exter == false)
                 return View();
-           else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") }); }
+           else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = "http://"+Request.Host+ "/POST_DataResult/" + TempData["fileResult"].ToString().Replace(" ","%20") }); }
         }
 
 

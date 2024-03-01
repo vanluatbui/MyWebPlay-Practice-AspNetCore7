@@ -943,7 +943,7 @@ namespace MyWebPlay.Controllers
 
                 if (exter == false)
                     return View();
-               else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") }); }
+               else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = "http://"+Request.Host+ "/POST_DataResult/" + TempData["fileResult"].ToString().Replace(" ","%20") }); }
             }
             catch (Exception ex)
             {

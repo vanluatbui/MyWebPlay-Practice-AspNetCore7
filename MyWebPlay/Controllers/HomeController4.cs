@@ -176,7 +176,7 @@ namespace MyWebPlay.Controllers
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
                 if (exter == false)
                     return View();
-               else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") }); }
+               else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = "http://"+Request.Host+ "/POST_DataResult/" + TempData["fileResult"].ToString().Replace(" ","%20") }); }
             }
             catch (Exception ex)
             {
@@ -358,7 +358,7 @@ namespace MyWebPlay.Controllers
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
                 if (exter == false)
                     return View();
-               else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") }); }
+               else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = "http://"+Request.Host+ "/POST_DataResult/" + TempData["fileResult"].ToString().Replace(" ","%20") }); }
             }
             catch (Exception ex)
             {
@@ -629,7 +629,7 @@ namespace MyWebPlay.Controllers
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
                 if (exter == false)
                     return View();
-               else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = nix.Replace("\r", "[R-PLAY]").Replace("\n", "[N-PLAY]").Replace("\t", "[T-PLAY]").Replace("\"", "[NGOACKEP]") }); }
+               else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = "http://"+Request.Host+ "/POST_DataResult/" + TempData["fileResult"].ToString().Replace(" ","%20") }); }
             }
             catch (Exception ex)
             {

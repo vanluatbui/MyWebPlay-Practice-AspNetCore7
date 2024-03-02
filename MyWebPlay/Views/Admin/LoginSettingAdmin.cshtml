@@ -160,6 +160,34 @@ input:checked + .slider:before {
             }
          }
 
+         function thaydoichon()
+         {
+             if (document.getElementById("chonX").options.selectedIndex == 0)
+             {
+                 for (var i = 0; i < new Number('@TempData["count-setting"]'); i++)
+                 {
+                     document.getElementById("haha-"+i).style.display = "block";
+                     document.getElementById("come-"+i).style.display = "block";
+                 }
+             }
+             else
+             {
+                 for (var i = 0; i < new Number('@TempData["count-setting"]'); i++)
+                 {
+                     if (document.getElementById("check-"+i).checked == true)
+                     {
+                     document.getElementById("haha-"+i).style.display = "block";
+                     document.getElementById("come-"+i).style.display = "block";
+                     }
+                     else
+                     {
+                     document.getElementById("haha-"+i).style.display = "none";
+                     document.getElementById("come-"+i).style.display = "none";
+                     }
+                 }
+             }
+         }
+
 </script>
 <html lang="vi">
 <head>
@@ -190,24 +218,28 @@ input:checked + .slider:before {
  </div>
  <br/><hr /><br />
  <h1 style="color:deeppink">BẢN XEM TRƯỚC MỘT SỐ CÀI ĐẶT HIỆN TẠI (để chỉnh sửa vui lòng đăng nhập)</h1><br />
+ <select id="chonX" onchange="thaydoichon()">
+     <option>Hiển thị tất cả</option>
+     <option>Chỉ hiển thị các setting đang bật</option>
+ </select><br /><br />
   @for (int i = 0; i < Model.Topics.Count; i++)
 {
                     <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-@i">@Html.Raw(Model.Topics[i].NoiDung)</h3>
-                   <label class="switch">
+                   <label id="haha-@i" class="switch">
     @if (Model.Topics[i].Option == false)
     {
 
-          <input disabled type="checkbox" />
+          <input id="check-@i" disabled type="checkbox" />
                                 
      }
             else
             {
                
-                <input disabled type="checkbox" checked />
+                <input id="check-@i" disabled type="checkbox" checked />
             }
             <span class="slider round"></span>
+                        <br /><br />
             </label>
-            <br />
  }
         <br /><br />
         <h3 style="color:blue">...</h3><br />

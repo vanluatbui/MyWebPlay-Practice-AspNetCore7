@@ -524,15 +524,21 @@ namespace MyWebPlay.Controllers
 
                 SettingAdmin settingAdmin = new SettingAdmin();
             settingAdmin.Topics = new List<SettingAdmin.Topic>();
+
+                var dem = 0;
                 for (int i = 0; i < listSetting.Length; i++)
                 {
                     if (i >= 33 && i <= 44 || i == 50 || i == 52 || i == 51 || i ==55 || i == 56 || i == 58) continue;
 
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
                 settingAdmin.Topics.Add(new SettingAdmin.Topic(info[0], info[2], bool.Parse(info[1])));
+                    dem++;
             }
 
-            HttpContext.Session.Remove("adminSetting");
+                TempData["count-setting"] = dem;
+
+
+                HttpContext.Session.Remove("adminSetting");
                 return View(settingAdmin);
             }
             catch (Exception ex)

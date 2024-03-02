@@ -48,12 +48,13 @@ cái item setting [Khoá all web site page - kể cả admin] đang bật thì m
 
 - Ngoài ra bí mật bạn có thể thay đổi setting admin gián tiếp bằng cách Play trang Session và add session C# như sau :
 
-	+ Key :[ID admin<>Password admin-adsetdata]ID setting (bạn tự tìm ở project local)
-	+ Value : true/false hoặc giá trị cần thay đổi của setting đó (bạn tự đảm bảo)
+	+ Key :[ID admin<>Password admin-adsetdata]
+	+ Value : ID setting (bạn tự tìm ở project local)###true/false hoặc giá trị cần thay đổi của setting đó (bạn tự đảm bảo)
 
 Còn nếu bạn muốn xem tình trạng hiện tại của setting nào đó gián tiếp, cũng có thể get value session Play C# như sau :
 
-+ Key :[ID admin<>Password admin-adsetview]ID setting bạn muốn xem (bạn tự tìm ở project local)
++ Key :[ID admin<>Password admin-adsetview]
++ Value : ID setting bạn muốn xem (bạn tự tìm ở project local)
 
 ------------------------------------------------------------------------
 

@@ -40,3 +40,9 @@
 7. ApiUpload : upload file to folder wwroot/apiUpload
 
 - fileUpload
+
+8. DeleteBin : xoá các file rác, hết hạn trên server
+
+9. FindApiUpload Tìm tải file đã upload trên folder wwroot/apiUpload trước đó
+
+- name (VD : filedemo.txt)

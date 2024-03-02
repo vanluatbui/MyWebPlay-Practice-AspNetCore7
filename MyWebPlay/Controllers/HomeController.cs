@@ -603,7 +603,19 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-                if (info[0] == "Off_RandomTab")
+                    if (info[0] == "Admin_MiniWeb")
+                    {
+                        if (info[1] == "true")
+                        {
+                            TempData["errorXY"] = "true";
+                        }
+                        else
+                        {
+                            TempData["errorXY"] = "false";
+                        }
+                    }
+
+                    if (info[0] == "Off_RandomTab")
                 {
                     if (info[1] == "false")
                     {
@@ -655,6 +667,8 @@ namespace MyWebPlay.Controllers
                     else
                         TempData["errorXY"] = "false";
                 }
+
+
 
                 if (HttpContext.Session.GetString("mini-error") == "true")
                 {

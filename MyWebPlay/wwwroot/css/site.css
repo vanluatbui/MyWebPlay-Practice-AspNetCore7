@@ -98,6 +98,7 @@ body {
         width: 100%;
         animation: run-text 5s infinite linear;
         animation-duration: var(--animation, 10s);
+        animation-iteration-count: 1;
         text-shadow: 0 0 3px rgba(255,255,255,1);
     }
 
@@ -126,6 +127,7 @@ body {
         width: 100%;
         animation: run-text 5s infinite linear;
         animation-duration: var(--animation);
+        animation-iteration-count: 1;
         text-shadow: 0 0 3px rgba(255,255,255,1);
     }
 

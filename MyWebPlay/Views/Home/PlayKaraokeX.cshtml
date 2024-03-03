@@ -207,7 +207,7 @@ body {
                 {
                                 duMusic++;
                             var duMusix = new Number(document.getElementById("music").duration);
-                            if (duMusic - 0.1 >= duMusix)
+                            if (duMusic - 2 >= duMusix)
                             {
                                 duMusic = 0;
                                 resetKaraoke();
@@ -1645,7 +1645,7 @@ function showlist()
                           <br /><br />
                           <input type="checkbox" name="auto_play" />&nbsp;<b>Không tự động phát nhạc khi bắt đầu</b>
                            <br /><br />
-                          <input type="checkbox" name="auto_music" />&nbsp;<b>Tự động lặp lại music</b>
+                          <input type="checkbox" name="auto_music" />&nbsp;<b>Tự động lặp lại music (không đảm bảo)</b>
                            <br /><br />
                           <input type="checkbox" name="encrypt_data" id="txtEncr" />&nbsp;<b>Giải mã nội dung file TXT của tôi tải lên (hãy thử nếu bạn gặp vấn đề về xử lý)</b>
                 </td>
@@ -2067,7 +2067,7 @@ else if (ViewBag.SuDung == "Video")
                           <br /><br />
                           <input type="checkbox" name="auto_play" />&nbsp;<b>Không tự động phát nhạc khi bắt đầu</b>
                            <br /><br />
-                          <input type="checkbox" name="auto_music" />&nbsp;<b>Tự động lặp lại music</b>
+                          <input type="checkbox" name="auto_music" />&nbsp;<b>Tự động lặp lại music (không đảm bảo)</b>
                           <br /><br />
                           <input type="checkbox" name="encrypt_data" id="txtEncr" />&nbsp;<b>Giải mã nội dung file TXT của tôi tải lên (hãy thử nếu bạn gặp vấn đề về xử lý)</b>
                 </td>

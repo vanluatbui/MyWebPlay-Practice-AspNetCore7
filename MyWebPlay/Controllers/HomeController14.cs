@@ -885,6 +885,15 @@ namespace MyWebPlay.Controllers
                     TempData["auto-play"] = "true";
                 }
 
+                if (f["auto_music"].ToString() == "on")
+                {
+                    TempData["auto-music"] = "true";
+                }
+                else
+                {
+                    TempData["auto-music"] = "false";
+                }
+
                 ViewBag.Option = chon;
 
             if (chon == "1")
@@ -929,7 +938,61 @@ namespace MyWebPlay.Controllers
                 link = link.Replace("youtu.be/", "youtube.com/embed/");
                 link = link.Replace("youtube.com/watch?v=", "youtube.com/embed/");
 
-                if (link.Contains("youtube") == false)
+                  TempData["id-youtube"] = link.Replace("https://www.youtube.com/embed/","");
+
+                    var id = link.Replace("https://www.youtube.com/embed/", "");
+
+                    try
+                    {
+                        WebClient client = new WebClient();
+                        Stream stream = client.OpenRead("https://www.googleapis.com/youtube/v3/videos?id=" + id + "&part=contentDetails&key=AIzaSyD5bK5gubDOrvgoHvWg-OTbDqVogqe6R_8");
+                        StreamReader reader = new StreamReader(stream);
+                        String content = reader.ReadToEnd();
+
+                        var part1 = content.Split("\"duration\": ");
+                        var part2 = part1[1].Split("\",");
+                        var durationYoutube = part2[0].Replace("\"", "");
+
+                        var h = 0;
+                        var m = 0;
+                        var s = 0;
+
+                        if (durationYoutube.StartsWith("PT"))
+                        {
+                            durationYoutube = durationYoutube.Replace("PT", "");
+
+                            if (durationYoutube.Contains("H"))
+                            {
+                                h = int.Parse(durationYoutube.Split("H")[0]);
+                            }
+
+                            durationYoutube = durationYoutube.Replace(h + "H", "").Replace("H", "");
+
+                            if (durationYoutube.Contains("M"))
+                            {
+                                m = int.Parse(durationYoutube.Split("M")[0]);
+                            }
+
+                            durationYoutube = durationYoutube.Replace(m + "M", "").Replace("M", "");
+
+                            if (durationYoutube.Contains("S"))
+                            {
+                                s = int.Parse(durationYoutube.Split("S")[0]);
+                            }
+
+                            TempData["duration-Youtube"] = (h * 3600 + m * 60 + s) + "";
+                        }
+                        else
+                        {
+                            TempData["duration-Youtube"] = "no";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw;
+                    }
+
+                    if (link.Contains("youtube") == false)
                     ViewBag.Share = "ERROR";
 
                 if (link.Contains("?"))
@@ -957,7 +1020,61 @@ namespace MyWebPlay.Controllers
                 link = link.Replace("youtu.be/", "youtube.com/embed/");
                 link = link.Replace("youtube.com/watch?v=", "youtube.com/embed/");
 
-                if (link.Contains("youtube") == false)
+                    TempData["id-youtube"] = link.Replace("https://www.youtube.com/embed/", "");
+
+                    var id = link.Replace("https://www.youtube.com/embed/", "");
+
+                    try
+                    {
+                        WebClient client = new WebClient();
+                        Stream stream = client.OpenRead("https://www.googleapis.com/youtube/v3/videos?id="+id+"&part=contentDetails&key=AIzaSyD5bK5gubDOrvgoHvWg-OTbDqVogqe6R_8");
+                        StreamReader reader = new StreamReader(stream);
+                        String content = reader.ReadToEnd();
+
+                        var part1 = content.Split("\"duration\": ");
+                        var part2 = part1[1].Split("\",");
+                        var durationYoutube = part2[0].Replace("\"", "");
+
+                        var h = 0;
+                        var m = 0;
+                        var s = 0;
+                        
+                        if (durationYoutube.StartsWith("PT"))
+                        {
+                            durationYoutube = durationYoutube.Replace("PT", "");
+
+                            if (durationYoutube.Contains("H"))
+                            {
+                                h = int.Parse(durationYoutube.Split("H")[0]);
+                            }
+
+                            durationYoutube = durationYoutube.Replace(h+"H","").Replace("H", "");
+
+                            if (durationYoutube.Contains("M"))
+                            {
+                                m = int.Parse(durationYoutube.Split("M")[0]);
+                            }
+
+                            durationYoutube = durationYoutube.Replace(m + "M", "").Replace("M", "");
+
+                            if (durationYoutube.Contains("S"))
+                            {
+                                s = int.Parse(durationYoutube.Split("S")[0]);
+                            }
+
+                            TempData["duration-Youtube"] = (h * 3600 + m * 60 + s) + "";
+                        }
+                        else
+                        {
+                            TempData["duration-Youtube"] = "no";
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        throw;
+                    }
+
+                    if (link.Contains("youtube") == false)
                     ViewBag.Share = "ERROR";
 
                 if (link.Contains("?"))

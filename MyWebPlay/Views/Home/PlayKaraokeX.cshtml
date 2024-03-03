@@ -171,6 +171,13 @@ body {
 
     function copyshare()
     {
+        if (dFlag == 1)
+        {
+             document.getElementById("message").style.display = "inline-block";
+          document.getElementById("error").style.display = "inline-block";
+        document.getElementById("error").innerHTML = "⚠️ Xử lý thất bại, do đang có nội dung bản text Karaoke đang được mã hoá nhưng chưa được giải mã. Vui lòng thử lại sau !";
+            return;
+        }
         var mi = "";
 
         if ('@TempData["data-encrypt"]' == "true")
@@ -186,6 +193,45 @@ body {
 
     var idX;
     idX = setInterval(myAlertX, 1000);
+
+            var dFlag = 0;
+
+        var duYou = 0;
+        var durationYoutube = '@TempData["duration-Youtube"]';
+        var duMusic = 0;
+    setInterval(function()
+        {
+            if ('@TempData["post-kara"]' == "true")
+            {
+                if ('@TempData["auto-music"]' == "true")
+                {
+                                duMusic++;
+                            var duMusix = new Number(document.getElementById("music").duration);
+                            if (duMusic >= duMusix)
+                            {
+                                duMusic = 0;
+                                resetKaraoke();
+                            }
+                }
+
+             if ('@ViewBag.SuDung' == "Youtube")
+               {
+                                window.location.href = "#"+'@TempData["id-youtube"]';
+                               
+                                var duraYou = new Number(durationYoutube);
+                                if (durationYoutube != "no")
+                                {
+                                    duYou++;
+                                    if (duYou >= duraYou)
+                                    {
+                                        duYou = 0;
+                                        document.getElementById("re-You").click();
+                                    }
+                                }
+               }
+            }
+    },1000);
+
     var so =0;
     function myAlertX()
     {
@@ -599,6 +645,7 @@ function showlist()
     {
          document.getElementById("musix").currentTime = 0;
          document.getElementById("music").currentTime =0;
+         duMusic = 0;
 
          t = 10;
           kk = 0;
@@ -640,11 +687,11 @@ function showlist()
           if ('@TempData["TK-KARA"]' == "")
         {
         localStorage.setItem("mau", document.getElementById("mau").value);
+        localStorage.setItem("hang", document.getElementById("hang").value);
         }
         localStorage.setItem("mauX", document.getElementById("mauX").value);
         localStorage.setItem("mauY", document.getElementById("mauY").value);
         localStorage.setItem("kichthuoc", document.getElementById("kichthuoc").value);
-        localStorage.setItem("hang", document.getElementById("hang").value);
         localStorage.setItem("kieuchu", document.getElementById("fontKieu").options.selectedIndex);
         localStorage.setItem("kieudemnguoc", document.getElementById("kieudemnguoc").value);
          localStorage.setItem("dotre", document.getElementById("dotre").value);
@@ -693,6 +740,7 @@ function showlist()
         if ('@ViewBag.SuDung' == "Youtube")
         {
         document.getElementById("phanphoi").innerHTML= "<iframe id=\"myVideo\" src=\""+'@ViewBag.Background'+"\"></iframe>";
+        duYou = 0;
         }
         else if ('@ViewBag.SuDung' == "Video")
         {
@@ -702,8 +750,10 @@ function showlist()
 
      function replay_Youtube()
     {
+        duMusic = 0;
         if ('@ViewBag.SuDung' == "Youtube")
         {
+        duYou = 0;
         document.getElementById("phanphoi").innerHTML= "<iframe id=\"myVideo\" src=\""+'@ViewBag.Background'+"\"></iframe>";
         }
         else if ('@ViewBag.SuDung' == "Video")
@@ -998,6 +1048,14 @@ function showlist()
                         if (flag == 0)
                         {
                             LBH = document.getElementById("txtKara").value.split(/\r|\n/);
+ 
+                     if (dFlag == 0 && LBH.length == 1)
+                    {
+                         document.getElementById("message").style.display = "inline-block";
+          document.getElementById("error").style.display = "inline-block";
+        document.getElementById("error").innerHTML = "⚠️ Cảnh báo, hệ thống không nhận diện được dữ liệu và nội dung Karaoke của bạn. Nguyên nhân có thể do bản text Karaoke của bạn đã tải lên có nội dung được mã hoá, vui lòng thử giải mã và thực hiện lại !";
+                      dFlag = 1;
+                    }
 
                     var k = 0;
                     for (var i = 0; i < LBH.length; i++)
@@ -1151,6 +1209,7 @@ function showlist()
                 else
                 {
                     var sing = LBH[n].split("*");
+
                   //-- document.getElementById("txtKaraoke1").innerHTML = new String(sing[0]).toUpperCase().replace("UNDEFINED","");
 
                    //-- document.getElementById("txtKaraoke2").innerHTML = new String(sing[1]).toUpperCase().replace("UNDEFINED","");
@@ -1579,11 +1638,13 @@ function showlist()
                       <input type="number" hidden id="chonKarax" name="KaraChon" value="1" min="1" max="5" />
                       <br><br>
                       <input name="txtOnline" id="online" size="100" style="display:none" type="text" placeholder="Nhập link online background của bạn thực hiện karaoke..." />
-                     <br><span id="helpYoutube" style="color:red; display:none"><u>Lưu ý</u> : một số link Youtube có thể không khả dụng hoặc bạn nên cố gắng thử lại (và hãy tìm video youtube dài phút nhất có thể 😃)</span>
+                     <br><span id="helpYoutube" style="color:red; display:none"><u>Lưu ý</u> : một số link Youtube có thể không khả dụng hoặc bạn nên cố gắng thử lại (và hãy tìm video youtube dài phút nhất có thể 😃, tuy nhiên một số trường hợp video có thể tự lặp lại)</span>
                      @*<br><span id="Youtubehelp" style="color:blueviolet; display:none">Với lựa chọn này, để đảm bảo sự tuyệt đối thì ban đầu nhạc sẽ không được phát tự động như bình thường.<br>
                          Bạn vui lòng tự canh đợi sau khi video Youtube trên background của bạn đã bắt đầu vừa phát, hãy nhấn phím link <span style="color:orangered">Play & Start</span> để mới bắt đầu hành trình nhé 😁</span>*@
                           <br /><br />
                           <input type="checkbox" name="auto_play" />&nbsp;<b>Không tự động phát nhạc khi bắt đầu</b>
+                           <br /><br />
+                          <input type="checkbox" name="auto_music" />&nbsp;<b>Tự động lặp lại music</b>
                            <br /><br />
                           <input type="checkbox" name="encrypt_data" id="txtEncr" />&nbsp;<b>Giải mã nội dung file TXT của tôi tải lên (hãy thử nếu bạn gặp vấn đề về xử lý)</b>
                 </td>
@@ -1700,12 +1761,12 @@ else
                         &nbsp;
                          @if (ViewBag.SuDung == "Youtube")
                         {
-                            <b style="color:aqua"><a onclick="restart_Youtube()" href="#xuly">Restart video/Youtube</a></b>
+                            <b style="color:aqua"><a id="re-You" onclick="restart_Youtube()" href="#xuly">Restart video Youtube</a></b>
                         }
                         &nbsp;
                           @if (ViewBag.SuDung == "Youtube")
                         {
-                             <b style="color:aqua"><a onclick="replay_Youtube()" href="#xuly">Restart video/Youtube and karaoke</a></b>
+                             <b style="color:aqua"><a onclick="replay_Youtube()" href="#xuly">Restart video Youtube and karaoke</a></b>
                         }
     <br />
     </div>
@@ -1999,11 +2060,13 @@ else if (ViewBag.SuDung == "Video")
                       <input type="number" hidden id="chonKarax" name="KaraChon" value="1" min="1" max="5" />
                       <br><br>
                       <input name="txtOnline" id="online" size="100" style="display:none" type="text" placeholder="Nhập link online background của bạn thực hiện karaoke..." />
-                     <br><span id="helpYoutube" style="color:red; display:none"><u>Lưu ý</u> : một số link Youtube có thể không khả dụng hoặc bạn nên cố gắng thử lại (và hãy tìm video youtube dài phút nhất có thể 😃)</span>
+                     <br><span id="helpYoutube" style="color:red; display:none"><u>Lưu ý</u> : một số link Youtube có thể không khả dụng hoặc bạn nên cố gắng thử lại (và hãy tìm video youtube dài phút nhất có thể 😃, tuy nhiên một số trường hợp video có thể tự lặp lại)</span>
                      @* <br><span id="Youtubehelp" style="color:blueviolet; display:none">Với lựa chọn này, để đảm bảo sự tuyệt đối thì ban đầu nhạc sẽ không được phát tự động như bình thường.<br>
                           Bạn vui lòng tự canh đợi sau khi video Youtube trên background của bạn đã bắt đầu vừa phát, hãy nhấn phím link <span style="color:orangered">Play & Start</span> để mới bắt đầu hành trình nhé 😁</span>*@
                           <br /><br />
                           <input type="checkbox" name="auto_play" />&nbsp;<b>Không tự động phát nhạc khi bắt đầu</b>
+                           <br /><br />
+                          <input type="checkbox" name="auto_music" />&nbsp;<b>Tự động lặp lại music</b>
                           <br /><br />
                           <input type="checkbox" name="encrypt_data" id="txtEncr" />&nbsp;<b>Giải mã nội dung file TXT của tôi tải lên (hãy thử nếu bạn gặp vấn đề về xử lý)</b>
                 </td>
@@ -2104,7 +2167,7 @@ else
                         &nbsp;
                          @if (ViewBag.SuDung == "Youtube")
                         {
-                            <b style="color:aqua"><a onclick="restart_Youtube()" href="#xuly">Restart video Youtube</a></b>
+                            <b style="color:aqua"><a id="re-You" onclick="restart_Youtube()" href="#xuly">Restart video Youtube</a></b>
                         }
                         &nbsp;
                           @if (ViewBag.SuDung == "Youtube")

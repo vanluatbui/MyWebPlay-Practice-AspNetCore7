@@ -1490,6 +1490,13 @@ namespace MyWebPlay.Controllers
                     return RedirectToAction("LoginSettingAdmin");
                 }
 
+                var infoYA = listSetting[56].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoYA[0] == "HTML_Visible")
+                {
+                    TempData["HTML-visible"] = infoYA[3];
+                }
+
                 var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
 

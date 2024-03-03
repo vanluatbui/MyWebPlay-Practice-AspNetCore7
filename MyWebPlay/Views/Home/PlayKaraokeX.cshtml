@@ -207,7 +207,7 @@ body {
                 {
                                 duMusic++;
                             var duMusix = new Number(document.getElementById("music").duration);
-                            if (duMusic >= duMusix)
+                            if (duMusic - 0.1 >= duMusix)
                             {
                                 duMusic = 0;
                                 resetKaraoke();
@@ -820,6 +820,7 @@ function showlist()
 
                     document.getElementById("xplay1").style.display = "none";
                     document.getElementById("xplay2").style.display = "none";
+                    duMusic = 0;
        // resetKaraoke();
     }
 

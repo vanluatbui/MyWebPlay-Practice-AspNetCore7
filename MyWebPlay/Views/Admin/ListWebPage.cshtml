@@ -1,0 +1,45 @@
+﻿@{
+    Layout = null;
+}
+<script>
+
+    function xacnhan()
+    {
+        alert("Hệ thống đã ghi nhận các lựa chọn của bạn, cửa sổ này sẽ được đóng lại. Sau đó sẽ quay lại trang Admin Setting trước đó, dữ liệu của bạn sẽ được map. Vui lòng kiểm tra và lưu lại.");
+        var kbn = '@ViewBag.PageKbn';
+        var item = "";
+
+        if (kbn == "0")
+        item = "pageweb-no";
+        else
+        item = "pageweb-yes";
+
+        var s = "";
+
+        var n = new Number('@Model.Count');
+
+        for (var i = 0; i < n; i++)
+        {
+            if (document.getElementById("web-"+i).checked == true)
+            {
+            s += document.getElementById("web-"+i).value + ",";
+            }
+        }
+
+        localStorage.setItem(item, s);
+        window.close();
+    }
+
+</script>
+<b style="color:red">@TempData["KbnPage"]</b>
+<br /><br />
+<button style="background-color:orangered;color:darkblue" onclick="xacnhan()"><b>OK</b></button>
+<br />
+<br />
+
+@for (int i = 0; i < Model.Count; i++)
+{
+<input id="web-@i" type="checkbox" value="@Model[@i]" /><span>&nbsp;</span><b>@Model[@i]</b><br />
+}
+<br />
+<button style="background-color:orangered;color:darkblue" onclick="xacnhan()"><b>OK</b></button>

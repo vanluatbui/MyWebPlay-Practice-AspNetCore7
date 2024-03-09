@@ -76,7 +76,7 @@ body {
 </style>
 </head>
 
-<body>
+<body id="bodix">
 <meta charset="ISO-8859-1">
 <script>
 
@@ -207,7 +207,7 @@ body {
                 {
                                 duMusic++;
                             var duMusix = new Number(document.getElementById("music").duration);
-                            if (duMusic - 2 >= duMusix)
+                            if (duMusic >= duMusix - 1)
                             {
                                 duMusic = 0;
                                 resetKaraoke();
@@ -673,6 +673,27 @@ function showlist()
         document.getElementById("error").innerHTML = ""; 
     }
 
+    function xoaghinho()
+    {
+        localStorage.removeItem("mau");
+        localStorage.removeItem("hang");
+        localStorage.removeItem("mauX");
+        localStorage.removeItem("mauY");
+        localStorage.removeItem("kichthuoc");
+        localStorage.removeItem("kieuchu");
+        localStorage.removeItem("kieudemnguoc");
+         localStorage.removeItem("dotre");
+
+          localStorage.removeItem("maunen", "none");
+
+          localStorage.removeItem("maunex");
+          localStorage.removeItem("anhmo");
+
+         document.getElementById("message").style.display = "inline-block";
+         document.getElementById("error").style.display = "inline-block";
+        document.getElementById("error").innerHTML = "✔️ Các cài đặt Karaoke của bạn đã được xoá ghi nhớ và trở lại mặc định ban đầu, hãy thử lại Play Karaoke trong lần tiếp theo."
+    }
+
     function ghinho()
     {
         if ('@ViewBag.Share' == "YES - OK")
@@ -704,6 +725,9 @@ function showlist()
            else
          if (useMauNen == 2)
           localStorage.setItem("maunen", "blue");
+
+          localStorage.setItem("maunex",  document.getElementById("maunex").value);
+          localStorage.setItem("anhmo",  document.getElementById("anhmo").value);
 
          document.getElementById("message").style.display = "inline-block";
          document.getElementById("error").style.display = "inline-block";
@@ -892,6 +916,22 @@ function showlist()
            document.getElementById("xemthumau").style.color = mau;
            document.getElementById("xanhX1").style.setProperty("--color", mau);
            document.getElementById("xanhX2").style.setProperty("--color", mau);
+        }
+
+        function doimaunex_Save()
+        {
+             if (localStorage.getItem("maunex") == null)
+            return;
+
+            document.getElementById("maunex").value = localStorage.getItem("maunex");
+        }
+
+        function doianhmo_Save()
+        {
+            if (localStorage.getItem("anhmo") == null)
+            return;
+
+            document.getElementById("anhmo").value = localStorage.getItem("anhmo");
         }
 
         function doimaunen_Save()
@@ -1108,7 +1148,12 @@ function showlist()
                         doikieudemnguoc_Save();
                         doikieudemnguoc();
                         doidotre_Save();
+
                         doimaunen_Save();
+                        doimaunex_Save();
+                        doianhmo_Save();
+                        moanh();
+
                         flg = 1;
                         }
 
@@ -1411,6 +1456,29 @@ function showlist()
          }
      }
 
+
+     function moanh()
+     {
+         var x = document.getElementById("myVideo");
+
+        var so = new Number(document.getElementById("anhmo").value);
+
+        if (so == undefined)
+        {
+        document.getElementById("anhmo").value = "1";
+        so = 1;
+        }
+
+        if (so > 1 || so < 0)
+        {
+       document.getElementById("anhmo").value = "1";
+       so = 1;
+        }
+
+        x.style.opacity = so;
+        document.getElementById("bodix").style.backgroundColor = document.getElementById("maunex").value;
+     }
+
 </script>
 
 
@@ -1584,7 +1652,8 @@ function showlist()
                             <br>
                             <b> Tải file TXT karaoke (đã xử lý) : </b>
                             <br>
-                            <input type="file" name="txtKaraoke"/>  <b>@Html.ActionLink("Bạn chưa có file text karaoke?","CreateFile_Karaoke")</b>
+                            <input type="file" name="txtKaraoke"/>  <b>@Html.ActionLink("Bạn chưa có file text karaoke?","CreateFile_Karaoke")</b><br />
+                            <b style="color:darkgreen">@Html.ActionLink("Phân đoạn hát cho các member? (sau khi bạn đã tạo file text Karaoke từ hệ thống)","PhanDoanMember_Karaoke")</b>
                             <br>
                         </td>
                     </tr>
@@ -1716,12 +1785,17 @@ else
                         &nbsp;&nbsp;&nbsp;<input id="kieudemnguoc" maxlength="2" placeholder="Nhập kiểu/icon đếm ngược để bắt đầu karaoke" onchange="doikieudemnguoc()" value="N" />
          &nbsp;&nbsp;&nbsp;<input id="dotre" placeholder="Nhập độ trễ bổ sung..." value="0.3" onchange="doidotre()" />
         &nbsp;&nbsp;&nbsp; <button onclick="ghinho()"><b style="color:lightcoral">Ghi nhớ các cài đặt</b></button>
+        &nbsp;&nbsp;&nbsp; <button onclick="xoaghinho()"><b style="color:lightcoral">Xoá ghi nhớ các cài đặt</b></button>
         &nbsp;&nbsp;&nbsp; 
         @if (ViewBag.SuDung == "Video")
                         {
                             <input type="checkbox" onchange="videovua()" id="vuavideo" />
                             <b style="color:red">Tuỳ chỉnh video (option)</b>
                         }
+
+                            <input type="text" onchange="moanh()" id="anhmo" size="3" value="0.8" />
+                            <input type="color" id="maunex" onchange="moanh()" />
+
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         @if (TempData["index-auto"] == null || TempData["index-auto"] == "")
                         {
@@ -1809,8 +1883,8 @@ else
                          <div style="text-align:center">
                         <div id="background-X" style="display:inline-block">
                             <p id="thietkeKara"></p>
-                          <p id="txtKaraoke1"><span id="xanhX1" class="word"></span></p>
-                        <p id="txtKaraoke2"><span id="xanhX2" class="work"></span></p>
+                          <p id="txtKaraoke1"><b><span id="xanhX1" class="word"></span></b></p>
+                        <p id="txtKaraoke2"><b><span id="xanhX2" class="work"></span></b></p>
                         <span id="xui"></span>
                         </div>
                         </div>
@@ -1822,7 +1896,7 @@ else
 <div id="phanphoi">
 @if(ViewBag.SuDung == "")
 {
-<img src="@ViewBag.Background" id="myVideo" class="sqs-html5-video" />
+<img src="@ViewBag.Background" id="myVideo" class="sqs-html5-video" style="opacity:0.8" />
 }
 else if (ViewBag.SuDung == "Video")
 {
@@ -2006,7 +2080,9 @@ else if (ViewBag.SuDung == "Video")
                             <br>
                             <b> Tải file TXT karaoke (đã xử lý) : </b>
                             <br>
-                            <input type="file" name="txtKaraoke"/>  <b>@Html.ActionLink("Bạn chưa có file text karaoke?","CreateFile_Karaoke")</b>
+                            <input type="file" name="txtKaraoke"/>  
+                            <b>@Html.ActionLink("Bạn chưa có file text karaoke?","CreateFile_Karaoke")</b><br />
+                            <b style="color:darkgreen">@Html.ActionLink("Phân đoạn hát cho các member? (sau khi bạn đã tạo file text Karaoke từ hệ thống)","PhanDoanMember_Karaoke")</b>
                             <br>
                         </td>
                     </tr>
@@ -2126,12 +2202,17 @@ else
                             <span style="display:none;color:deeppink"><b>Vị trí xuất hiện : </b></span> <input style="display:none" id="hang" type="number" min="0" value="0" onchange="doihang()"/>
                         }
         &nbsp;&nbsp;&nbsp; <button onclick="ghinho()"><b style="color:lightcoral">Ghi nhớ các cài đặt</b></button>
+         &nbsp;&nbsp;&nbsp; <button onclick="xoaghinho()"><b style="color:lightcoral">Xoá ghi nhớ các cài đặt</b></button>
         &nbsp;&nbsp;&nbsp; 
         @if (ViewBag.SuDung == "Video")
                         {
                             <input type="checkbox" onchange="videovua()" id="vuavideo" />
                             <b style="color:red">Tuỳ chỉnh video (option)</b>
                         }
+
+                            <input type="text" onchange="moanh()" id="anhmo" size="3" value="0.8" />
+                             <input type="color" id="maunex" onchange="moanh()" />
+
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     @if (TempData["index-auto"] == null || TempData["index-auto"] == "")
                         {
@@ -2215,8 +2296,8 @@ else
                          <div style="text-align:center">
                         <div id="background-X" style="display:inline-block">
                             <p id="thietkeKara"></p>
-                          <p id="txtKaraoke1"><span id="xanhX1" class="word"></span></p>
-                        <p id="txtKaraoke2"><span id="xanhX2" class="work"></span></p>
+                           <p id="txtKaraoke1"><b><span id="xanhX1" class="word"></span></b></p>
+                        <p id="txtKaraoke2"><b><span id="xanhX2" class="work"></span></b></p>
                         <span id="xui"></span>
                         </div>
                         </div>

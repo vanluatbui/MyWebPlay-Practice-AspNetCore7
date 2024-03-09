@@ -14,7 +14,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace MyWebPlay.Controllers
 {
-    public class AdminController : Controller
+    public partial class AdminController : Controller
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
         public AdminController(IWebHostEnvironment webHostEnvironment)
@@ -2688,11 +2688,23 @@ namespace MyWebPlay.Controllers
 
                     case "16":
                         var nd5 = noidung.Split(" # ");
-                        System.IO.File.WriteAllText(path, nd5[0] + " + Đã tắt hết các setting phụ (sub admin setting) # " + xuxu);
+                        System.IO.File.WriteAllText(path, nd5[0] + " + Đã tắt hết các setting phụ (sub admin setting), các item chính vẫn giữ nguyên # " + xuxu);
                         break;
 
                     case "17":
                         System.IO.File.WriteAllText(path, "Bí mật và sử dụng data External API # " + xuxu);
+                        break;
+
+                    case "18":
+                        System.IO.File.WriteAllText(path, "Đã tắt hết các item setting (kể cả các setting phụ) # " + xuxu);
+                        break;
+
+                    case "19":
+                        System.IO.File.WriteAllText(path, "Đã bật hết các item setting phụ, các item chính vẫn giữ nguyên # " + xuxu);
+                        break;
+
+                    case "20":
+                        System.IO.File.WriteAllText(path, "Đã bật hết các item setting (kể cả các setting phụ) # " + xuxu);
                         break;
 
                     case "ON-ALL":

@@ -1,0 +1,210 @@
+﻿@if (TempData["karax-cre"] == "0")
+{
+    <script>
+        function soluongmember()
+        {
+        var sl = new Number(document.getElementById("sl").value);
+
+        if (sl <= 1 ) return;
+
+        document.getElementById("sl").style.display = "none";
+        document.getElementById("sl_click").style.display = "none";
+
+        document.getElementById("xinloi1").disabled = false;
+        document.getElementById("xinloi2").disabled = false;
+        document.getElementById("xinloi3").disabled = false;
+
+        var s  = "";
+        for (var i = 0; i < sl; i++)
+        {
+            s+= "<input type=\"text\" size=\"50\" id=\"member-"+i+"\" name=\"txtMember-"+i+"\" placeholder=\"Nhập text (hoặc icon đại diện) của member hát thứ "+(i+1)+"\" />&nbsp;&nbsp;<input type=\"color\" id=\"color-"+i+"\" name=\"txtColor-"+i+"\" /><br /><br />";
+        }
+
+        document.getElementById("member").innerHTML = s;
+        }
+
+        function okex()
+        {
+            var sl = new Number(document.getElementById("sl").value);
+
+            document.getElementById("xilip").value = "";
+
+             if (sl <= 1 ) return;
+
+            for (var i = 0; i < sl; i++)
+            {
+               document.getElementById("xilip").value += document.getElementById("member-"+i).value + "\t" + document.getElementById("color-"+i).value + "\n";
+            }
+
+            document.getElementById("ok").click();
+        }
+    </script>
+
+    <table align="center">
+        <h2 style="text-align:center">PHÂN ĐOẠN HÁT - KARAOKE CHO CÁC MEMBER</h2>
+
+        <input id="sl" type="number" min="2" size="10" placeholder="Nhập số lượng member tham gia (Karaoke)" value="2" />&nbsp;<button id="sl_click" onclick="soluongmember()" style="background-color:blueviolet;color:red">OK</button>
+
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
+
+            <tr style="height:40px">
+                <td></td>
+                <td id="member">
+                   
+                </td>
+            </tr>
+            <br />
+            <br />
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                     <textarea id="xilip" name="txtXiLip" hidden></textarea>
+                    <b>Nhập (dán) nội dung text karaoke từ file TXT bạn đã <a href="/Home/CreateFile_Karaoke">tải trước đó</a></b>
+                    <br /><br />
+                    <textarea required disabled id="xinloi1" name="txtText" cols="150" rows="15" ></textarea>
+                    <br />
+                    <input disabled type="checkbox" id="xinloi2" name="txtCheck" />&nbsp;<b>Giải mã nội dung Karaoke của tôi? (nếu có)</b>
+                    <br />
+                </td>
+                <br /><br />
+            </tr>
+
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                    <input id="ok" hidden type="Submit" value="Kết Quả" />
+                </td>
+            </tr>
+        }
+    </table>
+    <br />
+    <button id="xinloi3" onclick="okex()" disabled><b>KẾT QUẢ</b></button>
+    <br /><br />
+}
+else if (TempData["karax-cre"] == "1")
+{
+    @model MyWebPlay.Model.Karaoke
+
+    <script>
+
+        var selec = 0;
+
+        var so = 0;
+
+    var xw = new Number('@TempData["Time_Waiting"]') * 6;
+    var id;
+
+    function myAlertX()
+    {
+        if (so == xw)
+        {
+            document.getElementById("xong").click();
+            return;
+        }
+                so++;
+    }
+
+        function changechon(x)
+        {
+            if (document.getElementById("chon-"+x).checked == false) return;
+
+            selec = x;
+
+            var n = new Number('@TempData["soluong1"]');
+
+            for (var i = 0; i <n;i++)
+            {
+                if (i == x) continue;
+
+                document.getElementById("chon-"+i).checked = false;
+            }
+        }
+
+        var o = -1;
+        function xuly()
+        {
+            var n = new Number('@TempData["soluong2"]');
+            o++;
+
+            if (o == n)
+            {
+                document.getElementById("xl").innerHTML = "<b style=\"color:red\">TẠO LẠI BẢN KARAOKE</b>";
+            }
+            else if (o == n + 1)
+            {
+                id = setInterval(myAlertX, 1000);
+                document.getElementById("loading").style.display = "block";
+                document.getElementById("xl").style.display = "none";
+            }
+            else
+            {
+                document.getElementById("part-"+o).style.display = "block";
+
+                for (var i = 0; i < n; i++)
+                {
+                    if (i == o) continue;
+
+                    document.getElementById("part-"+i).style.display = "none";
+                }
+
+                if (document.getElementById("sd-"+o).innerText.includes("Empty") == true || document.getElementById("sd-"+o).innerText.includes("# *#") == true)
+                {
+                    document.getElementById("noidung").value += document.getElementById("sd-"+o).innerText;
+                }
+                else
+                {
+                   document.getElementById("noidung").value += document.getElementById("membex-"+selec).value + "-" + document.getElementById("colox-"+selec).value + "<>" + document.getElementById("sd-"+o).innerText;
+                }
+
+                 if (o < n - 1)
+                 document.getElementById("noidung").value += "\n";
+            }
+        }
+
+    </script>
+
+    <h2 style="text-align:center">PHÂN ĐOẠN HÁT - KARAOKE CHO CÁC MEMBER</h2>
+
+    <h1 style="color:red">Đoạn text Karaoke này ai hát vậy?</h1><br />
+    <u style="color:darkblue">Lưu ý</u><span style="color:deeppink">  : nếu quá trình có xảy ra sự cố hoặc sai sót, bạn phải thực hiện lại từ đấu. Xin lỗi vì sự bất tiện này !</span><br /><br />
+     @for (int i = 0; i < int.Parse(TempData["soluong2"].ToString()); i++)
+     {
+         if (i == 0)
+         {
+            <div id="part-@i" style="background-color:orchid"><h2 id="sd-@i" style="color:blue">@Model.text[@i]</h2></div>
+        }
+        else
+        {
+            <div id="part-@i" style="background-color:orchid; display:none"><h2 id="sd-@i" style="color:blue">@Model.text[i]</h2></div>
+        }
+    }
+    <br /><br />
+    @for (int i = 0; i < int.Parse(TempData["soluong1"].ToString()); i++)
+    {
+          <input type="text" id="membex-@i" hidden value="@Model.member[i]">
+         <input type="text" id="colox-@i" hidden value="@Model.mausac[i]">
+        if (i == 0)
+        {
+            <input onclick="changechon(@i)" type="radio" id="chon-@i" checked /><b>&nbsp;&nbsp;@Model.member[i]</b><br /><br />
+        }
+        else
+        {
+            <input onclick="changechon(@i)" type="radio" id="chon-@i" /><b>&nbsp;&nbsp;@Model.member[i]</b><br /><br />
+        }
+    }
+    <button onclick="xuly()" id="xl"><b>TIẾP THEO</b></button><br /><br />
+    <img id="loading" src="/Image_Play/waiting.gif" style="display:none" /><br />
+     @using (Html.BeginForm())
+     {
+            @Html.ValidationSummary(true)
+
+            <textarea hidden id="noidung" name="txtNoiDung"></textarea>
+            <input id="xong" hidden type="submit" value="Xong" />
+     }
+}
+else if (TempData["karax-cre"] == "2")
+{
+    <h3 style="color:deeppink">@Html.Raw(@ViewBag.FileKaraoke)</h3>
+}

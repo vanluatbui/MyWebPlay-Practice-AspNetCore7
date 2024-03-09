@@ -381,6 +381,7 @@ namespace MyWebPlay.Controllers
 
             TempData["Lyric"] = f["txtLyric"].ToString();
             TempData["Music"] = "/karaoke/music/"+txtMusic.FileName;
+                TempData["TrangTri"] = f["txtTrangTri"].ToString();
 
             var fileName = Path.GetFileName(txtMusic.FileName);
 
@@ -453,6 +454,60 @@ namespace MyWebPlay.Controllers
             }
             khoawebsiteClient(listIP);
             ViewBag.KaraX = "";
+
+
+                var lyric = TempData["Lyric"].ToString();
+                var trangtri = TempData["TrangTri"].ToString();
+
+                var sa = "";
+
+                if (string.IsNullOrEmpty(trangtri) == false)
+                {
+                    var lyrix = lyric.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+
+                    for (int i =0; i < lyrix.Length; i++) 
+                    {
+                        if (lyrix[i] == "\t" || lyrix[i].Contains("Empty") || string.IsNullOrEmpty(lyrix[i]))
+                        {
+                            sa += lyrix[i];
+
+                            if (i < lyrix.Length - 1)
+                                sa += "\r\n";
+
+                            continue;
+                        }
+
+                        var lin = lyrix[i].Split(" ");
+
+                        var s = trangtri + " ";
+                        int index = lin.Length / 2;
+
+                        if (lin.Length % 2 != 0)
+                            index++;
+
+                        for (int j = 0; j < index; j++)
+                        {
+                            s += lin[j] + " ";
+                        }
+
+                        s += trangtri + " ";
+
+                        for (int j = index; j<lin.Length; j++)
+                        {
+                            s += lin[j];
+
+                            if (j < lin.Length - 1)
+                                s += " ";
+                        }
+
+                        sa += s;
+
+                        if (i < lyrix.Length - 1)
+                            sa += "\r\n";
+                    }
+
+                    TempData["Lyric"] = sa;
+                }
             return View();
             }
             catch (Exception ex)

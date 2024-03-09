@@ -627,14 +627,14 @@ input:checked + .slider:before {
 
               if (ch == 18)
             {
-                 var n = new Number(document.getElementById("count").value) - 26;
-            for (var i = 0; i < n;i++)
-            {
-                 if (i == 8)
-                document.getElementById("check-"+i).checked = true;
-                else
-                document.getElementById("check-"+i).checked = false;
-            }
+            //     var n = new Number(document.getElementById("count").value) - 26;
+            //for (var i = 0; i < n;i++)
+            //{
+            //     if (i == 8)
+            //    document.getElementById("check-"+i).checked = true;
+            //    else
+            //    document.getElementById("check-"+i).checked = false;
+            //}
             localStorage.setItem("setting-status", "17");
                  document.getElementById("check-45").checked = false;
                  document.getElementById("check-46").checked = false;
@@ -647,6 +647,66 @@ input:checked + .slider:before {
                   document.getElementById("check-59").checked = false;
                   document.getElementById("ok").click();
             }
+
+              if (ch == 19)
+            {
+                localStorage.setItem("setting-status","18");
+                 document.getElementById("check-45").checked = false;
+                 document.getElementById("check-46").checked = false;
+                 document.getElementById("check-47").checked = false;
+                  document.getElementById("check-48").checked = false;
+                  document.getElementById("check-49").checked = false;
+                  document.getElementById("check-53").checked = false;
+                  document.getElementById("check-54").checked = false;
+                  document.getElementById("check-57").checked = false;
+                   document.getElementById("check-59").checked = false;
+                  document.getElementById("ok").click();
+
+            var n = new Number(document.getElementById("count").value) - 26;
+            for (var i = 0; i < n;i++)
+            {
+                document.getElementById("check-"+i).checked = false;
+            }
+            document.getElementById("ok").click();
+          }
+
+          if (ch == 20)
+            {
+                localStorage.setItem("setting-status","19");
+                 document.getElementById("check-45").checked = true;
+                 document.getElementById("check-46").checked = true;
+                 document.getElementById("check-47").checked = true;
+                  document.getElementById("check-48").checked = true;
+                  document.getElementById("check-49").checked = true;
+                  document.getElementById("check-53").checked = true;
+                  document.getElementById("check-54").checked = true;
+                  document.getElementById("check-57").checked = true;
+                   document.getElementById("check-59").checked = true;
+
+            document.getElementById("ok").click();
+          }
+
+           if (ch == 21)
+            {
+                localStorage.setItem("setting-status","20");
+                 document.getElementById("check-45").checked = true;
+                 document.getElementById("check-46").checked = true;
+                 document.getElementById("check-47").checked = true;
+                  document.getElementById("check-48").checked = true;
+                  document.getElementById("check-49").checked = true;
+                  document.getElementById("check-53").checked = true;
+                  document.getElementById("check-54").checked = true;
+                  document.getElementById("check-57").checked = true;
+                   document.getElementById("check-59").checked = true;
+
+            var n = new Number(document.getElementById("count").value) - 26;
+            for (var i = 0; i < n;i++)
+            {
+                 if (i == 29) continue;
+                document.getElementById("check-"+i).checked = true;
+            }
+            document.getElementById("ok").click();
+          }
         }
 
         function chonall()
@@ -924,6 +984,42 @@ input:checked + .slider:before {
             dm = 1;
         }, 10);
 
+        setInterval(function()
+        {
+             var no = localStorage.getItem("pageweb-no");
+             var yes = localStorage.getItem("pageweb-yes");
+
+             localStorage.removeItem("pageweb-no");
+             localStorage.removeItem("pageweb-yes");
+
+            if ((no == null || no == undefined || no == "") && (yes == null || yes == undefined || yes == "")) return;
+
+            if (no != null && no != undefined && no != "")
+            {
+                document.getElementById("txtLock1").value = no;
+                window.location.href = "#come-43";
+            }
+            else
+             if (yes != null && yes != undefined && yes != "")
+            {
+                document.getElementById("txtAcceptUrl1").value = yes;
+                window.location.href = "#come-50";
+            }
+
+
+        }, 10);
+
+
+
+       function LuaChonDaDang(kbn)
+    {
+        document.getElementById("checkLock").checked = false;
+        changeShow('txtLock1','txtLock2','checkLock',',');
+        document.getElementById("checkAccept").checked = false;
+        changeShow('txtAcceptUrl1','txtAcceptUrl2','checkAccept',',');
+        window.open("/Admin/ListWebPage?kbn="+kbn,'MyWindow','width=500,height=500');
+    }
+
      </script>
 
 @*<label class="switch">
@@ -966,7 +1062,7 @@ input:checked + .slider:before {
                          <option>Tắt hoạt động web site (không nhận đơn đăng kí tiếp theo, tắt thông báo), ngoại trừ các IP đã đăng kí và tin tưởng</option>
                          <option>Sử dụng POST QUICK DATA và tàng hình (copy), get IP - cho phép mọi người</option>
                          <option>Sử dụng POST QUICK DATA và tàng hình (download *.txt), get IP - cho phép mọi người</option>
-                         <option>Bật thông báo tất cả nội dung liên quan email và MegaIO File and list user get to link request (riêng karaoke sẽ nhận cả hai bản : Text và MP3) - giữ nguyên còn lại</option>
+                         <option>Bật thông báo tất cả liên quan email và MegaIO File and list user get to link request (riêng karaoke sẽ cả Text và MP3) - giữ nguyên còn lại</option>
                          <option>Tắt thông báo tất cả nội dung liên quan email và MegaIO File and list user get to link request - giữ nguyên còn lại</option>
                          <option>Bật sử dụng website with url encode secret play - giữ nguyên còn lại (nên chọn cái này lại hoặc sau cùng)</option>
                          <option>Không cho phép sử dụng mật độ tuyệt đối hay IP tin tưởng để truy cập website - giữ nguyên còn lại</option>
@@ -975,6 +1071,9 @@ input:checked + .slider:before {
                          <option>[Đặc biệt] Khoá trang web tuyệt đối/vĩnh viễn, không thể truy cập trang nào (kể cả admin) => error all web page</option>
                          <option>[Sub admin setting] Tắt hết các setting phụ (giữ nguyên còn lại)</option>
                           <option>[Bonus secret] Bí mật và sử dụng data External API</option>
+                          <option>[Special] Tắt hết các setting (kể cả phụ)</option>
+                          <option>[Special] Bật hết các setting phụ</option>
+                          <option>[Special] Bật hết các item setting (kể cả phụ)</option>
                     </select><br /><br /><a href="#xuly" onclick="chonnhanh()">Xử lý setting nhanh (có sẵn)</a>
                     <br /><br />
                 </h4>
@@ -1070,9 +1169,10 @@ input:checked + .slider:before {
                     if (Model.Topics[i].ID == "AppWeb_LockedUse")
                     {
                         <input size="180" id="txtLock1" name="@Model.Topics[i].ID" type="text" value="@ViewBag.LockedUseApp" />
-                         <br />
-                            <input type="checkbox" id="checkLock" onchange="changeShow('txtLock1','txtLock2','checkLock',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
-                            <br />
+                                <br />
+                                <input type="checkbox" id="checkLock" onchange="changeShow('txtLock1','txtLock2','checkLock',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
+                                <a style="color:red" href="#xuly" onClick="LuaChonDaDang('0')">Lựa chọn đa dạng</a>
+                                <br />
                         <textarea readonly id="txtLock2" cols="30" rows="15" style="display:none">@ViewBag.LockedUseApp_Line</textarea>
                            
                     }
@@ -1085,8 +1185,9 @@ input:checked + .slider:before {
                     if (Model.Topics[i].ID == "Accept_ListUrl")
                     {
                         <input id="txtAcceptUrl1" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.AcceptListUrl" />
-                        <br />
-                            <input type="checkbox" id="checkAccept" onchange="changeShow('txtAcceptUrl1','txtAcceptUrl2','checkAccept',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
+                                <br />
+                                <input type="checkbox" id="checkAccept" onchange="changeShow('txtAcceptUrl1','txtAcceptUrl2','checkAccept',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
+                                <a style="color:red" href="#xuly" onClick="LuaChonDaDang('1')">Lựa chọn đa dạng</a>
                             <br />
                         <textarea readonly id="txtAcceptUrl2" cols="30" rows="15" style="display:none">@ViewBag.AcceptListUrl_Line</textarea>
                             

@@ -46,3 +46,9 @@
 9. FindApiUpload Tìm tải file đã upload trên folder wwroot/apiUpload trước đó
 
 - name (VD : filedemo.txt)
+
+10. InsertSQL (mới)
+
+- Chuoi
+- Default
+- BoQua

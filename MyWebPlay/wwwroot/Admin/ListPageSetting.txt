@@ -139,3 +139,5 @@ Home/XuLySQL10
 /Home/FindSubFolders
 /Home/AllDownload
 /Home/Replace_Hamorny
+/Home/InsertSQL
+/Home/PhanDoanMember_Karaoke

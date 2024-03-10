@@ -225,15 +225,15 @@ namespace MyWebPlay.Controllers
             }
             else
             {
-                    var xu = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "Tinh_Text.txt"));
+                    var xu = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ThiThamMuaXuan_Text.txt"));
                     if (f["encrypt_data"].ToString() == "on")
                     {
                         xu = StringMaHoaExtension.Decrypt(xu);
                     }
 
                     ViewBag.Karaoke = xu;
-                ViewBag.Music = "/karaoke_Example/Tinh_Karaoke.mp3";
-                ViewBag.Musix = "/karaoke_Example/Tinh.mp3";
+                ViewBag.Music = "/karaoke_Example/ThiThamMuaXuan_Karaoke.mp3";
+                ViewBag.Musix = "/karaoke_Example/ThiThamMuaXuan.mp3";
             }
 
             return View();
@@ -277,7 +277,7 @@ namespace MyWebPlay.Controllers
             new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
             new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
 
-                ViewBag.LyricVD = "Tình như gió mơn man tóc em hiền\r\nTình như suối reo bên ánh trăng vàng\r\nTình như nắng vui bên bờ cát trắng\r\nTình có thông xanh, có anh và em đứng ngóng\r\nTình như nói cho nhau tiếng yêu đầu\r\nTình như giấc mơ như có anh cùng vào\r\nTình làm em nói bâng quơ và quên lối bước\r\nKhi xót xa anh, ngỡ như ngày tàn phai\r\nChàng đến với ánh mắt sáng với môi cười\r\nCho em bao tin vui và quên nỗi buồn.\r\nNgười yêu ơi có anh xoá tan đi ngày u tối trên thế gian\r\nÁnh mắt đó đắm đuối những ân tình\r\nCho em quên đi ưu phiền và bao nỗi sầu\r\nNgười yêu ơi giấc mơ gối trăng\r\nEm thầm mơ chỉ riêng có anh\r\nChỉ có riêng anh em trong đời.\r\n[Empty]\r\nTình như chiếc hôn khi đón em về\r\nTình như mắt môi em thắm yêu ngày đầu\r\nTình làm ta đến bên nhau và yêu đắm đuối\r\nNhư đã quen nhau, đã quen từ muôn kiếp trước\r\nTình như nói cho nhau tiếng yêu đầu\r\nTình như giấc mơ như có anh cùng vào\r\nTình làm em nói bâng quơ và quên lối bước\r\nKhi xót xa anh, ngỡ như ngày tàn phai\r\nChàng đến với ánh mắt sáng với môi cười\r\nCho em bao tin vui và quên nỗi buồn.\r\nNgười yêu ơi có anh xoá tan đi ngày u tối trên thế gian\r\nÁnh mắt đó đắm đuối những ân tình\r\nCho em quên đi ưu phiền và bao nỗi sầu\r\nNgười yêu ơi giấc mơ gối trăng\r\nEm thầm mơ chỉ riêng có anh\r\nChỉ có riêng anh em trong đời.\r\nChỉ có riêng anh em trong đời.\r\n[Empty]";
+                ViewBag.LyricVD = "Từng chồi non xanh mơn man\r\nTừng hạt mưa long lanh rơi mùa xuân\r\nVà trong ánh mắt lấp lánh\r\nLời yêu thương, yêu thương ai ngập ngừng\r\nMùa xuân đã đến bên em\r\nVà mùa xuân đã đến bên anh thì thầm\r\nLàn gió khẽ vuốt tóc em\r\nVà làn gió nói cùng em nhớ thương\r\nVà em đã biết nói tiếng yêu đầu tiên\r\nVà em đã biết thương nhớ, biết giận hờn\r\nMùa xuân đã đến bên em trao nụ hôn\r\nVà mùa xuân đã trao cho em ánh mắt anh\r\nĐể rồi đắm say\r\nĐể rồi ngất ngây\r\nTừng chồi non xanh mơn man\r\nTừng hạt mưa long lanh rơi mùa xuân\r\nVà trong ánh mắt lấp lánh\r\nLời yêu thương, yêu thương ai ngập ngừng\r\nMùa xuân đã đến bên em\r\nVà mùa xuân đã đến bên anh thì thầm\r\nLàn gió khẽ vuốt tóc em\r\nVà làn gió nói cùng em nhớ thương\r\nVà em đã biết nói tiếng yêu đầu tiên\r\nVà em đã biết thương nhớ, biết giận hờn\r\nMùa xuân đã đến bên em trao nụ hôn\r\nVà mùa xuân đã trao cho em ánh mắt anh\r\nĐể rồi đắm say\r\nĐể rồi ngất ngây\r\n[Empty]\r\nTừng chồi non xanh mơn man\r\nTừng hạt mưa long lanh rơi mùa xuân\r\nVà trong ánh mắt lấp lánh\r\nLời yêu thương, yêu thương ai ngập ngừng\r\nMùa xuân đã đến bên em\r\nVà mùa xuân đã đến bên anh thì thầm\r\nLàn gió khẽ vuốt tóc em\r\nVà làn gió nói cùng em nhớ thương\r\nVà em đã biết nói tiếng yêu đầu tiên\r\nVà em đã biết thương nhớ, biết giận hờn\r\nMùa xuân đã đến bên em trao nụ hôn\r\nVà mùa xuân đã trao cho em ánh mắt anh\r\nĐể rồi đắm say\r\nĐể rồi ngất ngây\r\n[Empty]";
                 return View();
             }
             catch (Exception ex)
@@ -1270,14 +1270,14 @@ namespace MyWebPlay.Controllers
             }
             else
             {
-                    var xu = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "Tinh_Text.txt"));
+                    var xu = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ThiThamMuaXuan_Text.txt"));
                     if (f["encrypt_data"].ToString() == "on")
                     {
                         xu = StringMaHoaExtension.Decrypt(xu);
                     }
                     ViewBag.Karaoke = xu;
-                ViewBag.Music = "/karaoke_Example/Tinh_Karaoke.mp3";
-                ViewBag.Musix = "/karaoke_Example/Tinh.mp3";
+                ViewBag.Music = "/karaoke_Example/ThiThamMuaXuan_Karaoke.mp3";
+                ViewBag.Musix = "/karaoke_Example/ThiThamMuaXuan.mp3";
             }
 
                 if (f["txtAutoSong"].ToString() == "on")

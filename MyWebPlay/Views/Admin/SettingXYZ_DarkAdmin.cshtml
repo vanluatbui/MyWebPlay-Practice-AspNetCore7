@@ -1141,7 +1141,7 @@ input:checked + .slider:before {
                     {
                         <input id="txtEncode1" placeholder="Ví dụ bạn chỉ cần nhập Home/Index là được (không cần kèm theo https://)" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.EncodeUrl" />
                         <br />
-                            <input type="checkbox" id="checkEncode" onchange="changeShow('txtEncode1','txtEncode2','checkEncode','***')" /><b style="color:deeppink">Xem chế độ mở rộng</b><br />
+                            <input type="checkbox" id="checkEncode" onchange="changeShow('txtEncode1','txtEncode2','checkEncode','***')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
                         <textarea readonly id="txtEncode2" cols="100" rows="15" style="display:none">@ViewBag.EncodeUrl_Line</textarea>
                             
                     }
@@ -1171,7 +1171,7 @@ input:checked + .slider:before {
                         <input size="180" id="txtLock1" name="@Model.Topics[i].ID" type="text" value="@ViewBag.LockedUseApp" />
                                 <br />
                                 <input type="checkbox" id="checkLock" onchange="changeShow('txtLock1','txtLock2','checkLock',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
-                                <a style="color:red" href="#xuly" onClick="LuaChonDaDang('0')">Lựa chọn đa dạng</a>
+                                <a style="color:red" href="#xuly" onClick="LuaChonDaDang('0')">Lựa chọn đa dạng</a><br />
                                 <br />
                         <textarea readonly id="txtLock2" cols="30" rows="15" style="display:none">@ViewBag.LockedUseApp_Line</textarea>
                            
@@ -1187,7 +1187,7 @@ input:checked + .slider:before {
                         <input id="txtAcceptUrl1" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.AcceptListUrl" />
                                 <br />
                                 <input type="checkbox" id="checkAccept" onchange="changeShow('txtAcceptUrl1','txtAcceptUrl2','checkAccept',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
-                                <a style="color:red" href="#xuly" onClick="LuaChonDaDang('1')">Lựa chọn đa dạng</a>
+                                <a style="color:red" href="#xuly" onClick="LuaChonDaDang('1')">Lựa chọn đa dạng</a><br />
                             <br />
                         <textarea readonly id="txtAcceptUrl2" cols="30" rows="15" style="display:none">@ViewBag.AcceptListUrl_Line</textarea>
                             
@@ -1266,7 +1266,7 @@ input:checked + .slider:before {
     <br /><br />
     <select id="chonlua" onchange="doichonlua()">
         <option>Thay thế các ảnh ngẫu nhiên hệ thống khi play karaoke (có thể tải lên nhiều file *.jpg)</option>
-        <option>Thay thế ảnh gif error khi truy cập page Error (chỉ tải lên 1 file *.jpg hoặc lấy file đầu tiên)</option>
+        <option>Thay thế ảnh gif error khi truy cập page Error (chỉ tải lên 1 file *.gif hoặc lấy file đầu tiên)</option>
          <option>Thay thế ảnh gif waiting đại diện cho tiến trình chờ xử lý (chỉ tải lên 1 file *.gif hoặc lấy file đầu tiên)</option>
          <option>Thay thế ảnh hiển thị cho phần Tab Tittle View (chỉ tải lên 1 file *.png hoặc lấy file đầu tiên)</option>
          <option>Thay thế nội dung các Tab Tittle View (chỉ tải lên 1 file *.txt hoặc lấy file đầu tiên)</option>

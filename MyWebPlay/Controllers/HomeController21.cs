@@ -294,6 +294,11 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+
+                 Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+                    string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+
                 TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true"; if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi"); if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } }
                 if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); }
                 if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
@@ -314,10 +319,13 @@ namespace MyWebPlay.Controllers
                 }
                 khoawebsiteClient(listIP);
 
-                if (string.IsNullOrEmpty(f["txtText"].ToString()) == false)
+                if (f.ContainsKey("txtText"))
                 {
                     TempData["karax-cre"] = "1";
-                    
+
+                    TempData["dataPost"] = "[POST - 1]";
+
+
                     var karaoke = new Karaoke();
 
                     var text = f["txtText"].ToString();
@@ -350,17 +358,25 @@ namespace MyWebPlay.Controllers
 
                     return View(karaoke);
                 }
-                else if (string.IsNullOrEmpty(f["txtNoiDung"].ToString()) == false)
+                else if (f.ContainsKey("txtNoiDung"))
                 {
                     TempData["karax-cre"] = "2";
 
+                    TempData["dataPost"] = "[POST - 2]";
+
                     var nd = f["txtNoiDung"].ToString().Replace("# *#", "#\t*#");
 
-                    Calendar x = CultureInfo.InvariantCulture.Calendar;
+                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                    var noidungX = System.IO.File.ReadAllText(pathX);
+                    var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    var email = false;
 
-                    string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    var infoX = listSetting[49].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                    string fi = HttpContext.Session.GetString("userIP") + "_Karaoke_" + xuxu + ".txt";
+                    if (infoX[1] == "true")
+                        nd = StringMaHoaExtension.Encrypt(nd);
+
+                        string fi = HttpContext.Session.GetString("userIP") + "_Karaoke-members_" + xuxu + ".txt";
                     fi = fi.Replace("\\", "");
                     fi = fi.Replace("/", "");
                     fi = fi.Replace(":", "");
@@ -370,10 +386,6 @@ namespace MyWebPlay.Controllers
                     System.IO.File.WriteAllText(path, nd);
                     ViewBag.FileKaraoke = "<p style=\"color:blue\">Thành công, một file TXT Karaoke của bạn đã được xử lý (được tạo lại với phân đoạn hát cho các member tham gia)...</p><a href=\"/karaoke/text/" + fi + "\" download>Click vào đây để tải về</a><br><p style=\"color:red\">Hãy nhanh tay tải về vì sau <span style=\"color:deeppink\" id=\"thoigian3\" class=\"thoigian3\">30</span> giây nữa, file này sẽ bị xoá hoặc sẽ bị lỗi nếu có!<br>";
 
-                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
-                    var noidungX = System.IO.File.ReadAllText(pathX);
-                    var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
-                    var email = false;
                     for (int i = 0; i < listSetting.Length; i++)
                     {
                         var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -387,15 +399,7 @@ namespace MyWebPlay.Controllers
 
                     if (email == true)
                     {
-                        var ID = TempData["IDemail-Karaoke"];
-
-                        string host = "{" + Request.Host.ToString() + "}"
-                          .Replace("http://", "")
-                      .Replace("http://", "")
-                      .Replace("/", "");
-
-                        SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
-                         "mywebplay.savefile@gmail.com", host + " Báo cáo bản text được tạo lại (với sự phân đoạn hát của các member tham gia) Karaoke của user lúc " + xuxu, f["txtLyric"].ToString().Replace("undefined", "").Replace(" *", "*"), "teinnkatajeqerfl");
+                        HttpContext.Session.SetString("mail-karaoke", nd.ToString());
                     }
 
                 }

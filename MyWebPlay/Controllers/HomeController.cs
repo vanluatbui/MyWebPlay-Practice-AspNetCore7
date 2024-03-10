@@ -201,7 +201,25 @@ namespace MyWebPlay.Controllers
                 TempData["mini-web"] = "true";
             }
 
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                // Send mail try again - karaoke with member
+
+                string hostt = "{" + Request.Host.ToString() + " - "+ TempData["userIP"]+"}"
+                           .Replace("http://", "")
+                       .Replace("http://", "")
+                       .Replace("/", "");
+
+                Calendar xx = CultureInfo.InvariantCulture.Calendar;
+
+                string xuxuu = xx.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("mail-karaoke")) == false)
+                {
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
+                        "mywebplay.savefile@gmail.com", hostt + " Báo cáo bản text được tạo lại (với sự phân đoạn hát của các member tham gia) Karaoke của user lúc " + xuxuu, HttpContext.Session.GetString("mail-karaoke"), "teinnkatajeqerfl");
+                    HttpContext.Session.Remove("mail-karaoke");
+                }
+
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 

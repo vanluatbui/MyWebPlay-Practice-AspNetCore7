@@ -5,8 +5,10 @@ namespace MyWebPlay.Extension
 {
     public static class SendEmail
     {
-        public static void SendMail2Step(string rootPth, string From, string To, string Subject, string Body, string password)
+        public static void SendMail2Step(string rootPth, string From, string To, string Subject, string Body, string password, string again = "false")
         {
+            if (again == "true") return;
+
             var path = Path.Combine(rootPth,"Admin", System.IO.File.ReadAllText(Path.Combine(rootPth, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
             var noidung = System.IO.File.ReadAllText(path);
 

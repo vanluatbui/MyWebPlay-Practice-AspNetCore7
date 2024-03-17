@@ -103,4 +103,14 @@ Mẫu form external (mạo diện HTML) để ứng luồng DATA POST QUICK ADMI
 <input type ="submit" value="OK" />
 </form>
 
-Good bye, MyWebPlay!
+
+---------------------------
+
+
+/Admin/KhoiPhucSetting_Admin (sử dụng gửi bằng API - postman)
+
+ID : ID admin
+Key : mật khẩu admin
+
+
+Good bye, MyWebPlay @2023 !

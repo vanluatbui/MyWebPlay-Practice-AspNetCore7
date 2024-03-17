@@ -12,6 +12,7 @@ using MyWebPlay.Extension;
 using Microsoft.Extensions.Hosting;
 using MyWebPlay.Model;
 using Microsoft.AspNetCore.Http;
+using Org.BouncyCastle.Crypto.Prng;
 
 namespace MyWebPlay.Controllers
 {
@@ -383,7 +384,13 @@ namespace MyWebPlay.Controllers
             TempData["Music"] = "/karaoke/music/"+txtMusic.FileName;
                 TempData["TrangTri"] = f["txtTrangTri"].ToString();
 
-            var fileName = Path.GetFileName(txtMusic.FileName);
+                if (f["txtCuoiCung"].ToString() == "on")
+                HttpContext.Session.SetString("CuoiCung", "true");
+
+                if (f["txtDelay"].ToString() == "on")
+                    TempData["Delay"] = "true";
+
+                var fileName = Path.GetFileName(txtMusic.FileName);
 
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", fileName);
 
@@ -458,55 +465,63 @@ namespace MyWebPlay.Controllers
 
                 var lyric = TempData["Lyric"].ToString();
                 var trangtri = TempData["TrangTri"].ToString();
+                TempData["TrangTri"] = trangtri;
 
                 var sa = "";
 
                 if (string.IsNullOrEmpty(trangtri) == false)
                 {
-                    var lyrix = lyric.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
-
-                    for (int i =0; i < lyrix.Length; i++) 
+                    if (HttpContext.Session.GetString("CuoiCung") == "true")
                     {
-                        if (lyrix[i] == "\t" || lyrix[i].Contains("Empty") || string.IsNullOrEmpty(lyrix[i]))
+                        HttpContext.Session.SetString("karaoke_Final", "true");
+                    }
+                    else
+                    {
+                        var lyrix = lyric.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+
+                        for (int i = 0; i < lyrix.Length; i++)
                         {
-                            sa += lyrix[i];
+                            if (lyrix[i] == "\t" || lyrix[i].Contains("Empty") || string.IsNullOrEmpty(lyrix[i]))
+                            {
+                                sa += lyrix[i];
+
+                                if (i < lyrix.Length - 1)
+                                    sa += "\r\n";
+
+                                continue;
+                            }
+
+                            var lin = lyrix[i].Split(" ");
+
+                            var s = trangtri + " ";
+                            int index = lin.Length / 2;
+
+                            if (lin.Length % 2 != 0)
+                                index++;
+
+                            for (int j = 0; j < index; j++)
+                            {
+                                s += lin[j] + " ";
+                            }
+
+                            s += trangtri + " ";
+
+                            for (int j = index; j < lin.Length; j++)
+                            {
+                                s += lin[j];
+
+                                if (j < lin.Length - 1)
+                                    s += " ";
+                            }
+
+                            sa += s;
 
                             if (i < lyrix.Length - 1)
                                 sa += "\r\n";
-
-                            continue;
                         }
 
-                        var lin = lyrix[i].Split(" ");
-
-                        var s = trangtri + " ";
-                        int index = lin.Length / 2;
-
-                        if (lin.Length % 2 != 0)
-                            index++;
-
-                        for (int j = 0; j < index; j++)
-                        {
-                            s += lin[j] + " ";
-                        }
-
-                        s += trangtri + " ";
-
-                        for (int j = index; j<lin.Length; j++)
-                        {
-                            s += lin[j];
-
-                            if (j < lin.Length - 1)
-                                s += " ";
-                        }
-
-                        sa += s;
-
-                        if (i < lyrix.Length - 1)
-                            sa += "\r\n";
+                        TempData["Lyric"] = sa;
                     }
-
-                    TempData["Lyric"] = sa;
                 }
             return View();
             }
@@ -603,7 +618,18 @@ namespace MyWebPlay.Controllers
 
                 var xanh = f["txtLyric"].ToString().Replace("undefined", "").Replace(" *", "*");
 
+                if (HttpContext.Session.GetString("karaoke_Final") == "true")
+                {
+                    var trangtri = TempData["TrangTri"].ToString();
+
+                    xanh = BoSungIconTienTo_Karaoke(xanh, trangtri);
+                }
+
+                HttpContext.Session.Remove("CuoiCung");
+                HttpContext.Session.Remove("karaoke_Final");
+
                 var infoX = listSetting[49].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
 
                 if (infoX[1] == "true")
                     xanh = StringMaHoaExtension.Encrypt(xanh);
@@ -639,6 +665,168 @@ namespace MyWebPlay.Controllers
                 HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
                 return RedirectToAction("Error", new { exception = "true" });
             }
+        }
+
+        public string BoSungIconTienTo_Karaoke(string text, string icon)
+        {
+            var noidung = text.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+
+            var listText = new List<string>();
+
+            var ok = "";
+
+            for (int i = 0; i < noidung.Length; i++)
+            {
+                var nd = noidung[i].Split("#");
+
+                if (nd[1] == "[Empty]" || nd[1] == "[Empty-X]" || nd[1].Contains("\t"))
+                {
+                    listText.Add("[null]");
+                    continue;
+                }
+
+                var non = icon + " ";
+                var kara = nd[1].Replace("*"," ").Split(" ");
+                for (int j = 0; j < kara.Length; j++)
+                {
+                    var space = " ";
+
+                    if (kara.Length % 2 != 0)
+                    {
+                        if (j == kara.Length / 2)
+                            space = "*" + icon + " ";
+                    }
+                    else
+                    {
+                        if (j == (kara.Length / 2) - 1)
+                            space = "*" + icon + " ";
+                    }
+
+                    if (j == kara.Length - 1)
+                        space = "";
+
+                    non += kara[j] + space;
+                    
+                }
+
+                listText.Add(non);
+            }
+
+              var listTime = new List<string>();
+
+            var time = "";
+
+                for (int i = 0; i < noidung.Length ;i++)
+            {
+                var nd = noidung[i].Split("#");
+
+                if (nd[1] == "[Empty]" || nd[1] == "[Empty-X]" || nd[1].Contains("\t"))
+                {
+                    listTime.Add("[null]");
+                    continue;
+                }
+
+                var nd1 = nd[2].Split(",");
+                var ta = int.Parse(nd1[0].Split("-")[0]);
+                var tax = int.Parse(nd[0]);
+                var de = 0;
+
+                while(true)
+                {
+                    if (de == 3) break;
+
+                    de++;
+
+                    if (ta - 1 > tax - 1)
+                        ta--;
+                }
+
+                var so = ta;
+
+                var t = icon.Length + 1;
+                time += so + "-" + t + "," ;
+                
+
+                for (int j =  0; j < nd1.Length; j++)
+                {
+                    var nd3 = nd1[j].Split("-");
+
+                    if (nd1.Length % 2 != 0)
+                    {
+                        if (j == (nd1.Length / 2) + 1)
+                        {
+                            var nd4 = nd1[j-1].Split("-");
+                            var ta1 = int.Parse(nd3[0]);
+                            var tax1 = int.Parse(nd4[0]);
+                            var de1 = 0;
+
+                            while (true)
+                            {
+                                if (de1 == 3) break;
+
+                                de1++;
+
+                                if (ta1 - 1 > tax1)
+                                    ta1--;
+                            }
+                            time += ta1 + "-" +  (int.Parse(nd4[1]) + ((icon.Length + 1) * 2)) + ",";
+                            t += icon.Length + 1;
+                        }
+                    }
+                    else
+                    {
+                        if (j == nd1.Length / 2)
+                        {
+                            var nd4 = nd1[j - 1].Split("-");
+                            var ta1 = int.Parse(nd3[0]);
+                            var tax1 = int.Parse(nd4[0]);
+                            var de1 = 0;
+
+                            while (true)
+                            {
+                                if (de1 == 3) break;
+
+                                de1++;
+
+                                if (ta1 - 1 > tax1)
+                                    ta1--;
+                            }
+                            time += ta1 + "-" + (int.Parse(nd4[1]) + ((icon.Length + 1) * 2)) + ",";
+                            t += icon.Length + 1;
+                        }
+                    }
+
+                    time += nd3[0] + "-" + (int.Parse(nd3[1]) + t);
+
+                    if (j < nd1.Length - 1)
+                        time += ",";
+
+                }
+
+                listTime.Add(time);
+                time = "";
+
+            }
+
+            for (int i = 0; i < noidung.Length; i++)
+            {
+                var nd = noidung[i].Split("#");
+
+                if (nd[1] == "[Empty]" || nd[1] == "[Empty-X]" || nd[1].Contains("\t"))
+                {
+                    ok += noidung[i];
+                }
+                else
+                {
+                    ok += nd[0] + "#" + listText[i] + "#" + listTime[i];
+                }
+
+                if (i < noidung.Length - 1)
+                    ok += "\r\n";
+
+            }
+
+                return ok;
         }
 
         public ActionResult XoaKaraoke(string? id, bool? cancel)

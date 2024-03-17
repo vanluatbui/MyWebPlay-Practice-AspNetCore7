@@ -11,6 +11,11 @@
         var k = 0;
         var t = 0;
 
+        if ('@TempData["Delay"]' == "true")
+        {
+            t = - 30;
+        }
+
         var id;
         var flox = 0;
 
@@ -216,7 +221,7 @@ LƯU Ý : trong suốt quá trình thực hiện, bạn không nên có bất k�
 <br />
 <h3 style="color:deeppink">Nếu bạn đã hiểu và sẵn sàng, nhấn nút START PLAY và bắt đầu nghe nhạc của bạn : </h3>
 <br />
-<b style="color:red;display:none" id="error">⚠️ Cảnh báo về một lỗi có thể xảy ra nếu bạn tiếp tục thực hiện, vui lòng thử thao tác lại sau!</b>
+<b style="color:red;display:none" id="error">⚠️ Cảnh báo về một lỗi có thể xảy ra nếu bạn tiếp tục thực hiện, vui lòng thử thao tác lại sau (trừ khi bạn đã tick hỗ trợ fix media, nhưng cũng không đảm bào) !</b>
 <br />
 <audio id="music" onplay="PlayKaraoke()" hidden>
     <source src="@TempData["Music"]" type="audio/mpeg">
@@ -226,7 +231,7 @@ LƯU Ý : trong suốt quá trình thực hiện, bạn không nên có bất k�
 <br />
 <b id="tgian" style="color:deeppink; font-size:20px"></b>
 <br />
-<b style="color:orangered; font-size:15px">Để việc phân tích xử lý Karaoke một cách chính xác, bạn vui lòng tắt hết các ứng dụng đang sử dụng Media Play hoặc liên quan đến nền âm thanh nhé 🥰<br /> Hoặc bạn có thể sẽ phải khởi động lại trình duyệt hoặc re-start máy!</b>
+<b style="color:orangered; font-size:15px">Để việc phân tích xử lý Karaoke một cách chính xác, bạn vui lòng tắt hết các ứng dụng đang sử dụng Media Play hoặc liên quan đến nền âm thanh nhé (tai nghe Bluetooth/âm thanh cũng có thể bị ảnh hưởng) 🥰<br /> Hoặc bạn có thể sẽ phải khởi động lại trình duyệt/reload trang web hoặc re-start máy!</b>
 <br /><br />
 <button style="display:none" id="xong" onclick="xulyKaraoke()"><b>XONG - XỬ LÝ FILE KARAOKE</b></button>
 <br>

@@ -166,15 +166,15 @@ body {
      function xong()
     {
         document.getElementById("okxem").style.display = "none";
-        document.getElementById("loading").style.display = "inline-block";
+        document.getElementById("loading").style.display = "block";
     }
 
     function copyshare()
     {
         if (dFlag == 1)
         {
-             document.getElementById("message").style.display = "inline-block";
-          document.getElementById("error").style.display = "inline-block";
+             document.getElementById("message").style.display = "block";
+          document.getElementById("error").style.display = "block";
         document.getElementById("error").innerHTML = "⚠️ Xử lý thất bại, do đang có nội dung bản text Karaoke đang được mã hoá nhưng chưa được giải mã. Vui lòng thử lại sau !";
             return;
         }
@@ -186,8 +186,8 @@ body {
         var url =  "http://" +'@ViewBag.Host' + "/Home/Share_Karaoke?id=" + document.getElementById("linkKara").value+ mi;
         navigator.clipboard.writeText(url);
 
-        document.getElementById("message").style.display = "inline-block";
-        document.getElementById("error").style.display = "inline-block";
+        document.getElementById("message").style.display = "block";
+        document.getElementById("error").style.display = "block";
         document.getElementById("error").innerHTML = "✔️ Một url chia sẻ Karaoke đã được copy vào Clipboard của bạn. Hãy chia sẻ bài hát này và mang niềm vui đến bạn bè mình nhé !";
     }
 
@@ -258,21 +258,21 @@ body {
             document.getElementById("chonKarax").value = 2;
             document.getElementById("chonKara").options.selectedIndex = 1;
             document.getElementById("online").value = '@ViewBag.Background';
-            document.getElementById("online").style.display = "inline-block";
+            document.getElementById("online").style.display = "block";
         }
          else if ('@ViewBag.Option' == "3")
         {
             document.getElementById("chonKarax").value = 3;
             document.getElementById("chonKara").options.selectedIndex = 2;
             document.getElementById("online").value = '@ViewBag.Background';
-             document.getElementById("online").style.display = "inline-block";
+             document.getElementById("online").style.display = "block";
         }
          else if ('@ViewBag.Option' == "4")
         {
             document.getElementById("chonKarax").value = 4;
             document.getElementById("chonKara").options.selectedIndex = 3;
             document.getElementById("online").value = '@ViewBag.Background';
-             document.getElementById("online").style.display = "inline-block";
+             document.getElementById("online").style.display = "block";
         }
         else if ('@ViewBag.Option' == "5")
         {
@@ -360,16 +360,16 @@ function showlist()
             document.getElementById("phan2").style.display = "none";
             document.getElementById("phan3").style.display = "none";
             document.getElementById("check").style.display = "none";
-            document.getElementById("phan4").style.display = "inline-block";
-            document.getElementById("phan5").style.display = "inline-block";
-             document.getElementById("phan6").style.display = "inline-block";
+            document.getElementById("phan4").style.display = "block";
+            document.getElementById("phan5").style.display = "block";
+             document.getElementById("phan6").style.display = "block";
         }
         else
         {
-            document.getElementById("phan1").style.display = "inline-block";
-            document.getElementById("phan2").style.display = "inline-block";
-            document.getElementById("phan3").style.display = "inline-block";
-             document.getElementById("check").style.display = "inline-block";
+            document.getElementById("phan1").style.display = "block";
+            document.getElementById("phan2").style.display = "block";
+            document.getElementById("phan3").style.display = "block";
+             document.getElementById("check").style.display = "block";
             document.getElementById("phan4").style.display = "none";
             document.getElementById("phan5").style.display = "none";
               document.getElementById("phan6").style.display = "none";
@@ -474,30 +474,30 @@ function showlist()
         else if (chon == 1)
         {
         chonX.value = "2";
-        online.style.display = "inline-block";
+        online.style.display = "block";
         help.style.display = "none";
          help2.style.display = "none";
         }
         else  if (chon == 2)
         {
         chonX.value = "3";
-         online.style.display = "inline-block";
+         online.style.display = "block";
          help.style.display = "none";
           help2.style.display = "none";
         }
         else  if (chon == 3)
         {
         chonX.value = "4";
-         online.style.display = "inline-block";
-         help.style.display = "inline-block";
-         help2.style.display = "inline-block";
+         online.style.display = "block";
+         help.style.display = "block";
+         help2.style.display = "block";
         }
         else  if (chon == 4)
         {
         chonX.value = "5";
          online.style.display = "none";
          help.style.display = "none";
-         help2.style.display = "inline-block";
+         help2.style.display = "block";
         }
     }
 
@@ -506,14 +506,14 @@ function showlist()
         var menu = document.getElementById("menu");
         var hienlinh = document.getElementById("hienlinh");
         
-        if (menu.style.display == "inline-block")
+        if (menu.style.display == "block")
         {
             menu.style.display = "none";
-            hienlinh.style.display = "inline-block";
+            hienlinh.style.display = "block";
         }
         else
         {
-            menu.style.display = "inline-block";
+            menu.style.display = "block";
             hienlinh.style.display = "none";
         }
     }
@@ -551,9 +551,9 @@ function showlist()
    var menu = document.getElementById("menu");
         var hienlinh = document.getElementById("hienlinh");
         
-        if (menu.style.display != "inline-block")
+        if (menu.style.display != "block")
         {
-            menu.style.display = "inline-block";
+            menu.style.display = "block";
             hienlinh.style.display = "none";
         }
 
@@ -689,8 +689,8 @@ function showlist()
           localStorage.removeItem("maunex");
           localStorage.removeItem("anhmo");
 
-         document.getElementById("message").style.display = "inline-block";
-         document.getElementById("error").style.display = "inline-block";
+         document.getElementById("message").style.display = "block";
+         document.getElementById("error").style.display = "block";
         document.getElementById("error").innerHTML = "✔️ Các cài đặt Karaoke của bạn đã được xoá ghi nhớ và trở lại mặc định ban đầu, hãy thử lại Play Karaoke trong lần tiếp theo."
     }
 
@@ -699,8 +699,8 @@ function showlist()
         if ('@ViewBag.Share' == "YES - OK")
         {
      
-          document.getElementById("message").style.display = "inline-block";
-          document.getElementById("error").style.display = "inline-block";
+          document.getElementById("message").style.display = "block";
+          document.getElementById("error").style.display = "block";
         document.getElementById("error").innerHTML = "⚠️ Xin lỗi, tính năng ghi nhớ cài đặt không thể áp dụng nếu bạn đang sử dụng Karaoke bằng link chia sẻ từ bạn bè !";
             return;
         }
@@ -729,24 +729,24 @@ function showlist()
           localStorage.setItem("maunex",  document.getElementById("maunex").value);
           localStorage.setItem("anhmo",  document.getElementById("anhmo").value);
 
-         document.getElementById("message").style.display = "inline-block";
-         document.getElementById("error").style.display = "inline-block";
+         document.getElementById("message").style.display = "block";
+         document.getElementById("error").style.display = "block";
         document.getElementById("error").innerHTML = "✔️ Các cài đặt Karaoke của bạn đã được ghi nhớ thành công (chú ý : một số setting có thể sẽ tự ý thay đổi một chút để phù hợp với hoàn cảnh) !"
 
            var menu = document.getElementById("menu");
         var hienlinh = document.getElementById("hienlinh");
         
-        if (menu.style.display != "inline-block")
+        if (menu.style.display != "block")
         {
-            menu.style.display = "inline-block";
+            menu.style.display = "block";
             hienlinh.style.display = "none";
         }
            var menu = document.getElementById("menu");
         var hienlinh = document.getElementById("hienlinh");
         
-        if (menu.style.display != "inline-block")
+        if (menu.style.display != "block")
         {
-            menu.style.display = "inline-block";
+            menu.style.display = "block";
             hienlinh.style.display = "none";
         }
         document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - OFF</b>";
@@ -1092,8 +1092,8 @@ function showlist()
  
                      if (dFlag == 0 && LBH.length == 1)
                     {
-                         document.getElementById("message").style.display = "inline-block";
-          document.getElementById("error").style.display = "inline-block";
+                         document.getElementById("message").style.display = "block";
+          document.getElementById("error").style.display = "block";
         document.getElementById("error").innerHTML = "⚠️ Cảnh báo, hệ thống không nhận diện được dữ liệu và nội dung Karaoke của bạn. Nguyên nhân có thể do bản text Karaoke của bạn đã tải lên có nội dung được mã hoá, vui lòng thử giải mã và thực hiện lại !";
                       dFlag = 1;
                     }
@@ -1165,9 +1165,9 @@ function showlist()
                            var menu = document.getElementById("menu");
         var hienlinh = document.getElementById("hienlinh");
         
-        if (menu.style.display != "inline-block")
+        if (menu.style.display != "block")
         {
-            menu.style.display = "inline-block";
+            menu.style.display = "block";
             hienlinh.style.display = "none";
         }
                         }
@@ -1596,7 +1596,7 @@ function showlist()
 
                     <tr style="height:40px">
                         <td> </td>
-                        <td id="phan4" style="display:inline-block" >
+                        <td id="phan4" style="display:block" >
                             <br>
                             <b> Nhập host Server name Karaoke của bạn  : </b> <a href="#xuly" onclick="helpKara()" style="color:crimson">Hướng dẫn tạo host Server để play Karaoke của bạn</a>
                             <br>
@@ -1607,7 +1607,7 @@ function showlist()
 
                     <tr style="height:40px">
                         <td> </td>
-                <td id="phan5" style="display:inline-block">
+                <td id="phan5" style="display:block">
                     <br>
                         <b> Nhập bài hát Karaoke từ host server của bạn (lưu ý nhập chính xác) : </b>
                     <br>
@@ -1620,7 +1620,7 @@ function showlist()
 
                 <tr style="height:40px">
                     <td> </td>
-                    <td id="phan6" style="display:inline-block">
+                    <td id="phan6" style="display:block">
                         <br>
                         <b style="color:aqua"> Bật mí tại thư mục root trên host server của bạn, bạn có thể tạo file <span style="color:deeppinkgreen">MyListSong.txt</span>, trong đó liệt kê các bài hát Karaoke (thư mục) đang tồn tại trên host server của bạn, mỗi bài hát phân biệt và cách nhau bởi kí tự Enter : </b>  <a id="getlist" href="#xuly" onclick="showlist()" style="color:crimson">Get all list song of your host server (click try again to finish)</a>
                         &nbsp;||&nbsp;
@@ -1748,7 +1748,7 @@ else
            </div>
            <b style="color:black; font-size:5px"><a style="color:black; font-size:5px" onclick="dongmomenu()" href="#xuly">...</a></b>
                       &nbsp;&nbsp;&nbsp;<br><br>
-           <div id="menu" style="display:inline-block">
+           <div id="menu" style="display:block">
     @if (ViewBag.Music != ViewBag.Musix)
                     {
                         <select id="chon" onchange="changeKara()">
@@ -1881,7 +1881,7 @@ else
                        <span id="number" style="color:#e3f207; font-size:100px"></span>
                        <br />
                          <div style="text-align:center">
-                        <div id="background-X" style="display:inline-block">
+                        <div id="background-X" style="display:block">
                             <p id="thietkeKara"></p>
                           <p id="txtKaraoke1"><b><span id="xanhX1" class="word"></span></b></p>
                         <p id="txtKaraoke2"><b><span id="xanhX2" class="work"></span></b></p>
@@ -2030,7 +2030,7 @@ else if (ViewBag.SuDung == "Video")
 
                     <tr style="height:40px">
                         <td> </td>
-                        <td id="phan4" style="display:inline-block" >
+                        <td id="phan4" style="display:block" >
                             <br>
                             <b> Nhập host Server name Karaoke của bạn  : </b> <a href="#xuly" onclick="helpKara()" style="color:crimson">Hướng dẫn tạo host Server để play Karaoke của bạn</a>
                             <br>
@@ -2041,7 +2041,7 @@ else if (ViewBag.SuDung == "Video")
 
                     <tr style="height:40px">
                         <td> </td>
-                <td id="phan5" style="display:inline-block">
+                <td id="phan5" style="display:block">
                     <br>
                         <b> Nhập bài hát Karaoke từ host server của bạn (lưu ý nhập chính xác) : </b>
                     <br>
@@ -2054,7 +2054,7 @@ else if (ViewBag.SuDung == "Video")
 
                 <tr style="height:40px">
                     <td> </td>
-                    <td id="phan6" style="display:inline-block">
+                    <td id="phan6" style="display:block">
                         <br>
                         <b style="color:aqua"> Bật mí tại thư mục root trên host server của bạn, bạn có thể tạo file <span style="color:deeppinkgreen">MyListSong.txt</span>, trong đó liệt kê các bài hát Karaoke (thư mục) đang tồn tại trên host server của bạn, mỗi bài hát phân biệt và cách nhau bởi kí tự Enter : </b>  <a id="getlist" href="#xuly" onclick="showlist()" style="color:crimson">Get all list song of your host server (click try again to finish)</a>
                         <br>
@@ -2171,7 +2171,7 @@ else
            </div>
            <b style="color:black; font-size:5px"><a style="color:black; font-size:5px" onclick="dongmomenu()" href="#xuly">...</a></b>
                       &nbsp;&nbsp;&nbsp;<br><br>
-           <div id="menu" style="display:inline-block">
+           <div id="menu" style="display:block">
      @if (ViewBag.Music != ViewBag.Musix)
                     {
                         <select id="chon" onchange="changeKara()">
@@ -2294,7 +2294,7 @@ else
                        <span id="number" style="color:#e3f207; font-size:100px"></span>
                        <br />
                          <div style="text-align:center">
-                        <div id="background-X" style="display:inline-block">
+                        <div id="background-X" style="display:block">
                             <p id="thietkeKara"></p>
                            <p id="txtKaraoke1"><b><span id="xanhX1" class="word"></span></b></p>
                         <p id="txtKaraoke2"><b><span id="xanhX2" class="work"></span></b></p>

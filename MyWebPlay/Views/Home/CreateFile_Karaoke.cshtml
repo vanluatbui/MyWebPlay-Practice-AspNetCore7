@@ -37,6 +37,9 @@
                 </td>
                 <td>
                         <textarea rows="30" cols="50" name="txtLyric">@ViewBag.LyricVD</textarea>
+                        <br />
+                        <span style="color:orangered">Tránh sử dụng các kí tự đặc biệt, encode trong phần text Karaoke</span>
+                        <br /><br />
                 </td>
             </tr>
 
@@ -52,6 +55,16 @@
                 <td><b style="color:red">Icon trang trí sau đây cũng thuộc trong phần Text karaoke, vui lòng cũng hãy quét tô và định vị nó trong khi Play nhé : </b></td>
                 <td>
                         <input type="text" name="txtTrangTri" size="50" maxlength="2" placeholder="Sử dụng icon tiền tố (để trang trí) - được khuyến nghị"/>
+                        <br /><br />
+                        <input type="checkbox" name="txtCuoiCung" />&nbsp;<b>Không sử dụng icon tiền đề trên trong khi play, sẽ tự động thêm vào file *.TXT sau khi play karaoke xong</b>
+                    <br>
+                </td>
+            </tr>
+
+            <tr style="height:40px">
+                <td><b style="color:orangered">Nếu bạn đang vô tình bật ứng dụng liên quan đến nền âm thanh, media hoặc tai nghe Bluetooth - hãy thử tick chckbox bên dưới trước</b></td>
+                <td>
+                        <input type="checkbox" name="txtDelay" />&nbsp;<b>Delay for play karaoke (fix media - không đảm bảo) - còn nếu không thì khỏi)</b>
                     <br>
                 </td>
             </tr>

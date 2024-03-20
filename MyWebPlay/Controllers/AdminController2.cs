@@ -69,7 +69,20 @@ if (kbn == "1")
         {
             try
             {
-                var pth = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidungX = System.IO.File.ReadAllText(pathX);
+                var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var lockedApp = listSetting[43].Split("<3275>");
+                if (lockedApp[3] != "[NULL]")
+                {
+                    var xin = Request.Path; if (xin == "" || xin == "/" || xin == null) xin = "/Home/Index"; if (lockedApp[3].Contains(xin))
+                    {
+                        return RedirectToAction("Error", "Home");
+                    }
+                }
+
+                    var pth = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
                 if (f["ID"].ToString() != pth[0] || f["Key"].ToString() != pth[1])
                 {
                     return Ok(new { error = "Đã xảy ra lỗi, vui lòng thử lại sau !" });

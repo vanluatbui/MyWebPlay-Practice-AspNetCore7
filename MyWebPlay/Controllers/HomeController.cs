@@ -629,6 +629,7 @@ namespace MyWebPlay.Controllers
                         }
                         else
                         {
+                            if (TempData["errorXY"] != "true")
                             TempData["errorXY"] = "false";
                         }
                     }

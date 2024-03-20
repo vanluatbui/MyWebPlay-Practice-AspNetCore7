@@ -383,10 +383,12 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult LogMail(string txtText, string? External = "false")
+        public ActionResult LogMail(IFormCollection f, string? External = "false")
         {
             try
             {
+                var txtText = f["txtText"].ToString();
+
                 txtText = txtText.Replace("\r\n", "\n").Replace("\n", "\r\n");
 
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);

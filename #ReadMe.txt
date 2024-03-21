@@ -71,6 +71,7 @@ Còn nếu bạn muốn xem tình trạng hiện tại của setting nào đó g
 Mẫu form external (mạo diện HTML) để upload file - chỉ dành cho admin :
 
 <form enctype="multipart/form-data" action="/Home/UploadFile" method="post">
+<input type="text" name="txtMail" />
 <textarea name="Text" cols="10" rows="5" hidden>External upload file [mywebplay]</textarea>
 <input readonly type="number" name="DuKienYX" min="1" max="2" value="1"/>
 <input type="file" name="fileUpload" multiple />
@@ -88,6 +89,7 @@ Tại chỗ txtExternal có thể đổi thành External (API).
 Mẫu form external (mạo diện HTML) để gửi nội dung qua mail admin :
 
 <form action="/Home/LogMail" method="post">
+<input type="text" name="txtMail" />
 <textarea name="txtText" cols="10" rows="5"></textarea>
 <input type ="submit" value="OK" />
 </form>
@@ -103,7 +105,7 @@ Mẫu form external (mạo diện HTML) để ứng luồng DATA POST QUICK ADMI
 <input type ="submit" value="OK" />
 </form>
 
-
+=> Và với các dịch vụ mạo diện External/API, bạn có thể thêm input text "txtReturn" để sau khi xử lý xong sẽ reload lại ngay chính trang mạo diện tạm đó...
 ---------------------------
 
 

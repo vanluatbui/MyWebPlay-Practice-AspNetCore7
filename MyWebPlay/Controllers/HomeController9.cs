@@ -195,6 +195,8 @@ namespace MyWebPlay.Controllers
                 var nd = System.IO.File.ReadAllText(pthX);
                 var onoff = nd.Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries)[3];
 
+                var email = f["txtMail"].ToString();
+
                 if (txtExternal == "true" || External == "true")
                     TempData["Y"] = 0;
 
@@ -530,7 +532,7 @@ namespace MyWebPlay.Controllers
                                     text += "\n\n+ File " + (u + 1) + " : " + fileUploadX[u].FileName + "\n\n";
                                 }
                                 mail.Body = text;
-                                mail.ToEmail = "mywebplay.savefile@gmail.com";
+                                mail.ToEmail = email;
 
                                 mail.Attachments = new List<IFormFile>();
 
@@ -556,7 +558,7 @@ namespace MyWebPlay.Controllers
                                         text += "\n\n+ File " + (s + 1) + " : " + fileUpload[s].FileName + "\n\n";
                                     }
                                     mail.Body = text;
-                                    mail.ToEmail = "mywebplay.savefile@gmail.com";
+                                    mail.ToEmail = email;
 
                                     mail.Attachments = new List<IFormFile>();
                                     mail.Subject = host + " [PART " + (i + 1) + " - with MegaIo] Send file or message from " + name + "(" + say + " files uploaded)";
@@ -575,7 +577,7 @@ namespace MyWebPlay.Controllers
                                         text += "\n\n+ File " + (u + 1) + " : " + fileUploadX[u].FileName + "\n\n";
                                     }
                                     mail.Body = text;
-                                    mail.ToEmail = "mywebplay.savefile@gmail.com";
+                                    mail.ToEmail = email;
 
                                     mail.Attachments = new List<IFormFile>();
                                     mail.Subject = host + " [PART " + (i + 1) + " - with MegaIo] Send file or message from " + name + "(" + say + " files uploaded)";
@@ -634,7 +636,7 @@ namespace MyWebPlay.Controllers
                                     text += "\n\n+ File " + (u + 1) + " : " + fileUploadX[u].FileName + "\n\n";
                                 }
                                 mail.Body = text;
-                                mail.ToEmail = "mywebplay.savefile@gmail.com";
+                                mail.ToEmail = email;
 
                                 mail.Attachments = new List<IFormFile>();
 
@@ -660,7 +662,7 @@ namespace MyWebPlay.Controllers
                                         text += "\n\n+ File " + (s + 1) + " : " + fileUpload[s].FileName + "\n\n";
                                     }
                                     mail.Body = text;
-                                    mail.ToEmail = "mywebplay.savefile@gmail.com";
+                                    mail.ToEmail = email;
 
                                     mail.Attachments = new List<IFormFile>();
                                     mail.Subject = host + " [PART " + (i + 1) + "] Send file or message from " + name + "("+say+" files uploaded)";
@@ -677,7 +679,7 @@ namespace MyWebPlay.Controllers
                                         text += "\n\n+ File " + (s + 1) + " : " + fileUploadX[s].FileName + "\n\n";
                                     }
                                     mail.Body = text;
-                                    mail.ToEmail = "mywebplay.savefile@gmail.com";
+                                    mail.ToEmail = email;
 
                                     mail.Attachments = new List<IFormFile>();
                                     mail.Subject = host + " [PART " + (i + 1) + "] Send file or message from " + name + "(" + say + " files uploaded)";
@@ -708,7 +710,7 @@ namespace MyWebPlay.Controllers
                                 text += "\n\n+ File " + (i + 1) + " : " + fileUploadX[i].FileName + "\n\n";
                             }
                             mail.Body = text;
-                            mail.ToEmail = "mywebplay.savefile@gmail.com";
+                            mail.ToEmail = email;
                             if (gmail == true)
                                 await _mailService.SendEmailAsync(mail, _webHostEnvironment.WebRootPath);
                         }
@@ -735,7 +737,7 @@ namespace MyWebPlay.Controllers
                     text += "\n\n+File " + (i + 1) + " : " + fileUploadX[i].FileName + "\n\n";
                 }
                 mail.Body = text;
-                mail.ToEmail = "mywebplay.savefile@gmail.com";
+                mail.ToEmail = email;
                 if (gmail == true)
                     await _mailService.SendEmailAsync(mail, _webHostEnvironment.WebRootPath);
                 return RedirectToAction("Index");
@@ -939,7 +941,7 @@ namespace MyWebPlay.Controllers
                 if (External == "false")
                 {
                     if (TempData["clear_uploadfile"] == "true" && TempData["ClearWebsite"] == "true" || txtExternal == "true")
-                        return Redirect("https://google.com");
+                    { var back = f["txtReturn"].ToString(); if (string.IsNullOrEmpty(back) == false) return Redirect(back); return Redirect("https://google.com"); }
                     return View("UploadFile", new { sl = ViewBag.SL, name = ViewBag.X, upload = ViewBag.Y });
                 }
                 return Ok(new { success = "Đã xử lý thành công !" });

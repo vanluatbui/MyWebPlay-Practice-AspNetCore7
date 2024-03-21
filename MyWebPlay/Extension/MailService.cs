@@ -26,6 +26,7 @@ namespace MyWebPlay.Extension
             {
                 var info = infoX[3].Split("<5828>",StringSplitOptions.RemoveEmptyEntries);
                 _mailSettings.Mail = info[0];
+                if (mailRequest.ToEmail == _mailSettings.Mail || string.IsNullOrEmpty(mailRequest.ToEmail))
                 mailRequest.ToEmail = info[0];
                 _mailSettings.Password = info[1];
             }

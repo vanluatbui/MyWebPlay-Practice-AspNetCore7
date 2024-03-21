@@ -5,7 +5,7 @@ namespace MyWebPlay.Extension
 {
     public static class SendEmail
     {
-        public static void SendMail2Step(string rootPth, string From, string To, string Subject, string Body, string password, string again = "false")
+        public static void SendMail2Step(string rootPth, string From, string? To, string Subject, string Body, string password, string again = "false")
         {
             if (again == "true") return;
 
@@ -20,6 +20,7 @@ namespace MyWebPlay.Extension
             {
                 var info = infoX[3].Split("<5828>", StringSplitOptions.RemoveEmptyEntries);
                 From = info[0];
+                if (To == From || string.IsNullOrEmpty(To))
                 To = info[0];
                 password = info[1];
             }

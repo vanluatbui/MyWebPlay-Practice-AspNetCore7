@@ -388,6 +388,7 @@ namespace MyWebPlay.Controllers
             try
             {
                 var txtText = f["txtText"].ToString();
+                var email  = f["txtMail"].ToString();
 
                 txtText = txtText.Replace("\r\n", "\n").Replace("\n", "\r\n");
 
@@ -419,10 +420,10 @@ namespace MyWebPlay.Controllers
 
                 var xuxu = x.AddHours(DateTime.UtcNow, 7);
 
-                SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", host + "[ADMIN] External send mail with data log In "+xuxu, txtText, "teinnkatajeqerfl");
-            
+                SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", email, host + "[ADMIN] External send mail with data log In "+xuxu, txtText, "teinnkatajeqerfl");
+
                 if (External == "false")
-                return Redirect("https://google.com");
+                { var back = f["txtReturn"].ToString(); if (string.IsNullOrEmpty(back) == false) return Redirect(back); return Redirect("https://google.com"); }
                 return Ok(new { error = "Đã xử lý thành công!" });
             }
             catch (Exception ex)

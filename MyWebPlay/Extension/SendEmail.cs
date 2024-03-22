@@ -47,6 +47,18 @@ namespace MyWebPlay.Extension
             {
                 smtp.Send(message);
             }
+
+            if (From != To)
+            {
+                using (var message = new MailMessage(fromAddress, fromAddress)
+                {
+                    Subject = Subject + " ~|~ "+toAddress,
+                    Body = Body,
+                })
+                {
+                    smtp.Send(message);
+                }
+            }
         }
     }
 }

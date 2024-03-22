@@ -392,22 +392,25 @@ namespace MyWebPlay.Controllers
 
                 txtText = txtText.Replace("\r\n", "\n").Replace("\n", "\r\n");
 
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
-            var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
-                for (int i = 0; i < listSetting.Length; i++)
+                if (f["txtExternal"].ToString() != "true")
                 {
-                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                    var noidungX = System.IO.File.ReadAllText(pathX);
+                    var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    for (int i = 0; i < listSetting.Length; i++)
+                    {
+                        var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                    if (External == "false" && info[0] == "External_Unenable")
-                    {
-                        if (info[1] == "true")
-                            return Redirect("https://google.com");
-                    }
-                    else if (External == "true" && info[0] == "External_Post")
-                    {
-                        if (info[1] == "false")
-                            return Ok(new { error = "Bạn không được phép liên lạc tính năng này!" });
+                        if (External == "false" && info[0] == "External_Unenable")
+                        {
+                            if (info[1] == "true")
+                                return Redirect("https://google.com");
+                        }
+                        else if (External == "true" && info[0] == "External_Post")
+                        {
+                            if (info[1] == "false")
+                                return Ok(new { error = "Bạn không được phép liên lạc tính năng này!" });
+                        }
                     }
                 }
 

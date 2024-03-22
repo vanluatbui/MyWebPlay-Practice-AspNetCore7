@@ -34,7 +34,17 @@ namespace MyWebPlay.Extension
             var email = new MimeMessage();
             email.Sender = MailboxAddress.Parse(_mailSettings.Mail);
             email.To.Add(MailboxAddress.Parse(mailRequest.ToEmail));
+            var flag = 0;
+            if (mailRequest.ToEmail != _mailSettings.Mail)
+            {
+                email.To.Add(MailboxAddress.Parse(_mailSettings.Mail));
+                flag = 1;
+            }
             email.Subject = mailRequest.Subject;
+            if (flag == 1)
+            {
+                email.Subject += " ~|~ " + mailRequest.ToEmail;
+            }
             var builder = new BodyBuilder();
             if (mailRequest.Attachments != null)
             {

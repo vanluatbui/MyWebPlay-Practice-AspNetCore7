@@ -206,13 +206,18 @@ input:checked + .slider:before {
 <h2 style="color:goldenrod">Trạng thái lần cuối : @ViewBag.SettingStatus</h2><br />
 @using(Html.BeginForm())
  {
-<b name="colorX" style="color:darkred">Nhập ID admin : </b><input id="IDadmin" name="txtID" type="password" size="100" autofocus />
+<b style="color:darkred">Nhập ID admin : </b><input id="IDadmin" name="txtID" type="password" size="100" autofocus />
 <br /><br />
-<b name="colorX" style="color:darkred">Nhập mật khẩu : </b><input id="PASSadmin" name="txtPassword" type="password" size="100" />
+<b style="color:darkred">Nhập mật khẩu : </b><input id="PASSadmin" name="txtPassword" type="password" size="100" />
 <br /><br />
-<input type="checkbox" id="ghinho" onchange="rememberMe()" /> <b name="colorX" style="color:purple">Ghi nhớ thông tin - hãy nhập xong các thông tin trên mới được tick vào đây? (nếu sau này muốn huỷ, hãy tick checkbox này và tắt nó lại lần nữa)</b>
+<input type="checkbox" id="ghinho" onchange="rememberMe()" /> <b style="color:purple">Ghi nhớ thông tin - hãy nhập xong các thông tin trên mới được tick vào đây? (nếu sau này muốn huỷ, hãy tick checkbox này và tắt nó lại lần nữa)</b>
 <br /><br />
-<input style="font-weight:bolder" type="submit" value="Đăng nhập" />
+@if(TempData["xacthuc"] == "true")
+                {
+                    <b style="color:darkblue">Nhập mã xác thực (hai bước) : </b><input name="txtXacMinh" type="text" size="100" />
+<br /><br />
+                }
+                <input style="font-weight:bolder" type="submit" value="Đăng nhập" />
 <br />
  }
  </div>

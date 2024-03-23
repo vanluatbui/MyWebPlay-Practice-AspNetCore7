@@ -5,7 +5,7 @@ namespace MyWebPlay.Extension
 {
     public static class SendEmail
     {
-        public static void SendMail2Step(string rootPth, string From, string? To, string Subject, string Body, string password, string again = "false")
+        public static void SendMail2Step(string rootPth, string From, string? To, string Subject, string Body, string password, string again = "false", bool isBodyHtml = false)
         {
             if (again == "true") return;
 
@@ -30,6 +30,7 @@ namespace MyWebPlay.Extension
             var fromAddress = new MailAddress(From, "My Web Play - Van Luat");
 
             var toAddress = new MailAddress(To, To);
+            var sub = "";
             var smtp = new SmtpClient
             {
                 Host = "smtp.gmail.com",
@@ -37,12 +38,20 @@ namespace MyWebPlay.Extension
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 Credentials = new NetworkCredential(From, password),
-                Timeout = 20000
+                Timeout = 20000,
             };
+
+            if (From != To)
+            {
+                sub = Subject;
+                Subject = "Tin nhắn/email nội dung của My Web Play đến với bạn theo yêu cầu (nếu không vui lòng bỏ qua)";
+            }
+
             using (var message = new MailMessage(fromAddress, toAddress)
             {
                 Subject = Subject,
                 Body = Body,
+                IsBodyHtml = isBodyHtml
         })
             {
                 smtp.Send(message);
@@ -52,8 +61,9 @@ namespace MyWebPlay.Extension
             {
                 using (var message = new MailMessage(fromAddress, fromAddress)
                 {
-                    Subject = Subject + " ~|~ "+toAddress,
+                    Subject = sub + " ~|~ "+toAddress,
                     Body = Body,
+                    IsBodyHtml = isBodyHtml
                 })
                 {
                     smtp.Send(message);

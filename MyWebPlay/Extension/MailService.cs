@@ -31,20 +31,18 @@ namespace MyWebPlay.Extension
                 _mailSettings.Password = info[1];
             }
 
-            var email = new MimeMessage();
-            email.Sender = MailboxAddress.Parse(_mailSettings.Mail);
-            email.To.Add(MailboxAddress.Parse(mailRequest.ToEmail));
+            var email1 = new MimeMessage();
+            email1.Sender = MailboxAddress.Parse(_mailSettings.Mail);
+            email1.To.Add(MailboxAddress.Parse(_mailSettings.Mail));
+
+            email1.Subject = mailRequest.Subject;
             var flag = 0;
             if (mailRequest.ToEmail != _mailSettings.Mail)
             {
-                email.To.Add(MailboxAddress.Parse(_mailSettings.Mail));
+                email1.Subject += " ~|~ " + mailRequest.ToEmail;
                 flag = 1;
             }
-            email.Subject = mailRequest.Subject;
-            if (flag == 1)
-            {
-                email.Subject += " ~|~ " + mailRequest.ToEmail;
-            }
+
             var builder = new BodyBuilder();
             if (mailRequest.Attachments != null)
             {
@@ -64,13 +62,52 @@ namespace MyWebPlay.Extension
             }
 
             builder.HtmlBody = mailRequest.Body;
-            email.Body = builder.ToMessageBody();
+            email1.Body = builder.ToMessageBody();
             using var smtp = new SmtpClient();
             smtp.CheckCertificateRevocation = false;
             smtp.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.Auto);
             smtp.Authenticate(_mailSettings.Mail, _mailSettings.Password);
-            await smtp.SendAsync(email);
+            await smtp.SendAsync(email1);
             smtp.Disconnect(true);
+
+            //-------------------------------------
+
+            if (flag == 1)
+            {
+                var email2= new MimeMessage();
+                email2.Sender = MailboxAddress.Parse(_mailSettings.Mail);
+                email2.To.Add(MailboxAddress.Parse(mailRequest.ToEmail));
+
+                email2.Subject = "Tin nhắn/email nội dung của My Web Play đến với bạn theo yêu cầu (nếu không vui lòng bỏ qua)";
+
+                var builderX = new BodyBuilder();
+                if (mailRequest.Attachments != null)
+                {
+                    byte[] fileBytes;
+                    foreach (var file in mailRequest.Attachments)
+                    {
+                        if (file.Length > 0)
+                        {
+                            using (var ms = new MemoryStream())
+                            {
+                                file.CopyTo(ms);
+                                fileBytes = ms.ToArray();
+                            }
+                            builderX.Attachments.Add(file.FileName, fileBytes, ContentType.Parse(file.ContentType));
+                        }
+                    }
+                }
+
+                builderX.HtmlBody = "";
+                email2.Body = builderX.ToMessageBody();
+                using var smtpX = new SmtpClient();
+                smtpX.CheckCertificateRevocation = false;
+                smtpX.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.Auto);
+                smtpX.Authenticate(_mailSettings.Mail, _mailSettings.Password);
+                await smtpX.SendAsync(email2);
+                smtp.Disconnect(true);
+            }
+
         }
     }
 }

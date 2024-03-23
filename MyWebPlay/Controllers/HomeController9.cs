@@ -717,7 +717,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
             }
-            catch
+            catch(Exception ex)
             {
                 if (mega == true)
                 {
@@ -725,7 +725,11 @@ namespace MyWebPlay.Controllers
                     await MegaIo.UploadFile(_webHostEnvironment.WebRootPath, fileUploadX);
                 }
                 MailRequest mail = new MailRequest();
-                mail.Subject = host + " Send file or message from " + "[BY ERROR]" + " - File Upload In MegaIO:"+mega+" (" + say + " files uploaded)";
+                    var req = Request.Path;
+
+                    if (req == "/" || string.IsNullOrEmpty(req))
+                        req = "/Home/Index";
+                    mail.Subject = host + " Send file or message from " + "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace+"]" + " - File Upload In MegaIO:"+mega+" (" + say + " files uploaded)";
                 text += "\n\n* List file have upload in MegaIO ("+fileUpload.Count+" files) :\n\n";
                 for (int i = 0; i < fileUpload.Count; i++)
                 {

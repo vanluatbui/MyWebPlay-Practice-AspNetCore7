@@ -496,7 +496,16 @@ namespace MyWebPlay.Controllers
                 TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
             }
 
-            var pathS = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/Setting_Status.txt");
+                if (HttpContext.Session.GetString("xacthuc2buoc-ADMIN") != null)
+                {
+                    TempData["xacthuc"] = "true";
+                }
+                else
+                {
+                    TempData["xacthuc"] = "false";
+                }
+
+                    var pathS = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/Setting_Status.txt");
             var noidungS = System.IO.File.ReadAllText(pathS);
             ViewBag.SettingStatus = noidungS;
 
@@ -528,7 +537,7 @@ namespace MyWebPlay.Controllers
                 var dem = 0;
                 for (int i = 0; i < listSetting.Length; i++)
                 {
-                    if (i >= 33 && i <= 44 || i == 50 || i == 52 || i == 51 || i ==55 || i == 56 || i == 58) continue;
+                    if (i >= 33 && i <= 44 || i == 50 || i == 52 || i == 51 || i ==55 || i == 56 || i == 58 || i == 60) continue;
 
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
                 settingAdmin.Topics.Add(new SettingAdmin.Topic(info[0], info[2], bool.Parse(info[1])));
@@ -592,10 +601,55 @@ namespace MyWebPlay.Controllers
             var password = System.IO.File.ReadAllText(pth).Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries)[1];
             var ID = System.IO.File.ReadAllText(pth).Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries)[0];
 
-            if (password == f["txtPassword"].ToString() && ID == f["txtID"].ToString())
-            {
-                HttpContext.Session.SetString("adminSetting", "true");
-            }
+                var key = listSetting[60].Split("<3275>")[3];
+
+                if (listSetting[61].Split("<3275>")[1] == "false")
+                {
+                    if (StringMaHoaExtension.Decrypt(password, key) == f["txtPassword"].ToString() && StringMaHoaExtension.Decrypt(ID, key) == f["txtID"].ToString())
+                    {
+                        HttpContext.Session.SetString("adminSetting", "true");
+                    }
+                }
+                else
+                {
+                    if (StringMaHoaExtension.Decrypt(password, key) == f["txtPassword"].ToString() && StringMaHoaExtension.Decrypt(ID, key) == f["txtID"].ToString())
+                    {
+                        if (HttpContext.Session.GetString("xacthuc2buoc-ADMIN") != null)
+                        {
+                            var xt = HttpContext.Session.GetString("xacthuc2buoc-ADMIN");
+                            var xs = f["txtXacMinh"].ToString();
+
+                            if (xs == xt)
+                            {
+
+                                HttpContext.Session.SetString("adminSetting", "true");
+                                HttpContext.Session.Remove("xacthuc2buoc-ADMIN");
+                            }
+                        }
+                        else
+                        {
+                            string host = "{" + Request.Host.ToString() + "}"
+                        .Replace("http://", "")
+                    .Replace("http://", "")
+                    .Replace("/", "");
+
+                            Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+                            string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+
+                            var r = new Random();
+
+                            var so = r.Next(100000, 999999);
+
+                            HttpContext.Session.SetString("xacthuc2buoc-ADMIN", so.ToString());
+
+                            var noidung = "Mã xác minh hai bước của bạn lúc này là : <b style=\"color:red\">" + so + "</b> (hãy nhanh chóng sử dụng trước khi hết hạn).<br />Vui lòng không chia sẻ cho bất kỳ ai và mã này chỉ được sử dụng một lần.<br />Nếu bạn không yêu cầu điều này, xin hãy bỏ qua và đừng làm gì cả.<br />Trân trọng cảm ơn !<br /><br />@@ MY WEB PLAY - ADMIN SETTING @@\n";
+
+                            SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
+                    "mywebplay.savefile@gmail.com", host + "[ADMIN] Thiết lập mã xác minh hai bước để đăng nhập dịch vụ Admin Setting - MY WEB PLAY In " + xuxu, noidung, "teinnkatajeqerfl", "false", true);
+                        }
+                    }
+                }
           }
             catch (Exception ex)
             {
@@ -711,9 +765,11 @@ namespace MyWebPlay.Controllers
 
             TempData.Remove("trust-setting");
 
-            if (id == nd[0] && code == nd[1])
+                var key = listSetting[60].Split("<3275>")[3];
+
+                if (id == StringMaHoaExtension.Decrypt(nd[0], key) && code == StringMaHoaExtension.Decrypt(nd[1], key))
             {
-                HttpContext.Session.SetString(nd[0], nd[1]);
+                HttpContext.Session.SetString(StringMaHoaExtension.Decrypt(nd[0], key), StringMaHoaExtension.Decrypt(nd[0], key));
             }
             }
             catch (Exception ex)
@@ -917,6 +973,11 @@ namespace MyWebPlay.Controllers
                         ViewBag.AdminSetting = info[3];
                     }
 
+                    if (info[0] == "KeyEncrypt_Admin")
+                    {
+                        ViewBag.KeyEncryptAdmin = info[3];
+                    }
+
                     if (info[0] == "HTML_Visible")
                     {
                         ViewBag.HTMLVisible = info[3];
@@ -956,10 +1017,10 @@ namespace MyWebPlay.Controllers
                 //    TempData["SecureAdmin"] = "false";
                 //}
             }
-
-            var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                var key = listSetting[60].Split("<3275>")[3];
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
             var nd = System.IO.File.ReadAllText(pth).Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries);
-            TempData["key-admin"] = nd[0];
+                TempData["key-admin"] = StringMaHoaExtension.Decrypt(nd[0], key);
            // TempData["value-admin"] = nd[1];
 
             var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
@@ -1078,7 +1139,16 @@ namespace MyWebPlay.Controllers
 
                 var passUserEnter = f["txtMatPassAd"].ToString();
 
-                if (passUserEnter != matpassAd)
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidung = System.IO.File.ReadAllText(path);
+
+                var listSetting = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var infoX = listSetting[39].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                var key = listSetting[60].Split("<3275>")[3];
+
+                if (passUserEnter != StringMaHoaExtension.Decrypt(matpassAd, key))
                 {
                     TempData["loisave"] = "true";
                     return RedirectToAction("SettingXYZ_DarkAdmin");
@@ -1107,11 +1177,11 @@ namespace MyWebPlay.Controllers
                     TempData["winx"] = "❤";
                 }
 
-                var path = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                path = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
 
-                var noidung = System.IO.File.ReadAllText(path);
+                 noidung = System.IO.File.ReadAllText(path);
 
-                var listSetting = noidung.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                listSetting = noidung.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
                 var flag = 0;
                 var cometo = "#";
                 var dix = 0;
@@ -1164,7 +1234,7 @@ namespace MyWebPlay.Controllers
 
                     if (info[0] != "Password_Admin" && info[0] != "Believe_IP" && info[0] != "Code_LockedClient" && info[0] != "MatDoTuyetDoi" && info[0] != "Encode_Url" && info[0] != "Info_Email" && info[0] != "Info_MegaIO" && info[0] != "Color_BackgroundAndText" 
                         && info[0] != "Color_TracNghiem" && info[0] != "AppWeb_LockedUse" && info[0] != "DownloadFile_ClearWeb" && info[0] != "Accept_ListUrl"
-                        && info[0] != "UploadFile_MaxSize" && info[0] != "TabTittle_NoiDung" && info[0] != "Time_Waiting" && info[0] != "HTML_Visible" && info[0] != "Admin_Setting")
+                        && info[0] != "UploadFile_MaxSize" && info[0] != "TabTittle_NoiDung" && info[0] != "Time_Waiting" && info[0] != "HTML_Visible" && info[0] != "Admin_Setting" && info[0] != "KeyEncrypt_Admin")
                     {
                         if (xi != info[1])
                         {
@@ -1272,6 +1342,31 @@ namespace MyWebPlay.Controllers
 
                         noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
                     }
+                    else if (info[0] == "KeyEncrypt_Admin")
+                    {
+                        var xinh = f[info[0]];
+
+                        if (string.IsNullOrEmpty(xinh))
+                            xinh = "buivanluat-ADMIN3275";
+
+                        if (xinh != info[3])
+                        {
+                            cometo = "#come-" + i;
+                            dix++;
+                        }
+
+                        noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
+
+                        var ptj = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                        var lan = System.IO.File.ReadAllText(ptj);
+                        var na = lan.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+                        var id = StringMaHoaExtension.Decrypt(na[0], info[3]);
+                        string code = StringMaHoaExtension.Decrypt(na[1], info[3]);
+
+                        lan = lan.Replace(na[0], StringMaHoaExtension.Encrypt(id, xinh));
+                        lan = lan.Replace(na[1], StringMaHoaExtension.Encrypt(code, xinh));
+                        System.IO.File.WriteAllText(ptj,lan);
+                    }
                     else if (info[0] == "HTML_Visible")
                     {
                         var xinh = f[info[0]];
@@ -1303,6 +1398,9 @@ namespace MyWebPlay.Controllers
                         var xinh = f[info[0]];
                         if (string.IsNullOrEmpty(xinh))
                             xinh = "SettingABC_DarkBVL.txt";
+
+                        if (xinh.ToString().EndsWith(".txt") == false)
+                            xinh += ".txt";
 
                         if (xinh != info[3])
                         {
@@ -2707,6 +2805,11 @@ namespace MyWebPlay.Controllers
                         System.IO.File.WriteAllText(path, "Đã bật hết các item setting (kể cả các setting phụ) # " + xuxu);
                         break;
 
+                    case "21":
+                        var nd6 = noidung.Split(" # ");
+                        System.IO.File.WriteAllText(path, nd6[0] + " + Bật xác thực hai bước ADMIN # " + xuxu);
+                        break;
+
                     case "ON-ALL":
                     System.IO.File.WriteAllText(path, "Đã bật hết tất cả các item setting (ngoại trừ mục cho phép website với mọi người thì sẽ ưu tiên việc get IP; và về setting nhận thông báo email dữ liệu Karaoke của user thì nhận luôn cả hai bản : Text và MP3) và hãy cẩn thận sự mâu thuẫn giữa các item setting lúc này # " + xuxu);
                     break;
@@ -2762,7 +2865,14 @@ namespace MyWebPlay.Controllers
                 var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
             var pass = System.IO.File.ReadAllText(pth).Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries)[1];
 
-            if (pass == code)
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidung = System.IO.File.ReadAllText(path);
+
+                var listSetting = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var infoX = listSetting[39].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                var key = listSetting[60].Split("<3275>")[3];
+                if (StringMaHoaExtension.Decrypt(pass, key) == code)
             {
                 TempData["check-me"] = "true";
             }
@@ -2790,7 +2900,14 @@ namespace MyWebPlay.Controllers
             var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
             var nd = System.IO.File.ReadAllText(pth).Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries);
 
-            if (code == nd[1])
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+            var noidung = System.IO.File.ReadAllText(path);
+
+            var listSetting = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            var infoX = listSetting[39].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+            var key = listSetting[60].Split("<3275>")[3];
+            if (code == StringMaHoaExtension.Decrypt(nd[1], key))
             {
                 HttpContext.Session.SetString("open-admin", "true");
                 TempData["admin-open"] = "true";

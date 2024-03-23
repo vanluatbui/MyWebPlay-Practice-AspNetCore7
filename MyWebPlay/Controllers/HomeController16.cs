@@ -475,6 +475,9 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("xacthuc2buoc-ADMIN") != null)
+                    return RedirectToAction("Error");
+
                 Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
@@ -536,7 +539,10 @@ namespace MyWebPlay.Controllers
         {
             try
             {
-                Calendar xi = CultureInfo.InvariantCulture.Calendar;
+                if (HttpContext.Session.GetString("xacthuc2buoc-ADMIN") != null)
+                    return RedirectToAction("Error");
+
+                    Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
             var noidungX = System.IO.File.ReadAllText(pathX);
@@ -590,8 +596,8 @@ namespace MyWebPlay.Controllers
                 var pthU = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var idU = System.IO.File.ReadAllText(pthU).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[0];
                 var passU = System.IO.File.ReadAllText(pthU).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[1];
-
-                if (session.Contains("[" + idU + "<>" + passU + "-adsetdata]"))
+                var key = listSetting[60].Split("<3275>")[3];
+                if (session.Contains("[" + StringMaHoaExtension.Decrypt(idU, key) + "<>" + StringMaHoaExtension.Decrypt(passU, key) + "-adsetdata]"))
                 {
                     var set = giatri.Split("###", StringSplitOptions.RemoveEmptyEntries)[0];
                     var gt = giatri.Split("###", StringSplitOptions.RemoveEmptyEntries)[1];
@@ -651,7 +657,7 @@ namespace MyWebPlay.Controllers
                 var code = giatri.Replace("[32752262]", "");
 
                 var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
-                System.IO.File.WriteAllText(pth, id + "\r\n" + code);
+                    System.IO.File.WriteAllText(pth, StringMaHoaExtension.Encrypt(id, key) + "\r\n" + StringMaHoaExtension.Encrypt(code, key));
             }
 
                 if (session.Contains("[20062000]") && giatri.Contains("[20062000]"))
@@ -660,9 +666,8 @@ namespace MyWebPlay.Controllers
                     var code = giatri.Replace("[20062000]", "");
 
                     var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
-
                     var matkhauAd = System.IO.File.ReadAllText(pth).Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries)[1];
-                    if (matkhauAd == id)
+                    if (StringMaHoaExtension.Decrypt(matkhauAd, key) == id)
                     {
                         var infoX = listSetting[43].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
                         if (infoX[3] != "[NULL]")
@@ -684,9 +689,8 @@ namespace MyWebPlay.Controllers
 
                     var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                     var nd = System.IO.File.ReadAllText(pth);
-
                     var matkhauAd = nd.Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries)[1];
-                    if (matkhauAd == id)
+                    if (StringMaHoaExtension.Decrypt(matkhauAd, key) == id)
                     {
                         if (code == "on")
                             nd = nd.Replace("OFF", "ON");
@@ -795,13 +799,13 @@ namespace MyWebPlay.Controllers
             {
                     var s = "";
 
-                     foreach(var key in HttpContext.Session.Keys)
+                     foreach(var kex in HttpContext.Session.Keys)
                         {
 
-                            if (HttpContext.Session.GetString(key) != null)
-                             s += key + " : " + HttpContext.Session.GetString(key) + "\r\n";
+                            if (HttpContext.Session.GetString(kex) != null)
+                             s += kex + " : " + HttpContext.Session.GetString(kex) + "\r\n";
                             else
-                            s += key + " : " + HttpContext.Session.GetObject<string>(key) + "\r\n";
+                            s += kex + " : " + HttpContext.Session.GetObject<string>(kex) + "\r\n";
                     }
                     ViewBag.KetQua = s;
                 }
@@ -809,9 +813,9 @@ namespace MyWebPlay.Controllers
             if (chon == "8")
                 {
                     var s = "";
-                    foreach (var key in TempData.Keys)
+                    foreach (var kex in TempData.Keys)
                     {
-                        s += key + " : " + TempData[key] + "\r\n";
+                        s += kex + " : " + TempData[kex] + "\r\n";
                     }
                     ViewBag.KetQua = s;
                 }
@@ -849,9 +853,9 @@ namespace MyWebPlay.Controllers
             if (chon == "15")
                 {
                     var s = "";
-                    foreach (var key in ViewData.Keys)
+                    foreach (var kex in ViewData.Keys)
                     {
-                        s += key + " : " + ViewData[key] + "\r\n";
+                        s += kex + " : " + ViewData[kex] + "\r\n";
                     }
                     ViewBag.KetQua = s;
                 }

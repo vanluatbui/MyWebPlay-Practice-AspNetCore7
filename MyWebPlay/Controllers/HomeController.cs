@@ -150,8 +150,14 @@ namespace MyWebPlay.Controllers
             {
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/SecurePasswordAdmin.txt");
             var mini = System.IO.File.ReadAllText(pathX).Replace("\r","").Split("\n")[1];
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidung = System.IO.File.ReadAllText(path);
 
-            if (mini == test)
+                var listSetting = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var infoX = listSetting[39].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                var key = listSetting[60].Split("<3275>")[3];
+                if (StringMaHoaExtension.Decrypt(mini, key) == test)
             {
                 TempData["mini-web"] = "true";
                 HttpContext.Session.SetString("mini-web", "true");
@@ -952,7 +958,6 @@ namespace MyWebPlay.Controllers
                     TempData["errorXY"] = "false";
                     HttpContext.Session.SetString("mini-error", "true");
                 }
-
                 //BanNhap();
                 // Change JAPAN (question)
                 var jp = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "ChangeJapan", "quy-tac-ki-tu-chuyen-doi.txt"));

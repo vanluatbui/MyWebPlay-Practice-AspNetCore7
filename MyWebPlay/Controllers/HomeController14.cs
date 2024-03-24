@@ -387,8 +387,6 @@ namespace MyWebPlay.Controllers
                 if (f["txtCuoiCung"].ToString() == "on")
                 HttpContext.Session.SetString("CuoiCung", "true");
 
-                if (f["txtDelay"].ToString() == "on")
-                    TempData["Delay"] = "true";
 
                 var fileName = Path.GetFileName(txtMusic.FileName);
 
@@ -1135,6 +1133,15 @@ namespace MyWebPlay.Controllers
                 else
                 {
                     TempData["auto-music"] = "false";
+                }
+
+                if (f["txtBehind"].ToString() == "on")
+                {
+                    TempData["behind"] = "true";
+                }
+                else
+                {
+                    TempData["behind"] = "false";
                 }
 
                 ViewBag.Option = chon;

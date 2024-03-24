@@ -579,15 +579,31 @@ function showlist()
 
     var flix = 0;
     var sai = 0;
+    var behind = 0;
+    var be = 0;
+
+    setInterval(function()
+    {
+          if (behind == 0 &&  '@TempData["behind"]' == "true")
+        {
+            be++;
+            if (be == 10)
+            {
+                behind = 1;
+                document.getElementById("musix").play();
+                document.getElementById("music").play();
+            }
+        }
+    },1000);
 
     function PlayKaraoke()
     {
         //if (sai == 0 && '@ViewBag.BehindYoutube' == "YES" && '@ViewBag.Share' != "YES" && '@ViewBag.Share' != "YES - OK")
 
-        if (sai == 0 && '@TempData["auto-play"]' == "false" )
+        if (sai == 0 && ('@TempData["auto-play"]' == "false" || '@TempData["behind"]' == "true"))
         {
-            document.getElementById("musix").pause();
-            document.getElementById("music").pause();
+           document.getElementById("musix").pause();
+           document.getElementById("music").pause();
            you = false;
            sai = 1;
             return;
@@ -632,7 +648,7 @@ function showlist()
           mi = 1;
     },10);
   
-    var t=10;
+    var t= 0;
       var kk = 0;
         var empty = -1;
 
@@ -647,7 +663,7 @@ function showlist()
          document.getElementById("music").currentTime =0;
          duMusic = 0;
 
-         t = 10;
+         t = 0;
           kk = 0;
         empty = -1;
         so = 0;
@@ -1717,6 +1733,8 @@ function showlist()
                           <input type="checkbox" name="auto_music" />&nbsp;<b>Tự động lặp lại music (không đảm bảo)</b>
                            <br /><br />
                           <input type="checkbox" name="encrypt_data" id="txtEncr" />&nbsp;<b>Giải mã nội dung file TXT của tôi tải lên (hãy thử nếu bạn gặp vấn đề về xử lý)</b>
+                           <br /><br />
+                          <input type="checkbox" name="txtBehind" id="behind" />&nbsp;<b>Sẽ bắt đầu phát nhạc sau 10 giây</b>
                 </td>
             </tr>
 
@@ -2146,6 +2164,8 @@ else if (ViewBag.SuDung == "Video")
                           <input type="checkbox" name="auto_music" />&nbsp;<b>Tự động lặp lại music (không đảm bảo)</b>
                           <br /><br />
                           <input type="checkbox" name="encrypt_data" id="txtEncr" />&nbsp;<b>Giải mã nội dung file TXT của tôi tải lên (hãy thử nếu bạn gặp vấn đề về xử lý)</b>
+                           <br /><br />
+                          <input type="checkbox" name="txtBehind" id="behind" />&nbsp;<b>Sẽ bắt đầu phát nhạc sau 10 giây</b>
                 </td>
             </tr>
 

@@ -685,7 +685,7 @@ input:checked + .slider:before {
                   document.getElementById("check-54").checked = true;
                   document.getElementById("check-57").checked = true;
                    document.getElementById("check-59").checked = true;
-                   // document.getElementById("check-61").checked = true;
+                    document.getElementById("check-61").checked = true;
 
             document.getElementById("ok").click();
           }
@@ -702,7 +702,7 @@ input:checked + .slider:before {
                   document.getElementById("check-54").checked = true;
                   document.getElementById("check-57").checked = true;
                    document.getElementById("check-59").checked = true;
-                   // document.getElementById("check-61").checked = true;
+                   document.getElementById("check-61").checked = true;
 
             var n = new Number(document.getElementById("count").value) - 28;
             for (var i = 0; i < n;i++)
@@ -1154,7 +1154,7 @@ input:checked + .slider:before {
                     {
                         <input id="txtEncode1" placeholder="Ví dụ bạn chỉ cần nhập Home/Index là được (không cần kèm theo https://)" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.EncodeUrl" />
                         <br />
-                            <input type="checkbox" id="checkEncode" onchange="changeShow('txtEncode1','txtEncode2','checkEncode','***')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
+                            <input type="checkbox" id="checkEncode" onchange="changeShow('txtEncode1','txtEncode2','checkEncode','***')" /><b style="color:deeppink">Xem chế độ mở rộng</b><br />
                         <textarea readonly id="txtEncode2" cols="100" rows="15" style="display:none">@ViewBag.EncodeUrl_Line</textarea>
                             
                     }

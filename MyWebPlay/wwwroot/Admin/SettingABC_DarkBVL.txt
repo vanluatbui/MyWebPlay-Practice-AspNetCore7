@@ -58,5 +58,5 @@ HTML_Visible<3275>true<3275><br /><b>[SUB]</b> Ẩn tất cả nội dung HTML h
 Get_Blocked<3275>false<3275><br /><b>[SUB]</b> Chặn tất cả các trang web có phương thức GET (phương thức POST không thể chặn vì được sử dụng với các dịch vụ External/API)
 Admin_Setting<3275>true<3275><br /><b>[SUB]</b> An toàn - Tên file điều khiển admin setting đang sử dụng (mặc định là : <span style="color:red">SettingABC_DarkBVL.txt</span>)<3275>SettingABC_DarkBVL.txt
 Admin_MiniWeb<3275>false<3275><br /><b>[SUB]</b> Cấp quyền sử dụng mini web admin (trang web tạm thời sẽ không hoạt động và chỉ dành cho admin)
-KeyEncrypt_Admin<3275>true<3275><br />[SUB] Key dùng để mã hoá/giải sử dụng cho thông tin nhận dạng Admin (secure setting) - khi bạn thay đổi, thông tin ID và mật khẩu admin cũng sẽ được cập nhật lại tương ứng (mặc định là : <span style="color:red">buivanluat-ADMIN3275</span>)<3275>buivanluat-ADMIN3275
-TwoStep_Admin<3275>true<3275><br />[SUB] Sử dụng gửi email để nhận mã xác thực 2 bước bí mật mỗi khi đăng nhập vào dịch vụ Admin Setting
+KeyEncrypt_Admin<3275>true<3275><br /><b>[SUB]</b> Key dùng để mã hoá/giải sử dụng cho thông tin nhận dạng Admin (secure setting) - khi bạn thay đổi, thông tin ID và mật khẩu admin cũng sẽ được cập nhật lại tương ứng (mặc định là : <span style="color:red">buivanluat-ADMIN3275</span>)<3275>buivanluat-ADMIN3275
+TwoStep_Admin<3275>true<3275><br /><b>[SUB]</b> Sử dụng gửi email để nhận mã xác thực 2 bước bí mật mỗi khi đăng nhập vào dịch vụ Admin Setting

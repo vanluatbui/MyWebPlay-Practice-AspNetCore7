@@ -9,12 +9,7 @@
         var n = 0;
         var nn = 0;
         var k = 0;
-        var t = 0;
-
-        if ('@TempData["Delay"]' == "true")
-        {
-            t = - 30;
-        }
+        var t = 10;
 
         var id;
         var flox = 0;
@@ -68,7 +63,7 @@
        var m = Math.floor((tgian / 60) % 60);
        var s = tgian % 60;
 
-        if (flox == 0 && (h == 0 && m == 0 && s == 1 && (t < 20 || t > 30)))
+        if (flox == 0 && h == 0 && m == 0 && s == 1 && t > 0)
        {
            flox = 1;
            document.getElementById("error").style.display = "inline-block";
@@ -221,7 +216,7 @@ LƯU Ý : trong suốt quá trình thực hiện, bạn không nên có bất k�
 <br />
 <h3 style="color:deeppink">Nếu bạn đã hiểu và sẵn sàng, nhấn nút START PLAY và bắt đầu nghe nhạc của bạn : </h3>
 <br />
-<b style="color:red;display:none" id="error">⚠️ Cảnh báo về một lỗi có thể xảy ra nếu bạn tiếp tục thực hiện, vui lòng thử thao tác lại sau (trừ khi bạn đã tick hỗ trợ fix media, nhưng cũng không đảm bào) !</b>
+<b style="color:red;display:none" id="error">⚠️ Cảnh báo về một lỗi có thể xảy ra nếu bạn tiếp tục thực hiện, vui lòng thử thao tác lại sau.</b>
 <br />
 <audio id="music" onplay="PlayKaraoke()" hidden>
     <source src="@TempData["Music"]" type="audio/mpeg">

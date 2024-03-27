@@ -1410,10 +1410,14 @@ function showlist()
                     var ct1 = kara1.substring(0,h_le[kf]).toUpperCase().replace("UNDEFINED","");
                     var ct2 = kara1.substring(h_le[kf], h_le[kf+1]).toUpperCase().replace("UNDEFINED","");
                    var ct3 = kara1.substring(h_le[kf+1], kara1.length).toUpperCase().replace("UNDEFINED","");
-                   document.getElementById("txtKaraoke1").innerHTML = "<span style=\"color:"+mau+"\">"+ct1+"</span><span id=\"xanhX1\" class=\"word\">"+ct2+"</span><span style=\"color:"+mauX+"\">"+ct3+"</span>";
+                  
+                   if (ct3 != "" &&  ct2 != "")
+                   ct2 = ct2.replace(" ","");
+
+                   document.getElementById("txtKaraoke1").innerHTML = "<span style=\"color:"+mau+"\">"+ct1+"</span><span id=\"xanhX1\" class=\"word\">"+ct2+"</span>&nbsp;<span style=\"color:"+mauX+"\">"+ct3+"</span>";
       var word1 = document.getElementById("xanhX1");
 
-    $('#xanhX1').addClass('word').attr('data-content', ct2);
+    $('#xanhX1').addClass('word').attr('data-content', ct2.replace(" ",""));
      $('#xanhX2').addClass('work').attr('data-content',"");
 
             word1.style.setProperty("--color", mau);
@@ -1433,16 +1437,16 @@ function showlist()
                     }
 
                    if (h_le[kf+1] == null || h_le[kf+1] === undefined)
-                   document.getElementById("txtKaraoke2").innerHTML = "&nbsp;&nbsp;<span style=\"color:"+mau+"\">"+ct1+"</span>&nbsp;<span id=\"xanhX2\" class=\"work\">"+ct2+"</span>&nbsp;<span style=\"color:"+mauX+"\">"+ct3+"</span>";
+                   document.getElementById("txtKaraoke2").innerHTML = "&nbsp;&nbsp;<span style=\"color:"+mau+"\">"+ct1+"</span>&nbsp;<span id=\"xanhX2\" class=\"work\">"+ct2.replace(" ","")+"</span>&nbsp;<span style=\"color:"+mauX+"\">"+ct3+"</span>";
                    else
                    if (h_le[kf+2] == null || h_le[kf+2] === undefined)
-                   document.getElementById("txtKaraoke2").innerHTML = "&nbsp<span style=\"color:"+mau+"\">"+ct1+"</span>&nbsp;<span id=\"xanhX2\" class=\"work\">"+ct2+"</span>&nbsp;<span style=\"color:"+mauX+"\">"+ct3+"</span>";
+                   document.getElementById("txtKaraoke2").innerHTML = "&nbsp<span style=\"color:"+mau+"\">"+ct1+"</span>&nbsp;<span id=\"xanhX2\" class=\"work\">"+ct2.replace(" ","")+"</span>&nbsp;<span style=\"color:"+mauX+"\">"+ct3+"</span>";
                    else
-                   document.getElementById("txtKaraoke2").innerHTML = "<span style=\"color:"+mau+"\">"+ct1+"</span>&nbsp;<span id=\"xanhX2\" class=\"work\">"+ct2+"</span>&nbsp;<span style=\"color:"+mauX+"\">"+ct3+"</span>";
+                   document.getElementById("txtKaraoke2").innerHTML = "<span style=\"color:"+mau+"\">"+ct1+"</span>&nbsp;<span id=\"xanhX2\" class=\"work\">"+ct2.replace(" ","")+"</span>&nbsp;<span style=\"color:"+mauX+"\">"+ct3+"</span>";
 
                    var word1 = document.getElementById("xanhX2");
 
-    $('#xanhX2').addClass('work').attr('data-content', ct2);
+    $('#xanhX2').addClass('work').attr('data-content', ct2.replace(" ",""));
       $('#xanhX1').addClass('word').attr('data-content',"");
 
              word1.style.setProperty("--color", mau);

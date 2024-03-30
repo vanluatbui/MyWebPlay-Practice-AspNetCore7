@@ -953,8 +953,8 @@ namespace MyWebPlay.Controllers
                     var back = f["txtReturn"].ToString(); if (string.IsNullOrEmpty(back) == false) return Redirect(back);
 
                     if (back == ".")
-                    return Ok(new { success = "Đã xử lý thành công !" });
                     return Redirect("https://google.com");
+                    return Ok(new { success = "Đã xử lý thành công !" });
                 }
             }
             catch (Exception ex)

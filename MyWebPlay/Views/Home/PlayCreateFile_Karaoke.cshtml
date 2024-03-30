@@ -3,6 +3,20 @@
     Layout = null;
 }
 <script>
+
+    var playmute = 0;
+
+    function ketquaplay()
+    {
+        playmute = 1;
+    }
+
+    function playketqua()
+    {
+        playmute = 0;
+        document.getElementById("muteplay").play();
+    }
+
         var LBH= [];
         var time_XuatHien= [];
         var time_LuuVet= [];
@@ -17,14 +31,15 @@
         function startplay()
         {
             var music = document.getElementById("music");
-            if (music.duration == 0)
+            if (music.duration == 0 || playmute == 0)
               {
-                  alert("Hệ thống đang chuẩn bị sẵn sàng...\nHãy thử lại sau!")
+                  alert("Hệ thống đang chuẩn bị sẵn sàng...\nHãy chờ và thử lại sau!")
             return;
               }
 
              music.play();
              document.getElementById("xuxu").style.display = "none";
+             document.getElementById("LBH2").innerHTML = "&nbsp;";
         }
 
 
@@ -192,10 +207,12 @@
 
 <br /><br />
 
+<audio id="muteplay" autoplay hidden onplaying="ketquaplay()" onpause="playketqua()" onended="playketqua()" muted>
+    <source src="/karaoke_Example/ThiThamMuaXuan_Karaoke.mp3" type="audio/mpeg">
+</audio>
 
 <table align="center">
     <h2 style="text-align:center">Create File Your Karaoke - Online</h2>
-
     <br />
     <h2 style="color:red">HƯỚNG DẪN THỰC HIỆN - VUI LÒNG ĐỌC KỸ TRƯỚC KHI THỰC HIỆN</h2>
 - Sẵn sàng nghe nhạc mp3 của bạn cùng ca sĩ hát để xác định thời điểm của mỗi khúc lyric mà ca sĩ sẽ hát.
@@ -225,8 +242,6 @@ LƯU Ý : trong suốt quá trình thực hiện, bạn không nên có bất k�
 <button style="color:olive" id="xuxu" onclick="startplay()"><b>START PLAY</b></button>
 <br />
 <b id="tgian" style="color:deeppink; font-size:20px"></b>
-<br />
-<b style="color:orangered; font-size:15px">Để việc phân tích xử lý Karaoke một cách chính xác, bạn vui lòng tắt hết các ứng dụng đang sử dụng Media Play hoặc liên quan đến nền âm thanh nhé (tai nghe Bluetooth/âm thanh cũng có thể bị ảnh hưởng) 🥰<br /> Hoặc bạn có thể sẽ phải khởi động lại trình duyệt/reload trang web hoặc re-start máy!</b>
 <br /><br />
 <button style="display:none" id="xong" onclick="xulyKaraoke()"><b>XONG - XỬ LÝ FILE KARAOKE</b></button>
 <br>
@@ -236,8 +251,8 @@ LƯU Ý : trong suốt quá trình thực hiện, bạn không nên có bất k�
 <input type="text" id="BH1" hidden />
 <input type="text" id="BH2" hidden />
 
-<h1 id="textLBH"><span id="LBH1" style="color:blue"></span>
-                            <span id="LBH2" name="colorX" style="color:@TempData["mau_text"]"></span></h1>
+<h1 id="textLBH" style="background-color:orangered"><span id="LBH1" style="color:blue"></span>
+                            <span id="LBH2" name="colorX" style="color:@TempData["mau_text"]">&nbsp;</span></h1>
 
 <br /><br />
 

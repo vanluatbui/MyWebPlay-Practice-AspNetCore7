@@ -80,8 +80,27 @@ body {
     });
         },1);
 
+         var playmute = 0;
+
+    function ketquaplay()
+    {
+        playmute = 1;
+    }
+
+    function playketqua()
+    {
+        playmute = 0;
+        document.getElementById("muteplay").play();
+    }
+
      function xong()
     {
+        if (playmute == 0)
+        {
+            alert("Vui lòng chờ trong ít phút hoặc load lại trang. Xin lỗi vì sự bất tiện này !");
+            return;
+        }
+
         document.getElementById("ok").style.display = "none";
         document.getElementById("loading").style.display = "inline-block";
     }
@@ -259,7 +278,7 @@ body {
         youX = true;
     }
 
-    var t=10;
+    var t = 0;
       var kk = 0;
         var empty = -1;
 
@@ -271,7 +290,7 @@ body {
     {
          document.getElementById("musix").currentTime = 0;
          document.getElementById("music").currentTime =0;
-         t = 10;
+         t = 0;
           kk = 0;
         empty = -1;
 
@@ -606,6 +625,10 @@ body {
 
 </script>
 
+<audio id="muteplay" autoplay hidden onplaying="ketquaplay()" onpause="playketqua()" onended="playketqua()" muted>
+    <source src="/karaoke_Example/ThiThamMuaXuan_Karaoke.mp3" type="audio/mpeg">
+</audio>
+
 <audio id="music" autoplay hidden  onplay="PlayKaraoke()" onplaying="PlayY()" onpause="PlayXKaraoke()" onended="StopKaraoke()">
     <source src="@ViewBag.Music" type="audio/mpeg">
 </audio>
@@ -622,6 +645,8 @@ body {
 {
     <h3 style="color:aqua">Bạn nên trải nghiệm tính năng này trên máy tính (PC), laptop,... nhé 😄<br>Lưu ý : trong khi đang trải nghiệm Karaoke, bạn không nên refresh lại trang để tránh mất dữ liệu!</h3><br />
 }
+    <span style="color:red">Phiên bản này hiện nay đã quá cũ và chúng tôi rất ít khi nâng cấp nó (sẽ có một số lỗi xảy ra). Nhưng bạn có thể tiếp tục sử dụng bình thường (nếu muốn) !</span>
+    <br />
     <h2>@Html.ActionLink("Bạn có muốn trải nghiệm phiên bản Karaoke thông thường?", "PlayKaraokeX")</h2>
  <br />
  <br />

@@ -79,6 +79,14 @@ input:checked + .slider:before {
 
     <script>
 
+         function updatetrangthai()
+    {
+        var st = prompt("Mời bạn nhập trạng thái mới : ");
+        if (st != "" && st != null)
+        {
+            window.location.href = "/Admin/CapNhatStatusSetting?st="+st;
+        }
+    }
 
         localStorage.removeItem("mini-Web");
 
@@ -1060,7 +1068,7 @@ input:checked + .slider:before {
          <tr style="height:40px">
             <td></td>
             <td><br>
-                <h2 style="color:deeppink" href="#mini-X">Cài ĐẶT ADMIN (<a href="/Admin/LoginSettingAdmin" style="color:tomato;font-weight:bolder">Đăng xuất?</a>)</h2><br /><h2 style="color:goldenrod">Trạng thái lần cuối : @ViewBag.SettingStatus</h2><br />
+                <h2 style="color:deeppink" href="#mini-X">Cài ĐẶT ADMIN (<a href="/Admin/LoginSettingAdmin" style="color:tomato;font-weight:bolder">Đăng xuất?</a>)</h2><br /><h2 style="color:goldenrod">Trạng thái lần cuối : @ViewBag.SettingStatus</h2><a href="#xuly" style="color:orangered" onclick="updatetrangthai()">Thay đổi trạng thái</a><br /><br />
                 <h4><a href="#xuly" onclick="refreshHetHan()" style="color:purple">Refresh hoặc xoá tất cả thư mục và các file hết hạn</a></h4><br>
                 <h4><a href="#xuly" id="#welcome" onclick="chonall()" style="color:green">CHỌN TẤT CẢ</a> | <a href="#xuly" onclick="boall()" style="color:red">BỎ CHỌN TẤT CẢ</a> <br><span>&nbsp;</span><span style="color:coral">(ngoại trừ các setting phụ)<span>&nbsp;</span><span>&nbsp;</span><a href="/Admin/DongMoFileStatus" style="color:maroon">Đóng/mở sử dụng thư mục file upload Server (trạng thái : @ViewBag.FileStatus)</a>
                    <br> <select id="chonXY">

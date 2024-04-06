@@ -116,5 +116,15 @@ if (kbn == "1")
                 return Ok(new { error = HttpContext.Session.GetObject<string>("error_exception_log") });
             }
         }
+
+        public ActionResult CapNhatStatusSetting (string st)
+        {
+            Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+            var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+
+            System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin/Setting_Status.txt"), st + " # "+ xuxu + " (trạng thái do admin tự đặt)");
+            return RedirectToAction("SettingXYZ_DarkAdmin");
+        }
     }
 }

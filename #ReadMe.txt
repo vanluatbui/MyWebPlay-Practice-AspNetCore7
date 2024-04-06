@@ -115,4 +115,22 @@ ID : ID admin
 Key : mật khẩu admin
 
 
+========================================
+
+
+Khi xử lý DeleteBin, sẽ xoá hết các file hết hạn/cũ/rác...
+Tuy nhiên, với các file được upload qua API sẽ được bỏ qua
+Nếu bạn muốn xoá hết/refresh toàn bộ (không chừa cái gì) - DeleteBin truyền thêm param apidel = true (mặc định là false)
+
+P/s : Lưu ý; chỉ với khi thực hiện DeleteBin (API) và chỉ với các file được upload lên server ở thư mục qua API, nếu xảy ra hành động load trang Home/Index hoặc admin tự click link refresh dữ liệu thì toàn bộ dữ liệu vẫn sẽ bị xoá/refresh bình thường.
+
+
+==========================================
+
+
+
+
+
+
+
 Good bye, MyWebPlay @2023 !

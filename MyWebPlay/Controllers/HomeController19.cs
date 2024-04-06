@@ -237,10 +237,11 @@ namespace MyWebPlay.Controllers
             var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); 
             if (string.IsNullOrEmpty(chim)) chim = "Default";
             var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; 
-            var sox = Path.Combine(_webHostEnvironment.WebRootPath, 
-                "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); 
-            
-            TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt";
+            var sox = (f.ContainsKey("resultX") == false || f["resultX"] == "false") ?  Path.Combine(_webHostEnvironment.WebRootPath, 
+                "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt")
+                     : Path.Combine(_webHostEnvironment.WebRootPath, "ResultExternal", "data.txt");
+
+                TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt";
             new FileInfo(sox).Create().Dispose(); 
             System.IO.File.WriteAllText(sox, nix); ViewBag.Result = result;
 

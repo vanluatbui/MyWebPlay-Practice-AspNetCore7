@@ -2583,6 +2583,8 @@ namespace MyWebPlay.Controllers
                 if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Exists)
                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Delete(true);
 
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "ResultExternal", "data.txt"), "");
+
             if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Exists == false)
                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "GetColorAtPicture")).Create();
 
@@ -2716,110 +2718,110 @@ namespace MyWebPlay.Controllers
               switch (type)
             {
                     case "-1":
-                        System.IO.File.WriteAllText(path, "[Đặc biệt] Khoá trang web tuyệt đối/vĩnh viễn, không thể truy cập trang nào (kể cả admin) => error all web page # " + xuxu);
+                        System.IO.File.WriteAllText(path, "[Đặc biệt] Khoá trang web tuyệt đối/vĩnh viễn, không thể truy cập trang nào (kể cả admin) => error all web page # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                         break;
 
                     case "1":
-                    System.IO.File.WriteAllText(path, "Tắt hoạt động web site (tất cả, không nhận đơn đăng kí tiếp theo, mở chiến dịch xoá localStorage JS), ngoại trừ mật độ tuyệt đối # " + xuxu);
+                    System.IO.File.WriteAllText(path, "Tắt hoạt động web site (tất cả, không nhận đơn đăng kí tiếp theo, mở chiến dịch xoá localStorage JS), ngoại trừ mật độ tuyệt đối # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                     break;
 
                 case "2":
-                    System.IO.File.WriteAllText(path, "Bật hoạt động web site (chỉ người đã đăng kí, bật TB, nhận đơn đăng kí tiếp theo) # " + xuxu);
+                    System.IO.File.WriteAllText(path, "Bật hoạt động web site (chỉ người đã đăng kí, bật TB, nhận đơn đăng kí tiếp theo) # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                     break;
 
                 case "3":
-                    System.IO.File.WriteAllText(path, "Bật hoạt động web site (chỉ người đã đăng kí, tắt TB, không nhận đơn đăng kí tiếp theo) # " + xuxu);
+                    System.IO.File.WriteAllText(path, "Bật hoạt động web site (chỉ người đã đăng kí, tắt TB, không nhận đơn đăng kí tiếp theo) # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                     break;
 
                 case "4":
-                    System.IO.File.WriteAllText(path, "Bật hoạt động website (cho phép tất cả mọi người, không get IP) # " + xuxu);
+                    System.IO.File.WriteAllText(path, "Bật hoạt động website (cho phép tất cả mọi người, không get IP) # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                     break;
 
                 case "5":
-                    System.IO.File.WriteAllText(path, "Bật hoạt động website (cho phép tất cả mọi người, get IP) # " + xuxu);
+                    System.IO.File.WriteAllText(path, "Bật hoạt động website (cho phép tất cả mọi người, get IP) # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                     break;
 
                 case "6":
-                    System.IO.File.WriteAllText(path, "Tắt hoạt động web site (không nhận đơn đăng kí tiếp theo, bật thông báo), ngoại trừ các IP đã đăng kí và tin tưởng # " + xuxu);
+                    System.IO.File.WriteAllText(path, "Tắt hoạt động web site (không nhận đơn đăng kí tiếp theo, bật thông báo), ngoại trừ các IP đã đăng kí và tin tưởng # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                     break;
 
                 case "7":
-                    System.IO.File.WriteAllText(path, "Tắt hoạt động web site (không nhận đơn đăng kí tiếp theo, tắt thông báo), ngoại trừ các IP đã đăng kí và tin tưởng # " + xuxu);
+                    System.IO.File.WriteAllText(path, "Tắt hoạt động web site (không nhận đơn đăng kí tiếp theo, tắt thông báo), ngoại trừ các IP đã đăng kí và tin tưởng # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                     break;
 
                 case "8":
-                    System.IO.File.WriteAllText(path, "Sử dụng POST QUICK DATA và tàng hình (copy), get IP - cho phép mọi người # " + xuxu);
+                    System.IO.File.WriteAllText(path, "Sử dụng POST QUICK DATA và tàng hình (copy), get IP - cho phép mọi người # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                     break;
 
                 case "9":
-                    System.IO.File.WriteAllText(path, "Sử dụng POST QUICK DATA và tàng hình (download *.txt), get IP - cho phép mọi người # " + xuxu);
+                    System.IO.File.WriteAllText(path, "Sử dụng POST QUICK DATA và tàng hình (download *.txt), get IP - cho phép mọi người # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                     break;
 
                 case "10":
                     var nd = noidung.Split(" # ");
-                    System.IO.File.WriteAllText(path, nd[0] + " + Bật thông báo tất cả nội dung liên quan email và MegaIO File and list user get to link request (riêng karaoke sẽ nhận cả hai bản : Text và MP3) # " + xuxu);
+                    System.IO.File.WriteAllText(path, nd[0] + " + Bật thông báo tất cả nội dung liên quan email và MegaIO File and list user get to link request (riêng karaoke sẽ nhận cả hai bản : Text và MP3) # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                     break;
 
                 case "11":
                     var nd1 = noidung.Split(" # ");
-                    System.IO.File.WriteAllText(path, nd1[0] +" + Tắt thông báo tất cả nội dung liên quan email và MegaIO File and list user get to link request # " + xuxu);
+                    System.IO.File.WriteAllText(path, nd1[0] +" + Tắt thông báo tất cả nội dung liên quan email và MegaIO File and list user get to link request # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                     break;
 
                 case "12":
                     var nd2 = noidung.Split(" # ");
-                    System.IO.File.WriteAllText(path, nd2[0] + " + Bật sử dụng website with url encode secret play # " + xuxu);
+                    System.IO.File.WriteAllText(path, nd2[0] + " + Bật sử dụng website with url encode secret play # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                     break;
 
                     case "13":
                         var nd3 = noidung.Split(" # ");
-                        System.IO.File.WriteAllText(path, nd3[0] + " + Không cho phép sử dụng mật độ tuyệt đối hay IP tin tưởng để truy cập website # " + xuxu);
+                        System.IO.File.WriteAllText(path, nd3[0] + " + Không cho phép sử dụng mật độ tuyệt đối hay IP tin tưởng để truy cập website # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                         break;
 
                     case "14":
                         var nd4 = noidung.Split(" # ");
-                        System.IO.File.WriteAllText(path, nd4[0] + " + Cho phép upload file nhanh (UploadFile_ClearWeb) và chế độ tàng hình # " + xuxu);
+                        System.IO.File.WriteAllText(path, nd4[0] + " + Cho phép upload file nhanh (UploadFile_ClearWeb) và chế độ tàng hình # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                         break;
 
                     case "15":
-                        System.IO.File.WriteAllText(path, "Sử dụng POST DATA QUICK admin, cho phép mọi người, chuyển hướng đến trang file TXT của result (dành cho external) # " + xuxu);
+                        System.IO.File.WriteAllText(path, "Sử dụng POST DATA QUICK admin, cho phép mọi người, chuyển hướng đến trang file TXT của result (dành cho external) # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                         break;
 
                     case "16":
                         var nd5 = noidung.Split(" # ");
-                        System.IO.File.WriteAllText(path, nd5[0] + " + Đã tắt hết các setting phụ (sub admin setting), các item chính vẫn giữ nguyên # " + xuxu);
+                        System.IO.File.WriteAllText(path, nd5[0] + " + Đã tắt hết các setting phụ (sub admin setting), các item chính vẫn giữ nguyên # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                         break;
 
                     case "17":
-                        System.IO.File.WriteAllText(path, "Bí mật và sử dụng data External API # " + xuxu);
+                        System.IO.File.WriteAllText(path, "Bí mật và sử dụng data External API # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                         break;
 
                     case "18":
-                        System.IO.File.WriteAllText(path, "Đã tắt hết các item setting (kể cả các setting phụ) # " + xuxu);
+                        System.IO.File.WriteAllText(path, "Đã tắt hết các item setting (kể cả các setting phụ) # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                         break;
 
                     case "19":
-                        System.IO.File.WriteAllText(path, "Đã bật hết các item setting phụ, các item chính vẫn giữ nguyên # " + xuxu);
+                        System.IO.File.WriteAllText(path, "Đã bật hết các item setting phụ, các item chính vẫn giữ nguyên # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                         break;
 
                     case "20":
-                        System.IO.File.WriteAllText(path, "Đã bật hết các item setting (kể cả các setting phụ) # " + xuxu);
+                        System.IO.File.WriteAllText(path, "Đã bật hết các item setting (kể cả các setting phụ) # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                         break;
 
                     case "21":
                         var nd6 = noidung.Split(" # ");
-                        System.IO.File.WriteAllText(path, nd6[0] + " + Bật xác thực hai bước ADMIN # " + xuxu);
+                        System.IO.File.WriteAllText(path, nd6[0] + " + Bật xác thực hai bước ADMIN # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                         break;
 
                     case "ON-ALL":
-                    System.IO.File.WriteAllText(path, "Đã bật hết tất cả các item setting (ngoại trừ mục cho phép website với mọi người thì sẽ ưu tiên việc get IP; và về setting nhận thông báo email dữ liệu Karaoke của user thì nhận luôn cả hai bản : Text và MP3) và hãy cẩn thận sự mâu thuẫn giữa các item setting lúc này # " + xuxu);
+                    System.IO.File.WriteAllText(path, "Đã bật hết tất cả các item setting (ngoại trừ mục cho phép website với mọi người thì sẽ ưu tiên việc get IP; và về setting nhận thông báo email dữ liệu Karaoke của user thì nhận luôn cả hai bản : Text và MP3) và hãy cẩn thận sự mâu thuẫn giữa các item setting lúc này # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                     break;
 
                 case "OFF-ALL":
-                    System.IO.File.WriteAllText(path, "Đã tắt hết tất cả các item setting  # " + xuxu);
+                    System.IO.File.WriteAllText(path, "Đã tắt hết tất cả các item setting  # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                     break;
 
                 default:
-                    System.IO.File.WriteAllText(path, "UNKNOW # " + xuxu);
+                    System.IO.File.WriteAllText(path, "UNKNOW # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                     break;
             }
                 if (come == false || HttpContext.Session.GetString("index-setting") == null)

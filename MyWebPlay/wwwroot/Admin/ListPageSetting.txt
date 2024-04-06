@@ -1,4 +1,5 @@
 /Admin/XoaViewMark
+/Admin/CapNhatStatusSetting
 /Admin/UnlockAllWeb
 /Admin/TracNghiemOnline_ViewMark
 /Admin/SettingXYZ_DarkAdmin

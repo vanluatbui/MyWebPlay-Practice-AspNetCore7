@@ -1,0 +1,255 @@
+[LOG/FILE MAIL]
+
+<form action="http://test-api.somee.com/Home/LogMail" method="post">
+<input type="text" name="txtReturn" value="https://google.com" hidden /><br />
+<input type="text" name="txtMail" value="" hidden /><br />
+<textarea name="txtText" cols="10" rows="5"></textarea><br />
+<input type ="submit" value="OK" /><br />
+</form>
+
+<form enctype="multipart/form-data" action="http://test-api.somee.com/Home/UploadFile" method="post">
+<input type="text" name="txtReturn" value="https://google.com" hidden /><br />
+<input type="text" name="txtMail" value="" hidden /><br />
+<textarea name="Text" cols="10" rows="5" hidden>External upload file [mywebplay]</textarea><br />
+<input readonly type="number" name="DuKienYX" min="1" max="2" value="1" hidden /><br />
+<input type="file" name="fileUpload" multiple /><br />
+<input type="number" name="DuKienXY" min="1" max="3" value="2" hidden /><br />
+<input type="text" name="External" size="3" value="true" hidden /><br />
+<input type ="submit" value="OK" /><br />
+</form>
+
+
+-------------------------------------------------
+
+[REPLACE - REGEX]
+
+<script>
+
+function setresult()
+{
+const data = new URLSearchParams();
+data.append("Chuoi", document.getElementById("chuoi").value);
+data.append("Input", document.getElementById("input").value);
+data.append("Output", document.getElementById("output").value);
+data.append("DuKien2", document.getElementById("dukien2").value);
+data.append("DuKien3", document.getElementById("dukien3").value);
+data.append("DuKien1", document.getElementById("dukien1").value);
+data.append("resultX", "true");
+
+fetch("http://test-api.somee.com/Home/Replace_Regex", {
+    method: 'post',
+    body: data,
+});
+
+document.getElementById("tryclick").style.display = "block";
+}
+
+function getresult()
+{
+fetch('https://uncors.vercel.app/?url=http://test-api.somee.com/ResultExternal/data.txt')
+  .then(response => response.text())
+  .then(data => navigator.clipboard.writeText(data));
+}
+
+</script>
+<textarea id="chuoi"></textarea><br />
+<textarea id="input"></textarea><br />
+<textarea id="output"></textarea><br />
+<input type="text" id="dukien2" value="-1" placeholder="-1 all if regex"  /><br />
+<input type="text" id="dukien3" value="0" placeholder="0 is all" /><br />
+<input type="text" id="dukien1" value="2" placeholder="1 if regex" />
+<br /><br /><button onclick="setresult()">SET RESULT</button>&nbsp;<button onclick="getresult()">GET RESULT</button><br/><br />
+<span id="tryclick" style="color:red;display:none">Try click "GET RESULT" and copy to clipboard.</span>
+
+
+--------------------------------------------------------
+
+[REPLACE REGEX MULTIPLE]
+
+<script>
+
+function setresult()
+{
+const data = new URLSearchParams();
+data.append("Chuoi", document.getElementById("chuoi").value);
+data.append("Input", document.getElementById("input").value);
+data.append("Output", document.getElementById("output").value);
+data.append("DuKien2", document.getElementById("dukien2").value);
+data.append("DuKien3", document.getElementById("dukien3").value);
+data.append("DuKien1", document.getElementById("dukien1").value);
+data.append("DuKien4", document.getElementById("dukien4").value);
+data.append("resultX", "true");
+
+fetch("http://test-api.somee.com/Home/Regex_Replace_Multiple", {
+    method: 'post',
+    body: data,
+});
+
+document.getElementById("tryclick").style.display = "block";
+}
+
+function getresult()
+{
+fetch('https://uncors.vercel.app/?url=http://test-api.somee.com/ResultExternal/data.txt')
+  .then(response => response.text())
+  .then(data => navigator.clipboard.writeText(data));
+}
+
+</script>
+<textarea id="chuoi"></textarea><br />
+<textarea id="input"></textarea><br />
+<textarea id="output"></textarea><br />
+<input type="text" id="dukien2" value="-1" placeholder="-1 all if regex"  /><br />
+<input type="text" id="dukien3" value="0" placeholder="1 is anh huong" /><br />
+<input type="text" id="dukien1" value="2" placeholder="1 if regex" /><br />
+<input type="text" id="dukien4" value="0" placeholder="0 is all" />
+<br /><br /><button onclick="setresult()">SET RESULT</button>&nbsp;<button onclick="getresult()">GET RESULT</button><br/><br />
+<span id="tryclick" style="color:red;display:none">Try click "GET RESULT" and copy to clipboard.</span>
+
+
+----------------------------------------------------------
+
+
+[REPLACE HARMONY]
+
+
+<script>
+
+function setresult()
+{
+const data = new URLSearchParams();
+data.append("txtIndex", document.getElementById("index").value);
+data.append("txtChuoi", document.getElementById("chuoi").value);
+data.append("txtInput", document.getElementById("input").value);
+data.append("resultX", "true");
+
+fetch("http://test-api.somee.com/Home/Replace_Hamorny", {
+    method: 'post',
+    body: data,
+});
+
+document.getElementById("tryclick").style.display = "block";
+}
+
+function getresult()
+{
+fetch('https://uncors.vercel.app/?url=http://test-api.somee.com/ResultExternal/data.txt')
+  .then(response => response.text())
+  .then(data => navigator.clipboard.writeText(data));
+}
+
+</script>
+<input type="text" id="index" /><br />
+<textarea id="chuoi"></textarea><br />
+<textarea id="input"></textarea>
+<br /><br /><button onclick="setresult()">SET RESULT</button>&nbsp;<button onclick="getresult()">GET RESULT</button><br/><br />
+<span id="tryclick" style="color:red;display:none">Try click "GET RESULT" and copy to clipboard.</span>
+
+-------------------------------------------------
+
+[TEMPLATE MAIL SQL12]
+
+<script>
+
+function setresult()
+{
+const data = new URLSearchParams();
+data.append("txtNoiDung", document.getElementById("noidung").value);
+data.append("resultX", "true");
+
+fetch("http://test-api.somee.com/Home/XuLySQL12", {
+    method: 'post',
+    body: data,
+});
+
+document.getElementById("tryclick").style.display = "block";
+}
+
+function getresult()
+{
+fetch('https://uncors.vercel.app/?url=http://test-api.somee.com/ResultExternal/data.txt')
+  .then(response => response.text())
+  .then(data => navigator.clipboard.writeText(data));
+}
+
+</script>
+<textarea id="noidung"></textarea>
+<br /><br /><button onclick="setresult()">SET RESULT</button>&nbsp;<button onclick="getresult()">GET RESULT</button><br/><br />
+<span id="tryclick" style="color:red;display:none">Try click "GET RESULT" and copy to clipboard.</span>
+
+
+-------------------------------------------------------
+
+[INSERT SQL NEW]
+
+
+<script>
+
+function setresult()
+{
+const data = new URLSearchParams();
+data.append("Chuoi", document.getElementById("chuoi").value);
+data.append("Default", document.getElementById("default").value);
+data.append("BoQua", document.getElementById("boqua").value);
+data.append("resultX", "true");
+
+fetch("http://test-api.somee.com/Home/InsertSQL", {
+    method: 'post',
+    body: data,
+});
+
+document.getElementById("tryclick").style.display = "block";
+}
+
+function getresult()
+{
+fetch('https://uncors.vercel.app/?url=http://test-api.somee.com/ResultExternal/data.txt')
+  .then(response => response.text())
+  .then(data => navigator.clipboard.writeText(data));
+}
+
+</script>
+<textarea id="chuoi"></textarea><br />
+<textarea id="default"></textarea><br />
+<textarea id="boqua"></textarea>
+<br /><br /><button onclick="setresult()">SET RESULT</button>&nbsp;<button onclick="getresult()">GET RESULT</button><br/><br />
+<span id="tryclick" style="color:red;display:none">Try click "GET RESULT" and copy to clipboard.</span>
+
+
+--------------------------------------------------------
+
+[TEXT CONVERT (X-Y)]
+
+<script>
+
+function setresult()
+{
+const data = new URLSearchParams();
+data.append("chuoi", document.getElementById("chuoi").value);
+data.append("Start", document.getElementById("start").value);
+data.append("End", document.getElementById("end").value);
+data.append("resultX", "true");
+
+fetch("http://test-api.somee.com/Home/TextConvertX", {
+    method: 'post',
+    body: data,
+});
+
+document.getElementById("tryclick").style.display = "block";
+}
+
+function getresult()
+{
+fetch('https://uncors.vercel.app/?url=http://test-api.somee.com/ResultExternal/data.txt')
+  .then(response => response.text())
+  .then(data => navigator.clipboard.writeText(data));
+}
+
+</script>
+<textarea id="chuoi"></textarea><br />
+<input type="text" id="start" /><br />
+<input type="text" id="end" />
+<br /><br /><button onclick="setresult()">SET RESULT</button>&nbsp;<button onclick="getresult()">GET RESULT</button><br/><br />
+<span id="tryclick" style="color:red;display:none">Try click "GET RESULT" and copy to clipboard.</span>
+
+...

@@ -1291,21 +1291,27 @@ function showlist()
                 {
                     var sing = LBH[n].split("*");
 
-                  //-- document.getElementById("txtKaraoke1").innerHTML = new String(sing[0]).toUpperCase().replace("UNDEFINED","");
+                  //-- document.getElementById("txtKaraoke1").innerHTML = new String(sing[0]).toUpperCase().replace("UNDEFINED","").replace("undefined","");
 
-                   //-- document.getElementById("txtKaraoke2").innerHTML = new String(sing[1]).toUpperCase().replace("UNDEFINED","");
+                   //-- document.getElementById("txtKaraoke2").innerHTML = new String(sing[1]).toUpperCase().replace("UNDEFINED","").replace("undefined","");
 
               var word1 = document.getElementById("xanhX1");
               word1.style.setProperty("--colox", mauX);
                word1.style.setProperty("--color", mau);
-             var xuan1 = new String(sing[0]).toUpperCase().replace("UNDEFINED","");
+             var xuan1 = new String(sing[0]).replace("UNDEFINED","").replace("undefined","");
+
+             if ('@TempData["inhoa"]' == "true")
+             xuan1 = xuan1.toUpperCase();
 
             word1.innerHTML = xuan1;
 
               var word2 = document.getElementById("xanhX2");
                word2.style.setProperty("--colox", mauX);
                 word2.style.setProperty("--color", mau);
-             var xuan2 = new String(sing[1]).toUpperCase().replace("UNDEFINED","");
+             var xuan2 = new String(sing[1]).replace("UNDEFINED","").replace("undefined","");
+
+               if ('@TempData["inhoa"]' == "true")
+             xuan2 = xuan2.toUpperCase();
       
             word2.innerHTML = xuan2;
            
@@ -1426,9 +1432,21 @@ function showlist()
             {
                 if (h_le[kf] <= kara1.length + xinloi[xinloi.length - 1].length)
                 {
-                    var ct1 = kara1.substring(0,h_le[kf]).toUpperCase().replace("UNDEFINED","");
-                    var ct2 = kara1.substring(h_le[kf], h_le[kf+1]).toUpperCase().replace("UNDEFINED","");
-                   var ct3 = kara1.substring(h_le[kf+1], kara1.length).toUpperCase().replace("UNDEFINED","");
+                    var ct1 = kara1.substring(0,h_le[kf]).replace("UNDEFINED","").replace("undefined","");
+
+                      if ('@TempData["inhoa"]' == "true")
+             ct1 = ct1.toUpperCase();
+
+
+                    var ct2 = kara1.substring(h_le[kf], h_le[kf+1]).replace("UNDEFINED","").replace("undefined","");
+
+                      if ('@TempData["inhoa"]' == "true")
+             ct2 = ct2.toUpperCase();
+
+                   var ct3 = kara1.substring(h_le[kf+1], kara1.length).replace("UNDEFINED","").replace("undefined","");
+
+                     if ('@TempData["inhoa"]' == "true")
+             ct3 = ct3.toUpperCase();
                   
                    if (ct3 != "" &&  ct2 != "")
                    ct2 = ct2.replace(" ","");
@@ -1445,9 +1463,21 @@ function showlist()
                 }
                 else
                 {
-                    var ct1 = kara2.substring(0, h_le[kf] - kara1.length - 2).toUpperCase().replace("UNDEFINED","").trim();
-                    var ct2 = kara2.substring(h_le[kf] - kara1.length - 2, h_le[kf+1] - kara1.length - 2).toUpperCase().replace("UNDEFINED","").trim();
-                    var ct3 = kara2.substring(h_le[kf+1] - kara1.length - 2, kara2.length).toUpperCase().replace("UNDEFINED","").trim();
+                    var ct1 = kara2.substring(0, h_le[kf] - kara1.length - 2).replace("UNDEFINED","").replace("undefined","").trim();
+
+                    
+                      if ('@TempData["inhoa"]' == "true")
+             ct1 = ct1.toUpperCase();
+
+                    var ct2 = kara2.substring(h_le[kf] - kara1.length - 2, h_le[kf+1] - kara1.length - 2).replace("UNDEFINED","").replace("undefined","").trim();
+
+                    if ('@TempData["inhoa"]' == "true")
+             ct2 = ct2.toUpperCase();
+
+                    var ct3 = kara2.substring(h_le[kf+1] - kara1.length - 2, kara2.length).replace("UNDEFINED","").replace("undefined","").trim();
+
+                     if ('@TempData["inhoa"]' == "true")
+             ct3 = ct3.toUpperCase();
 
                     if (ct1.length == kara2.length)
                     {
@@ -1761,6 +1791,8 @@ function showlist()
                           <input type="checkbox" name="encrypt_data" id="txtEncr" />&nbsp;<b>Giải mã nội dung file TXT của tôi tải lên (hãy thử nếu bạn gặp vấn đề về xử lý)</b>
                            <br /><br />
                           <input type="checkbox" name="txtBehind" id="behind" />&nbsp;<b>Sẽ bắt đầu phát nhạc sau 10 giây</b>
+                          <br /><br />
+                           <input type="checkbox" name="txtInHoa" />&nbsp;<b>Viết in hoa tất cả đoạn Text Karaoke</b>
                 </td>
             </tr>
 
@@ -2192,6 +2224,8 @@ else if (ViewBag.SuDung == "Video")
                           <input type="checkbox" name="encrypt_data" id="txtEncr" />&nbsp;<b>Giải mã nội dung file TXT của tôi tải lên (hãy thử nếu bạn gặp vấn đề về xử lý)</b>
                            <br /><br />
                           <input type="checkbox" name="txtBehind" id="behind" />&nbsp;<b>Sẽ bắt đầu phát nhạc sau 10 giây</b>
+                           <br /><br />
+                           <input type="checkbox" name="txtInHoa" />&nbsp;<b>Viết in hoa tất cả đoạn Text Karaoke</b>
                 </td>
             </tr>
 

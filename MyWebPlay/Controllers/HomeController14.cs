@@ -1144,6 +1144,15 @@ namespace MyWebPlay.Controllers
                     TempData["behind"] = "false";
                 }
 
+                if (f["txtInHoa"].ToString() == "on")
+                {
+                    TempData["inhoa"] = "true";
+                }
+                else
+                {
+                    TempData["inhoa"] = "false";
+                }
+
                 ViewBag.Option = chon;
 
             if (chon == "1")

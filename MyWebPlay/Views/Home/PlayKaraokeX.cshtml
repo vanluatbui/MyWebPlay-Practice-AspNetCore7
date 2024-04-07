@@ -1793,6 +1793,8 @@ function showlist()
                           <input type="checkbox" name="txtBehind" id="behind" />&nbsp;<b>Sẽ bắt đầu phát nhạc sau 10 giây</b>
                           <br /><br />
                            <input type="checkbox" name="txtInHoa" />&nbsp;<b>Viết in hoa tất cả đoạn Text Karaoke</b>
+                           <br /><br />
+                           <input type="checkbox" name="txtCanGiua" />&nbsp;<b>Căn giữa tất cả đoạn Text Karaoke</b>
                 </td>
             </tr>
 
@@ -1951,8 +1953,10 @@ else
     <input type="text" id="txtKara1" hidden>
     <input type="text" id="txtKara2" hidden>
 
-    <tr style="height:40px">
-                <td></td>
+                    @if (TempData["cangiua"] == "true")
+                    {
+                        <tr style="height:40px">
+                            <td></td>
                 <td>
                        <span id="number" style="color:#e3f207; font-size:100px"></span>
                        <br />
@@ -1965,8 +1969,22 @@ else
                         </div>
                         </div>
                 </td>
-            </tr>                     
-    
+                        </tr>
+                    }
+                    else
+                    {
+                         <span id="number" style="color:#e3f207; font-size:100px;float:left"></span>
+                       <br />
+                         <div style="text-align:center">
+                        <div id="background-X" style="display:block">
+                            <p id="thietkeKara"></p>
+                          <p id="txtKaraoke1" style="text-align:left"><b><span id="xanhX1" class="word"></span></b></p>
+                        <p id="txtKaraoke2" style="text-align:right"><b><span id="xanhX2" class="work"></span></b></p>
+                        <span id="xui"></span>
+                        </div>
+                        </div>
+                    }
+
 </table>
 </div>
 <div id="phanphoi">
@@ -2226,6 +2244,8 @@ else if (ViewBag.SuDung == "Video")
                           <input type="checkbox" name="txtBehind" id="behind" />&nbsp;<b>Sẽ bắt đầu phát nhạc sau 10 giây</b>
                            <br /><br />
                            <input type="checkbox" name="txtInHoa" />&nbsp;<b>Viết in hoa tất cả đoạn Text Karaoke</b>
+                           <br /><br />
+                           <input type="checkbox" name="txtCanGiua" />&nbsp;<b>Căn giữa tất cả đoạn Text Karaoke</b>
                 </td>
             </tr>
 
@@ -2368,21 +2388,37 @@ else
     <input type="text" id="txtKara1" hidden>
     <input type="text" id="txtKara2" hidden>
 
-    <tr style="height:40px">
-                <td></td>
+     @if (TempData["cangiua"] == "true")
+                    {
+                        <tr style="height:40px">
+                            <td></td>
                 <td>
                        <span id="number" style="color:#e3f207; font-size:100px"></span>
                        <br />
                          <div style="text-align:center">
                         <div id="background-X" style="display:block">
                             <p id="thietkeKara"></p>
-                           <p id="txtKaraoke1"><b><span id="xanhX1" class="word"></span></b></p>
+                          <p id="txtKaraoke1"><b><span id="xanhX1" class="word"></span></b></p>
                         <p id="txtKaraoke2"><b><span id="xanhX2" class="work"></span></b></p>
                         <span id="xui"></span>
                         </div>
                         </div>
                 </td>
-            </tr>                     
+                        </tr>
+                    }
+                    else
+                    {
+                         <span id="number" style="color:#e3f207; font-size:100px;float:left"></span>
+                       <br />
+                         <div style="text-align:center">
+                        <div id="background-X" style="display:block">
+                            <p id="thietkeKara"></p>
+                          <p id="txtKaraoke1" style="text-align:left"><b><span id="xanhX1" class="word"></span></b></p>
+                        <p id="txtKaraoke2" style="text-align:right"><b><span id="xanhX2" class="work"></span></b></p>
+                        <span id="xui"></span>
+                        </div>
+                        </div>
+                    }            
     
 </table>
 </div>

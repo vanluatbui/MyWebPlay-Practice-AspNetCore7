@@ -87,6 +87,21 @@ body {
         playmute = 1;
     }
 
+    function kiemtracangiua()
+    {
+        if (document.getElementById("cangiua").checked == true)
+        {
+            document.getElementById("codinh1").checked = false;
+            document.getElementById("codinh1").style.display = "none";
+            document.getElementById("codinh2").style.display = "none";
+        }
+        else
+        {
+            document.getElementById("codinh1").style.display = "inline";
+             document.getElementById("codinh2").style.display = "contents";
+        }
+    }
+
     function playketqua()
     {
         playmute = 0;
@@ -464,7 +479,7 @@ function showlist()
 
              var hang = new Number(localStorage.getItem("hang"));
 
-             if ('@TempData["TK-KARA"]' != "")
+             if ('@TempData["TK-KARA"]' != "" || '@TempData["codinh"]' == "true")
              hang = 0;
 
             document.getElementById("hang").value = hang;
@@ -740,10 +755,10 @@ function showlist()
             return;
         }
 
-          if ('@TempData["TK-KARA"]' == "")
+          if ('@TempData["TK-KARA"]' == "" || '@TempData["codinh"]' == "false")
         {
-        localStorage.setItem("mau", document.getElementById("mau").value);
-        localStorage.setItem("hang", document.getElementById("hang").value);
+          localStorage.setItem("mau", document.getElementById("mau").value);
+          localStorage.setItem("hang", document.getElementById("hang").value);
         }
         localStorage.setItem("mauX", document.getElementById("mauX").value);
         localStorage.setItem("mauY", document.getElementById("mauY").value);
@@ -752,6 +767,8 @@ function showlist()
         localStorage.setItem("kieudemnguoc", document.getElementById("kieudemnguoc").value);
          localStorage.setItem("dotre", document.getElementById("dotre").value);
 
+         if ('@TempData["codinh"]' == "false")
+         {
          if (useMauNen == 0)
          localStorage.setItem("maunen", "none");
          else
@@ -763,6 +780,7 @@ function showlist()
 
           localStorage.setItem("maunex",  document.getElementById("maunex").value);
           localStorage.setItem("anhmo",  document.getElementById("anhmo").value);
+         }
 
          document.getElementById("message").style.display = "block";
          document.getElementById("error").style.display = "block";
@@ -971,7 +989,7 @@ function showlist()
 
         function doimaunen_Save()
         {
-             if (localStorage.getItem("maunen") == null)
+             if (localStorage.getItem("maunen") == null || '@TempData["codinh"]' == "true")
             return;
 
             if (localStorage.getItem("maunen") != "none" && localStorage.getItem("maunen") != "blue")
@@ -1157,13 +1175,17 @@ function showlist()
                         var kichthuoc = new Number(width/19).toFixed();
                         var vitri = new Number(height/170).toFixed();
 
-                        if ('@TempData["TK-Kara"]' != "")
+                        if ('@TempData["TK-Kara"]' != "" || '@TempData["codinh"]' == "true")
                         {
                             vitri = 0;
+                            document.getElementById("hang").value = vitri;
                         }
 
                         document.getElementById("kichthuoc").value = kichthuoc;
+
+                        if ('@TempData["codinh"]' == "false")
                         document.getElementById("hang").value = vitri;
+
                         flix = 1;
                         }
 
@@ -1467,17 +1489,17 @@ function showlist()
 
                     
                       if ('@TempData["inhoa"]' == "true")
-             ct1 = ct1.toUpperCase();
+             ct1 = ct1.toUpperCase().trimEnd();
 
                     var ct2 = kara2.substring(h_le[kf] - kara1.length - 2, h_le[kf+1] - kara1.length - 2).replace("UNDEFINED","").replace("undefined","").trim();
 
                     if ('@TempData["inhoa"]' == "true")
-             ct2 = ct2.toUpperCase();
+             ct2 = ct2.toUpperCase().trimEnd();
 
                     var ct3 = kara2.substring(h_le[kf+1] - kara1.length - 2, kara2.length).replace("UNDEFINED","").replace("undefined","").trim();
 
                      if ('@TempData["inhoa"]' == "true")
-             ct3 = ct3.toUpperCase();
+             ct3 = ct3.toUpperCase().trimEnd();
 
                     if (ct1.length == kara2.length)
                     {
@@ -1489,7 +1511,7 @@ function showlist()
                    document.getElementById("txtKaraoke2").innerHTML = "&nbsp;&nbsp;<span style=\"color:"+mau+"\">"+ct1+"</span>&nbsp;<span id=\"xanhX2\" class=\"work\">"+ct2.replace(" ","")+"</span>&nbsp;<span style=\"color:"+mauX+"\">"+ct3+"</span>";
                    else
                    if (h_le[kf+2] == null || h_le[kf+2] === undefined)
-                   document.getElementById("txtKaraoke2").innerHTML = "&nbsp<span style=\"color:"+mau+"\">"+ct1+"</span>&nbsp;<span id=\"xanhX2\" class=\"work\">"+ct2.replace(" ","")+"</span>&nbsp;<span style=\"color:"+mauX+"\">"+ct3+"</span>";
+                   document.getElementById("txtKaraoke2").innerHTML = "&nbsp;<span style=\"color:"+mau+"\">"+ct1+"</span>&nbsp;<span id=\"xanhX2\" class=\"work\">"+ct2.replace(" ","")+"</span>&nbsp;<span style=\"color:"+mauX+"\">"+ct3+"</span>";
                    else
                    document.getElementById("txtKaraoke2").innerHTML = "<span style=\"color:"+mau+"\">"+ct1+"</span>&nbsp;<span id=\"xanhX2\" class=\"work\">"+ct2.replace(" ","")+"</span>&nbsp;<span style=\"color:"+mauX+"\">"+ct3+"</span>";
 
@@ -1794,7 +1816,9 @@ function showlist()
                           <br /><br />
                            <input type="checkbox" name="txtInHoa" />&nbsp;<b>Viết in hoa tất cả đoạn Text Karaoke</b>
                            <br /><br />
-                           <input type="checkbox" name="txtCanGiua" />&nbsp;<b>Căn giữa tất cả đoạn Text Karaoke</b>
+                           <input type="checkbox" id="cangiua" name="txtCanGiua" onchange="kiemtracangiua()" />&nbsp;<b>Căn giữa tất cả đoạn Text Karaoke</b>
+                           <br /><br />
+                           <input type="checkbox" id="codinh1" name="txtCoDinh" checked />&nbsp;<b id="codinh2">Cố định đoạn text Karaoke ở phía dưới (như các bản karaoke thông thường)</b>
                 </td>
             </tr>
 
@@ -1852,7 +1876,7 @@ else
      <br />
       <span style="color:deeppink"><b>Kích thước chữ : </b></span><input id="kichthuoc" type="number" min="0" value="80" onchange="doikichthuoc()"/>
         &nbsp;&nbsp;&nbsp;
-           @if(TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null)
+           @if((TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) && TempData["codinh"] == "false")
          {
                             <span style="color:deeppink"><b>Vị trí xuất hiện : </b></span> <input id="hang" type="number" min="0" value="0" onchange="doihang()"/>
                         }
@@ -1901,7 +1925,14 @@ else
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><b style="color:red"><a onclick="copyshare()" href="#xuly">Share Karaoke</a></b>
         }
     <br /><br /><button style="color:purple" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI/PHÁT</b></button>
-     &nbsp;&nbsp;&nbsp;&nbsp;<b id="demo_nen" style="color:#FFFFFF">Sử dụng màu nền cho phần text : </b><input type="color" onchange="doimaunenX()" id="maunenX" value="#FFFFFF"/>&nbsp;<a href="#xuly" onclick="xoamaunen()"><b>Làm mờ nền/Xoá màu nền</b></a>&nbsp;
+
+     @if (TempData["codinh"] == "false")
+                        {
+                            <spam>&nbsp;&nbsp;&nbsp;&nbsp; </spam><b id="demo_nen" style="color:#FFFFFF">Sử dụng màu nền cho phần text : </b><input type="color" onchange="doimaunenX()" id="maunenX" value="#FFFFFF"/>
+                            <span>&nbsp;</span>
+                            <a href="#xuly" onclick="xoamaunen()"><b>Làm mờ nền/Xoá màu nền</b></a>
+                            <span>&nbsp;</span>
+                        }
       @if (TempData["auto-play"] == "false")
                         {
                             <b id="xplay1" style="color:aqua"><a onclick="xemplayX()" href="#xuly">Play</a></b>
@@ -1973,6 +2004,8 @@ else
                     }
                     else
                     {
+                        if (TempData["codinh"] == "false")
+                        {
                          <span id="number" style="color:#e3f207; font-size:100px;float:left"></span>
                        <br />
                          <div style="text-align:center">
@@ -1983,6 +2016,19 @@ else
                         <span id="xui"></span>
                         </div>
                         </div>
+                        }
+                        else{
+                             <span id="number" style="color:#e3f207; font-size:100px;bottom:400px;position:fixed;left:0px"></span>
+                       <br />
+                         <div style="text-align:center">
+                        <div id="background-X" style="display:block">
+                            <p id="thietkeKara"></p>
+                          <p id="txtKaraoke1" style=";bottom:200px;position:fixed;left:0px"><b><span id="xanhX1" class="word"></span></b></p>
+                        <p id="txtKaraoke2" style=";bottom:0px;position:fixed;right:0px"><b><span id="xanhX2" class="work"></span></b></p>
+                        <span id="xui"></span>
+                        </div>
+                        </div>
+                        }
                     }
 
 </table>
@@ -2245,7 +2291,9 @@ else if (ViewBag.SuDung == "Video")
                            <br /><br />
                            <input type="checkbox" name="txtInHoa" />&nbsp;<b>Viết in hoa tất cả đoạn Text Karaoke</b>
                            <br /><br />
-                           <input type="checkbox" name="txtCanGiua" />&nbsp;<b>Căn giữa tất cả đoạn Text Karaoke</b>
+                           <input type="checkbox" id="cangiua" name="txtCanGiua" onchange="kiemtracangiua()" />&nbsp;<b>Căn giữa tất cả đoạn Text Karaoke</b>
+                           <br /><br />
+                           <input type="checkbox" id="codinh1" name="txtCoDinh" checked />&nbsp;<b id="codinh2">Cố định đoạn text Karaoke ở phía dưới (như các bản karaoke thông thường)</b>
                 </td>
             </tr>
 
@@ -2293,7 +2341,7 @@ else
      &nbsp;&nbsp;&nbsp;<b id="xemmaudi" style="color:#e3f207">Chọn màu cho time đếm ngược bắt đầu karaoke</b> : <input type="color" onchange="doimauY()" id="mauY" value="#e3f207" />
       &nbsp;&nbsp;&nbsp; <br /><span style="color:red">Kích thước chữ : </span><input id="kichthuoc" type="number" min="0" value="90" onchange="doikichthuoc()"/>
         &nbsp;&nbsp;&nbsp;
-         @if(TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null)
+         @if((TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) && TempData["codinh"] == "false")
          {
                             <span style="color:deeppink"><b>Vị trí xuất hiện : </b></span> <input id="hang" type="number" min="0" value="0" onchange="doihang()"/>
                         }
@@ -2335,7 +2383,13 @@ else
                                 <button onclick="DungKaraoke()"><b style="color:red">Huỷ trình phát Karaoke tự động (đã phát : @i1/@i2)</b></button>
                         }
     <br /><br /><button style="color:purple" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI/PHÁT</b></button>
-    &nbsp;&nbsp;&nbsp;&nbsp;<b id="demo_nen" style="color:#FFFFFF">Sử dụng màu nền cho phần text : </b><input type="color" onchange="doimaunenX()" id="maunenX" value="#FFFFFF"/>&nbsp;<a href="#xuly" onclick="xoamaunen()"><b>Xoá màu nền</b></a>&nbsp;
+                            @if (TempData["codinh"] == "false")
+                            {
+                                <spam>&nbsp;&nbsp;&nbsp;&nbsp; </spam><b id="demo_nen" style="color:#FFFFFF">Sử dụng màu nền cho phần text : </b><input type="color" onchange="doimaunenX()" id="maunenX" value="#FFFFFF"/>
+                            <span>&nbsp;</span>
+                            <a href="#xuly" onclick="xoamaunen()"><b>Làm mờ nền/Xoá màu nền</b></a>
+                            <span>&nbsp;</span>
+                            }
      &nbsp;&nbsp;&nbsp; 
        @if (TempData["auto-play"] == "false")
                         {
@@ -2408,6 +2462,8 @@ else
                     }
                     else
                     {
+                        if (TempData["codinh"] == "false")
+                        {
                          <span id="number" style="color:#e3f207; font-size:100px;float:left"></span>
                        <br />
                          <div style="text-align:center">
@@ -2418,6 +2474,19 @@ else
                         <span id="xui"></span>
                         </div>
                         </div>
+                        }
+                        else{
+                             <span id="number" style="color:#e3f207; font-size:100px;bottom:400px;position:fixed;left:0px"></span>
+                       <br />
+                         <div style="text-align:center">
+                        <div id="background-X" style="display:block">
+                            <p id="thietkeKara"></p>
+                          <p id="txtKaraoke1" style=";bottom:200px;position:fixed;left:0px"><b><span id="xanhX1" class="word"></span></b></p>
+                        <p id="txtKaraoke2" style=";bottom:0px;position:fixed;right:0px"><b><span id="xanhX2" class="work"></span></b></p>
+                        <span id="xui"></span>
+                        </div>
+                        </div>
+                        }
                     }            
     
 </table>

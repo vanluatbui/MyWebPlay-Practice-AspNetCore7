@@ -1162,6 +1162,23 @@ namespace MyWebPlay.Controllers
                     TempData["cangiua"] = "false";
                 }
 
+                if (f.ContainsKey("txtCoDinh"))
+                {
+
+                    if (f["txtCoDinh"].ToString() == "on")
+                    {
+                        TempData["codinh"] = "true";
+                    }
+                    else
+                    {
+                        TempData["codinh"] = "false";
+                    }
+                }
+                else
+                {
+                    TempData["codinh"] = "false";
+                }
+
                 ViewBag.Option = chon;
 
             if (chon == "1")

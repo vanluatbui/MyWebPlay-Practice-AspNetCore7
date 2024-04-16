@@ -353,6 +353,25 @@ namespace MyWebPlay.Controllers
                             break;
                         }
                         break;
+
+                    case 7:
+                        var path7 = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ExamKara");
+
+                        if (new System.IO.DirectoryInfo(path7).Exists)
+                            new System.IO.DirectoryInfo(path7).Delete(true);
+
+                        new System.IO.DirectoryInfo(Path.Combine(path7)).Create();
+
+                        for (int i = 0; i < txtFile.Count; i++)
+                        {
+                           var filename = txtFile[i].FileName;
+
+                            using (Stream fileStream = new FileStream(path7 + "/" + filename, FileMode.Create))
+                            {
+                                txtFile[i].CopyTo(fileStream);
+                            }
+                        }
+                        break;
                 }
               }
             catch (Exception ex)

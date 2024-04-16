@@ -161,7 +161,7 @@ namespace MyWebPlay.Controllers
             }
         }
 
-        public ActionResult Share_Karaoke(string? id)
+        public ActionResult Share_Karaoke(string? id, string? setting)
         {
             try
             {
@@ -191,6 +191,12 @@ namespace MyWebPlay.Controllers
             //khoawebsiteClient(listIP);
 
             HttpContext.Session.SetString("data-result", "true");
+
+            if (string.IsNullOrEmpty(setting) == false)
+             {
+                    TempData["settingR"] = setting;
+              }
+
             if (id != null)
             {
                     if (id.Contains("<encrypt>"))

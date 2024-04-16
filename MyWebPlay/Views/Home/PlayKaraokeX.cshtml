@@ -217,7 +217,33 @@ body {
         if ('@TempData["data-encrypt"]' == "true")
         mi = "<encrypt>";
 
-        var url =  "http://" +'@ViewBag.Host' + "/Home/Share_Karaoke?id=" + document.getElementById("linkKara").value+ mi;
+                var luutru = "";
+
+        if (document.getElementById("saveshare").checked == true)
+        {
+
+             var hangR = "[NULL]";
+        var mauR = "[NULL]";
+
+          if ('@TempData["TK-KARA"]' == "" || '@TempData["codinh"]' == "false")
+        {
+            hangR = document.getElementById("hang").value;
+            mauR = document.getElementById("mau").value.replace("#","");
+        }
+
+        var mauXR = document.getElementById("mauX").value.replace("#","");
+        var mauYR = document.getElementById("mauY").value.replace("#","");
+        var kichthuocR =  document.getElementById("kichthuoc").value;
+        var fontKieuR = document.getElementById("fontKieu").options.selectedIndex;
+       // var kieudemnguocR = document.getElementById("kieudemnguoc").value;
+       var kieudemnguocR = "N";
+        var maunexR =  document.getElementById("maunex").value.replace("#","");
+        var anhmoR = document.getElementById("anhmo").value;
+
+        luutru = "&&setting="+hangR+"<>"+mauR+"<>"+mauXR+"<>"+mauYR+"<>"+kichthuocR+"<>"+fontKieuR+"<>"+kieudemnguocR+"<>"+maunexR+"<>"+anhmoR;
+        }
+
+        var url =  "http://" +'@ViewBag.Host' + "/Home/Share_Karaoke?id=" + document.getElementById("linkKara").value+ mi + luutru;
         navigator.clipboard.writeText(url);
 
         document.getElementById("message").style.display = "block";
@@ -351,7 +377,7 @@ function showlist()
     var url = document.getElementById("serverX").value;
     var baihat = document.getElementById("baihatX").value;
 
-  alert("Xử lý thành công, hệ thống sẽ khởi động lại trang web (nếu bạn chưa nhập, hệ thống sẽ tự động lấy mẫu demo cho bạn).\nNếu danh sách của bạn chưa được tải xuống, vui lòng click lại vào link nút này một lần nữa để hoàn tất thử lại việc tải các bài hát đã get trên Server host của bạn...");
+  alert("Xử lý thành công, hệ thống sẽ khởi động lại trang web (nếu bạn chưa nhập, hệ thống sẽ tự động lấy mẫu demo của chúng tôi cho bạn trải nghiệm).\nNếu danh sách của bạn chưa được tải xuống, vui lòng click lại vào link nút này một lần nữa để hoàn tất thử lại việc tải các bài hát đã get trên Server host của bạn...");
 
        var thongtin = url+"[NONE]" + "-.-" + baihat+"[NONE]" + "-.-[NOT]-.-0";
 
@@ -732,7 +758,7 @@ function showlist()
         localStorage.removeItem("kichthuoc");
         localStorage.removeItem("kieuchu");
         localStorage.removeItem("kieudemnguoc");
-         localStorage.removeItem("dotre");
+        // localStorage.removeItem("dotre");
 
           localStorage.removeItem("maunen", "none");
 
@@ -765,7 +791,7 @@ function showlist()
         localStorage.setItem("kichthuoc", document.getElementById("kichthuoc").value);
         localStorage.setItem("kieuchu", document.getElementById("fontKieu").options.selectedIndex);
         localStorage.setItem("kieudemnguoc", document.getElementById("kieudemnguoc").value);
-         localStorage.setItem("dotre", document.getElementById("dotre").value);
+        // localStorage.setItem("dotre", document.getElementById("dotre").value);
 
          if ('@TempData["codinh"]' == "false")
          {
@@ -777,10 +803,10 @@ function showlist()
            else
          if (useMauNen == 2)
           localStorage.setItem("maunen", "blue");
+         }
 
           localStorage.setItem("maunex",  document.getElementById("maunex").value);
           localStorage.setItem("anhmo",  document.getElementById("anhmo").value);
-         }
 
          document.getElementById("message").style.display = "block";
          document.getElementById("error").style.display = "block";
@@ -1065,14 +1091,14 @@ function showlist()
             document.getElementById("number").style.color = document.getElementById("mauY").value;
         }
 
-         function doidotre_Save()
-        {
-            if (localStorage.getItem("dotre") == null)
-            return;
+        // function doidotre_Save()
+        //{
+        //    if (localStorage.getItem("dotre") == null)
+        //    return;
 
-             dotre = localStorage.getItem("dotre");
-             document.getElementById("dotre").value = dotre;
-        }
+        //     dotre = localStorage.getItem("dotre");
+        //     document.getElementById("dotre").value = dotre;
+        //}
 
 
         function doikieuchu_Save()
@@ -1094,15 +1120,15 @@ function showlist()
             document.getElementById("txtKaraoke2").style.fontFamily =  kieuchu;
         }
 
-         function doidotre()
-        {
-            var dotre = document.getElementById("dotre").value;
-            if (isNaN(dotre))
-            {
-                dotre = "0.3";
-                document.getElementById("dotre").value = dotre;
-            }
-        }
+        // function doidotre()
+        //{
+        //    var dotre = document.getElementById("dotre").value;
+        //    if (isNaN(dotre))
+        //    {
+        //        dotre = "0.3";
+        //        document.getElementById("dotre").value = dotre;
+        //    }
+        //}
 
          function doikieudemnguoc()
         {
@@ -1192,19 +1218,76 @@ function showlist()
                          if (you == false || youX == false)
                         return;
 
+                        if (flg == 0 && '@TempData["R-fontkieu"]' != "" && '@TempData["R-fontKieu"]' != "")
+                        {
+                            if ('@TempData["R-hang"]' != null && '@TempData["R-hang"]' != "")
+                            {
+                                var hangR = '@TempData["R-hang"]';
+                                document.getElementById("hang").value = hangR;
+
+                                                         var hax = "";
+                                for (var i  =0; i < hangR; i++)
+                                hax += "<br>";
+
+                                document.getElementById("hienthi").innerHTML = hax;
+                            }
+
+                            if ('@TempData["R-mau"]' != null && '@TempData["R-mau"]' != "")
+                            {
+                                var mauR = "#"+'@TempData["R-mau"]';
+                                mau = mauR;
+                                document.getElementById("mau").value = mauR;
+
+                                 document.getElementById("xemthumau").style.color = mauR;
+                                //document.getElementById("xanhX1").style.setProperty("--color", mauR);
+                                //document.getElementById("xanhX2").style.setProperty("--color", mauR);
+                            }
+
+                            document.getElementById("mauX").value = "#"+'@TempData["R-mauX"]';
+                              document.getElementById("xemmauthu").style.color = "#"+'@TempData["R-mauX"]';
+                       //document.getElementById("xanhX1").style.setProperty("--colox", "#"+'@TempData["R-mauX"]');
+                       mauX = "#"+'@TempData["R-mauX"]';
+           // document.getElementById("xanhX2").style.setProperty("--color", "#"+'@TempData["R-mauX"]');
+
+
+                            document.getElementById("mauY").value = "#"+'@TempData["R-mauY"]';
+                             document.getElementById("xemmaudi").style.color = "#"+'@TempData["R-mauY"]';
+            document.getElementById("number").style.color = "#"+'@TempData["R-mauY"]';
+
+
+                            document.getElementById("kichthuoc").value = '@TempData["R-kichthuoc"]';
+                            var kt = '@TempData["R-kichthuoc"]' + "px";
+                           document.getElementById("txtKaraoke1").style.fontSize = kt; 
+                         document.getElementById("txtKaraoke2").style.fontSize = kt; 
+                         document.getElementById("number").style.fontSize = kt;
+
+
+                            document.getElementById("fontKieu").options.selectedIndex = new Number('@TempData["R-fontkieu"]');
+                            doiFontKieu();
+
+                            document.getElementById("kieudemnguoc").value = '@TempData["R-kieudemnguoc"]';
+                            kieudemnguoc = '@TempData["R-kieudemnguoc"]';
+                            doikieudemnguoc();
+
+                          document.getElementById("maunex").value = "#"+'@TempData["R-maunex"]';
+                          document.getElementById("anhmo").value = '@TempData["R-anhmo"]';
+                          moanh();
+                          flg = 1;
+                        }
+
                         // Thay doi tu cai dat da luu
                         if (flg == 0 && '@ViewBag.Share' != "YES - OK")
                         {
                         doimau_Save();
+                        doihang_Save();
                         doimauX_Save();
                         doimauY_Save();
-                        doihang_Save();
                         doikichthuoc_Save();
                         doikieuchu_Save();
                         doiFontKieu();
                         doikieudemnguoc_Save();
                         doikieudemnguoc();
-                        doidotre_Save();
+                       // doidotre_Save();
 
                         doimaunen_Save();
                         doimaunex_Save();
@@ -1364,7 +1447,7 @@ function showlist()
                else
                so2 = h_xh[kf+1];
 
-               so = ((so2 - so1) /10) + new Number(document.getElementById("dotre").value);
+               so = ((so2 - so1) /10) + 0.3;
 
               //if (so2 - so1 < 3)
               // so = 0.3;
@@ -1573,7 +1656,7 @@ function showlist()
 </script>
 
 <audio id="muteplay" autoplay hidden onplaying="ketquaplay()" onpause="playketqua()" onended="playketqua()" muted>
-    <source src="/karaoke_Example/ThiThamMuaXuan_Karaoke.mp3" type="audio/mpeg">
+    <source src="/karaoke_Example/ExamKara/KaraokeDemo.mp3" type="audio/mpeg">
 </audio>
 
 @if (ViewBag.Share != "YES" && ViewBag.Share != "ERROR")
@@ -1885,7 +1968,6 @@ else
                             <span style="display:none;color:deeppink"><b>Vị trí xuất hiện : </b></span> <input style="display:none" id="hang" type="number" min="0" value="0" onchange="doihang()"/>
                         }
                         &nbsp;&nbsp;&nbsp;<input id="kieudemnguoc" maxlength="2" placeholder="Nhập kiểu/icon đếm ngược để bắt đầu karaoke" onchange="doikieudemnguoc()" value="N" />
-         &nbsp;&nbsp;&nbsp;<input id="dotre" placeholder="Nhập độ trễ bổ sung..." value="0.3" onchange="doidotre()" />
         &nbsp;&nbsp;&nbsp; <button onclick="ghinho()"><b style="color:lightcoral">Ghi nhớ các cài đặt</b></button>
         &nbsp;&nbsp;&nbsp; <button onclick="xoaghinho()"><b style="color:lightcoral">Xoá ghi nhớ các cài đặt</b></button>
         &nbsp;&nbsp;&nbsp; 
@@ -1922,7 +2004,7 @@ else
     
       @if (ViewBag.Share != "YES - OK" && ViewBag.BHServer != "" && ViewBag.LoginServer != "")
         {
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><b style="color:red"><a onclick="copyshare()" href="#xuly">Share Karaoke</a></b>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><b style="color:red"><a onclick="copyshare()" href="#xuly">Share Karaoke</a></b><input type="checkbox" id="saveshare" /><b style="color:lawngreen">Bao gồm luôn các setting hiện tại của bạn</b>
         }
     <br /><br /><button style="color:purple" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI/PHÁT</b></button>
 
@@ -2018,7 +2100,7 @@ else
                         </div>
                         }
                         else{
-                             <span id="number" style="color:#e3f207; font-size:100px;bottom:400px;position:fixed;left:0px"></span>
+                             <span id="number" style="color:#e3f207; font-size:100px;bottom:500px;position:fixed;left:0px"></span>
                        <br />
                          <div style="text-align:center">
                         <div id="background-X" style="display:block">
@@ -2476,7 +2558,7 @@ else
                         </div>
                         }
                         else{
-                             <span id="number" style="color:#e3f207; font-size:100px;bottom:400px;position:fixed;left:0px"></span>
+                             <span id="number" style="color:#e3f207; font-size:100px;bottom:500px;position:fixed;left:0px"></span>
                        <br />
                          <div style="text-align:center">
                         <div id="background-X" style="display:block">

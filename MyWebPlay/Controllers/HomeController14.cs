@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using MyWebPlay.Model;
 using Microsoft.AspNetCore.Http;
 using Org.BouncyCastle.Crypto.Prng;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MyWebPlay.Controllers
 {
@@ -226,15 +227,15 @@ namespace MyWebPlay.Controllers
             }
             else
             {
-                    var xu = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ThiThamMuaXuan_Text.txt"));
+                    var xu = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ExamKara/TextDemo.txt"));
                     if (f["encrypt_data"].ToString() == "on")
                     {
                         xu = StringMaHoaExtension.Decrypt(xu);
                     }
 
                     ViewBag.Karaoke = xu;
-                ViewBag.Music = "/karaoke_Example/ThiThamMuaXuan_Karaoke.mp3";
-                ViewBag.Musix = "/karaoke_Example/ThiThamMuaXuan.mp3";
+                ViewBag.Music = "/karaoke_Example/ExamKara/KaraokeDemo.mp3";
+                ViewBag.Musix = "/karaoke_Example/ExamKara/NhacDemo.mp3";
             }
 
             return View();
@@ -255,6 +256,7 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                TempData["lyricdemo"] =  System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ExamKara/LyricDemo.txt")).Replace("\r", "").Replace("\n", "<br />");
                 TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
             {
@@ -278,7 +280,7 @@ namespace MyWebPlay.Controllers
             new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
             new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
 
-                ViewBag.LyricVD = "Từng chồi non xanh mơn man\r\nTừng hạt mưa long lanh rơi mùa xuân\r\nVà trong ánh mắt lấp lánh\r\nLời yêu thương, yêu thương ai ngập ngừng\r\nMùa xuân đã đến bên em\r\nVà mùa xuân đã đến bên anh thì thầm\r\nLàn gió khẽ vuốt tóc em\r\nVà làn gió nói cùng em nhớ thương\r\nVà em đã biết nói tiếng yêu đầu tiên\r\nVà em đã biết thương nhớ, biết giận hờn\r\nMùa xuân đã đến bên em trao nụ hôn\r\nVà mùa xuân đã trao cho em ánh mắt anh\r\nĐể rồi đắm say\r\nĐể rồi ngất ngây\r\nTừng chồi non xanh mơn man\r\nTừng hạt mưa long lanh rơi mùa xuân\r\nVà trong ánh mắt lấp lánh\r\nLời yêu thương, yêu thương ai ngập ngừng\r\nMùa xuân đã đến bên em\r\nVà mùa xuân đã đến bên anh thì thầm\r\nLàn gió khẽ vuốt tóc em\r\nVà làn gió nói cùng em nhớ thương\r\nVà em đã biết nói tiếng yêu đầu tiên\r\nVà em đã biết thương nhớ, biết giận hờn\r\nMùa xuân đã đến bên em trao nụ hôn\r\nVà mùa xuân đã trao cho em ánh mắt anh\r\nĐể rồi đắm say\r\nĐể rồi ngất ngây\r\n[Empty]\r\nTừng chồi non xanh mơn man\r\nTừng hạt mưa long lanh rơi mùa xuân\r\nVà trong ánh mắt lấp lánh\r\nLời yêu thương, yêu thương ai ngập ngừng\r\nMùa xuân đã đến bên em\r\nVà mùa xuân đã đến bên anh thì thầm\r\nLàn gió khẽ vuốt tóc em\r\nVà làn gió nói cùng em nhớ thương\r\nVà em đã biết nói tiếng yêu đầu tiên\r\nVà em đã biết thương nhớ, biết giận hờn\r\nMùa xuân đã đến bên em trao nụ hôn\r\nVà mùa xuân đã trao cho em ánh mắt anh\r\nĐể rồi đắm say\r\nĐể rồi ngất ngây\r\n[Empty]";
+                ViewBag.LyricVD = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ExamKara/LyricDemo.txt"));
                 return View();
             }
             catch (Exception ex)
@@ -298,6 +300,7 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                TempData["lyricdemo"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ExamKara/LyricDemo.txt")).Replace("\r", "").Replace("\n", "<br />");
                 TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
             {
@@ -439,7 +442,7 @@ namespace MyWebPlay.Controllers
             TempData["IDemail-Karaoke"] = IDemail;
 
 
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
             {
                 HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
@@ -905,6 +908,13 @@ namespace MyWebPlay.Controllers
             string? background = TempData["background"].ToString();
             int? option = int.Parse(TempData["option"].ToString());
 
+            if (TempData["settingR"] != null)
+            {
+                    var setting = TempData["settingR"];
+                    TempData["settingR"] = setting;
+                    
+             }
+
 
                 var n1 = StringMaHoaExtension.Encrypt(url);
             var n2 = StringMaHoaExtension.Encrypt(baihat);
@@ -917,6 +927,16 @@ namespace MyWebPlay.Controllers
             TempData["baihat"] = null;
             TempData["background"] = null;
             TempData["option"] = null;
+
+                //TempData["R-hang"] = null;
+                //TempData["R-mau"] = null;
+                //    TempData["R-mauX"] = null;
+                //    TempData["R-mauY"] = null;
+                //    TempData["R-kichthuoc"] = null;
+                //    TempData["R-fontkieu"] = null;
+                //    TempData["R-kieudemnguoc"] = null;
+                //    TempData["R-maunex"] = null;
+                //    TempData["R-anhmo"] = null;
 
             ViewBag.Music = "";
             ViewBag.Musix = "";
@@ -951,7 +971,7 @@ namespace MyWebPlay.Controllers
                     WebClient client = new WebClient();
                     Stream stream = client.OpenRead("http://" + url + "/MyListSong.txt");
                     StreamReader reader = new StreamReader(stream);
-                    String content = reader.ReadToEnd();
+                    string content = reader.ReadToEnd();
                     ViewBag.ListSong = content;
                     ViewBag.Background = background;
                     ViewBag.Option = option;
@@ -985,7 +1005,7 @@ namespace MyWebPlay.Controllers
                     WebClient client = new WebClient();
                     Stream stream = client.OpenRead("http://" + url + "/MyListSong.txt");
                     StreamReader reader = new StreamReader(stream);
-                    String content = reader.ReadToEnd();
+                    string content = reader.ReadToEnd();
                         HttpContext.Session.SetString("content-listsong", content);
  
                          TempData["length-list-auto"] = (content.Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries).Length).ToString();
@@ -1096,7 +1116,30 @@ namespace MyWebPlay.Controllers
                 if (txtMusix == null || txtMusix.Length == 0)
                     txtMusix = txtMusic;
 
-                TempData["post-kara"] = "true";
+                if (TempData["settingR"] != null)
+                {
+                    var setting = TempData["settingR"].ToString();
+                    var set = setting.Split("<>");
+                    if (set[0] == "[NULL]")
+                        TempData["R-hang"] = null;
+                    else
+                        TempData["R-hang"] = set[0];
+
+                    if (set[1] == "[NULL]")
+                        TempData["R-mau"] = null;
+                    else
+                        TempData["R-mau"] = set[1];
+
+                    TempData["R-mauX"] = set[2];
+                    TempData["R-mauY"] = set[3];
+                    TempData["R-kichthuoc"] = set[4];
+                    TempData["R-fontkieu"] = set[5];
+                    TempData["R-kieudemnguoc"] = set[6];
+                    TempData["R-maunex"] = set[7];
+                    TempData["R-anhmo"] = set[8];
+                }
+
+                    TempData["post-kara"] = "true";
 
             ViewBag.Host = Request.Host;
 
@@ -1232,7 +1275,7 @@ namespace MyWebPlay.Controllers
                         WebClient client = new WebClient();
                         Stream stream = client.OpenRead("https://www.googleapis.com/youtube/v3/videos?id=" + id + "&part=contentDetails&key=AIzaSyD5bK5gubDOrvgoHvWg-OTbDqVogqe6R_8");
                         StreamReader reader = new StreamReader(stream);
-                        String content = reader.ReadToEnd();
+                        string content = reader.ReadToEnd();
 
                         var part1 = content.Split("\"duration\": ");
                         var part2 = part1[1].Split("\",");
@@ -1314,7 +1357,7 @@ namespace MyWebPlay.Controllers
                         WebClient client = new WebClient();
                         Stream stream = client.OpenRead("https://www.googleapis.com/youtube/v3/videos?id="+id+"&part=contentDetails&key=AIzaSyD5bK5gubDOrvgoHvWg-OTbDqVogqe6R_8");
                         StreamReader reader = new StreamReader(stream);
-                        String content = reader.ReadToEnd();
+                        string content = reader.ReadToEnd();
 
                         var part1 = content.Split("\"duration\": ");
                         var part2 = part1[1].Split("\",");
@@ -1387,7 +1430,7 @@ namespace MyWebPlay.Controllers
                     WebClient client = new WebClient();
                     Stream stream = client.OpenRead("http://" + url_txt);
                     StreamReader reader = new StreamReader(stream);
-                    String content = reader.ReadToEnd();
+                    string content = reader.ReadToEnd();
 
                         if (f["encrypt_data"].ToString() == "on" || HttpContext.Session.GetString("encrypt_yes") == "true")
                         {
@@ -1500,14 +1543,14 @@ namespace MyWebPlay.Controllers
             }
             else
             {
-                    var xu = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ThiThamMuaXuan_Text.txt"));
+                    var xu = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ExamKara/TextDemo.txt"));
                     if (f["encrypt_data"].ToString() == "on")
                     {
                         xu = StringMaHoaExtension.Decrypt(xu);
                     }
                     ViewBag.Karaoke = xu;
-                ViewBag.Music = "/karaoke_Example/ThiThamMuaXuan_Karaoke.mp3";
-                ViewBag.Musix = "/karaoke_Example/ThiThamMuaXuan.mp3";
+                ViewBag.Music = "/karaoke_Example/ExamKara/KaraokeDemo.mp3";
+                ViewBag.Musix = "/karaoke_Example/ExamKara/NhacDemo.mp3";
             }
 
                 if (f["txtAutoSong"].ToString() == "on")

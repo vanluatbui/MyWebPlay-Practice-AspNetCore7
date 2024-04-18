@@ -369,7 +369,7 @@ function showlist()
 
     if (document.getElementById("serverX").value == "")
     {
-        document.getElementById("serverX").value = "demokaraoke.bsite.net";
+        document.getElementById("serverX").value = '@TempData["link-karaoke-demo"]';
     }
 
     if (document.getElementById("songlist").value == "")
@@ -377,7 +377,7 @@ function showlist()
     var url = document.getElementById("serverX").value;
     var baihat = document.getElementById("baihatX").value;
 
-  alert("Xử lý thành công, hệ thống sẽ khởi động lại trang web (nếu bạn chưa nhập, hệ thống sẽ tự động lấy mẫu demo của chúng tôi cho bạn trải nghiệm).\nNếu danh sách của bạn chưa được tải xuống, vui lòng click lại vào link nút này một lần nữa để hoàn tất thử lại việc tải các bài hát đã get trên Server host của bạn...");
+  alert("Xử lý thành công, hệ thống sẽ khởi động lại trang web (nếu bạn chưa nhập, hệ thống sẽ tự động lấy mẫu demo của chúng tôi cho bạn trải nghiệm). Nếu danh sách của bạn chưa được tải xuống, vui lòng click lại vào link nút này một lần nữa để hoàn tất thử lại việc tải các bài hát đã get trên Server host của bạn...");
 
        var thongtin = url+"[NONE]" + "-.-" + baihat+"[NONE]" + "-.-[NOT]-.-0";
 

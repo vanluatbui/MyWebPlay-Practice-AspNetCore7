@@ -214,6 +214,21 @@ namespace MyWebPlay.Controllers
                        .Replace("http://", "")
                        .Replace("/", "");
 
+                if (HttpContext.Session.GetString("kara-demox-3275") != null)
+                {
+                    var adsetPath = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+
+                    var adsetTitlle = System.IO.File.ReadAllText(adsetPath);
+
+                    var karaxcu = adsetTitlle.Replace("\r", "").Split("\n")[5];
+
+                    adsetTitlle = adsetTitlle.Replace(karaxcu, HttpContext.Session.GetString("kara-demox-3275")).Replace("\"","");
+
+                    System.IO.File.WriteAllText(adsetPath, adsetTitlle);
+
+                    HttpContext.Session.Remove("kara-demox-3275");
+                }
+
                 Calendar xx = CultureInfo.InvariantCulture.Calendar;
 
                 string xuxuu = xx.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);

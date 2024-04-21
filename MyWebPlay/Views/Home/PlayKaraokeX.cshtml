@@ -647,11 +647,16 @@ function showlist()
           if (behind == 0 &&  '@TempData["behind"]' == "true")
         {
             be++;
-            if (be == 10)
+            if (be == new Number('@TempData["behind-number"]'))
             {
                 behind = 1;
                 document.getElementById("musix").play();
                 document.getElementById("music").play();
+
+                if ('@ViewBag.SuDung' == "Video")
+                {
+                    document.getElementById("myVidex").currentTime = 0;
+                }
             }
         }
     },1000);
@@ -1367,6 +1372,27 @@ function showlist()
                            mau = document.getElementById("mau").value;
                            document.getElementById("thietkeKara").innerHTML = x[1];
                            document.getElementById("thietkeKara").style.color = x[2];
+
+                           //Check member is has singer
+
+                           if ('@TempData["casi"]' == "true")
+                           {
+                               if ('@TempData["hassinger"]' == "true")
+                               {
+                                   if (x[1] == "[SINGER]")
+                                   {
+                                       document.getElementById("thietkeKara").innerHTML = "";
+                                       document.getElementById("chon").options.selectedIndex = 1;
+                                       changeKara();
+                                   }
+                                   else
+                                   {
+                                       document.getElementById("chon").options.selectedIndex = 0;
+                                       changeKara();
+                                   }
+                               }
+                           }
+
                            ix++;
                        }
                 }
@@ -1635,6 +1661,11 @@ function showlist()
      {
          var x = document.getElementById("myVideo");
 
+         if ('@ViewBag.SuDung' == "Video")
+         {
+             x = document.getElementById("myVidex");
+         }
+
         var so = new Number(document.getElementById("anhmo").value);
 
         if (so == undefined)
@@ -1882,7 +1913,7 @@ function showlist()
                             <option>Nhập link video Youtube online</option>
                             <option>Lấy ngẫu nhiên link video Youtube hiện có (một số link có thể không còn tồn tại)</option>
                       </select>
-                      <input type="number" hidden id="chonKarax" name="KaraChon" value="1" min="1" max="5" />
+                      <input type="number" hidden id="chonKarax" name="KaraChon" value="1" min="1" max="5" style="width: 3em" />
                       <br><br>
                       <input name="txtOnline" id="online" size="100" style="display:none" type="text" placeholder="Nhập link online background của bạn thực hiện karaoke..." />
                      <br><span id="helpYoutube" style="color:red; display:none"><u>Lưu ý</u> : một số link Youtube có thể không khả dụng hoặc bạn nên cố gắng thử lại (và hãy tìm video youtube dài phút nhất có thể 😃, tuy nhiên một số trường hợp video có thể tự lặp lại)</span>
@@ -1895,7 +1926,7 @@ function showlist()
                            <br /><br />
                           <input type="checkbox" name="encrypt_data" id="txtEncr" />&nbsp;<b>Giải mã nội dung file TXT của tôi tải lên (hãy thử nếu bạn gặp vấn đề về xử lý)</b>
                            <br /><br />
-                          <input type="checkbox" name="txtBehind" id="behind" />&nbsp;<b>Sẽ bắt đầu phát nhạc sau 10 giây</b>
+                          <input type="checkbox" name="txtBehind" id="behind" />&nbsp;<b>Sẽ bắt đầu phát nhạc sau <input type="number" name="txtBehindNumber" value="10" min="10" max="100" style="width: 3em" /> giây</b>
                           <br /><br />
                            <input type="checkbox" name="txtInHoa" />&nbsp;<b>Viết in hoa tất cả đoạn Text Karaoke</b>
                            <br /><br />
@@ -1957,17 +1988,17 @@ else
      <select id="fontKieu" onchange="doiFontKieu()">
      </select>
      <br />
-      <span style="color:deeppink"><b>Kích thước chữ : </b></span><input id="kichthuoc" type="number" min="0" value="80" onchange="doikichthuoc()"/>
+      <span style="color:deeppink"><b>Kích thước chữ : </b></span><input id="kichthuoc" type="number" style="width: 3em" min="0" value="80" onchange="doikichthuoc()"/>
         &nbsp;&nbsp;&nbsp;
            @if((TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) && TempData["codinh"] == "false")
          {
-                            <span style="color:deeppink"><b>Vị trí xuất hiện : </b></span> <input id="hang" type="number" min="0" value="0" onchange="doihang()"/>
+                            <span style="color:deeppink"><b>Vị trí xuất hiện : </b></span> <input id="hang" type="number" style="width: 3em" min="0" value="0" onchange="doihang()"/>
                         }
                         else
                         {
-                            <span style="display:none;color:deeppink"><b>Vị trí xuất hiện : </b></span> <input style="display:none" id="hang" type="number" min="0" value="0" onchange="doihang()"/>
+                            <span style="display:none;color:deeppink"><b>Vị trí xuất hiện : </b></span> <input style="display:none;width: 3em" id="hang" type="number" min="0" value="0" onchange="doihang()"/>
                         }
-                        &nbsp;&nbsp;&nbsp;<input id="kieudemnguoc" maxlength="2" placeholder="Nhập kiểu/icon đếm ngược để bắt đầu karaoke" onchange="doikieudemnguoc()" value="N" />
+                        &nbsp;&nbsp;&nbsp;<input id="kieudemnguoc" maxlength="2" placeholder="Nhập kiểu/icon đếm ngược để bắt đầu karaoke" onchange="doikieudemnguoc()" value="N" size="3" />
         &nbsp;&nbsp;&nbsp; <button onclick="ghinho()"><b style="color:lightcoral">Ghi nhớ các cài đặt</b></button>
         &nbsp;&nbsp;&nbsp; <button onclick="xoaghinho()"><b style="color:lightcoral">Xoá ghi nhớ các cài đặt</b></button>
         &nbsp;&nbsp;&nbsp; 
@@ -2071,7 +2102,7 @@ else
                         <tr style="height:40px">
                             <td></td>
                 <td>
-                       <span id="number" style="color:#e3f207; font-size:100px"></span>
+                       <span id="number" style="color:#e3f207; font-size:100px;width: 3em"></span>
                        <br />
                          <div style="text-align:center">
                         <div id="background-X" style="display:block">
@@ -2088,7 +2119,7 @@ else
                     {
                         if (TempData["codinh"] == "false")
                         {
-                         <span id="number" style="color:#e3f207; font-size:100px;float:left"></span>
+                         <span id="number" style="color:#e3f207; font-size:100px;float:left;width: 3em"></span>
                        <br />
                          <div style="text-align:center">
                         <div id="background-X" style="display:block">
@@ -2100,7 +2131,7 @@ else
                         </div>
                         }
                         else{
-                             <span id="number" style="color:#e3f207; font-size:100px;bottom:500px;position:fixed;left:0px"></span>
+                             <span id="number" style="color:#e3f207; font-size:100px;bottom:500px;position:fixed;left:0px;width: 3em"></span>
                        <br />
                          <div style="text-align:center">
                         <div id="background-X" style="display:block">
@@ -2356,7 +2387,7 @@ else if (ViewBag.SuDung == "Video")
                             <option>Nhập link video Youtube online</option>
                              <option>Lấy ngẫu nhiên link video Youtube hiện có (một số link có thể không còn tồn tại)</option>
                       </select>
-                      <input type="number" hidden id="chonKarax" name="KaraChon" value="1" min="1" max="5" />
+                      <input type="number" style="width: 3em" hidden id="chonKarax" name="KaraChon" value="1" min="1" max="5" />
                       <br><br>
                       <input name="txtOnline" id="online" size="100" style="display:none" type="text" placeholder="Nhập link online background của bạn thực hiện karaoke..." />
                      <br><span id="helpYoutube" style="color:red; display:none"><u>Lưu ý</u> : một số link Youtube có thể không khả dụng hoặc bạn nên cố gắng thử lại (và hãy tìm video youtube dài phút nhất có thể 😃, tuy nhiên một số trường hợp video có thể tự lặp lại)</span>
@@ -2369,7 +2400,7 @@ else if (ViewBag.SuDung == "Video")
                           <br /><br />
                           <input type="checkbox" name="encrypt_data" id="txtEncr" />&nbsp;<b>Giải mã nội dung file TXT của tôi tải lên (hãy thử nếu bạn gặp vấn đề về xử lý)</b>
                            <br /><br />
-                          <input type="checkbox" name="txtBehind" id="behind" />&nbsp;<b>Sẽ bắt đầu phát nhạc sau 10 giây</b>
+                          <input type="checkbox" name="txtBehind" id="behind" />&nbsp;<b>Sẽ bắt đầu phát nhạc sau <input type="number" name="txtBehindNumber" value="10" min="10" max="100" style="width: 3em" /> giây</b>
                            <br /><br />
                            <input type="checkbox" name="txtInHoa" />&nbsp;<b>Viết in hoa tất cả đoạn Text Karaoke</b>
                            <br /><br />
@@ -2421,15 +2452,15 @@ else
                         }
     &nbsp;&nbsp;&nbsp;<b id="xemmauthu" style="color:#efe6e6">Chọn màu đoạn text ban đầu</b> : <input type="color" onchange="doimauX()" id="mauX" value="#efe6e6" />
      &nbsp;&nbsp;&nbsp;<b id="xemmaudi" style="color:#e3f207">Chọn màu cho time đếm ngược bắt đầu karaoke</b> : <input type="color" onchange="doimauY()" id="mauY" value="#e3f207" />
-      &nbsp;&nbsp;&nbsp; <br /><span style="color:red">Kích thước chữ : </span><input id="kichthuoc" type="number" min="0" value="90" onchange="doikichthuoc()"/>
+      &nbsp;&nbsp;&nbsp; <br /><span style="color:red">Kích thước chữ : </span><input id="kichthuoc" type="number" style="width: 3em" min="0" value="90" onchange="doikichthuoc()"/>
         &nbsp;&nbsp;&nbsp;
          @if((TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) && TempData["codinh"] == "false")
          {
-                            <span style="color:deeppink"><b>Vị trí xuất hiện : </b></span> <input id="hang" type="number" min="0" value="0" onchange="doihang()"/>
+                            <span style="color:deeppink"><b>Vị trí xuất hiện : </b></span> <input id="hang" type="number" style="width: 3em" min="0" value="0" onchange="doihang()"/>
                         }
                         else
                         {
-                            <span style="display:none;color:deeppink"><b>Vị trí xuất hiện : </b></span> <input style="display:none" id="hang" type="number" min="0" value="0" onchange="doihang()"/>
+                            <span style="display:none;color:deeppink"><b>Vị trí xuất hiện : </b></span> <input style="display:none;width: 3em" id="hang" type="number" min="0" value="0" onchange="doihang()"/>
                         }
         &nbsp;&nbsp;&nbsp; <button onclick="ghinho()"><b style="color:lightcoral">Ghi nhớ các cài đặt</b></button>
          &nbsp;&nbsp;&nbsp; <button onclick="xoaghinho()"><b style="color:lightcoral">Xoá ghi nhớ các cài đặt</b></button>
@@ -2529,7 +2560,7 @@ else
                         <tr style="height:40px">
                             <td></td>
                 <td>
-                       <span id="number" style="color:#e3f207; font-size:100px"></span>
+                       <span id="number" style="color:#e3f207; font-size:100px;width: 3em"></span>
                        <br />
                          <div style="text-align:center">
                         <div id="background-X" style="display:block">
@@ -2546,7 +2577,7 @@ else
                     {
                         if (TempData["codinh"] == "false")
                         {
-                         <span id="number" style="color:#e3f207; font-size:100px;float:left"></span>
+                         <span id="number" style="color:#e3f207; font-size:100px;float:left;width: 3em"></span>
                        <br />
                          <div style="text-align:center">
                         <div id="background-X" style="display:block">
@@ -2558,7 +2589,7 @@ else
                         </div>
                         }
                         else{
-                             <span id="number" style="color:#e3f207; font-size:100px;bottom:500px;position:fixed;left:0px"></span>
+                             <span id="number" style="color:#e3f207; font-size:100px;bottom:500px;position:fixed;left:0px;width: 3em"></span>
                        <br />
                          <div style="text-align:center">
                         <div id="background-X" style="display:block">

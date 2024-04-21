@@ -1113,10 +1113,18 @@ namespace MyWebPlay.Controllers
             }
 
                 if (txtMusic == null || txtMusic.Length == 0)
+                {
                     txtMusic = txtMusix;
+                    TempData["casi"] = "false";
+                }
 
                 if (txtMusix == null || txtMusix.Length == 0)
+                {
                     txtMusix = txtMusic;
+                    TempData["casi"] = "false";
+                }
+
+                TempData["casi"] = "true";
 
                 if (TempData["settingR"] != null)
                 {
@@ -1183,6 +1191,7 @@ namespace MyWebPlay.Controllers
                 if (f["txtBehind"].ToString() == "on")
                 {
                     TempData["behind"] = "true";
+                    TempData["behind-number"] = f["txtBehindNumber"].ToString();
                 }
                 else
                 {
@@ -1448,7 +1457,9 @@ namespace MyWebPlay.Controllers
                     {
                         ViewBag.Karaoke = content;
                         TempData["TK-KARA"] = "";
-                    }
+                            if (TempData["hassinger"] != "true")
+                                TempData["hassinger"] = "false";
+                        }
                     else
                     {
                         var xa = content.Replace("\r","").Split("\n");
@@ -1461,6 +1472,16 @@ namespace MyWebPlay.Controllers
                                 var xc = xb[1].Split("#");
                                 var xd = xb[0].Split("-");
                                 noidung += xc[0] + "=" + xd[0] + "=" + xd[1];
+
+                                if (xd[0] == "[SINGER]")
+                                    {
+                                        TempData["hassinger"] = "true";
+                                    }
+                                    else
+                                    {
+                                        if (TempData["hassinger"] != "true")
+                                            TempData["hassinger"] = "false";
+                                    }
 
                                 content = content.Replace(xb[0] + "<>", "");
 
@@ -1519,7 +1540,10 @@ namespace MyWebPlay.Controllers
                 {
                     ViewBag.Karaoke = nd;
                     TempData["TK-KARA"] = "";
-                }
+
+                    if (TempData["hassinger"] != "true")
+                     TempData["hassinger"] = "false";
+                    }
                 else
                 {
                     var xa = nd.Replace("\r","").Split("\n");
@@ -1533,7 +1557,17 @@ namespace MyWebPlay.Controllers
                             var xd = xb[0].Split("-");
                             noidung += xc[0] + "=" + xd[0] + "=" + xd[1];
 
-                            nd = nd.Replace(xb[0] + "<>", "");
+                                if (xd[0] == "[SINGER]")
+                                {
+                                    TempData["hassinger"] = "true";
+                                }
+                                else
+                                {
+                                    if (TempData["hassinger"] != "true")
+                                        TempData["hassinger"] = "false";
+                                }
+
+                                nd = nd.Replace(xb[0] + "<>", "");
 
                             if (i < xa.Length - 1)
                                 noidung += "\n";

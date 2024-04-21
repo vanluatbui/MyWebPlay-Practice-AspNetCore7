@@ -43,8 +43,8 @@
     <table align="center">
         <h2 style="text-align:center">PHÂN ĐOẠN HÁT - KARAOKE CHO CÁC MEMBER</h2>
 
-        <input id="sl" type="number" min="2" size="10" placeholder="Nhập số lượng member tham gia (Karaoke)" value="2" />&nbsp;<button id="sl_click" onclick="soluongmember()" style="background-color:blueviolet;color:red">OK</button>
-
+        <input id="sl" type="number" min="2" size="10" placeholder="Nhập số lượng member tham gia (Karaoke)" value="2" />&nbsp;<button id="sl_click" onclick="soluongmember()" style="background-color:blueviolet;color:red">OK</button><br />
+        <u style="color:red">Bật mí thêm : </u><span style="color:purple">  : nếu bạn để tên phân đoạn member là <span style="color:blue">[SINGER]</span>, khi play karaoke sẽ tự động chuyển sang chế độ ca sĩ hát (nếu có)</span>
         @using (Html.BeginForm())
         {
             @Html.ValidationSummary(true)

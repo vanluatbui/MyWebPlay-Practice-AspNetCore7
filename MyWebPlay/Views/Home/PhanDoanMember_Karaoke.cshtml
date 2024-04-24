@@ -44,7 +44,7 @@
         <h2 style="text-align:center">PHÂN ĐOẠN HÁT - KARAOKE CHO CÁC MEMBER</h2>
 
         <input id="sl" type="number" min="2" size="10" placeholder="Nhập số lượng member tham gia (Karaoke)" value="2" />&nbsp;<button id="sl_click" onclick="soluongmember()" style="background-color:blueviolet;color:red">OK</button><br />
-        <u style="color:red">Bật mí thêm : </u><span style="color:purple">  : nếu bạn để tên phân đoạn member là <span style="color:blue">[SINGER]</span>, khi play karaoke sẽ tự động chuyển sang chế độ ca sĩ hát (nếu có)</span>
+        <u style="color:red">Bật mí thêm : </u><span style="color:purple">  : nếu bạn để tên phân đoạn member là <span style="color:blue">[SINGER]</span>, khi play karaoke sẽ tự động chuyển sang chế độ ca sĩ hát (nếu có) - tuy nhiên khi đến đoạn ca sĩ hát, biểu tượng tên member sẽ không được hiển thị</span>
         @using (Html.BeginForm())
         {
             @Html.ValidationSummary(true)
@@ -127,6 +127,8 @@ else if (TempData["karax-cre"] == "1")
         {
             var n = new Number('@TempData["soluong2"]');
 
+            document.getElementById("xl").innerHTML = "<b>TIẾP THEO</b>";
+
             if (o == n - 1)
             {
                 document.getElementById("noidung").value += document.getElementById("membex-"+selec).value + "-" + document.getElementById("colox-"+selec).value + "<>" + document.getElementById("sd-"+o).innerText;
@@ -142,12 +144,19 @@ else if (TempData["karax-cre"] == "1")
             {
                 document.getElementById("part-"+(o+1)).style.display = "block";
 
+                
+
                 for (var i = 0; i < n; i++)
                 {
                     if (i == o + 1) continue;
 
                     document.getElementById("part-"+i).style.display = "none";
                 }
+
+                 if (document.getElementById("sd-"+(o+1)).innerText.includes("Empty") == true || document.getElementById("sd-"+(o+1)).innerText.includes("# *#") == true)
+                 {
+                    document.getElementById("xl").innerHTML = "<b style=\"color:blue\">BỎ QUA</b>";;
+                 }
 
                 if (document.getElementById("sd-"+o).innerText.includes("Empty") == true || document.getElementById("sd-"+o).innerText.includes("# *#") == true)
                 {
@@ -187,7 +196,7 @@ else if (TempData["karax-cre"] == "1")
     {
           <input type="text" id="membex-@i" hidden value="@Model.member[i]">
          <input type="text" id="colox-@i" hidden value="@Model.mausac[i]">
-        if (i == 0)
+        @if (i == 0)
         {
             <input onclick="changechon(@i)" type="radio" id="chon-@i" checked /><b>&nbsp;&nbsp;@Model.member[i]</b><br /><br />
         }

@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Net;
 using System.Text.RegularExpressions;
 using MyWebPlay.Extension;
+using System.Web;
 
 namespace MyWebPlay.Controllers
 {
@@ -393,6 +394,7 @@ namespace MyWebPlay.Controllers
             try
             {
                 var txtText = f["txtText"].ToString();
+
                 var email  = f["txtMail"].ToString();
 
                 txtText = txtText.Replace("\r\n", "\n").Replace("\n", "\r\n");

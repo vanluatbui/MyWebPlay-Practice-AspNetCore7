@@ -576,27 +576,29 @@
     }
 
 </script>
-
-<table align="center">
     <h2 style="text-align:center">File Trắc Nghiệm Theo Hệ Thống (dành cho admin hoặc các user hiểu biết chức năng)</h2>
 
     <h3 style="color:deeppink">@Html.Raw(ViewBag.KetQua)</h3>
 
     <br />
 
-   
-    @using (Html.BeginForm())
-    {
-        @Html.ValidationSummary(true)
+    @if ((ViewBag.KetQua == null || ViewBag.KetQua == "") || (ViewBag.KetQua != null && ViewBag.KetQua.ToString().Contains("[ERROR]") == true))
+{
+    <table align="center">
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
 
             <tr style="height:40px">
                 <td></td>
                 <td>
                     <br>
-                        <b>Dán bài trắc nghiệm của bạn tại đây (xem ví dụ tương đương) :</b>
-                        <br>
-                            <b style="color:deeppink">Để tránh trường hợp có thể xảy ra, tốt nhất bạn nên lưu và thực hiện nội dung trắc nghiệm đâu đó trên local và sao chép chúng thông qua vào trường điền dưới đây...</b>
-                            <br>
+                    <b>Dán bài trắc nghiệm của bạn tại đây (xem ví dụ tương đương) :</b>
+                    <br>
+                    <b style="color:deeppink">Để tránh trường hợp có thể xảy ra, tốt nhất bạn nên lưu và thực hiện nội dung trắc nghiệm đâu đó trên local và sao chép chúng thông qua vào trường điền dưới đây...</b>
+                    <br>
                     <textarea rows="50" cols="150" id="Chuoi" name="txtChuoi" autofocus>@ViewBag.ChuoiVD</textarea>
                     <br>
                     <p style="color:orange">LƯU Ý (khuyến nghị) : nếu dữ liệu câu hỏi của bạn mà các <span style="color:red">Number</span> không phải là số tự nhiên, phiền bạn hãy tự tìm mọi cách thay thế chúng phù hợp và thử lại...</p>
@@ -604,160 +606,161 @@
             </tr>
 
 
-               <tr style="height:40px">
-                    <td></td>
-                    <td>
-                        <input type="text" name="txtNum" id="Num" value="@ViewBag.CH_VD" size="20" placeholder="Liệt kê các câu hỏi (index)"> <br>
-                        <input  type="text" readonly name="txtNux" id="CH_Num" placeholder="Tổng số câu hỏi bài trắc nghiệm (bắt buộc)" size="80" /> <input type="radio" onclick="checkNum()" checked> <b style="color:purple"> ⬅️ Click để cập nhật tự động</b><br>
-                        <span style="color:red" id="loisox"></span>
-                    </td>
-                </tr>
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                    <input type="text" name="txtNum" id="Num" value="@ViewBag.CH_VD" size="20" placeholder="Liệt kê các câu hỏi (index)"> <br>
+                    <input  type="text" readonly name="txtNux" id="CH_Num" placeholder="Tổng số câu hỏi bài trắc nghiệm (bắt buộc)" size="80" /> <input type="radio" onclick="checkNum()" checked> <b style="color:purple"> ⬅️ Click để cập nhật tự động</b><br>
+                    <span style="color:red" id="loisox"></span>
+                </td>
+            </tr>
 
-                <tr style="height:40px">
-                    <td></td>
-                          <td
-                              ><b><u>Xem lại nội dung bài trắc nghiệm của bạn để tự tìm và đánh giá phân tách phù hợp (xem ví dụ)...</u></b></td>
-                    </tr>
-
-   
-                     <tr style="height:40px">
-                        <td></td>
-                        <td>
-                            <input type="text" id="CH_Front" name="txtX" value="@ViewBag.XCH_VD" size="25" placeholder="Split câu hỏi - After Number">
-                                <span style="color:red; font-weight:bold">Number</span>
-                                        <input type="text" id="CH_Back" name="txtXX" value="@ViewBag.CHX_VD" size="25" placeholder="Split câu hỏi - Before Number"> <input type="radio" onclick="checkCH()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
-                        </td>
-                    </tr>
-
-                         <tr style="height:40px">
-                        <td></td>
-                        <td>
-                                <input type="text" id="DA_A" name="txtA" value="@ViewBag.A_VD" size="10" placeholder="Split đáp án A"> <input type="radio" onclick="checkA()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
-                        </td>
-                    </tr>
-
-                        <tr style="height:40px">
-                            <td></td>
-                            <td>
-                                    <input type="text" id="DA_B"  name="txtB" value="@ViewBag.B_VD" size="10"  placeholder="Split đáp án B"> <input type="radio" onclick="checkB()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
-                            </td>
-                        </tr>
-
-                            <tr style="height:40px">
-                            <td></td>
-                            <td>
-                                    <input type="text" id="DA_C" name="txtC" value="@ViewBag.C_VD" size="10"  placeholder="Split đáp án C"> <input type="radio" onclick="checkC()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
-                            </td>
-                        </tr>
-
-                            <tr style="height:40px">
-                            <td></td>
-                            <td>
-                                    <input type="text" id="DA_D" name="txtD" value="@ViewBag.D_VD" size="10"  placeholder="Split đáp án D"> <input type="radio" onclick="checkD()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
-                            </td>
-                        </tr>
-
-                        <tr style="height:40px">
-                            <td></td>
-                            <td id="Error">
-                                   
-                            </td>
-                        </tr>
+            <tr style="height:40px">
+                <td></td>
+                <td
+                ><b><u>Xem lại nội dung bài trắc nghiệm của bạn để tự tìm và đánh giá phân tách phù hợp (xem ví dụ)...</u></b></td>
+            </tr>
 
 
-                                            <tr style="height:40px">
-                        <td></td>
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                    <input type="text" id="CH_Front" name="txtX" value="@ViewBag.XCH_VD" size="25" placeholder="Split câu hỏi - After Number">
+                    <span style="color:red; font-weight:bold">Number</span>
+                    <input type="text" id="CH_Back" name="txtXX" value="@ViewBag.CHX_VD" size="25" placeholder="Split câu hỏi - Before Number"> <input type="radio" onclick="checkCH()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
+                </td>
+            </tr>
+
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                    <input type="text" id="DA_A" name="txtA" value="@ViewBag.A_VD" size="10" placeholder="Split đáp án A"> <input type="radio" onclick="checkA()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
+                </td>
+            </tr>
+
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                    <input type="text" id="DA_B"  name="txtB" value="@ViewBag.B_VD" size="10"  placeholder="Split đáp án B"> <input type="radio" onclick="checkB()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
+                </td>
+            </tr>
+
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                    <input type="text" id="DA_C" name="txtC" value="@ViewBag.C_VD" size="10"  placeholder="Split đáp án C"> <input type="radio" onclick="checkC()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
+                </td>
+            </tr>
+
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                    <input type="text" id="DA_D" name="txtD" value="@ViewBag.D_VD" size="10"  placeholder="Split đáp án D"> <input type="radio" onclick="checkD()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
+                </td>
+            </tr>
+
+            <tr style="height:40px">
+                <td></td>
+                <td id="Error">
+
+                </td>
+            </tr>
 
 
-                              <td><b>--------------------------------------------------------------------------------------------------------------------------------------------------------------------------</b></td>
-                        </tr>
-
-                            <tr style="height:40px">
-                                <td></td>
-                            <td>
-                                <br>
-                                   <b>Chọn những câu không cần hoán vị đáp án - theo index hệ thống * start in 1 (xem ví dụ) : </b>
-                                   <br>
-                                <input type="text" name="txtNoSwap" id="Swap1" value="@ViewBag.NoSwap_VD" size="50">
-                            </td>
-                        </tr>
-
-                           <tr style="height:40px">
-                                <td><u>...HOẶC BẠN CÓ THỂ...</u></td>
-                            <td>
-                                <br>
-                                   <b>Nhận dạng dấu hiệu của đáp án xuất hiện trong câu, nó sẽ làm cho câu đó không bị hoán vị (hãy kỹ càng - cẩn thận - mỗi dấu hiệu cách nhau bởi Enter) : </b>
-                                   <br>
-                                <textarea id="Swap2" name="txtHoanVi" cols="80" rows="10">@ViewBag.HoanVi_VD</textarea>
-                            </td>
-                        </tr>
-
-                             <tr style="height:40px">
-                                <td></td>
-                            <td>
-                               <input id="ticky0" onchange="setTicky()" type="checkbox" checked /><b id="tick0" style="color:forestgreen">Hiện tại tôi không muốn đánh đáp án bây giờ</b>
-                               <input id="ticky00" type="checkbox" name="tick" hidden checked />
-                               <br>
-                            </td>
-                        </tr>
+            <tr style="height:40px">
+                <td></td>
 
 
-                         <tr style="height:40px">
-                                <td id="ticky1"><h4><u style="color:red">NẠP TẢI ĐÁP ÁN CHO TỪNG CÂU HỎI</u></h4></td>
-                            <td id="ticky2" style="display:none">
-                      <input type="radio" id="upAnswex" onclick="upAnswer()" checked /> <b id="upAns" style="color:orchid"> ⬅️ Click để bắt đầu nạp tải đáp án</b>
-                            </td>
-                        </tr>
-                    
-                        <tr style="height:40px">
-                                <td></td>
-                            <td id="setupAnswer">
-                    
-                            </td>
-                        </tr>
+                <td><b>--------------------------------------------------------------------------------------------------------------------------------------------------------------------------</b></td>
+            </tr>
 
-                         <tr style="height:40px">
-                                <td></td>
-                            <td style="display:none" id="win">
-                                  <b style="color:deeppink">Hoặc là bạn cũng có thể thiết đặt các đáp án tại đây...</b><br><b style="color:deeppink">Forcus tại input bên dưới và lần lượt gõ đáp án theo nguyên tắc như sau (1 : đáp án A, 2 : đáp án B, 3 : đáp án C, 4 : Đáp án D)
-                                  </b><br><br>
-                                  <input id="txtansw" type="number" size="1" min="1" max="4"  onkeyup="changeDA()" />
-                            </td>
-                        </tr>
-                      
-                             <tr style="height:40px">
-                    <td> </td>
-                    <td style="display:none" id="datn">
-                        <br>
-                            <b>Tự đánh đáp án (hoặc nhờ sự nạp tải ở trên) thích hợp cho từng câu - phải dựa vào index bạn đã thiết đặt ở trên? (xem ví dụ tương đương) : </b>
-                            <br>
-                        <textarea rows="20" cols="150" id="DapAn" name="txtDapAn" autofocus>@ViewBag.DapAn_VD</textarea>
-<br>
- <input type="radio" onclick="xuatAnswer()" checked> <b style="color:lime">⬅️ Click here to upset Answer</b>
- <br><br>
- <input style="font-size:40px" type="radio" onclick="checkXX()" checked /> <b>⬅️ Click here to reset to check</b> || <input style="font-size:40px" type="radio" onclick="checkX()" checked /> <b id="winx" style="color:lightcoral;font-size:40px">0</b> (index hệ thống) : <b style="color:lightseagreen;font-size:40px" id="socolar">[NULL]</b>
-                    </td>
-                </tr>
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                    <br>
+                    <b>Chọn những câu không cần hoán vị đáp án - theo index hệ thống * start in 1 (xem ví dụ) : </b>
+                    <br>
+                    <input type="text" name="txtNoSwap" id="Swap1" value="@ViewBag.NoSwap_VD" size="50">
+                </td>
+            </tr>
+
+            <tr style="height:40px">
+                <td><u>...HOẶC BẠN CÓ THỂ...</u></td>
+                <td>
+                    <br>
+                    <b>Nhận dạng dấu hiệu của đáp án xuất hiện trong câu, nó sẽ làm cho câu đó không bị hoán vị (hãy kỹ càng - cẩn thận - mỗi dấu hiệu cách nhau bởi Enter) : </b>
+                    <br>
+                    <textarea id="Swap2" name="txtHoanVi" cols="80" rows="10">@ViewBag.HoanVi_VD</textarea>
+                </td>
+            </tr>
+
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                    <input id="ticky0" onchange="setTicky()" type="checkbox" checked /><b id="tick0" style="color:forestgreen">Hiện tại tôi không muốn đánh đáp án bây giờ</b>
+                    <input id="ticky00" type="checkbox" name="tick" hidden checked />
+                    <br>
+                </td>
+            </tr>
+
+
+            <tr style="height:40px">
+                <td id="ticky1"><h4><u style="color:red">NẠP TẢI ĐÁP ÁN CHO TỪNG CÂU HỎI</u></h4></td>
+                <td id="ticky2" style="display:none">
+                    <input type="radio" id="upAnswex" onclick="upAnswer()" checked /> <b id="upAns" style="color:orchid"> ⬅️ Click để bắt đầu nạp tải đáp án</b>
+                </td>
+            </tr>
+
+            <tr style="height:40px">
+                <td></td>
+                <td id="setupAnswer">
+
+                </td>
+            </tr>
+
+            <tr style="height:40px">
+                <td></td>
+                <td style="display:none" id="win">
+                    <b style="color:deeppink">Hoặc là bạn cũng có thể thiết đặt các đáp án tại đây...</b><br><b style="color:deeppink">Forcus tại input bên dưới và lần lượt gõ đáp án theo nguyên tắc như sau (1 : đáp án A, 2 : đáp án B, 3 : đáp án C, 4 : Đáp án D)
+                    </b><br><br>
+                    <input id="txtansw" type="number" size="1" min="1" max="4"  onkeyup="changeDA()" />
+                </td>
+            </tr>
+
+            <tr style="height:40px">
+                <td> </td>
+                <td style="display:none" id="datn">
+                    <br>
+                    <b>Tự đánh đáp án (hoặc nhờ sự nạp tải ở trên) thích hợp cho từng câu - phải dựa vào index bạn đã thiết đặt ở trên? (xem ví dụ tương đương) : </b>
+                    <br>
+                    <textarea rows="20" cols="150" id="DapAn" name="txtDapAn" autofocus>@ViewBag.DapAn_VD</textarea>
+                    <br>
+                    <input type="radio" onclick="xuatAnswer()" checked> <b style="color:lime">⬅️ Click here to upset Answer</b>
+                    <br><br>
+                    <input style="font-size:40px" type="radio" onclick="checkXX()" checked /> <b>⬅️ Click here to reset to check</b> || <input style="font-size:40px" type="radio" onclick="checkX()" checked /> <b id="winx" style="color:lightcoral;font-size:40px">0</b> (index hệ thống) : <b style="color:lightseagreen;font-size:40px" id="socolar">[NULL]</b>
+                </td>
+            </tr>
 
             <tr style="height:40px">
                 <td></td>
                 <td>
                     <input id="ok" type="Submit" value="Kết Quả" hidden />
                     <br>
-                        <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
+                    <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
                 </td>
             </tr>
-    }
+        }
 
-      <tr style="height:40px" id="xong">
-                <td></td>
-                <td>
-                     <button><b onclick="xongroi()">XỬ LÝ</b></button>
-                </td>
-            </tr>
+        <tr style="height:40px" id="xong">
+            <td></td>
+            <td>
+                <button><b onclick="xongroi()">XỬ LÝ</b></button>
+            </td>
+        </tr>
 
-</table>
-<br /><br />
- ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** *****  *****  *****  *****  *****  ***** ***** ***** *****  ***** ***** ***** ***** ***** *****
- <br /><br /><br />
- <p id="muadong">@Html.Raw(ViewBag.Temp_TN)</p>
+    </table>
+    <br /><br />
+    <pre>**********************************************************************************************************************************</pre>
+               <br /><br /><br />
+               <p id="muadong">@Html.Raw(ViewBag.Temp_TN)</p>
+}

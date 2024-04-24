@@ -945,7 +945,7 @@ namespace MyWebPlay.Controllers
                 if (External == "false")
                 {
                     if (TempData["clear_uploadfile"] == "true" && TempData["ClearWebsite"] == "true" || txtExternal == "true")
-                    { var back = f["txtReturn"].ToString(); if (string.IsNullOrEmpty(back) == false) return Redirect(back); return Redirect("https://google.com"); }
+                    { var back = f["txtReturn"].ToString(); if (string.IsNullOrEmpty(back) == false) return Redirect(back+ ""); return Redirect("https://google.com"); }
                     return View("UploadFile", new { sl = ViewBag.SL, name = ViewBag.X, upload = ViewBag.Y });
                 }
                 else

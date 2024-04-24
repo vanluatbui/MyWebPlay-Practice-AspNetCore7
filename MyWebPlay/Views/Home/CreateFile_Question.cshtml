@@ -26,26 +26,28 @@
                 so++;
     }
 </script>
-<table align="center">
     <h2 style="text-align:center">File Question/Answer Theo Hệ Thống (dành cho admin hoặc các user hiểu biết chức năng)</h2>
 
     <h3 style="color:deeppink">@Html.Raw(ViewBag.KetQua)</h3>
 
-    <br />
+        <br />
 
-   
-    @using (Html.BeginForm())
+    @if ((ViewBag.KetQua == null || ViewBag.KetQua == "") || (ViewBag.KetQua != null && ViewBag.KetQua.ToString().Contains("[ERROR]") == true))
     {
-        @Html.ValidationSummary(true)
+<table align="center">
+
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
 
             <tr style="height:40px">
                 <td></td>
                 <td>
                     <br>
-                        <b>Dán bài question/answer của bạn tại đây (xem ví dụ tương đương) :</b>
-                        <br>
-                            <b style="color:deeppink">Để tránh trường hợp có thể xảy ra, tốt nhất bạn nên lưu và thực hiện nội dung question answer đâu đó trên local và sao chép chúng thông qua vào trường điền dưới đây...</b>
-                            <br>
+                    <b>Dán bài question/answer của bạn tại đây (xem ví dụ tương đương) :</b>
+                    <br>
+                    <b style="color:deeppink">Để tránh trường hợp có thể xảy ra, tốt nhất bạn nên lưu và thực hiện nội dung question answer đâu đó trên local và sao chép chúng thông qua vào trường điền dưới đây...</b>
+                    <br>
                     <textarea rows="20" cols="150" id="chuoi" name="txtChuoi" autofocus>@ViewBag.ChuoiVD</textarea>
                 </td>
             </tr>
@@ -55,16 +57,17 @@
                 <td>
                     <input id="ok" type="Submit" value="Kết Quả" hidden />
                     <br>
-                        <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
+                    <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
                 </td>
             </tr>
+        }
+
+        <tr style="height:40px" id="xong">
+            <td></td>
+            <td>
+                <button><b onclick="xongroi()">XỬ LÝ</b></button>
+            </td>
+        </tr>
+
+        </table>
     }
-
-      <tr style="height:40px" id="xong">
-                <td></td>
-                <td>
-                     <button><b onclick="xongroi()">XỬ LÝ</b></button>
-                </td>
-            </tr>
-
-</table>

@@ -1579,12 +1579,53 @@ namespace MyWebPlay.Controllers
             }
             else
             {
-                    var xu = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ExamKara/TextDemo.txt"));
+                    var nd = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ExamKara/TextDemo.txt"));
                     if (f["encrypt_data"].ToString() == "on")
                     {
-                        xu = StringMaHoaExtension.Decrypt(xu);
+                        nd = StringMaHoaExtension.Decrypt(nd);
                     }
-                    ViewBag.Karaoke = xu;
+
+
+                    if (nd.Contains("<>") == false)
+                    {
+                        ViewBag.Karaoke = nd;
+                        TempData["TK-KARA"] = "";
+
+                        if (TempData["hassinger"] != "true")
+                            TempData["hassinger"] = "false";
+                    }
+                    else
+                    {
+                        var xa = nd.Replace("\r", "").Split("\n");
+                        var noidung = "";
+                        for (int i = 0; i < xa.Length; i++)
+                        {
+                            if (xa[i].Contains("<>"))
+                            {
+                                var xb = xa[i].Split("<>");
+                                var xc = xb[1].Split("#");
+                                var xd = xb[0].Split("-");
+                                noidung += xc[0] + "=" + xd[0] + "=" + xd[1];
+
+                                if (xd[0] == "[SINGER]")
+                                {
+                                    TempData["hassinger"] = "true";
+                                }
+                                else
+                                {
+                                    if (TempData["hassinger"] != "true")
+                                        TempData["hassinger"] = "false";
+                                }
+
+                                nd = nd.Replace(xb[0] + "<>", "");
+
+                                if (i < xa.Length - 1)
+                                    noidung += "\n";
+                            }
+                        }
+                        TempData["TK-KARA"] = noidung;
+                        ViewBag.Karaoke = nd;
+                    }
                 ViewBag.Music = "/karaoke_Example/ExamKara/KaraokeDemo.mp3";
                 ViewBag.Musix = "/karaoke_Example/ExamKara/NhacDemo.mp3";
             }

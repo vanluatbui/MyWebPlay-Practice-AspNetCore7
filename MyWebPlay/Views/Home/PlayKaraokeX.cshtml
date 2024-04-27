@@ -674,6 +674,9 @@ function showlist()
             return;
         }
 
+            document.getElementById("error").style.display = "none";
+             document.getElementById("error").innerHTML = "";
+
         if (document.getElementById("music").currentTime != document.getElementById("musix").currentTime)
         document.getElementById("music").currentTime = document.getElementById("musix").currentTime;
 
@@ -1162,6 +1165,8 @@ function showlist()
 
         var LBH;
         var flg = 0;
+
+        var loadover = 0;
         var flix = 0;
 
                     var id = setInterval(myAlert, 100);
@@ -1222,6 +1227,33 @@ function showlist()
 
                          if (you == false || youX == false)
                         return;
+
+            if (loadover != 3)
+            {
+            var music = document.getElementById("music").readyState;
+            var musix = document.getElementById("musix").readyState;
+            if (music != 4 || musix != 4)
+            {
+                document.getElementById("error").style.display = "block";
+
+        document.getElementById("error").innerHTML = "Nội dung karaoke của bạn đang được tải (hãy kiên nhẫn chờ đợi cho đến khi thông báo này được tắt). Lưu ý : bản nhạc sẽ tự động được phát lại ngay sau khi việc load hoàn tất !";
+        loadover = 1;
+            }
+            else
+            {
+                if (loadover == 1)
+                loadover = 2;
+
+            document.getElementById("error").style.display = "none";
+            document.getElementById("error").innerHTML = "";
+            }
+
+            if (loadover == 2)
+            {
+                loadover = 3;
+                resetKaraoke();
+            }
+          }
 
                         if (flg == 0 && '@TempData["R-fontkieu"]' != "" && '@TempData["R-fontKieu"]' != "")
                         {

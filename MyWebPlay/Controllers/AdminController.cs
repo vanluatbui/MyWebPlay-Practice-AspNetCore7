@@ -1543,7 +1543,7 @@ namespace MyWebPlay.Controllers
                     {
                         var xinh = f[info[0]];
                         if (string.IsNullOrEmpty(xinh))
-                            xinh = "red";
+                            xinh = "green";
 
                         if (xinh != info[3])
                         {

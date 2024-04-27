@@ -564,6 +564,18 @@ namespace MyWebPlay.Controllers
                 if (tn == null)
                     return RedirectToAction("TracNghiemX_Multiple");
 
+                var maudivPlay = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[6];
+                if (maudivPlay == "COLOR_DIV_TRAC_NGHIEM_ON")
+                {
+                    for (int i = 0; i < tn.gioihancau; i++)
+                    {
+                        if (i % 2 == 0)
+                            TempData["mau-trac-nghiem-" + i] = "orangered";
+                        else
+                            TempData["mau-trac-nghiem-" + i] = "hotpink";
+                    }
+                }
+
                 if (f["File_ND"] == "")
                 {
                     int dung = 0;

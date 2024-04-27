@@ -111,17 +111,17 @@
 
         @for (int i = 0; i < @Model.gioihancau; i++)
         {
-            <tr style="height:40px">
+            <tr style="height:40px; background-color: @TempData["mau-question-"+i]">
                 <td></td>
-                        <td><h4><b style="color:orangered">Câu số @(i + 1)</b>. @Html.Raw(Model.ch[@i])</h4></td>
+                        <td><h3><b style="color:yellow">Câu số @(i + 1)</b>.<span style="color:blue"> @Html.Raw(Model.ch[@i])</span></h3></td>
             </tr>
 
                     @if(ViewData["KetQua-"+@i] ==  null)
                     {
-                                <tr style="height:40px">
+                                <tr style="height:40px; background-color: @TempData["mau-question-"+i]">
                                                  <td></td>
-                                    <td><h4><b style="color:deeppink"> Nhập answer cho câu @(i+1) của bạn : </b></h4>
-  <h3><input type="text" name="dapan-@i" id="answix-@i" size="80" onclick="chuyendoiJapan(@i)" /></h3><br>
+                                    <td><h4><b style="color:black"> Nhập answer cho câu @(i+1) của bạn : </b></h4>
+  <h3><input type="text" name="dapan-@i" id="answix-@i" size="80" onclick="chuyendoiJapan(@i)" /></h3><br><br />
         </td>
                             </tr>
                     }
@@ -133,7 +133,7 @@
          @Html.Raw(ViewData["ketqua-"+@i])
                        <h4>@Html.Raw(ViewData["dapandachon-"+@i])</h4> 
                         <h4>@Html.Raw(ViewData["dapandung-"+@i])</h4>
-                        <br>
+                        <br><br />
                 </td>
      </tr>
                     }

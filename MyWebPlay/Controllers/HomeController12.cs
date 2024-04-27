@@ -910,9 +910,21 @@ namespace MyWebPlay.Controllers
             ViewBag.Dung = String.Join("\r\n", tnX.dung);
 
             ViewBag.KetQuaDung = "";
-            
 
-            if (tick == "on")
+                var maudivPlay = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[6];
+                if (maudivPlay == "COLOR_DIV_TRAC_NGHIEM_ON")
+                {
+                    for (int i = 0; i < tnX.gioihancau; i++)
+                    {
+                        if (i % 2 == 0)
+                            TempData["mau-trac-nghiem-" + i] = "orangered";
+                        else
+                            TempData["mau-trac-nghiem-" + i] = "hotpink";
+                    }
+                }
+
+
+                if (tick == "on")
                 ViewBag.ND_File = cFile;
             else
                 ViewBag.ND_File = null;
@@ -961,7 +973,7 @@ namespace MyWebPlay.Controllers
                 ViewBag.SettingAnswer = s;
             }
 
-            return View("PlayTracNghiem", tnX);
+                return View("PlayTracNghiem", tnX);
             }
             catch (Exception ex)
             {

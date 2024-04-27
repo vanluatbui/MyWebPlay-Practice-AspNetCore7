@@ -76,15 +76,17 @@
         }
     }
 
+    var xw = new Number('@TempData["Time_Waiting"]') * 3;
+
     function myAlertX()
     {
-        so++;
-        if (so == 3)
+        if (so == xw)
         {
             document.getElementById("OKX").click();
              clearInterval(id);
             return;
         }
+        so++;
     }
 
     function xemanh(i)
@@ -550,14 +552,14 @@
         {
             if (TempData["online_null"] == null)
             {
-            <tr style="height:40px">
+            <tr style="height:40px; background-color: @TempData["mau-trac-nghiem-"+i]">
                 <td></td>
-                        <td><h4><b style="color:olive">Câu số @(i + 1)</b>. <span id="causo-@i"> @Html.Raw(Model.ch[@i])</span></h4><br /></td>
+                        <td><h3><b style="color:yellow">Câu số @(i + 1)</b>. <span style="color:blue" id="causo-@i"> <b>@Html.Raw(Model.ch[@i])</b></span></h3><br /></td>
             </tr>
 
              @if (ViewBag.ND_File != null)
                             {
-                                <tr style="height:40px">
+                                <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]">
                   <td></td>
      <td>
                       <h4><input type="text" size="50" placeholder="Nhập link hình ảnh online cần thêm" id="hinhanh-@i" /> <textarea cols="50" rows="20" name="anh-@i" id="anhX-@i" style="display:none"></textarea>
@@ -579,7 +581,7 @@
                         
                             }
 
-            <tr style="height:40px">
+            <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]">
                 <td></td>
                 @if(ViewData["KetQua-"+@i] ==  null)
                 {
@@ -594,7 +596,7 @@
             </tr>
 
           
-                     <tr style="height:40px">
+                     <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]">
                          <td></td>
                 @if(ViewData["KetQua-"+@i] ==  null)
                 {
@@ -607,7 +609,7 @@
                     </tr>
 
       
-                             <tr style="height:40px">
+                             <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]">
                                           <td></td>
                 @if(ViewData["KetQua-"+@i] ==  null)
                 {
@@ -622,7 +624,7 @@
                     
               
 
-                             <tr style="height:40px">
+                             <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]">
                                           <td></td>
                  @if(ViewData["KetQua-"+@i] ==  null)
                 {
@@ -633,8 +635,6 @@
                          <td><h4><b>D. @Html.Raw(Model.d[@i])</b></h4> <br /></td>
                 }
                     </tr>
-
-                    
              
 
                     @if(ViewData["KetQua-"+@i] ==  null)

@@ -681,7 +681,19 @@ namespace MyWebPlay.Controllers
             ViewBag.TimeLamBaiX = tnX.timelambai;
             ViewBag.TenMon = tnX.tenmon;
 
-            ViewBag.CauHoi = String.Join("\r\n", tnX.ch);
+                var maudivPlay = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[7];
+                if (maudivPlay == "COLOR_DIV_QUESTION_ON")
+                {
+                    for (int i = 0; i < tnX.gioihancau; i++)
+                    {
+                        if (i % 2 == 0)
+                            TempData["mau-question-" + i] = "hotpink";
+                        else
+                            TempData["mau-question-" + i] = "orangered";
+                    }
+                }
+
+                ViewBag.CauHoi = String.Join("\r\n", tnX.ch);
             ViewBag.A = String.Join("\r\n", tnX.a);
             ViewBag.B = String.Join("\r\n", tnX.b);
             ViewBag.C = String.Join("\r\n", tnX.c);
@@ -1054,7 +1066,19 @@ namespace MyWebPlay.Controllers
             if (tn == null)
                 return RedirectToAction("PlayQuestion");
 
-            int dung = 0;
+                var maudivPlay = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[7];
+                if (maudivPlay == "COLOR_DIV_QUESTION_ON")
+                {
+                    for (int i = 0; i < tn.gioihancau; i++)
+                    {
+                        if (i % 2 == 0)
+                            TempData["mau-question-" + i] = "hotpink";
+                        else
+                            TempData["mau-question-" + i] = "orangered";
+                    }
+                }
+
+                int dung = 0;
             int sai = 0;
             int chualam = 0;
 

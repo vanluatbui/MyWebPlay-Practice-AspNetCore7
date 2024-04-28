@@ -1,4 +1,5 @@
 /Admin/XoaViewMark
+/Admin/ThayDoiSetting
 /Admin/CapNhatStatusSetting
 /Admin/UnlockAllWeb
 /Admin/TracNghiemOnline_ViewMark

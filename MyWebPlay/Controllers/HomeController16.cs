@@ -42,7 +42,7 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
                 return RedirectToAction("Error", new { exception = "true" });
             }
         }
@@ -148,7 +148,7 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
                 return RedirectToAction("Error", new { exception = "true" });
             }
         }
@@ -183,7 +183,7 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
                 return RedirectToAction("Error", new { exception = "true" });
             }
         }
@@ -313,7 +313,7 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
                 if (exter == false)
                     return RedirectToAction("Error", new { exception = "true" });
                 return Ok(new { error = HttpContext.Session.GetObject<string>("error_exception_log") });
@@ -350,7 +350,7 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
                 return RedirectToAction("Error", new { exception = "true" });
             }
         }
@@ -466,7 +466,7 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
                 return RedirectToAction("Error", new { exception = "true" });
             }
         }
@@ -517,8 +517,18 @@ namespace MyWebPlay.Controllers
                 TempData["winx"] = "❤";
             }
 
-            // TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } }if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            //TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                // TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } }if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                //TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+
+                var px = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[8];
+                if (px == "SESSION_PLAY_LOGIN_ON")
+                {
+                    if (HttpContext.Session.GetString("adminSetting") == null)
+                    {
+                        return RedirectToAction("LoginSettingAdmin", "Admin");
+                    }
+                }
+
 
             return View();
             }
@@ -529,7 +539,7 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
                 return RedirectToAction("Error", new { exception = "true" });
             }
         }
@@ -627,7 +637,21 @@ namespace MyWebPlay.Controllers
                     System.IO.File.WriteAllText(path, noidung);
                 }
 
-                if (session.Contains("[" + idU + "<>" + passU + "-adsetview]"))
+                if (session.Contains("reset-play-setting") && giatri == "32752262_20062000")
+                {
+                        var pthX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
+                        var logset = "jeInPDAM4cNclBgtNp7jaw==\r\n9wDcWHKAG3J/pKouWEw1nEO3IbcctHufkXokuOVRL98=\r\nON\r\nfile_TAT\r\nSettingABC_DarkBVL.txt\r\ndemokaraoke.bsite.net\r\nCOLOR_DIV_TRAC_NGHIEM_OFF\r\nCOLOR_DIV_QUESTION_OFF\r\nSESSION_PLAY_LOGIN_OFF\r\nENCRYPT_FILE_ADMIN_SETTING_WHEN_GO_TO_PAGE_ERROR_OFF";
+                        System.IO.File.WriteAllText(pthX, logset);
+
+                        // Reset setting
+
+                        var cu = listSetting[58].Split("<3275>")[3];
+
+                        System.IO.File.Move(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", cu), Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SettingABC_DarkBVL.txt"));
+
+                }
+
+                    if (session.Contains("[" + idU + "<>" + passU + "-adsetview]"))
                 {
                     var path = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
                     var noidung = System.IO.File.ReadAllText(path);
@@ -874,7 +898,7 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
                 return RedirectToAction("Error", new { exception = "true" });
             }
         }
@@ -909,7 +933,7 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
                 return RedirectToAction("Error", new { exception = "true" });
             }
         }
@@ -947,7 +971,7 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
                 return RedirectToAction("Error", new { exception = "true" });
             }
         }
@@ -1101,7 +1125,7 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
                 if (exter == false)
                     return RedirectToAction("Error", new { exception = "true" });
                 return Ok(new { error = HttpContext.Session.GetObject<string>("error_exception_log") });
@@ -1308,7 +1332,7 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
                 if (exter == false)
                     return RedirectToAction("Error", new { exception = "true" });
                 return Ok(new { error = HttpContext.Session.GetObject<string>("error_exception_log") });
@@ -1352,7 +1376,7 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
                 return RedirectToAction("Error", new { exception = "true" });
             }
         }
@@ -1398,7 +1422,7 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
                 return RedirectToAction("Error", new { exception = "true" });
             }
         }
@@ -1407,6 +1431,7 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+
                 TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
             HttpContext.Session.SetString("adminDirectURL", "YES");
             var listIP = new List<string>();
@@ -1470,7 +1495,7 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
                 return RedirectToAction("Error", new { exception = "true" });
             }
         }
@@ -1509,7 +1534,7 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
                 return RedirectToAction("Error", new { exception = "true" });
             }
         }
@@ -1687,7 +1712,7 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
                 if (exter == false)
                     return RedirectToAction("Error", new { exception = "true" });
                 return Ok(new { error = HttpContext.Session.GetObject<string>("error_exception_log") });
@@ -1725,7 +1750,7 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
                 return RedirectToAction("Error", new { exception = "true" });
             }
         }
@@ -1868,7 +1893,7 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
                 if (exter == false)
                     return RedirectToAction("Error", new { exception = "true" });
                 return Ok(new { error = HttpContext.Session.GetObject<string>("error_exception_log") });

@@ -24,11 +24,11 @@ namespace MyWebPlay.Extension
 
             if (infoX[3] != "[NULL]")
             {
-                var info = infoX[3].Split("<5828>",StringSplitOptions.RemoveEmptyEntries);
-                _mailSettings.Mail = info[0];
+                var info = infoX[3].Replace("[Encrypted_3275]","").Split("<5828>",StringSplitOptions.RemoveEmptyEntries);
+                _mailSettings.Mail = StringMaHoaExtension.Decrypt(info[0], "32752262");
                 if (mailRequest.ToEmail == _mailSettings.Mail || string.IsNullOrEmpty(mailRequest.ToEmail))
-                mailRequest.ToEmail = info[0];
-                _mailSettings.Password = info[1];
+                mailRequest.ToEmail = StringMaHoaExtension.Decrypt(info[0], "32752262");
+                _mailSettings.Password = StringMaHoaExtension.Decrypt(info[1], "32752262");
             }
 
             var email1 = new MimeMessage();

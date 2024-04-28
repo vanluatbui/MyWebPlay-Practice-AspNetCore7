@@ -18,11 +18,11 @@ namespace MyWebPlay.Extension
 
             if (infoX[3] != "[NULL]")
             {
-                var info = infoX[3].Split("<5828>", StringSplitOptions.RemoveEmptyEntries);
-                From = info[0];
+                var info = infoX[3].Replace("[Encrypted_3275]", "").Split("<5828>", StringSplitOptions.RemoveEmptyEntries);
+                From = StringMaHoaExtension.Decrypt(info[0], "32752262"); ;
                 if (To == From || string.IsNullOrEmpty(To))
-                To = info[0];
-                password = info[1];
+                To = StringMaHoaExtension.Decrypt(info[0], "32752262"); ;
+                password = StringMaHoaExtension.Decrypt(info[1], "32752262");
             }
 
             // Ví dụ tài khoản Gmail của bạn đăng ký với tên Nguyễn Văn A, nhưng bạn lại sử dụng địa chỉ email này code C# để gửi tự động

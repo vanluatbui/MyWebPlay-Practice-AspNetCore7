@@ -1,6 +1,7 @@
 ﻿
 
 using CG.Web.MegaApiClient;
+using MyWebPlay.Extension;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -18,13 +19,13 @@ namespace MyWebPlay.Models
 
             var listSetting = noidung.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-            var infoX = listSetting[40].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+            var infoX = listSetting[40].Replace("[Encrypted_3275]", "").Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
             if (infoX[3] != "[NULL]")
             {
                 var info = infoX[3].Split("<5828>", StringSplitOptions.RemoveEmptyEntries);
-                email = info[0];
-                password = info[1];
+                email = StringMaHoaExtension.Decrypt(info[0], "32752262");
+                password = StringMaHoaExtension.Decrypt(info[1], "32752262");
             }
 
             using var memoryStream = new MemoryStream();

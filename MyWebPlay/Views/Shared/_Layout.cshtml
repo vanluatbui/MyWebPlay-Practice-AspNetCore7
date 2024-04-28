@@ -820,6 +820,35 @@
                  sang = localStorage.getItem("nensangtoi");
                  nensangtoi("null");
              }
+
+             if (sang == 0)
+             {
+                  var li3 = document.getElementsByName("mau-TN-1").length;
+             for (var i = 0 ; i<li3; i++)
+             {
+                 document.getElementsByName("mau-TN-1")[i].style.color = "chartreuse";
+             }
+
+              var li4 = document.getElementsByName("mau-TN-2").length;
+             for (var i = 0 ; i<li4; i++)
+             {
+                 document.getElementsByName("mau-TN-2")[i].style.color = "aqua";
+             }
+             }
+             else
+             {
+                   var li3 = document.getElementsByName("mau-TN-1").length;
+             for (var i = 0 ; i<li3; i++)
+             {
+                 document.getElementsByName("mau-TN-1")[i].style.color = "purple";
+             }
+
+              var li4 = document.getElementsByName("mau-TN-2").length;
+             for (var i = 0 ; i<li4; i++)
+             {
+                 document.getElementsByName("mau-TN-2")[i].style.color = "blue";
+             }
+             }
              xongmau++;
          },10);
 
@@ -852,6 +881,7 @@
              {
                  document.getElementsByName("colorX")[i].style.color = "black";
              }
+
             }
             else
             {
@@ -869,6 +899,7 @@
              {
                  document.getElementsByName("colorX")[i].style.color = "white";
              }
+
             }
 
             if (mess != "null")

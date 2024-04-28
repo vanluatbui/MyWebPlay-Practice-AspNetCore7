@@ -106,8 +106,9 @@ namespace MyWebPlay.Controllers
                     {
                         noidung = StringMaHoaExtension.Encrypt(noidung, "32752262");
                         System.IO.File.WriteAllText(path, "[ENCRYPT]" + noidung);
-                        return View();
                     }
+                    TempData["HTML-visible"] = "0";
+                    return View();
                 }
                 else
                 {
@@ -254,11 +255,39 @@ namespace MyWebPlay.Controllers
 
                 string xuxuu = xx.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
 
+                // Email karaoke member
                 if (string.IsNullOrEmpty(HttpContext.Session.GetString("mail-karaoke")) == false)
                 {
                     SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
                         "mywebplay.savefile@gmail.com", hostt + " Báo cáo bản text được tạo lại (với sự phân đoạn hát của các member tham gia) Karaoke của user lúc " + xuxuu, HttpContext.Session.GetString("mail-karaoke"), "teinnkatajeqerfl");
                     HttpContext.Session.Remove("mail-karaoke");
+                }
+
+                // Email update trắc nghiệm
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("mail_update_TN")) == false)
+                {
+                    string localIP = "";
+                    var IPx = "";
+
+                    using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+                    {
+                        socket.Connect("8.8.8.8", 65530);
+                        IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                        IPx = endPoint.Address.ToString();
+                    }
+
+                    if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")))
+                    {
+                        localIP = "0.0.0.0";
+                    }
+                    else
+                        localIP = HttpContext.Session.GetString("userIP");
+
+                    string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + IPx + " *** " + localIP + "] - " + xuxuu;
+
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
+                     "mywebplay.savefile@gmail.com", hostt + " Save Temp Create/Update Trac Nghiem File In " + name, HttpContext.Session.GetString("mail_update_TN"), "teinnkatajeqerfl");
+                    HttpContext.Session.Remove("mail_update_TN");
                 }
 
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
@@ -748,7 +777,8 @@ namespace MyWebPlay.Controllers
                         TempData["tathoatdong"] = "false";
                         TempData["UsingWebsite"] = "true";
                         TempData["AlertUsingWebsite"] = "true";
-                        TempData["AdminControl"] = "true";
+                        //TempData["AdminControl"] = "true";
+                        TempData["errorXY"] = "false";
                     }
                 }
 

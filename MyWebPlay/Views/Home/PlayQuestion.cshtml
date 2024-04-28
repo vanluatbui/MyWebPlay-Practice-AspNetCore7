@@ -13,6 +13,8 @@
 
     function myJapan()
     {
+        document.getElementById("answix-"+indexJP).value = new String(document.getElementById("answix-"+indexJP).value).replaceAll("\r","").replaceAll("\n","");
+
         if ('@TempData["chuyendoiJapan"]' != "true" || indexJP == -1)
         return;
 
@@ -26,10 +28,7 @@
 
     function chuyendoiJapan(i)
     {
-        if ('@TempData["chuyendoiJapan"]' != "true")
-        return;
-
-        indexJP = i;
+                indexJP = i;
     }
 
     var timeX = '@ViewBag.TimeLamBai' * 60;
@@ -113,7 +112,7 @@
         {
             <tr style="height:40px; background-color: @TempData["mau-question-"+i]">
                 <td></td>
-                        <td><h3><b style="color:yellow">Câu số @(i + 1)</b>.<span style="color:blue"> @Html.Raw(Model.ch[@i])</span></h3></td>
+                        <td><h3><b name="mau-TN-1">Câu số @(i + 1)</b>.<span  name="mau-TN-2"> @Html.Raw(Model.ch[@i])</span></h3></td>
             </tr>
 
                     @if(ViewData["KetQua-"+@i] ==  null)
@@ -121,7 +120,7 @@
                                 <tr style="height:40px; background-color: @TempData["mau-question-"+i]">
                                                  <td></td>
                                     <td><h4><b style="color:black"> Nhập answer cho câu @(i+1) của bạn : </b></h4>
-  <h3><input type="text" name="dapan-@i" id="answix-@i" size="80" onclick="chuyendoiJapan(@i)" /></h3><br><br />
+  <h3><textarea type="text" name="dapan-@i" id="answix-@i" cols="80" rows="1" onclick="chuyendoiJapan(@i)"></textarea></h3><br><br />
         </td>
                             </tr>
                     }

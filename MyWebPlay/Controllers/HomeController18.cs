@@ -487,7 +487,7 @@ namespace MyWebPlay.Controllers
 
                     //--------------------
 
-                    String[] t1 = ND_file.Replace("\r","").Split("\n#\r\n", StringSplitOptions.RemoveEmptyEntries);
+                    String[] t1 = ND_file.Replace("\r","").Split("\n#\n", StringSplitOptions.RemoveEmptyEntries);
 
                     int[] chuaxet_ch;
                     int[][] chuaxet_da;
@@ -675,7 +675,7 @@ namespace MyWebPlay.Controllers
 
                 TempData["TracNghiem_Online"] = xuxu + "#" + mssv + "#" + id;
 
-                return View("PlayTracNghiem", tnX);
+                    return View("PlayTracNghiem", tnX);
             }
             catch(Exception ex)
             {

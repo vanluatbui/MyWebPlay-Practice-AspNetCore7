@@ -47,7 +47,7 @@ namespace MyWebPlay.Controllers
                 f.Delete();
             }
 
-            return View();
+                return View();
             }
             catch (Exception ex)
             {
@@ -527,6 +527,7 @@ namespace MyWebPlay.Controllers
                 }
 
                 TracNghiem tn;
+
                 var onlineX = f["OnlineX"].ToString();
 
                 TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
@@ -849,8 +850,7 @@ namespace MyWebPlay.Controllers
                             {
                                 if (info[1] == "true" && HttpContext.Session.GetString("trust-X-you") == null)
                                 {
-                                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
-                      "mywebplay.savefile@gmail.com", host + " Save Temp Create/Update Trac Nghiem File In " + name, ND_File, "teinnkatajeqerfl");
+                                    HttpContext.Session.SetString("mail_update_TN", ND_File);
                                 }
                                 break;
                             }

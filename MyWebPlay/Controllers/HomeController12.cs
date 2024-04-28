@@ -44,7 +44,7 @@ namespace MyWebPlay.Controllers
 
             ViewBag.SL = sl;
 
-            return View();
+                return View();
             }
             catch (Exception ex)
             {
@@ -470,9 +470,8 @@ namespace MyWebPlay.Controllers
             ViewBag.Dung = String.Join("\r\n", tnX.dung);
 
             ViewBag.KetQuaDung = "";
-            
 
-            return View("PlayTracNghiem", tnX);
+                return View("PlayTracNghiem", tnX);
             }
             catch (Exception ex)
             {
@@ -971,7 +970,7 @@ namespace MyWebPlay.Controllers
 
                 s = s.TrimEnd('\n');
                 ViewBag.SettingAnswer = s;
-            }
+                }
 
                 return View("PlayTracNghiem", tnX);
             }

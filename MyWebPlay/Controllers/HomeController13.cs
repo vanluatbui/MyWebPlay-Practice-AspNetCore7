@@ -1091,19 +1091,19 @@ namespace MyWebPlay.Controllers
                     chualam++;
 
                     ViewData["KetQua-" + i] = "<h2 style=\"color:orange\">CHƯA TRẢ LỜI</h2>";
-                    ViewData["dapandung-" + i] = "<br><b><span style=\"color:deeppink\">Câu trả lời đúng</span> : <input type=\"text\" readonly size=\"100\" value=\"" +tn.dung[i] + "\"></input></b>";
+                    ViewData["dapandung-" + i] = "<br><b><span style=\"color:deeppink\">Câu trả lời đúng</span> : <textarea readonly cols=\"80\" rows=\"1\" >" + tn.dung[i] + "</textarea></b>";
                 }
                 else if (da == tn.dung[i])
                 {
                     dung++;
-                    ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Câu trả lời của bạn</span> : <input type=\"text\" readonly size=\"100\" value=\"" + da + "\"></input></b>";
+                    ViewData["dapandachon-" + i] = "<b><span style=\"color:deeppink\">Câu trả lời của bạn</span> : <textarea readonly cols=\"80\" rows=\"1\" > " +da + "</textarea></b>";
                     ViewData["KetQua-" + i] = "<br><h2 style=\"color:green\">ĐÚNG RỒI</h2><br>";
                 }
                 else if (da != tn.dung[i])
                 {
                     ViewData["KetQua-" + i] = "<h2 style=\"color:red\">SAI RỒI</h2><b style=\"color:purple\">Nội dung answer của bạn có thể đúng, nhưng cách mà bạn nhập nó không match fit với answer trong file của bạn đã tải lên<br>(bao gồm phân biệt kí tự in hoa/thường, có dấu, các khoảng trắng,...vv...)</b><br>";
-                    ViewData["dapandachon-" + i] = "<br><b><span style=\"color:deeppink\">Câu trả lời của bạn </span> : <input type=\"text\" readonly size=\"100\" value=\"" + da + "\"></input></b>";
-                    ViewData["dapandung-" + i] = "<br><b><span style=\"color:deeppink\">Câu trả lời đúng</span> : <input type=\"text\" readonly size=\"100\" value=\"" + tn.dung[i] + "\" ></input></b>";
+                    ViewData["dapandachon-" + i] = "<br><b><span style=\"color:deeppink\">Câu trả lời của bạn </span> : <textarea readonly cols=\"80\" rows=\"1\" > " +da + "</textarea></b>";
+                    ViewData["dapandung-" + i] = "<br><b><span style=\"color:deeppink\">Câu trả lời đúng</span> : <textarea readonly cols=\"80\" rows=\"1\" >" + tn.dung[i] + "</textarea></b>";
                     sai++;
                 }
             }

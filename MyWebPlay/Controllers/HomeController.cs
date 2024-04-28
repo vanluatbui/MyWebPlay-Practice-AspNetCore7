@@ -993,13 +993,9 @@ namespace MyWebPlay.Controllers
                 var noidungPay = System.IO.File.ReadAllText(pay);
 
                 var onEncryptSetting = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[9];
-                if (onEncryptSetting == "ENCRYPT_FILE_ADMIN_SETTING_WHEN_GO_TO_PAGE_ERROR_OFF")
+                if ((onEncryptSetting == "ENCRYPT_FILE_ADMIN_SETTING_WHEN_GO_TO_PAGE_ERROR_OFF" && noidungPay.Contains("[ENCRYPT]")) || onEncryptSetting == "ENCRYPT_FILE_ADMIN_SETTING_WHEN_GO_TO_PAGE_ERROR_ON")
                 {
-                    if (noidungPay.Contains("[ENCRYPT]"))
-                    {
-
-                        return RedirectToAction("Error");
-                    }
+                      return RedirectToAction("Error");
                 }
 
                         if (string.IsNullOrEmpty(mini) == false && mini == "true" || HttpContext.Session.GetString("mini-error") == "true")

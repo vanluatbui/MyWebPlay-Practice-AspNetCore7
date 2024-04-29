@@ -195,7 +195,7 @@ body {
     {
         if (playmute == 0)
         {
-            alert("Vui lòng chờ trong ít phút hoặc load lại trang. Xin lỗi vì sự bất tiện này !");
+            alert("Vui lòng chờ trong ít phút hoặc load lại trang. Xin lỗi vì sự bất tiện này (hệ thống đang tiến hành xử lý lại) !");
             return;
         }
 
@@ -955,6 +955,26 @@ function showlist()
             document.getElementById("music").muted = true;
             document.getElementById("musix").muted = false;
         }
+    }
+
+    function GoToThuTu(max)
+    {
+        var thutu = new Number(document.getElementById("thutu").value);
+        var mix = new Number(max);
+        if (thutu < 1)
+        thutu = 1;
+        if (thutu > mix)
+        thutu = mix;
+
+        var url = '@ViewBag.LoginServer';
+        var baihat = '@ViewBag.BHServer';
+
+        var thongtin = url+"[NONE]" + "-.-" + baihat+"[NONE]" + "-.-[NOT]-.-0";
+
+        if ('@ViewBag.Share' != "YES - OK")
+        window.location.href="/Home/XoaKaraoke?id=" + thongtin + "&&thutu="+thutu;
+        else
+        window.location.href="/Home/XoaKaraoke" + "&&thutu="+thutu;
     }
 
     function StopKaraoke()
@@ -2067,7 +2087,9 @@ else
                                     <button style="display:none" onclick="StopKaraoke()"><b style="color:darkgreen;display:none">Đi đến bài hát tiếp theo</b></button>
                             }
                             <button onclick="DungKaraoke()"><b style="color:red">Huỷ trình phát Karaoke tự động (đã phát : @i1/@i2)</b></button>
+                            <input id="thutu" type="number" min="1" max="@i2" value="@i1" /><button onclick="GoToThuTu(@i2)"><b style="color:orangered">Đi đến bài hát tại thứ tự</b></button>
                         }
+                        &nbsp;<span style="color:darkturquoise"><b><u>@ViewBag.BHServer</u></b></span>
     
       @if (ViewBag.Share != "YES - OK" && ViewBag.BHServer != "" && ViewBag.LoginServer != "")
         {
@@ -2531,7 +2553,9 @@ else
                                     <button style="display:none" onclick="StopKaraoke()"><b style="color:darkgreen;display:none">Đi đến bài hát tiếp theo</b></button>
                                 }
                                 <button onclick="DungKaraoke()"><b style="color:red">Huỷ trình phát Karaoke tự động (đã phát : @i1/@i2)</b></button>
+                            <input id="thutu" type="number" min="1" max="@i2" value="@i1" /><button onclick="GoToThuTu(@i2)"><b style="color:orangered">Đi đến bài hát tại thứ tự</b></button>
                         }
+                         &nbsp;<span style="color:darkturquoise"><b><u>@ViewBag.BHServer</u></b></span>
     <br /><br /><button style="color:purple" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI/PHÁT</b></button>
                             @if (TempData["codinh"] == "false")
                             {

@@ -358,7 +358,7 @@ namespace MyWebPlay.Controllers
             var success = DateTime.TryParse(f["txtHetHan"].ToString(), out ngayhethan);
             string host = "{" + Request.Host.ToString() + "}"
                        .Replace("http://", "")
-                   .Replace("http://", "")
+                   .Replace("https://", "")
                    .Replace("/", "");
 
             var hethan = ngayhethan.ToString("dd/MM/yyyy").Split("/");

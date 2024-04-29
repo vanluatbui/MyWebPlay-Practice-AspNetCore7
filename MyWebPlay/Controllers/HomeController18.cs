@@ -286,24 +286,26 @@ namespace MyWebPlay.Controllers
                 if (ID != "0.0.0.0")
                 System.IO.File.WriteAllText(path1, noidung1 + "\n" +ID + "\t" + xuxu + "\t" + "[continue] " + cmt);
 
-                string message = "Báo cáo hành động [tiếp tục] bật sử dụng trang web của khách hàng @info (ID client đã được đăng kí mở trước đây, yêu cầu lại cấp phép mới) :\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@end\r\n\r\n--------------------------------------------------------\r\n\r\n[DỰ PHÒNG 1]\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@1_lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@1_unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@1_end\r\n\r\n\r\n--------------------------------------------------------\r\n\r\n[DỰ PHÒNG 2]\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@2_lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@2_unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@2_end\r\n\r\nThanks!"
-                .Replace("@lock", "http://" + Request.Host + "/Home/LockThisClient?ip=" + ID)
+                    var https = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin")).Replace("\r", "").Split("\n")[10] == "LINK_HTTPS_ON") ? "https" : "http";
+
+                    string message = "Báo cáo hành động [tiếp tục] bật sử dụng trang web của khách hàng @info (ID client đã được đăng kí mở trước đây, yêu cầu lại cấp phép mới) :\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@end\r\n\r\n--------------------------------------------------------\r\n\r\n[DỰ PHÒNG 1]\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@1_lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@1_unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@1_end\r\n\r\n\r\n--------------------------------------------------------\r\n\r\n[DỰ PHÒNG 2]\r\n\r\n- Khoá sử dụng website với IDs này :\r\n\r\n@2_lock\r\n\r\n- Mở khoá và cho phép sử dụng lại website với IDs này\r\n\r\n@2_unlock\r\n\r\n- Hết hạn sử dụng, yêu cầu bật lại để sử dụng :\r\n\r\n@2_end\r\n\r\nThanks!"
+                .Replace("@lock", https+"://" + Request.Host + "/Home/LockThisClient?ip=" + ID)
                 .Replace("@info", cmt)
-                .Replace("@unlock", "http://" + Request.Host + "/Home/UnlockThisClient?ip=" + ID)
-                .Replace("@end", "http://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + ID)
-             .Replace("@1_lock", "http://" + Request.Host + "/Home/LockThisClient?ip=" + IPx)
-                .Replace("@1_unlock", "http://" + Request.Host + "/Home/UnlockThisClient?ip=" + IPx)
-                .Replace("@1_end", "http://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + IPx)
-                 .Replace("@2_lock", "http://" + Request.Host + "/Home/LockThisClient?ip=" + Request.HttpContext.Connection.RemoteIpAddress)
-                .Replace("@2_unlock", "http://" + Request.Host + "/Home/UnlockThisClient?ip=" + Request.HttpContext.Connection.RemoteIpAddress)
-                .Replace("@2_end", "http://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + Request.HttpContext.Connection.RemoteIpAddress);
+                .Replace("@unlock", https+"://" + Request.Host + "/Home/UnlockThisClient?ip=" + ID)
+                .Replace("@end", https+"://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + ID)
+             .Replace("@1_lock", https+"://" + Request.Host + "/Home/LockThisClient?ip=" + IPx)
+                .Replace("@1_unlock", https+"://" + Request.Host + "/Home/UnlockThisClient?ip=" + IPx)
+                .Replace("@1_end", https+"://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + IPx)
+                 .Replace("@2_lock", https+"://" + Request.Host + "/Home/LockThisClient?ip=" + Request.HttpContext.Connection.RemoteIpAddress)
+                .Replace("@2_unlock", https+"://" + Request.Host + "/Home/UnlockThisClient?ip=" + Request.HttpContext.Connection.RemoteIpAddress)
+                .Replace("@2_end", https+"://" + Request.Host + "/Home/RemoveIpInWeb?ip=" + Request.HttpContext.Connection.RemoteIpAddress);
 
 
                     //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
                     string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + IPx + " *** " + ID + "] - " + xuxu;
                     string host = "{" + Request.Host.ToString() + "}"
                                .Replace("http://", "")
-                           .Replace("http://", "")
+                           .Replace("https://", "")
                            .Replace("/", "");
 
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);

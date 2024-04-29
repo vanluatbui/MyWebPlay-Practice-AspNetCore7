@@ -352,7 +352,7 @@ body {
 
     function thoatServer()
     {
-        window.location.href = "/Home/PlayKaraokeX";
+        window.location.href = "/Home/ToPlayKaraoke";
     }
 
     function changesong()
@@ -685,7 +685,7 @@ function showlist()
         you = true;
     }
 
-    function PlayKaraokeX()
+    function ToPlayKaraoke()
     {
           if (sai == 0 && '@TempData["auto-play"]' == "false")
         {
@@ -1242,10 +1242,11 @@ function showlist()
             else
             {
                 if (loadover == 1)
+                {
                 loadover = 2;
-
             document.getElementById("error").style.display = "none";
             document.getElementById("error").innerHTML = "";
+                }
             }
 
             if (loadover == 2)
@@ -1731,7 +1732,7 @@ function showlist()
     <source src="@ViewBag.Music" type="audio/mpeg">
 </audio>
 
-<audio id="musix" autoplay hidden muted onplay="PlayKaraokeX()" onplaying="PlayZ()" onpause="PlayXKaraokeX()" onended="StopKaraoke()">
+<audio id="musix" autoplay hidden muted onplay="ToPlayKaraoke()" onplaying="PlayZ()" onpause="PlayXKaraokeX()" onended="StopKaraoke()">
     <source src="@ViewBag.Musix" type="audio/mpeg">
             </audio>
 
@@ -1752,7 +1753,7 @@ function showlist()
 
     <br />
 
-    @using (Html.BeginForm("PlayKaraokeX", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("ToPlayKaraoke", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
         @Html.ValidationSummary(true)
 
@@ -2216,7 +2217,7 @@ else if (ViewBag.SuDung == "Video")
     <source src="@ViewBag.Music" type="audio/mpeg">
 </audio>
 
-<audio id="musix" autoplay hidden muted onplay="PlayKaraokeX()" onplaying="PlayZ()" onpause="PlayXKaraokeX()" onended="StopKaraoke()">
+<audio id="musix" autoplay hidden muted onplay="ToPlayKaraoke()" onplaying="PlayZ()" onpause="PlayXKaraokeX()" onended="StopKaraoke()">
     <source src="@ViewBag.Musix" type="audio/mpeg">
 </audio>
 
@@ -2235,7 +2236,7 @@ else if (ViewBag.SuDung == "Video")
 
     <br />
 
-    @using (Html.BeginForm("PlayKaraokeX", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("ToPlayKaraoke", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
 
         <input type="text" id="linkKara" name="LinkKaraoke" style="display:none" value="@ViewBag.LinkKaraoke"/>
@@ -2670,7 +2671,7 @@ else if (ViewBag.SuDung == "Video")
          <br />
         <h3 style="color:red">⚠️ Dữ liệu bạn đang cố gắng truy cập hiện không tồn tại hoặc không hợp lệ, vui lòng thử lại sau!</h3>
         <br />
-        <a href="/Home/PlayKaraokeX">Back Karaoke</a>
+        <a href="/Home/ToPlayKaraoke">Back Karaoke</a>
     }
 </body>
 </html>

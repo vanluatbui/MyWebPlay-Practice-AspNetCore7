@@ -423,7 +423,7 @@ namespace MyWebPlay.Controllers
 
                 string host = "{" + Request.Host.ToString() + "}"
                       .Replace("http://", "")
-                  .Replace("http://", "")
+                  .Replace("https://", "")
                   .Replace("/", "");
 
                 Calendar x = CultureInfo.InvariantCulture.Calendar;

@@ -269,7 +269,7 @@ body {
         you = true;
     }
 
-    function PlayKaraokeX()
+    function ToPlayKaraoke()
     {
          if (document.getElementById("musix").currentTime != document.getElementById("music").currentTime)
         document.getElementById("musix").currentTime = document.getElementById("music").currentTime;
@@ -633,7 +633,7 @@ body {
     <source src="@ViewBag.Music" type="audio/mpeg">
 </audio>
 
-<audio id="musix" autoplay hidden muted onplay="PlayKaraokeX()" onplaying="PlayZ()" onpause="PlayXKaraokeX()" onended="StopKaraoke()">
+<audio id="musix" autoplay hidden muted onplay="ToPlayKaraoke()" onplaying="PlayZ()" onpause="PlayXKaraokeX()" onended="StopKaraoke()">
     <source src="@ViewBag.Musix" type="audio/mpeg">
 </audio>
 
@@ -647,7 +647,7 @@ body {
 }
     <span style="color:red">Phiên bản này hiện nay đã quá cũ và chúng tôi rất ít khi nâng cấp nó (sẽ có một số lỗi xảy ra). Nhưng bạn có thể tiếp tục sử dụng bình thường (nếu muốn) !</span>
     <br />
-    <h2>@Html.ActionLink("Bạn có muốn trải nghiệm phiên bản Karaoke thông thường?", "PlayKaraokeX")</h2>
+    <h2>@Html.ActionLink("Bạn có muốn trải nghiệm phiên bản Karaoke thông thường?", "ToPlayKaraoke")</h2>
  <br />
  <br />
     <table align="center">

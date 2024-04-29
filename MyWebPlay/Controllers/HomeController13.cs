@@ -206,7 +206,7 @@ namespace MyWebPlay.Controllers
             {
                 string host = "{" + Request.Host.ToString() + "}"
                        .Replace("http://", "")
-                   .Replace("http://", "")
+                   .Replace("https://", "")
                    .Replace("/", "");
                 var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
                 var noidungX1 = System.IO.File.ReadAllText(pathX1);
@@ -1301,7 +1301,7 @@ namespace MyWebPlay.Controllers
             string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + IPx + " *** " + localIP + "] - " + xuxu;
             string host = "{" + Request.Host.ToString() + "}"
                        .Replace("http://", "")
-                   .Replace("http://", "")
+                   .Replace("https://", "")
                    .Replace("/", "");
             var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
             var noidungX1 = System.IO.File.ReadAllText(pathX1);

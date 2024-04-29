@@ -59,9 +59,8 @@
 /Home/PlayQuestion
 /Home/EditTextNote
 /Home/CreateFile_Question
-/Home/CreateFile_Karaoke
 /Home/XoaKaraoke
-/Home/PlayKaraokeX
+/Home/ToPlayKaraoke
 /Home/PlayKaraoke
 /Home/PlayCreateFile_Karaoke
 /Home/CreateFile_Karaoke

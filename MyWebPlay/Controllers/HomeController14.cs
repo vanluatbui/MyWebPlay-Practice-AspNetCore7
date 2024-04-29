@@ -408,7 +408,7 @@ namespace MyWebPlay.Controllers
 
                 string host = "{" + Request.Host.ToString() + "}"
                   .Replace("http://", "")
-              .Replace("http://", "")
+              .Replace("https://", "")
               .Replace("/", "");
 
                 MailRequest mail = new MailRequest();
@@ -648,7 +648,7 @@ namespace MyWebPlay.Controllers
 
                 string host = "{" + Request.Host.ToString() + "}"
                   .Replace("http://", "")
-              .Replace("http://", "")
+              .Replace("https://", "")
               .Replace("/", "");
 
                 SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
@@ -861,7 +861,7 @@ namespace MyWebPlay.Controllers
             }
         }
 
-        public ActionResult PlayKaraokeX()
+        public ActionResult ToPlayKaraoke()
         {
             try
             {
@@ -963,7 +963,7 @@ namespace MyWebPlay.Controllers
                 && url != "" && baihat != "" && background != "" && option != 0)
             {
                 url = url.Replace("http://", "");
-                url = url.Replace("http://", "");
+                url = url.Replace("https://", "");
                 url = url.Replace("/", "");
 
                 ViewBag.Server = url;
@@ -971,7 +971,8 @@ namespace MyWebPlay.Controllers
                 try
                 {
                     WebClient client = new WebClient();
-                    Stream stream = client.OpenRead("http://" + url + "/MyListSong.txt");
+                        var https = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[10] == "LINK_HTTPS_ON") ? "https" : "http";
+                        Stream stream = client.OpenRead(https +"://" + url + "/MyListSong.txt");
                     StreamReader reader = new StreamReader(stream);
                     string content = reader.ReadToEnd();
                     ViewBag.ListSong = content;
@@ -996,7 +997,7 @@ namespace MyWebPlay.Controllers
             if (url != null && url != "[NOT]" && url != "")
             {
                 url = url.Replace("http://", "");
-                url = url.Replace("http://", "");
+                url = url.Replace("https://", "");
                 url = url.Replace("/", "");
 
                 ViewBag.Server = url;
@@ -1005,7 +1006,8 @@ namespace MyWebPlay.Controllers
                 try
                 {
                     WebClient client = new WebClient();
-                    Stream stream = client.OpenRead("http://" + url + "/MyListSong.txt");
+                        var https = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[10] == "LINK_HTTPS_ON") ? "https" : "http";
+                        Stream stream = client.OpenRead(https+"://" + url + "/MyListSong.txt");
                     StreamReader reader = new StreamReader(stream);
                     string content = reader.ReadToEnd();
                         HttpContext.Session.SetString("content-listsong", content);
@@ -1037,7 +1039,7 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult PlayKaraokeX(IFormCollection f, IFormFile txtKaraoke, IFormFile txtMusic, IFormFile txtMusix)
+        public ActionResult ToPlayKaraoke(IFormCollection f, IFormFile txtKaraoke, IFormFile txtMusic, IFormFile txtMusix)
         {
             try
             {
@@ -1439,7 +1441,8 @@ namespace MyWebPlay.Controllers
                 try
                 {
                     WebClient client = new WebClient();
-                    Stream stream = client.OpenRead("http://" + url_txt);
+                        var https = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[10] == "LINK_HTTPS_ON") ? "https" : "http";
+                        Stream stream = client.OpenRead(https+"://" + url_txt);
                     StreamReader reader = new StreamReader(stream);
                     string content = reader.ReadToEnd();
 
@@ -1450,8 +1453,10 @@ namespace MyWebPlay.Controllers
 
                         HttpContext.Session.Remove("encrypt_yes");
 
-                        ViewBag.Music = "http://" + url_kara;
-                    ViewBag.Musix = "http://" + url_goc;
+                        var httpx = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[10] == "LINK_HTTPS_ON") ? "https" : "http";
+
+                        ViewBag.Music = httpx +  "://" + url_kara;
+                    ViewBag.Musix = httpx +"://" + url_goc;
 
                     if (content.Contains("<>") == false)
                     {

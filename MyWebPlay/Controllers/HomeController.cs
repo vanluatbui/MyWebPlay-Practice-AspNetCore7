@@ -210,10 +210,10 @@ namespace MyWebPlay.Controllers
 
         public bool KiemTraWebNhacNen()
         {
-            if (Request.Path != "/Home/PlayKaraoke" && Request.Path != "/Home/PlayKaraokeX")
+            if (Request.Path != "/Home/PlayKaraoke" && Request.Path != "/Home/ToPlayKaraoke")
                 return true;
 
-            if ((Request.Path == "/Home/PlayKaraoke" || Request.Path == "/Home/PlayKaraokeX") && Request.Method != "post")
+            if ((Request.Path == "/Home/PlayKaraoke" || Request.Path == "/Home/ToPlayKaraoke") && Request.Method != "post")
                 return true;
 
             return false;
@@ -233,7 +233,7 @@ namespace MyWebPlay.Controllers
 
                 string hostt = "{" + Request.Host.ToString() + " - "+ TempData["userIP"]+"}"
                            .Replace("http://", "")
-                       .Replace("http://", "")
+                       .Replace("https://", "")
                        .Replace("/", "");
 
                 if (HttpContext.Session.GetString("kara-demox-3275") != null)
@@ -890,7 +890,7 @@ namespace MyWebPlay.Controllers
   
                     string host = "{" + Request.Host.ToString() + "}"
                         .Replace("http://", "")
-                    .Replace("http://", "")
+                    .Replace("https://", "")
                     .Replace("/", "");
 
                     SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath,"mywebplay.savefile@gmail.com",
@@ -2304,7 +2304,7 @@ namespace MyWebPlay.Controllers
             //noidung = "\r\n" + noidung;
             //noidung= noidung.Replace("\r\n", "<br>").Replace(" ","&nbsp;");
              nix = noidungD;
-            noidung = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + noidung + "</textarea>";
+            noidung = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + noidungD + "</textarea>";
 
               Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox =(f.ContainsKey("resultX") == false || f["resultX"] == "false") ? Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt")  : Path.Combine(_webHostEnvironment.WebRootPath, "ResultExternal", "data.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = noidung;
 

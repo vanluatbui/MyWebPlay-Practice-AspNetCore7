@@ -284,11 +284,19 @@
         }
 
          var listAnhCu = document.getElementById("listAnhCu").value.split("\n\n");
+         var listHoanVi = document.getElementById("hoanvis").value.split("\n");
          var an = document.getElementById("answerX").value.split("\n");
          var k =0;
     for (var i =0 ; i< new Number('@ViewBag.TongCau'); i++)
     {
-
+        if (listHoanVi[i] == "YES")
+        {
+            document.getElementById("hoanvix-"+i).checked = true;
+        }
+        else
+        {
+            document.getElementById("hoanvix-"+i).checked = false;
+        }
         //---------------------------------------------------
 
          var chon = document.getElementById("chonanh-"+i);
@@ -419,6 +427,8 @@
       {
     for (var i =0 ; i< new Number('@ViewBag.TongCau'); i++)
     {
+        document.getElementById("hoanvix-"+i).checked = false;
+
          var listAnh = document.getElementById("anhX-"+i).value.split("\n");
             for (var j = 0; j < listAnh.length; j++)
             {
@@ -576,7 +586,9 @@
                       <h4><b><select id="chonanh-@i" onchange="doianh(@i)">
                                <option></option>
                             </select><br>
-                            </b> <a onclick="xoahinhanh(@i)" href="#xuly">XOÁ</a> || <a href="#xuly" onClick="xemanh(@i)">XEM HÌNH ẢNH</a></h4><br>
+                            </b> <a onclick="xoahinhanh(@i)" href="#xuly">XOÁ</a> || <a href="#xuly" onClick="xemanh(@i)">XEM HÌNH ẢNH</a></h4>
+                            <input type="checkbox" id="hoanvix-@i" name="txtHoanVix-@i" /><span style="color:orangered">&nbsp;Không hoán vị đáp án</span>
+                            <br /><br />
     
                 </td>
      </tr>
@@ -735,6 +747,7 @@
         <textarea readonly name="C" hidden>@ViewBag.C</textarea>
         <textarea readonly name="D" hidden>@ViewBag.D</textarea>
          <textarea readonly name="Dung" hidden>@ViewBag.Dung</textarea>
+          <textarea readonly id="hoanvis" hidden>@ViewBag.HoanVis</textarea>
         }
 
        @if(ViewBag.ND_File != null)

@@ -205,17 +205,17 @@ body {
 
     function copyshare()
     {
-        if (dFlag == 1)
-        {
-             document.getElementById("message").style.display = "block";
-          document.getElementById("error").style.display = "block";
-        document.getElementById("error").innerHTML = "⚠️ Xử lý thất bại, do đang có nội dung bản text Karaoke đang được mã hoá nhưng chưa được giải mã. Vui lòng thử lại sau !";
-            return;
-        }
+        //if (dFlag == 1)
+        //{
+        //     document.getElementById("message").style.display = "block";
+        //  document.getElementById("error").style.display = "block";
+        //document.getElementById("error").innerHTML = "⚠️ Xử lý thất bại, do đang có nội dung bản text Karaoke đang được mã hoá nhưng chưa được giải mã. Vui lòng thử lại sau !";
+        //    return;
+        //}
         var mi = "";
 
-        if ('@TempData["data-encrypt"]' == "true")
-        mi = "<encrypt>";
+        //if ('@TempData["data-encrypt"]' == "true")
+        //mi = "<encrypt>";
 
                 var luutru = "";
 
@@ -1192,6 +1192,8 @@ function showlist()
                     var id = setInterval(myAlert, 100);
 
         var ndTK = '@TempData["TK-KARA"]'.replaceAll("&#xA;","\n").split('\n');
+
+        var nanFirst = 0;
     
         function myAlert()
                     {
@@ -1199,13 +1201,13 @@ function showlist()
                         {
                             LBH = document.getElementById("txtKara").value.split(/\r|\n/);
  
-                     if (dFlag == 0 && LBH.length == 1)
-                    {
-                         document.getElementById("message").style.display = "block";
-          document.getElementById("error").style.display = "block";
-        document.getElementById("error").innerHTML = "⚠️ Cảnh báo, hệ thống không nhận diện được dữ liệu và nội dung Karaoke của bạn. Nguyên nhân có thể do bản text Karaoke của bạn đã tải lên có nội dung được mã hoá, vui lòng thử giải mã và thực hiện lại !";
-                      dFlag = 1;
-                    }
+        //             if (dFlag == 0 && LBH.length == 1)
+        //            {
+        //                 document.getElementById("message").style.display = "block";
+        //  document.getElementById("error").style.display = "block";
+        //document.getElementById("error").innerHTML = "⚠️ Cảnh báo, hệ thống không nhận diện được dữ liệu và nội dung Karaoke của bạn. Nguyên nhân có thể do bản text Karaoke của bạn đã tải lên có nội dung được mã hoá, vui lòng thử giải mã và thực hiện lại !";
+        //              dFlag = 1;
+        //            }
 
                     var k = 0;
                     for (var i = 0; i < LBH.length; i++)
@@ -1264,8 +1266,14 @@ function showlist()
                 if (loadover == 1)
                 {
                 loadover = 2;
-            document.getElementById("error").style.display = "none";
-            document.getElementById("error").innerHTML = "";
+                }
+
+                if (nanFirst == 0)
+                {
+           document.getElementById("message").style.display = "block";
+           document.getElementById("error").style.display = "block";
+        document.getElementById("error").innerHTML = "Xin lỗi vì sự bất tiện : khi lần đầu tiên bạn truy cập vào đây, vui lòng click nút \"Khởi động lại\" bên dưới sau khi nhạc đã phát được vài giây.";
+        nanFirst = 1;
                 }
             }
 
@@ -1836,7 +1844,7 @@ function showlist()
                         &nbsp;||&nbsp;
                         @if (ViewBag.Share != null && ViewBag.Share != "" && ViewBag.Share != "ERROR")
                         {
-                            <a href="#xuly" style="color:red" onclick="playAutoList()">Play Karaoke (tự động) theo thứ tự của list song - ngoại trừ các file Karaoke mã hoá có thể xảy ra lỗi</a>
+                            <a href="#xuly" style="color:red" onclick="playAutoList()">Play Karaoke (tự động) theo thứ tự của list song</a>
                             <input hidden type="checkbox" id="autoSong" name="txtAutoSong" />
                         }
                         <br>
@@ -1890,7 +1898,7 @@ function showlist()
                         &nbsp;||&nbsp;
                         @if (ViewBag.Share != null && ViewBag.Share != "" && ViewBag.Share != "ERROR")
                         {
-                            <a href="#xuly" style="color:red" onclick="playAutoList()">Play Karaoke (tự động) theo thứ tự của list song - ngoại trừ các file Karaoke mã hoá có thể xảy ra lỗi</a>
+                            <a href="#xuly" style="color:red" onclick="playAutoList()">Play Karaoke (tự động) theo thứ tự của list song</a>
                             <input hidden type="checkbox" id="autoSong" name="txtAutoSong" />
                         }
                         <br>
@@ -1979,8 +1987,6 @@ function showlist()
                           <input type="checkbox" name="auto_play" />&nbsp;<b>Không tự động phát nhạc khi bắt đầu</b>
                            <br /><br />
                           <input type="checkbox" name="auto_music" />&nbsp;<b>Tự động lặp lại music (không đảm bảo)</b>
-                           <br /><br />
-                          <input type="checkbox" name="encrypt_data" id="txtEncr" />&nbsp;<b>Giải mã nội dung file TXT của tôi tải lên (hãy thử nếu bạn gặp vấn đề về xử lý)</b>
                            <br /><br />
                           <input type="checkbox" name="txtBehind" id="behind" />&nbsp;<b>Sẽ bắt đầu phát nhạc sau <input type="number" name="txtBehindNumber" value="10" min="10" max="100" style="width: 5em" /> giây</b>
                           <br /><br />
@@ -2076,6 +2082,7 @@ else
                         {
                             var i1 = TempData["index-auto"] + "";
                             var i2 = TempData["length-list-auto"] + "";
+                            var i3 = (int.Parse(i2) - 1) + "";
                             TempData["index-auto"] = i1;
                             TempData["length-list-auto"] = i2;
                             if (i1 != i2)
@@ -2087,13 +2094,13 @@ else
                                     <button style="display:none" onclick="StopKaraoke()"><b style="color:darkgreen;display:none">Đi đến bài hát tiếp theo</b></button>
                             }
                             <button onclick="DungKaraoke()"><b style="color:red">Huỷ trình phát Karaoke tự động (đã phát : @i1/@i2)</b></button>
-                            <input id="thutu" type="number" min="1" max="@i2" value="@i1" /><button onclick="GoToThuTu(@i2)"><b style="color:orangered">Đi đến bài hát tại thứ tự</b></button>
+                            <input id="thutu" type="number" min="0" max="@i3" value="@i1" /><button onclick="GoToThuTu(@i2)"><b style="color:orangered">Đi đến bài hát tại thứ tự</b></button>
                         }
                         &nbsp;<span style="color:darkturquoise"><b><u>@ViewBag.BHServer</u></b></span>
     
       @if (ViewBag.Share != "YES - OK" && ViewBag.BHServer != "" && ViewBag.LoginServer != "")
         {
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><b style="color:red"><a onclick="copyshare()" href="#xuly">Share Karaoke</a></b><input type="checkbox" id="saveshare" /><b style="color:lawngreen">Bao gồm luôn các setting hiện tại của bạn</b>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><b style="color:red"><a onclick="copyshare()" href="#xuly">Share Karaoke</a></b><input type="checkbox" id="saveshare" /><b style="color:lawngreen">Bao gồm luôn các setting hiện tại của bạn (khi chia sẻ)</b>
         }
     <br /><br /><button style="color:purple" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI/PHÁT</b></button>
 
@@ -2457,8 +2464,6 @@ else if (ViewBag.SuDung == "Video")
                            <br /><br />
                           <input type="checkbox" name="auto_music" />&nbsp;<b>Tự động lặp lại music (không đảm bảo)</b>
                           <br /><br />
-                          <input type="checkbox" name="encrypt_data" id="txtEncr" />&nbsp;<b>Giải mã nội dung file TXT của tôi tải lên (hãy thử nếu bạn gặp vấn đề về xử lý)</b>
-                           <br /><br />
                           <input type="checkbox" name="txtBehind" id="behind" />&nbsp;<b>Sẽ bắt đầu phát nhạc sau <input type="number" name="txtBehindNumber" value="10" min="10" max="100" style="width: 5em" /> giây</b>
                            <br /><br />
                            <input type="checkbox" name="txtInHoa" />&nbsp;<b>Viết in hoa tất cả đoạn Text Karaoke</b>
@@ -2540,8 +2545,9 @@ else
                         }
                         else
                         {
-                             var i1 = TempData["index-auto"];
-                            var i2 = TempData["length-list-auto"];
+                             var i1 = TempData["index-auto"] + "";
+                            var i2 = TempData["length-list-auto"] + "";
+                            var i3 = (int.Parse(i2) - 1) + "";
                             TempData["index-auto"] = i1;
                             TempData["length-list-auto"] = i2;
                             if (i1 != i2)
@@ -2553,7 +2559,7 @@ else
                                     <button style="display:none" onclick="StopKaraoke()"><b style="color:darkgreen;display:none">Đi đến bài hát tiếp theo</b></button>
                                 }
                                 <button onclick="DungKaraoke()"><b style="color:red">Huỷ trình phát Karaoke tự động (đã phát : @i1/@i2)</b></button>
-                            <input id="thutu" type="number" min="1" max="@i2" value="@i1" /><button onclick="GoToThuTu(@i2)"><b style="color:orangered">Đi đến bài hát tại thứ tự</b></button>
+                            <input id="thutu" type="number" min="0" max="@i3" value="@i1" /><button onclick="GoToThuTu(@i2)"><b style="color:orangered">Đi đến bài hát tại thứ tự</b></button>
                         }
                          &nbsp;<span style="color:darkturquoise"><b><u>@ViewBag.BHServer</u></b></span>
     <br /><br /><button style="color:purple" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI/PHÁT</b></button>

@@ -219,7 +219,18 @@ namespace MyWebPlay.Controllers
                 }
 
                     var xu = System.IO.File.ReadAllText(path);
-                    if (f["encrypt_data"].ToString() == "on")
+                    var encrypt = false;
+                    try
+                    {
+                        StringMaHoaExtension.Decrypt(xu);
+                        encrypt = true;
+                    }
+                    catch
+                    {
+                        encrypt = false;
+                    }
+
+                    if (encrypt == true)
                     {
                         xu = StringMaHoaExtension.Decrypt(xu);
                     }
@@ -228,7 +239,18 @@ namespace MyWebPlay.Controllers
             else
             {
                     var xu = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ExamKara/TextDemo.txt"));
-                    if (f["encrypt_data"].ToString() == "on")
+                    var encrypt = false;
+                    try
+                    {
+                        StringMaHoaExtension.Decrypt(xu);
+                        encrypt = true;
+                    }
+                    catch
+                    {
+                        encrypt = false;
+                    }
+
+                    if (encrypt == true)
                     {
                         xu = StringMaHoaExtension.Decrypt(xu);
                     }
@@ -1170,11 +1192,6 @@ namespace MyWebPlay.Controllers
                 ViewBag.LoginServer = f["txtServer"].ToString();
             ViewBag.BHServer = f["txtSong"].ToString();
 
-                if (f["encrypt_data"].ToString() == "on")
-                    TempData["data-encrypt"] = "true";
-                else
-                    TempData["data-encrypt"] = "false";
-
                 var chon = f["KaraChon"].ToString();
 
             if (f["auto_play"].ToString() == "on")
@@ -1451,12 +1468,28 @@ namespace MyWebPlay.Controllers
                     StreamReader reader = new StreamReader(stream);
                     string content = reader.ReadToEnd();
 
-                        if (f["encrypt_data"].ToString() == "on" || HttpContext.Session.GetString("encrypt_yes") == "true")
+                        //if (f["encrypt_data"].ToString() == "on" || HttpContext.Session.GetString("encrypt_yes") == "true")
+                        //{
+                        //    content = StringMaHoaExtension.Decrypt(content);
+                        //}
+
+                        var encrypt = false;
+                        try
+                        {
+                            StringMaHoaExtension.Decrypt(content);
+                            encrypt = true;
+                        }
+                        catch
+                        {
+                            encrypt = false;
+                        }
+
+                        if (encrypt == true)
                         {
                             content = StringMaHoaExtension.Decrypt(content);
                         }
 
-                        HttpContext.Session.Remove("encrypt_yes");
+                        //HttpContext.Session.Remove("encrypt_yes");
 
                         var httpx = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[10] == "LINK_HTTPS_ON") ? "https" : "http";
 
@@ -1541,12 +1574,25 @@ namespace MyWebPlay.Controllers
                 }
                 var nd = System.IO.File.ReadAllText(path);
 
-                if (f["encrypt_data"].ToString() == "on")
+                    var encrypt = false;
+                    try
+                    {
+                        StringMaHoaExtension.Decrypt(nd);
+                        encrypt = true;
+                        TempData["data-encrypt"] = "true";
+                    }
+                    catch
+                    {
+                        encrypt = false; 
+                        TempData["data-encrypt"] = "false";
+                    }
+
+                    if (encrypt == true)
                     {
                         nd = StringMaHoaExtension.Decrypt(nd);
                     }
 
-                if (nd.Contains("<>") == false)
+                    if (nd.Contains("<>") == false)
                 {
                     ViewBag.Karaoke = nd;
                     TempData["TK-KARA"] = "";
@@ -1590,7 +1636,20 @@ namespace MyWebPlay.Controllers
             else
             {
                     var nd = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ExamKara/TextDemo.txt"));
-                    if (f["encrypt_data"].ToString() == "on")
+                    var encrypt = false;
+                    try
+                    {
+                        StringMaHoaExtension.Decrypt(nd);
+                        encrypt = true;
+                        TempData["data-encrypt"] = "true";
+                    }
+                    catch
+                    {
+                        encrypt = false;
+                        TempData["data-encrypt"] = "false";
+                    }
+
+                    if (encrypt == true)
                     {
                         nd = StringMaHoaExtension.Decrypt(nd);
                     }

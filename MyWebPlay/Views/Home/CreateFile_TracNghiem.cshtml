@@ -6,6 +6,30 @@
 
     var id;
     var so = 0;
+
+    function checkdapas()
+    {
+        var max = new Number(document.getElementById("CH_Num").value);
+        var len = document.getElementById("DapAn").value.split("\n");
+
+        if (len.length != max)
+        {
+            alert("Số lượng đáp án bạn đã thiết lập hiện tại không trùng khớp với số lượng câu hỏi hiện có (vui lòng kiểm tra lại)");
+            return;
+        }
+
+        for (var i = 0; i < len.length; i++)
+        {
+            if (len[i] != "A" && len[i] != "B" && len[i] != "C" && len[i] != "D")
+            {
+                alert("Có vẻ như trong danh sách đáp án bạn đã thiết lập có điều gì đó bất thường tại vị trí : "+(i+1)+" (vui lòng kiểm tra lại)");
+                return;
+            }
+        }
+
+        alert("Kiểm tra tình trạng đáp án an toàn !");
+    }
+
     function xongroi()
     {
         if (document.getElementById("CH_Num").value == "")
@@ -737,7 +761,7 @@
                     <br>
                     <input type="radio" onclick="xuatAnswer()" checked> <b style="color:lime">⬅️ Click here to upset Answer</b>
                     <br><br>
-                    <input style="font-size:40px" type="radio" onclick="checkXX()" checked /> <b>⬅️ Click here to reset to check</b> || <input style="font-size:40px" type="radio" onclick="checkX()" checked /> <b id="winx" style="color:lightcoral;font-size:40px">0</b> (index hệ thống) : <b style="color:lightseagreen;font-size:40px" id="socolar">[NULL]</b>
+                    <input style="font-size:40px" type="radio" onclick="checkXX()" checked /> <b>⬅️ Click here to reset to check</b> || <input style="font-size:40px" type="radio" onclick="checkX()" checked /> <b id="winx" style="color:lightcoral;font-size:40px">0</b> (index hệ thống) : <b style="color:lightseagreen;font-size:40px" id="socolar">[NULL]</b> || <input style="font-size:40px" type="radio" onclick="checkdapas()" checked /> <b style="color:orangered">Kiểm tra tình trạng đáp án</b>
                 </td>
             </tr>
 

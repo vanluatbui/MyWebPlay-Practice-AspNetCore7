@@ -26,11 +26,6 @@
         document.getElementById("MSSV-X").value = document.getElementById("MSSV-Y").value;
     }
 
-     function changeSecure()
-    {
-        document.getElementById("secure-X").checked = document.getElementById("secure-Y").checked;
-    }
-
     function myAlertX()
     {
         so++;
@@ -56,8 +51,6 @@
                 <input onchange="changeMSSV()" id="MSSV-Y" name="txtMSSV" type="text" size="100" placeholder="Nhập mã số học sinh" value="@ViewBag.MSSV" />
                 <br>
                 <span id="loi2" style="color:red; font-style:italic">@ViewData["Loi2"]</span>
-                <br />
-                 <input onchange="changeSecure()" id="secure-Y" type="checkbox" name="encrypt_data" />&nbsp;<b>Secure data locked</b>
             </td>
         </tr>
 
@@ -72,8 +65,6 @@
                 <input id="ID-X" name="txtID" type="text" placeholder="Nhập ID liên kết bài với test trắc nghiệm" size="100" value="@ViewBag.ID" />
                 <br>
                 <input id="MSSV-X" name="txtMSSV" type="text" size="100" placeholder="Nhập mã số học sinh" value="@ViewBag.MSSV" />
-                <br />
-                <input type="checkbox" id="secure-X" name="encrypt_data" />&nbsp;<b>Secure data locked</b>
             </td>
         </tr>
       

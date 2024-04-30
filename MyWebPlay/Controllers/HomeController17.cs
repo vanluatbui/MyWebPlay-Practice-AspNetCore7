@@ -201,13 +201,13 @@ namespace MyWebPlay.Controllers
 
             if (id != null)
             {
-                    if (id.Contains("<encrypt>"))
-                    {
-                        id = id.Replace("<encrypt>", "");
-                        HttpContext.Session.SetString("encrypt_yes", "true");
-                    }
-                    else
-                        HttpContext.Session.SetString("encrypt_yes", "false");
+                    //if (id.Contains("<encrypt>"))
+                    //{
+                    //    id = id.Replace("<encrypt>", "");
+                    //    HttpContext.Session.SetString("encrypt_yes", "true");
+                    //}
+                    //else
+                    //    HttpContext.Session.SetString("encrypt_yes", "false");
 
                     var noidung = id.Split("-.-", StringSplitOptions.RemoveEmptyEntries);
 

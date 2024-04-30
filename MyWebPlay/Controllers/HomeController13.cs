@@ -447,7 +447,18 @@ namespace MyWebPlay.Controllers
                 }
 
                     var xu = docfile(path);
-                    if (f["encrypt_data"].ToString() == "on")
+                    var encrypt = false;
+                    try
+                    {
+                        StringMaHoaExtension.Decrypt(xu).Replace("\r\n", "\n");
+                        encrypt = true;
+                    }
+                    catch
+                    {
+                        encrypt = false;
+                    }
+
+                    if (encrypt == true)
                     {
                         xu = StringMaHoaExtension.Decrypt(xu).Replace("\r\n", "\n");
                     }

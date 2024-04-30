@@ -189,7 +189,18 @@ namespace MyWebPlay.Controllers
             }
 
                 var xu = docfile(path);
-                if (f["encrypt_data"].ToString() == "on")
+                var encrypt = false;
+                try
+                {
+                    StringMaHoaExtension.Decrypt(xu).Replace("\r\n", "\n");
+                    encrypt = true;
+                }
+                catch
+                {
+                    encrypt = false;
+                }
+
+                if (encrypt == true)
                 {
                     xu = StringMaHoaExtension.Decrypt(xu).Replace("\r\n", "\n");
                 }
@@ -718,6 +729,14 @@ namespace MyWebPlay.Controllers
 
                         tn.ch[i] = Regex.Replace(tn.ch[i], "<br><img.*><br>", "");
 
+                        var chx = tn.ch[i];
+
+                        if (f["txtHoanVix-" + i].ToString() == "on" && chx.StartsWith("$") == false)
+                        {
+                            chx = "$" + chx;
+                            ND_File = ND_File.Replace(tn.ch[i], chx);
+                        }
+
                         //---------------------------------------------------------------------------
 
                         var anh = f["anh-" + i].ToString().Replace("\r","").Split("\n");
@@ -759,7 +778,7 @@ namespace MyWebPlay.Controllers
 
 
                             string ch = tn.ch[i] + "<br><img name=\"hinhcau" + i + "\" src=\"" + ax[0] + "\" alt=\"Image Error\" width=\"" + kt1 + "\" height=\"" + kt2 + "\" /><br>";
-                            ND_File = ND_File.Replace(tn.ch[i], ch);
+                                ND_File = ND_File.Replace(tn.ch[i], ch);
                         }
 
                         string da = f["dapan-" + i].ToString();

@@ -474,7 +474,18 @@ namespace MyWebPlay.Controllers
                         StreamReader reader = new StreamReader(stream);
                         ND_file = reader.ReadToEnd();
 
-                            if (f["encrypt_data"].ToString() == "on")
+                            var encrypt = false;
+                            try
+                            {
+                                StringMaHoaExtension.Decrypt(ND_file);
+                                encrypt = true;
+                            }
+                            catch
+                            {
+                                encrypt = false;
+                            }
+
+                            if (encrypt == true)
                             {
                                 ND_file = StringMaHoaExtension.Decrypt(ND_file);
                             }

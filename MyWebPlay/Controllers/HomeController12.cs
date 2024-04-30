@@ -228,7 +228,18 @@ namespace MyWebPlay.Controllers
                 }
 
                     var xu = docfile(path);
-                    if (f["encrypt_data"].ToString() == "on")
+                    var encrypt = false;
+                    try
+                    {
+                        StringMaHoaExtension.Decrypt(xu).Replace("\r\n", "\n");
+                        encrypt = true;
+                    }
+                    catch
+                    {
+                        encrypt = false;
+                    }
+
+                    if (encrypt == true)
                     {
                         xu = StringMaHoaExtension.Decrypt(xu).Replace("\r\n", "\n");
                     }
@@ -622,9 +633,20 @@ namespace MyWebPlay.Controllers
                 }
 
                     var xu = docfile(path);
-                    if (f["encrypt_data"].ToString() == "on")
+                    var encrypt = false;
+                    try
                     {
-                        xu = StringMaHoaExtension.Decrypt(xu).Replace("\r\n","\n");
+                        StringMaHoaExtension.Decrypt(xu).Replace("\r\n", "\n");
+                        encrypt = true;
+                    }
+                    catch
+                    {
+                        encrypt = false;
+                    }
+
+                    if (encrypt == true)
+                    {
+                        xu = StringMaHoaExtension.Decrypt(xu).Replace("\r\n", "\n");
                     }
 
                     String ND_file = xu;
@@ -667,9 +689,9 @@ namespace MyWebPlay.Controllers
                         }
                     }
 
-                    //-------------------
+                        //-------------------
 
-                    for (int i = 0; i < t1.Length; i++)
+                        for (int i = 0; i < t1.Length; i++)
                     {
                         String[] t2 = t1[i].Replace("\r","").Split('\n');
                         int flag = 0;
@@ -692,7 +714,9 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-                int[] chuaxet_ch;
+                    var hvix = "";
+
+                    int[] chuaxet_ch;
                 int[][] chuaxet_da;
 
                 int n9 = t1.Length;
@@ -746,6 +770,7 @@ namespace MyWebPlay.Controllers
 
                         if (CH[0] == '$')
                         {
+                            hvix += "YES\r\n";
                             t2[0].Remove(0, 1);
                             tn[h].ch[dem] = t2[0].Replace("$", "");
                             tn[h].a[dem] = t2[1];
@@ -758,6 +783,8 @@ namespace MyWebPlay.Controllers
                         }
                         else
                         {
+
+                            hvix += "NO\r\n";
                             int aa, bb, cc, dd;
 
                             tn[h].ch[dem] = t2[0];
@@ -818,7 +845,8 @@ namespace MyWebPlay.Controllers
                         dem++;
                 }
                 tn[h].tongsocau = n9;
-            }
+                    HttpContext.Session.SetString("hoanvis", hvix);
+                }
 
 
             if (tick == "on")
@@ -970,6 +998,9 @@ namespace MyWebPlay.Controllers
 
                 s = s.TrimEnd('\n');
                 ViewBag.SettingAnswer = s;
+
+                 ViewBag.HoanVis = HttpContext.Session.GetString("hoanvis");
+                 HttpContext.Session.Remove("hoanvis");
                 }
 
                 return View("PlayTracNghiem", tnX);

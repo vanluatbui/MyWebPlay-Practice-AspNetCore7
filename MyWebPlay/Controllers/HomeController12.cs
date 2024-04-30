@@ -53,7 +53,7 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace, "teinnkatajeqerfl");                 }
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");                 }
                 return RedirectToAction("Error", new { exception = "true" });
             }
         }
@@ -97,7 +97,7 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace, "teinnkatajeqerfl");                 }
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");                 }
                 return RedirectToAction("Error", new { exception = "true" });
             }
         }
@@ -107,6 +107,18 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                var fix = "";
+                foreach (var item in f.Keys)
+                {
+                    fix += string.Format("{0} : {1}\n", item, f[item]);
+                }
+
+                int i = 0;
+                foreach (var item in txtFile)
+                {
+                    fix += string.Format("txtFile[{0}] : {1}\n", i + "", item.FileName);
+                    i++;
+                }
                 TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
             {
@@ -147,7 +159,7 @@ namespace MyWebPlay.Controllers
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flax = 0;
-            for (int i = 0; i < listSetting.Length; i++)
+            for (i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
@@ -258,7 +270,7 @@ namespace MyWebPlay.Controllers
                 String[] split = { "\n#\n" };
                 String[] t1 = ND_file.Split(split, StringSplitOptions.RemoveEmptyEntries);
 
-                for (int i = 0; i < t1.Length; i++)
+                for (i = 0; i < t1.Length; i++)
                 {
                     String[] t2 = t1[i].Replace("\r","").Split('\n');
                     if (t2.Length != 6)
@@ -283,7 +295,7 @@ namespace MyWebPlay.Controllers
 
                 //-------------------
 
-                for (int i = 0; i < t1.Length; i++)
+                for (i = 0; i < t1.Length; i++)
                 {
                     String[] t2 = t1[i].Replace("\r","").Split('\n');
                     int flag = 0;
@@ -322,7 +334,7 @@ namespace MyWebPlay.Controllers
 
                 chuaxet_da = new int[t1.Length][];
 
-                for (int i = 0; i < t1.Length; i++)
+                for (i = 0; i < t1.Length; i++)
                     chuaxet_da[i] = new int[5];
 
                 //=======
@@ -341,7 +353,7 @@ namespace MyWebPlay.Controllers
                         continue;
 
                     chuaxet_ch[int.Parse(x.ToString())] = 1;
-                    int i = int.Parse(x.ToString());
+                    i = int.Parse(x.ToString());
                     String[] t2 = t1[i].Replace("\r","").Split('\n');
 
                     char[] CH = t2[0].ToCharArray();
@@ -429,7 +441,7 @@ namespace MyWebPlay.Controllers
 
             int[][] chuaxetX = new int[sl][];
 
-            for (int i =0; i< sl;i++)
+            for (i =0; i< sl;i++)
             {
                 chuaxetX[i] = new int[tn[i].tongsocau];
                 for (int j = 0; j < chuaxetX[i].Length; j++)
@@ -439,7 +451,7 @@ namespace MyWebPlay.Controllers
             }
 
 
-            for (int i =0;i <tnX.gioihancau;i++)
+            for (i =0;i <tnX.gioihancau;i++)
             {
                 Random r = new Random();
                 int chuong;
@@ -491,7 +503,7 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace, "teinnkatajeqerfl");                 }
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");                 }
                 return RedirectToAction("Error", new { exception = "true" });
             }
         }
@@ -501,6 +513,20 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                var fix = "";
+                foreach (var item in f.Keys)
+                {
+                    fix += string.Format("{0} : {1}\n", item, f[item]);
+                }
+
+                int i = 0;
+                foreach (var item in txtFile)
+                {
+                    fix += string.Format("txtFile[{0}] : {1}\n", i + "", item.FileName);
+                    i++;
+                }
+
+                HttpContext.Session.SetString("hanhdong_3275", fix);
                 TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null); if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
             if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
             {
@@ -541,7 +567,7 @@ namespace MyWebPlay.Controllers
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
             var flax = 0;
-            for (int i = 0; i < listSetting.Length; i++)
+            for (i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
@@ -666,7 +692,7 @@ namespace MyWebPlay.Controllers
 
                 if (tick != "on")
                 {
-                    for (int i = 0; i < t1.Length; i++)
+                    for (i = 0; i < t1.Length; i++)
                     {
                         String[] t2 = t1[i].Replace("\r","").Split('\n');
                         if (t2.Length != 6)
@@ -691,7 +717,7 @@ namespace MyWebPlay.Controllers
 
                         //-------------------
 
-                        for (int i = 0; i < t1.Length; i++)
+                        for (i = 0; i < t1.Length; i++)
                     {
                         String[] t2 = t1[i].Replace("\r","").Split('\n');
                         int flag = 0;
@@ -733,7 +759,7 @@ namespace MyWebPlay.Controllers
 
                 chuaxet_da = new int[t1.Length][];
 
-                for (int i = 0; i < t1.Length; i++)
+                for (i = 0; i < t1.Length; i++)
                     chuaxet_da[i] = new int[5];
 
                 //=======
@@ -763,7 +789,7 @@ namespace MyWebPlay.Controllers
 
                     chuaxet_ch[int.Parse(x.ToString())] = 1;
 
-                    int i = int.Parse(x.ToString());
+                    i = int.Parse(x.ToString());
                     String[] t2 = t1[i].Replace("\r","").Split('\n');
 
                     char[] CH = t2[0].ToCharArray();
@@ -874,7 +900,7 @@ namespace MyWebPlay.Controllers
 
            int[][] chuaxetX = new int[sl][];
 
-            for (int i = 0; i < sl; i++)
+            for (i = 0; i < sl; i++)
             {
                 chuaxetX[i] = new int[tn[i].tongsocau];
                 for (int j = 0; j < chuaxetX[i].Length; j++)
@@ -884,7 +910,7 @@ namespace MyWebPlay.Controllers
             }
 
             int xx = 0;
-            for (int i = 0; i < tnX.gioihancau; i++)
+            for (i = 0; i < tnX.gioihancau; i++)
             {
                 int chuong = 0;
                 int soluong= 0;
@@ -941,7 +967,7 @@ namespace MyWebPlay.Controllers
                 var maudivPlay = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[6];
                 if (maudivPlay == "COLOR_DIV_TRAC_NGHIEM_ON")
                 {
-                    for (int i = 0; i < tnX.gioihancau; i++)
+                    for (i = 0; i < tnX.gioihancau; i++)
                     {
                         if (i % 2 == 0)
                             TempData["mau-trac-nghiem-" + i] = "orangered";
@@ -965,7 +991,7 @@ namespace MyWebPlay.Controllers
 
                 ViewBag.HinhAnh = "";
 
-                for (int i = 0; i < tnX.tongsocau; i++)
+                for (i = 0; i < tnX.tongsocau; i++)
                 {
                     string result = "";
                     foreach (Match match in regExp.Matches(tnX.ch[i]))
@@ -979,7 +1005,7 @@ namespace MyWebPlay.Controllers
                 ViewBag.HinhAnh = ViewBag.HinhAnh.TrimEnd("\n\n".ToCharArray());
 
                     var s = "";
-                for (int i = 0; i< tnX.tongsocau; i++)
+                for (i = 0; i< tnX.tongsocau; i++)
                 {
                     tnX.ch[i] = Regex.Replace(tnX.ch[i], "<br><img name=\"hinhcau"+i+"\".*><br>", "");
                     ViewBag.ND_File = Regex.Replace(ViewBag.ND_File, "<br><img name=\"hinhcau"+i+"\".*><br>", "");
@@ -1012,7 +1038,7 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace, "teinnkatajeqerfl");                 }
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");                 }
                 return RedirectToAction("Error", new { exception = "true" });
             }
         }
@@ -1047,7 +1073,7 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace, "teinnkatajeqerfl");                 }
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");                 }
                 return RedirectToAction("Error", new { exception = "true" });
             }
         }

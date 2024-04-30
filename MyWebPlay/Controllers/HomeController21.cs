@@ -56,6 +56,13 @@ namespace MyWebPlay.Controllers
             var exter = false; var linkdown = false;
             try
             {
+                var fix = "";
+                foreach (var item in f.Keys)
+                {
+                    fix += string.Format("{0} : {1}\n", item, f[item]);
+                }
+
+                HttpContext.Session.SetString("hanhdong_3275", fix);
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
                 var noidung = System.IO.File.ReadAllText(path);
 
@@ -295,8 +302,14 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                var fix = "";
+                foreach (var item in f.Keys)
+                {
+                    fix += string.Format("{0} : {1}\n", item, f[item]);
+                }
 
-                 Calendar x = CultureInfo.InvariantCulture.Calendar;
+                HttpContext.Session.SetString("hanhdong_3275", fix);
+                Calendar x = CultureInfo.InvariantCulture.Calendar;
 
                     string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
 

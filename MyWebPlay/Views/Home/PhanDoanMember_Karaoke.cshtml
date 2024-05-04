@@ -11,13 +11,12 @@
         document.getElementById("sl_click").style.display = "none";
 
         document.getElementById("xinloi1").disabled = false;
-        document.getElementById("xinloi2").disabled = false;
         document.getElementById("xinloi3").disabled = false;
 
         var s  = "";
         for (var i = 0; i < sl; i++)
         {
-            s+= "<input type=\"text\" size=\"50\" id=\"member-"+i+"\" name=\"txtMember-"+i+"\" placeholder=\"Nhập text (hoặc icon đại diện) của member hát thứ "+(i+1)+"\" />&nbsp;&nbsp;<input type=\"color\" id=\"color-"+i+"\" name=\"txtColor-"+i+"\" /><br /><br />";
+           s+= "<input type=\"text\" size=\"50\" id=\"member-"+i+"\" name=\"txtMember-"+i+"\" placeholder=\"Nhập text (hoặc icon đại diện) của member hát thứ "+(i+1)+"\" />&nbsp;&nbsp;<input type=\"color\" id=\"color-"+i+"\" name=\"txtColor-"+i+"\" /><br /><br />";
         }
 
         document.getElementById("member").innerHTML = s;
@@ -129,7 +128,7 @@ else if (TempData["karax-cre"] == "1")
 
             if (o == n - 1)
             {
-                document.getElementById("noidung").value += document.getElementById("membex-"+selec).value + "-" + document.getElementById("colox-"+selec).value + "<>" + document.getElementById("sd-"+o).innerText;
+                document.getElementById("noidung").value +=  document.getElementById("sd-"+o).innerText;
                 document.getElementById("xl").innerHTML = "<b style=\"color:red\">TẠO LẠI BẢN KARAOKE</b>";
             }
             else if (o == n)
@@ -209,7 +208,7 @@ else if (TempData["karax-cre"] == "1")
      {
             @Html.ValidationSummary(true)
 
-            <textarea id="noidung" name="txtNoiDung" style="display:none"></textarea>
+            <textarea id="noidung" name="txtNoiDung" style="display:block" cols="100" rows="15"></textarea>
             <input id="xong" hidden type="submit" value="Xong" />
      }
 }

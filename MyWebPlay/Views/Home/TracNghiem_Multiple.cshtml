@@ -3,6 +3,18 @@
     Layout = null;
 }
 <script>
+
+    function tuychinhmucdo()
+    {
+        if (document.getElementById("checkmucdo").checked == true)
+        {
+            document.getElementById("hienmucdo").style.display = "block";
+        }
+        else
+        {
+            document.getElementById("hienmucdo").style.display = "none";
+        }
+    }
     function soluong()
     {
         var sl = document.getElementById("txtSL").value;
@@ -103,6 +115,29 @@
             </tr>
             }
 
+            @if (ViewBag.SL != null && ViewBag.SL > 0)
+            {
+                <tr style="height:40px">
+                    <td> </td>
+                <td>
+                    <br>
+                    <input id="checkmucdo" name="txtMucDox" type="checkbox" onchange="tuychinhmucdo()" /><b style="color:orangered">Tuỳ chỉnh mức độ phân phối câu hỏi theo từng chương</b>
+                    <br />
+                    <span style="color:red; font-style:italic">@ViewData["LoiMucDo"] </span>
+                    <br /><br />
+                    <div id="hienmucdo" style="display:none">
+                          @for (int i = 0; i < ViewBag.SL; i++)
+                            {
+                                <b style="color:purple">Chương/Bài @(i+1)  : </b><input type="number" name="txtMucDo-@i" min="1" max="100" value="1" /><b style="color:lawngreen">%</b>
+                                <br />
+                            }
+                           <br />
+                    <span style="color:blue; font-style:italic">Lưu ý : bạn có thể tuỳ chỉnh các mức độ phân phối cho mỗi chương tuỳ ý, nhưng cũng phải dựa trên số liệu thực tế hiện có</span>
+                        </div>
+                </td>
+            </tr>
+            }
+            <br />
 
             <tr style="height:40px">
                 <td></td>

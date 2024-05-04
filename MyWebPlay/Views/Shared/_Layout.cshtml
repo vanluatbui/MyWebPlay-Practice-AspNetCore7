@@ -333,6 +333,21 @@
         //var urlParams = new URLSearchParams(queryString);
         //var closex = urlParams.get('closex');
 
+        var notice = 0;
+        setInterval(function()
+        {
+            if (notice == 1)
+            return;
+
+            //Notice
+                if ('@TempData["notice-play"]' != "[NULL]")
+                {
+                   alert("[XIN TRÂN TRỌNG THÔNG BÁO]\n\n"+document.getElementById("notice").value);
+                }
+
+                    notice = 1;
+        },1000);
+
         // Delete div somee
 
         if ('@TempData["mini-web"]' == "" || '@TempData["mini-web"]' == null || '@TempData["mini-web"]' == "false")
@@ -971,7 +986,7 @@
         <header>
             <nav id="nenta" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color:@TempData["mau_nen"]">
             <div class="container-fluid">
-            @if (TempData["belix"] == "false")
+            @if (TempData["belix"] == "false" && TempData["not-locked-web-client-play"] != "true")
             {
                         <button style="color:deeppink" class="navbar-brand" asp-area="" onclick="khoawebsite()">Khoá WebSite bằng mật mã LockedClientID (<u>hãy cẩn thận đừng nhấn nhầm vào đây nếu bạn không có nhu cầu 😁</u>)</button><h2 onclick="toanmanhinh()" href="#xuly">⭐</h2>
             }
@@ -1059,6 +1074,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
+    <textarea id="notice" hidden>@TempData["notice-play"]</textarea>
 </body>
 </html>
 }

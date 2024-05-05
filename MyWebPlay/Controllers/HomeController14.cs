@@ -1747,8 +1747,12 @@ namespace MyWebPlay.Controllers
                     else
                     {
                         int x = (HttpContext.Session.GetString("karaoke-goto-index") != null) ? int.Parse(HttpContext.Session.GetString("karaoke-goto-index")) : int.Parse(HttpContext.Session.GetString("auto-kara-index")) + 1;
+                        if (HttpContext.Session.GetString("karaoke-goto-index") == null)
+                            HttpContext.Session.SetString("auto-kara-index", x + "");
+                        else
+                            HttpContext.Session.SetString("auto-kara-index", x + "***[index]");
                         HttpContext.Session.Remove("karaoke-goto-index");
-                        HttpContext.Session.SetString("auto-kara-index", x + "");
+
                     }
                     TempData["index-auto"] = HttpContext.Session.GetString("auto-kara-index");
                     TempData["length-list-auto"] = (ct.Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries).Length).ToString();

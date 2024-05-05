@@ -147,7 +147,17 @@ body {
 
         if ('@TempData["post-kara"]' == "false")
         {
-         var index = new Number('@TempData["index-auto"]');
+
+            var indes = '@TempData["index-auto"]'.split("***");
+            var index = 0;
+            if (indes.length == 2)
+            {
+                index = new Number(indes[0]) - 1;
+            }
+            else
+            {
+                index = new Number(indes[0]);
+            }
 
          document.getElementById("listsong").options.selectedIndex = index;
         changesong();
@@ -2080,9 +2090,8 @@ else
                         }
                         else
                         {
-                            var i1 = TempData["index-auto"] + "";
+                            var i1 = TempData["index-auto"].ToString().Split("***")[0] + "";
                             var i2 = TempData["length-list-auto"] + "";
-                            var i3 = (int.Parse(i2) - 1) + "";
                             TempData["index-auto"] = i1;
                             TempData["length-list-auto"] = i2;
                             if (i1 != i2)
@@ -2094,7 +2103,7 @@ else
                                     <button style="display:none" onclick="StopKaraoke()"><b style="color:darkgreen;display:none">Đi đến bài hát tiếp theo</b></button>
                             }
                             <button onclick="DungKaraoke()"><b style="color:red">Huỷ trình phát Karaoke tự động (đã phát : @i1/@i2)</b></button>
-                            <input id="thutu" type="number" min="0" max="@i3" value="@i1" /><button onclick="GoToThuTu(@i2)"><b style="color:orangered">Đi đến bài hát tại thứ tự</b></button>
+                            <input id="thutu" type="number" min="1" max="@i2" value="@i1" /><button onclick="GoToThuTu(@i2)"><b style="color:orangered">Đi đến bài hát tại thứ tự</b></button>
                         }
                         &nbsp;<span style="color:darkturquoise"><b><u>@ViewBag.BHServer</u></b></span>
     
@@ -2545,9 +2554,8 @@ else
                         }
                         else
                         {
-                             var i1 = TempData["index-auto"] + "";
+                             var i1 = TempData["index-auto"].ToString().Split("***")[0] + "";
                             var i2 = TempData["length-list-auto"] + "";
-                            var i3 = (int.Parse(i2) - 1) + "";
                             TempData["index-auto"] = i1;
                             TempData["length-list-auto"] = i2;
                             if (i1 != i2)
@@ -2559,7 +2567,7 @@ else
                                     <button style="display:none" onclick="StopKaraoke()"><b style="color:darkgreen;display:none">Đi đến bài hát tiếp theo</b></button>
                                 }
                                 <button onclick="DungKaraoke()"><b style="color:red">Huỷ trình phát Karaoke tự động (đã phát : @i1/@i2)</b></button>
-                            <input id="thutu" type="number" min="0" max="@i3" value="@i1" /><button onclick="GoToThuTu(@i2)"><b style="color:orangered">Đi đến bài hát tại thứ tự</b></button>
+                            <input id="thutu" type="number" min="1" max="@i2" value="@i1" /><button onclick="GoToThuTu(@i2)"><b style="color:orangered">Đi đến bài hát tại thứ tự</b></button>
                         }
                          &nbsp;<span style="color:darkturquoise"><b><u>@ViewBag.BHServer</u></b></span>
     <br /><br /><button style="color:purple" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI/PHÁT</b></button>

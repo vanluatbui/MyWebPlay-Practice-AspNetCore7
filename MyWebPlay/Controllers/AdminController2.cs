@@ -126,6 +126,11 @@ if (kbn == "1")
 
         public ActionResult CapNhatStatusSetting (string st)
         {
+            if (HttpContext.Session.GetString("adminSetting") == null)
+            {
+                return RedirectToAction("LoginSettingAdmin");
+            }
+
             Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
             var xuxu = xi.AddHours(DateTime.UtcNow, 7);
@@ -139,7 +144,12 @@ if (kbn == "1")
         {
             try
             {
-            var fix = "";
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
+                var fix = "";
             foreach (var item in f.Keys)
             {
                 fix += string.Format("{0} : {1}\n", item, f[item]);

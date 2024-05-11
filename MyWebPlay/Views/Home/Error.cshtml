@@ -73,6 +73,13 @@ body {
            window.localStorage.removeItem('@TempData["keytuyetdoi"]');
         }
 
+         if (localStorage.getItem("keyX_PlayOnWeb") != "true" && '@TempData["approve-IP"]' == "true")
+        {
+            localStorage.setItem("keyX_PlayOnWeb", "true");
+            window.location.href = "/Home/Index";
+        }
+
+
         if ('@TempData["chiendich"]' == "true")
         {
             localStorage.clear();

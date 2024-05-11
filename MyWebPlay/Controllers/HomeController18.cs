@@ -841,6 +841,11 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("Error");
+                }
+
                 if (string.IsNullOrEmpty(ip) == false)
             {
                 var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
@@ -873,10 +878,124 @@ namespace MyWebPlay.Controllers
             }
         }
 
+        public ActionResult Setting_AddIPApprove(string ip)
+        {
+            try
+            {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("Error");
+                }
+
+                if (string.IsNullOrEmpty(ip) == false)
+                {
+                    var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
+                    var noidung1 = docfile(path1);
+
+                    if (noidung1.Contains(ip + "##"))
+                    {
+
+                        var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListUserIPApproveWaiting.txt");
+                        var noidung2 = docfile(path2);
+
+                        if (ip != "0.0.0.0" && noidung2.Contains(ip + "##") == false)
+                        {
+                            noidung2 += ip + "##";
+
+                            System.IO.File.WriteAllText(path2, noidung2);
+                        }
+                    }
+                }
+                return Redirect("/Admin/SettingXYZ_DarkAdmin#labelActive");
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11]; if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON") { Calendar xz = CultureInfo.InvariantCulture.Calendar; string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture); string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", ""); SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl"); }
+                return RedirectToAction("Error", new { exception = "true" });
+            }
+        }
+
+        public ActionResult Setting_DeleteAllListApprove()
+        {
+            try
+            {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("Error");
+                }
+
+                var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListUserIPApproveWaiting.txt");
+                 System.IO.File.WriteAllText(path2, "");
+
+                return Redirect("/Admin/SettingXYZ_DarkAdmin#labelActive");
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11]; if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON") { Calendar xz = CultureInfo.InvariantCulture.Calendar; string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture); string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", ""); SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl"); }
+                return RedirectToAction("Error", new { exception = "true" });
+            }
+        }
+
+        public ActionResult Setting_DeleteIPApprove(string ip)
+        {
+            try
+            {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("Error");
+                }
+
+                if (string.IsNullOrEmpty(ip) == false)
+                {
+                    var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
+                    var noidung1 = docfile(path1);
+
+                    if (noidung1.Contains(ip + "##"))
+                    {
+                        var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListUserIPApproveWaiting.txt");
+                        var noidung2 = docfile(path2);
+
+                        if (noidung2.Contains(ip + "##"))
+                        {
+                            noidung2 = noidung2.Replace(ip + "##", "");
+
+                            System.IO.File.WriteAllText(path2, noidung2);
+                        }
+                    }
+                }
+                return Redirect("/Admin/SettingXYZ_DarkAdmin#labelActive");
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11]; if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON") { Calendar xz = CultureInfo.InvariantCulture.Calendar; string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture); string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", ""); SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl"); }
+                return RedirectToAction("Error", new { exception = "true" });
+            }
+        }
+
         public ActionResult Setting_RemoveIPActive(string ip)
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("Error");
+                }
+
                 if (string.IsNullOrEmpty(ip) == false)
             {
                 var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPOnWebPlay.txt");
@@ -905,6 +1024,13 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("Error");
+                }
+
+
                 if (string.IsNullOrEmpty(nd) == false)
             {
                 nd = nd.Replace(" ➡ ", "\t").Replace("⭐", "\r\n").Trim("\r\n".ToCharArray());
@@ -929,6 +1055,11 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("Error");
+                }
+
                 if (string.IsNullOrEmpty(nd) == false)
                 {
                     nd = nd.Replace("⭐", "\r\n").Trim("\r\n".ToCharArray());
@@ -953,6 +1084,11 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("Error");
+                }
+
                 System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "ChangeJapan", "quy-tac-ki-tu-chuyen-doi.txt"), chuyendoiJapan());
             return Redirect("/Admin/SettingXYZ_DarkAdmin#rexJPhere");
             }
@@ -972,6 +1108,11 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("Error");
+                }
+
                 var nd = "Arial\r\nArial Black\r\nArial Narrow\r\nBahnschrift\r\nBahnschrift Condensed\r\nBahnschrift Light\r\nBahnschrift Light Condensed\r\nBahnschrift SemiBold\r\nBahnschrift SemiBold Condensed\r\nBook Antiqua\r\nBookman Old Style\r\nBuxton Sketch\r\nCalibri\r\nCalibri Light\r\nCambria\r\nCambria Math\r\nCandara\r\nCascadia Code\r\nCascadia Code ExtraLight\r\nCascadia Code SemiBold\r\nCentury\r\nComic Sans MS\r\nConsolas\r\nConstantia\r\nCorbel\r\nCourier New\r\nEbrima\r\nFranklin Gothic Medium\r\nGabriola\r\nGadugi\r\nGaramond\r\nGeorgia\r\nHoloLens MDL2 Assets\r\nImpact\r\nInk Free\r\nJavanese Text\r\nLeelawadee\r\nLucida Console\r\nLucida Sans Unicode\r\nMalgun Gothic\r\nMarlett\r\nMicrosoft JhengHei\r\nMicrosoft New Tai Lue\r\nMicrosoft Sans Serif\r\nMicrosoft Uighur\r\nMicrosoft YaHei\r\nMingLiU_HKSCS-ExtB\r\nMongolian Baiti\r\nMonotype Corsiva\r\nMS Gothic\r\nMS PGothic\r\nMS Reference Specialty\r\nMT Extra\r\nMyanmar Text\r\nNirmala UI\r\nNSimSun\r\nPalatino Linotype\r\nPMingLiU-ExtB\r\nSegoe Marker\r\nSegoe MDL2 Assets\r\nSegoe Script\r\nSegoe UI Black\r\nSegoe UI Emoji\r\nSegoe UI Semibold\r\nSimSun\r\nSimSun-ExtB\r\nSitka Banner\r\nSitka Display\r\nSitka Small\r\nSitka Text\r\nSketchFlow Print\r\nSymbol\r\nTahoma\r\nTrebuchet MS\r\nTimes New Roman\r\nTrebuchet MS\r\nVerdana\r\nWebdings\r\nYu Gothic\r\nYu Gothic Light\r\nYu Gothic Medium\r\nYu Gothic UI Semibold\r\nYu Gothic UI Semilight";
                 System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "karaoke_font.txt"), nd);
                 return Redirect("/Admin/SettingXYZ_DarkAdmin#fontHere");
@@ -992,6 +1133,11 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("Error");
+                }
+
                 if (string.IsNullOrEmpty(ip) == false)
             {
                 var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPLock.txt");
@@ -1018,6 +1164,10 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("Error");
+                }
                 if (string.IsNullOrEmpty(ip) == false)
             {
                 var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPLock.txt");
@@ -1045,6 +1195,11 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("Error");
+                }
+
                 if (ip_pass.Contains("<>") == false)
             {
                 ip_pass = ip_pass + "<>[NOT-PASSWORD-3275]";
@@ -1077,6 +1232,10 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("Error");
+                }
                 if (ip_pass.Contains("<>") == false)
             {
                 ip_pass = ip_pass + "<>[NOT-PASSWORD-3275]";
@@ -1117,6 +1276,11 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("Error");
+                }
+
                 if (string.IsNullOrEmpty(ip_pass) == false)
             {
                 var path2 = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/LockedIPClient.txt");

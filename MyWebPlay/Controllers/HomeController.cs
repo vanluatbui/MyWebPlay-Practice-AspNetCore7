@@ -120,6 +120,18 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
+                if (TempData["userIP"] != null && TempData["userIP"] != "" && System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[15] == "APPROVE_ALL_IP_USER_REGIST_WHEN_GO_TO_PAGE_ERROR_ON")
+                {
+                    var pathSD = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListUserIPApproveWaiting.txt");
+                    var noidungSD = docfile(pathSD);
+
+                    if (noidungSD.Contains(TempData["userIP"].ToString() + "##"))
+                    {
+                        TempData["approve-IP"] = "true";
+                        HttpContext.Session.SetString("approve-IP", "true");
+                    }
+                }
+
                 var listSetting = noidung.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
             var infoX = listSetting[30].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -233,7 +245,7 @@ namespace MyWebPlay.Controllers
                 TempData["notice-play"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[12].ToString().Replace("NOTICE : ","");
 
                 TempData["not-locked-web-client-play"] = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[13] == "NOT_USE_LOCKED_CLIENT_WEB_ON") ? "true" : "false";
-                
+
                 // Send mail try again - karaoke with member
 
                 string hostt = "{" + Request.Host.ToString() + " - "+ TempData["userIP"]+"}"
@@ -1212,6 +1224,17 @@ namespace MyWebPlay.Controllers
                     }
                     khoawebsiteClient(listIP);
                     HttpContext.Session.Remove("TracNghiem");
+
+                    if (HttpContext.Session.GetString("approve-IP") == "true")
+                    {
+                        var pathSD = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListUserIPApproveWaiting.txt");
+                        var noidungSD = docfile(pathSD);
+
+                        noidungSD = noidungSD.Replace(TempData["userIP"].ToString() + "##", "");
+
+                        System.IO.File.WriteAllText(pathSD, noidungSD);
+                        HttpContext.Session.Remove("approve-IP");
+                    }
                 }
             }
             catch(Exception ex)

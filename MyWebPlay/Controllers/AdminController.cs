@@ -179,6 +179,11 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
                 var fix = "";
                 var ii = 0;
                 foreach (var item in txtFile)
@@ -452,6 +457,11 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
                 var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var nd = System.IO.File.ReadAllText(pth);
                 var onoff = nd.Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
@@ -759,6 +769,7 @@ namespace MyWebPlay.Controllers
               {
             try
             {
+
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
@@ -1092,6 +1103,11 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
                 var fix = "";
                 foreach (var item in f.Keys)
                 {
@@ -1725,6 +1741,11 @@ namespace MyWebPlay.Controllers
 
         public ActionResult EditStudentMark()
         {
+            if (HttpContext.Session.GetString("adminSetting") == null)
+            {
+                return RedirectToAction("LoginSettingAdmin");
+            }
+
             try
             {
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
@@ -1803,6 +1824,11 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
                 var fix = string.Format("txtText : {0}\n", txtText);
                 HttpContext.Session.SetString("hanhdong_3275", fix);
 
@@ -1904,6 +1930,11 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
@@ -1965,6 +1996,11 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
@@ -2040,6 +2076,11 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
@@ -2496,6 +2537,11 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
@@ -2771,6 +2817,11 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
                 khoawebsiteAdmin();  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 }
                 if (TempData["locked-app"] == "true")
                     return RedirectToAction("Error", "Home");
@@ -2978,6 +3029,11 @@ namespace MyWebPlay.Controllers
 
         public ActionResult OpenAdmin(string? code)
         {
+            if (HttpContext.Session.GetString("adminSetting") == null)
+            {
+                return RedirectToAction("LoginSettingAdmin");
+            }
+
             var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
             var nd = System.IO.File.ReadAllText(pth).Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries);
 

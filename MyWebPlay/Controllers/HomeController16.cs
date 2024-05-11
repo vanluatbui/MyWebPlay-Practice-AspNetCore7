@@ -668,7 +668,7 @@ namespace MyWebPlay.Controllers
                 if (session.Contains("reset-play-setting") && giatri == "32752262_20062000")
                 {
                         var pthX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
-                        var logset = "jeInPDAM4cNclBgtNp7jaw==\r\n9wDcWHKAG3J/pKouWEw1nEO3IbcctHufkXokuOVRL98=\r\nOFF\r\nfile_TAT\r\nSettingABC_DarkBVL.txt\r\ndemokaraoke.bsite.net\r\nCOLOR_DIV_TRAC_NGHIEM_OFF\r\nCOLOR_DIV_QUESTION_OFF\r\nSESSION_PLAY_LOGIN_ON\r\nENCRYPT_LOCK_FILE_ADMIN_SETTING_WHEN_GO_TO_PAGE_ERROR_OFF\r\nLINK_HTTPS_ON\r\nSEND_MAIL_WHEN_ERROR_EXCEPTION_OFF\r\nNOTICE : [NULL]\r\nNOT_USE_LOCKED_CLIENT_WEB_ON\r\nDIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON";
+                        var logset = "jeInPDAM4cNclBgtNp7jaw==\r\n9wDcWHKAG3J/pKouWEw1nEO3IbcctHufkXokuOVRL98=\r\nOFF\r\nfile_TAT\r\nSettingABC_DarkBVL.txt\r\ndemokaraoke.bsite.net\r\nCOLOR_DIV_TRAC_NGHIEM_OFF\r\nCOLOR_DIV_QUESTION_OFF\r\nSESSION_PLAY_LOGIN_ON\r\nENCRYPT_LOCK_FILE_ADMIN_SETTING_WHEN_GO_TO_PAGE_ERROR_OFF\r\nLINK_HTTPS_ON\r\nSEND_MAIL_WHEN_ERROR_EXCEPTION_OFF\r\nNOTICE : [NULL]\r\nNOT_USE_LOCKED_CLIENT_WEB_ON\r\nDIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON\r\nAPPROVE_ALL_IP_USER_REGIST_WHEN_GO_TO_PAGE_ERROR_OFF";
                         System.IO.File.WriteAllText(pthX, logset);
 
                         // Reset setting

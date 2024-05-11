@@ -148,6 +148,15 @@ input:checked + .slider:before {
             }
         }
 
+          function DeleteAllListApprove()
+        {
+            var xn = confirm('Bạn có chắc chắn không?');
+            if (xn == true)
+            {
+                window.location.href = "/Home/Setting_DeleteAllListApprove";
+            }
+        }
+
         function doichonlua()
         {
             document.getElementById("chonX").value = document.getElementById("chonlua").options.selectedIndex;
@@ -852,6 +861,20 @@ input:checked + .slider:before {
 
         //========================
 
+         function addApprove()
+        {
+             var re = confirm("Are you sure?");
+            if (re == false) return;
+            window.location.href = "/Home/Setting_AddIPApprove?ip="+document.getElementById("txtIPActive").value;
+        }
+
+         function removeApprove()
+        {
+             var re = confirm("Are you sure?");
+            if (re == false) return;
+            window.location.href = "/Home/Setting_DeleteIPApprove?ip="+document.getElementById("txtIPActive").value;
+        }
+
         function addActive()
         {
              var re = confirm("Are you sure?");
@@ -1267,12 +1290,12 @@ input:checked + .slider:before {
 
 
 
-    <b id="labelActive" name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG HOẠT ĐỘNG (một số thiết bị có thể chưa xác nhận cấp phép sử dụng hoặc họ đã xoá dữ liệu trình duyệt)</b>
+    <b id="labelActive" name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG HOẠT ĐỘNG (một số thiết bị có thể chưa xác nhận cấp phép/approve sử dụng hoặc họ đã xoá dữ liệu trình duyệt)</b>
     <br />
     <select onclick="loadActive()" onchange="setActive()" id="ip_active">
-    </select><span>&nbsp;</span><input type="text" id="txtIPActive" /><br />
+    </select><span>&nbsp;</span><input type="text" id="txtIPActive" />&nbsp;&nbsp;<span><a style="color:violet" href="/ClientConnect/ListUserIPApproveWaiting.txt" target="_blank">Xem list IP user đang chờ approve</a><span>&nbsp;&nbsp;<span><a style="color:violet" href="#xuly" onclick="DeleteAllListApprove()">Delete all list IP user (đang chờ approve)</a><span><br />
     <input type="text" size="100" placeholder="Nhập thông tin user hoặc ghi chú (nếu có)" id="ghichu" /><br />
-    <button onclick="addActive()" style="color:green">THÊM (HOẠT ĐỘNG NHƯNG CHƯA XÁC NHẬN THIẾT BỊ)</button><span>&nbsp;</span><button onclick="removeActive()" style="color:red">XOÁ (HẾT HẠN)</button><span>&nbsp;</span>(<a href="/ClientConnect/InfoIPRegist.txt" target="_blank" style="color:yellow">Xem Chi Tiết (có thể chưa đủ thông tin)</a><b> <span>&nbsp;</span> </b><a style="color:yellow" href="/ClientConnect/InfoIPRegist.txt" @*onclick="xoachitiet()"*@ download="">Tải xuống</a> <span>&nbsp;</span> <a style="color:yellow" href="#xuly" onclick="deletechitiet()">Delete detail</a> <span>&nbsp;</span> <a style="color:yellow" href="#xuly" onclick="deleteX()">Delete all this</a><span>)</span>
+    <button onclick="addActive()" style="color:green">THÊM (HOẠT ĐỘNG NHƯNG CHƯA XÁC NHẬN THIẾT BỊ)</button><span>&nbsp;</span><button onclick="removeActive()" style="color:red">XOÁ (HẾT HẠN)</button><span>&nbsp;</span>(<a href="/ClientConnect/InfoIPRegist.txt" target="_blank" style="color:yellow">Xem Chi Tiết (có thể chưa đủ thông tin)</a><b> <span>&nbsp;</span> </b><a style="color:yellow" href="/ClientConnect/InfoIPRegist.txt" @*onclick="xoachitiet()"*@ download="">Tải xuống</a> <span>&nbsp;</span> <a style="color:yellow" href="#xuly" onclick="deletechitiet()">Delete detail</a> <span>&nbsp;</span> <a style="color:yellow" href="#xuly" onclick="deleteX()">Delete all this</a>&nbsp;&nbsp;<a style="color:orangered" href="#xuly" onclick="addApprove()">Add IP approve to list</a>&nbsp;&nbsp;<a style="color:orangered" href="#xuly" onclick="removeApprove()">Remove IP approve to list</a><span>)</span>
     <br />
      <br />
     <b name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG BỊ KHOÁ (ADMIN)</b>

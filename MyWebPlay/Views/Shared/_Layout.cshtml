@@ -550,8 +550,8 @@
              if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
             {
             ok = 1;
-            alert("Để tiếp tục sử dụng, vui lòng tìm cách để có lại được sự cấp phép. Nếu không, hãy tắt sử dụng trang web và yêu cầu bật sử dụng lại!");
-            window.location.href = "https://stackoverflow.com/questions";
+            alert("Để tiếp tục sử dụng, vui lòng tìm cách để có lại được sự cấp phép. Nếu không, hãy tắt sử dụng trang web và yêu cầu bật sử dụng lại (nếu bạn đã được amin approve trước đó và đang chờ đợi, hệ thống sẽ cho phép bạn quay trở lại trang Index ngay)");
+            window.location.href = "/Home/Error";
             }
              else
             {

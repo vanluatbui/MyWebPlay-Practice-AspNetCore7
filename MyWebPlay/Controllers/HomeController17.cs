@@ -924,10 +924,29 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-                if (flag == 1)
+                    if (flag == 1)
                     return RedirectToAction("Index");
             }
-            return View();
+
+
+                var mai = "[Đã xảy ra lỗi trong quá trình tạo mã]";
+             var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "ListIPComeToHereTheFirst.txt");
+
+                    var listIPFirst = System.IO.File.ReadAllText(path).Replace("\r", "").Split("\n");
+
+                    for (int i = 0; i < listIPFirst.Length; i++)
+                    {
+                        var info = listIPFirst[i].Split('\t');
+                        if (TempData["userIP"].ToString() == info[0])
+                        {
+                            mai = info[2];
+                            break;
+                        }
+                    }
+
+                TempData["infoUserIP"] = mai;
+
+                return View();
             }
             catch (Exception ex)
             {
@@ -1244,10 +1263,25 @@ return RedirectToAction("Index");
 
                 if (listIP.Contains(ip) == false)
                 {
+                    // Random number and character string
+
+                    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                    var stringChars = new char[10];
+                    var random = new Random();
+
+                    for (int i = 0; i < stringChars.Length; i++)
+                    {
+                        stringChars[i] = chars[random.Next(chars.Length)];
+                    }
+
+                    var finalString = new String(stringChars);
+
+
+
                     if (string.IsNullOrEmpty(listIP))
-                        System.IO.File.WriteAllText(path, ip + "\t" + xuxu);
+                        System.IO.File.WriteAllText(path, ip + "\t" + xuxu + "\t" + "[" + finalString + "]");
                     else
-                    System.IO.File.WriteAllText(path, listIP + "\r\n" + ip + "\t" + xuxu);
+                    System.IO.File.WriteAllText(path, listIP + "\r\n" + ip + "\t" + xuxu + "\t" + "[" + finalString + "]");
                 }
 
             return RedirectToAction(currentUrl);

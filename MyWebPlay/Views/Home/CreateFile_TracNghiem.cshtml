@@ -1,23 +1,22 @@
 ﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
-
     var id;
     var so = 0;
-
+    
     function checkdapas()
     {
         var max = new Number(document.getElementById("CH_Num").value);
         var len = document.getElementById("DapAn").value.split("\n");
-
+    
         if (len.length != max)
         {
             alert("Số lượng đáp án bạn đã thiết lập hiện tại không trùng khớp với số lượng câu hỏi hiện có (vui lòng kiểm tra lại)");
             return;
         }
-
+    
         for (var i = 0; i < len.length; i++)
         {
             if (len[i] != "A" && len[i] != "B" && len[i] != "C" && len[i] != "D")
@@ -26,10 +25,10 @@
                 return;
             }
         }
-
+    
         alert("Kiểm tra tình trạng đáp án an toàn !");
     }
-
+    
     function xongroi()
     {
         if (document.getElementById("CH_Num").value == "")
@@ -38,13 +37,13 @@
             window.location.href = "#CH_Num"
             return;
         }
-
+    
         if (document.getElementById("ticky0").checked == false && xd == 0)
         {
             alert("Nếu bài trắc nghiệm của bạn đã có đáp án, vui lòng sử dụng tính năng và liệt kê nội dung của bạn.");
             return;
         }
-
+    
         document.getElementById("xong").style.display = "none";
         document.getElementById("loading").style.display = "inline-block";
         document.getElementById("Swap1").readOnly = true;
@@ -67,7 +66,7 @@
         document.getElementById("ticky0").disabled = true;
         id = setInterval(myAlertX, 1000);
     }
-
+    
     var xw = new Number('@TempData["Time_Waiting"]') * 3;
     function myAlertX()
     {
@@ -79,7 +78,7 @@
         }
                 so++;
     }
-
+    
     function setTicky()
     {
         if (document.getElementById("ticky0").checked)
@@ -94,12 +93,12 @@
             document.getElementById("ticky2").style.display = "inline-block";
         }
     }
-
+    
     function changeDA()
     {
         var dapan = document.getElementById("DapAn");
         var txt = document.getElementById("txtansw");
-
+    
         var s = "";
         if (txt.value == "1")
         s = "A";
@@ -109,9 +108,9 @@
         s = "C";
         else if (txt.value == "4")
         s = "D";
-
+    
         txt.value = "";
-
+    
         if (s == "A" || s == "B" || s == "C" || s == "D")
         {
             if (dapan.value == "")
@@ -119,14 +118,14 @@
             else
             dapan.value += "\n" + s;
         }
-
+    
     }
-
+    
     function checkNum()
     {
         var s_num = document.getElementById("Num").value.split(".");
          var tong = new Number(0);
-
+    
         for (var i = 0; i< s_num.length; i++)
         {
             var num_s = s_num[i].split("-");
@@ -136,14 +135,14 @@
         var check = document.getElementById("CH_Num");
         check.value = tong;
     }
-
+    
     function xuatAnswer()
     {   
         var dapan = document.getElementById("DapAn").value.split(/\r|\n/);
         for (var i =0; i< dapan.length;i++)
         {
             var chon = document.getElementsByName("HasAnswer")[i].options;
-
+    
             if (dapan[i] == "A")
             {
                 chon.selectedIndex = 0;
@@ -164,48 +163,48 @@
         alert("Thành công, mời bạn trượt lên mục dropdown Answer có thể kiểm tra lại...");
         window.location.href = "#setupAnswer";
     }
-
+    
     function checkCH()
     {
         var e = document.getElementById("Error");
         e.innerHTML = "";
-
+    
         var tong = document.getElementById("CH_Num").value;
         if (tong == "" || isNaN(tong) == true)
         {
             alert("Nếu bạn muốn kiểm tra thử dữ liệu, mời bạn nhập lại chính xác tổng số câu hỏi của trường data input phía trên hoặc click button để cập nhật tự động và thử lại...");
             return;
         }
-
+    
         var tongsocau  = document.getElementById("CH_Num").value;
-
+    
         var ch_front =  document.getElementById("CH_Front").value;
         var ch_back = document.getElementById("CH_Back").value;
-
+    
         var chuoiX = document.getElementById("Chuoi").value.split(ch_front);
         if (chuoiX.length -1 != tongsocau)
         {
          alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !\n\n[Failed result : "+new Number(chuoiX.length-1)+"/"+tongsocau+"]");
          return;
         }
-
+    
         var s_num = document.getElementById("Num").value.split(".");
          var dem = new Number(0);
-
+    
          var arr = [];
-
+    
         for (var i = 0; i< s_num.length; i++)
         {
             var num_s = s_num[i].split("-");
             arr.push(num_s[0]);
             arr.push(num_s[1]);
         }
-
+    
         var min = Math.min.apply(null,arr);
         var max = Math.max.apply(null,arr);
-
+    
         var checkX = [];
-
+    
          for (var i = min ; i <= max ;i++)
          checkX.push(0);
         
@@ -215,7 +214,7 @@
            for (var j = num_s[0]; j<= num_s[1]; j++)
            checkX[j] = 1;
         }
-
+    
          for (var i = min ; i <= max ;i++)
          {
              if (checkX[i] == 1)
@@ -224,19 +223,19 @@
                  dem += new Number(chuoi.length) - 1;
              }
          }
-
+    
         
          if (tongsocau != dem)
          alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !\n\n[Failed result : "+dem+"/"+tongsocau+"]");
          else
          alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...\n\n[Successful result : "+dem+"/"+tongsocau+"]");
     }
-
+    
     function checkA()
     {
         var e = document.getElementById("Error");
         e.innerHTML = "";
-
+    
         var tong = document.getElementById("CH_Num").value;
         if (tong == "" || isNaN(tong) == true)
         {
@@ -248,11 +247,11 @@
         var b = document.getElementById("DA_B").value;
          var c = document.getElementById("DA_C").value;
         var d = document.getElementById("DA_D").value;
-  
-  
+    
+    
         var chuoi = document.getElementById("Chuoi").value.split(a);
         var tongsocau  = document.getElementById("CH_Num").value;
-
+    
          if (tongsocau != chuoi.length - 1)
          {
            if (chuoi.length -1 > tongsocau)
@@ -270,34 +269,34 @@
                var e3 = chuoi[i].indexOf(d);
                if (e3 != -1)
                x.push(e3);
-
+    
                var min = Math.min.apply(null, x);
                error.push(a+chuoi[i].substring(0, min));
             }
-
+    
             e.innerHTML = "<br><b>💙 HỆ THỐNG GỢI Ý CHO BẠN NHỮNG ĐÁP ÁN A MÀ BẠN CÓ THỂ CHO LÀ LỖI VÀ TỰ THỦ CÔNG SỬA LẠI CHO DỮ LIỆU CỦA BẠN : </b><br><br>";
-
+    
             for (var i =0 ; i< error.length;i++)
             {
                e.innerHTML += "<p style=\"color:pink\">"+error[i]+"</p><br>";
             }
          }
-
+    
            var s = "";
            if (chuoi.length -1 > tongsocau)
            s = " - xem các gợi ý bên dưới...";
-
+    
            alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !\n\n[Failed result : "+new Number (chuoi.length-1)+"/"+tongsocau+""+s+"]");
          }
          else
          alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...\n\n[Successful result : "+new Number (chuoi.length-1)+"/"+tongsocau+"]");
     }
-
+    
     function checkB()
     {
         var e = document.getElementById("Error");
         e.innerHTML = "";
-
+    
         var tong = document.getElementById("CH_Num").value;
         if (tong == "" || isNaN(tong) == true)
         {
@@ -309,10 +308,10 @@
         var b = document.getElementById("DA_B").value;
          var c = document.getElementById("DA_C").value;
         var d = document.getElementById("DA_D").value;
-  
+    
         var chuoi = document.getElementById("Chuoi").value.split(b);
         var tongsocau  = document.getElementById("CH_Num").value;
-
+    
         if (tongsocau != chuoi.length - 1)
          {
            if (chuoi.length -1 > tongsocau)
@@ -330,34 +329,34 @@
                var e3 = chuoi[i].indexOf(d);
                if (e3 != -1)
                x.push(e3);
-
+    
                var min = Math.min.apply(null, x);
                error.push(b+chuoi[i].substring(0, min));
             }
-
+    
             e.innerHTML = "<br><b>💙 HỆ THỐNG GỢI Ý CHO BẠN NHỮNG ĐÁP ÁN B MÀ BẠN CÓ THỂ CHO LÀ LỖI VÀ TỰ THỦ CÔNG SỬA LẠI CHO DỮ LIỆU CỦA BẠN : </b><br><br>";
-
+    
             for (var i =0 ; i< error.length;i++)
             {
                e.innerHTML += "<p style=\"color:pink\">"+error[i]+"</p><br>";
             }
          }
-
+    
            var s = "";
            if (chuoi.length -1 > tongsocau)
            s = " - xem các gợi ý bên dưới...";
-
+    
            alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !\n\n[Failed result : "+new Number (chuoi.length-1)+"/"+tongsocau+""+s+"]");
          }
          else
          alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...\n\n[Successful result : "+new Number (chuoi.length-1)+"/"+tongsocau+"]");
     }
-
+    
     function checkC()
     {
         var e = document.getElementById("Error");
         e.innerHTML = "";
-
+    
         var tong = document.getElementById("CH_Num").value;
         if (tong == "" || isNaN(tong) == true)
         {
@@ -369,10 +368,10 @@
         var b = document.getElementById("DA_B").value;
          var c = document.getElementById("DA_C").value;
         var d = document.getElementById("DA_D").value;
-
+    
         var chuoi = document.getElementById("Chuoi").value.split(c);
         var tongsocau  = document.getElementById("CH_Num").value;
- 
+    
        if (tongsocau != chuoi.length - 1)
          {
            if (chuoi.length -1 > tongsocau)
@@ -390,34 +389,34 @@
                var e3 = chuoi[i].indexOf(d);
                if (e3 != -1)
                x.push(e3);
-
+    
                var min = Math.min.apply(null, x);
                error.push(c+chuoi[i].substring(0, min));
             }
-
+    
             e.innerHTML = "<br><b>💙 HỆ THỐNG GỢI Ý CHO BẠN NHỮNG ĐÁP ÁN C MÀ BẠN CÓ THỂ CHO LÀ LỖI VÀ TỰ THỦ CÔNG SỬA LẠI CHO DỮ LIỆU CỦA BẠN : </b><br><br>";
-
+    
             for (var i =0 ; i< error.length;i++)
             {
                e.innerHTML += "<p style=\"color:pink\">"+error[i]+"</p><br>";
             }
          }
-
+    
            var s = "";
            if (chuoi.length -1 > tongsocau)
            s = " - xem các gợi ý bên dưới...";
-
+    
            alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !\n\n[Failed result : "+new Number (chuoi.length-1)+"/"+tongsocau+""+s+"]");
          }
          else
          alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...\n\n[Successful result : "+new Number (chuoi.length-1)+"/"+tongsocau+"]");
     }
-
+    
     function checkD()
     {
         var e = document.getElementById("Error");
         e.innerHTML = "";
-
+    
         var tong = document.getElementById("CH_Num").value;
         if (tong == "" || isNaN(tong) == true)
         {
@@ -429,10 +428,10 @@
         var b = document.getElementById("DA_B").value;
          var c = document.getElementById("DA_C").value;
         var d = document.getElementById("DA_D").value;
-  
+    
         var chuoi = document.getElementById("Chuoi").value.split(d);
         var tongsocau  = document.getElementById("CH_Num").value;
-
+    
         
          if (tongsocau != chuoi.length - 1)
          {
@@ -451,29 +450,29 @@
                var e3 = chuoi[i].indexOf(a);
                if (e3 != -1)
                x.push(e3);
-
+    
                var min = Math.min.apply(null, x);
                error.push(d+chuoi[i].substring(0, min));
             }
-
+    
             e.innerHTML = "<br><b>💙 HỆ THỐNG GỢI Ý CHO BẠN NHỮNG ĐÁP ÁN D MÀ BẠN CÓ THỂ CHO LÀ LỖI VÀ TỰ THỦ CÔNG SỬA LẠI CHO DỮ LIỆU CỦA BẠN : </b><br><br>";
-
+    
             for (var i =0 ; i< error.length;i++)
             {
                e.innerHTML += "<p style=\"color:pink\">"+error[i]+"</p><br>";
             }
          }
-
+    
            var s = "";
            if (chuoi.length -1 > tongsocau)
            s = " - xem các gợi ý bên dưới...";
-
+    
            alert("Hệ thống kiểm tra đã phát hiện dữ liệu trắc nghiệm của bạn hiện không an toàn trong dấu hiệu của bạn đã đặt ra. Vui lòng kiểm tra/thử lại hoặc lựa chọn nhập dấu hiệu để phân tách khác...\n\nBạn có thể bỏ qua cảnh báo này vì có thể hệ thống đã nhầm lẫn (nếu bạn đã đảm bảo) - xin lỗi vì sự bất tiện !\n\n[Failed result : "+new Number (chuoi.length-1)+"/"+tongsocau+""+s+"]");
          }
          else
          alert ("Thành công! Hệ thống kiểm tra dữ liệu an toàn...\n\n[Successful result : "+new Number (chuoi.length-1)+"/"+tongsocau+"]");
     }
-
+    
     var xd = 0;
     function upAnswer()
     {
@@ -484,25 +483,25 @@
            window.location.href = "#CH_Num";
             return;
         }
-
+    
          xd = 1;
         document.getElementById("ticky0").style.display = "none";
          document.getElementById("tick0").style.display = "none";
         var up = document.getElementById("upAnswex");
         up.style.display = "none";
-
+    
          var datn = document.getElementById("datn");
         datn.style.display = "inline-block";
-
+    
                  var win = document.getElementById("win");
         win.style.display = "inline-block";
-
+    
         var upX = document.getElementById("upAns");
         upX.innerText = " * Bắt đầu nạp tải đáp án của bạn : ";
-
+    
         var s_num = document.getElementById("Num").value.split(".");
         var s = "";
-
+    
         for (var i = 0; i< s_num.length; i++)
         {
             var num_s = s_num[i].split("-");
@@ -510,21 +509,21 @@
             {
                 s += "<tr style=\"height:40px\">                                 <td></td>                             <td>                                 <br>                                    <b></b>                                    <br>                                <b style=\"color:deeppink\">ĐÁP ÁN CÂU "+j+" : </b>                                <select name=\"HasAnswer\">                                    <option>A</option>                                    <option>B</option>                                    <option>C</option>                                    <option>D</option>                                </select>                             </td>                         </tr>";
             }
-
+    
             s += " <tr style=\"height:40px\">                                 <td></td>                             <td>                                 <br>                                    <b></b>                                    <br>                                   <hr>                                   <br>                             </td>                         </tr>";
         }
-
+    
         s += "<tr style=\"height:40px\">                                 <td></td>                             <td>                                    <b></b>                                    <input id=\"chotans\" type=\"radio\" onclick=\"downAnswer()\" checked /><b style=\"color:brown\"> ⬅️ Click để nạp tải đáp án (cập nhật tổng chốt answer)</b><br><p style=\"color:purple\">Lưu ý : sau khi bạn đã chỉnh sửa answer cho các dropdown ở trên thì bắt buộc bạn phải click vào nút này để cập nhật tổng chốt đáp án trắc nghiệm của bạn tại trường input textbox bên dưới)...</p>                                  <br>                             </td>                         </tr>";
-
+    
         var answer = document.getElementById("setupAnswer");
         answer.innerHTML = s;
     }
-
+    
     function see_error()
     {
         window.location.href = "#memy";
     }
-
+    
     function downAnswer()
     {
          var tong = document.getElementById("CH_Num").value;
@@ -534,16 +533,16 @@
             window.location.href = "#CH_Num";
             return;
         }
-
+    
         var dapan = document.getElementById("DapAn");
         dapan.value = "";
         
         var s = "";
-
+    
         for(var i =0; i< new Number(tong); i++)
         {
             var chon = document.getElementsByName("HasAnswer")[i].options;
-
+    
             if (chon.selectedIndex == 0)
             s += "A";
             else if (chon.selectedIndex == 1)
@@ -552,26 +551,26 @@
             s += "C";
             else if (chon.selectedIndex == 3)
             s += "D";
-
+    
             if (i < new Number(tong) -1)
             s += "\r\n";
         }
-
+    
         dapan.value = s;
-
+    
         alert("Successful - Please your check answer...");
         window.location.href = "#DapAn";
     }
-
+    
      function checkX()
     {
         var dapan = document.getElementById("DapAn").value.split(/\r|\n/);
         var so = document.getElementById("socolar");
         var winx = document.getElementById("winx");
-
+    
         var x = new Number(winx.innerText) + 1;
         winx.innerHTML = x;
-
+    
         if (x % 2 == 0)
         {
              so.style.color = "lightcoral";
@@ -582,209 +581,178 @@
           winx.style.color = "lightcoral";
           so.style.color = "lightseagreen";
         }
-
+    
                 if (winx.innerText > dapan.length)
                 winx.innerHTML = 1; 
-
+    
          so.innerHTML = "["+dapan[winx.innerText-1]+"]";
     }
-
+    
      function checkXX()
     {
         var so = document.getElementById("socolar");
         var winx = document.getElementById("winx");
-
+    
                 winx.innerHTML = 0; 
-
+    
          so.innerHTML = "[NULL]";
     }
-
+    
 </script>
-    <h2 style="text-align:center">File Trắc Nghiệm Theo Hệ Thống (dành cho admin hoặc các user hiểu biết chức năng)</h2>
-
-    <h3 style="color:deeppink">@Html.Raw(ViewBag.KetQua)</h3>
-
-    <br />
-
-    @if ((ViewBag.KetQua == null || ViewBag.KetQua == "") || (ViewBag.KetQua != null && ViewBag.KetQua.ToString().Contains("[ERROR]") == true))
+<h2 style="text-align:center">File Trắc Nghiệm Theo Hệ Thống (dành cho admin hoặc các user hiểu biết chức năng)</h2>
+<h3 style="color:deeppink">@Html.Raw(ViewBag.KetQua)</h3>
+<br />
+@if ((ViewBag.KetQua == null || ViewBag.KetQua == "") || (ViewBag.KetQua != null && ViewBag.KetQua.ToString().Contains("[ERROR]") == true))
 {
-    <table align="center">
-
-
-        @using (Html.BeginForm())
-        {
-            @Html.ValidationSummary(true)
-
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <br>
-                    <b>Dán bài trắc nghiệm của bạn tại đây (xem ví dụ tương đương) :</b>
-                    <br>
-                    <b style="color:deeppink">Để tránh trường hợp có thể xảy ra, tốt nhất bạn nên lưu và thực hiện nội dung trắc nghiệm đâu đó trên local và sao chép chúng thông qua vào trường điền dưới đây...</b>
-                    <br>
-                    <textarea rows="50" cols="150" id="Chuoi" name="txtChuoi" autofocus>@ViewBag.ChuoiVD</textarea>
-                    <br>
-                    <p style="color:orange">LƯU Ý (khuyến nghị) : nếu dữ liệu câu hỏi của bạn mà các <span style="color:red">Number</span> không phải là số tự nhiên, phiền bạn hãy tự tìm mọi cách thay thế chúng phù hợp và thử lại...</p>
-                </td>
-            </tr>
-
-
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <input type="text" name="txtNum" id="Num" value="@ViewBag.CH_VD" size="20" placeholder="Liệt kê các câu hỏi (index)"> <br>
-                    <input  type="text" readonly name="txtNux" id="CH_Num" placeholder="Tổng số câu hỏi bài trắc nghiệm (bắt buộc)" size="80" /> <input type="radio" onclick="checkNum()" checked> <b style="color:purple"> ⬅️ Click để cập nhật tự động</b><br>
-                    <span style="color:red" id="loisox"></span>
-                </td>
-            </tr>
-
-            <tr style="height:40px">
-                <td></td>
-                <td
-                ><b><u>Xem lại nội dung bài trắc nghiệm của bạn để tự tìm và đánh giá phân tách phù hợp (xem ví dụ)...</u></b></td>
-            </tr>
-
-
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <input type="text" id="CH_Front" name="txtX" value="@ViewBag.XCH_VD" size="25" placeholder="Split câu hỏi - After Number">
-                    <span style="color:red; font-weight:bold">Number</span>
-                    <input type="text" id="CH_Back" name="txtXX" value="@ViewBag.CHX_VD" size="25" placeholder="Split câu hỏi - Before Number"> <input type="radio" onclick="checkCH()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
-                </td>
-            </tr>
-
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <input type="text" id="DA_A" name="txtA" value="@ViewBag.A_VD" size="10" placeholder="Split đáp án A"> <input type="radio" onclick="checkA()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
-                </td>
-            </tr>
-
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <input type="text" id="DA_B"  name="txtB" value="@ViewBag.B_VD" size="10"  placeholder="Split đáp án B"> <input type="radio" onclick="checkB()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
-                </td>
-            </tr>
-
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <input type="text" id="DA_C" name="txtC" value="@ViewBag.C_VD" size="10"  placeholder="Split đáp án C"> <input type="radio" onclick="checkC()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
-                </td>
-            </tr>
-
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <input type="text" id="DA_D" name="txtD" value="@ViewBag.D_VD" size="10"  placeholder="Split đáp án D"> <input type="radio" onclick="checkD()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
-                </td>
-            </tr>
-
-            <tr style="height:40px">
-                <td></td>
-                <td id="Error">
-
-                </td>
-            </tr>
-
-
-            <tr style="height:40px">
-                <td></td>
-
-
-                <td><b>--------------------------------------------------------------------------------------------------------------------------------------------------------------------------</b></td>
-            </tr>
-
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <br>
-                    <b>Chọn những câu không cần hoán vị đáp án - theo index hệ thống * start in 1 (xem ví dụ) : </b>
-                    <br>
-                    <input type="text" name="txtNoSwap" id="Swap1" value="@ViewBag.NoSwap_VD" size="50">
-                </td>
-            </tr>
-
-            <tr style="height:40px">
-                <td><u>...HOẶC BẠN CÓ THỂ...</u></td>
-                <td>
-                    <br>
-                    <b>Nhận dạng dấu hiệu của đáp án xuất hiện trong câu, nó sẽ làm cho câu đó không bị hoán vị (hãy kỹ càng - cẩn thận - mỗi dấu hiệu cách nhau bởi Enter) : </b>
-                    <br>
-                    <textarea id="Swap2" name="txtHoanVi" cols="80" rows="10">@ViewBag.HoanVi_VD</textarea>
-                </td>
-            </tr>
-
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <input id="ticky0" onchange="setTicky()" type="checkbox" checked /><b id="tick0" style="color:forestgreen">Hiện tại tôi không muốn đánh đáp án bây giờ</b>
-                    <input id="ticky00" type="checkbox" name="tick" hidden checked />
-                    <br>
-                </td>
-            </tr>
-
-
-            <tr style="height:40px">
-                <td id="ticky1"><h4><u style="color:red">NẠP TẢI ĐÁP ÁN CHO TỪNG CÂU HỎI</u></h4></td>
-                <td id="ticky2" style="display:none">
-                    <input type="radio" id="upAnswex" onclick="upAnswer()" checked /> <b id="upAns" style="color:orchid"> ⬅️ Click để bắt đầu nạp tải đáp án</b>
-                </td>
-            </tr>
-
-            <tr style="height:40px">
-                <td></td>
-                <td id="setupAnswer">
-
-                </td>
-            </tr>
-
-            <tr style="height:40px">
-                <td></td>
-                <td style="display:none" id="win">
-                    <b style="color:deeppink">Hoặc là bạn cũng có thể thiết đặt các đáp án tại đây...</b><br><b style="color:deeppink">Forcus tại input bên dưới và lần lượt gõ đáp án theo nguyên tắc như sau (1 : đáp án A, 2 : đáp án B, 3 : đáp án C, 4 : Đáp án D)
-                    </b><br><br>
-                    <input id="txtansw" type="number" size="1" min="1" max="4"  onkeyup="changeDA()" />
-                </td>
-            </tr>
-
-            <tr style="height:40px">
-                <td> </td>
-                <td style="display:none" id="datn">
-                    <br>
-                    <b>Tự đánh đáp án (hoặc nhờ sự nạp tải ở trên) thích hợp cho từng câu - phải dựa vào index bạn đã thiết đặt ở trên? (xem ví dụ tương đương) : </b>
-                    <br>
-                    <textarea rows="20" cols="150" id="DapAn" name="txtDapAn" autofocus>@ViewBag.DapAn_VD</textarea>
-                    <br>
-                    <input type="radio" onclick="xuatAnswer()" checked> <b style="color:lime">⬅️ Click here to upset Answer</b>
-                    <br><br>
-                    <input style="font-size:40px" type="radio" onclick="checkXX()" checked /> <b>⬅️ Click here to reset to check</b> || <input style="font-size:40px" type="radio" onclick="checkX()" checked /> <b id="winx" style="color:lightcoral;font-size:40px">0</b> (index hệ thống) : <b style="color:lightseagreen;font-size:40px" id="socolar">[NULL]</b> || <input style="font-size:40px" type="radio" onclick="checkdapas()" checked /> <b style="color:orangered">Kiểm tra tình trạng đáp án</b>
-                </td>
-            </tr>
-
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <input id="ok" type="Submit" value="Kết Quả" hidden />
-                    <br>
-                    <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
-                </td>
-            </tr>
-        }
-
-        <tr style="height:40px" id="xong">
-            <td></td>
-            <td>
-                <button><b onclick="xongroi()">XỬ LÝ</b></button>
-            </td>
-        </tr>
-
-    </table>
-    <br /><br />
-    <pre>**********************************************************************************************************************************</pre>
-               <br /><br /><br />
-               <p id="muadong">@Html.Raw(ViewBag.Temp_TN)</p>
+<table align="center">
+    @using (Html.BeginForm())
+    {
+    @Html.ValidationSummary(true)
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <br>
+            <b>Dán bài trắc nghiệm của bạn tại đây (xem ví dụ tương đương) :</b>
+            <br>
+            <b style="color:deeppink">Để tránh trường hợp có thể xảy ra, tốt nhất bạn nên lưu và thực hiện nội dung trắc nghiệm đâu đó trên local và sao chép chúng thông qua vào trường điền dưới đây...</b>
+            <br>
+            <textarea rows="50" cols="150" id="Chuoi" name="txtChuoi" autofocus>@ViewBag.ChuoiVD</textarea>
+            <br>
+            <p style="color:orange">LƯU Ý (khuyến nghị) : nếu dữ liệu câu hỏi của bạn mà các <span style="color:red">Number</span> không phải là số tự nhiên, phiền bạn hãy tự tìm mọi cách thay thế chúng phù hợp và thử lại...</p>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input type="text" name="txtNum" id="Num" value="@ViewBag.CH_VD" size="20" placeholder="Liệt kê các câu hỏi (index)"> <br>
+            <input  type="text" readonly name="txtNux" id="CH_Num" placeholder="Tổng số câu hỏi bài trắc nghiệm (bắt buộc)" size="80" /> <input type="radio" onclick="checkNum()" checked> <b style="color:purple"> ⬅️ Click để cập nhật tự động</b><br>
+            <span style="color:red" id="loisox"></span>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td
+            ><b><u>Xem lại nội dung bài trắc nghiệm của bạn để tự tìm và đánh giá phân tách phù hợp (xem ví dụ)...</u></b></td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input type="text" id="CH_Front" name="txtX" value="@ViewBag.XCH_VD" size="25" placeholder="Split câu hỏi - After Number">
+            <span style="color:red; font-weight:bold">Number</span>
+            <input type="text" id="CH_Back" name="txtXX" value="@ViewBag.CHX_VD" size="25" placeholder="Split câu hỏi - Before Number"> <input type="radio" onclick="checkCH()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input type="text" id="DA_A" name="txtA" value="@ViewBag.A_VD" size="10" placeholder="Split đáp án A"> <input type="radio" onclick="checkA()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input type="text" id="DA_B"  name="txtB" value="@ViewBag.B_VD" size="10"  placeholder="Split đáp án B"> <input type="radio" onclick="checkB()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input type="text" id="DA_C" name="txtC" value="@ViewBag.C_VD" size="10"  placeholder="Split đáp án C"> <input type="radio" onclick="checkC()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input type="text" id="DA_D" name="txtD" value="@ViewBag.D_VD" size="10"  placeholder="Split đáp án D"> <input type="radio" onclick="checkD()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td id="Error">
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td><b>--------------------------------------------------------------------------------------------------------------------------------------------------------------------------</b></td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <br>
+            <b>Chọn những câu không cần hoán vị đáp án - theo index hệ thống * start in 1 (xem ví dụ) : </b>
+            <br>
+            <input type="text" name="txtNoSwap" id="Swap1" value="@ViewBag.NoSwap_VD" size="50">
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td><u>...HOẶC BẠN CÓ THỂ...</u></td>
+        <td>
+            <br>
+            <b>Nhận dạng dấu hiệu của đáp án xuất hiện trong câu, nó sẽ làm cho câu đó không bị hoán vị (hãy kỹ càng - cẩn thận - mỗi dấu hiệu cách nhau bởi Enter) : </b>
+            <br>
+            <textarea id="Swap2" name="txtHoanVi" cols="80" rows="10">@ViewBag.HoanVi_VD</textarea>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input id="ticky0" onchange="setTicky()" type="checkbox" checked /><b id="tick0" style="color:forestgreen">Hiện tại tôi không muốn đánh đáp án bây giờ</b>
+            <input id="ticky00" type="checkbox" name="tick" hidden checked />
+            <br>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td id="ticky1">
+            <h4><u style="color:red">NẠP TẢI ĐÁP ÁN CHO TỪNG CÂU HỎI</u></h4>
+        </td>
+        <td id="ticky2" style="display:none">
+            <input type="radio" id="upAnswex" onclick="upAnswer()" checked /> <b id="upAns" style="color:orchid"> ⬅️ Click để bắt đầu nạp tải đáp án</b>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td id="setupAnswer">
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td style="display:none" id="win">
+            <b style="color:deeppink">Hoặc là bạn cũng có thể thiết đặt các đáp án tại đây...</b><br><b style="color:deeppink">Forcus tại input bên dưới và lần lượt gõ đáp án theo nguyên tắc như sau (1 : đáp án A, 2 : đáp án B, 3 : đáp án C, 4 : Đáp án D)
+            </b><br><br>
+            <input id="txtansw" type="number" size="1" min="1" max="4"  onkeyup="changeDA()" />
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td> </td>
+        <td style="display:none" id="datn">
+            <br>
+            <b>Tự đánh đáp án (hoặc nhờ sự nạp tải ở trên) thích hợp cho từng câu - phải dựa vào index bạn đã thiết đặt ở trên? (xem ví dụ tương đương) : </b>
+            <br>
+            <textarea rows="20" cols="150" id="DapAn" name="txtDapAn" autofocus>@ViewBag.DapAn_VD</textarea>
+            <br>
+            <input type="radio" onclick="xuatAnswer()" checked> <b style="color:lime">⬅️ Click here to upset Answer</b>
+            <br><br>
+            <input style="font-size:40px" type="radio" onclick="checkXX()" checked /> <b>⬅️ Click here to reset to check</b> || <input style="font-size:40px" type="radio" onclick="checkX()" checked /> <b id="winx" style="color:lightcoral;font-size:40px">0</b> (index hệ thống) : <b style="color:lightseagreen;font-size:40px" id="socolar">[NULL]</b> || <input style="font-size:40px" type="radio" onclick="checkdapas()" checked /> <b style="color:orangered">Kiểm tra tình trạng đáp án</b>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input id="ok" type="Submit" value="Kết Quả" hidden />
+            <br>
+            <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
+        </td>
+    </tr>
+    }
+    <tr style="height:40px" id="xong">
+        <td></td>
+        <td>
+            <button><b onclick="xongroi()">XỬ LÝ</b></button>
+        </td>
+    </tr>
+</table>
+<br /><br />
+<pre>**********************************************************************************************************************************</pre>
+<br /><br /><br />
+<p id="muadong">@Html.Raw(ViewBag.Temp_TN)</p>
 }

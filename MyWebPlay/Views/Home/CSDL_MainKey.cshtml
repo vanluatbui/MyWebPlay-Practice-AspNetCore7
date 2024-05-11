@@ -1,46 +1,42 @@
 ﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
-      function xoaValue(ele)
+    function xoaValue(ele)
     {
-            document.getElementById(ele).value = "";
-            document.getElementById(ele).focus();
+          document.getElementById(ele).value = "";
+          document.getElementById(ele).focus();
     }
-
+    
 </script>
 <table align="center">
     <h2 style="text-align:center">CSDL - Find main key</h2>
-
     <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
-
     @using (Html.BeginForm())
     {
-        @Html.ValidationSummary(true)
-
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                <br>
-                   <a href="#xuly" onclick="xoaValue('chuoi')"> <b>Chuỗi đề bài của bạn : <br>
-                Lưu ý kiểm tra kỹ các thành phần tham gia phải đủ! (VD nhập : AB>C,C>BD,BE>A,A>C)</b></a>
-                <br>
-                    <input type="text" name="Chuoi" id="chuoi" size="100" value="AB>C,C>BD,BE>A,A>C" />
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
-            </td>
-        </tr>
-        <tr style="height:40px">
-            <td></td>
-            <td>
-                <input type="Submit" value="Kết Quả" />
-            </td>
-        </tr>
+    @Html.ValidationSummary(true)
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <a href="#xuly" onclick="xoaValue('chuoi')"> <b>Chuỗi đề bài của bạn : <br>
+            Lưu ý kiểm tra kỹ các thành phần tham gia phải đủ! (VD nhập : AB>C,C>BD,BE>A,A>C)</b></a>
+            <br>
+            <input type="text" name="Chuoi" id="chuoi" size="100" value="AB>C,C>BD,BE>A,A>C" />
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input type="Submit" value="Kết Quả" />
+        </td>
+    </tr>
     }
 </table>
 <br /><br />
-
 * HƯỚNG DẪN MẸO :
 <br /><br />
 - Cần xác nhận đề bài và số lượng thành phần thuộc tính tham gia, khi đó sẽ xảy ra hai trường hợp :
@@ -51,39 +47,40 @@
 <br>- Ví dụ đối với TH1 :
 <br>
 <br>
-<br>+ Cho đề bài : B->A , DA->CE , D->H , GH->C , AC->D <<VÀ>
-    > các thuộc tính tham gia là : ABCDEGH.
-    <br>
-    <br>+ Khi đó, các thuộc tính cần tham gia đã có mặt đầy đủ ít nhất nơi nào đó trong dãy đề bài.
-    <br>
-    <br>+ Sử dụng ứng dụng này để tìm siêu khoá bé nhất, ta được : BGD , BGC , BGH (đây là kết quả chính xác).
-    <br>
-    <br>- Ví dụ đối với TH2 :
-    <br>
-    <br>+ Cho đề bài : EC->B , AB->C , EB->A , BG->A , AE->G <<VÀ>
-        > các thuộc tính tham gia là : ABCDEGH.
-        <br>
-        <br>+ Khi đó, các thuộc tính cần tham gia không có mặt đầy đủ dù ít nhất nơi nào đó trong dãy đề bài.Lý do : thiếu thuộc tính D và H không xuất hiện bất cứ đâu trong dãy đề bài !
-        <br>
-        <br>+ Sử dụng ứng dụng này để tìm siêu khoá bé nhất, ta được : EC , EB (tuy nhiên đây là kết quả chưa chính xác).
-        <br>
-        <br>+ Mẹo cách giải quyết như sau, ta đã biết được rằng trong dãy đề bài còn thiếu thuộc tính D và H <<VÀ>
-            > ở kết quả trên, các thuộc tính thuộc tập trung gian là : ABCG.
-            <br>
-            <br>+ Chọn bất kỳ một hay nhiều thuộc tính trung gian (với điều kiện là một trong các thuộc tính bạn chọn không được trùng với các thuộc tính nào trong tập kết quả siêu khoá vùa tìm được ở trên - mặc dù kết quả trên gần như sai), ví dụ nếu ta chọn AG thì ta sẽ thêm dữ kiện là DH -> AG.
-            <br>
-            <br>+ Bổ sung thêm dữ kiện DH -> AG này vào bất cứ đâu trong dãy đề bài, khi đó đề bài sẽ được sửa mới thành : EC->B , AB->C , EB->A , BG->A , AE->G, DH -> AG
-            <br>
-            <br>+ RESET lại ứng dụng, thao tác và sử dụng lại với dãy đề bài đã sửa lại mới như trên.Khi đó ta tìm siêu khoá bé nhất, ta được : DEHB , DEHC (đây là kết quả chính xác, cũng là kết quả chính xác cho dãy đề bài ban đầu nhất).
-            <br>
-            <br>==> ỨNG DỤNG ĐẢM BÁO TÍNH CHÍNH XÁC CHO KẾT QUẢ TÌM ĐƯỢC LÀ 85% !
-            <br /><br /><br />
+<br>+ Cho đề bài : B->A , DA->CE , D->H , GH->C , AC->D <
+<VÀ>
+> các thuộc tính tham gia là : ABCDEGH.
+<br>
+<br>+ Khi đó, các thuộc tính cần tham gia đã có mặt đầy đủ ít nhất nơi nào đó trong dãy đề bài.
+<br>
+<br>+ Sử dụng ứng dụng này để tìm siêu khoá bé nhất, ta được : BGD , BGC , BGH (đây là kết quả chính xác).
+<br>
+<br>- Ví dụ đối với TH2 :
+<br>
+<br>+ Cho đề bài : EC->B , AB->C , EB->A , BG->A , AE->G <
+<VÀ>
+> các thuộc tính tham gia là : ABCDEGH.
+<br>
+<br>+ Khi đó, các thuộc tính cần tham gia không có mặt đầy đủ dù ít nhất nơi nào đó trong dãy đề bài.Lý do : thiếu thuộc tính D và H không xuất hiện bất cứ đâu trong dãy đề bài !
+<br>
+<br>+ Sử dụng ứng dụng này để tìm siêu khoá bé nhất, ta được : EC , EB (tuy nhiên đây là kết quả chưa chính xác).
+<br>
+<br>+ Mẹo cách giải quyết như sau, ta đã biết được rằng trong dãy đề bài còn thiếu thuộc tính D và H <
+<VÀ>
+> ở kết quả trên, các thuộc tính thuộc tập trung gian là : ABCG.
+<br>
+<br>+ Chọn bất kỳ một hay nhiều thuộc tính trung gian (với điều kiện là một trong các thuộc tính bạn chọn không được trùng với các thuộc tính nào trong tập kết quả siêu khoá vùa tìm được ở trên - mặc dù kết quả trên gần như sai), ví dụ nếu ta chọn AG thì ta sẽ thêm dữ kiện là DH -> AG.
+<br>
+<br>+ Bổ sung thêm dữ kiện DH -> AG này vào bất cứ đâu trong dãy đề bài, khi đó đề bài sẽ được sửa mới thành : EC->B , AB->C , EB->A , BG->A , AE->G, DH -> AG
+<br>
+<br>+ RESET lại ứng dụng, thao tác và sử dụng lại với dãy đề bài đã sửa lại mới như trên.Khi đó ta tìm siêu khoá bé nhất, ta được : DEHB , DEHC (đây là kết quả chính xác, cũng là kết quả chính xác cho dãy đề bài ban đầu nhất).
+<br>
+<br>==> ỨNG DỤNG ĐẢM BÁO TÍNH CHÍNH XÁC CHO KẾT QUẢ TÌM ĐƯỢC LÀ 85% !
+<br /><br /><br />
 ******************************************************************************************************************************************************************************
-
 <br />
 <br />
 <br />
-
 <div id="hihi">
-                @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
+    @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
 </div>

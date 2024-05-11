@@ -1,750 +1,725 @@
 ﻿@if (ViewBag.Show != null && ViewBag.Show == "show" || TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
-
 <html lang="vi">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MyWebPlay - Karaoke</title>
-    <link rel="icon" href="/images/karaoke.png">
- <style>
-
- .video-overlay{
- position:absolute;
-z-index: 2;
-    position: relative;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: Arial;
-  font-size: 17px;
-}
-
-#myVideo {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%; 
-  min-height: 100%;
-}
-
-.content {
-  position: fixed;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  color: #f1f1f1;
-  width: 100%;
-  padding: 20px;
-}
-
-/*---------------------------------------------*/
-
-/* Safari syntax */
-:-webkit-full-screen {
-  background-color: white;
-}
-
-/* IE11 */
-:-ms-fullscreen {
-  background-color: white;
-}
-
-/* Standard syntax */
-:fullscreen {
-  background-color: white;
-}
-
-</style>
-</head>
-
-<body>
-<meta charset="ISO-8859-1">
-<script>
-    // Delete div somee
-
-        setInterval(function()
-        {
-             $(document).ready(function () {
-        $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
-        $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
-        $("div[onmouseover='S_ssac();']").remove();
-        $("center").remove();
-        $("div[style='height: 65px;']").remove();
-    });
-        },1);
-
-         var playmute = 0;
-
-    function ketquaplay()
-    {
-        playmute = 1;
-    }
-
-    function playketqua()
-    {
-        playmute = 0;
-        document.getElementById("muteplay").play();
-    }
-
-     function xong()
-    {
-        if (playmute == 0)
-        {
-            alert("Vui lòng chờ trong ít phút hoặc load lại trang. Xin lỗi vì sự bất tiện này !");
-            return;
-        }
-
-        document.getElementById("ok").style.display = "none";
-        document.getElementById("loading").style.display = "inline-block";
-    }
-
-    function doikichthuoc()
-    {
-        var kt = document.getElementById("kichthuoc").value + "px";
-        document.getElementById("txtKaraoke1").style.fontSize = kt; 
-     document.getElementById("txtKaraoke2").style.fontSize = kt; 
-     document.getElementById("number").style.fontSize = kt; 
-    }
-
-     function doikichthuoc_Save()
-        {
-             if (localStorage.getItem("kichthuocX") == null)
-            return;
-
-            var kichthuoc = localStorage.getItem("kichthuocX");
-        var kt = kichthuoc + "px";
-        document.getElementById("kichthuoc").value = kichthuoc;
-       document.getElementById("txtKaraoke1").style.fontSize = kt; 
-     document.getElementById("txtKaraoke2").style.fontSize = kt; 
-     document.getElementById("number").style.fontSize = kt; 
-        }
-
-    function doihang()
-    {
-        var hang = new Number(document.getElementById("hang").value);
-        var hax = "";
-        for (var i  =0; i < hang; i++)
-        hax += "<br>";
-
-        document.getElementById("hienthi").innerHTML = hax;
-    }
-
-     function doihang_Save()
-        {
-             if (localStorage.getItem("hangX") == null)
-            return;
-
-             var hang = new Number(localStorage.getItem("hangX"));
-             document.getElementById("hang").value = localStorage.getItem("hangX");
-
-        var hax = "";
-        for (var i  =0; i < hang; i++)
-        hax += "<br>";
-
-        document.getElementById("hienthi").innerHTML = hax;
-        }
-    
-    function chonKaraHay()
-    {
-        var chon = document.getElementById("chonKara").options.selectedIndex;
-        var chonX = document.getElementById("chonKarax");
-        var online = document.getElementById("online");
-        var help = document.getElementById("helpYoutube");
-        if (chon == 0)
-        {
-            online.style.display = "none";
-            help.style.display = "none";
-        chonX.value = "1";
-        }
-        else if (chon == 1)
-        {
-        chonX.value = "2";
-        online.style.display = "inline-block";
-        help.style.display = "none";
-        }
-        else  if (chon == 2)
-        {
-        chonX.value = "3";
-         online.style.display = "inline-block";
-         help.style.display = "none";
-        }
-        else  if (chon == 3)
-        {
-        chonX.value = "4";
-         online.style.display = "inline-block";
-         help.style.display = "inline-block";
-        }
-    }
-
-    function dongmomenu()
-    {
-        var menu = document.getElementById("menu");
-        var hienlinh = document.getElementById("hienlinh");
-        
-        if (menu.style.display == "inline-block")
-        {
-            menu.style.display = "none";
-            hienlinh.style.display = "inline-block";
-        }
-        else
-        {
-            menu.style.display = "inline-block";
-            hienlinh.style.display = "none";
-        }
-    }
-
-     var elem = document.documentElement;
-
-        function loadsolar()
-        {
-            var xanh = document.getElementById("xanh");
-            if ('@ViewBag.Show' == "show")
-            {
-                if (xanh.innerHTML == "<b>FULL MÀN HÌNH - OFF</b>")
-                {
-                    if (elem.requestFullscreen)
-                    elem.requestFullscreen();
-                     else if (elem.webkitRequestFullscreen) /* Safari */
-                    elem.webkitRequestFullscreen();
-                   else if (elem.msRequestFullscreen) /* IE11 */
-                    elem.msRequestFullscreen();
-
-                    xanh.innerHTML = "<b>FULL MÀN HÌNH - ON</b>";
-                    dongmomenu();
-                }
-                else 
-                {
-
-                    if (document.exitFullscreen) {
-    document.exitFullscreen();
-  } else if (document.webkitExitFullscreen) { /* Safari */
-    document.webkitExitFullscreen();
-  } else if (document.msExitFullscreen) { /* IE11 */
-    document.msExitFullscreen();
-  }
-
-   var menu = document.getElementById("menu");
-        var hienlinh = document.getElementById("hienlinh");
-        
-        if (menu.style.display != "inline-block")
-        {
-            menu.style.display = "inline-block";
-            hienlinh.style.display = "none";
-        }
-
-                  xanh.innerHTML = "<b>FULL MÀN HÌNH - OFF</b>";
-                }
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>MyWebPlay - Karaoke</title>
+        <link rel="icon" href="/images/karaoke.png">
+        <style>
+            .video-overlay{
+            position:absolute;
+            z-index: 2;
+            position: relative;
             }
-        }
-
-    var you = false;
-    var youX = false;
-
-    function PlayY()
-    {
-        if (document.getElementById("music").currentTime != document.getElementById("musix").currentTime)
-        document.getElementById("music").currentTime = document.getElementById("musix").currentTime;
-    }
-
-     function PlayZ()
-    {
-        if (document.getElementById("music").currentTime != document.getElementById("musix").currentTime)
-        document.getElementById("musix").currentTime = document.getElementById("music").currentTime;
-    }
-
-    function PlayKaraoke()
-    {
-        if (document.getElementById("music").currentTime != document.getElementById("musix").currentTime)
-        document.getElementById("music").currentTime = document.getElementById("musix").currentTime;
-
-        document.getElementById("musix").play();
-
-        you = true;
-    }
-
-    function ToPlayKaraoke()
-    {
-         if (document.getElementById("musix").currentTime != document.getElementById("music").currentTime)
-        document.getElementById("musix").currentTime = document.getElementById("music").currentTime;
-
-        document.getElementById("music").play();
-        youX = true;
-    }
-
-    var t = 0;
-      var kk = 0;
-        var empty = -1;
-
-        var flag = 0;
-         var n = 0;
-        var kf = 0;
-
-    function resetKaraoke()
-    {
-         document.getElementById("musix").currentTime = 0;
-         document.getElementById("music").currentTime =0;
-         t = 0;
-          kk = 0;
-        empty = -1;
-
-        flag = 0;
-         n = 0;
-        kf = 0;
-          document.getElementById("txtKaraoke1").innerHTML = "";
-                    document.getElementById("txtKaraoke2").innerHTML = "";
-                    document.getElementById("txtKara1").value = "";
-                    document.getElementById("txtKara2").value = "";
-                    document.getElementById("number").innerHTML = "";
-
-    }
-
-     function PlayXKaraoke()
-    {
-        document.getElementById("musix").pause();
-
-        you = false;
-    }
-
-    function xemplay()
-    {
-        if ('@ViewBag.SuDung' == "Youtube")
-        {
-        document.getElementById("phanphoi").innerHTML= "<iframe id=\"myVideo\" src=\""+'@ViewBag.Background'+"\"></iframe>";
-        }
-        else if ('@ViewBag.SuDung' == "Video")
-        {
-            document.getElementById("myVideo").currentTime = 0;
-        }
-        dongmomenu();
-        if (elem.requestFullscreen)
-                    elem.requestFullscreen();
-                     else if (elem.webkitRequestFullscreen) /* Safari */
-                    elem.webkitRequestFullscreen();
-                   else if (elem.msRequestFullscreen) /* IE11 */
-                    elem.msRequestFullscreen();
-
-                    document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - ON</b>";
-        resetKaraoke();
-    }
-
-    function PlayXKaraokeX()
-    {
-        document.getElementById("music").pause();
-        youX = false;
-    }
-
-    function changeKara()
-    {
-        var chon = document.getElementById("chon").options.selectedIndex;
-
-        if (chon == 0)
-        {
-            document.getElementById("music").muted = false;
-            document.getElementById("musix").muted = true;
-        }
-        else
-        {
-            document.getElementById("music").muted = true;
-            document.getElementById("musix").muted = false;
-        }
-    }
-
-    function StopKaraoke()
-    {
-        window.location.href="/Home/XoaKaraoke";
-    }
-
-        var time_xuathien = [];
-        var time_luuvet = [];
-       
-        var h_xh = [];
-        var h_le = [];
-
-        var mau = "#2900f5";
-
-        function doimau()
-        {
-            mau = document.getElementById("mau").value;
-            document.getElementById("xemthumau").style.color = mau;
-        }
-
-        function doimau_Save()
-        {
-            if (localStorage.getItem("mauXK") == null)
-            return;
-
-             mau = localStorage.getItem("mauXK");
-             document.getElementById("mau").value = mau;
-
-            document.getElementById("xemthumau").style.color = mau;
-        }
-
-         function doimauX()
-        {
-            document.getElementById("xemmauthu").style.color = document.getElementById("mauX").value;
-            document.getElementById("txtKaraoke1").style.color = document.getElementById("mauX").value;
-            document.getElementById("txtKaraoke2").style.color = document.getElementById("mauX").value;
-        }
-
-         function doimauX_Save()
-        {
-             if (localStorage.getItem("mauXX") == null)
-            return;
-
-              mauX = localStorage.getItem("mauXX");
-              document.getElementById("mauX").value = mauX;
-            document.getElementById("xemmauthu").style.color = mauX;
-           document.getElementById("txtKaraoke1").style.color = document.getElementById("mauX").value;
-           document.getElementById("txtKaraoke2").style.color = document.getElementById("mauX").value;
-        }
-
-         function doimauY()
-        {
-            document.getElementById("xemmaudi").style.color = document.getElementById("mauY").value;
-            document.getElementById("number").style.color = document.getElementById("mauY").value;
-        }
-
-         function doimauY_Save()
-        {
-             if (localStorage.getItem("mauYX") == null)
-            return;
-
-            document.getElementById("mauY").value = localStorage.getItem("mauYX");
-             document.getElementById("xemmaudi").style.color = localStorage.getItem("mauYX");
-            document.getElementById("number").style.color = localStorage.getItem("mauYX");
-        }
-
-        var LBH;
-        var LBH;
-        var flg = 0;
-
-         function ghinho()
-    {
-        localStorage.setItem("mauXK", document.getElementById("mau").value);
-        localStorage.setItem("mauXX", document.getElementById("mauX").value);
-        localStorage.setItem("mauYX", document.getElementById("mauY").value);
-        localStorage.setItem("kichthuocX", document.getElementById("kichthuoc").value);
-        localStorage.setItem("hangX", document.getElementById("hang").value);
-
-        alert("Các cài đặt Karaoke của bạn đã được ghi nhớ thành công, hệ thống phải khởi động lại để áp dụng!");
-
-        document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - OFF</b>";
-
-         var menu = document.getElementById("menu");
-        var hienlinh = document.getElementById("hienlinh");
-        
-        if (menu.style.display != "inline-block")
-        {
-            menu.style.display = "inline-block";
-            hienlinh.style.display = "none";
-        }
-
-        resetKaraoke();
-    }
-
-                    var id = setInterval(myAlert, 100);
-
-                    function myAlert()
-                    {
-                        
-                        if (flag == 0)
-                        {
-                            LBH = document.getElementById("txtKara").value.split(/\r|\n/);
-
-                    var k = 0;
-                    for (var i = 0; i < LBH.length; i++)
-                    {
-                        var ss = LBH[i].split("#");
-                        time_xuathien[k] = new Number(ss[0]);
-                        LBH[k] = ss[1];
-                        if (ss[1] != "[Empty]" && ss[1] != "[Empty-X]")
-                        {
-                            time_luuvet[k] = ss[2];
-                        }
-                        k++;
-                    }
-                    flag = 1;
-                        }
-
-                         if (you == false || youX == false)
-                        return;
-
-                         // Thay doi tu cai dat da luu
-                        if (flg == 0)
-                        {
-                        doimau_Save();
-                        doimauX_Save();
-                        doimauY_Save();
-                        doihang_Save();
-                        doikichthuoc_Save();
-                        flg = 1;
-                        }
-
-                         if (t % 2 == 0)
-                        {
-                        if (!window.screenTop && !window.screenY)
-                        {
-                        document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - OFF</b>";
-                           var menu = document.getElementById("menu");
-        var hienlinh = document.getElementById("hienlinh");
-        
-        if (menu.style.display != "inline-block")
-        {
-            menu.style.display = "inline-block";
-            hienlinh.style.display = "none";
-        }
-                        }
-                        else
-                         document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - ON</b>";
-                        }
-              
-                        t++;
-
-            if (t == time_xuathien[n])
-            {
-                h_xh = [];
-                h_le = [];
-
-                if (LBH[n] != "[Empty]" && LBH[n] != "[Empty-X]")
-                {
-                    var s = time_luuvet[n].split(",");
-
-                    for (var i = 0; i < s.length; i++)
-                    {
-                        var ss = s[i].split("-");
-                        h_xh[kk] = new Number(ss[0]);
-                        h_le[kk] = new Number(ss[1]);
-                        kk++;
-                    }
-                }
-
-                if (LBH[n] == "[Empty]" || LBH[n] == "[Empty-X]")
-                {
-                    document.getElementById("txtKaraoke1").innerHTML = "";
-                    document.getElementById("txtKaraoke2").innerHTML = "";
-                    document.getElementById("txtKara1").value = "";
-                    document.getElementById("txtKara2").value = "";
-                }
-                else
-                {
-                    var sing = LBH[n].split("*");
-                   document.getElementById("txtKaraoke1").innerHTML = new String(sing[0]).toUpperCase().replace("UNDEFINED","");
-
-                   document.getElementById("txtKaraoke2").innerHTML = new String(sing[1]).toUpperCase().replace("UNDEFINED","");;
-
-                    document.getElementById("txtKara1").value = sing[0];
-                    document.getElementById("txtKara2").value = sing[1];
-                }
-
-                //txtKaraoke1.Select(0, LBH[n].Length + 1);
-                //txtKaraoke1.SelectionColor = Color.White;
-                //txtKaraoke2.Select(0, LBH[n].Length + 1);
-                //txtKaraoke2.SelectionColor = Color.White;
-                n++;
+            * {
+            box-sizing: border-box;
             }
-
-            if (n > 1 && LBH[n - 1] == "[Empty]" && empty == -1)
-            {
-                empty = kf;
+            body {
+            margin: 0;
+            font-family: Arial;
+            font-size: 17px;
             }
-
-            if (t >= h_xh[0]- 28 && t <= h_xh[0] - 1 || t >= h_xh[empty]- 28  && t <= h_xh[empty] - 1)
+            #myVideo {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%; 
+            min-height: 100%;
+            }
+            .content {
+            position: fixed;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            color: #f1f1f1;
+            width: 100%;
+            padding: 20px;
+            }
+            /*---------------------------------------------*/
+            /* Safari syntax */
+            :-webkit-full-screen {
+            background-color: white;
+            }
+            /* IE11 */
+            :-ms-fullscreen {
+            background-color: white;
+            }
+            /* Standard syntax */
+            :fullscreen {
+            background-color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <meta charset="ISO-8859-1">
+        <script>
+            // Delete div somee
+            
+                setInterval(function()
+                {
+                     $(document).ready(function () {
+                $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
+                $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
+                $("div[onmouseover='S_ssac();']").remove();
+                $("center").remove();
+                $("div[style='height: 65px;']").remove();
+            });
+                },1);
+            
+                 var playmute = 0;
+            
+            function ketquaplay()
             {
-                        var hang = new Number(document.getElementById("hang").value);
+                playmute = 1;
+            }
+            
+            function playketqua()
+            {
+                playmute = 0;
+                document.getElementById("muteplay").play();
+            }
+            
+             function xong()
+            {
+                if (playmute == 0)
+                {
+                    alert("Vui lòng chờ trong ít phút hoặc load lại trang. Xin lỗi vì sự bất tiện này !");
+                    return;
+                }
+            
+                document.getElementById("ok").style.display = "none";
+                document.getElementById("loading").style.display = "inline-block";
+            }
+            
+            function doikichthuoc()
+            {
+                var kt = document.getElementById("kichthuoc").value + "px";
+                document.getElementById("txtKaraoke1").style.fontSize = kt; 
+             document.getElementById("txtKaraoke2").style.fontSize = kt; 
+             document.getElementById("number").style.fontSize = kt; 
+            }
+            
+             function doikichthuoc_Save()
+                {
+                     if (localStorage.getItem("kichthuocX") == null)
+                    return;
+            
+                    var kichthuoc = localStorage.getItem("kichthuocX");
+                var kt = kichthuoc + "px";
+                document.getElementById("kichthuoc").value = kichthuoc;
+               document.getElementById("txtKaraoke1").style.fontSize = kt; 
+             document.getElementById("txtKaraoke2").style.fontSize = kt; 
+             document.getElementById("number").style.fontSize = kt; 
+                }
+            
+            function doihang()
+            {
+                var hang = new Number(document.getElementById("hang").value);
                 var hax = "";
-                for (var i  =0; i < hang-5; i++)
+                for (var i  =0; i < hang; i++)
                 hax += "<br>";
-
+            
                 document.getElementById("hienthi").innerHTML = hax;
             }
-            else
-            doihang();
-
-            if (h_xh != null && (t == h_xh[0] - 8 || empty != -1 && t == h_xh[empty] - 8))
-            {
-               document.getElementById("number").innerHTML = "1";
-            }
-
-            if (h_xh != null && (t == h_xh[0] - 18 || empty != -1 && t == h_xh[empty] - 18))
-            {
-               document.getElementById("number").innerHTML = "2";
-            }
-
-            if (h_xh != null && (t == h_xh[0] - 28 || empty != -1 && t == h_xh[empty] - 28))
-            {
-               document.getElementById("number").innerHTML = "3";
-            }
-
-
-            var xinloi = document.getElementById("txtKara1").value.split(" ");
-
-            var kara1 = document.getElementById("txtKara1").value;
-            var kara2 = document.getElementById("txtKara2").value;  
-
-            if (h_xh != null && t == h_xh[kf])
-            {
-                if (h_le[kf] <= kara1.length + xinloi[xinloi.length - 1].length)
+            
+             function doihang_Save()
                 {
-                    var ct1 = kara1.substring(0,h_le[kf]).toUpperCase().replace("UNDEFINED","");
-                    var ct2 = kara1.substring(h_le[kf], kara1.length).toUpperCase().replace("UNDEFINED","");
-                    document.getElementById("txtKaraoke1").innerHTML = "<span style=\"color:"+mau+"\">"+ct1+"</span><span>"+ct2+"</span>"
+                     if (localStorage.getItem("hangX") == null)
+                    return;
+            
+                     var hang = new Number(localStorage.getItem("hangX"));
+                     document.getElementById("hang").value = localStorage.getItem("hangX");
+            
+                var hax = "";
+                for (var i  =0; i < hang; i++)
+                hax += "<br>";
+            
+                document.getElementById("hienthi").innerHTML = hax;
+                }
+            
+            function chonKaraHay()
+            {
+                var chon = document.getElementById("chonKara").options.selectedIndex;
+                var chonX = document.getElementById("chonKarax");
+                var online = document.getElementById("online");
+                var help = document.getElementById("helpYoutube");
+                if (chon == 0)
+                {
+                    online.style.display = "none";
+                    help.style.display = "none";
+                chonX.value = "1";
+                }
+                else if (chon == 1)
+                {
+                chonX.value = "2";
+                online.style.display = "inline-block";
+                help.style.display = "none";
+                }
+                else  if (chon == 2)
+                {
+                chonX.value = "3";
+                 online.style.display = "inline-block";
+                 help.style.display = "none";
+                }
+                else  if (chon == 3)
+                {
+                chonX.value = "4";
+                 online.style.display = "inline-block";
+                 help.style.display = "inline-block";
+                }
+            }
+            
+            function dongmomenu()
+            {
+                var menu = document.getElementById("menu");
+                var hienlinh = document.getElementById("hienlinh");
+                
+                if (menu.style.display == "inline-block")
+                {
+                    menu.style.display = "none";
+                    hienlinh.style.display = "inline-block";
                 }
                 else
                 {
-                    var ct1 = kara2.substring(0, h_le[kf] - kara1.length - 2).toUpperCase().replace("UNDEFINED","");
-                    var ct2 = kara2.substring(h_le[kf] - kara1.length - 2, kara2.length).toUpperCase().replace("UNDEFINED","");
-                   document.getElementById("txtKaraoke2").innerHTML = "<span style=\"color:"+mau+"\">"+ct1+"</span><span>"+ct2+"</span>"
+                    menu.style.display = "inline-block";
+                    hienlinh.style.display = "none";
                 }
-                kf++;
-
-                 document.getElementById("number").innerHTML = "";
-           }
-     }
-
-      function democheck()
-     {
-         if (document.getElementById("checkdemo").checked == false)
-         {
-             document.getElementById("phan1").style.display = "block";
-             document.getElementById("phan2").style.display = "block";
-             document.getElementById("phan3").style.display = "block";
-         }
-         else{
-             document.getElementById("phan1").style.display = "none";
-             document.getElementById("phan2").style.display = "none";
-             document.getElementById("phan3").style.display = "none";
-         }
-     }
-
-</script>
-
-<audio id="muteplay" autoplay hidden onplaying="ketquaplay()" onpause="playketqua()" onended="playketqua()" muted>
-    <source src="/karaoke_Example/ExamKara/KaraokeDemo.mp3" type="audio/mpeg">
-</audio>
-
-<audio id="music" autoplay hidden  onplay="PlayKaraoke()" onplaying="PlayY()" onpause="PlayXKaraoke()" onended="StopKaraoke()">
-    <source src="@ViewBag.Music" type="audio/mpeg">
-</audio>
-
-<audio id="musix" autoplay hidden muted onplay="ToPlayKaraoke()" onplaying="PlayZ()" onpause="PlayXKaraokeX()" onended="StopKaraoke()">
-    <source src="@ViewBag.Musix" type="audio/mpeg">
-</audio>
-
-<textarea id="txtKara" hidden>@ViewBag.Karaoke</textarea>
-
-@if (ViewBag.Music == "")
-{
-     @if (ViewBag.Karaoke == "karaoke")
-{
-    <h3 style="color:aqua">Bạn nên trải nghiệm tính năng này trên máy tính (PC), laptop,... nhé 😄<br>Lưu ý : trong khi đang trải nghiệm Karaoke, bạn không nên refresh lại trang để tránh mất dữ liệu!</h3><br />
-}
-    <span style="color:red">Phiên bản này hiện nay đã quá cũ và chúng tôi rất ít khi nâng cấp nó (sẽ có một số lỗi xảy ra). Nhưng bạn có thể tiếp tục sử dụng bình thường (nếu muốn) !</span>
-    <br />
-    <h2>@Html.ActionLink("Bạn có muốn trải nghiệm phiên bản Karaoke thông thường?", "ToPlayKaraoke")</h2>
- <br />
- <br />
-    <table align="center">
-    <h2 style="text-align:center">Play Your Karaoke - Online</h2>
-
-    <br />
-
-    @using (Html.BeginForm("PlayKaraoke", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
-    {
-        @Html.ValidationSummary(true)
-
-             <tr style="height:40px">
+            }
+            
+             var elem = document.documentElement;
+            
+                function loadsolar()
+                {
+                    var xanh = document.getElementById("xanh");
+                    if ('@ViewBag.Show' == "show")
+                    {
+                        if (xanh.innerHTML == "<b>FULL MÀN HÌNH - OFF</b>")
+                        {
+                            if (elem.requestFullscreen)
+                            elem.requestFullscreen();
+                             else if (elem.webkitRequestFullscreen) /* Safari */
+                            elem.webkitRequestFullscreen();
+                           else if (elem.msRequestFullscreen) /* IE11 */
+                            elem.msRequestFullscreen();
+            
+                            xanh.innerHTML = "<b>FULL MÀN HÌNH - ON</b>";
+                            dongmomenu();
+                        }
+                        else 
+                        {
+            
+                            if (document.exitFullscreen) {
+            document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) { /* Safari */
+            document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { /* IE11 */
+            document.msExitFullscreen();
+            }
+            
+            var menu = document.getElementById("menu");
+                var hienlinh = document.getElementById("hienlinh");
+                
+                if (menu.style.display != "inline-block")
+                {
+                    menu.style.display = "inline-block";
+                    hienlinh.style.display = "none";
+                }
+            
+                          xanh.innerHTML = "<b>FULL MÀN HÌNH - OFF</b>";
+                        }
+                    }
+                }
+            
+            var you = false;
+            var youX = false;
+            
+            function PlayY()
+            {
+                if (document.getElementById("music").currentTime != document.getElementById("musix").currentTime)
+                document.getElementById("music").currentTime = document.getElementById("musix").currentTime;
+            }
+            
+             function PlayZ()
+            {
+                if (document.getElementById("music").currentTime != document.getElementById("musix").currentTime)
+                document.getElementById("musix").currentTime = document.getElementById("music").currentTime;
+            }
+            
+            function PlayKaraoke()
+            {
+                if (document.getElementById("music").currentTime != document.getElementById("musix").currentTime)
+                document.getElementById("music").currentTime = document.getElementById("musix").currentTime;
+            
+                document.getElementById("musix").play();
+            
+                you = true;
+            }
+            
+            function ToPlayKaraoke()
+            {
+                 if (document.getElementById("musix").currentTime != document.getElementById("music").currentTime)
+                document.getElementById("musix").currentTime = document.getElementById("music").currentTime;
+            
+                document.getElementById("music").play();
+                youX = true;
+            }
+            
+            var t = 0;
+              var kk = 0;
+                var empty = -1;
+            
+                var flag = 0;
+                 var n = 0;
+                var kf = 0;
+            
+            function resetKaraoke()
+            {
+                 document.getElementById("musix").currentTime = 0;
+                 document.getElementById("music").currentTime =0;
+                 t = 0;
+                  kk = 0;
+                empty = -1;
+            
+                flag = 0;
+                 n = 0;
+                kf = 0;
+                  document.getElementById("txtKaraoke1").innerHTML = "";
+                            document.getElementById("txtKaraoke2").innerHTML = "";
+                            document.getElementById("txtKara1").value = "";
+                            document.getElementById("txtKara2").value = "";
+                            document.getElementById("number").innerHTML = "";
+            
+            }
+            
+             function PlayXKaraoke()
+            {
+                document.getElementById("musix").pause();
+            
+                you = false;
+            }
+            
+            function xemplay()
+            {
+                if ('@ViewBag.SuDung' == "Youtube")
+                {
+                document.getElementById("phanphoi").innerHTML= "<iframe id=\"myVideo\" src=\""+'@ViewBag.Background'+"\"></iframe>";
+                }
+                else if ('@ViewBag.SuDung' == "Video")
+                {
+                    document.getElementById("myVideo").currentTime = 0;
+                }
+                dongmomenu();
+                if (elem.requestFullscreen)
+                            elem.requestFullscreen();
+                             else if (elem.webkitRequestFullscreen) /* Safari */
+                            elem.webkitRequestFullscreen();
+                           else if (elem.msRequestFullscreen) /* IE11 */
+                            elem.msRequestFullscreen();
+            
+                            document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - ON</b>";
+                resetKaraoke();
+            }
+            
+            function PlayXKaraokeX()
+            {
+                document.getElementById("music").pause();
+                youX = false;
+            }
+            
+            function changeKara()
+            {
+                var chon = document.getElementById("chon").options.selectedIndex;
+            
+                if (chon == 0)
+                {
+                    document.getElementById("music").muted = false;
+                    document.getElementById("musix").muted = true;
+                }
+                else
+                {
+                    document.getElementById("music").muted = true;
+                    document.getElementById("musix").muted = false;
+                }
+            }
+            
+            function StopKaraoke()
+            {
+                window.location.href="/Home/XoaKaraoke";
+            }
+            
+                var time_xuathien = [];
+                var time_luuvet = [];
+               
+                var h_xh = [];
+                var h_le = [];
+            
+                var mau = "#2900f5";
+            
+                function doimau()
+                {
+                    mau = document.getElementById("mau").value;
+                    document.getElementById("xemthumau").style.color = mau;
+                }
+            
+                function doimau_Save()
+                {
+                    if (localStorage.getItem("mauXK") == null)
+                    return;
+            
+                     mau = localStorage.getItem("mauXK");
+                     document.getElementById("mau").value = mau;
+            
+                    document.getElementById("xemthumau").style.color = mau;
+                }
+            
+                 function doimauX()
+                {
+                    document.getElementById("xemmauthu").style.color = document.getElementById("mauX").value;
+                    document.getElementById("txtKaraoke1").style.color = document.getElementById("mauX").value;
+                    document.getElementById("txtKaraoke2").style.color = document.getElementById("mauX").value;
+                }
+            
+                 function doimauX_Save()
+                {
+                     if (localStorage.getItem("mauXX") == null)
+                    return;
+            
+                      mauX = localStorage.getItem("mauXX");
+                      document.getElementById("mauX").value = mauX;
+                    document.getElementById("xemmauthu").style.color = mauX;
+                   document.getElementById("txtKaraoke1").style.color = document.getElementById("mauX").value;
+                   document.getElementById("txtKaraoke2").style.color = document.getElementById("mauX").value;
+                }
+            
+                 function doimauY()
+                {
+                    document.getElementById("xemmaudi").style.color = document.getElementById("mauY").value;
+                    document.getElementById("number").style.color = document.getElementById("mauY").value;
+                }
+            
+                 function doimauY_Save()
+                {
+                     if (localStorage.getItem("mauYX") == null)
+                    return;
+            
+                    document.getElementById("mauY").value = localStorage.getItem("mauYX");
+                     document.getElementById("xemmaudi").style.color = localStorage.getItem("mauYX");
+                    document.getElementById("number").style.color = localStorage.getItem("mauYX");
+                }
+            
+                var LBH;
+                var LBH;
+                var flg = 0;
+            
+                 function ghinho()
+            {
+                localStorage.setItem("mauXK", document.getElementById("mau").value);
+                localStorage.setItem("mauXX", document.getElementById("mauX").value);
+                localStorage.setItem("mauYX", document.getElementById("mauY").value);
+                localStorage.setItem("kichthuocX", document.getElementById("kichthuoc").value);
+                localStorage.setItem("hangX", document.getElementById("hang").value);
+            
+                alert("Các cài đặt Karaoke của bạn đã được ghi nhớ thành công, hệ thống phải khởi động lại để áp dụng!");
+            
+                document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - OFF</b>";
+            
+                 var menu = document.getElementById("menu");
+                var hienlinh = document.getElementById("hienlinh");
+                
+                if (menu.style.display != "inline-block")
+                {
+                    menu.style.display = "inline-block";
+                    hienlinh.style.display = "none";
+                }
+            
+                resetKaraoke();
+            }
+            
+                            var id = setInterval(myAlert, 100);
+            
+                            function myAlert()
+                            {
+                                
+                                if (flag == 0)
+                                {
+                                    LBH = document.getElementById("txtKara").value.split(/\r|\n/);
+            
+                            var k = 0;
+                            for (var i = 0; i < LBH.length; i++)
+                            {
+                                var ss = LBH[i].split("#");
+                                time_xuathien[k] = new Number(ss[0]);
+                                LBH[k] = ss[1];
+                                if (ss[1] != "[Empty]" && ss[1] != "[Empty-X]")
+                                {
+                                    time_luuvet[k] = ss[2];
+                                }
+                                k++;
+                            }
+                            flag = 1;
+                                }
+            
+                                 if (you == false || youX == false)
+                                return;
+            
+                                 // Thay doi tu cai dat da luu
+                                if (flg == 0)
+                                {
+                                doimau_Save();
+                                doimauX_Save();
+                                doimauY_Save();
+                                doihang_Save();
+                                doikichthuoc_Save();
+                                flg = 1;
+                                }
+            
+                                 if (t % 2 == 0)
+                                {
+                                if (!window.screenTop && !window.screenY)
+                                {
+                                document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - OFF</b>";
+                                   var menu = document.getElementById("menu");
+                var hienlinh = document.getElementById("hienlinh");
+                
+                if (menu.style.display != "inline-block")
+                {
+                    menu.style.display = "inline-block";
+                    hienlinh.style.display = "none";
+                }
+                                }
+                                else
+                                 document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - ON</b>";
+                                }
+                      
+                                t++;
+            
+                    if (t == time_xuathien[n])
+                    {
+                        h_xh = [];
+                        h_le = [];
+            
+                        if (LBH[n] != "[Empty]" && LBH[n] != "[Empty-X]")
+                        {
+                            var s = time_luuvet[n].split(",");
+            
+                            for (var i = 0; i < s.length; i++)
+                            {
+                                var ss = s[i].split("-");
+                                h_xh[kk] = new Number(ss[0]);
+                                h_le[kk] = new Number(ss[1]);
+                                kk++;
+                            }
+                        }
+            
+                        if (LBH[n] == "[Empty]" || LBH[n] == "[Empty-X]")
+                        {
+                            document.getElementById("txtKaraoke1").innerHTML = "";
+                            document.getElementById("txtKaraoke2").innerHTML = "";
+                            document.getElementById("txtKara1").value = "";
+                            document.getElementById("txtKara2").value = "";
+                        }
+                        else
+                        {
+                            var sing = LBH[n].split("*");
+                           document.getElementById("txtKaraoke1").innerHTML = new String(sing[0]).toUpperCase().replace("UNDEFINED","");
+            
+                           document.getElementById("txtKaraoke2").innerHTML = new String(sing[1]).toUpperCase().replace("UNDEFINED","");;
+            
+                            document.getElementById("txtKara1").value = sing[0];
+                            document.getElementById("txtKara2").value = sing[1];
+                        }
+            
+                        //txtKaraoke1.Select(0, LBH[n].Length + 1);
+                        //txtKaraoke1.SelectionColor = Color.White;
+                        //txtKaraoke2.Select(0, LBH[n].Length + 1);
+                        //txtKaraoke2.SelectionColor = Color.White;
+                        n++;
+                    }
+            
+                    if (n > 1 && LBH[n - 1] == "[Empty]" && empty == -1)
+                    {
+                        empty = kf;
+                    }
+            
+                    if (t >= h_xh[0]- 28 && t <= h_xh[0] - 1 || t >= h_xh[empty]- 28  && t <= h_xh[empty] - 1)
+                    {
+                                var hang = new Number(document.getElementById("hang").value);
+                        var hax = "";
+                        for (var i  =0; i < hang-5; i++)
+                        hax += "<br>";
+            
+                        document.getElementById("hienthi").innerHTML = hax;
+                    }
+                    else
+                    doihang();
+            
+                    if (h_xh != null && (t == h_xh[0] - 8 || empty != -1 && t == h_xh[empty] - 8))
+                    {
+                       document.getElementById("number").innerHTML = "1";
+                    }
+            
+                    if (h_xh != null && (t == h_xh[0] - 18 || empty != -1 && t == h_xh[empty] - 18))
+                    {
+                       document.getElementById("number").innerHTML = "2";
+                    }
+            
+                    if (h_xh != null && (t == h_xh[0] - 28 || empty != -1 && t == h_xh[empty] - 28))
+                    {
+                       document.getElementById("number").innerHTML = "3";
+                    }
+            
+            
+                    var xinloi = document.getElementById("txtKara1").value.split(" ");
+            
+                    var kara1 = document.getElementById("txtKara1").value;
+                    var kara2 = document.getElementById("txtKara2").value;  
+            
+                    if (h_xh != null && t == h_xh[kf])
+                    {
+                        if (h_le[kf] <= kara1.length + xinloi[xinloi.length - 1].length)
+                        {
+                            var ct1 = kara1.substring(0,h_le[kf]).toUpperCase().replace("UNDEFINED","");
+                            var ct2 = kara1.substring(h_le[kf], kara1.length).toUpperCase().replace("UNDEFINED","");
+                            document.getElementById("txtKaraoke1").innerHTML = "<span style=\"color:"+mau+"\">"+ct1+"</span><span>"+ct2+"</span>"
+                        }
+                        else
+                        {
+                            var ct1 = kara2.substring(0, h_le[kf] - kara1.length - 2).toUpperCase().replace("UNDEFINED","");
+                            var ct2 = kara2.substring(h_le[kf] - kara1.length - 2, kara2.length).toUpperCase().replace("UNDEFINED","");
+                           document.getElementById("txtKaraoke2").innerHTML = "<span style=\"color:"+mau+"\">"+ct1+"</span><span>"+ct2+"</span>"
+                        }
+                        kf++;
+            
+                         document.getElementById("number").innerHTML = "";
+                   }
+             }
+            
+              function democheck()
+             {
+                 if (document.getElementById("checkdemo").checked == false)
+                 {
+                     document.getElementById("phan1").style.display = "block";
+                     document.getElementById("phan2").style.display = "block";
+                     document.getElementById("phan3").style.display = "block";
+                 }
+                 else{
+                     document.getElementById("phan1").style.display = "none";
+                     document.getElementById("phan2").style.display = "none";
+                     document.getElementById("phan3").style.display = "none";
+                 }
+             }
+            
+        </script>
+        <audio id="muteplay" autoplay hidden onplaying="ketquaplay()" onpause="playketqua()" onended="playketqua()" muted>
+            <source src="/karaoke_Example/ExamKara/KaraokeDemo.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="music" autoplay hidden  onplay="PlayKaraoke()" onplaying="PlayY()" onpause="PlayXKaraoke()" onended="StopKaraoke()">
+            <source src="@ViewBag.Music" type="audio/mpeg">
+        </audio>
+        <audio id="musix" autoplay hidden muted onplay="ToPlayKaraoke()" onplaying="PlayZ()" onpause="PlayXKaraokeX()" onended="StopKaraoke()">
+            <source src="@ViewBag.Musix" type="audio/mpeg">
+        </audio>
+        <textarea id="txtKara" hidden>@ViewBag.Karaoke</textarea>
+        @if (ViewBag.Music == "")
+        {
+        @if (ViewBag.Karaoke == "karaoke")
+        {
+        <h3 style="color:aqua">Bạn nên trải nghiệm tính năng này trên máy tính (PC), laptop,... nhé 😄<br>Lưu ý : trong khi đang trải nghiệm Karaoke, bạn không nên refresh lại trang để tránh mất dữ liệu!</h3>
+        <br />
+        }
+        <span style="color:red">Phiên bản này hiện nay đã quá cũ và chúng tôi rất ít khi nâng cấp nó (sẽ có một số lỗi xảy ra). Nhưng bạn có thể tiếp tục sử dụng bình thường (nếu muốn) !</span>
+        <br />
+        <h2>@Html.ActionLink("Bạn có muốn trải nghiệm phiên bản Karaoke thông thường?", "ToPlayKaraoke")</h2>
+        <br />
+        <br />
+        <table align="center">
+            <h2 style="text-align:center">Play Your Karaoke - Online</h2>
+            <br />
+            @using (Html.BeginForm("PlayKaraoke", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+            {
+            @Html.ValidationSummary(true)
+            <tr style="height:40px">
                 <td> </td>
                 <td>
                     <br>
-                        <b style="color:orangered"><input id="checkdemo" onchange="democheck()" type="checkbox" name="txtChon" /> Tham khảo bản karaoke demo có sẵn trên hệ thống</b>
-                        <br>
+                    <b style="color:orangered"><input id="checkdemo" onchange="democheck()" type="checkbox" name="txtChon" /> Tham khảo bản karaoke demo có sẵn trên hệ thống</b>
+                    <br>
                 </td>
             </tr>
-
             <tr style="height:40px">
                 <td> </td>
                 <td id="phan1">
                     <br>
-                        <b> Tải file TXT karaoke (đã xử lý) : </b>
+                    <b> Tải file TXT karaoke (đã xử lý) : </b>
                     <br>
-                        <input type="file" name="txtKaraoke"/>  <b>@Html.ActionLink("Bạn chưa có file text karaoke?","CreateFile_Karaoke")</b>
+                    <input type="file" name="txtKaraoke"/>  <b>@Html.ActionLink("Bạn chưa có file text karaoke?","CreateFile_Karaoke")</b>
                     <br>
                 </td>
             </tr>
-
-             <tr style="height:40px">
+            <tr style="height:40px">
                 <td> </td>
                 <td id="phan2">
                     <br>
-                        <b> Tải file MP3 karaoke - nhạc gốc có giọng ca sĩ (đã xử lý) : </b>
+                    <b> Tải file MP3 karaoke - nhạc gốc có giọng ca sĩ (đã xử lý) : </b>
                     <br>
-                        <input type="file" name="txtMusix"/>
+                    <input type="file" name="txtMusix"/>
                     <br>
                 </td>
             </tr>
-
-             <tr style="height:40px">
+            <tr style="height:40px">
                 <td> </td>
                 <td id="phan3">
                     <br>
-                        <b> Tải file MP3 karaoke - nhạc beat tách giọng ca sĩ (karaoke - đã xử lý) : </b>
+                    <b> Tải file MP3 karaoke - nhạc beat tách giọng ca sĩ (karaoke - đã xử lý) : </b>
                     <br>
-                        <input type="file" name="txtMusic"/>
+                    <input type="file" name="txtMusic"/>
                     <br>
                 </td>
             </tr>
-
-             <tr style="height:40px">
-                    <td> </td>
-                    <td>
-                        <br>
-                        <h5 style="color:brown">
-                - Sử dụng các app/web bên ngoài để giúp tách nhạc và giọng ca sĩ (nếu bạn không có bản nhạc Karaoke)
-                <br>
-                - Sử dụng các app/web bên ngoài để tăng âm lượng cho âm thanh.
-                <br>
-                - Ngoài ra bạn có thể áp dụng sự hiểu biết về photoshop/hiệu chỉnh âm thanh khác cho thích hợp nhất!
-            </h5>
-                    </td>
-                </tr>
-
-                 <tr style="height:40px">
-                <td></td>
+            <tr style="height:40px">
+                <td> </td>
                 <td>
-                      <select id="chonKara" onchange="chonKaraHay()">
-                          <option>Sử dụng ngẫu nhiên ảnh/background có sẵn trên hệ thống</option>
-                           <option>Sử dụng link ảnh/background online của bạn</option>
-                           <option>Sử dụng link video/background online của bạn</option>
-                            <option>Nhập link video Youtube online</option>
-                      </select>
-                      <input type="number" hidden id="chonKarax" name="KaraChon" value="1" min="1" max="4" />
-                      <br><br>
-                      <input name="txtOnline" id="online" size="100" style="display:none" type="text" placeholder="Nhập link online background của bạn thực hiện karaoke..." />
-                     <br><span id="helpYoutube" style="color:red; display:none"><u>Lưu ý</u> : một số link Youtube có thể không khả dụng hoặc bạn nên cố gắng thử lại!</span>
+                    <br>
+                    <h5 style="color:brown">
+                        - Sử dụng các app/web bên ngoài để giúp tách nhạc và giọng ca sĩ (nếu bạn không có bản nhạc Karaoke)
+                        <br>
+                        - Sử dụng các app/web bên ngoài để tăng âm lượng cho âm thanh.
+                        <br>
+                        - Ngoài ra bạn có thể áp dụng sự hiểu biết về photoshop/hiệu chỉnh âm thanh khác cho thích hợp nhất!
+                    </h5>
                 </td>
             </tr>
-
             <tr style="height:40px">
                 <td></td>
                 <td>
-                                     <br>
-                        <input id="ok" onclick="xong()" style="font-weight:bolder" type="Submit" value="Bắt Đầu" />
-                         <br>
-                        <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
+                    <select id="chonKara" onchange="chonKaraHay()">
+                        <option>Sử dụng ngẫu nhiên ảnh/background có sẵn trên hệ thống</option>
+                        <option>Sử dụng link ảnh/background online của bạn</option>
+                        <option>Sử dụng link video/background online của bạn</option>
+                        <option>Nhập link video Youtube online</option>
+                    </select>
+                    <input type="number" hidden id="chonKarax" name="KaraChon" value="1" min="1" max="4" />
+                    <br><br>
+                    <input name="txtOnline" id="online" size="100" style="display:none" type="text" placeholder="Nhập link online background của bạn thực hiện karaoke..." />
+                    <br><span id="helpYoutube" style="color:red; display:none"><u>Lưu ý</u> : một số link Youtube có thể không khả dụng hoặc bạn nên cố gắng thử lại!</span>
                 </td>
             </tr>
-    }
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                    <br>
+                    <input id="ok" onclick="xong()" style="font-weight:bolder" type="Submit" value="Bắt Đầu" />
+                    <br>
+                    <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
+                </td>
+            </tr>
+            }
         </table>
-    }
-    else
-    {
+        }
+        else
+        {
         <div class="video-overlay" id="play">
             <table align="center" onended="loadsolar()">
                 <div id="hienlinh" style="display:none">
@@ -758,92 +733,82 @@ body {
                 <div id="menu" style="display:inline-block">
                     @if (ViewBag.Music != ViewBag.Musix)
                     {
-                        <select id="chon" onchange="changeKara()">
-                            <option>Chế độ Karaoke</option>
-                            <option>Chế độ Ca sĩ hát</option>
-                        </select>
-    }
-    &nbsp; &nbsp; &nbsp<button style="color:brown" onclick="loadsolar()" id="xanh"><b>FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp;<b id="xemthumau" style="color:#2900f5">Chọn màu tô điểm text</b> : <input type="color" onchange="doimau()" id="mau" value="#2900f5" />
-    &nbsp;&nbsp;&nbsp;<b id="xemmauthu" style="color:#efe6e6">Chọn màu đoạn text ban đầu</b> : <input type="color" onchange="doimauX()" id="mauX" value="#efe6e6" />
-     &nbsp;&nbsp;&nbsp;<b id="xemmaudi" style="color:#e3f207">Chọn màu cho time đếm ngược bắt đầu karaoke</b> : <input type="color" onchange="doimauY()" id="mauY" value="#e3f207" />
-       &nbsp;&nbsp;&nbsp; <input id="kichthuoc" type="number" min="0" value="100" onchange="doikichthuoc()"/>
-        &nbsp;&nbsp;&nbsp; <input id="hang" type="number" min="0" value="0" onchange="doihang()"/>
-         &nbsp;&nbsp;&nbsp; <button onclick="ghinho()"><b style="color:lightcoral">Ghi nhớ các cài đặt</b></button>
-        &nbsp;&nbsp;&nbsp; <b style="color:aqua"><a onclick="xemplay()" href="#xuly">Restart & full screen</a></b>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="StopKaraoke()"><b style="color:darkgreen">THOÁT</b></button>
-
-    <br /><br /><b><span style="color:white">Xin lỗi, đôi khi vì sự cố kết nối mạng mà khiến cho chức năng Karaoke : nhạc và đoạn text lời xuất hiện không đồng nhất với nhau hay dữ liệu chưa được tải lên hết.
-        <br>Mỗi khi gặp sự cố này, phiền bạn hãy nhấn nút <button style="color:purple" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI</b></button> để tải lại dữ liệu cho đến khi một cách hoàn tất. Xin cảm ơn!</span></b>
-    <br />
-    </div>
-
-    <div id="hienthi">
-    <br>
-    <br>
-
-    <br>
-
-    <br>
-    <br />
-
-    <br>
-
-    <br>
-    <br />
-        <br>
-    
-    <br>
-    <br />
-    <br>
-      <br />
-      <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        </div>
-
-    <input type="text" id="txtKara1" hidden>
-    <input type="text" id="txtKara2" hidden>
-
-    <tr style="height:40px">
-                <td></td>
-                <td>
-                       <span id="number" style="color:#e3f207; font-size:100px"></span>
+                    <select id="chon" onchange="changeKara()">
+                        <option>Chế độ Karaoke</option>
+                        <option>Chế độ Ca sĩ hát</option>
+                    </select>
+                    }
+                    &nbsp; &nbsp; &nbsp<button style="color:brown" onclick="loadsolar()" id="xanh"><b>FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp;<b id="xemthumau" style="color:#2900f5">Chọn màu tô điểm text</b> : <input type="color" onchange="doimau()" id="mau" value="#2900f5" />
+                    &nbsp;&nbsp;&nbsp;<b id="xemmauthu" style="color:#efe6e6">Chọn màu đoạn text ban đầu</b> : <input type="color" onchange="doimauX()" id="mauX" value="#efe6e6" />
+                    &nbsp;&nbsp;&nbsp;<b id="xemmaudi" style="color:#e3f207">Chọn màu cho time đếm ngược bắt đầu karaoke</b> : <input type="color" onchange="doimauY()" id="mauY" value="#e3f207" />
+                    &nbsp;&nbsp;&nbsp; <input id="kichthuoc" type="number" min="0" value="100" onchange="doikichthuoc()"/>
+                    &nbsp;&nbsp;&nbsp; <input id="hang" type="number" min="0" value="0" onchange="doihang()"/>
+                    &nbsp;&nbsp;&nbsp; <button onclick="ghinho()"><b style="color:lightcoral">Ghi nhớ các cài đặt</b></button>
+                    &nbsp;&nbsp;&nbsp; <b style="color:aqua"><a onclick="xemplay()" href="#xuly">Restart & full screen</a></b>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="StopKaraoke()"><b style="color:darkgreen">THOÁT</b></button>
+                    <br /><br /><b><span style="color:white">Xin lỗi, đôi khi vì sự cố kết nối mạng mà khiến cho chức năng Karaoke : nhạc và đoạn text lời xuất hiện không đồng nhất với nhau hay dữ liệu chưa được tải lên hết.
+                    <br>Mỗi khi gặp sự cố này, phiền bạn hãy nhấn nút <button style="color:purple" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI</b></button> để tải lại dữ liệu cho đến khi một cách hoàn tất. Xin cảm ơn!</span></b>
+                    <br />
+                </div>
+                <div id="hienthi">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br />
+                    <br>
+                    <br>
+                    <br />
+                    <br>
+                    <br>
+                    <br />
+                    <br>
+                    <br />
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+                <input type="text" id="txtKara1" hidden>
+                <input type="text" id="txtKara2" hidden>
+                <tr style="height:40px">
+                    <td></td>
+                    <td>
+                        <span id="number" style="color:#e3f207; font-size:100px"></span>
                         <br>
-                         <div style="text-align:center">
-                        <div style="display:inline-block">
-                          <span id="txtKaraoke1" style="font-size:100px;color:#efe6e6"></span>
-                          <br><br>
-                        <span id="txtKaraoke2" style="font-size:100px;color:#efe6e6"></span>
+                        <div style="text-align:center">
+                            <div style="display:inline-block">
+                                <span id="txtKaraoke1" style="font-size:100px;color:#efe6e6"></span>
+                                <br><br>
+                                <span id="txtKaraoke2" style="font-size:100px;color:#efe6e6"></span>
+                            </div>
                         </div>
-                        </div>
-                </td>
-            </tr>                     
-    
-</table>
-</div>
-<div id="phanphoi">
-@if(ViewBag.SuDung == "")
-{
-<img src="@ViewBag.Background" id="myVideo" class="sqs-html5-video" />
-}
-else if (ViewBag.SuDung == "Video")
-{
-<video muted loop autoplay id="myVideo" class="sqs-html5-video">
-  <source src="@ViewBag.Background" >
-            </video>
-        }
-        else
-        {
-            <iframe id="myVideo"
-            src="@ViewBag.Background">
-           </iframe>
-        }
+                    </td>
+                </tr>
+            </table>
         </div>
-    }
+        <div id="phanphoi">
+            @if(ViewBag.SuDung == "")
+            {
+            <img src="@ViewBag.Background" id="myVideo" class="sqs-html5-video" />
+            }
+            else if (ViewBag.SuDung == "Video")
+            {
+            <video muted loop autoplay id="myVideo" class="sqs-html5-video">
+                <source src="@ViewBag.Background" >
+            </video>
+            }
+            else
+            {
+            <iframe id="myVideo"
+                src="@ViewBag.Background">
+            </iframe>
+            }
+        </div>
+        }
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-</body>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </body>
 </html>

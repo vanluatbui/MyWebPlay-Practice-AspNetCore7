@@ -1,24 +1,24 @@
 ﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
     function PlayChon1()
     {
         var DK1 = document.getElementById("DK1");
         var chon1 = document.getElementById("chon1").options;
-
+    
         if (chon1.selectedIndex == 0)
         DK1.value = 2;
         else
         DK1.value = 1;
     }
-
+    
     function PlayChon2()
     {
         var DK2 = document.getElementById("DK2");
         var chon2 = document.getElementById("chon2").options;
-
+    
         if (chon2.selectedIndex == 0)
         DK2.value = 1;
         else
@@ -31,115 +31,102 @@
         if (chon2.selectedIndex == 3)
         DK2.value = 4;
     }
-
+    
 </script>
 <table align="center">
     <h2 style="text-align:center">Split-Special String Regex</h2>
-
     <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
-
     @using (Html.BeginForm())
     {
-        @Html.ValidationSummary(true)
-
-        <tr style="height:40px">
-            <td></td>
-            <td>
-                    <br>
-                        <b> Chuỗi của bạn :</b>
-                    <br>
-                <textarea rows="20" cols="150" name="Chuoi" autofocus></textarea>
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
-            </td>
-        </tr>
-
-        <br /><br />
-
-        <tr style="height:40px">
-            <td></td>
-            <td>
-                <br>
-                    <b>Mời bạn lựa chọn áp dụng Regex (Với 1 : Áp dụng Regex, 2 : Không áp dụng Regex) </b>
-              <br>
-                    <select id="chon1" onchange="PlayChon1()">
-                        <option>Không áp dụng Regex</option>
-                        <option>Áp dụng Regex</option>
-                    </select>
-                    <input type="number" min="1" max="2" name="DuKien1" id="DK1" value="2" hidden>
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
-            </td>
-        </tr>
-
-        <br /><br />
-
-        <tr style="height:40px">
-            <td></td>
-            <td>
-                <br>
-                    <b>Nhập pattern hoặc dấu hiệu cần tách </b>
-                    <br>
-                <input type="text" size="50" name="Pattern" value="">
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
-            </td>
-        </tr>
-
-        <br /><br />
-        <tr style="height:40px">
-            <td></td>
-            <td>
-                <br>
-                    <b>Mời bạn lựa chọn dạng tách (Với 1 : X -> N(Y), 2 : 0 + X -> N - Y, 3 : X, 4 : Y) </b>
-               <br>
-                <select id="chon2" onchange="PlayChon2()">
-                        <option>X -> N(Y)</option>
-                        <option>0 + X -> N - Y</option>
-                        <option>X</option>
-                        <option>Y</option>
-                    </select>
-                    <input type="number" min="1" max="4" name="DuKien2" id="DK2" value="1" hidden>
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi4"] </span>
-            </td>
-        </tr>
-
-        <br /><br />
-
-            <tr style="height:40px">
-            <td> </td>
-            <td>
-                    <br>
-                        <b> Nhập X :</b>
-                    <br>
-                <input type="text" size="50" name="X" value="">
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi5"] </span>
-            </td>
-            </tr>
-
-        <br />
-        <br />
-
-        <tr style="height:40px">
-            <td></td>
-            <td>
-                    <br>
-                        <b> Nhập Y :</b>
-                    <br>
-                <input type="text" size="50" name="Y" value="">
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi6"] </span>
-            </td>
-        </tr>
-
-        <tr style="height:40px">
-            <td></td>
-            <td>
-                <input type="Submit" value="Kết Quả" />
-            </td>
-        </tr>
+    @Html.ValidationSummary(true)
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <br>
+            <b> Chuỗi của bạn :</b>
+            <br>
+            <textarea rows="20" cols="150" name="Chuoi" autofocus></textarea>
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+        </td>
+    </tr>
+    <br /><br />
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <br>
+            <b>Mời bạn lựa chọn áp dụng Regex (Với 1 : Áp dụng Regex, 2 : Không áp dụng Regex) </b>
+            <br>
+            <select id="chon1" onchange="PlayChon1()">
+                <option>Không áp dụng Regex</option>
+                <option>Áp dụng Regex</option>
+            </select>
+            <input type="number" min="1" max="2" name="DuKien1" id="DK1" value="2" hidden>
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+        </td>
+    </tr>
+    <br /><br />
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <br>
+            <b>Nhập pattern hoặc dấu hiệu cần tách </b>
+            <br>
+            <input type="text" size="50" name="Pattern" value="">
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
+        </td>
+    </tr>
+    <br /><br />
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <br>
+            <b>Mời bạn lựa chọn dạng tách (Với 1 : X -> N(Y), 2 : 0 + X -> N - Y, 3 : X, 4 : Y) </b>
+            <br>
+            <select id="chon2" onchange="PlayChon2()">
+                <option>X -> N(Y)</option>
+                <option>0 + X -> N - Y</option>
+                <option>X</option>
+                <option>Y</option>
+            </select>
+            <input type="number" min="1" max="4" name="DuKien2" id="DK2" value="1" hidden>
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi4"] </span>
+        </td>
+    </tr>
+    <br /><br />
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <b> Nhập X :</b>
+            <br>
+            <input type="text" size="50" name="X" value="">
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi5"] </span>
+        </td>
+    </tr>
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <br>
+            <b> Nhập Y :</b>
+            <br>
+            <input type="text" size="50" name="Y" value="">
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi6"] </span>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input type="Submit" value="Kết Quả" />
+        </td>
+    </tr>
     }
 </table>
 <br><br />
@@ -204,11 +191,9 @@
 <br />
 <br />
 ******************************************************************************************************************************************************************************
-
 <br />
 <br />
 <br />
-
 <div id="hihi">
     @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
 </div>

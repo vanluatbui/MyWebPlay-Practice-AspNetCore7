@@ -1,58 +1,60 @@
-﻿  @if (TempData["ViewSiteBasic"] == "true")
+﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
-
-      function xoa()
-      {
-          var con = confirm("Bạn có chắc chắn muốn xoá/refresh the random layout?");
-          if (con == true)
-          window.location.href = "/Home/XoaLayout";
-      }
-
-      function changexem()
-      {
-           if (document.getElementById("chon").options.selectedIndex == 0)
-          {
-              document.getElementById("text1").style.display = "inline-block";
-              document.getElementById("text2").style.display = "none";
-          }
-          else
-          {
-              document.getElementById("text2").style.display = "inline-block";
-              document.getElementById("text1").style.display = "none";
-          }
-      }
-  </script>
- <button onclick="xoa()"><b style="color:red">XOÁ</b></button>
-   <h3 style="color:pink"> @ViewBag.DateTime </h3>
-   <br /><br />
-   <h3>@Html.ActionLink("Chỉnh sửa Layout", "EditLayout")</h3>
-   <br />
-   <select id="chon" onchange="changexem()">
-       <option>Xem dưới dạng text</option>
-       <option>Xem dưới dạng HTML</option>
-   </select>
- <br />
+    function xoa()
+    {
+        var con = confirm("Bạn có chắc chắn muốn xoá/refresh the random layout?");
+        if (con == true)
+        window.location.href = "/Home/XoaLayout";
+    }
+    
+    function changexem()
+    {
+         if (document.getElementById("chon").options.selectedIndex == 0)
+        {
+            document.getElementById("text1").style.display = "inline-block";
+            document.getElementById("text2").style.display = "none";
+        }
+        else
+        {
+            document.getElementById("text2").style.display = "inline-block";
+            document.getElementById("text1").style.display = "none";
+        }
+    }
+</script>
+<button onclick="xoa()"><b style="color:red">XOÁ</b></button>
+<h3 style="color:pink"> @ViewBag.DateTime </h3>
+<br /><br />
+<h3>@Html.ActionLink("Chỉnh sửa Layout", "EditLayout")</h3>
+<br />
+<select id="chon" onchange="changexem()">
+    <option>Xem dưới dạng text</option>
+    <option>Xem dưới dạng HTML</option>
+</select>
+<br />
 <table align="center">
     <h2 style="text-align:center">Text Layout Random File</h2>
-        <tr style="height:40px">
-            <td>
-            </td>
-            <td>
-                <br>
-                <br>
-                <hr /><br />
-                <div id="text1">
-                    <textarea rows="500" cols="150" name="txtText" readonly placeholder="Nội dung view layout file hiện đang trống..." autofocus>@ViewBag.Text</textarea>
-                    </div>
-                    <div id="text2" style="display:none">
-                        @Html.Raw(ViewBag.Text)
-                    </div>
-                    <br /><hr /><br /><br />
-            </td>
-        </tr>
+    <tr style="height:40px">
+        <td>
+        </td>
+        <td>
+            <br>
+            <br>
+            <hr />
+            <br />
+            <div id="text1">
+                <textarea rows="500" cols="150" name="txtText" readonly placeholder="Nội dung view layout file hiện đang trống..." autofocus>@ViewBag.Text</textarea>
+            </div>
+            <div id="text2" style="display:none">
+                @Html.Raw(ViewBag.Text)
+            </div>
+            <br />
+            <hr />
+            <br /><br />
+        </td>
+    </tr>
 </table>
 <br />
-         <h3>@Html.ActionLink("Chỉnh sửa Text Note", "EditLayout")</h3>
+<h3>@Html.ActionLink("Chỉnh sửa Text Note", "EditLayout")</h3>

@@ -2,82 +2,76 @@
 {
 if (TempData["Layout_Random"] == "false")
 {
-    Layout = null;
-
-    <html lang="vi">
-<head>
-    @if (TempData["OffRandomTab"] == "true")
-    {
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>C# | Asp Net Core | Công nghệ thông tin</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
+Layout = null;
+<html lang="vi">
+    <head>
+        @if (TempData["OffRandomTab"] == "true")
+        {
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>C# | Asp Net Core | Công nghệ thông tin</title>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
         <link rel="icon" href="/images/imagex.png">
-    }
-    else
-    {
-     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@TempData["Tab_Tittle"]</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
-    <link rel="icon" href="@TempData["Tab_Image"]">
-    }
-<script>
-    // Delete div somee
-
-        setInterval(function()
-        {
-             $(document).ready(function () {
-        $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
-        $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
-        $("div[onmouseover='S_ssac();']").remove();
-        $("center").remove();
-        $("div[style='height: 65px;']").remove();
-    });
-        },1);
-
-     var tim = 0;
-     setInterval(myFay, 1000);
-
-        function myFay()
-        {
-            tim++;
-            if (tim == 2)
-            document.getElementById("ok").click();
         }
-</script>
- 
-           <div name="colorX" style="color:@TempData["mau_text"]">
-@Html.Raw(TempData["RandomLayout"])
-</div>
-
-<div style="display:none">
- @using (Html.BeginForm(TempData["Name"].ToString(), "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
- {
-      @Html.ValidationSummary(true)
-
-     @Html.Raw(TempData["Data"]);
-
-     <input id="ok" style="font-weight:bolder" type="Submit" value="OK SEND" />
- }
- </div>
-     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
- </head>
+        else
+        {
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@TempData["Tab_Tittle"]</title>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
+        <link rel="icon" href="@TempData["Tab_Image"]">
+        }
+        <script>
+            // Delete div somee
+            
+                setInterval(function()
+                {
+                     $(document).ready(function () {
+                $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
+                $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
+                $("div[onmouseover='S_ssac();']").remove();
+                $("center").remove();
+                $("div[style='height: 65px;']").remove();
+            });
+                },1);
+            
+             var tim = 0;
+             setInterval(myFay, 1000);
+            
+                function myFay()
+                {
+                    tim++;
+                    if (tim == 2)
+                    document.getElementById("ok").click();
+                }
+        </script>
+        <div name="colorX" style="color:@TempData["mau_text"]">
+        @Html.Raw(TempData["RandomLayout"])
+        </div>
+        <div style="display:none">
+            @using (Html.BeginForm(TempData["Name"].ToString(), "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+            {
+            @Html.ValidationSummary(true)
+            @Html.Raw(TempData["Data"]);
+            <input id="ok" style="font-weight:bolder" type="Submit" value="OK SEND" />
+            }
+        </div>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </head>
 </html>
 }
 else
 {
-     Layout = "~/Views/Shared/RandomLayout/Layout"+ViewBag.NumberRandom+".cshtml";
-
-     <script>
+Layout = "~/Views/Shared/RandomLayout/Layout"+ViewBag.NumberRandom+".cshtml";
+<script>
     // Delete div somee
-
+    
         setInterval(function()
         {
              $(document).ready(function () {
@@ -88,10 +82,10 @@ else
         $("div[style='height: 65px;']").remove();
     });
         },1);
-
+    
      var tim = 0;
      setInterval(myFay, 1000);
-
+    
         function myFay()
         {
             tim++;
@@ -99,19 +93,15 @@ else
             document.getElementById("ok").click();
         }
 </script>
- 
-           <div name="colorX" style="color:@TempData["mau_text"]">
+<div name="colorX" style="color:@TempData["mau_text"]">
 </div>
-
 <div style="display:none">
- @using (Html.BeginForm(TempData["Name"].ToString(), "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
- {
-      @Html.ValidationSummary(true)
-
-     @Html.Raw(TempData["Data"]);
-
-     <input id="ok" style="font-weight:bolder" type="Submit" value="OK SEND" />
- }
- </div>
+    @using (Html.BeginForm(TempData["Name"].ToString(), "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+    @Html.ValidationSummary(true)
+    @Html.Raw(TempData["Data"]);
+    <input id="ok" style="font-weight:bolder" type="Submit" value="OK SEND" />
+    }
+</div>
 }
 }

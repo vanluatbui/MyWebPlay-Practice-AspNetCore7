@@ -1,62 +1,55 @@
-﻿    @if (TempData["ViewSiteBasic"] == "true")
+﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
-      function xoaValue(ele)
+    function xoaValue(ele)
     {
-            document.getElementById(ele).value = "";
-            document.getElementById(ele).focus();
+          document.getElementById(ele).value = "";
+          document.getElementById(ele).focus();
     }
 </script>
 <table align="center">
     <h2 style="text-align:center">Xử Lý SQL 4</h2>
-
     <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
-
     @using (Html.BeginForm())
     {
-        @Html.ValidationSummary(true)
-
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                <a href="#xuly" onclick="xoaValue('table')"><b>Nhập tên table : </b></a>
-                <br>
-                <input type="text" name="txtTable" id="table" value="User" />
-                <br><br>
-                <a href="#xuly" onclick="xoaValue('daydu')"><b>Nhập nội dung được cho là đầy đủ (liệt kê tách bởi Enter và Tab) : </b></a>
-                <br>
-                <textarea name="txtDayDu" id="daydu" cols="100" rows="12">Column1[T-PLAY]nvarchar(10)
+    @Html.ValidationSummary(true)
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <a href="#xuly" onclick="xoaValue('table')"><b>Nhập tên table : </b></a>
+            <br>
+            <input type="text" name="txtTable" id="table" value="User" />
+            <br><br>
+            <a href="#xuly" onclick="xoaValue('daydu')"><b>Nhập nội dung được cho là đầy đủ (liệt kê tách bởi Enter và Tab) : </b></a>
+            <br>
+            <textarea name="txtDayDu" id="daydu" cols="100" rows="12">Column1[T-PLAY]nvarchar(10)
 Column2[T-PLAY]int
 Column3[T-PLAY]money
 Column4[T-PLAY]varchar(5)
 Column5[T-PLAY]datetime</textarea>
-                <br><br>
-                <a href="#xuly" onclick="xoaValue('thieu')"><b>Nhập tách bởi Enter các fields nghi là thiếu [phải tồn tại column như input trên, nếu không type mặc định sẽ là nvarchar(max)] : </b></a>
-                <br>
-                <textarea name="txtThieu" id="thieu" cols="100" rows="12">Column2
+            <br><br>
+            <a href="#xuly" onclick="xoaValue('thieu')"><b>Nhập tách bởi Enter các fields nghi là thiếu [phải tồn tại column như input trên, nếu không type mặc định sẽ là nvarchar(max)] : </b></a>
+            <br>
+            <textarea name="txtThieu" id="thieu" cols="100" rows="12">Column2
 Column6
 Column4</textarea>
-            </td>
-        </tr>
-      
-        <tr style="height:40px">
-            <td></td>
-            <td><br>
-                <input type="Submit" value="Kết Quả" />
-            </td>
-        </tr>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td><br>
+            <input type="Submit" value="Kết Quả" />
+        </td>
+    </tr>
     }
 </table>
 <br /><br />
-
 ******************************************************************************************************************************************************************************
-
 <br />
 <br />
 <br />
-
 <div id="hihi">
-                @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
+    @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
 </div>

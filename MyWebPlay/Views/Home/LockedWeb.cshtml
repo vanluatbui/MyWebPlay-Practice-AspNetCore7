@@ -1,106 +1,97 @@
 ﻿@{
-    Layout = null;
+Layout = null;
 }
-
 @if (TempData["HTML-visible"].ToString() == "0")
 {
 <html lang="vi">
-<head>
-    @if (TempData["OffRandomTab"] == "true")
-    {
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>C# | Asp Net Core | Công nghệ thông tin</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
-        <link rel="icon" href="/images/imagex.png">
-    }
-    else
-    {
-     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@TempData["Tab_Tittle"]</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
-    <link rel="icon" href="@TempData["Tab_Image"]">
-    }
- <style>
-
- .video-overlay{
- position:absolute;
-z-index: 2;
-    position: relative;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: Arial;
-  font-size: 17px;
-  background-color:@TempData["mau_background"];
-}
-
-.myVideo {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%; 
-  min-height: 100%;
-}
-
-.content {
-  position: fixed;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  color: #f1f1f1;
-  width: 100%;
-  padding: 20px;
-}
-
-</style>
-<script>
-
-
-    alert("Có vẻ như đây là lần đầu tiên bạn ghé thăm trang web. Nếu bạn muốn tham gia sử dụng, hãy cung cấp mã này cho người kiểm duyệt :\n"+'@TempData["infoUserIP"]');
-
-
-    // Delete div somee
-
-        setInterval(function()
+    <head>
+        @if (TempData["OffRandomTab"] == "true")
         {
-             $(document).ready(function () {
-        $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
-        $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
-        $("div[onmouseover='S_ssac();']").remove();
-        $("center").remove();
-        $("div[style='height: 65px;']").remove();
-    });
-        },1);
-
-    if('@TempData["rehosting"]' == "true")
-    {
-         var x = Math.floor(Math.random() * 2 + 1);
-                if (x == 1)
-                 window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
-                 else
-                   window.location.href = "https://stackoverflow.com/questions";
-    }
-
- </script>
- <body>
- <img src="/Image_Play/lock.gif" name="myVideo" class="sqs-html5-video" />
-<img src="/Image_Play/waiting.gif" name="myVideo" class="sqs-html5-video" />
-<br />
-<h1 style="color:red">WEBSITE HIỆN ĐANG BỊ KHOÁ, XIN VUI LÒNG QUAY LẠI SAU!</h1>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-</body>
-</head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>C# | Asp Net Core | Công nghệ thông tin</title>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
+        <link rel="icon" href="/images/imagex.png">
+        }
+        else
+        {
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@TempData["Tab_Tittle"]</title>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
+        <link rel="icon" href="@TempData["Tab_Image"]">
+        }
+        <style>
+            .video-overlay{
+            position:absolute;
+            z-index: 2;
+            position: relative;
+            }
+            * {
+            box-sizing: border-box;
+            }
+            body {
+            margin: 0;
+            font-family: Arial;
+            font-size: 17px;
+            background-color:@TempData["mau_background"];
+            }
+            .myVideo {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%; 
+            min-height: 100%;
+            }
+            .content {
+            position: fixed;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            color: #f1f1f1;
+            width: 100%;
+            padding: 20px;
+            }
+        </style>
+        <script>
+            alert("Có vẻ như đây là lần đầu tiên bạn ghé thăm trang web. Nếu bạn muốn tham gia sử dụng, hãy cung cấp mã này cho người kiểm duyệt :\n"+'@TempData["infoUserIP"]');
+            
+            
+            // Delete div somee
+            
+                setInterval(function()
+                {
+                     $(document).ready(function () {
+                $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
+                $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
+                $("div[onmouseover='S_ssac();']").remove();
+                $("center").remove();
+                $("div[style='height: 65px;']").remove();
+            });
+                },1);
+            
+            if('@TempData["rehosting"]' == "true")
+            {
+                 var x = Math.floor(Math.random() * 2 + 1);
+                        if (x == 1)
+                         window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
+                         else
+                           window.location.href = "https://stackoverflow.com/questions";
+            }
+            
+        </script>
+    <body>
+        <img src="/Image_Play/lock.gif" name="myVideo" class="sqs-html5-video" />
+        <img src="/Image_Play/waiting.gif" name="myVideo" class="sqs-html5-video" />
+        <br />
+        <h1 style="color:red">WEBSITE HIỆN ĐANG BỊ KHOÁ, XIN VUI LÒNG QUAY LẠI SAU!</h1>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </body>
+    </head>
 </html>
 }

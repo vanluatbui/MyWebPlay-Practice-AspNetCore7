@@ -1,6 +1,6 @@
 ﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
     function chooseEuler()
@@ -15,41 +15,35 @@
         else
         chuoi.innerHTML = "";
     }
- </script>
-
+</script>
 <table align="center">
     <h2 style="text-align:center">Đồ Thị Ma Trận - Euler Cơ Bản</h2>
-
     <h3 style="color:deeppink">@ViewBag.KetQua</h3>
-
     @using (Html.BeginForm())
     {
-        @Html.ValidationSummary(true)
-
-         <tr style="height:40px">
-            <td> </td>
-            <td>
-                <br>
-                    <b>Nhập lựa chọn khi xuất kết quả (Với 1 : Chu trình Euler, 2 : Đường đi Euler) </b>
-                    <br>
-                <select onchange="chooseEuler()" name="DuKien" id="DuKienX">
-                    <option>1</option>
-                    <option>2</option>
-                </select>
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
-            </td>
-        </tr>
-
-        <br /><br />
-       
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                <br>
-                    <b>Nhập ma trận đồ thị (lưu ý hãy tự tưởng tượng hoặc tự vẽ đồ thị của bạn để hình dung :v )  - ví dụ bên dưới  : </b>
-                <br>
-                <textarea rows="20" cols="150" id ="ChuoiX" name="Chuoi" autofocus>0 1 0 1 0 0 0 0
+    @Html.ValidationSummary(true)
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <b>Nhập lựa chọn khi xuất kết quả (Với 1 : Chu trình Euler, 2 : Đường đi Euler) </b>
+            <br>
+            <select onchange="chooseEuler()" name="DuKien" id="DuKienX">
+                <option>1</option>
+                <option>2</option>
+            </select>
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+        </td>
+    </tr>
+    <br /><br />
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <b>Nhập ma trận đồ thị (lưu ý hãy tự tưởng tượng hoặc tự vẽ đồ thị của bạn để hình dung :v )  - ví dụ bên dưới  : </b>
+            <br>
+            <textarea rows="20" cols="150" id ="ChuoiX" name="Chuoi" autofocus>0 1 0 1 0 0 0 0
 1 0 1 0 0 0 0 0
 0 1 0 0 0 1 0 0
 1 0 0 0 1 0 0 0
@@ -57,25 +51,22 @@
 0 0 1 0 1 0 0 0
 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0</textarea>
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
-            </td>
-        </tr>
-
-        <br />
-        <br />
-
-        <tr style="height:40px">
-            <td></td>
-            <td>
-                <input type="Submit" value="Kết Quả" />
-            </td>
-        </tr>
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
+        </td>
+    </tr>
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input type="Submit" value="Kết Quả" />
+        </td>
+    </tr>
     }
 </table>
 <br>
 <br />
-
 Lý Thuyết Đồ Thị - Chu trình Euler☆
 <br>
 <br>- Ví dụ cho một đồ thị gồm 8 đỉnh :

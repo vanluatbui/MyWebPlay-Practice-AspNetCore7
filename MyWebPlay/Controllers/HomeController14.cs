@@ -23,35 +23,80 @@ namespace MyWebPlay.Controllers
         {
             try
             {
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
-            {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
-                TempData["skipIP"] = "true";
-            }
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                khoawebsiteClient(null);
+                var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+                if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
+                {
+                    if (this.HttpContext.Request.Method == "GET")
+                    {
+                        if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", 1);
+                            return Redirect("https://google.com");
+                        }
+                        else
+                        {
+                            var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                            if (lan != 10)
+                            {
+                                HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                return Redirect("https://google.com");
+                            }
+                        }
+                    }
+                }
+                if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+                if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+                if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+                if (HttpContext.Session.GetString("TuyetDoi") != null)
+                {
+                    TempData["UyTin"] = "true";
+                    var td = HttpContext.Session.GetString("TuyetDoi");
+                    if (td == "true")
+                    {
+                        TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                    }
+                    else
+                    {
+                        TempData["TestTuyetDoi"] = "false";
+                    }
+                }
+                if (TempData["tathoatdong"] == "true")
+                {
+                    return RedirectToAction("Error");
+                }
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+                {
+                    HttpContext.Session.Remove("userIP");
+                    HttpContext.Session.SetString("userIP", "0.0.0.0");
+                    TempData["skipIP"] = "true";
+                }
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                var listIP = new List<string>();
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            khoawebsiteClient(listIP);
-            ViewBag.Music = "";
-            ViewBag.Musix = "";
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                    listIP.Add(HttpContext.Session.GetString("userIP"));
+                else
+                {
+                    TempData["GetDataIP"] = "true";
+                    return RedirectToAction("Index");
+                }
+                khoawebsiteClient(listIP);
+                ViewBag.Music = "";
+                ViewBag.Musix = "";
 
-            ViewBag.Karaoke = "karaoke";
+                ViewBag.Karaoke = "karaoke";
 
-            if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Exists)
-                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Delete(true);
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Exists)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Delete(true);
 
-            new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
-            new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
 
-            return View();
+                return View();
             }
             catch (Exception ex)
             {
@@ -60,8 +105,21 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");                 }
-                return RedirectToAction("Error", new { exception = "true" });
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty;
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];
+                if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")
+                {
+                    Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
+                }
+                return RedirectToAction("Error", new
+                {
+                    exception = "true"
+                });
             }
         }
 
@@ -81,153 +139,201 @@ namespace MyWebPlay.Controllers
                 fix += "txtMusix : " + ((txtMusix != null) ? txtMusix.FileName : string.Empty) + "\n";
 
                 HttpContext.Session.SetString("hanhdong_3275", fix);
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
-            {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
-                TempData["skipIP"] = "true";
-            }
-            /*HttpContext.Session.Remove("ok-data");*/
-            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
-
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            khoawebsiteClient(listIP);
-            HttpContext.Session.Remove("ok-data");
-            Calendar xi = CultureInfo.InvariantCulture.Calendar;
-
-            var xuxu = xi.AddHours(DateTime.UtcNow, 7);
-
-            if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
-            {
-                TempData["mau_background"] = "white";
-                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
-                 TempData["winx"] = "❤";
-            }
-            else
-            {
-                TempData["mau_background"] = "black";
-                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
-                 TempData["winx"] = "❤";
-            }
-            var pathX1  = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
-            var noidungX = System.IO.File.ReadAllText(pathX1);
-            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            var flag = 0;
-            for (int i = 0; i < listSetting.Length; i++)
-            {
-                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-
-                if (flag == 0 && (info[0] == "Email_Upload_User"
-                    || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
-                    || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
-                    || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
-                    || info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                khoawebsiteClient(null);
+                var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+                if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
                 {
-                    if (info[1] == "false")
+                    if (this.HttpContext.Request.Method == "GET")
                     {
-                        
-                        TempData["mau_winx"] = "red";
-                        flag = 1;
+                        if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", 1);
+                            return Redirect("https://google.com");
+                        }
+                        else
+                        {
+                            var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                            if (lan != 10)
+                            {
+                                HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                return Redirect("https://google.com");
+                            }
+                        }
+                    }
+                }
+                if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+                if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+                if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+                if (HttpContext.Session.GetString("TuyetDoi") != null)
+                {
+                    TempData["UyTin"] = "true";
+                    var td = HttpContext.Session.GetString("TuyetDoi");
+                    if (td == "true")
+                    {
+                        TempData["TestTuyetDoi"] = "true"; /*return View();*/
                     }
                     else
                     {
-                        
-                        TempData["mau_winx"] = "deeppink";
-                        flag = 0;
+                        TempData["TestTuyetDoi"] = "false";
                     }
                 }
-            }
-            if (txtMusic == null || txtMusic.Length == 0)
-                txtMusic = txtMusix;
+                if (TempData["tathoatdong"] == "true")
+                {
+                    return RedirectToAction("Error");
+                }
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+                {
+                    HttpContext.Session.Remove("userIP");
+                    HttpContext.Session.SetString("userIP", "0.0.0.0");
+                    TempData["skipIP"] = "true";
+                }
+                /*HttpContext.Session.Remove("ok-data");*/
+                TempData["dataPost"] = "[POST]";
+                HttpContext.Session.SetString("data-result", "true");
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                var listIP = new List<string>();
 
-            if (txtMusix == null || txtMusix.Length == 0)
-                txtMusix = txtMusic;
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                    listIP.Add(HttpContext.Session.GetString("userIP"));
+                else
+                {
+                    TempData["GetDataIP"] = "true";
+                    return RedirectToAction("Index");
+                }
+                khoawebsiteClient(listIP);
+                HttpContext.Session.Remove("ok-data");
+                Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
-            ViewBag.Karaoke = "";
+                var xuxu = xi.AddHours(DateTime.UtcNow, 7);
 
-            ViewBag.Show = "show";
+                if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
+                {
+                    TempData["mau_background"] = "white";
+                    TempData["mau_text"] = "black";
+                    TempData["mau_nen"] = "dodgerblue";
+                    TempData["winx"] = "❤";
+                }
+                else
+                {
+                    TempData["mau_background"] = "black";
+                    TempData["mau_text"] = "white";
+                    TempData["mau_nen"] = "rebeccapurple";
+                    TempData["winx"] = "❤";
+                }
+                var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidungX = System.IO.File.ReadAllText(pathX1);
+                var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var flag = 0;
+                for (int i = 0; i < listSetting.Length; i++)
+                {
+                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-            var chon = f["KaraChon"].ToString();
+                    if (flag == 0 && (info[0] == "Email_Upload_User" ||
+                        info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create" ||
+                        info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question" ||
+                        info[0] == "Email_User_Website" || info[0] == "Email_User_Continue" ||
+                        info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                    {
+                        if (info[1] == "false")
+                        {
 
-            if (chon == "1")
-            {
-                var r = new Random();
+                            TempData["mau_winx"] = "red";
+                            flag = 1;
+                        }
+                        else
+                        {
+
+                            TempData["mau_winx"] = "deeppink";
+                            flag = 0;
+                        }
+                    }
+                }
+                if (txtMusic == null || txtMusic.Length == 0)
+                    txtMusic = txtMusix;
+
+                if (txtMusix == null || txtMusix.Length == 0)
+                    txtMusix = txtMusic;
+
+                ViewBag.Karaoke = "";
+
+                ViewBag.Show = "show";
+
+                var chon = f["KaraChon"].ToString();
+
+                if (chon == "1")
+                {
+                    var r = new Random();
 
                     var n = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example/background")).GetFiles().Length;
-                int x = r.Next(n);
+                    int x = r.Next(n);
 
-                ViewBag.Background = "/karaoke_Example/background/" + (x + 1) + ".jpg";
-                ViewBag.SuDung = "";
-            }
-            else if (chon == "2")
-            {
-                var link = f["txtOnline"].ToString();
-                ViewBag.Background = link;
-                ViewBag.SuDung = "";
-            }
-            else if (chon == "3")
-            {
-                var link = f["txtOnline"].ToString();
-                ViewBag.Background = link;
-                ViewBag.SuDung = "Video";
-            }
-            else if (chon == "4")
-            {
-                var link = f["txtOnline"].ToString();
-                link = link.Replace("&", "");
-                link = link.Replace("loop", "");
-                link = link.Replace("autoplay", "");
-                link = link.Replace("controls", "");
-                link = link.Replace("mute", "");
-                link = link.Replace("youtu.be/", "youtube.com/embed/");
-                link = link.Replace("youtube.com/watch?v=", "youtube.com/embed/");
-
-                if (link.Contains("?"))
-                    link += "&autoplay=1&loop=1&controls=0&mute=1";
-                else
-                    link += "?autoplay=1&loop=1&controls=0&mute=1";
-
-                ViewBag.Background = link;
-                ViewBag.SuDung = "Youtube";
-            }
-
-            if (f["txtChon"].ToString() != "on")
-            {
-                var fileName = Path.GetFileName(txtMusic.FileName);
-                var nameFile = Path.GetFileName(txtMusix.FileName);
-
-                var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", fileName);
-                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", nameFile);
-
-                using (Stream fileStream = new FileStream(path, FileMode.Create))
+                    ViewBag.Background = "/karaoke_Example/background/" + (x + 1) + ".jpg";
+                    ViewBag.SuDung = "";
+                }
+                else if (chon == "2")
                 {
-                    txtMusic.CopyTo(fileStream);
+                    var link = f["txtOnline"].ToString();
+                    ViewBag.Background = link;
+                    ViewBag.SuDung = "";
+                }
+                else if (chon == "3")
+                {
+                    var link = f["txtOnline"].ToString();
+                    ViewBag.Background = link;
+                    ViewBag.SuDung = "Video";
+                }
+                else if (chon == "4")
+                {
+                    var link = f["txtOnline"].ToString();
+                    link = link.Replace("&", "");
+                    link = link.Replace("loop", "");
+                    link = link.Replace("autoplay", "");
+                    link = link.Replace("controls", "");
+                    link = link.Replace("mute", "");
+                    link = link.Replace("youtu.be/", "youtube.com/embed/");
+                    link = link.Replace("youtube.com/watch?v=", "youtube.com/embed/");
+
+                    if (link.Contains("?"))
+                        link += "&autoplay=1&loop=1&controls=0&mute=1";
+                    else
+                        link += "?autoplay=1&loop=1&controls=0&mute=1";
+
+                    ViewBag.Background = link;
+                    ViewBag.SuDung = "Youtube";
                 }
 
-                using (Stream fileStream = new FileStream(pathX, FileMode.Create))
+                if (f["txtChon"].ToString() != "on")
                 {
-                    txtMusix.CopyTo(fileStream);
-                }
+                    var fileName = Path.GetFileName(txtMusic.FileName);
+                    var nameFile = Path.GetFileName(txtMusix.FileName);
 
-                ViewBag.Music = "/karaoke/music/" + fileName;
-                ViewBag.Musix = "/karaoke/music/" + nameFile;
+                    var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", fileName);
+                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", nameFile);
 
-                fileName = Path.GetFileName(txtKaraoke.FileName);
+                    using (Stream fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        txtMusic.CopyTo(fileStream);
+                    }
 
-                path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text", fileName);
+                    using (Stream fileStream = new FileStream(pathX, FileMode.Create))
+                    {
+                        txtMusix.CopyTo(fileStream);
+                    }
 
-                using (Stream fileStream = new FileStream(path, FileMode.Create))
-                {
-                    txtKaraoke.CopyTo(fileStream);
-                }
+                    ViewBag.Music = "/karaoke/music/" + fileName;
+                    ViewBag.Musix = "/karaoke/music/" + nameFile;
+
+                    fileName = Path.GetFileName(txtKaraoke.FileName);
+
+                    path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text", fileName);
+
+                    using (Stream fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        txtKaraoke.CopyTo(fileStream);
+                    }
 
                     var xu = System.IO.File.ReadAllText(path);
                     var encrypt = false;
@@ -245,10 +351,10 @@ namespace MyWebPlay.Controllers
                     {
                         xu = StringMaHoaExtension.Decrypt(xu);
                     }
-                    ViewBag.Karaoke = xu ;
-            }
-            else
-            {
+                    ViewBag.Karaoke = xu;
+                }
+                else
+                {
                     var xu = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ExamKara/TextDemo.txt"));
                     var encrypt = false;
                     try
@@ -267,11 +373,11 @@ namespace MyWebPlay.Controllers
                     }
 
                     ViewBag.Karaoke = xu;
-                ViewBag.Music = "/karaoke_Example/ExamKara/KaraokeDemo.mp3";
-                ViewBag.Musix = "/karaoke_Example/ExamKara/NhacDemo.mp3";
-            }
+                    ViewBag.Music = "/karaoke_Example/ExamKara/KaraokeDemo.mp3";
+                    ViewBag.Musix = "/karaoke_Example/ExamKara/NhacDemo.mp3";
+                }
 
-            return View();
+                return View();
             }
             catch (Exception ex)
             {
@@ -280,8 +386,21 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");                 }
-                return RedirectToAction("Error", new { exception = "true" });
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty;
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];
+                if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")
+                {
+                    Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
+                }
+                return RedirectToAction("Error", new
+                {
+                    exception = "true"
+                });
             }
         }
 
@@ -289,29 +408,74 @@ namespace MyWebPlay.Controllers
         {
             try
             {
-                TempData["lyricdemo"] =  System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ExamKara/LyricDemo.txt")).Replace("\r", "").Replace("\n", "<br />");
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
-            {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
-                TempData["skipIP"] = "true";
-            }
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
+                TempData["lyricdemo"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ExamKara/LyricDemo.txt")).Replace("\r", "").Replace("\n", "<br />");
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                khoawebsiteClient(null);
+                var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+                if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
+                {
+                    if (this.HttpContext.Request.Method == "GET")
+                    {
+                        if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", 1);
+                            return Redirect("https://google.com");
+                        }
+                        else
+                        {
+                            var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                            if (lan != 10)
+                            {
+                                HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                return Redirect("https://google.com");
+                            }
+                        }
+                    }
+                }
+                if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+                if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+                if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+                if (HttpContext.Session.GetString("TuyetDoi") != null)
+                {
+                    TempData["UyTin"] = "true";
+                    var td = HttpContext.Session.GetString("TuyetDoi");
+                    if (td == "true")
+                    {
+                        TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                    }
+                    else
+                    {
+                        TempData["TestTuyetDoi"] = "false";
+                    }
+                }
+                if (TempData["tathoatdong"] == "true")
+                {
+                    return RedirectToAction("Error");
+                }
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+                {
+                    HttpContext.Session.Remove("userIP");
+                    HttpContext.Session.SetString("userIP", "0.0.0.0");
+                    TempData["skipIP"] = "true";
+                }
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                var listIP = new List<string>();
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            khoawebsiteClient(listIP);
-            if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Exists)
-                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Delete(true);
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                    listIP.Add(HttpContext.Session.GetString("userIP"));
+                else
+                {
+                    TempData["GetDataIP"] = "true";
+                    return RedirectToAction("Index");
+                }
+                khoawebsiteClient(listIP);
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Exists)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Delete(true);
 
-            new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
-            new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
 
                 ViewBag.LyricVD = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ExamKara/LyricDemo.txt"));
                 return View();
@@ -323,13 +487,26 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");                 }
-                return RedirectToAction("Error", new { exception = "true" });
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty;
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];
+                if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")
+                {
+                    Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
+                }
+                return RedirectToAction("Error", new
+                {
+                    exception = "true"
+                });
             }
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateFile_Karaoke (IFormFile txtMusic, IFormCollection f)
+        public async Task<ActionResult> CreateFile_Karaoke(IFormFile txtMusic, IFormCollection f)
         {
             try
             {
@@ -343,59 +520,107 @@ namespace MyWebPlay.Controllers
                 HttpContext.Session.SetString("hanhdong_3275", fix);
 
                 TempData["lyricdemo"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ExamKara/LyricDemo.txt")).Replace("\r", "").Replace("\n", "<br />");
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
-            {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
-                TempData["skipIP"] = "true";
-            }
-            /*HttpContext.Session.Remove("ok-data");*/
-            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
-
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            khoawebsiteClient(listIP);
-            HttpContext.Session.Remove("ok-data");
-            Calendar xi = CultureInfo.InvariantCulture.Calendar;
-
-            string xuxuX = xi.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-
-            var xuxu = xi.AddHours(DateTime.UtcNow, 7);
-
-            if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
-            {
-                TempData["mau_background"] = "white";
-                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
-                 TempData["winx"] = "❤";
-            }
-            else
-            {
-                TempData["mau_background"] = "black";
-                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
-                 TempData["winx"] = "❤";
-            }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
-            var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            var flag = 0;
-            var email = false;
-
-            for (int i = 0; i < listSetting.Length; i++)
-            {
-                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-
-                if (info[0] == "Email_Karaoke")
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                khoawebsiteClient(null);
+                var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+                if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
                 {
-                    if (info[1] == "true")
-                        email = true;
+                    if (this.HttpContext.Request.Method == "GET")
+                    {
+                        if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", 1);
+                            return Redirect("https://google.com");
+                        }
+                        else
+                        {
+                            var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                            if (lan != 10)
+                            {
+                                HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                return Redirect("https://google.com");
+                            }
+                        }
+                    }
                 }
+                if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+                if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+                if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+                if (HttpContext.Session.GetString("TuyetDoi") != null)
+                {
+                    TempData["UyTin"] = "true";
+                    var td = HttpContext.Session.GetString("TuyetDoi");
+                    if (td == "true")
+                    {
+                        TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                    }
+                    else
+                    {
+                        TempData["TestTuyetDoi"] = "false";
+                    }
+                }
+                if (TempData["tathoatdong"] == "true")
+                {
+                    return RedirectToAction("Error");
+                }
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+                {
+                    HttpContext.Session.Remove("userIP");
+                    HttpContext.Session.SetString("userIP", "0.0.0.0");
+                    TempData["skipIP"] = "true";
+                }
+                /*HttpContext.Session.Remove("ok-data");*/
+                TempData["dataPost"] = "[POST]";
+                HttpContext.Session.SetString("data-result", "true");
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                var listIP = new List<string>();
+
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                    listIP.Add(HttpContext.Session.GetString("userIP"));
+                else
+                {
+                    TempData["GetDataIP"] = "true";
+                    return RedirectToAction("Index");
+                }
+                khoawebsiteClient(listIP);
+                HttpContext.Session.Remove("ok-data");
+                Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+                string xuxuX = xi.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+
+                var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+
+                if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
+                {
+                    TempData["mau_background"] = "white";
+                    TempData["mau_text"] = "black";
+                    TempData["mau_nen"] = "dodgerblue";
+                    TempData["winx"] = "❤";
+                }
+                else
+                {
+                    TempData["mau_background"] = "black";
+                    TempData["mau_text"] = "white";
+                    TempData["mau_nen"] = "rebeccapurple";
+                    TempData["winx"] = "❤";
+                }
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidungX = System.IO.File.ReadAllText(pathX);
+                var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var flag = 0;
+                var email = false;
+
+                for (int i = 0; i < listSetting.Length; i++)
+                {
+                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                    if (info[0] == "Email_Karaoke")
+                    {
+                        if (info[1] == "true")
+                            email = true;
+                    }
 
                     if (info[0] == "Email_Karaoke_OnlyText")
                     {
@@ -403,66 +628,64 @@ namespace MyWebPlay.Controllers
                             email = false;
                     }
 
+                    if (flag == 0 && (info[0] == "Email_Upload_User" ||
+                        info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create" ||
+                        info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question" ||
+                        info[0] == "Email_User_Website" || info[0] == "Email_User_Continue" ||
+                        info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                    {
+                        if (info[1] == "false")
+                        {
 
-                    if (flag == 0 && (info[0] == "Email_Upload_User"
-                    || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
-                    || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
-                    || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
-                    || info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
-                {
-                    if (info[1] == "false")
-                    {
-                        
-                        TempData["mau_winx"] = "red";
-                        flag = 1;
-                    }
-                    else
-                    {
-                        
-                        TempData["mau_winx"] = "deeppink";
-                        flag = 0;
+                            TempData["mau_winx"] = "red";
+                            flag = 1;
+                        }
+                        else
+                        {
+
+                            TempData["mau_winx"] = "deeppink";
+                            flag = 0;
+                        }
                     }
                 }
-            }
 
-            TempData["Lyric"] = f["txtLyric"].ToString();
-            TempData["Music"] = "/karaoke/music/"+txtMusic.FileName;
+                TempData["Lyric"] = f["txtLyric"].ToString();
+                TempData["Music"] = "/karaoke/music/" + txtMusic.FileName;
                 TempData["TrangTri"] = f["txtTrangTri"].ToString();
 
                 if (f["txtCuoiCung"].ToString() == "on")
-                HttpContext.Session.SetString("CuoiCung", "true");
-
+                    HttpContext.Session.SetString("CuoiCung", "true");
 
                 var fileName = Path.GetFileName(txtMusic.FileName);
 
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", fileName);
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", fileName);
 
-            using (Stream fileStream = new FileStream(path, FileMode.Create))
-            {
-                txtMusic.CopyTo(fileStream);
-            }
+                using (Stream fileStream = new FileStream(path, FileMode.Create))
+                {
+                    txtMusic.CopyTo(fileStream);
+                }
 
-            TempData["IDemail-Karaoke"] = TempData["userIP"] + "_" + HttpContext.Connection.Id + "_" + xuxuX.Replace(":", "").Replace(" ", "").Replace("/", "");
+                TempData["IDemail-Karaoke"] = TempData["userIP"] + "_" + HttpContext.Connection.Id + "_" + xuxuX.Replace(":", "").Replace(" ", "").Replace("/", "");
 
-            if (email == true)
-            {
-                var ID = TempData["IDemail-Karaoke"];
+                if (email == true)
+                {
+                    var ID = TempData["IDemail-Karaoke"];
 
-                string host = "{" + Request.Host.ToString() + "}"
-                  .Replace("http://", "")
-              .Replace("https://", "")
-              .Replace("/", "");
+                    string host = "{" + Request.Host.ToString() + "}"
+                      .Replace("http://", "")
+                      .Replace("https://", "")
+                      .Replace("/", "");
 
-                MailRequest mail = new MailRequest();
-                mail.Subject = host + "[ID email Karaoke : " + ID + "] Báo cáo bản mp3 tạo mới Karaoke của user (email bản text tương ứng sẽ được gửi sau khi user tạo xong - cũng tương ứng với ID email này, lưu ý : có thể user sẽ huỷ bỏ bản tạo Karaoke này và sau đó sẽ không nhận được email tương ứng nào; hãy tự chờ đợi và kiểm tra) lúc " + xuxuX;
-                mail.ToEmail = "mywebplay.savefile@gmail.com";
-                mail.Attachments = new List<IFormFile>();
-                mail.Attachments.Add(txtMusic);
+                    MailRequest mail = new MailRequest();
+                    mail.Subject = host + "[ID email Karaoke : " + ID + "] Báo cáo bản mp3 tạo mới Karaoke của user (email bản text tương ứng sẽ được gửi sau khi user tạo xong - cũng tương ứng với ID email này, lưu ý : có thể user sẽ huỷ bỏ bản tạo Karaoke này và sau đó sẽ không nhận được email tương ứng nào; hãy tự chờ đợi và kiểm tra) lúc " + xuxuX;
+                    mail.ToEmail = "mywebplay.savefile@gmail.com";
+                    mail.Attachments = new List<IFormFile>();
+                    mail.Attachments.Add(txtMusic);
 
-                 await _mailService.SendEmailAsync(mail, _webHostEnvironment.WebRootPath);
-            }
+                    await _mailService.SendEmailAsync(mail, _webHostEnvironment.WebRootPath);
+                }
 
-            return RedirectToAction("PlayCreateFile_Karaoke");
+                return RedirectToAction("PlayCreateFile_Karaoke");
             }
             catch (Exception ex)
             {
@@ -471,8 +694,21 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");                 }
-                return RedirectToAction("Error", new { exception = "true" });
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty;
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];
+                if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")
+                {
+                    Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
+                }
+                return RedirectToAction("Error", new
+                {
+                    exception = "true"
+                });
             }
         }
 
@@ -481,30 +717,73 @@ namespace MyWebPlay.Controllers
             try
             {
                 var IDemail = TempData["IDemail-Karaoke"];
-            TempData["IDemail-Karaoke"] = IDemail;
+                TempData["IDemail-Karaoke"] = IDemail;
 
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                khoawebsiteClient(null);
+                var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+                if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
+                {
+                    if (this.HttpContext.Request.Method == "GET")
+                    {
+                        if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", 1);
+                            return Redirect("https://google.com");
+                        }
+                        else
+                        {
+                            var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                            if (lan != 10)
+                            {
+                                HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                return Redirect("https://google.com");
+                            }
+                        }
+                    }
+                }
+                if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+                if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+                if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+                if (HttpContext.Session.GetString("TuyetDoi") != null)
+                {
+                    TempData["UyTin"] = "true";
+                    var td = HttpContext.Session.GetString("TuyetDoi");
+                    if (td == "true")
+                    {
+                        TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                    }
+                    else
+                    {
+                        TempData["TestTuyetDoi"] = "false";
+                    }
+                }
+                if (TempData["tathoatdong"] == "true")
+                {
+                    return RedirectToAction("Error");
+                }
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+                {
+                    HttpContext.Session.Remove("userIP");
+                    HttpContext.Session.SetString("userIP", "0.0.0.0");
+                    TempData["skipIP"] = "true";
+                }
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                HttpContext.Session.SetString("data-result", "true");
 
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
-            {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
-                TempData["skipIP"] = "true";
-            }
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            HttpContext.Session.SetString("data-result", "true");
+                var listIP = new List<string>();
 
-            var listIP = new List<string>();
-
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            khoawebsiteClient(listIP);
-            ViewBag.KaraX = "";
-
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                    listIP.Add(HttpContext.Session.GetString("userIP"));
+                else
+                {
+                    TempData["GetDataIP"] = "true";
+                    return RedirectToAction("Index");
+                }
+                khoawebsiteClient(listIP);
+                ViewBag.KaraX = "";
 
                 var lyric = TempData["Lyric"].ToString();
                 var trangtri = TempData["TrangTri"].ToString();
@@ -566,7 +845,7 @@ namespace MyWebPlay.Controllers
                         TempData["Lyric"] = sa;
                     }
                 }
-            return View();
+                return View();
             }
             catch (Exception ex)
             {
@@ -575,8 +854,21 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");                 }
-                return RedirectToAction("Error", new { exception = "true" });
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty;
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];
+                if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")
+                {
+                    Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
+                }
+                return RedirectToAction("Error", new
+                {
+                    exception = "true"
+                });
             }
         }
 
@@ -593,78 +885,81 @@ namespace MyWebPlay.Controllers
 
                 HttpContext.Session.SetString("hanhdong_3275", fix);
                 /*HttpContext.Session.Remove("ok-data");*/
-                TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
+                TempData["dataPost"] = "[POST]";
+                HttpContext.Session.SetString("data-result", "true");
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                var listIP = new List<string>();
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            khoawebsiteClient(listIP);
-            HttpContext.Session.Remove("ok-data");
-            Calendar xi = CultureInfo.InvariantCulture.Calendar;
-
-            var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
-
-            if (xuxu1.Hour >= 6 && xuxu1.Hour <= 17)
-            {
-                TempData["mau_background"] = "white";
-                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
-                 TempData["winx"] = "❤";
-            }
-            else
-            {
-                TempData["mau_background"] = "black";
-                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
-                 TempData["winx"] = "❤";
-            }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
-            var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            var flag = 0;
-            var email = false;
-            for (int i = 0; i < listSetting.Length; i++)
-            {
-                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-
-                if (info[0] == "Email_Karaoke")
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                    listIP.Add(HttpContext.Session.GetString("userIP"));
+                else
                 {
-                    if (info[1] == "true")
-                        email = true;
+                    TempData["GetDataIP"] = "true";
+                    return RedirectToAction("Index");
                 }
+                khoawebsiteClient(listIP);
+                HttpContext.Session.Remove("ok-data");
+                Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
-                    if (flag == 0 && (info[0] == "Email_Upload_User"
-                    || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
-                    || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
-                    || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
-                    || info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
+
+                if (xuxu1.Hour >= 6 && xuxu1.Hour <= 17)
                 {
-                    if (info[1] == "false")
+                    TempData["mau_background"] = "white";
+                    TempData["mau_text"] = "black";
+                    TempData["mau_nen"] = "dodgerblue";
+                    TempData["winx"] = "❤";
+                }
+                else
+                {
+                    TempData["mau_background"] = "black";
+                    TempData["mau_text"] = "white";
+                    TempData["mau_nen"] = "rebeccapurple";
+                    TempData["winx"] = "❤";
+                }
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidungX = System.IO.File.ReadAllText(pathX);
+                var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var flag = 0;
+                var email = false;
+                for (int i = 0; i < listSetting.Length; i++)
+                {
+                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                    if (info[0] == "Email_Karaoke")
                     {
-                        
-                        TempData["mau_winx"] = "red";
-                        flag = 1;
+                        if (info[1] == "true")
+                            email = true;
                     }
-                    else
+
+                    if (flag == 0 && (info[0] == "Email_Upload_User" ||
+                        info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create" ||
+                        info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question" ||
+                        info[0] == "Email_User_Website" || info[0] == "Email_User_Continue" ||
+                        info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
                     {
-                        
-                        TempData["mau_winx"] = "deeppink";
-                        flag = 0;
+                        if (info[1] == "false")
+                        {
+
+                            TempData["mau_winx"] = "red";
+                            flag = 1;
+                        }
+                        else
+                        {
+
+                            TempData["mau_winx"] = "deeppink";
+                            flag = 0;
+                        }
                     }
                 }
-            }
-            Calendar x = CultureInfo.InvariantCulture.Calendar;
+                Calendar x = CultureInfo.InvariantCulture.Calendar;
 
-            string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
 
-            string fi = HttpContext.Session.GetString("userIP") + "_Karaoke_" + xuxu + ".txt";
-            fi = fi.Replace("\\", "");
-            fi = fi.Replace("/", "");
-            fi = fi.Replace(":", "");
+                string fi = HttpContext.Session.GetString("userIP") + "_Karaoke_" + xuxu + ".txt";
+                fi = fi.Replace("\\", "");
+                fi = fi.Replace("/", "");
+                fi = fi.Replace(":", "");
 
                 var xanh = f["txtLyric"].ToString().Replace("undefined", "").Replace(" *", "*");
 
@@ -680,29 +975,27 @@ namespace MyWebPlay.Controllers
 
                 var infoX = listSetting[49].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-
                 if (infoX[1] == "true")
                     xanh = StringMaHoaExtension.Encrypt(xanh);
 
-
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text", fi);
 
-            System.IO.File.WriteAllText(path, xanh);
-            ViewBag.KaraX = "OK";
-            ViewBag.FileKaraoke = "<p style=\"color:blue\">Thành công, một file TXT Karaoke của bạn đã được xử lý...</p><a href=\"/karaoke/text/" + fi + "\" download>Click vào đây để tải về</a><br><p style=\"color:red\">Hãy nhanh tay tải về vì sau <span style=\"color:deeppink\" id=\"thoigian3\" class=\"thoigian3\">30</span> giây nữa, file này sẽ bị xoá hoặc sẽ bị lỗi nếu có!<br>";
+                System.IO.File.WriteAllText(path, xanh);
+                ViewBag.KaraX = "OK";
+                ViewBag.FileKaraoke = "<p style=\"color:blue\">Thành công, một file TXT Karaoke của bạn đã được xử lý...</p><a href=\"/karaoke/text/" + fi + "\" download>Click vào đây để tải về</a><br><p style=\"color:red\">Hãy nhanh tay tải về vì sau <span style=\"color:deeppink\" id=\"thoigian3\" class=\"thoigian3\">30</span> giây nữa, file này sẽ bị xoá hoặc sẽ bị lỗi nếu có!<br>";
 
-            if (email == true)
-            {
-                var ID = TempData["IDemail-Karaoke"];
+                if (email == true)
+                {
+                    var ID = TempData["IDemail-Karaoke"];
 
-                string host = "{" + Request.Host.ToString() + "}"
-                  .Replace("http://", "")
-              .Replace("https://", "")
-              .Replace("/", "");
+                    string host = "{" + Request.Host.ToString() + "}"
+                      .Replace("http://", "")
+                      .Replace("https://", "")
+                      .Replace("/", "");
 
-                SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
-                 "mywebplay.savefile@gmail.com", host + "[ID email Karaoke : " + ID + "] Báo cáo bản text tạo mới Karaoke của user (email bản mp3 tương ứng đã được gửi trước đó/hoặc cũng có thể bạn đã setting không nhận thông báo dữ liệu bản mp3 - vui lòng kiểm tra lại, cũng phù hợp với ID email này) lúc " + xuxu, f["txtLyric"].ToString().Replace("undefined", "").Replace(" *", "*"), "teinnkatajeqerfl");
-            }
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
+                      "mywebplay.savefile@gmail.com", host + "[ID email Karaoke : " + ID + "] Báo cáo bản text tạo mới Karaoke của user (email bản mp3 tương ứng đã được gửi trước đó/hoặc cũng có thể bạn đã setting không nhận thông báo dữ liệu bản mp3 - vui lòng kiểm tra lại, cũng phù hợp với ID email này) lúc " + xuxu, f["txtLyric"].ToString().Replace("undefined", "").Replace(" *", "*"), "teinnkatajeqerfl");
+                }
                 return View();
             }
             catch (Exception ex)
@@ -712,8 +1005,21 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");                 }
-                return RedirectToAction("Error", new { exception = "true" });
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty;
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];
+                if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")
+                {
+                    Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
+                }
+                return RedirectToAction("Error", new
+                {
+                    exception = "true"
+                });
             }
         }
 
@@ -736,7 +1042,7 @@ namespace MyWebPlay.Controllers
                 }
 
                 var non = icon + " ";
-                var kara = nd[1].Replace("*"," ").Split(" ");
+                var kara = nd[1].Replace("*", " ").Split(" ");
                 for (int j = 0; j < kara.Length; j++)
                 {
                     var space = " ";
@@ -756,17 +1062,17 @@ namespace MyWebPlay.Controllers
                         space = "";
 
                     non += kara[j] + space;
-                    
+
                 }
 
                 listText.Add(non);
             }
 
-              var listTime = new List<string>();
+            var listTime = new List<string>();
 
             var time = "";
 
-                for (int i = 0; i < noidung.Length ;i++)
+            for (int i = 0; i < noidung.Length; i++)
             {
                 var nd = noidung[i].Split("#");
 
@@ -781,7 +1087,7 @@ namespace MyWebPlay.Controllers
                 var tax = int.Parse(nd[0]);
                 var de = 0;
 
-                while(true)
+                while (true)
                 {
                     if (de == 3) break;
 
@@ -794,10 +1100,9 @@ namespace MyWebPlay.Controllers
                 var so = ta;
 
                 var t = icon.Length + 1;
-                time += so + "-" + t + "," ;
-                
+                time += so + "-" + t + ",";
 
-                for (int j =  0; j < nd1.Length; j++)
+                for (int j = 0; j < nd1.Length; j++)
                 {
                     var nd3 = nd1[j].Split("-");
 
@@ -805,7 +1110,7 @@ namespace MyWebPlay.Controllers
                     {
                         if (j == (nd1.Length / 2) + 1)
                         {
-                            var nd4 = nd1[j-1].Split("-");
+                            var nd4 = nd1[j - 1].Split("-");
                             var ta1 = int.Parse(nd3[0]);
                             var tax1 = int.Parse(nd4[0]);
                             var de1 = 0;
@@ -819,7 +1124,7 @@ namespace MyWebPlay.Controllers
                                 if (ta1 - 1 > tax1)
                                     ta1--;
                             }
-                            time += ta1 + "-" +  (int.Parse(nd4[1]) + ((icon.Length + 1) * 2)) + ",";
+                            time += ta1 + "-" + (int.Parse(nd4[1]) + ((icon.Length + 1) * 2)) + ",";
                             t += icon.Length + 1;
                         }
                     }
@@ -876,7 +1181,7 @@ namespace MyWebPlay.Controllers
 
             }
 
-                return ok;
+            return ok;
         }
 
         public ActionResult XoaKaraoke(string? id, bool? cancel, string? thutu)
@@ -889,19 +1194,22 @@ namespace MyWebPlay.Controllers
                 }
 
                 if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Exists)
-                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Delete(true);
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Delete(true);
 
-            new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
-            new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
 
-            if (cancel == true || HttpContext.Session.GetString("auto-kara-index") == HttpContext.Session.GetString("length-list-auto"))
-             {
+                if (cancel == true || HttpContext.Session.GetString("auto-kara-index") == HttpContext.Session.GetString("length-list-auto"))
+                {
                     HttpContext.Session.Remove("auto-kara-index");
                     HttpContext.Session.Remove("length-list-auto");
                     HttpContext.Session.Remove("content-listsong");
                 }
 
-            return RedirectToAction("Share_Karaoke", new { id = id });
+                return RedirectToAction("Share_Karaoke", new
+                {
+                    id = id
+                });
             }
             catch (Exception ex)
             {
@@ -910,8 +1218,21 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");                 }
-                return RedirectToAction("Error", new { exception = "true" });
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty;
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];
+                if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")
+                {
+                    Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
+                }
+                return RedirectToAction("Error", new
+                {
+                    exception = "true"
+                });
             }
         }
 
@@ -925,62 +1246,105 @@ namespace MyWebPlay.Controllers
                 if (HttpContext.Session.GetString("auto-kara-index") != null || HttpContext.Session.GetString("auto-kara-index") != "")
                     TempData["index-auto"] = HttpContext.Session.GetString("auto-kara-index");
 
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                khoawebsiteClient(null);
+                var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+                if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
+                {
+                    if (this.HttpContext.Request.Method == "GET")
+                    {
+                        if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", 1);
+                            return Redirect("https://google.com");
+                        }
+                        else
+                        {
+                            var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                            if (lan != 10)
+                            {
+                                HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                return Redirect("https://google.com");
+                            }
+                        }
+                    }
+                }
+                if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+                if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+                if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+                if (HttpContext.Session.GetString("TuyetDoi") != null)
+                {
+                    TempData["UyTin"] = "true";
+                    var td = HttpContext.Session.GetString("TuyetDoi");
+                    if (td == "true")
+                    {
+                        TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                    }
+                    else
+                    {
+                        TempData["TestTuyetDoi"] = "false";
+                    }
+                }
+                if (TempData["tathoatdong"] == "true")
+                {
+                    return RedirectToAction("Error");
+                }
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+                {
+                    HttpContext.Session.Remove("userIP");
+                    HttpContext.Session.SetString("userIP", "0.0.0.0");
+                    TempData["skipIP"] = "true";
+                }
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
 
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
-            {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
-                TempData["skipIP"] = "true";
-            }
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                var listIP = new List<string>();
 
-                    var listIP = new List<string>();
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                    listIP.Add(HttpContext.Session.GetString("userIP"));
+                else
+                {
+                    TempData["GetDataIP"] = "true";
+                    return RedirectToAction("Index");
+                }
+                khoawebsiteClient(listIP);
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            khoawebsiteClient(listIP);
+                if (TempData["url"] == null)
+                    TempData["url"] = "[NOT]";
 
-            if (TempData["url"] == null)
-                TempData["url"] = "[NOT]";
+                if (TempData["baihat"] == null)
+                    TempData["baihat"] = "[NOT]";
 
-            if (TempData["baihat"] == null)
-                TempData["baihat"] = "[NOT]";
+                if (TempData["background"] == null)
+                    TempData["background"] = "[NOT]";
 
-            if (TempData["background"] == null)
-                TempData["background"] = "[NOT]";
-
-            if (TempData["option"] == null)
-                TempData["option"] = 0;
+                if (TempData["option"] == null)
+                    TempData["option"] = 0;
 
                 string? url = TempData["url"].ToString();
-            string? baihat = TempData["baihat"].ToString();
-            string? background = TempData["background"].ToString();
-            int? option = int.Parse(TempData["option"].ToString());
+                string? baihat = TempData["baihat"].ToString();
+                string? background = TempData["background"].ToString();
+                int? option = int.Parse(TempData["option"].ToString());
 
-            if (TempData["settingR"] != null)
-            {
+                if (TempData["settingR"] != null)
+                {
                     var setting = TempData["settingR"];
                     TempData["settingR"] = setting;
-                    
-             }
 
+                }
 
                 var n1 = StringMaHoaExtension.Encrypt(url);
-            var n2 = StringMaHoaExtension.Encrypt(baihat);
-            var n3 = StringMaHoaExtension.Encrypt(background);
+                var n2 = StringMaHoaExtension.Encrypt(baihat);
+                var n3 = StringMaHoaExtension.Encrypt(background);
 
-            var share = n1 + "-.-" + n2 + "-.-" + n3 + "-.-" + option;
-            ViewBag.LinkKaraoke = share;
+                var share = n1 + "-.-" + n2 + "-.-" + n3 + "-.-" + option;
+                ViewBag.LinkKaraoke = share;
 
-            TempData["url"] = null;
-            TempData["baihat"] = null;
-            TempData["background"] = null;
-            TempData["option"] = null;
+                TempData["url"] = null;
+                TempData["baihat"] = null;
+                TempData["background"] = null;
+                TempData["option"] = null;
 
                 //TempData["R-hang"] = null;
                 //TempData["R-mau"] = null;
@@ -992,10 +1356,10 @@ namespace MyWebPlay.Controllers
                 //    TempData["R-maunex"] = null;
                 //    TempData["R-anhmo"] = null;
 
-            ViewBag.Music = "";
-            ViewBag.Musix = "";
+                ViewBag.Music = "";
+                ViewBag.Musix = "";
 
-            ViewBag.Karaoke = "karaoke";
+                ViewBag.Karaoke = "karaoke";
 
                 if (HttpContext.Session.GetString("auto-kara-index") != null || HttpContext.Session.GetString("auto-kara-index") != "")
                 {
@@ -1007,78 +1371,78 @@ namespace MyWebPlay.Controllers
                 TempData["link-karaoke-demo"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[5];
 
                 if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Exists)
-                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Delete(true);
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Delete(true);
 
-            new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
-            new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music")).Create();
+                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text")).Create();
 
-            if (url != null && baihat != null && background != null && option != null
-                && url != "[NOT]" && baihat != "[NOT]" && background != "[NOT]" && option != 0
-                && url != "" && baihat != "" && background != "" && option != 0)
-            {
-                url = url.Replace("http://", "");
-                url = url.Replace("https://", "");
-                url = url.Replace("/", "");
-
-                ViewBag.Server = url;
-                ViewBag.BaiHatSV = baihat;
-                try
+                if (url != null && baihat != null && background != null && option != null &&
+                  url != "[NOT]" && baihat != "[NOT]" && background != "[NOT]" && option != 0 &&
+                  url != "" && baihat != "" && background != "" && option != 0)
                 {
-                    WebClient client = new WebClient();
+                    url = url.Replace("http://", "");
+                    url = url.Replace("https://", "");
+                    url = url.Replace("/", "");
+
+                    ViewBag.Server = url;
+                    ViewBag.BaiHatSV = baihat;
+                    try
+                    {
+                        WebClient client = new WebClient();
                         var https = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[10] == "LINK_HTTPS_ON") ? "https" : "http";
-                        Stream stream = client.OpenRead(https +"://" + url + "/MyListSong.txt");
-                    StreamReader reader = new StreamReader(stream);
-                    string content = reader.ReadToEnd();
-                    ViewBag.ListSong = content;
-                    ViewBag.Background = background;
-                    ViewBag.Option = option;
-                    ViewBag.Share = "YES";
+                        Stream stream = client.OpenRead(https + "://" + url + "/MyListSong.txt");
+                        StreamReader reader = new StreamReader(stream);
+                        string content = reader.ReadToEnd();
+                        ViewBag.ListSong = content;
+                        ViewBag.Background = background;
+                        ViewBag.Option = option;
+                        ViewBag.Share = "YES";
 
                         HttpContext.Session.SetString("content-listsong", content);
 
-                        TempData["length-list-auto"] = (content.Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries).Length).ToString();
+                        TempData["length-list-auto"] = (content.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries).Length).ToString();
                         HttpContext.Session.SetString("length-list-auto", TempData["length-list-auto"].ToString());
 
                         ViewBag.ListSong = content;
                     }
-                catch
-                {
-                    ViewBag.Share = "ERROR";
+                    catch
+                    {
+                        ViewBag.Share = "ERROR";
+                    }
+
                 }
-
-            }
-            else
-            if (url != null && url != "[NOT]" && url != "")
-            {
-                url = url.Replace("http://", "");
-                url = url.Replace("https://", "");
-                url = url.Replace("/", "");
-
-                ViewBag.Server = url;
-                ViewBag.BaiHatSV = baihat;
-
-                try
+                else
+                if (url != null && url != "[NOT]" && url != "")
                 {
-                    WebClient client = new WebClient();
+                    url = url.Replace("http://", "");
+                    url = url.Replace("https://", "");
+                    url = url.Replace("/", "");
+
+                    ViewBag.Server = url;
+                    ViewBag.BaiHatSV = baihat;
+
+                    try
+                    {
+                        WebClient client = new WebClient();
                         var https = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[10] == "LINK_HTTPS_ON") ? "https" : "http";
-                        Stream stream = client.OpenRead(https+"://" + url + "/MyListSong.txt");
-                    StreamReader reader = new StreamReader(stream);
-                    string content = reader.ReadToEnd();
+                        Stream stream = client.OpenRead(https + "://" + url + "/MyListSong.txt");
+                        StreamReader reader = new StreamReader(stream);
+                        string content = reader.ReadToEnd();
                         HttpContext.Session.SetString("content-listsong", content);
- 
-                         TempData["length-list-auto"] = (content.Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries).Length).ToString();
+
+                        TempData["length-list-auto"] = (content.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries).Length).ToString();
                         HttpContext.Session.SetString("length-list-auto", TempData["length-list-auto"].ToString());
 
                         ViewBag.ListSong = content;
-                    ViewBag.Share = "OK";
+                        ViewBag.Share = "OK";
                     }
-                catch
-                {
-                    ViewBag.Share = "ERROR";
+                    catch
+                    {
+                        ViewBag.Share = "ERROR";
+                    }
                 }
-            }
 
-            return View();
+                return View();
             }
             catch (Exception ex)
             {
@@ -1087,8 +1451,21 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");                 }
-                return RedirectToAction("Error", new { exception = "true" });
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty;
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];
+                if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")
+                {
+                    Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
+                }
+                return RedirectToAction("Error", new
+                {
+                    exception = "true"
+                });
             }
         }
 
@@ -1098,12 +1475,12 @@ namespace MyWebPlay.Controllers
             try
             {
                 var fix = "";
-                foreach(var item in f.Keys)
+                foreach (var item in f.Keys)
                 {
                     fix += string.Format("{0} : {1}\n", item, f[item]);
                 }
 
-                fix += "txtKaraoke : " +  ((txtKaraoke != null) ? txtKaraoke.FileName : string.Empty) + "\n";
+                fix += "txtKaraoke : " + ((txtKaraoke != null) ? txtKaraoke.FileName : string.Empty) + "\n";
                 fix += "txtMusic : " + ((txtMusic != null) ? txtMusic.FileName : string.Empty) + "\n";
                 fix += "txtMusix : " + ((txtMusix != null) ? txtMusix.FileName : string.Empty) + "\n";
 
@@ -1115,70 +1492,118 @@ namespace MyWebPlay.Controllers
                 if (HttpContext.Session.GetString("auto-kara-index") != null || HttpContext.Session.GetString("auto-kara-index") != "")
                     TempData["index-auto"] = HttpContext.Session.GetString("auto-kara-index");
 
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true"; if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi"); if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
-            {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
-                TempData["skipIP"] = "true";
-            }
-            /*HttpContext.Session.Remove("ok-data");*/
-            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
-
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            khoawebsiteClient(listIP);
-            HttpContext.Session.Remove("ok-data");
-            Calendar xi = CultureInfo.InvariantCulture.Calendar;
-
-            var xuxu = xi.AddHours(DateTime.UtcNow, 7);
-
-            if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
-            {
-                TempData["mau_background"] = "white";
-                TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
-                TempData["winx"] = "❤";
-            }
-            else
-            {
-                TempData["mau_background"] = "black";
-                TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
-                TempData["winx"] = "❤";
-            }
-            var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
-            var noidungX = System.IO.File.ReadAllText(pathX1);
-            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            var flag = 0;
-            for (int i = 0; i < listSetting.Length; i++)
-            {
-                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-
-                if (flag == 0 && (info[0] == "Email_Upload_User"
-                    || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
-                    || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
-                    || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
-                    || info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                khoawebsiteClient(null);
+                var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+                if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
                 {
-                    if (info[1] == "false")
+                    if (this.HttpContext.Request.Method == "GET")
                     {
-
-                        TempData["mau_winx"] = "red";
-                        flag = 1;
+                        if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", 1);
+                            return Redirect("https://google.com");
+                        }
+                        else
+                        {
+                            var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                            if (lan != 10)
+                            {
+                                HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                return Redirect("https://google.com");
+                            }
+                        }
+                    }
+                }
+                if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+                if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+                if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+                if (HttpContext.Session.GetString("TuyetDoi") != null)
+                {
+                    TempData["UyTin"] = "true";
+                    var td = HttpContext.Session.GetString("TuyetDoi");
+                    if (td == "true")
+                    {
+                        TempData["TestTuyetDoi"] = "true"; /*return View();*/
                     }
                     else
                     {
-
-                        TempData["mau_winx"] = "deeppink";
-                        flag = 0;
+                        TempData["TestTuyetDoi"] = "false";
                     }
                 }
-            }
+                if (TempData["tathoatdong"] == "true")
+                {
+                    return RedirectToAction("Error");
+                }
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+                {
+                    HttpContext.Session.Remove("userIP");
+                    HttpContext.Session.SetString("userIP", "0.0.0.0");
+                    TempData["skipIP"] = "true";
+                }
+                /*HttpContext.Session.Remove("ok-data");*/
+                TempData["dataPost"] = "[POST]";
+                HttpContext.Session.SetString("data-result", "true");
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                var listIP = new List<string>();
+
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                    listIP.Add(HttpContext.Session.GetString("userIP"));
+                else
+                {
+                    TempData["GetDataIP"] = "true";
+                    return RedirectToAction("Index");
+                }
+                khoawebsiteClient(listIP);
+                HttpContext.Session.Remove("ok-data");
+                Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+                var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+
+                if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
+                {
+                    TempData["mau_background"] = "white";
+                    TempData["mau_text"] = "black";
+                    TempData["mau_nen"] = "dodgerblue";
+                    TempData["winx"] = "❤";
+                }
+                else
+                {
+                    TempData["mau_background"] = "black";
+                    TempData["mau_text"] = "white";
+                    TempData["mau_nen"] = "rebeccapurple";
+                    TempData["winx"] = "❤";
+                }
+                var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidungX = System.IO.File.ReadAllText(pathX1);
+                var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var flag = 0;
+                for (int i = 0; i < listSetting.Length; i++)
+                {
+                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                    if (flag == 0 && (info[0] == "Email_Upload_User" ||
+                        info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create" ||
+                        info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question" ||
+                        info[0] == "Email_User_Website" || info[0] == "Email_User_Continue" ||
+                        info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                    {
+                        if (info[1] == "false")
+                        {
+
+                            TempData["mau_winx"] = "red";
+                            flag = 1;
+                        }
+                        else
+                        {
+
+                            TempData["mau_winx"] = "deeppink";
+                            flag = 0;
+                        }
+                    }
+                }
 
                 if (txtMusic == null || txtMusic.Length == 0)
                 {
@@ -1217,23 +1642,23 @@ namespace MyWebPlay.Controllers
                     TempData["R-anhmo"] = set[8];
                 }
 
-                    TempData["post-kara"] = "true";
+                TempData["post-kara"] = "true";
 
-            ViewBag.Host = Request.Host;
+                ViewBag.Host = Request.Host;
 
-            ViewBag.Karaoke = "";
-            ViewBag.Share = f["txtShare"] + " - OK";
+                ViewBag.Karaoke = "";
+                ViewBag.Share = f["txtShare"] + " - OK";
 
-            ViewBag.Show = "show";
+                ViewBag.Show = "show";
 
-            TempData["fontKara"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "karaoke_font.txt"));
+                TempData["fontKara"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "karaoke_font.txt"));
 
                 ViewBag.LoginServer = f["txtServer"].ToString();
-            ViewBag.BHServer = f["txtSong"].ToString();
+                ViewBag.BHServer = f["txtSong"].ToString();
 
                 var chon = f["KaraChon"].ToString();
 
-            if (f["auto_play"].ToString() == "on")
+                if (f["auto_play"].ToString() == "on")
                 {
                     TempData["auto-play"] = "false";
                 }
@@ -1298,8 +1723,8 @@ namespace MyWebPlay.Controllers
 
                 ViewBag.Option = chon;
 
-            if (chon == "1")
-            {
+                if (chon == "1")
+                {
                     var r = new Random();
 
                     var n = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example/background")).GetFiles().Length;
@@ -1307,40 +1732,40 @@ namespace MyWebPlay.Controllers
                     int x = r.Next(n);
 
                     if (TempData["Karaoke_RandomImage"] == "true")
-                    ViewBag.Background = "/karaoke_Example/background/1.jpg";
+                        ViewBag.Background = "/karaoke_Example/background/1.jpg";
                     else
-                    ViewBag.Background = "/karaoke_Example/background/" + (x + 1) + ".jpg";
+                        ViewBag.Background = "/karaoke_Example/background/" + (x + 1) + ".jpg";
 
                     ViewBag.SuDung = "";
                     ViewBag.NgauNhien = "true";
                 }
-            else if (chon == "2")
-            {
-                var link = f["txtOnline"].ToString();
-                ViewBag.Background = link;
-                ViewBag.SuDung = "";
-            }
-            else if (chon == "3")
-            {
-                var link = f["txtOnline"].ToString();
-                ViewBag.Background = link;
-                ViewBag.SuDung = "Video";
-            }
-            else if (chon == "4")
-            {
-                ViewBag.BehindYoutube = "YES";
+                else if (chon == "2")
+                {
+                    var link = f["txtOnline"].ToString();
+                    ViewBag.Background = link;
+                    ViewBag.SuDung = "";
+                }
+                else if (chon == "3")
+                {
+                    var link = f["txtOnline"].ToString();
+                    ViewBag.Background = link;
+                    ViewBag.SuDung = "Video";
+                }
+                else if (chon == "4")
+                {
+                    ViewBag.BehindYoutube = "YES";
 
-                var link = f["txtOnline"].ToString();
+                    var link = f["txtOnline"].ToString();
 
-                link = link.Replace("&", "");
-                link = link.Replace("loop", "");
-                link = link.Replace("autoplay", "");
-                link = link.Replace("controls", "");
-                link = link.Replace("mute", "");
-                link = link.Replace("youtu.be/", "youtube.com/embed/");
-                link = link.Replace("youtube.com/watch?v=", "youtube.com/embed/");
+                    link = link.Replace("&", "");
+                    link = link.Replace("loop", "");
+                    link = link.Replace("autoplay", "");
+                    link = link.Replace("controls", "");
+                    link = link.Replace("mute", "");
+                    link = link.Replace("youtu.be/", "youtube.com/embed/");
+                    link = link.Replace("youtube.com/watch?v=", "youtube.com/embed/");
 
-                  TempData["id-youtube"] = link.Replace("https://www.youtube.com/embed/","");
+                    TempData["id-youtube"] = link.Replace("https://www.youtube.com/embed/", "");
 
                     var id = link.Replace("https://www.youtube.com/embed/", "");
 
@@ -1395,32 +1820,32 @@ namespace MyWebPlay.Controllers
                     }
 
                     if (link.Contains("youtube") == false)
-                    ViewBag.Share = "ERROR";
+                        ViewBag.Share = "ERROR";
 
-                if (link.Contains("?"))
-                    link += "&autoplay=1&loop=1&controls=0&mute=1";
-                else
-                    link += "?autoplay=1&loop=1&controls=0&mute=1";
+                    if (link.Contains("?"))
+                        link += "&autoplay=1&loop=1&controls=0&mute=1";
+                    else
+                        link += "?autoplay=1&loop=1&controls=0&mute=1";
 
-                ViewBag.Background = link;
-                ViewBag.SuDung = "Youtube";
-            }
-            else if (chon == "5")
-            {
-                ViewBag.BehindYoutube = "YES";
+                    ViewBag.Background = link;
+                    ViewBag.SuDung = "Youtube";
+                }
+                else if (chon == "5")
+                {
+                    ViewBag.BehindYoutube = "YES";
 
-                var listYoutube = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "Video_Youtube", "randomlink.txt")).Replace("\r","").Split("\n");
+                    var listYoutube = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "Video_Youtube", "randomlink.txt")).Replace("\r", "").Split("\n");
 
-                var rand = new Random();
-                var link = listYoutube[rand.Next(0, listYoutube.Length)];
+                    var rand = new Random();
+                    var link = listYoutube[rand.Next(0, listYoutube.Length)];
 
-                link = link.Replace("&", "");
-                link = link.Replace("loop", "");
-                link = link.Replace("autoplay", "");
-                link = link.Replace("controls", "");
-                link = link.Replace("mute", "");
-                link = link.Replace("youtu.be/", "youtube.com/embed/");
-                link = link.Replace("youtube.com/watch?v=", "youtube.com/embed/");
+                    link = link.Replace("&", "");
+                    link = link.Replace("loop", "");
+                    link = link.Replace("autoplay", "");
+                    link = link.Replace("controls", "");
+                    link = link.Replace("mute", "");
+                    link = link.Replace("youtu.be/", "youtube.com/embed/");
+                    link = link.Replace("youtube.com/watch?v=", "youtube.com/embed/");
 
                     TempData["id-youtube"] = link.Replace("https://www.youtube.com/embed/", "");
 
@@ -1429,7 +1854,7 @@ namespace MyWebPlay.Controllers
                     try
                     {
                         WebClient client = new WebClient();
-                        Stream stream = client.OpenRead("https://www.googleapis.com/youtube/v3/videos?id="+id+"&part=contentDetails&key=AIzaSyD5bK5gubDOrvgoHvWg-OTbDqVogqe6R_8");
+                        Stream stream = client.OpenRead("https://www.googleapis.com/youtube/v3/videos?id=" + id + "&part=contentDetails&key=AIzaSyD5bK5gubDOrvgoHvWg-OTbDqVogqe6R_8");
                         StreamReader reader = new StreamReader(stream);
                         string content = reader.ReadToEnd();
 
@@ -1440,7 +1865,7 @@ namespace MyWebPlay.Controllers
                         var h = 0;
                         var m = 0;
                         var s = 0;
-                        
+
                         if (durationYoutube.StartsWith("PT"))
                         {
                             durationYoutube = durationYoutube.Replace("PT", "");
@@ -1450,7 +1875,7 @@ namespace MyWebPlay.Controllers
                                 h = int.Parse(durationYoutube.Split("H")[0]);
                             }
 
-                            durationYoutube = durationYoutube.Replace(h+"H","").Replace("H", "");
+                            durationYoutube = durationYoutube.Replace(h + "H", "").Replace("H", "");
 
                             if (durationYoutube.Contains("M"))
                             {
@@ -1471,41 +1896,41 @@ namespace MyWebPlay.Controllers
                             TempData["duration-Youtube"] = "no";
                         }
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         throw;
                     }
 
                     if (link.Contains("youtube") == false)
-                    ViewBag.Share = "ERROR";
+                        ViewBag.Share = "ERROR";
 
-                if (link.Contains("?"))
-                    link += "&autoplay=1&loop=1&controls=0&mute=1";
-                else
-                    link += "?autoplay=1&loop=1&controls=0&mute=1";
+                    if (link.Contains("?"))
+                        link += "&autoplay=1&loop=1&controls=0&mute=1";
+                    else
+                        link += "?autoplay=1&loop=1&controls=0&mute=1";
 
-                ViewBag.Background = link;
-                ViewBag.SuDung = "Youtube";
-            }
+                    ViewBag.Background = link;
+                    ViewBag.SuDung = "Youtube";
+                }
 
                 var ct = HttpContext.Session.GetString("content-listsong");
 
-            if (f["txtOnlineServer"].ToString() == "on")
-            {
-                var server = f["txtServer"].ToString();
-                var song = f["txtSong"].ToString();
-
-                var url_txt = server + "/" + song + "/" + song + ".txt";
-                var url_goc = server + "/" + song + "/" + song + "_Goc.mp3";
-                var url_kara = server + "/" + song + "/" + song + ".mp3";
-
-                try
+                if (f["txtOnlineServer"].ToString() == "on")
                 {
-                    WebClient client = new WebClient();
+                    var server = f["txtServer"].ToString();
+                    var song = f["txtSong"].ToString();
+
+                    var url_txt = server + "/" + song + "/" + song + ".txt";
+                    var url_goc = server + "/" + song + "/" + song + "_Goc.mp3";
+                    var url_kara = server + "/" + song + "/" + song + ".mp3";
+
+                    try
+                    {
+                        WebClient client = new WebClient();
                         var https = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[10] == "LINK_HTTPS_ON") ? "https" : "http";
-                        Stream stream = client.OpenRead(https+"://" + url_txt);
-                    StreamReader reader = new StreamReader(stream);
-                    string content = reader.ReadToEnd();
+                        Stream stream = client.OpenRead(https + "://" + url_txt);
+                        StreamReader reader = new StreamReader(stream);
+                        string content = reader.ReadToEnd();
 
                         //if (f["encrypt_data"].ToString() == "on" || HttpContext.Session.GetString("encrypt_yes") == "true")
                         //{
@@ -1532,30 +1957,30 @@ namespace MyWebPlay.Controllers
 
                         var httpx = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[10] == "LINK_HTTPS_ON") ? "https" : "http";
 
-                        ViewBag.Music = httpx +  "://" + url_kara;
-                    ViewBag.Musix = httpx +"://" + url_goc;
+                        ViewBag.Music = httpx + "://" + url_kara;
+                        ViewBag.Musix = httpx + "://" + url_goc;
 
-                    if (content.Contains("<>") == false)
-                    {
-                        ViewBag.Karaoke = content;
-                        TempData["TK-KARA"] = "";
+                        if (content.Contains("<>") == false)
+                        {
+                            ViewBag.Karaoke = content;
+                            TempData["TK-KARA"] = "";
                             if (TempData["hassinger"] != "true")
                                 TempData["hassinger"] = "false";
                         }
-                    else
-                    {
-                        var xa = content.Replace("\r","").Split("\n");
-                        var noidung = "";
-                        for (int i = 0; i < xa.Length; i++)
+                        else
                         {
-                            if (xa[i].Contains("<>"))
+                            var xa = content.Replace("\r", "").Split("\n");
+                            var noidung = "";
+                            for (int i = 0; i < xa.Length; i++)
                             {
-                                var xb = xa[i].Split("<>");
-                                var xc = xb[1].Split("#");
-                                var xd = xb[0].Split("-");
-                                noidung += xc[0] + "=" + xd[0] + "=" + xd[1];
+                                if (xa[i].Contains("<>"))
+                                {
+                                    var xb = xa[i].Split("<>");
+                                    var xc = xb[1].Split("#");
+                                    var xd = xb[0].Split("-");
+                                    noidung += xc[0] + "=" + xd[0] + "=" + xd[1];
 
-                                if (xd[0] == "[SINGER]")
+                                    if (xd[0] == "[SINGER]")
                                     {
                                         TempData["hassinger"] = "true";
                                     }
@@ -1565,116 +1990,53 @@ namespace MyWebPlay.Controllers
                                             TempData["hassinger"] = "false";
                                     }
 
-                                content = content.Replace(xb[0] + "<>", "");
+                                    content = content.Replace(xb[0] + "<>", "");
 
-                                if (i < xa.Length - 1)
-                                    noidung += "\n";
+                                    if (i < xa.Length - 1)
+                                        noidung += "\n";
+                                }
                             }
+                            TempData["TK-KARA"] = noidung;
+                            ViewBag.Karaoke = content;
                         }
-                        TempData["TK-KARA"] = noidung;
-                        ViewBag.Karaoke = content;
-                    }
-                }
-                catch
-                {
-                    ViewBag.Share = "ERROR";
-                }
-            }
-            else
-            if (f["txtChon"].ToString() != "on")
-            {
-                var fileName = Path.GetFileName(txtMusic.FileName);
-                var nameFile = Path.GetFileName(txtMusix.FileName);
-
-                var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", fileName);
-                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", nameFile);
-
-
-                using (Stream fileStream = new FileStream(path, FileMode.Create))
-                {
-                    txtMusic.CopyTo(fileStream);
-                }
-
-                using (Stream fileStream = new FileStream(pathX, FileMode.Create))
-                {
-                    txtMusix.CopyTo(fileStream);
-                }
-
-                ViewBag.Music = "/karaoke/music/" + fileName;
-                ViewBag.Musix = "/karaoke/music/" + nameFile;
-
-                    fileName = Path.GetFileName(txtKaraoke.FileName);
-
-                path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text", fileName);
-
-                using (Stream fileStream = new FileStream(path, FileMode.Create))
-                {
-                    txtKaraoke.CopyTo(fileStream);
-                }
-                var nd = System.IO.File.ReadAllText(path);
-
-                    var encrypt = false;
-                    try
-                    {
-                        StringMaHoaExtension.Decrypt(nd);
-                        encrypt = true;
-                        TempData["data-encrypt"] = "true";
                     }
                     catch
                     {
-                        encrypt = false; 
-                        TempData["data-encrypt"] = "false";
+                        ViewBag.Share = "ERROR";
                     }
-
-                    if (encrypt == true)
-                    {
-                        nd = StringMaHoaExtension.Decrypt(nd);
-                    }
-
-                    if (nd.Contains("<>") == false)
-                {
-                    ViewBag.Karaoke = nd;
-                    TempData["TK-KARA"] = "";
-
-                    if (TempData["hassinger"] != "true")
-                     TempData["hassinger"] = "false";
-                    }
-                else
-                {
-                    var xa = nd.Replace("\r","").Split("\n");
-                    var noidung = "";
-                    for (int i = 0; i< xa.Length;i++)
-                    {
-                        if (xa[i].Contains("<>"))
-                        {
-                            var xb = xa[i].Split("<>");
-                            var xc = xb[1].Split("#");
-                            var xd = xb[0].Split("-");
-                            noidung += xc[0] + "=" + xd[0] + "=" + xd[1];
-
-                                if (xd[0] == "[SINGER]")
-                                {
-                                    TempData["hassinger"] = "true";
-                                }
-                                else
-                                {
-                                    if (TempData["hassinger"] != "true")
-                                        TempData["hassinger"] = "false";
-                                }
-
-                                nd = nd.Replace(xb[0] + "<>", "");
-
-                            if (i < xa.Length - 1)
-                                noidung += "\n";
-                        }
-                    }
-                    TempData["TK-KARA"] = noidung;
-                    ViewBag.Karaoke = nd;
                 }
-            }
-            else
-            {
-                    var nd = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ExamKara/TextDemo.txt"));
+                else
+                if (f["txtChon"].ToString() != "on")
+                {
+                    var fileName = Path.GetFileName(txtMusic.FileName);
+                    var nameFile = Path.GetFileName(txtMusix.FileName);
+
+                    var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", fileName);
+                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", nameFile);
+
+                    using (Stream fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        txtMusic.CopyTo(fileStream);
+                    }
+
+                    using (Stream fileStream = new FileStream(pathX, FileMode.Create))
+                    {
+                        txtMusix.CopyTo(fileStream);
+                    }
+
+                    ViewBag.Music = "/karaoke/music/" + fileName;
+                    ViewBag.Musix = "/karaoke/music/" + nameFile;
+
+                    fileName = Path.GetFileName(txtKaraoke.FileName);
+
+                    path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text", fileName);
+
+                    using (Stream fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        txtKaraoke.CopyTo(fileStream);
+                    }
+                    var nd = System.IO.File.ReadAllText(path);
+
                     var encrypt = false;
                     try
                     {
@@ -1692,7 +2054,6 @@ namespace MyWebPlay.Controllers
                     {
                         nd = StringMaHoaExtension.Decrypt(nd);
                     }
-
 
                     if (nd.Contains("<>") == false)
                     {
@@ -1734,9 +2095,71 @@ namespace MyWebPlay.Controllers
                         TempData["TK-KARA"] = noidung;
                         ViewBag.Karaoke = nd;
                     }
-                ViewBag.Music = "/karaoke_Example/ExamKara/KaraokeDemo.mp3";
-                ViewBag.Musix = "/karaoke_Example/ExamKara/NhacDemo.mp3";
-            }
+                }
+                else
+                {
+                    var nd = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ExamKara/TextDemo.txt"));
+                    var encrypt = false;
+                    try
+                    {
+                        StringMaHoaExtension.Decrypt(nd);
+                        encrypt = true;
+                        TempData["data-encrypt"] = "true";
+                    }
+                    catch
+                    {
+                        encrypt = false;
+                        TempData["data-encrypt"] = "false";
+                    }
+
+                    if (encrypt == true)
+                    {
+                        nd = StringMaHoaExtension.Decrypt(nd);
+                    }
+
+                    if (nd.Contains("<>") == false)
+                    {
+                        ViewBag.Karaoke = nd;
+                        TempData["TK-KARA"] = "";
+
+                        if (TempData["hassinger"] != "true")
+                            TempData["hassinger"] = "false";
+                    }
+                    else
+                    {
+                        var xa = nd.Replace("\r", "").Split("\n");
+                        var noidung = "";
+                        for (int i = 0; i < xa.Length; i++)
+                        {
+                            if (xa[i].Contains("<>"))
+                            {
+                                var xb = xa[i].Split("<>");
+                                var xc = xb[1].Split("#");
+                                var xd = xb[0].Split("-");
+                                noidung += xc[0] + "=" + xd[0] + "=" + xd[1];
+
+                                if (xd[0] == "[SINGER]")
+                                {
+                                    TempData["hassinger"] = "true";
+                                }
+                                else
+                                {
+                                    if (TempData["hassinger"] != "true")
+                                        TempData["hassinger"] = "false";
+                                }
+
+                                nd = nd.Replace(xb[0] + "<>", "");
+
+                                if (i < xa.Length - 1)
+                                    noidung += "\n";
+                            }
+                        }
+                        TempData["TK-KARA"] = noidung;
+                        ViewBag.Karaoke = nd;
+                    }
+                    ViewBag.Music = "/karaoke_Example/ExamKara/KaraokeDemo.mp3";
+                    ViewBag.Musix = "/karaoke_Example/ExamKara/NhacDemo.mp3";
+                }
 
                 if (f["txtAutoSong"].ToString() == "on")
                 {
@@ -1755,15 +2178,15 @@ namespace MyWebPlay.Controllers
 
                     }
                     TempData["index-auto"] = HttpContext.Session.GetString("auto-kara-index");
-                    TempData["length-list-auto"] = (ct.Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries).Length).ToString();
+                    TempData["length-list-auto"] = (ct.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries).Length).ToString();
                     HttpContext.Session.SetString("length-list-auto", TempData["length-list-auto"].ToString());
                 }
 
                 var n1 = StringMaHoaExtension.Encrypt(ViewBag.LoginServer);
-            var n2 = StringMaHoaExtension.Encrypt(ViewBag.BHServer);
-            var n3 = StringMaHoaExtension.Encrypt(ViewBag.Background);
-            ViewBag.LinkKaraoke = n1 + "-.-" + n2 + "-.-" + n3 + "-.-" + chon;
-            return View();
+                var n2 = StringMaHoaExtension.Encrypt(ViewBag.BHServer);
+                var n3 = StringMaHoaExtension.Encrypt(ViewBag.Background);
+                ViewBag.LinkKaraoke = n1 + "-.-" + n2 + "-.-" + n3 + "-.-" + chon;
+                return View();
             }
             catch (Exception ex)
             {
@@ -1772,8 +2195,21 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");                 }
-                return RedirectToAction("Error", new { exception = "true" });
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty;
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];
+                if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")
+                {
+                    Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
+                }
+                return RedirectToAction("Error", new
+                {
+                    exception = "true"
+                });
             }
         }
     }

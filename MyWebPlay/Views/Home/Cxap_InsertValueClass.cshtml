@@ -1,69 +1,66 @@
 ﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
-      function xoaValue(ele)
+    function xoaValue(ele)
     {
-            document.getElementById(ele).value = "";
-            document.getElementById(ele).focus();
+          document.getElementById(ele).value = "";
+          document.getElementById(ele).focus();
     }
 </script>
 <table align="center">
     <h2 style="text-align:center">C# tạo lệnh insert value vào class cơ bản</h2>
-
     <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
-
     @using (Html.BeginForm())
     {
-        @Html.ValidationSummary(true)
-
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                <br>
-                <a href="#xuly" onclick="xoaValue('tenclass')"><b>Nhập tên class </b></a>
-                <br>
-                <input type="text" size="50" name="TenClass" id="tenclass" value="ClassName">
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
-            </td>
-        </tr>
-        <br />
-        <br />
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                <br>
-                    <a href="#xuly" onclick="xoaValue('dukien1')"><b>Nhập dữ kiện từng thuộc tính theo mẫu (với 1 : kiểu số, 2 : kiểu chuỗi, 3 : kiểu object)</b></a>
-                <br>
-                <input type="text" size="50" name="DuKien1" id="dukien1" value="1-2-3-3">
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
-            </td>
-        </tr>
-        <br />
-        <br />
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                <br>
-                    <a href="#xuly" onclick="xoaValue('dukien2')"><b>Nếu dữ kiện trên có tồn tại kiểu Object, đặt tên cụ thể và các kiểu từng thuộc tính của Object đó (với 1 : kiểu số, 2 : kiểu chuỗi, 3 : kiểu object - hiện không hỗ trợ :(( )</b></a>
-                <br>
-                <input type="text" size="50" name="DuKien2" id="dukien2" value="DateTime.1-1-1,SinhVien.1-2">
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
-            </td>
-        </tr>
-        <br />
-        <br />
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                <br>
-                   <a href="#xuly" onclick="xoaValue('dulieu')"> <b>Nhập dãy dữ liệu theo mẫu (ví dụ - lưu ý)...</b></a>
-                <br>
-                <textarea name="DuLieu" id="dulieu" cols="100" rows="50">123
+    @Html.ValidationSummary(true)
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <a href="#xuly" onclick="xoaValue('tenclass')"><b>Nhập tên class </b></a>
+            <br>
+            <input type="text" size="50" name="TenClass" id="tenclass" value="ClassName">
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+        </td>
+    </tr>
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <a href="#xuly" onclick="xoaValue('dukien1')"><b>Nhập dữ kiện từng thuộc tính theo mẫu (với 1 : kiểu số, 2 : kiểu chuỗi, 3 : kiểu object)</b></a>
+            <br>
+            <input type="text" size="50" name="DuKien1" id="dukien1" value="1-2-3-3">
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+        </td>
+    </tr>
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <a href="#xuly" onclick="xoaValue('dukien2')"><b>Nếu dữ kiện trên có tồn tại kiểu Object, đặt tên cụ thể và các kiểu từng thuộc tính của Object đó (với 1 : kiểu số, 2 : kiểu chuỗi, 3 : kiểu object - hiện không hỗ trợ :(( )</b></a>
+            <br>
+            <input type="text" size="50" name="DuKien2" id="dukien2" value="DateTime.1-1-1,SinhVien.1-2">
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
+        </td>
+    </tr>
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <a href="#xuly" onclick="xoaValue('dulieu')"> <b>Nhập dãy dữ liệu theo mẫu (ví dụ - lưu ý)...</b></a>
+            <br>
+            <textarea name="DuLieu" id="dulieu" cols="100" rows="50">123
 Asp Net Core
 2000##06##20
 123##Asp Net Core
@@ -72,27 +69,23 @@ Asp Net Core
 Tran Thi My Lan
 1995##12##30
 789##Le Anh Huy</textarea>
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi4"] </span>
-            </td>
-        </tr>
-
-
-        <tr style="height:40px">
-            <td></td>
-            <td>
-                <input type="Submit" value="Kết Quả" />
-            </td>
-        </tr>
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi4"] </span>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input type="Submit" value="Kết Quả" />
+        </td>
+    </tr>
     }
 </table>
 <br /><br /><br />
 ******************************************************************************************************************************************************************************
-
 <br />
 <br />
 <br />
-
 <div id="hihi">
     @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
 </div>

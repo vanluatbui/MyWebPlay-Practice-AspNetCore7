@@ -1,57 +1,49 @@
-﻿    @if (TempData["ViewSiteBasic"] == "true")
+﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
-      function xoaValue(ele)
+    function xoaValue(ele)
     {
-            document.getElementById(ele).value = "";
-            document.getElementById(ele).focus();
+          document.getElementById(ele).value = "";
+          document.getElementById(ele).focus();
     }
 </script>
 <table align="center">
     <h2 style="text-align:center">Xử Lý SQL 2</h2>
-
     <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
-
     @using (Html.BeginForm())
     {
-        @Html.ValidationSummary(true)
-
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                <br>
-                   <a href="#xuly" onclick="xoaValue('table')"> <b>Chuỗi tên các Tables (chú ý index - cách nhau bởi Enter) : <br>
-                    </b></a>
-                     <br>
-                    <textarea cols="50" rows="12" name="txtTable" id="table">@ViewBag.Table</textarea>
-            </td>
-        </tr>
-
-         <tr style="height:40px">
-            <td></td>
-            <td><br>
-                <input type="checkbox" name="txtChon" /> Mong muốn xoá các kết quả Trigger
-            </td>
-        </tr>
-      
-        <tr style="height:40px">
-            <td></td>
-            <td><br>
-                <input type="Submit" value="Kết Quả" />
-            </td>
-        </tr>
+    @Html.ValidationSummary(true)
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <a href="#xuly" onclick="xoaValue('table')"> <b>Chuỗi tên các Tables (chú ý index - cách nhau bởi Enter) : <br>
+            </b></a>
+            <br>
+            <textarea cols="50" rows="12" name="txtTable" id="table">@ViewBag.Table</textarea>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td><br>
+            <input type="checkbox" name="txtChon" /> Mong muốn xoá các kết quả Trigger
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td><br>
+            <input type="Submit" value="Kết Quả" />
+        </td>
+    </tr>
     }
 </table>
 <br /><br />
-
 ******************************************************************************************************************************************************************************
-
 <br />
 <br />
 <br />
-
 <div id="hihi">
-                @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
+    @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
 </div>

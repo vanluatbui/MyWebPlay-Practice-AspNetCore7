@@ -1,345 +1,342 @@
 ﻿@{
-    Layout = null;
+Layout = null;
 }
 @if (TempData["HTML-visible"].ToString() != "2")
 {
 <html lang="vi">
-<head>
-     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>C# | Asp Net Core | Công nghệ thông tin</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>C# | Asp Net Core | Công nghệ thông tin</title>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
         <link rel="icon" href="/images/imagex.png">
-        </head>
-        <body name="backgroundX" style="background-color:@TempData["mau_background"]">
+    </head>
+    <body name="backgroundX" style="background-color:@TempData["mau_background"]">
     <meta charset="ISO-8859-1">
-<script>
-
-    function okhihi()
-    {
-        document.getElementById("ok").click();
-    }
-   
-    function dichuyen()
-    {
-        document.getElementById("giatri").value = document.getElementById("ketqua").value;
-        document.getElementById("ketqua").value = "";
-        window.location.href = "#giatri";
-    }
-
-    function DeleteViewData_C()
-    {
-        document.getElementById("chon").value = 13;
-        alert("Xử lý thành công !")
-       document.getElementById("ok").click();
-    }
-
-    function SetViewData_C()
-    {
-        document.getElementById("chon").value = 14;
-        alert("Xử lý thành công !")
-       document.getElementById("ok").click();
-    }
-
-    function GetKeyViewData_C()
-    {
-        document.getElementById("chon").value = 15;
-        alert("Xử lý thành công, mời bạn tự trượt phía dưới để xem thử kết quả !")
-       document.getElementById("ok").click();
-    }
-
-    function DocViewData_C()
-    {
-        document.getElementById("chon").value = 16;
-        alert("Xử lý thành công, mời bạn tự trượt phía dưới để xem thử kết quả !")
-       document.getElementById("ok").click();
-    }
-
-    function mahoa()
-    {
-         document.getElementById("chon").value = 11;
-        alert("Xử lý thành công, mời bạn tự trượt phía dưới để xem thử kết quả !")
-       document.getElementById("ok").click();
-    }
-
-     function giaima()
-    {
-         document.getElementById("chon").value = 12;
-        alert("Xử lý thành công, mời bạn tự trượt phía dưới để xem thử kết quả !")
-       document.getElementById("ok").click();
-    }
-
-     // Delete div somee
-
-        setInterval(function()
+    <script>
+        function okhihi()
         {
-             $(document).ready(function () {
-        $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
-        $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
-        $("div[onmouseover='S_ssac();']").remove();
-        $("center").remove();
-        $("div[style='height: 65px;']").remove();
-    });
-        },1);
-
-    function getlogerror()
-    {
-        document.getElementById("session").value = "error_exception_log";
-        document.getElementById("hahaha").click();
-    }
-
-    function gansessionJS()
-    {
-        var session = document.getElementById("session").value;
-        var giatri = document.getElementById("giatri").value;
-
-        if (giatri != "")
-       sessionStorage.setItem(session, giatri);
-       else
-       sessionStorage.setItem(session, "Default Session Webplay");
-        
-        alert("Xử lý thành công!")
-    }
-
-    function ganLocalStorageJS()
-    {
-         var session = document.getElementById("session").value;
-        var giatri = document.getElementById("giatri").value;
-
-        if (giatri != "")
-       localStorage.setItem(session, giatri);
-       else
-       localStorage.setItem(session, "Default localStorage Webplay");
-        
-        alert("Xử lý thành công!")
-    }
-
-    function docsessionJS()
-    {
-        var session = document.getElementById("session").value;
-    
-       document.getElementById("ketqua").value = sessionStorage.getItem(session);
-        
-
-        window.location.href="#ketqua";
-    }
-
-    function docLocalStorageJS()
-    {
-         var session = document.getElementById("session").value;
-    
-       document.getElementById("ketqua").value = localStorage.getItem(session);
-
-        window.location.href="#ketqua";
-    }
-
-     function getListKeylocalStorage_JS()
-    {
-         var session = document.getElementById("session").value;
-    
-         var s = "";
-
-         for (var key in localStorage)
-         {
-             s += key + " : "+localStorage.getItem(key) + "\n";
-         }
-       document.getElementById("ketqua").value = s;
-
-        window.location.href="#ketqua";
-    }
-
-    function gansessionC()
-    {
-        if (document.getElementById("check-s").checked == false)
-        document.getElementById("chon").value = 1;
-        else
-         document.getElementById("chon").value = 10;
-        document.getElementById("ok").click();
-        alert("Xử lý thành công!")
-    }
-
-    function xoaLocalStorage_JS()
-    {
-         alert("Xử lý thành công!")
-         localStorage.removeItem(document.getElementById("session").value);
-    }
-
-     function ganTempData_C()
-    {
-        document.getElementById("chon").value = 0;
-        document.getElementById("ok").click();
-        alert("Xử lý thành công!")
-    }
-
-    function docsessionC()
-    {
-        if (document.getElementById("check-s").checked == false)
-       document.getElementById("chon").value = 2;
-       else
-        document.getElementById("chon").value = 9;
-
-        alert("Xử lý thành công, mời bạn tự trượt phía dưới để xem thử kết quả !")
-       document.getElementById("ok").click();
-    }
-
-      function docTempDataC()
-    {
-       document.getElementById("chon").value = 6;
-        alert("Xử lý thành công, mời bạn tự trượt phía dưới để xem thử kết quả !")
-       document.getElementById("ok").click();
-    }
-
-      function getListKeyTempData_C()
-    {
-       document.getElementById("chon").value = 8;
-        alert("Xử lý thành công, mời bạn tự trượt phía dưới để xem thử kết quả !")
-       document.getElementById("ok").click();
-    }
-
-      function getListKeySession_C()
-    {
-       document.getElementById("chon").value = 7;
-        alert("Xử lý thành công, mời bạn tự trượt phía dưới để xem thử kết quả !")
-       document.getElementById("ok").click();
-    }
-
-    function xoasessionJS()
-    {
-        var re = confirm("Bạn có chắc chắn muốn tiếp tục xử lý hành động này?");
-
-        if (re == true)
-        {
-           document.getElementById("ketqua").value = "";
-           sessionStorage.removeItem(document.getElementById("session").value);
-           alert("Xử lý thành công!")
+            document.getElementById("ok").click();
         }
-    }
-
-    function xoasessionC()
-    {
-        var re = confirm("Bạn có chắc chắn muốn tiếp tục xử lý hành động này?");
-
-        if (re == true)
+        
+        function dichuyen()
         {
-            document.getElementById("chon").value = 3;
-           document.getElementById("ok").click();
-           alert("Xử lý thành công!")
-        }   
-    }
-
-     function xoaallJS()
-    {
-        var re = confirm("Bạn có chắc chắn muốn tiếp tục xử lý hành động này?");
-
-        if (re == true)
-        {
-           document.getElementById("ketqua").value = "";
-           sessionStorage.clear();
-           alert("Xử lý thành công!")
+            document.getElementById("giatri").value = document.getElementById("ketqua").value;
+            document.getElementById("ketqua").value = "";
+            window.location.href = "#giatri";
         }
-    }
-
-    function xoaallC()
-    {
-        var re = confirm("Bạn có chắc chắn muốn tiếp tục xử lý hành động này?");
-
-        if (re == true)
+        
+        function DeleteViewData_C()
         {
-            document.getElementById("chon").value = 4;
+            document.getElementById("chon").value = 13;
+            alert("Xử lý thành công !")
            document.getElementById("ok").click();
-           alert("Xử lý thành công!")
-        } 
-    }
-
-    function xoaallTempData()
-    {
-         var re = confirm("Bạn có chắc chắn muốn tiếp tục xử lý hành động này?");
-
-        if (re == true)
+        }
+        
+        function SetViewData_C()
         {
-            document.getElementById("chon").value = 5;
+            document.getElementById("chon").value = 14;
+            alert("Xử lý thành công !")
            document.getElementById("ok").click();
-           alert("Xử lý thành công!")
-        } 
-    }
-
-    function xoaallLocalStorage()
-    {
-         var re = confirm("Bạn có chắc chắn muốn tiếp tục xử lý hành động này?");
-
-        if (re == true)
+        }
+        
+        function GetKeyViewData_C()
         {
-           localStorage.clear();
-           alert("Xử lý thành công!")
-        } 
-    }
-
-    //-----------------------------------------------
-
-    var sang = 0;
-         if ('@TempData["mau_background"]' == "white")
-         {
-             sang = 1;
-         }
-
-         var xongmau = 0;
-         var iss = setInterval(function(){
-              if (xongmau == 1) return;
-
-             if (localStorage.getItem("nensangtoi") != null)
+            document.getElementById("chon").value = 15;
+            alert("Xử lý thành công, mời bạn tự trượt phía dưới để xem thử kết quả !")
+           document.getElementById("ok").click();
+        }
+        
+        function DocViewData_C()
+        {
+            document.getElementById("chon").value = 16;
+            alert("Xử lý thành công, mời bạn tự trượt phía dưới để xem thử kết quả !")
+           document.getElementById("ok").click();
+        }
+        
+        function mahoa()
+        {
+             document.getElementById("chon").value = 11;
+            alert("Xử lý thành công, mời bạn tự trượt phía dưới để xem thử kết quả !")
+           document.getElementById("ok").click();
+        }
+        
+         function giaima()
+        {
+             document.getElementById("chon").value = 12;
+            alert("Xử lý thành công, mời bạn tự trượt phía dưới để xem thử kết quả !")
+           document.getElementById("ok").click();
+        }
+        
+         // Delete div somee
+        
+            setInterval(function()
+            {
+                 $(document).ready(function () {
+            $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
+            $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
+            $("div[onmouseover='S_ssac();']").remove();
+            $("center").remove();
+            $("div[style='height: 65px;']").remove();
+        });
+            },1);
+        
+        function getlogerror()
+        {
+            document.getElementById("session").value = "error_exception_log";
+            document.getElementById("hahaha").click();
+        }
+        
+        function gansessionJS()
+        {
+            var session = document.getElementById("session").value;
+            var giatri = document.getElementById("giatri").value;
+        
+            if (giatri != "")
+           sessionStorage.setItem(session, giatri);
+           else
+           sessionStorage.setItem(session, "Default Session Webplay");
+            
+            alert("Xử lý thành công!")
+        }
+        
+        function ganLocalStorageJS()
+        {
+             var session = document.getElementById("session").value;
+            var giatri = document.getElementById("giatri").value;
+        
+            if (giatri != "")
+           localStorage.setItem(session, giatri);
+           else
+           localStorage.setItem(session, "Default localStorage Webplay");
+            
+            alert("Xử lý thành công!")
+        }
+        
+        function docsessionJS()
+        {
+            var session = document.getElementById("session").value;
+        
+           document.getElementById("ketqua").value = sessionStorage.getItem(session);
+            
+        
+            window.location.href="#ketqua";
+        }
+        
+        function docLocalStorageJS()
+        {
+             var session = document.getElementById("session").value;
+        
+           document.getElementById("ketqua").value = localStorage.getItem(session);
+        
+            window.location.href="#ketqua";
+        }
+        
+         function getListKeylocalStorage_JS()
+        {
+             var session = document.getElementById("session").value;
+        
+             var s = "";
+        
+             for (var key in localStorage)
              {
-                 sang = localStorage.getItem("nensangtoi");
-                 nensangtoi();
+                 s += key + " : "+localStorage.getItem(key) + "\n";
              }
-             xongmau++;
-         },10);
-
-         function nensangtoi()
-         {
-             if (sang == 0)
+           document.getElementById("ketqua").value = s;
+        
+            window.location.href="#ketqua";
+        }
+        
+        function gansessionC()
+        {
+            if (document.getElementById("check-s").checked == false)
+            document.getElementById("chon").value = 1;
+            else
+             document.getElementById("chon").value = 10;
+            document.getElementById("ok").click();
+            alert("Xử lý thành công!")
+        }
+        
+        function xoaLocalStorage_JS()
+        {
+             alert("Xử lý thành công!")
+             localStorage.removeItem(document.getElementById("session").value);
+        }
+        
+         function ganTempData_C()
+        {
+            document.getElementById("chon").value = 0;
+            document.getElementById("ok").click();
+            alert("Xử lý thành công!")
+        }
+        
+        function docsessionC()
+        {
+            if (document.getElementById("check-s").checked == false)
+           document.getElementById("chon").value = 2;
+           else
+            document.getElementById("chon").value = 9;
+        
+            alert("Xử lý thành công, mời bạn tự trượt phía dưới để xem thử kết quả !")
+           document.getElementById("ok").click();
+        }
+        
+          function docTempDataC()
+        {
+           document.getElementById("chon").value = 6;
+            alert("Xử lý thành công, mời bạn tự trượt phía dưới để xem thử kết quả !")
+           document.getElementById("ok").click();
+        }
+        
+          function getListKeyTempData_C()
+        {
+           document.getElementById("chon").value = 8;
+            alert("Xử lý thành công, mời bạn tự trượt phía dưới để xem thử kết quả !")
+           document.getElementById("ok").click();
+        }
+        
+          function getListKeySession_C()
+        {
+           document.getElementById("chon").value = 7;
+            alert("Xử lý thành công, mời bạn tự trượt phía dưới để xem thử kết quả !")
+           document.getElementById("ok").click();
+        }
+        
+        function xoasessionJS()
+        {
+            var re = confirm("Bạn có chắc chắn muốn tiếp tục xử lý hành động này?");
+        
+            if (re == true)
+            {
+               document.getElementById("ketqua").value = "";
+               sessionStorage.removeItem(document.getElementById("session").value);
+               alert("Xử lý thành công!")
+            }
+        }
+        
+        function xoasessionC()
+        {
+            var re = confirm("Bạn có chắc chắn muốn tiếp tục xử lý hành động này?");
+        
+            if (re == true)
+            {
+                document.getElementById("chon").value = 3;
+               document.getElementById("ok").click();
+               alert("Xử lý thành công!")
+            }   
+        }
+        
+         function xoaallJS()
+        {
+            var re = confirm("Bạn có chắc chắn muốn tiếp tục xử lý hành động này?");
+        
+            if (re == true)
+            {
+               document.getElementById("ketqua").value = "";
+               sessionStorage.clear();
+               alert("Xử lý thành công!")
+            }
+        }
+        
+        function xoaallC()
+        {
+            var re = confirm("Bạn có chắc chắn muốn tiếp tục xử lý hành động này?");
+        
+            if (re == true)
+            {
+                document.getElementById("chon").value = 4;
+               document.getElementById("ok").click();
+               alert("Xử lý thành công!")
+            } 
+        }
+        
+        function xoaallTempData()
+        {
+             var re = confirm("Bạn có chắc chắn muốn tiếp tục xử lý hành động này?");
+        
+            if (re == true)
+            {
+                document.getElementById("chon").value = 5;
+               document.getElementById("ok").click();
+               alert("Xử lý thành công!")
+            } 
+        }
+        
+        function xoaallLocalStorage()
+        {
+             var re = confirm("Bạn có chắc chắn muốn tiếp tục xử lý hành động này?");
+        
+            if (re == true)
+            {
+               localStorage.clear();
+               alert("Xử lý thành công!")
+            } 
+        }
+        
+        //-----------------------------------------------
+        
+        var sang = 0;
+             if ('@TempData["mau_background"]' == "white")
              {
                  sang = 1;
-             var li1 = document.getElementsByName("backgroundX").length;
-             for (var i = 0 ; i<li1; i++)
-             {
-                 document.getElementsByName("backgroundX")[i].style.backgroundColor = "white";
              }
-
-             var li2 = document.getElementsByName("colorX").length;
-             for (var i = 0 ; i<li2; i++)
+        
+             var xongmau = 0;
+             var iss = setInterval(function(){
+                  if (xongmau == 1) return;
+        
+                 if (localStorage.getItem("nensangtoi") != null)
+                 {
+                     sang = localStorage.getItem("nensangtoi");
+                     nensangtoi();
+                 }
+                 xongmau++;
+             },10);
+        
+             function nensangtoi()
              {
-                 document.getElementsByName("colorX")[i].style.color = "black";
+                 if (sang == 0)
+                 {
+                     sang = 1;
+                 var li1 = document.getElementsByName("backgroundX").length;
+                 for (var i = 0 ; i<li1; i++)
+                 {
+                     document.getElementsByName("backgroundX")[i].style.backgroundColor = "white";
+                 }
+        
+                 var li2 = document.getElementsByName("colorX").length;
+                 for (var i = 0 ; i<li2; i++)
+                 {
+                     document.getElementsByName("colorX")[i].style.color = "black";
+                 }
+                }
+                else
+                {
+                    sang = 0;
+                 var li1 = document.getElementsByName("backgroundX").length;
+                 for (var i = 0 ; i<li1; i++)
+                 {
+                     document.getElementsByName("backgroundX")[i].style.backgroundColor = "black";
+                 }
+        
+                 var li2 = document.getElementsByName("colorX").length;
+                 for (var i = 0 ; i<li2; i++)
+                 {
+                     document.getElementsByName("colorX")[i].style.color = "white";
+                 }
+                }
              }
-            }
-            else
-            {
-                sang = 0;
-             var li1 = document.getElementsByName("backgroundX").length;
-             for (var i = 0 ; i<li1; i++)
-             {
-                 document.getElementsByName("backgroundX")[i].style.backgroundColor = "black";
-             }
-
-             var li2 = document.getElementsByName("colorX").length;
-             for (var i = 0 ; i<li2; i++)
-             {
-                 document.getElementsByName("colorX")[i].style.color = "white";
-             }
-            }
-         }
-
-</script>
-
-<table align="center">
-    <h2 style="text-align:center;color:lightsalmon">Play Session</h2>
-    <h2 style="color:red">@Html.ActionLink("Reload this page (hạn chế F5)?","SessionPlay_DarkAdmin")</h2>
+        
+    </script>
+    <table align="center">
+        <h2 style="text-align:center;color:lightsalmon">Play Session</h2>
+        <h2 style="color:red">@Html.ActionLink("Reload this page (hạn chế F5)?","SessionPlay_DarkAdmin")</h2>
         <br />
-    @using (Html.BeginForm())
-    {
+        @using (Html.BeginForm())
+        {
         @Html.ValidationSummary(true)
-
         <tr style="height:40px">
             <td> </td>
             <td>
@@ -350,17 +347,18 @@
                 <br>
                 <button onclick="okhihi()">❤</button>
                 <br>
-                 <br>
-                 <hr />
-                <h3><a style="color:red" onclick="docLocalStorageJS()" href="#xuly">Đọc giá trị localStorage bằng JS</a>
+                <br>
+                <hr />
+                <h3>
+                    <a style="color:red" onclick="docLocalStorageJS()" href="#xuly">Đọc giá trị localStorage bằng JS</a>
                     <br /><a onclick="docsessionJS()" href="#xuly">Đọc giá trị session bằng JS</a>
                     <br /><a style="color:red" id="hahaha" onclick="docsessionC()" href="#xuly">Đọc giá trị session bằng C# (chờ xử lý)</a>
-                <br /><a onclick="docTempDataC()" href="#xuly">Đọc giá trị TempData bằng C# (chờ xử lý)</a>
-                 <br /><a style="color:red" onclick="DocViewData_C()" href="#xuly">Đọc View Data C# - chờ xử lý</a>
-                <hr />
-                   <br /><a  onclick="getListKeySession_C()" href="#xuly">Get các key Session đang tồn tại bằng C# - và giá trị (chờ xử lý)</a>
+                    <br /><a onclick="docTempDataC()" href="#xuly">Đọc giá trị TempData bằng C# (chờ xử lý)</a>
+                    <br /><a style="color:red" onclick="DocViewData_C()" href="#xuly">Đọc View Data C# - chờ xử lý</a>
+                    <hr />
+                    <br /><a  onclick="getListKeySession_C()" href="#xuly">Get các key Session đang tồn tại bằng C# - và giá trị (chờ xử lý)</a>
                     <br /><a style="color:red" onclick="getListKeylocalStorage_JS()" href="#xuly">Get các key localStorage và giá trị gán đang tồn tại bằng JS</a>
-                     <br /><a onclick="GetKeyViewData_C()" href="#xuly">Get các key ViewData và giá trị set đang tồn tại C# - chờ xử lý</a>
+                    <br /><a onclick="GetKeyViewData_C()" href="#xuly">Get các key ViewData và giá trị set đang tồn tại C# - chờ xử lý</a>
                     <br /><a style="color:red" onclick="getListKeyTempData_C()" href="#xuly">Get các key TempData và giá trị gán đang tồn tại bằng C# (chờ xử lý)</a>     
                     <hr />
                     <br /><a style="color:red" onclick="xoaLocalStorage_JS()" href="#xuly">Xoá localStorage bằng JS</a>
@@ -372,9 +370,9 @@
                     <br /><a style="color:red" onclick="ganLocalStorageJS()" href="#xuly">Gán localStorage bằng JS</a>
                     <br /><a onclick="ganTempData_C()" href="#xuly">Gán TempData bằng C# (chờ xử lý)</a>
                     <br /><a style="color:red" onclick="gansessionJS()" href="#xuly">Gán session bằng JS</a>
-                     <br /><a onclick="SetViewData_C()" href="#xuly">Gán giá trị View Data C# - chờ xử lý</a>
+                    <br /><a onclick="SetViewData_C()" href="#xuly">Gán giá trị View Data C# - chờ xử lý</a>
                     <br /><a style="color:red" onclick="gansessionC()" href="#xuly">Gán session bằng C# (chờ xử lý)</a>
-                   <br /> <input id="check-s" type="checkbox"/><b style="color:deeppink">&nbsp;Gán bởi string (nếu không tick sẽ gán mặc định bởi <span style="color:green">object&lt;string&gt;</span> - cũng có thể sử dụng khi muốn đọc Session</b><br /><br/>
+                    <br /> <input id="check-s" type="checkbox"/><b style="color:deeppink">&nbsp;Gán bởi string (nếu không tick sẽ gán mặc định bởi <span style="color:green">object&lt;string&gt;</span> - cũng có thể sử dụng khi muốn đọc Session</b><br /><br/>
                     <hr />
                     <br /><a onclick="xoaallJS()" href="#xuly">Xoá all session bằng JS</a>
                     <br /><a style="color:red" onclick="xoaallC()" href="#xuly">Xoá all session bằng C# (chờ xử lý)</a>           
@@ -384,8 +382,7 @@
                     <hr />
                     <br /><a style="color:red" onclick="mahoa()" href="#xuly">Mã hoá - chờ xử lý (?)</a>
                     <br /><a onclick="giaima()" href="#xuly">Giải mã - chờ xử lý (!)</a>
-                
-                    </h3>
+                </h3>
                 <br>
                 <h1 onclick="dichuyen()" style="color:orangered">⬇</h1>
                 <br><br>
@@ -393,21 +390,18 @@
                 <br>
             </td>
         </tr>
-      
         <tr style="height:40px">
             <td></td>
             <td><br>
                 <input hidden id="ok" type="Submit" value="Kết Quả" />
             </td>
         </tr>
-    }
-</table>
-<br /><br />
- <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        }
+    </table>
+    <br /><br />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
-
-</body>
+    </body>
 </html>
 }

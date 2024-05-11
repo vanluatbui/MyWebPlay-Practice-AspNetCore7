@@ -1,763 +1,773 @@
 ﻿@model MyWebPlay.Model.TracNghiem
-
 @if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
-
 <script>
-
-        setInterval(resetchange, 1);
-
-        function resetchange()
+    setInterval(resetchange, 1);
+    
+    function resetchange()
+    {
+        if (('@ViewBag.KetQuaDung' == null || '@ViewBag.KetQuaDung' == "") && ('@ViewBag.KetQua' == null || '@ViewBag.KetQua' == "") )
         {
-            if (('@ViewBag.KetQuaDung' == null || '@ViewBag.KetQuaDung' == "") && ('@ViewBag.KetQua' == null || '@ViewBag.KetQua' == "") )
-            {
-             for (var i =0 ; i< new Number('@ViewBag.GioiHanCau'); i++)
-             {
-                 var A = document.getElementById("dapanA-"+i);
-                 var B = document.getElementById("dapanB-"+i);
-                var C = document.getElementById("dapanC-"+i);
-                var D = document.getElementById("dapanD-"+i);
-
-                 var s = document.getElementById("ans-"+i).options.selectedIndex;
-
-                  var mau = "white";
-        if (sang == 1)
-        mau = "black";
-
-         if('@TempData["demo-mau"]' == "true")
-        {
-            mau = '@TempData["demo-text"]';
-        }
-
-        var tomau = '@TempData["mau-TN"]';
-
-        if (s == 1)
-        {
-            A.style.color = tomau;
-            B.style.color = mau;
-            C.style.color = mau;
-            D.style.color = mau;
-        }
-        else if (s == 2)
-        {
-            A.style.color = mau;
-            B.style.color = tomau;
-            C.style.color = mau;
-            D.style.color = mau;
-        }
-        else if (s == 3)
-        {
-            A.style.color = mau;
-            B.style.color = mau;
-            C.style.color = tomau;
-            D.style.color = mau;
-        }
-        else if (s == 4)
-        {
-            A.style.color = mau;
-            B.style.color = mau;
-            C.style.color = mau;
-            D.style.color = tomau;
-        }
-             }
-           }
-        }
-
-      var idSA;
+         for (var i =0 ; i< new Number('@ViewBag.GioiHanCau'); i++)
+         {
+             var A = document.getElementById("dapanA-"+i);
+             var B = document.getElementById("dapanB-"+i);
+            var C = document.getElementById("dapanC-"+i);
+            var D = document.getElementById("dapanD-"+i);
+    
+             var s = document.getElementById("ans-"+i).options.selectedIndex;
+    
+              var mau = "white";
+    if (sang == 1)
+    mau = "black";
+    
+     if('@TempData["demo-mau"]' == "true")
+    {
+        mau = '@TempData["demo-text"]';
+    }
+    
+    var tomau = '@TempData["mau-TN"]';
+    
+    if (s == 1)
+    {
+        A.style.color = tomau;
+        B.style.color = mau;
+        C.style.color = mau;
+        D.style.color = mau;
+    }
+    else if (s == 2)
+    {
+        A.style.color = mau;
+        B.style.color = tomau;
+        C.style.color = mau;
+        D.style.color = mau;
+    }
+    else if (s == 3)
+    {
+        A.style.color = mau;
+        B.style.color = mau;
+        C.style.color = tomau;
+        D.style.color = mau;
+    }
+    else if (s == 4)
+    {
+        A.style.color = mau;
+        B.style.color = mau;
+        C.style.color = mau;
+        D.style.color = tomau;
+    }
+         }
+       }
+    }
+    
+    var idSA;
     var so = 0;
     function xongroi()
     {
-        document.getElementById("xong").style.display = "none";
-        document.getElementById("loading").style.display = "inline-block";
-        idSA = setInterval(myAlertX, 1000);
+    document.getElementById("xong").style.display = "none";
+    document.getElementById("loading").style.display = "inline-block";
+    idSA = setInterval(myAlertX, 1000);
     }
-
+    
     function hayqua()
     {
-        if (document.getElementById("Xonline").value != "")
-        {
-        alert("Bài trắc nghiệm của bạn đã được hoàn thành.\nVui lòng chờ giáo viên công bố kết quả !");
-        }
+    if (document.getElementById("Xonline").value != "")
+    {
+    alert("Bài trắc nghiệm của bạn đã được hoàn thành.\nVui lòng chờ giáo viên công bố kết quả !");
     }
-
+    }
+    
     var xw = new Number('@TempData["Time_Waiting"]') * 3;
-
+    
     function myAlertX()
     {
-        if (so == xw)
-        {
-            document.getElementById("OKX").click();
-             clearInterval(id);
-            return;
-        }
-        so++;
+    if (so == xw)
+    {
+        document.getElementById("OKX").click();
+         clearInterval(id);
+        return;
     }
-
+    so++;
+    }
+    
     function xemanh(i)
     {
-        if (document.getElementById('chonanh-'+i).value == "")
-        return;
-
-        window.open(document.getElementById('chonanh-'+i).value,'MyWindow','width=500,height=500');
+    if (document.getElementById('chonanh-'+i).value == "")
+    return;
+    
+    window.open(document.getElementById('chonanh-'+i).value,'MyWindow','width=500,height=500');
     }
-
+    
     //---------------------------------------------------------
     function themhinhanh(i)
     {
-
-        var kt1 = "";
-        var kt2 = "";
-        var ha = "";
-        if (document.getElementById("kt-"+i).selectedIndex == 0)
-        {
-            kt1 = "100";
-            kt2 = "100";
-            ha = "0";
-        }
-        else if (document.getElementById("kt-"+i).selectedIndex == 1)
-        {
-             kt1 = "300";
-            kt2 = "300";
-            ha = "1";
-        }
-         else if (document.getElementById("kt-"+i).selectedIndex == 2)
-        {
-             kt1 = "500";
-            kt2 = "500";
-            ha = "2";
-        }
-        else if (document.getElementById("kt-"+i).selectedIndex == 3)
-        {
-             kt1 = "1000";
-            kt2 = "500";
-            ha = "3";
-        }
-         else
-        {
-             kt1 = "300";
-            kt2 = "500";
-            ha = "4";
-        }
-
-        if (document.getElementById("hinhanh-"+i).value == "")
-        {
-         document.getElementById("chonanh-"+i).selectedIndex = 0;
-        document.getElementById("kt-"+i).selectedIndex = 0;
-        return;
-        }
-
-        if (document.getElementById("anhX-"+i).value.includes(document.getElementById("hinhanh-"+i).value) == true)
-        {
-            document.getElementById("hinhanh-"+i).value = "";
-          
-            var listAnh = document.getElementById("anhX-"+i).value.split("\n");
-            for (var j = 0; j < listAnh.length; j++)
-            {
-                var liAnh = listAnh[j].split("\t");
-                if (liAnh[0] == document.getElementById("chonanh-"+i).value)
-                {
-                    if (liAnh[1] == "0")
-                    document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"100\" height=\"100\"><br>","<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>");
-                   else if (liAnh[1] == "1")
-                    document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"300\" height=\"300\"><br>","<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>");
-                     else if (liAnh[1] == "2")
-                    document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"500\" height=\"500\"><br>","<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>");
-                     else if (liAnh[1] == "3")
-                    document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"1000\" height=\"500\"><br>","<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>");
-                      else
-                    document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"300\" height=\"500\"><br>","<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>");
-                }
-            }
-
-              document.getElementById("anhX-"+i).value = document.getElementById("anhX-"+i).value.replaceAll(document.getElementById("chonanh-"+i).value+"\t0\n",document.getElementById("chonanh-"+i).value+"\t"+ha+"\n").replaceAll(document.getElementById("chonanh-"+i).value+"\t1\n",document.getElementById("chonanh-"+i).value+"\t"+ha+"\n").replaceAll(document.getElementById("chonanh-"+i).value+"\t2\n",document.getElementById("chonanh-"+i).value+"\t"+ha+"\n").replaceAll(document.getElementById("chonanh-"+i).value+"\t3\n",document.getElementById("chonanh-"+i).value+"\t"+ha+"\n");
-
-            document.getElementById("chonanh-"+i).selectedIndex = 0;
-        document.getElementById("kt-"+i).selectedIndex = 0;
-            return;
-        }
-
-         document.getElementById("causo-"+i).innerHTML += "<br><img name=\"hinhcau"+i+"\" src=\""+document.getElementById("hinhanh-"+i).value+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>";
-
-        var chon = document.getElementById("chonanh-"+i);
-        chon.innerHTML += "<option>"+ document.getElementById("hinhanh-"+i).value+"</option>";
-        chon.options.selectedIndex = 0;
-
-        document.getElementById("anhX-"+i).value += document.getElementById("hinhanh-"+i).value + "\t" + document.getElementById("kt-"+i).selectedIndex +"\n";
-        document.getElementById("hinhanh-"+i).value = "";
-
-        var x = new Number(document.getElementById("soluong-"+i).innerHTML);
-        document.getElementById("soluong-"+i).innerHTML = (x+1)+"";
-
-        document.getElementById("chonanh-"+i).selectedIndex = 0;
-        document.getElementById("kt-"+i).selectedIndex = 0;
+    
+    var kt1 = "";
+    var kt2 = "";
+    var ha = "";
+    if (document.getElementById("kt-"+i).selectedIndex == 0)
+    {
+        kt1 = "100";
+        kt2 = "100";
+        ha = "0";
     }
-
+    else if (document.getElementById("kt-"+i).selectedIndex == 1)
+    {
+         kt1 = "300";
+        kt2 = "300";
+        ha = "1";
+    }
+     else if (document.getElementById("kt-"+i).selectedIndex == 2)
+    {
+         kt1 = "500";
+        kt2 = "500";
+        ha = "2";
+    }
+    else if (document.getElementById("kt-"+i).selectedIndex == 3)
+    {
+         kt1 = "1000";
+        kt2 = "500";
+        ha = "3";
+    }
+     else
+    {
+         kt1 = "300";
+        kt2 = "500";
+        ha = "4";
+    }
+    
+    if (document.getElementById("hinhanh-"+i).value == "")
+    {
+     document.getElementById("chonanh-"+i).selectedIndex = 0;
+    document.getElementById("kt-"+i).selectedIndex = 0;
+    return;
+    }
+    
+    if (document.getElementById("anhX-"+i).value.includes(document.getElementById("hinhanh-"+i).value) == true)
+    {
+        document.getElementById("hinhanh-"+i).value = "";
+      
+        var listAnh = document.getElementById("anhX-"+i).value.split("\n");
+        for (var j = 0; j < listAnh.length; j++)
+        {
+            var liAnh = listAnh[j].split("\t");
+            if (liAnh[0] == document.getElementById("chonanh-"+i).value)
+            {
+                if (liAnh[1] == "0")
+                document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"100\" height=\"100\"><br>","<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>");
+               else if (liAnh[1] == "1")
+                document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"300\" height=\"300\"><br>","<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>");
+                 else if (liAnh[1] == "2")
+                document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"500\" height=\"500\"><br>","<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>");
+                 else if (liAnh[1] == "3")
+                document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"1000\" height=\"500\"><br>","<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>");
+                  else
+                document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"300\" height=\"500\"><br>","<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>");
+            }
+        }
+    
+          document.getElementById("anhX-"+i).value = document.getElementById("anhX-"+i).value.replaceAll(document.getElementById("chonanh-"+i).value+"\t0\n",document.getElementById("chonanh-"+i).value+"\t"+ha+"\n").replaceAll(document.getElementById("chonanh-"+i).value+"\t1\n",document.getElementById("chonanh-"+i).value+"\t"+ha+"\n").replaceAll(document.getElementById("chonanh-"+i).value+"\t2\n",document.getElementById("chonanh-"+i).value+"\t"+ha+"\n").replaceAll(document.getElementById("chonanh-"+i).value+"\t3\n",document.getElementById("chonanh-"+i).value+"\t"+ha+"\n");
+    
+        document.getElementById("chonanh-"+i).selectedIndex = 0;
+    document.getElementById("kt-"+i).selectedIndex = 0;
+        return;
+    }
+    
+     document.getElementById("causo-"+i).innerHTML += "<br><img name=\"hinhcau"+i+"\" src=\""+document.getElementById("hinhanh-"+i).value+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>";
+    
+    var chon = document.getElementById("chonanh-"+i);
+    chon.innerHTML += "<option>"+ document.getElementById("hinhanh-"+i).value+"</option>";
+    chon.options.selectedIndex = 0;
+    
+    document.getElementById("anhX-"+i).value += document.getElementById("hinhanh-"+i).value + "\t" + document.getElementById("kt-"+i).selectedIndex +"\n";
+    document.getElementById("hinhanh-"+i).value = "";
+    
+    var x = new Number(document.getElementById("soluong-"+i).innerHTML);
+    document.getElementById("soluong-"+i).innerHTML = (x+1)+"";
+    
+    document.getElementById("chonanh-"+i).selectedIndex = 0;
+    document.getElementById("kt-"+i).selectedIndex = 0;
+    }
+    
     function doianh(i)
     {
-        document.getElementById("hinhanh-"+i).value = document.getElementById("chonanh-"+i).value;
+    document.getElementById("hinhanh-"+i).value = document.getElementById("chonanh-"+i).value;
     }
-
+    
     function xoahinhanh(i)
     {
-        if (document.getElementById("chonanh-"+i).options.selectedIndex == 0)
-        {
-              document.getElementById("chonanh-"+i).selectedIndex = 0;
-        document.getElementById("kt-"+i).selectedIndex = 0;
-         document.getElementById("hinhanh-"+i).value = "";
-        return;
-        }
-
-        document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+document.getElementById("chonanh-"+i).value+"\" alt=\"Image Error\" width=\"100\" height=\"100\"><br>","").replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+document.getElementById("chonanh-"+i).value+"\" alt=\"Image Error\" width=\"300\" height=\"300\"><br>","").replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+document.getElementById("chonanh-"+i).value+"\" alt=\"Image Error\" width=\"500\" height=\"500\"><br>","").replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+document.getElementById("chonanh-"+i).value+"\" alt=\"Image Error\" width=\"1000\" height=\"500\"><br>","").replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+document.getElementById("chonanh-"+i).value+"\" alt=\"Image Error\" width=\"300\" height=\"500\"><br>","");
-        document.getElementById("anhX-"+i).value = document.getElementById("anhX-"+i).value.replaceAll(document.getElementById("chonanh-"+i).value+"\t0\n","").replaceAll(document.getElementById("chonanh-"+i).value+"\t1\n","").replaceAll(document.getElementById("chonanh-"+i).value+"\t2\n","").replaceAll(document.getElementById("chonanh-"+i).value+"\t3\n","").replaceAll(document.getElementById("chonanh-"+i).value+"\t4\n","");
-
-        var chon = document.getElementById("chonanh-"+i);
-        chon.remove(chon.selectedIndex);
-
-        var x = new Number(document.getElementById("soluong-"+i).innerHTML);
-        document.getElementById("soluong-"+i).innerHTML = (x-1)+"";
-        chon.options.selectedIndex = 0;
-        document.getElementById("chonanh-"+i).selectedIndex = 0;
-        document.getElementById("kt-"+i).selectedIndex = 0;
-         document.getElementById("hinhanh-"+i).value = "";
+    if (document.getElementById("chonanh-"+i).options.selectedIndex == 0)
+    {
+          document.getElementById("chonanh-"+i).selectedIndex = 0;
+    document.getElementById("kt-"+i).selectedIndex = 0;
+     document.getElementById("hinhanh-"+i).value = "";
+    return;
     }
-
+    
+    document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+document.getElementById("chonanh-"+i).value+"\" alt=\"Image Error\" width=\"100\" height=\"100\"><br>","").replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+document.getElementById("chonanh-"+i).value+"\" alt=\"Image Error\" width=\"300\" height=\"300\"><br>","").replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+document.getElementById("chonanh-"+i).value+"\" alt=\"Image Error\" width=\"500\" height=\"500\"><br>","").replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+document.getElementById("chonanh-"+i).value+"\" alt=\"Image Error\" width=\"1000\" height=\"500\"><br>","").replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+document.getElementById("chonanh-"+i).value+"\" alt=\"Image Error\" width=\"300\" height=\"500\"><br>","");
+    document.getElementById("anhX-"+i).value = document.getElementById("anhX-"+i).value.replaceAll(document.getElementById("chonanh-"+i).value+"\t0\n","").replaceAll(document.getElementById("chonanh-"+i).value+"\t1\n","").replaceAll(document.getElementById("chonanh-"+i).value+"\t2\n","").replaceAll(document.getElementById("chonanh-"+i).value+"\t3\n","").replaceAll(document.getElementById("chonanh-"+i).value+"\t4\n","");
+    
+    var chon = document.getElementById("chonanh-"+i);
+    chon.remove(chon.selectedIndex);
+    
+    var x = new Number(document.getElementById("soluong-"+i).innerHTML);
+    document.getElementById("soluong-"+i).innerHTML = (x-1)+"";
+    chon.options.selectedIndex = 0;
+    document.getElementById("chonanh-"+i).selectedIndex = 0;
+    document.getElementById("kt-"+i).selectedIndex = 0;
+     document.getElementById("hinhanh-"+i).value = "";
+    }
+    
     function chondapan(i,s)
     {
-        document.getElementById("ans-"+i).options.selectedIndex = s;
-
-        var A = document.getElementById("dapanA-"+i);
-        var B = document.getElementById("dapanB-"+i);
-        var C = document.getElementById("dapanC-"+i);
-        var D = document.getElementById("dapanD-"+i);
-
-        var mau = "white";
-        if (sang == 1)
-        mau = "black";
-
-        if('@TempData["demo-mau"]' == "true")
-        {
-            mau = '@TempData["demo-text"]';
-        }
-
-        var tomau = '@TempData["mau-TN"]';
-
-        if (s == 1)
-        {
-            A.style.color = tomau;
-            B.style.color = mau;
-            C.style.color = mau;
-            D.style.color = mau;
-        }
-        else if (s == 2)
-        {
-            A.style.color = mau;
-            B.style.color = tomau;
-            C.style.color = mau;
-            D.style.color = mau;
-        }
-        else if (s == 3)
-        {
-            A.style.color = mau;
-            B.style.color = mau;
-            C.style.color = tomau;
-            D.style.color = mau;
-        }
-        else if (s == 4)
-        {
-            A.style.color = mau;
-            B.style.color = mau;
-            C.style.color = mau;
-            D.style.color = tomau;
-        }
+    document.getElementById("ans-"+i).options.selectedIndex = s;
+    
+    var A = document.getElementById("dapanA-"+i);
+    var B = document.getElementById("dapanB-"+i);
+    var C = document.getElementById("dapanC-"+i);
+    var D = document.getElementById("dapanD-"+i);
+    
+    var mau = "white";
+    if (sang == 1)
+    mau = "black";
+    
+    if('@TempData["demo-mau"]' == "true")
+    {
+        mau = '@TempData["demo-text"]';
     }
-
+    
+    var tomau = '@TempData["mau-TN"]';
+    
+    if (s == 1)
+    {
+        A.style.color = tomau;
+        B.style.color = mau;
+        C.style.color = mau;
+        D.style.color = mau;
+    }
+    else if (s == 2)
+    {
+        A.style.color = mau;
+        B.style.color = tomau;
+        C.style.color = mau;
+        D.style.color = mau;
+    }
+    else if (s == 3)
+    {
+        A.style.color = mau;
+        B.style.color = mau;
+        C.style.color = tomau;
+        D.style.color = mau;
+    }
+    else if (s == 4)
+    {
+        A.style.color = mau;
+        B.style.color = mau;
+        C.style.color = mau;
+        D.style.color = tomau;
+    }
+    }
+    
     var xem = 0;
-
+    
     function loading()
     {
-        if (xem == 1)
-        {
-            alert("Không thể tiếp tục loading dữ liệu của bạn vì bạn đã click nút này trước đó. Vui lòng nhấn nút refresh toàn bộ dữ liệu bên dưới và thử lại...");
-            return;
-        }
-
-         var listAnhCu = document.getElementById("listAnhCu").value.split("\n\n");
-         var listHoanVi = document.getElementById("hoanvis").value.split("\n");
-         var an = document.getElementById("answerX").value.split("\n");
-         var k =0;
+    if (xem == 1)
+    {
+        alert("Không thể tiếp tục loading dữ liệu của bạn vì bạn đã click nút này trước đó. Vui lòng nhấn nút refresh toàn bộ dữ liệu bên dưới và thử lại...");
+        return;
+    }
+    
+     var listAnhCu = document.getElementById("listAnhCu").value.split("\n\n");
+     var listHoanVi = document.getElementById("hoanvis").value.split("\n");
+     var an = document.getElementById("answerX").value.split("\n");
+     var k =0;
     for (var i =0 ; i< new Number('@ViewBag.TongCau'); i++)
     {
-        if (listHoanVi[i] == "YES")
-        {
-            document.getElementById("hoanvix-"+i).checked = true;
-        }
-        else
-        {
-            document.getElementById("hoanvix-"+i).checked = false;
-        }
-        //---------------------------------------------------
-
-         var chon = document.getElementById("chonanh-"+i);
-        if (k < listAnhCu.length)
-        {
-        var anhH = listAnhCu[k].split("\n");
-        if (anhH[0].includes("hinhcau"+i) == true)
-        {
-            for (var j =0 ; j < anhH.length; j++)
-            {
-                var ha = "?";
-                if (anhH[j].includes("width=\"100\" height=\"100\"") == true)
-                ha = "0";
-                else if (anhH[j].includes("width=\"300\" height=\"300\"") == true)
-                ha = "1";
-                else if (anhH[j].includes("width=\"500\" height=\"500\"") == true)
-                ha = "2";
-                else if (anhH[j].includes("width=\"1000\" height=\"500\"") == true)
-                ha = "3";
-                else
-                ha = "4";
-
-                anhH[j] = anhH[j].replaceAll("<img name=\"hinhcau"+i+"\" src=\"","")
-                .replaceAll("\" alt=\"Image Error\" width=\"100\" height=\"100\" />","")
-                .replaceAll("\" alt=\"Image Error\" width=\"300\" height=\"300\" />","")
-                .replaceAll("\" alt=\"Image Error\" width=\"500\" height=\"500\" />","")
-                .replaceAll("\" alt=\"Image Error\" width=\"1000\" height=\"500\" />","")
-                .replaceAll("\" alt=\"Image Error\" width=\"300\" height=\"500\" />","")
-
-                if (document.getElementById("anhX-"+i).value.includes(anhH[j]) == false)
-                {
-                document.getElementById("anhX-"+i).value += anhH[j]+"\t"+ha+"\n";
-                chon.innerHTML += "<option>"+ anhH[j] +"</option>";
-                document.getElementById("soluong-"+i).innerHTML = new Number(document.getElementById("soluong-"+i).innerHTML) + 1;
-                }
-            }
-            k++;
-          }
-       }
-
-        var listAnh = document.getElementById("anhX-"+i).value.split("\n");
-            for (var j = 0; j < listAnh.length; j++)
-            {
-                var liAnh = listAnh[j].split("\t");
-                if (liAnh[0] != "" && document.getElementById("causo-"+i).innerHTML.includes(liAnh[0]) == false)
-                {
-                    if (liAnh[1] == "0")
-                    document.getElementById("causo-"+i).innerHTML += "<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"100\" height=\"100\"><br>";
-                   else if (liAnh[1] == "1")
-                    document.getElementById("causo-"+i).innerHTML += "<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"300\" height=\"300\"><br>";
-                     else if (liAnh[1] == "2")
-                    document.getElementById("causo-"+i).innerHTML += "<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"500\" height=\"500\"><br>";
-                     else if (liAnh[1] == "3")
-                    document.getElementById("causo-"+i).innerHTML += "<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"1000\" height=\"500\"><br>";
-                      else
-                    document.getElementById("causo-"+i).innerHTML += "<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"300\" height=\"500\"><br>";
-                }
-            }
-
-        //-----------------------------------------------
-        var A = document.getElementById("dapanA-"+i);
-        var B = document.getElementById("dapanB-"+i);
-        var C = document.getElementById("dapanC-"+i);
-        var D = document.getElementById("dapanD-"+i);
-
-       var answer = new Number(an[i]);
-       document.getElementsByClassName("dapanX")[i].options.selectedIndex = answer;
-
-         var mau = "white";
-        if (sang == 1)
-        mau = "black";
-
-         if('@TempData["demo-mau"]' == "true")
-        {
-            mau = '@TempData["demo-text"]';
-        }
-
-        var tomau = '@TempData["mau-TN"]';
-
-       if (answer == 1)
-       {
-             A.style.color = tomau;
-            B.style.color = mau;
-            C.style.color = mau;
-            D.style.color = mau;
-       }
-       else if (answer == 2)
-       {
-            A.style.color = mau;
-            B.style.color = tomau;
-            C.style.color = mau;
-            D.style.color = mau;
-       }
-        else if (answer == 3)
-       {
-            A.style.color = mau;
-            B.style.color = mau;
-            C.style.color = tomau;
-            D.style.color = mau;
-       }
-        else if (answer == 4)
-       {
-            A.style.color = mau;
-            B.style.color = mau;
-            C.style.color = mau;
-            D.style.color = tomau;
-       }
-
-     }
-      alert("Thành công, mời bạn kiểm tra lại!");
-      xem = 1;
-   }
-
-   function refresh()
+    if (listHoanVi[i] == "YES")
     {
-        var check = confirm('Bạn có chắc chắn muốn refresh toàn bộ dữ liệu. Mọi chỉnh sửa của bạn sẽ bị khôi phục không thể lấy lại?');
-
-          var mau = "white";
-        if (sang == 1)
-        mau = "black";
-
-         if('@TempData["demo-mau"]' == "true")
-        {
-            mau = '@TempData["demo-text"]';
-        }
-
-        if (check == true)
-      {
-    for (var i =0 ; i< new Number('@ViewBag.TongCau'); i++)
+        document.getElementById("hoanvix-"+i).checked = true;
+    }
+    else
     {
         document.getElementById("hoanvix-"+i).checked = false;
-
-         var listAnh = document.getElementById("anhX-"+i).value.split("\n");
-            for (var j = 0; j < listAnh.length; j++)
-            {
-                var liAnh = listAnh[j].split("\t");
-               document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"100\" height=\"100\"><br>","").replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"300\" height=\"300\"><br>","").replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"500\" height=\"500\"><br>","").replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"1000\" height=\"500\"><br>","").replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"300\" height=\"500\"><br>","");
-        }
-        document.getElementById("anhX-"+i).value = "";
-
-        var chon = document.getElementById("chonanh-"+i);
-         chon.innerHTML = "<option></option>";
-
-        document.getElementById("soluong-"+i).innerHTML = "0";
-
-       document.getElementsByClassName("dapanX")[i].options.selectedIndex = 0;
-        var A = document.getElementById("dapanA-"+i);
-        var B = document.getElementById("dapanB-"+i);
-        var C = document.getElementById("dapanC-"+i);
-        var D = document.getElementById("dapanD-"+i);
-
-          A.style.color = mau;
-            B.style.color = mau;
-            C.style.color = mau;
-            D.style.color = mau;
-     }
-
-      alert("Thành công, mời bạn kiểm tra lại!");
-      xem  = 0;
-      }
-   }
-
-
-    var timeX = '@ViewBag.TimeLamBai' * 60;
-
-    var id = setInterval(myAlert, 1000);
-
-    function myAlert() {
-
-        if ('@ViewBag.TimeLamBai' != "")
-        {
-       var t = document.getElementById("Time");
-
-       var h = Math.floor(timeX / 3600);
-       var m = Math.floor((timeX / 60) % 60) ;
-       var s = timeX % 60;
-
-        if (h< 10 && m < 10 && s < 10)
-                t.innerHTML = "0" + h + " : 0" + m + " : 0" + s;
-            if (h < 10 && m < 10 && s >= 10)
-                t.innerHTML = "0" + h + " : 0" + m + " : " + s;
-            if (h < 10 && m >= 10 && s < 10)
-                t.innerHTML = "0" + h + " : " + m + " : 0" + s;
-            if (h < 10 && m >= 10 && s >= 10)
-                t.innerHTML = "0" + h + " : " + m + " : " + s;
-            if (h >= 10 && m < 10 && s < 10)
-                t.innerHTML = "" + h + " : 0" + m + " : 0" + s;
-            if (h >= 10 && m < 10 && s >= 10)
-                t.innerHTML = "" + h + " : 0" + m + " : " + s;
-            if (h >= 10 && m >= 10 && s < 10)
-                t.innerHTML = "" + h + " : " + m + " : 0" + s;
-            if (h >=10 && m >= 10 && s >= 10)
-                t.innerHTML = "" + h + " : " + m + " : " + s;
-
-            timeX--;
-
-            if (timeX == -1)
-            {
-                alert('Đã hết thời gian làm bài...\nBấm OK - Bài kiểm tra của bạn sẽ được nộp đánh giá sau đó!');
-                clearInterval(id);
-
-                var ok = document.getElementById("OKX");
-                ok.click();
-            }
-         }
     }
-
+    //---------------------------------------------------
+    
+     var chon = document.getElementById("chonanh-"+i);
+    if (k < listAnhCu.length)
+    {
+    var anhH = listAnhCu[k].split("\n");
+    if (anhH[0].includes("hinhcau"+i) == true)
+    {
+        for (var j =0 ; j < anhH.length; j++)
+        {
+            var ha = "?";
+            if (anhH[j].includes("width=\"100\" height=\"100\"") == true)
+            ha = "0";
+            else if (anhH[j].includes("width=\"300\" height=\"300\"") == true)
+            ha = "1";
+            else if (anhH[j].includes("width=\"500\" height=\"500\"") == true)
+            ha = "2";
+            else if (anhH[j].includes("width=\"1000\" height=\"500\"") == true)
+            ha = "3";
+            else
+            ha = "4";
+    
+            anhH[j] = anhH[j].replaceAll("<img name=\"hinhcau"+i+"\" src=\"","")
+            .replaceAll("\" alt=\"Image Error\" width=\"100\" height=\"100\" />","")
+            .replaceAll("\" alt=\"Image Error\" width=\"300\" height=\"300\" />","")
+            .replaceAll("\" alt=\"Image Error\" width=\"500\" height=\"500\" />","")
+            .replaceAll("\" alt=\"Image Error\" width=\"1000\" height=\"500\" />","")
+            .replaceAll("\" alt=\"Image Error\" width=\"300\" height=\"500\" />","")
+    
+            if (document.getElementById("anhX-"+i).value.includes(anhH[j]) == false)
+            {
+            document.getElementById("anhX-"+i).value += anhH[j]+"\t"+ha+"\n";
+            chon.innerHTML += "<option>"+ anhH[j] +"</option>";
+            document.getElementById("soluong-"+i).innerHTML = new Number(document.getElementById("soluong-"+i).innerHTML) + 1;
+            }
+        }
+        k++;
+      }
+    }
+    
+    var listAnh = document.getElementById("anhX-"+i).value.split("\n");
+        for (var j = 0; j < listAnh.length; j++)
+        {
+            var liAnh = listAnh[j].split("\t");
+            if (liAnh[0] != "" && document.getElementById("causo-"+i).innerHTML.includes(liAnh[0]) == false)
+            {
+                if (liAnh[1] == "0")
+                document.getElementById("causo-"+i).innerHTML += "<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"100\" height=\"100\"><br>";
+               else if (liAnh[1] == "1")
+                document.getElementById("causo-"+i).innerHTML += "<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"300\" height=\"300\"><br>";
+                 else if (liAnh[1] == "2")
+                document.getElementById("causo-"+i).innerHTML += "<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"500\" height=\"500\"><br>";
+                 else if (liAnh[1] == "3")
+                document.getElementById("causo-"+i).innerHTML += "<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"1000\" height=\"500\"><br>";
+                  else
+                document.getElementById("causo-"+i).innerHTML += "<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"300\" height=\"500\"><br>";
+            }
+        }
+    
+    //-----------------------------------------------
+    var A = document.getElementById("dapanA-"+i);
+    var B = document.getElementById("dapanB-"+i);
+    var C = document.getElementById("dapanC-"+i);
+    var D = document.getElementById("dapanD-"+i);
+    
+    var answer = new Number(an[i]);
+    document.getElementsByClassName("dapanX")[i].options.selectedIndex = answer;
+    
+     var mau = "white";
+    if (sang == 1)
+    mau = "black";
+    
+     if('@TempData["demo-mau"]' == "true")
+    {
+        mau = '@TempData["demo-text"]';
+    }
+    
+    var tomau = '@TempData["mau-TN"]';
+    
+    if (answer == 1)
+    {
+         A.style.color = tomau;
+        B.style.color = mau;
+        C.style.color = mau;
+        D.style.color = mau;
+    }
+    else if (answer == 2)
+    {
+        A.style.color = mau;
+        B.style.color = tomau;
+        C.style.color = mau;
+        D.style.color = mau;
+    }
+    else if (answer == 3)
+    {
+        A.style.color = mau;
+        B.style.color = mau;
+        C.style.color = tomau;
+        D.style.color = mau;
+    }
+    else if (answer == 4)
+    {
+        A.style.color = mau;
+        B.style.color = mau;
+        C.style.color = mau;
+        D.style.color = tomau;
+    }
+    
+    }
+    alert("Thành công, mời bạn kiểm tra lại!");
+    xem = 1;
+    }
+    
+    function refresh()
+    {
+    var check = confirm('Bạn có chắc chắn muốn refresh toàn bộ dữ liệu. Mọi chỉnh sửa của bạn sẽ bị khôi phục không thể lấy lại?');
+    
+      var mau = "white";
+    if (sang == 1)
+    mau = "black";
+    
+     if('@TempData["demo-mau"]' == "true")
+    {
+        mau = '@TempData["demo-text"]';
+    }
+    
+    if (check == true)
+    {
+    for (var i =0 ; i< new Number('@ViewBag.TongCau'); i++)
+    {
+    document.getElementById("hoanvix-"+i).checked = false;
+    
+     var listAnh = document.getElementById("anhX-"+i).value.split("\n");
+        for (var j = 0; j < listAnh.length; j++)
+        {
+            var liAnh = listAnh[j].split("\t");
+           document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"100\" height=\"100\"><br>","").replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"300\" height=\"300\"><br>","").replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"500\" height=\"500\"><br>","").replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"1000\" height=\"500\"><br>","").replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"300\" height=\"500\"><br>","");
+    }
+    document.getElementById("anhX-"+i).value = "";
+    
+    var chon = document.getElementById("chonanh-"+i);
+     chon.innerHTML = "<option></option>";
+    
+    document.getElementById("soluong-"+i).innerHTML = "0";
+    
+    document.getElementsByClassName("dapanX")[i].options.selectedIndex = 0;
+    var A = document.getElementById("dapanA-"+i);
+    var B = document.getElementById("dapanB-"+i);
+    var C = document.getElementById("dapanC-"+i);
+    var D = document.getElementById("dapanD-"+i);
+    
+      A.style.color = mau;
+        B.style.color = mau;
+        C.style.color = mau;
+        D.style.color = mau;
+    }
+    
+    alert("Thành công, mời bạn kiểm tra lại!");
+    xem  = 0;
+    }
+    }
+    
+    
+    var timeX = '@ViewBag.TimeLamBai' * 60;
+    
+    var id = setInterval(myAlert, 1000);
+    
+    function myAlert() {
+    
+    if ('@ViewBag.TimeLamBai' != "")
+    {
+    var t = document.getElementById("Time");
+    
+    var h = Math.floor(timeX / 3600);
+    var m = Math.floor((timeX / 60) % 60) ;
+    var s = timeX % 60;
+    
+    if (h< 10 && m < 10 && s < 10)
+            t.innerHTML = "0" + h + " : 0" + m + " : 0" + s;
+        if (h < 10 && m < 10 && s >= 10)
+            t.innerHTML = "0" + h + " : 0" + m + " : " + s;
+        if (h < 10 && m >= 10 && s < 10)
+            t.innerHTML = "0" + h + " : " + m + " : 0" + s;
+        if (h < 10 && m >= 10 && s >= 10)
+            t.innerHTML = "0" + h + " : " + m + " : " + s;
+        if (h >= 10 && m < 10 && s < 10)
+            t.innerHTML = "" + h + " : 0" + m + " : 0" + s;
+        if (h >= 10 && m < 10 && s >= 10)
+            t.innerHTML = "" + h + " : 0" + m + " : " + s;
+        if (h >= 10 && m >= 10 && s < 10)
+            t.innerHTML = "" + h + " : " + m + " : 0" + s;
+        if (h >=10 && m >= 10 && s >= 10)
+            t.innerHTML = "" + h + " : " + m + " : " + s;
+    
+        timeX--;
+    
+        if (timeX == -1)
+        {
+            alert('Đã hết thời gian làm bài...\nBấm OK - Bài kiểm tra của bạn sẽ được nộp đánh giá sau đó!');
+            clearInterval(id);
+    
+            var ok = document.getElementById("OKX");
+            ok.click();
+        }
+     }
+    }
+    
 </script>
-
 @if (ViewBag.ND_File != null)
 {
-    <button onclick="loading()"><b style="color:dodgerblue">Click vào đây để cập nhật các answer/hình ảnh questions hiện có từ file của bạn</b></button><br><span style="color:saddlebrown">Khuyến nghị : Vui lòng ban đầu hãy click nút này để tải toàn bộ dữ liệu và đồng thời tránh lỗi/mất dữ liệu khi hoàn tất. Cảm ơn!</span><br /><br />
-     <button onclick="refresh()"><b style="color:darkred">Click to refresh all answer/hình ảnh questions setting</b></button>
-   <textarea hidden id="answerX">@ViewBag.SettingAnswer</textarea>
-    <textarea readonly id="listAnhCu" cols="100" rows="12" hidden>@ViewBag.HinhAnh.TrimStart("\n".ToCharArray()).TrimEnd("\n".ToCharArray())</textarea>
-           var ND_File = ViewBag.ND_File;
-            ViewBag.ND_File = ND_File;
+<button onclick="loading()"><b style="color:dodgerblue">Click vào đây để cập nhật các answer/hình ảnh questions hiện có từ file của bạn</b></button><br><span style="color:saddlebrown">Khuyến nghị : Vui lòng ban đầu hãy click nút này để tải toàn bộ dữ liệu và đồng thời tránh lỗi/mất dữ liệu khi hoàn tất. Cảm ơn!</span><br /><br />
+<button onclick="refresh()"><b style="color:darkred">Click to refresh all answer/hình ảnh questions setting</b></button>
+<textarea hidden id="answerX">@ViewBag.SettingAnswer</textarea>
+<textarea readonly id="listAnhCu" cols="100" rows="12" hidden>@ViewBag.HinhAnh.TrimStart("\n".ToCharArray()).TrimEnd("\n".ToCharArray())</textarea>
+var ND_File = ViewBag.ND_File;
+ViewBag.ND_File = ND_File;
 }
-
 <table align="center">
     <h2 style="text-align:center;color:lightsalmon">Play Test Trắc Nghiệm</h2>
     <h3 style="color:aqua">@ViewBag.KetQuaDung</h3>
     <h3 style="color:aqua">@ViewBag.KetQuaSai</h3>
     <h3 style="color:aqua">@ViewBag.KetQuaChuaLam</h3>
     <h2 style="color:lightgreen">@ViewBag.KetQuaDiem</h2>
-   <br />
-
-   @if (TempData["Socola"] != null && TempData["Socola"].ToString() == "hay")
-   {
-        <h3 style="color:royalblue">@Html.Raw(ViewBag.KetQua)</h3>
+    <br />
+    @if (TempData["Socola"] != null && TempData["Socola"].ToString() == "hay")
+    {
+    <h3 style="color:royalblue">@Html.Raw(ViewBag.KetQua)</h3>
     }
     else
     {
     @using (Html.BeginForm("PlayTracNghiem", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
-        @Html.ValidationSummary(true)
-
-            <br />
-        <br />
-            <b>Tên môn học/kỳ kiểm tra : @Model.tenmon</b>
-            <br />
-
-        @if (TempData["TracNghiem_Online"] == null && TempData["online_null"] == null)
+    @Html.ValidationSummary(true)
+    <br />
+    <br />
+    <b>Tên môn học/kỳ kiểm tra : @Model.tenmon</b>
+    <br />
+    @if (TempData["TracNghiem_Online"] == null && TempData["online_null"] == null)
+    {
+    <b>Tổng số câu cần làm : @Model.gioihancau/@Model.tongsocau</b>
+    }
+    else
+    {
+    <b>Tổng số câu cần làm : @Model.gioihancau</b>
+    }
+    <br />
+    <b>
+        Thời gian làm bài : @Model.timelambai phút
+        @if (ViewBag.TimeLamBai != null)
         {
-                <b>Tổng số câu cần làm : @Model.gioihancau/@Model.tongsocau</b>
+        <div class="divOnTop">
+            <span style="color:blue;text-align:center">
+                <h2 id="Time">00 : 00 : 00</h2>
+            </span>
+        </div>
+        }
+    </b>
+    <br />
+    <br />
+    <hr />
+    @for (int i = 0; i < @Model.gioihancau; i++)
+    {
+    if (TempData["online_null"] == null)
+    {
+    <tr style="height:40px; background-color: @TempData["mau-trac-nghiem-"+i]">
+    <td></td>
+    <td>
+        <h3><b name="mau-TN-1">Câu số @(i + 1)</b>. <span name="mau-TN-2" id="causo-@i"> <b>@Html.Raw(Model.ch[@i])</b></span></h3>
+        <br />
+    </td>
+    </tr>
+    @if (ViewBag.ND_File != null)
+    {
+    <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]">
+    <td></td>
+    <td>
+        <h4>
+            <input type="text" size="50" placeholder="Nhập link hình ảnh online cần thêm" id="hinhanh-@i" /> 
+            <textarea cols="50" rows="20" name="anh-@i" id="anhX-@i" style="display:none"></textarea>
+            <select name="kichthuoc-@i" id="kt-@i">
+                <option>100x100</option>
+                <option>300x300</option>
+                <option>500x500</option>
+                <option>500x1000</option>
+                <option>500x300</option>
+            </select>
+            <a onclick="themhinhanh(@i)" href="#xuly">THÊM/SỬA</a> <span id="soluong-@i" style="color:deeppink">0</span>
+        </h4>
+        <h4>
+            <b>
+                <select id="chonanh-@i" onchange="doianh(@i)">
+                    <option></option>
+                </select>
+                <br>
+            </b>
+            <a onclick="xoahinhanh(@i)" href="#xuly">XOÁ</a> || <a href="#xuly" onClick="xemanh(@i)">XEM HÌNH ẢNH</a>
+        </h4>
+        <input type="checkbox" id="hoanvix-@i" name="txtHoanVix-@i" /><span style="color:orangered">&nbsp;Không hoán vị đáp án</span>
+        <br /><br />
+    </td>
+    </tr>
+    }
+    <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]">
+    <td></td>
+    @if(ViewData["KetQua-"+@i] ==  null)
+    {
+    <td>
+        <h4><b> <a href="#@(i+1)" onclick="chondapan(@i,1)"><span id="dapanA-@i" name="colorX" style="color:@TempData["mau_text"]">A. <span id="DAA-@i">@Html.Raw(Model.a[@i])</span></span></a></b></h4>
+        <br>
+    </td>
+    }
+    else
+    {
+    <td>
+        <h4><b>A. @Html.Raw(Model.a[@i])</b></h4>
+        <br> 
+    </td>
+    }
+    </tr>
+    <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]">
+    <td></td>
+    @if(ViewData["KetQua-"+@i] ==  null)
+    {
+    <td>
+        <h4><b> <a href="#@(i+1)" onclick="chondapan(@i,2)"><span id="dapanB-@i" name="colorX" style="color:@TempData["mau_text"]">B. <span id="DAB-@i">@Html.Raw(Model.b[@i])</span></span></a></b></h4>
+        <br />
+    </td>
+    }
+    else
+    {
+    <td>
+        <h4><b>B. @Html.Raw(Model.b[@i])</b></h4>
+        <br />
+    </td>
+    }
+    </tr>
+    <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]">
+    <td></td>
+    @if(ViewData["KetQua-"+@i] ==  null)
+    {
+    <td>
+        <h4><b> <a href="#@(i+1)" onclick="chondapan(@i,3)"><span id="dapanC-@i" name="colorX" style="color:@TempData["mau_text"]">C. <span id="DAC-@i">@Html.Raw(Model.c[@i])</span></span></a></b></h4>
+        <br> 
+    </td>
+    }
+    else
+    {
+    <td>
+        <h4><b>C. @Html.Raw(Model.c[@i])</b></h4>
+        <br> 
+    </td>
+    }
+    </tr>
+    <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]">
+    <td></td>
+    @if(ViewData["KetQua-"+@i] ==  null)
+    {
+    <td>
+        <h4><b> <a href="#@(i+1)" onclick="chondapan(@i,4)"><span id="dapanD-@i" name="colorX" style="color:@TempData["mau_text"]">D. <span id="DAD-@i">@Html.Raw(Model.d[@i])</span></span></a></b></h4>
+        <br> 
+    </td>
+    }
+    else
+    {
+    <td>
+        <h4><b>D. @Html.Raw(Model.d[@i])</b></h4>
+        <br />
+    </td>
+    }
+    </tr>
+    @if(ViewData["KetQua-"+@i] ==  null)
+    {
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <h3>
+                <select name="dapan-@i" class="dapanX" id="ans-@i" style="display:none">
+                    <b>
+                        <option></option>
+                        <option>A</option>
+                        <option>B</option>
+                        <option>C</option>
+                        <option>D</option>
+                    </b>
+                </select>
+            </h3>
+            <br>
+        </td>
+    </tr>
+    }
+    else
+    {
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            @Html.Raw(ViewData["ketqua-"+@i])
+            <h4>@Html.Raw(ViewData["dapandachon-"+@i])</h4>
+            <h4>@Html.Raw(ViewData["dapandung-"+@i])</h4>
+            <br>
+        </td>
+    </tr>
+    }
+    }
+    else
+    {
+    <table border="0">
+        <tr>
+            <th>Câu @(i+1).  </th>
+            @if (ViewData["ketqua-"+@i].ToString().Contains("ĐÚNG RỒI"))
+            {
+            <th><b style="color:green">Đúng</b></th>
+            }
+            else if (ViewData["ketqua-"+@i].ToString().Contains("SAI RỒI"))
+            {
+            <th><b style="color:red">Sai</b></th>
             }
             else
             {
-                <b>Tổng số câu cần làm : @Model.gioihancau</b>
+            <th><b style="color:orangered">Chưa trả lời</b></th>
             }
-            <br />
-            <b>Thời gian làm bài : @Model.timelambai phút
-                     @if (ViewBag.TimeLamBai != null)
-                     {
-                         <div class="divOnTop">
-                <span style="color:blue;text-align:center">
-                <h2 id="Time">00 : 00 : 00</h2></span></div>
-                     }
-                </b>
-        <br />
-        <br />
-                <hr />
-
-        @for (int i = 0; i < @Model.gioihancau; i++)
-        {
-                if (TempData["online_null"] == null)
-                {
-                    <tr style="height:40px; background-color: @TempData["mau-trac-nghiem-"+i]">
-                        <td></td>
-                        <td><h3><b name="mau-TN-1">Câu số @(i + 1)</b>. <span name="mau-TN-2" id="causo-@i"> <b>@Html.Raw(Model.ch[@i])</b></span></h3><br /></td>
-            </tr>
-
-             @if (ViewBag.ND_File != null)
-                            {
-                                <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]">
-                  <td></td>
-     <td>
-                      <h4><input type="text" size="50" placeholder="Nhập link hình ảnh online cần thêm" id="hinhanh-@i" /> <textarea cols="50" rows="20" name="anh-@i" id="anhX-@i" style="display:none"></textarea>
-                          <select name="kichthuoc-@i" id="kt-@i">
-                              <option>100x100</option>
-                              <option>300x300</option>
-                              <option>500x500</option>
-                              <option>500x1000</option>
-                              <option>500x300</option>
-                          </select>
-                          <a onclick="themhinhanh(@i)" href="#xuly">THÊM/SỬA</a> <span id="soluong-@i" style="color:deeppink">0</span></h4>
-                      <h4><b><select id="chonanh-@i" onchange="doianh(@i)">
-                               <option></option>
-                            </select><br>
-                            </b> <a onclick="xoahinhanh(@i)" href="#xuly">XOÁ</a> || <a href="#xuly" onClick="xemanh(@i)">XEM HÌNH ẢNH</a></h4>
-                            <input type="checkbox" id="hoanvix-@i" name="txtHoanVix-@i" /><span style="color:orangered">&nbsp;Không hoán vị đáp án</span>
-                            <br /><br />
-    
-                </td>
-     </tr>
-                        
-                            }
-
-            <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]">
-                <td></td>
-                @if(ViewData["KetQua-"+@i] ==  null)
-                {
-                        <td>
-                            <h4><b> <a href="#@(i+1)" onclick="chondapan(@i,1)"><span id="dapanA-@i" name="colorX" style="color:@TempData["mau_text"]">A. <span id="DAA-@i">@Html.Raw(Model.a[@i])</span></span></a></b></h4> <br>
-                            </td>
-                }
-                else
-                {
-                         <td><h4><b>A. @Html.Raw(Model.a[@i])</b></h4><br> </td>
-                }
-            </tr>
-
-          
-                     <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]">
-                         <td></td>
-                @if(ViewData["KetQua-"+@i] ==  null)
-                {
-                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,2)"><span id="dapanB-@i" name="colorX" style="color:@TempData["mau_text"]">B. <span id="DAB-@i">@Html.Raw(Model.b[@i])</span></span></a></b></h4> <br /></td>
-                }
-                else
-                {
-                         <td><h4><b>B. @Html.Raw(Model.b[@i])</b></h4> <br /></td>
-                }
-                    </tr>
-
-      
-                             <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]">
-                                          <td></td>
-                @if(ViewData["KetQua-"+@i] ==  null)
-                {
-                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,3)"><span id="dapanC-@i" name="colorX" style="color:@TempData["mau_text"]">C. <span id="DAC-@i">@Html.Raw(Model.c[@i])</span></span></a></b></h4><br> </td>
-                }
-                else
-                {
-                         <td><h4><b>C. @Html.Raw(Model.c[@i])</b></h4><br> </td>
-                }
-                    </tr>
-
-                    
-              
-
-                             <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]">
-                                          <td></td>
-                 @if(ViewData["KetQua-"+@i] ==  null)
-                {
-                        <td><h4><b> <a href="#@(i+1)" onclick="chondapan(@i,4)"><span id="dapanD-@i" name="colorX" style="color:@TempData["mau_text"]">D. <span id="DAD-@i">@Html.Raw(Model.d[@i])</span></span></a></b></h4><br> </td>
-                }
-                else
-                {
-                         <td><h4><b>D. @Html.Raw(Model.d[@i])</b></h4> <br /></td>
-                }
-                    </tr>
-             
-
-                    @if(ViewData["KetQua-"+@i] ==  null)
-                    {
-                                <tr style="height:40px">
-                                                 <td></td>
-                                    <td>
-  <h3>
-      <select name="dapan-@i" class="dapanX" id="ans-@i" style="display:none">
-      <b>
-           <option></option>
-          <option>A</option>
-          <option>B</option>
-          <option>C</option>
-          <option>D</option>
-          </b>
-                                    </select>                    
-                            </h3><br>
-        </td>
-                            </tr>
-                    }
-                    else
-                    {
- <tr style="height:40px">
-                  <td></td>
-     <td>
-         @Html.Raw(ViewData["ketqua-"+@i])
-                       <h4>@Html.Raw(ViewData["dapandachon-"+@i])</h4> 
-                        <h4>@Html.Raw(ViewData["dapandung-"+@i])</h4>
-                        <br>
-                </td>
-     </tr>
-                    }
-                }
-                else
-                {
-                    <table border="0">
-                        <tr>
-                            <th>Câu @(i+1).  </th>
-                            @if (ViewData["ketqua-"+@i].ToString().Contains("ĐÚNG RỒI"))
-                            {
-                            <th><b style="color:green">Đúng</b></th>
-                            }
-                            else if (ViewData["ketqua-"+@i].ToString().Contains("SAI RỒI"))
-                            {
-                                <th><b style="color:red">Sai</b></th>
-                            }
-                            else
-                            {
-                                <th><b style="color:orangered">Chưa trả lời</b></th>
-                            }
-                        </tr>
-                     </table>
-                }
-            }
-
-        @if (ViewBag.KetQuaDung == "")
-        {
-                <tr style="height:40px">
-                    <td></td>
-                    <td>
-                        @if(ViewBag.ND_File == null)
-                        {
-                        <input style="font-weight:bolder" onclick="hayqua()" id="OKX" type="Submit" value="Đánh Giá Bài Làm" />
-                        }
-                        else
-                        {
-                             <input style="font-weight:bolder" id="OKX" type="Submit" value="OK" hidden />
-                             <br>
-                            <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
-                        }
-                        <br>
-                            <p style="color:deeppink">Lưu ý : kiểm tra thật kỹ toàn bộ bài làm trước khi xem kết quả!</p>
-                    </td>
-            </tr>
-        }
-        else
-        {
-            if (TempData["online_null"] == null)
+        </tr>
+    </table>
+    }
+    }
+    @if (ViewBag.KetQuaDung == "")
+    {
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            @if(ViewBag.ND_File == null)
             {
-           <h3>@Html.ActionLink("Thực hiện bài test trắc nghiệm mới", "TracNghiemX_Multiple")</h3>
-           <br />
+            <input style="font-weight:bolder" onclick="hayqua()" id="OKX" type="Submit" value="Đánh Giá Bài Làm" />
             }
-         }
-         
-        <input type="text" readonly name="TongSoCau" value="@ViewBag.TongSoCau" hidden />
-        <input type="text" readonly name="GioiHanCau" value="@ViewBag.GioiHanCau" hidden />
-        <input type="text" readonly name="TimeLamBai" value="@ViewBag.TimeLamBaiX" hidden />
-        <input type="text" readonly name="TenMon" value="@ViewBag.TenMon" hidden>
-        <input type="text" hidden readonly name="OnlineX" id="Xonline" value="@TempData["TracNghiem_Online"]" />
-
-        <textarea name="File_ND" hidden>@ViewBag.ND_File</textarea>
-        <textarea readonly name="CauHoi" hidden>@ViewBag.CauHoi</textarea>
-        <textarea readonly name="A" hidden>@ViewBag.A</textarea>
-        <textarea readonly name="B" hidden>@ViewBag.B</textarea>
-        <textarea readonly name="C" hidden>@ViewBag.C</textarea>
-        <textarea readonly name="D" hidden>@ViewBag.D</textarea>
-         <textarea readonly name="Dung" hidden>@ViewBag.Dung</textarea>
-          <textarea readonly id="hoanvis" hidden>@ViewBag.HoanVis</textarea>
-        }
-
-       @if(ViewBag.ND_File != null)
-        {
-             <tr style="height:40px" id="xong">
-                <td></td>
-                <td>
-                     <button><b onclick="xongroi()">CẬP NHẬT</b></button>
-                </td>
-            </tr>
-        }
+            else
+            {
+            <input style="font-weight:bolder" id="OKX" type="Submit" value="OK" hidden />
+            <br>
+            <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
+            }
+            <br>
+            <p style="color:deeppink">Lưu ý : kiểm tra thật kỹ toàn bộ bài làm trước khi xem kết quả!</p>
+        </td>
+    </tr>
+    }
+    else
+    {
+    if (TempData["online_null"] == null)
+    {
+    <h3>@Html.ActionLink("Thực hiện bài test trắc nghiệm mới", "TracNghiemX_Multiple")</h3>
+    <br />
+    }
+    }
+    <input type="text" readonly name="TongSoCau" value="@ViewBag.TongSoCau" hidden />
+    <input type="text" readonly name="GioiHanCau" value="@ViewBag.GioiHanCau" hidden />
+    <input type="text" readonly name="TimeLamBai" value="@ViewBag.TimeLamBaiX" hidden />
+    <input type="text" readonly name="TenMon" value="@ViewBag.TenMon" hidden>
+    <input type="text" hidden readonly name="OnlineX" id="Xonline" value="@TempData["TracNghiem_Online"]" />
+    <textarea name="File_ND" hidden>@ViewBag.ND_File</textarea>
+    <textarea readonly name="CauHoi" hidden>@ViewBag.CauHoi</textarea>
+    <textarea readonly name="A" hidden>@ViewBag.A</textarea>
+    <textarea readonly name="B" hidden>@ViewBag.B</textarea>
+    <textarea readonly name="C" hidden>@ViewBag.C</textarea>
+    <textarea readonly name="D" hidden>@ViewBag.D</textarea>
+    <textarea readonly name="Dung" hidden>@ViewBag.Dung</textarea>
+    <textarea readonly id="hoanvis" hidden>@ViewBag.HoanVis</textarea>
+    }
+    @if(ViewBag.ND_File != null)
+    {
+    <tr style="height:40px" id="xong">
+        <td></td>
+        <td>
+            <button><b onclick="xongroi()">CẬP NHẬT</b></button>
+        </td>
+    </tr>
+    }
     }
 </table>

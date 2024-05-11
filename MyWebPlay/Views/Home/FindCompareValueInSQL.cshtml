@@ -1,91 +1,81 @@
 ﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
-      function xoaValue(ele)
+    function xoaValue(ele)
     {
-            document.getElementById(ele).value = "";
-            document.getElementById(ele).focus();
+          document.getElementById(ele).value = "";
+          document.getElementById(ele).focus();
     }
 </script>
 <table align="center">
     <h2 style="text-align:center">Find Compare Value In SQL</h2>
-
     <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
-
     @using (Html.BeginForm())
     {
-        @Html.ValidationSummary(true)
-
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                <br>
-                   <a href="#xuly" onclick="xoaValue('field')"> <b>Chuỗi các fields của bạn (chú ý index - cách nhau bởi Enter) : <br>
-                    </b></a>
-                     <br>
-                    <textarea cols="50" rows="12" name="txtFields" id="field">Column1
+    @Html.ValidationSummary(true)
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <a href="#xuly" onclick="xoaValue('field')"> <b>Chuỗi các fields của bạn (chú ý index - cách nhau bởi Enter) : <br>
+            </b></a>
+            <br>
+            <textarea cols="50" rows="12" name="txtFields" id="field">Column1
 Column2
 Column3
 Column4
 Column5</textarea>
-            </td>
-        </tr>
-
-         <tr style="height:40px">
-            <td> </td>
-            <td>
-                <br>
-                    <a href="#xuly" onclick="xoaValue('old')"><b>Chuỗi các giá trị cũ của dữ liệu (chú ý phải theo index - tách nhau bởi Enter và Tab) <br>
-                    </b></a>
-                     <br>
-                    <textarea cols="100" rows="12" name="txtOld" id="old">ABC[T-PLAY]DEF[T-PLAY]XYZ[T-PLAY]HIK[T-PLAY]LOP
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <a href="#xuly" onclick="xoaValue('old')"><b>Chuỗi các giá trị cũ của dữ liệu (chú ý phải theo index - tách nhau bởi Enter và Tab) <br>
+            </b></a>
+            <br>
+            <textarea cols="100" rows="12" name="txtOld" id="old">ABC[T-PLAY]DEF[T-PLAY]XYZ[T-PLAY]HIK[T-PLAY]LOP
 123[T-PLAY]456[T-PLAY]789[T-PLAY]000[T-PLAY]890
 BUI[T-PLAY]VAN[T-PLAY]LUAT[T-PLAY]18DTHA1[T-PLAY]1811061316</textarea>
-            </td>
-        </tr>
-
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                <br>
-                    <a href="#xuly" onclick="xoaValue('new')"><b>Chuỗi các giá trị mới của dữ liệu (chú ý phải theo index - tách nhau bởi Enter và Tab) <br>
-                    </b></a>
-                     <br>
-                    <textarea cols="100" rows="12" name="txtNew" id="new">ABC[T-PLAY]DEF[T-PLAY]XYZ[T-PLAY]HIK[T-PLAY]LOP
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <a href="#xuly" onclick="xoaValue('new')"><b>Chuỗi các giá trị mới của dữ liệu (chú ý phải theo index - tách nhau bởi Enter và Tab) <br>
+            </b></a>
+            <br>
+            <textarea cols="100" rows="12" name="txtNew" id="new">ABC[T-PLAY]DEF[T-PLAY]XYZ[T-PLAY]HIK[T-PLAY]LOP
 123[T-PLAY]546[T-PLAY]789[T-PLAY]000[T-PLAY]890
 BUI[T-PLAY]VAN[T-PLAY]LUAT-3275[T-PLAY]18DTHA1-HUTECH[T-PLAY]1811061316</textarea>
-            </td>
-        </tr>
-
-         <tr style="height:40px">
-            <td> </td>
-            <td>
-                <br>
-                    <a href="#xuly" onclick="xoaValue('where')"><b>Nhập các fields làm dữ kiện nhận dạng (cách nhau bởi dấu phẩy) <br>
-                    </b></a>
-                     <br>
-                    <input type="text" size="50" name="txtWhere" id="where" value="Column1,Column5" />
-            </td>
-        </tr>
-
-        <tr style="height:40px">
-            <td></td>
-            <td><br>
-                <input type="Submit" value="Kết Quả" />
-            </td>
-        </tr>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <a href="#xuly" onclick="xoaValue('where')"><b>Nhập các fields làm dữ kiện nhận dạng (cách nhau bởi dấu phẩy) <br>
+            </b></a>
+            <br>
+            <input type="text" size="50" name="txtWhere" id="where" value="Column1,Column5" />
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td><br>
+            <input type="Submit" value="Kết Quả" />
+        </td>
+    </tr>
     }
 </table>
 <br /><br />
-
 ******************************************************************************************************************************************************************************
-
 <br />
 <br />
 <br />
-
 <div id="hihi">
-                @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
+    @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
 </div>

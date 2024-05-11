@@ -1,9 +1,8 @@
-﻿    @if (TempData["ViewSiteBasic"] == "true")
+﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
-
     function xemfile(event)
     {
         var files = event.target.files;
@@ -16,51 +15,44 @@
         result = result.replaceAll(loc,"");
         document.getElementById("ketqua").value = result;
     }
-
+    
 </script>
 <table align="center">
     <h2 style="text-align:center">Xử Lý SQL 5</h2>
-
     <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
-
     @using (Html.BeginForm("XuLySQL5", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
-        @Html.ValidationSummary(true)
-
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                <b>Lọc đuôi file cần loại bỏ (nếu có) : </b>
-                <br>
-                <input type="text" id="duoifile" value=".sql" />
-                <br><br>
-                <b>Tải lên các file sql - Table : </b>
-                <br>
-                <input type="file" onchange="return xemfile(event)" multiple />
-                <br><br>
-                <b>💙 Kết quả nhận được từ các file (sau khi chọn file từ nút trên) : </b>
-                <br>
-                <textarea name="txtKetQua" cols="100" rows="15" id="ketqua" readonly></textarea>
-                <br><br>
-            </td>
-        </tr>
-      
-        <tr style="height:40px">
-            <td></td>
-            <td><br>
-                <input type="Submit" value="Kết Quả" />
-            </td>
-        </tr>
+    @Html.ValidationSummary(true)
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <b>Lọc đuôi file cần loại bỏ (nếu có) : </b>
+            <br>
+            <input type="text" id="duoifile" value=".sql" />
+            <br><br>
+            <b>Tải lên các file sql - Table : </b>
+            <br>
+            <input type="file" onchange="return xemfile(event)" multiple />
+            <br><br>
+            <b>💙 Kết quả nhận được từ các file (sau khi chọn file từ nút trên) : </b>
+            <br>
+            <textarea name="txtKetQua" cols="100" rows="15" id="ketqua" readonly></textarea>
+            <br><br>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td><br>
+            <input type="Submit" value="Kết Quả" />
+        </td>
+    </tr>
     }
 </table>
 <br /><br />
-
 ******************************************************************************************************************************************************************************
-
 <br />
 <br />
 <br />
-
 <div id="hihi">
-                @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
+    @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
 </div>

@@ -1,6 +1,6 @@
-﻿    @if (TempData["ViewSiteBasic"] == "true")
+﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
     function xem()
@@ -10,7 +10,7 @@
         if ( document.getElementById("ticky").checked)
         alert("XIN LƯU Ý :\n\n- Đây không phải là một bài kiểm tra - thi - test\n\n- Hệ thống không quan tâm sự đúng sai các đáp án bạn tự đánh giá tại đây\n\n- Hiện tại file trắc nghiệm của bạn đang sử dụng chưa có đáp án, bạn đang sử dụng tính năng này để setting answer lại vào file của bạn (dựa vào answer bạn sẽ đánh giá ở đây)...\n\n- Bạn hãy tự quan tâm đến độ chính xác đáp án của bạn nhé!");
     }
-
+    
     function doitick()
     {
         if (document.getElementById("ticky").checked == false)
@@ -26,107 +26,98 @@
             document.getElementById("phan3").style.display = "none";
         }
     }
-
+    
      function xemfile(event)
     {
         var ulx = document.getElementById("ulx");
         ulx.innerHTML = "";
-
+    
         var files = event.target.files;
-
+    
         for (var i=0; i< files.length; i++)
         {
             var item = document.createElement("li");
             item.innerHTML = files[i].name;
             ulx.appendChild(item);
         }
-   }
+    }
 </script>
- <h3 style="color:aqua">Bạn nên trải nghiệm tính năng này trên máy tính (PC), laptop,... nhé 😄</h3><br />
- <h2>@Html.ActionLink("Bạn muốn trải nghiệm lại phiên bản cũ?", "TracNghiem_Multiple")</h2> <br />
- <br />
+<h3 style="color:aqua">Bạn nên trải nghiệm tính năng này trên máy tính (PC), laptop,... nhé 😄</h3>
+<br />
+<h2>@Html.ActionLink("Bạn muốn trải nghiệm lại phiên bản cũ?", "TracNghiem_Multiple")</h2>
+<br />
+<br />
 <table align="center">
     <h2 style="text-align:center">Play Test X Trắc Nghiệm - Multiple</h2>
-
     <br />
-
-        @using (Html.BeginForm("TracNghiemX_Multiple", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
-        {
-            @Html.ValidationSummary(true)
-
-            <input type="text" name="txtSoluong" value="@ViewBag.SL" hidden/>
-
-            <tr style="height:40px">
-                <td> </td>
-                <td id="phan3">
-                    <br>
-                    <b> Nhập tên môn học/tên kỳ kiểm tra : </b>
-                    <br>
-                    <input type="text" name="txtMon" size="50" value=" "/>
-                    <br>
-                    <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
-                </td>
-            </tr>
-
-            <tr style="height:40px">
-                <td> </td>
-                <td id="phan2">
-                    <br>
-                    <b>Số câu cần làm (nếu bạn muốn làm hết toàn bộ các số câu hiện có, hãy thử nhập tại đây một số bất kỳ mà nó lớn hơn số lượng câu hỏi thực tế của bạn) :</b>
-                    <br>
-                    <input type="number" name="txtSoCau" min="1" value="100">
-                    <br>
-                    <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
-                </td>
-            </tr>
-
-            <tr style="height:40px">
-                <td></td>
-                <td id="phan1">
-                    <br>
-                    <b>Thời gian làm bài (phút) : </b>
-                    <br>
-                    <input type="number" name="txtTime" min="1" value="30">
-                    <br>
-                    <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
-                </td>
-            </tr>
-
-                <tr style="height:40px">
-                    <td> </td>
-                <td>
-                    <br>
-                    <b> Đưa tất cả các file trắc nghiệm (chương bài học) của bạn vào cùng 1 thư mục sau đó sẽ dễ dàng kéo tất cả các file vào đây...</b>
-                    <br>
-                    <input type="file" onchange="return xemfile(event)" name="txtFile" multiple/>  <b>@Html.ActionLink("Bạn chưa có file trắc nghiệm?","CreateFile_TracNghiem")</b>
-                   <br>
-                    <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
-                     <br><br>
-                    <h4 style="color:midnightblue">Danh sách các file bạn đã chọn :</h4>
-
-<ul id="ulx">
-</ul>
-                </td>
-            </tr>
-
-             <tr style="height:40px">
-                <td></td>
-                <td>
-                    <br>
-                    <input type="checkbox" name="txtTick" id="ticky" onchange="doitick()" /> <b style="color:brown">File trắc nghiệm của tôi hiện chưa có đáp án (nếu đã có thì vẫn có thể tiếp tục chỉnh sửa)</b>
-                    <br>
-                    <span style="color:deeppink">Sử dụng tính năng này với mục đích setting/update answer trắc nghiệm vào file của bạn bằng cách chơi trực tiếp!</span><br>
-                    <span style="color:red">Lưu ý : nếu bạn đã tự ý thủ công chỉnh sửa nội dung file trắc nghiệm trước đó, rất có thể khi bạn dùng tính năng chỉnh sửa này sẽ xảy ra một số lỗi khi hoàn tất...</span><br><br>
-                </td>
-            </tr>
-
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <input  id="ok" style="font-weight:bolder" type="Submit" onclick="xem()" value="Bắt đầu làm bài" />
-               <br>
-                        <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
-                </td>
-            </tr>
+    @using (Html.BeginForm("TracNghiemX_Multiple", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+    @Html.ValidationSummary(true)
+    <input type="text" name="txtSoluong" value="@ViewBag.SL" hidden/>
+    <tr style="height:40px">
+        <td> </td>
+        <td id="phan3">
+            <br>
+            <b> Nhập tên môn học/tên kỳ kiểm tra : </b>
+            <br>
+            <input type="text" name="txtMon" size="50" value=" "/>
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td> </td>
+        <td id="phan2">
+            <br>
+            <b>Số câu cần làm (nếu bạn muốn làm hết toàn bộ các số câu hiện có, hãy thử nhập tại đây một số bất kỳ mà nó lớn hơn số lượng câu hỏi thực tế của bạn) :</b>
+            <br>
+            <input type="number" name="txtSoCau" min="1" value="100">
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td id="phan1">
+            <br>
+            <b>Thời gian làm bài (phút) : </b>
+            <br>
+            <input type="number" name="txtTime" min="1" value="30">
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <b> Đưa tất cả các file trắc nghiệm (chương bài học) của bạn vào cùng 1 thư mục sau đó sẽ dễ dàng kéo tất cả các file vào đây...</b>
+            <br>
+            <input type="file" onchange="return xemfile(event)" name="txtFile" multiple/>  <b>@Html.ActionLink("Bạn chưa có file trắc nghiệm?","CreateFile_TracNghiem")</b>
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+            <br><br>
+            <h4 style="color:midnightblue">Danh sách các file bạn đã chọn :</h4>
+            <ul id="ulx"></ul>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <br>
+            <input type="checkbox" name="txtTick" id="ticky" onchange="doitick()" /> <b style="color:brown">File trắc nghiệm của tôi hiện chưa có đáp án (nếu đã có thì vẫn có thể tiếp tục chỉnh sửa)</b>
+            <br>
+            <span style="color:deeppink">Sử dụng tính năng này với mục đích setting/update answer trắc nghiệm vào file của bạn bằng cách chơi trực tiếp!</span><br>
+            <span style="color:red">Lưu ý : nếu bạn đã tự ý thủ công chỉnh sửa nội dung file trắc nghiệm trước đó, rất có thể khi bạn dùng tính năng chỉnh sửa này sẽ xảy ra một số lỗi khi hoàn tất...</span><br><br>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input  id="ok" style="font-weight:bolder" type="Submit" onclick="xem()" value="Bắt đầu làm bài" />
+            <br>
+            <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
+        </td>
+    </tr>
     }
 </table>

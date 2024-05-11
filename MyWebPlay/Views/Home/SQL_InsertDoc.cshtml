@@ -1,83 +1,72 @@
 ﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
-      function xoaValue(ele)
+    function xoaValue(ele)
     {
-            document.getElementById(ele).value = "";
-            document.getElementById(ele).focus();
+          document.getElementById(ele).value = "";
+          document.getElementById(ele).focus();
     }
 </script>
 <table align="center">
     <h2 style="text-align:center">Insert Doc SQL</h2>
-
     <h3><a style="color:red" href="/Home/InsertSQL">Xem thử dạng mới</a></h3>
-
     <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
-
     @using (Html.BeginForm())
     {
-        @Html.ValidationSummary(true)
-
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                <br>
-                    <a href="#xuly" onclick="xoaValue('table')"><b>Tên Table : </b></a>
-                <br>
-                <input type="text" size="50" name="Table" id="table" value="SinhVien">
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
-            </td>
-        </tr>
-        <br /><br />
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                <br>
-                    <a href="#xuly" onclick="xoaValue('trangthai')"><b>Nhập trạng thái theo mẫu - Nhập ví dụ theo từng phần (VD : 3-1-3-1-2 # nếu một doc SQL có 5 cột)... - Với # 1 : Kiểu số, 2 : Kiểu chuỗi, 3 : Kiểu DateTime/Char </b></a>
-               <br>
-                    <input type="text" size="50" name="TrangThai" id="trangthai" value="3-2-1-3">
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
-            </td>
-        </tr>
-        <br /><br />
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                <br>
-                   <a href="#xuly" onclick="xoaValue('dulieu')"> <b>Nhập dãy dữ liệu theo mẫu (VD - nếu mỗi doc SQL có 5 cột/ mỗi col cách nhau bởi [Tab] - mỗi doc cách nhau bởi Enter)... </b></a>
-                <br>
-                <textarea name="DuLieu" id="dulieu" cols="100" rows="50">@ViewBag.VD</textarea>
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
-            </td>
-        </tr>
-
-
-        <tr style="height:40px">
-            <td></td>
-            <td>
-                <input type="Submit" value="Kết Quả" />
-            </td>
-        </tr>
+    @Html.ValidationSummary(true)
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <a href="#xuly" onclick="xoaValue('table')"><b>Tên Table : </b></a>
+            <br>
+            <input type="text" size="50" name="Table" id="table" value="SinhVien">
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+        </td>
+    </tr>
+    <br /><br />
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <a href="#xuly" onclick="xoaValue('trangthai')"><b>Nhập trạng thái theo mẫu - Nhập ví dụ theo từng phần (VD : 3-1-3-1-2 # nếu một doc SQL có 5 cột)... - Với # 1 : Kiểu số, 2 : Kiểu chuỗi, 3 : Kiểu DateTime/Char </b></a>
+            <br>
+            <input type="text" size="50" name="TrangThai" id="trangthai" value="3-2-1-3">
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+        </td>
+    </tr>
+    <br /><br />
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <a href="#xuly" onclick="xoaValue('dulieu')"> <b>Nhập dãy dữ liệu theo mẫu (VD - nếu mỗi doc SQL có 5 cột/ mỗi col cách nhau bởi [Tab] - mỗi doc cách nhau bởi Enter)... </b></a>
+            <br>
+            <textarea name="DuLieu" id="dulieu" cols="100" rows="50">@ViewBag.VD</textarea>
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input type="Submit" value="Kết Quả" />
+        </td>
+    </tr>
     }
 </table>
-
-
 <br />
-
 <br />
 <br />
 <br />
 ******************************************************************************************************************************************************************************
-
 <br />
 <br />
 <br />
-
 <div id="hihi">
     @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
 </div>

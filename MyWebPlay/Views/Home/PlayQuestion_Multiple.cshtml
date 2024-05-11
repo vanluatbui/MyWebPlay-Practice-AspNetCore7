@@ -1,115 +1,101 @@
 ﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
-
     function xemfile(event)
     {
         var ulx = document.getElementById("ulx");
         var files = event.target.files;
         ulx.innerHTML = "";
-
+    
         for (var i=0; i< files.length; i++)
         {
             var item = document.createElement("li");
             item.innerHTML = files[i].name;
             ulx.appendChild(item);
         }
-
-   }
-
+    
+    }
+    
     function xong()
     {
         document.getElementById("ok").style.display = "none";
         document.getElementById("loading").style.display = "inline-block";
     }
-
+    
 </script>
-
 <table align="center">
-     <h3 style="color:aqua">Bạn nên trải nghiệm tính năng này trên máy tính (PC), laptop,... nhé 😄</h3><br />
-    <h2 style="text-align:center">Play X Question - Multiple</h2>
-
+    <h3 style="color:aqua">Bạn nên trải nghiệm tính năng này trên máy tính (PC), laptop,... nhé 😄</h3>
     <br />
-
-        @using (Html.BeginForm("PlayQuestion_Multiple", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
-        {
-            @Html.ValidationSummary(true)
-
-            <input type="text" name="txtSoluong" value="@ViewBag.SL" hidden/>
-
-            <tr style="height:40px">
-                <td> </td>
-                <td>
-                    <br>
-                    <b> Nhập tên môn học/tên kỳ kiểm tra : </b>
-                    <br>
-                    <input type="text" name="txtMon" size="50" value=" "/>
-                    <br>
-                    <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
-                </td>
-            </tr>
-
-            <tr style="height:40px">
-                <td> </td>
-                <td>
-                    <br>
-                    <b>Số câu cần làm (nếu bạn muốn làm hết toàn bộ các số câu hiện có, hãy thử nhập tại đây một số bất kỳ mà nó lớn hơn số lượng câu hỏi thực tế của bạn) :</b>
-                    <br>
-                    <input type="number" name="txtSoCau" min="1" value="100">
-                    <br>
-                    <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
-                </td>
-            </tr>
-
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <br>
-                    <b>Thời gian làm bài (phút) : </b>
-                    <br>
-                    <input type="number" name="txtTime" min="1" value="30">
-                    <br>
-                    <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
-                </td>
-            </tr>
-
-                <tr style="height:40px">
-                    <td> </td>
-                <td>
-                    <br>
-                    <b> Đưa tất cả các file text [question/answer] (chương bài học) của bạn vào cùng 1 thư mục sau đó sẽ dễ dàng kéo tất cả các file vào đây...</b>
-                    <br>
-                    <input onchange="return xemfile(event)" type="file" name="txtFile" multiple/>  <b>@Html.ActionLink("Bạn chưa có file question answer?","CreateFile_Question")</b><br />
-                    <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
-                    <br><br>
-                    <h4 style="color:midnightblue">Danh sách các file bạn đã chọn :</h4>
-
-<ul id="ulx">
-</ul>
-                </td>
-            </tr>
-
-             <tr style="height:40px">
-                    <td> </td>
-                <td>
-                    <br>
-                    <br>
-                    <input type="checkbox" name="txtChangeJapan" />  <b>Tự động chuyển đổi câu trả lời thành các kí tự Japan <a target="_blank" href="/Home/QuyTacKiTuJapan">Xem quy tắc kí tự chuyển đổi</a></b>
-                    <br><br>
-           </td>
-            </tr>
-
-
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <input  id="ok" onclick="xong()" style="font-weight:bolder" type="Submit" value="Bắt đầu làm bài" />
-                    <br>
-                        <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
-                </td>
-            </tr>
-
+    <h2 style="text-align:center">Play X Question - Multiple</h2>
+    <br />
+    @using (Html.BeginForm("PlayQuestion_Multiple", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+    @Html.ValidationSummary(true)
+    <input type="text" name="txtSoluong" value="@ViewBag.SL" hidden/>
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <b> Nhập tên môn học/tên kỳ kiểm tra : </b>
+            <br>
+            <input type="text" name="txtMon" size="50" value=" "/>
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <b>Số câu cần làm (nếu bạn muốn làm hết toàn bộ các số câu hiện có, hãy thử nhập tại đây một số bất kỳ mà nó lớn hơn số lượng câu hỏi thực tế của bạn) :</b>
+            <br>
+            <input type="number" name="txtSoCau" min="1" value="100">
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <br>
+            <b>Thời gian làm bài (phút) : </b>
+            <br>
+            <input type="number" name="txtTime" min="1" value="30">
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <b> Đưa tất cả các file text [question/answer] (chương bài học) của bạn vào cùng 1 thư mục sau đó sẽ dễ dàng kéo tất cả các file vào đây...</b>
+            <br>
+            <input onchange="return xemfile(event)" type="file" name="txtFile" multiple/>  <b>@Html.ActionLink("Bạn chưa có file question answer?","CreateFile_Question")</b><br />
+            <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+            <br><br>
+            <h4 style="color:midnightblue">Danh sách các file bạn đã chọn :</h4>
+            <ul id="ulx"></ul>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <br>
+            <input type="checkbox" name="txtChangeJapan" />  <b>Tự động chuyển đổi câu trả lời thành các kí tự Japan <a target="_blank" href="/Home/QuyTacKiTuJapan">Xem quy tắc kí tự chuyển đổi</a></b>
+            <br><br>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input  id="ok" onclick="xong()" style="font-weight:bolder" type="Submit" value="Bắt đầu làm bài" />
+            <br>
+            <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
+        </td>
+    </tr>
     }
 </table>

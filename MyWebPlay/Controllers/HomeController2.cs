@@ -13,25 +13,70 @@ namespace MyWebPlay.Controllers
         {
             try
             {
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
-            {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
-                TempData["skipIP"] = "true";
-            }
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                khoawebsiteClient(null);
+                var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+                if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
+                {
+                    if (this.HttpContext.Request.Method == "GET")
+                    {
+                        if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", 1);
+                            return Redirect("https://google.com");
+                        }
+                        else
+                        {
+                            var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                            if (lan != 10)
+                            {
+                                HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                return Redirect("https://google.com");
+                            }
+                        }
+                    }
+                }
+                if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+                if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+                if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+                if (HttpContext.Session.GetString("TuyetDoi") != null)
+                {
+                    TempData["UyTin"] = "true";
+                    var td = HttpContext.Session.GetString("TuyetDoi");
+                    if (td == "true")
+                    {
+                        TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                    }
+                    else
+                    {
+                        TempData["TestTuyetDoi"] = "false";
+                    }
+                }
+                if (TempData["tathoatdong"] == "true")
+                {
+                    return RedirectToAction("Error");
+                }
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+                {
+                    HttpContext.Session.Remove("userIP");
+                    HttpContext.Session.SetString("userIP", "0.0.0.0");
+                    TempData["skipIP"] = "true";
+                }
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                var listIP = new List<string>();
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            khoawebsiteClient(listIP);
-            ViewBag.VD = "SV001\tMyWebPlay Asp Net Core\t10\t20/06/2000\r\nSV002\tNguyễn Văn Đạt\t9.5\t15/08/2001\r\nSV003\tTrần Chí Khôi\t2.5\t29/07/1990\r\nSV004\tLê Tuấn Kiệt\t9.2\t05/12/1995\r\nSV005\tĐào Vũ Hạnh\t4.8\t28/03/1992";
-            return View();
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                    listIP.Add(HttpContext.Session.GetString("userIP"));
+                else
+                {
+                    TempData["GetDataIP"] = "true";
+                    return RedirectToAction("Index");
+                }
+                khoawebsiteClient(listIP);
+                ViewBag.VD = "SV001\tMyWebPlay Asp Net Core\t10\t20/06/2000\r\nSV002\tNguyễn Văn Đạt\t9.5\t15/08/2001\r\nSV003\tTrần Chí Khôi\t2.5\t29/07/1990\r\nSV004\tLê Tuấn Kiệt\t9.2\t05/12/1995\r\nSV005\tĐào Vũ Hạnh\t4.8\t28/03/1992";
+                return View();
             }
             catch (Exception ex)
             {
@@ -40,20 +85,33 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");                 }
-                return RedirectToAction("Error", new { exception = "true" });
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty;
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];
+                if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")
+                {
+                    Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
+                }
+                return RedirectToAction("Error", new
+                {
+                    exception = "true"
+                });
             }
         }
 
         int[] listType = new int[100];
         int nx = 0;
 
-
         [HttpPost]
         public ActionResult SQL_InsertDoc(IFormCollection f)
         {
             var nix = "";
-            var exter = false; var linkdown = false;
+            var exter = false;
+            var linkdown = false;
             var listIP = new List<string>();
             try
             {
@@ -65,28 +123,74 @@ namespace MyWebPlay.Controllers
 
                 HttpContext.Session.SetString("hanhdong_3275", fix);
 
-                var path = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
                 var noidung = System.IO.File.ReadAllText(path);
 
-                var listSettingS = noidung.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var listSettingS = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
                 var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
                 if (infoX[1] == "true")
-                    exter = true; var infoY = listSettingS[8].Split("<3275>", StringSplitOptions.RemoveEmptyEntries); if (infoY[1] == "true") linkdown = true;
+                    exter = true;
+                var infoY = listSettingS[8].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                if (infoY[1] == "true") linkdown = true;
 
                 if (exter == false)
                 {
-                    TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true"; if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi"); if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } }
-                    if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); }
-                    if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-                    if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+                    TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                    khoawebsiteClient(null);
+                    var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+                    if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
                     {
-                        HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                        if (this.HttpContext.Request.Method == "GET")
+                        {
+                            if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                            {
+                                HttpContext.Session.SetObject("google-trick-web", 1);
+                                return Redirect("https://google.com");
+                            }
+                            else
+                            {
+                                var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                                if (lan != 10)
+                                {
+                                    HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                    return Redirect("https://google.com");
+                                }
+                            }
+                        }
+                    }
+                    if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+                    if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+                    if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+                    if (HttpContext.Session.GetString("TuyetDoi") != null)
+                    {
+                        TempData["UyTin"] = "true";
+                        var td = HttpContext.Session.GetString("TuyetDoi");
+                        if (td == "true")
+                        {
+                            TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                        }
+                        else
+                        {
+                            TempData["TestTuyetDoi"] = "false";
+                        }
+                    }
+                    if (TempData["tathoatdong"] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                    if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                    if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                    if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+                    {
+                        HttpContext.Session.Remove("userIP");
+                        HttpContext.Session.SetString("userIP", "0.0.0.0");
                         TempData["skipIP"] = "true";
                     }
                     /*HttpContext.Session.Remove("ok-data");*/
-                    TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
+                    TempData["dataPost"] = "[POST]";
+                    HttpContext.Session.SetString("data-result", "true");
                     TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
                     // var listIP = new List<string>();
 
@@ -98,9 +202,9 @@ namespace MyWebPlay.Controllers
                         return RedirectToAction("Index");
                     }
                 }
-            string dulieu = f["DuLieu"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n");
+                string dulieu = f["DuLieu"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n");
 
-            TempData["dataPost"] = "[" + dulieu.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
+                TempData["dataPost"] = "[" + dulieu.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
 
                 if (exter == false)
                 {
@@ -113,28 +217,30 @@ namespace MyWebPlay.Controllers
                     if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
                     {
                         TempData["mau_background"] = "white";
-                        TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
+                        TempData["mau_text"] = "black";
+                        TempData["mau_nen"] = "dodgerblue";
                         TempData["winx"] = "❤";
                     }
                     else
                     {
                         TempData["mau_background"] = "black";
-                        TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
+                        TempData["mau_text"] = "white";
+                        TempData["mau_nen"] = "rebeccapurple";
                         TempData["winx"] = "❤";
                     }
-                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
                     var noidungX = System.IO.File.ReadAllText(pathX);
-                    var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
                     var flag = 0;
                     for (int i = 0; i < listSetting.Length; i++)
                     {
                         var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                        if (flag == 0 && (info[0] == "Email_Upload_User"
-                            || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
-                            || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
-                            || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
-                            || info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                        if (flag == 0 && (info[0] == "Email_Upload_User" ||
+                            info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create" ||
+                            info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question" ||
+                            info[0] == "Email_User_Website" || info[0] == "Email_User_Continue" ||
+                            info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
                         {
                             if (info[1] == "false")
                             {
@@ -152,88 +258,107 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-            ViewBag.VD = "SV001\tMyWebPlay Asp Net Core\t10\t20/06/2000\r\nSV002\tNguyễn Văn Đạt\t9.5\t15/08/2001\r\nSV003\tTrần Chí Khôi\t2.5\t29/07/1990\r\nSV004\tLê Tuấn Kiệt\t9.2\t05/12/1995\r\nSV005\tĐào Vũ Hạnh\t4.8\t28/03/1992";
-            string table = f["Table"].ToString();
-            string trangthai = f["TrangThai"].ToString();
+                ViewBag.VD = "SV001\tMyWebPlay Asp Net Core\t10\t20/06/2000\r\nSV002\tNguyễn Văn Đạt\t9.5\t15/08/2001\r\nSV003\tTrần Chí Khôi\t2.5\t29/07/1990\r\nSV004\tLê Tuấn Kiệt\t9.2\t05/12/1995\r\nSV005\tĐào Vũ Hạnh\t4.8\t28/03/1992";
+                string table = f["Table"].ToString();
+                string trangthai = f["TrangThai"].ToString();
 
-            if (string.IsNullOrEmpty(table))
-            {
-                ViewData["Loi1"] = "Trường này không được để trống!";
-                HttpContext.Session.SetString("data-result", "true"); return this.SQL_InsertDoc();
-            }
-
-            if (string.IsNullOrEmpty(trangthai))
-            {
-                ViewData["Loi2"] = "Trường này không được để trống!";
-                HttpContext.Session.SetString("data-result", "true"); return this.SQL_InsertDoc();
-            }
-
-            if (string.IsNullOrEmpty(dulieu))
-            {
-                ViewData["Loi3"] = "Trường này không được để trống!";
-                HttpContext.Session.SetString("data-result", "true"); return this.SQL_InsertDoc();
-            }
-
-            table = table.Replace("[T-PLAY]", "\t");
-            table = table.Replace("[N-PLAY]", "\n");
-            table = table.Replace("[R-PLAY]", "\r");
-
-            trangthai = trangthai.Replace("[T-PLAY]", "\t");
-            trangthai = trangthai.Replace("[N-PLAY]", "\n");
-            trangthai = trangthai.Replace("[R-PLAY]", "\r");
-
-            dulieu = dulieu.Replace("[T-PLAY]", "\t");
-            dulieu = dulieu.Replace("[N-PLAY]", "\n");
-            dulieu = dulieu.Replace("[R-PLAY]", "\r");
-
-            string[] ds_trangthai = trangthai.Split('-');
-            for (int i = 0; i < ds_trangthai.Length; i++)
-                listType[nx++] = int.Parse(ds_trangthai[i]);
-
-            String sql = "\r\n\r\nset dateformat dmy\r\n\r\n";
-
-            String[] s1 = Regex.Split(dulieu, "\r\n");
-
-            for (int i = 0; i < s1.Length; i++)
-            {
-                String[] s2 = s1[i].Split('\t');
-
-                String s = "INSERT INTO " + table + " VALUES (";
-
-                for (int j = 0; j < s2.Length; j++)
+                if (string.IsNullOrEmpty(table))
                 {
-
-                    if (listType[j] == 1)
-                        s += s2[j];
-                    else
-                        if (listType[j] == 2)
-                        s += "N'" + s2[j] + "'";
-                    else
-                         if (listType[j] == 3)
-                        s += "'" + s2[j] + "'";
-
-                    if (j < s2.Length - 1)
-                        s += ",";
-                    else
-                        s += ")";
+                    ViewData["Loi1"] = "Trường này không được để trống!";
+                    HttpContext.Session.SetString("data-result", "true");
+                    return this.SQL_InsertDoc();
                 }
 
-                sql += s + "\r\n";
-            }
+                if (string.IsNullOrEmpty(trangthai))
+                {
+                    ViewData["Loi2"] = "Trường này không được để trống!";
+                    HttpContext.Session.SetString("data-result", "true");
+                    return this.SQL_InsertDoc();
+                }
 
-            //TextCopy.ClipboardService.SetText(sql);
+                if (string.IsNullOrEmpty(dulieu))
+                {
+                    ViewData["Loi3"] = "Trường này không được để trống!";
+                    HttpContext.Session.SetString("data-result", "true");
+                    return this.SQL_InsertDoc();
+                }
 
-            // // sql = sql.Replace("\r\n", "<br>");
+                table = table.Replace("[T-PLAY]", "\t");
+                table = table.Replace("[N-PLAY]", "\n");
+                table = table.Replace("[R-PLAY]", "\r");
 
-            nix = sql;
-            sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
+                trangthai = trangthai.Replace("[T-PLAY]", "\t");
+                trangthai = trangthai.Replace("[N-PLAY]", "\n");
+                trangthai = trangthai.Replace("[R-PLAY]", "\r");
 
-              Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox =(f.ContainsKey("resultX") == false || f["resultX"] == "false") ? Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt")  : Path.Combine(_webHostEnvironment.WebRootPath, "ResultExternal", "data.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = sql;
+                dulieu = dulieu.Replace("[T-PLAY]", "\t");
+                dulieu = dulieu.Replace("[N-PLAY]", "\n");
+                dulieu = dulieu.Replace("[R-PLAY]", "\r");
 
-            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+                string[] ds_trangthai = trangthai.Split('-');
+                for (int i = 0; i < ds_trangthai.Length; i++)
+                    listType[nx++] = int.Parse(ds_trangthai[i]);
+
+                String sql = "\r\n\r\nset dateformat dmy\r\n\r\n";
+
+                String[] s1 = Regex.Split(dulieu, "\r\n");
+
+                for (int i = 0; i < s1.Length; i++)
+                {
+                    String[] s2 = s1[i].Split('\t');
+
+                    String s = "INSERT INTO " + table + " VALUES (";
+
+                    for (int j = 0; j < s2.Length; j++)
+                    {
+
+                        if (listType[j] == 1)
+                            s += s2[j];
+                        else
+                        if (listType[j] == 2)
+                            s += "N'" + s2[j] + "'";
+                        else
+                        if (listType[j] == 3)
+                            s += "'" + s2[j] + "'";
+
+                        if (j < s2.Length - 1)
+                            s += ",";
+                        else
+                            s += ")";
+                    }
+
+                    sql += s + "\r\n";
+                }
+
+                //TextCopy.ClipboardService.SetText(sql);
+
+                // // sql = sql.Replace("\r\n", "<br>");
+
+                nix = sql;
+                sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
+
+                Calendar soi = CultureInfo.InvariantCulture.Calendar;
+                var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
+                if (string.IsNullOrEmpty(chim)) chim = "Default";
+                var cuctac = soi.AddHours(DateTime.UtcNow, 7) + "_" + chim;
+                var sox = (f.ContainsKey("resultX") == false || f["resultX"] == "false") ? Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt") : Path.Combine(_webHostEnvironment.WebRootPath, "ResultExternal", "data.txt");
+                TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt";
+                new FileInfo(sox).Create().Dispose();
+                System.IO.File.WriteAllText(sox, nix);
+                ViewBag.Result = sql;
+
+                ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+                if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
                 if (exter == false)
                     return View();
-               else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = "http://"+Request.Host+ "/POST_DataResult/" + TempData["fileResult"].ToString().Replace(" ","%20") }); }
+                else
+                {
+                    if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+                    return Ok(new
+                    {
+                        result = "http://" + Request.Host + "/POST_DataResult/" + TempData["fileResult"].ToString().Replace(" ", "%20")
+                    });
+                }
             }
             catch (Exception ex)
             {
@@ -242,10 +367,26 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");                 }
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty;
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];
+                if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")
+                {
+                    Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
+                }
                 if (exter == false)
-                    return RedirectToAction("Error", new { exception = "true" });
-                return Ok(new { error = HttpContext.Session.GetObject<string>("error_exception_log") });
+                    return RedirectToAction("Error", new
+                    {
+                        exception = "true"
+                    });
+                return Ok(new
+                {
+                    error = HttpContext.Session.GetObject<string>("error_exception_log")
+                });
             }
         }
 
@@ -256,25 +397,70 @@ namespace MyWebPlay.Controllers
         {
             try
             {
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
-            {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
-                TempData["skipIP"] = "true";
-            }
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                khoawebsiteClient(null);
+                var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+                if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
+                {
+                    if (this.HttpContext.Request.Method == "GET")
+                    {
+                        if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", 1);
+                            return Redirect("https://google.com");
+                        }
+                        else
+                        {
+                            var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                            if (lan != 10)
+                            {
+                                HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                return Redirect("https://google.com");
+                            }
+                        }
+                    }
+                }
+                if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+                if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+                if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+                if (HttpContext.Session.GetString("TuyetDoi") != null)
+                {
+                    TempData["UyTin"] = "true";
+                    var td = HttpContext.Session.GetString("TuyetDoi");
+                    if (td == "true")
+                    {
+                        TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                    }
+                    else
+                    {
+                        TempData["TestTuyetDoi"] = "false";
+                    }
+                }
+                if (TempData["tathoatdong"] == "true")
+                {
+                    return RedirectToAction("Error");
+                }
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+                {
+                    HttpContext.Session.Remove("userIP");
+                    HttpContext.Session.SetString("userIP", "0.0.0.0");
+                    TempData["skipIP"] = "true";
+                }
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                var listIP = new List<string>();
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            khoawebsiteClient(listIP);
-            ViewBag.VD = "SV001\tMyWebPlay Asp Net Core\t10\t20/06/2000\r\nSV002\tNguyễn Văn Đạt\t9.5\t15/08/2001\r\nSV003\tTrần Chí Khôi\t2.5\t29/07/1990\r\nSV004\tLê Tuấn Kiệt\t9.2\t05/12/1995\r\nSV005\tĐào Vũ Hạnh\t4.8\t28/03/1992";
-            return View();
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                    listIP.Add(HttpContext.Session.GetString("userIP"));
+                else
+                {
+                    TempData["GetDataIP"] = "true";
+                    return RedirectToAction("Index");
+                }
+                khoawebsiteClient(listIP);
+                ViewBag.VD = "SV001\tMyWebPlay Asp Net Core\t10\t20/06/2000\r\nSV002\tNguyễn Văn Đạt\t9.5\t15/08/2001\r\nSV003\tTrần Chí Khôi\t2.5\t29/07/1990\r\nSV004\tLê Tuấn Kiệt\t9.2\t05/12/1995\r\nSV005\tĐào Vũ Hạnh\t4.8\t28/03/1992";
+                return View();
             }
             catch (Exception ex)
             {
@@ -283,8 +469,21 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");                 }
-                return RedirectToAction("Error", new { exception = "true" });
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty;
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];
+                if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")
+                {
+                    Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
+                }
+                return RedirectToAction("Error", new
+                {
+                    exception = "true"
+                });
             }
         }
 
@@ -297,7 +496,8 @@ namespace MyWebPlay.Controllers
         public ActionResult JSON_InsertDoc(IFormCollection f)
         {
             var nix = "";
-            var exter = false; var linkdown = false;
+            var exter = false;
+            var linkdown = false;
             var listIP = new List<string>();
             try
             {
@@ -309,28 +509,74 @@ namespace MyWebPlay.Controllers
 
                 HttpContext.Session.SetString("hanhdong_3275", fix);
 
-                var path = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
                 var noidung = System.IO.File.ReadAllText(path);
 
-                var listSettingS = noidung.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var listSettingS = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
                 var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
                 if (infoX[1] == "true")
-                    exter = true; var infoY = listSettingS[8].Split("<3275>", StringSplitOptions.RemoveEmptyEntries); if (infoY[1] == "true") linkdown = true;
+                    exter = true;
+                var infoY = listSettingS[8].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                if (infoY[1] == "true") linkdown = true;
 
                 if (exter == false)
                 {
-                    TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true"; if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi"); if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } }
-                    if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); }
-                    if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-                    if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+                    TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                    khoawebsiteClient(null);
+                    var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+                    if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
                     {
-                        HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                        if (this.HttpContext.Request.Method == "GET")
+                        {
+                            if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                            {
+                                HttpContext.Session.SetObject("google-trick-web", 1);
+                                return Redirect("https://google.com");
+                            }
+                            else
+                            {
+                                var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                                if (lan != 10)
+                                {
+                                    HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                    return Redirect("https://google.com");
+                                }
+                            }
+                        }
+                    }
+                    if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+                    if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+                    if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+                    if (HttpContext.Session.GetString("TuyetDoi") != null)
+                    {
+                        TempData["UyTin"] = "true";
+                        var td = HttpContext.Session.GetString("TuyetDoi");
+                        if (td == "true")
+                        {
+                            TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                        }
+                        else
+                        {
+                            TempData["TestTuyetDoi"] = "false";
+                        }
+                    }
+                    if (TempData["tathoatdong"] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                    if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                    if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                    if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+                    {
+                        HttpContext.Session.Remove("userIP");
+                        HttpContext.Session.SetString("userIP", "0.0.0.0");
                         TempData["skipIP"] = "true";
                     }
                     /*HttpContext.Session.Remove("ok-data");*/
-                    TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
+                    TempData["dataPost"] = "[POST]";
+                    HttpContext.Session.SetString("data-result", "true");
                     TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
                     //  var listIP = new List<string>();
 
@@ -342,12 +588,12 @@ namespace MyWebPlay.Controllers
                         return RedirectToAction("Index");
                     }
                 }
-            string dulieu = f["DuLieu"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n");
-            dulieu = dulieu.Replace("[T-PLAY]", "\t");
-            dulieu = dulieu.Replace("[N-PLAY]", "\n");
-            dulieu = dulieu.Replace("[R-PLAY]", "\r");
+                string dulieu = f["DuLieu"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n");
+                dulieu = dulieu.Replace("[T-PLAY]", "\t");
+                dulieu = dulieu.Replace("[N-PLAY]", "\n");
+                dulieu = dulieu.Replace("[R-PLAY]", "\r");
 
-            TempData["dataPost"] = "[" + dulieu.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
+                TempData["dataPost"] = "[" + dulieu.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
 
                 if (exter == false)
                 {
@@ -360,28 +606,30 @@ namespace MyWebPlay.Controllers
                     if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
                     {
                         TempData["mau_background"] = "white";
-                        TempData["mau_text"] = "black"; TempData["mau_nen"] = "dodgerblue";
+                        TempData["mau_text"] = "black";
+                        TempData["mau_nen"] = "dodgerblue";
                         TempData["winx"] = "❤";
                     }
                     else
                     {
                         TempData["mau_background"] = "black";
-                        TempData["mau_text"] = "white"; TempData["mau_nen"] = "rebeccapurple";
+                        TempData["mau_text"] = "white";
+                        TempData["mau_nen"] = "rebeccapurple";
                         TempData["winx"] = "❤";
                     }
-                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
                     var noidungX = System.IO.File.ReadAllText(pathX);
-                    var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
                     var flag = 0;
                     for (int i = 0; i < listSetting.Length; i++)
                     {
                         var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                        if (flag == 0 && (info[0] == "Email_Upload_User"
-                            || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
-                            || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
-                            || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
-                            || info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                        if (flag == 0 && (info[0] == "Email_Upload_User" ||
+                            info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create" ||
+                            info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question" ||
+                            info[0] == "Email_User_Website" || info[0] == "Email_User_Continue" ||
+                            info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
                         {
                             if (info[1] == "false")
                             {
@@ -399,82 +647,99 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-            ViewBag.VD = "SV001\tMyWebPlay Asp Net Core\t10\t20/06/2000\r\nSV002\tNguyễn Văn Đạt\t9.5\t15/08/2001\r\nSV003\tTrần Chí Khôi\t2.5\t29/07/1990\r\nSV004\tLê Tuấn Kiệt\t9.2\t05/12/1995\r\nSV005\tĐào Vũ Hạnh\t4.8\t28/03/1992";
-            string trangthai = f["TrangThai"].ToString();
-           
+                ViewBag.VD = "SV001\tMyWebPlay Asp Net Core\t10\t20/06/2000\r\nSV002\tNguyễn Văn Đạt\t9.5\t15/08/2001\r\nSV003\tTrần Chí Khôi\t2.5\t29/07/1990\r\nSV004\tLê Tuấn Kiệt\t9.2\t05/12/1995\r\nSV005\tĐào Vũ Hạnh\t4.8\t28/03/1992";
+                string trangthai = f["TrangThai"].ToString();
 
-            if (string.IsNullOrEmpty(trangthai))
-            {
-                ViewData["Loi2"] = "Trường này không được để trống!";
-                HttpContext.Session.SetString("data-result", "true"); return this.JSON_InsertDoc();
-            }
-
-            if (string.IsNullOrEmpty(dulieu))
-            {
-                ViewData["Loi3"] = "Trường này không được để trống!";
-                HttpContext.Session.SetString("data-result", "true"); return this.JSON_InsertDoc();
-            }
-
-            trangthai = trangthai.Replace("[T-PLAY]", "\t");
-            trangthai = trangthai.Replace("[N-PLAY]", "\n");
-            trangthai = trangthai.Replace("[R-PLAY]", "\r");
-
-            string[] ds_trangthai = trangthai.Split(",");
-
-            for (int i = 0; i< ds_trangthai.Length;i++)
-            {
-                string[] DS = ds_trangthai[i].Split("-");
-                nameType[nX++] = DS[0];
-                listTypeX[nY++] = int.Parse(DS[1]);
-            }
-
-            String sql = "\r\n\r\n[\r\n";
-
-            String[] s1 = Regex.Split(dulieu, "\r\n");
-
-            for (int i = 0; i < s1.Length; i++)
-            {
-                String[] s2 = s1[i].Split('\t');
-
-                String s = "  {\r\n    ";
-
-                for (int j = 0; j < s2.Length; j++)
+                if (string.IsNullOrEmpty(trangthai))
                 {
-
-                    if (listTypeX[j] == 1)
-                        s += "\"" + nameType[j] + "\" : " + s2[j];
-                    else
-                        if (listTypeX[j] == 2)
-                        s += "\"" + nameType[j] + "\" : \"" + s2[j] + "\"";
-                    else
-                         if (listTypeX[j] == 3)
-                        s += "\"" + nameType[j] + "\" : '" + s2[j] + "'";
-
-                    if (j < s2.Length - 1)
-                        s += ",\r\n    ";
-                    else
-                        s += "\r\n  }";
+                    ViewData["Loi2"] = "Trường này không được để trống!";
+                    HttpContext.Session.SetString("data-result", "true");
+                    return this.JSON_InsertDoc();
                 }
 
-                if (i < s1.Length - 1)
-                    s += ",\r\n";
-                else
-                    s += "\r\n]";
-                sql += s;
-            }
+                if (string.IsNullOrEmpty(dulieu))
+                {
+                    ViewData["Loi3"] = "Trường này không được để trống!";
+                    HttpContext.Session.SetString("data-result", "true");
+                    return this.JSON_InsertDoc();
+                }
 
-            //TextCopy.ClipboardService.SetText(sql);
+                trangthai = trangthai.Replace("[T-PLAY]", "\t");
+                trangthai = trangthai.Replace("[N-PLAY]", "\n");
+                trangthai = trangthai.Replace("[R-PLAY]", "\r");
 
-            //// sql = sql.Replace("\r\n", "<br>");
-            nix = sql;
-            sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
+                string[] ds_trangthai = trangthai.Split(",");
 
-              Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox =(f.ContainsKey("resultX") == false || f["resultX"] == "false") ? Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt")  : Path.Combine(_webHostEnvironment.WebRootPath, "ResultExternal", "data.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = sql;
+                for (int i = 0; i < ds_trangthai.Length; i++)
+                {
+                    string[] DS = ds_trangthai[i].Split("-");
+                    nameType[nX++] = DS[0];
+                    listTypeX[nY++] = int.Parse(DS[1]);
+                }
 
-            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+                String sql = "\r\n\r\n[\r\n";
+
+                String[] s1 = Regex.Split(dulieu, "\r\n");
+
+                for (int i = 0; i < s1.Length; i++)
+                {
+                    String[] s2 = s1[i].Split('\t');
+
+                    String s = "  {\r\n    ";
+
+                    for (int j = 0; j < s2.Length; j++)
+                    {
+
+                        if (listTypeX[j] == 1)
+                            s += "\"" + nameType[j] + "\" : " + s2[j];
+                        else
+                        if (listTypeX[j] == 2)
+                            s += "\"" + nameType[j] + "\" : \"" + s2[j] + "\"";
+                        else
+                        if (listTypeX[j] == 3)
+                            s += "\"" + nameType[j] + "\" : '" + s2[j] + "'";
+
+                        if (j < s2.Length - 1)
+                            s += ",\r\n    ";
+                        else
+                            s += "\r\n  }";
+                    }
+
+                    if (i < s1.Length - 1)
+                        s += ",\r\n";
+                    else
+                        s += "\r\n]";
+                    sql += s;
+                }
+
+                //TextCopy.ClipboardService.SetText(sql);
+
+                //// sql = sql.Replace("\r\n", "<br>");
+                nix = sql;
+                sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
+
+                Calendar soi = CultureInfo.InvariantCulture.Calendar;
+                var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
+                if (string.IsNullOrEmpty(chim)) chim = "Default";
+                var cuctac = soi.AddHours(DateTime.UtcNow, 7) + "_" + chim;
+                var sox = (f.ContainsKey("resultX") == false || f["resultX"] == "false") ? Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt") : Path.Combine(_webHostEnvironment.WebRootPath, "ResultExternal", "data.txt");
+                TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt";
+                new FileInfo(sox).Create().Dispose();
+                System.IO.File.WriteAllText(sox, nix);
+                ViewBag.Result = sql;
+
+                ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+                if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
                 if (exter == false)
                     return View();
-               else { if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]); return Ok(new { result = "http://"+Request.Host+ "/POST_DataResult/" + TempData["fileResult"].ToString().Replace(" ","%20") }); }
+                else
+                {
+                    if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+                    return Ok(new
+                    {
+                        result = "http://" + Request.Host + "/POST_DataResult/" + TempData["fileResult"].ToString().Replace(" ", "%20")
+                    });
+                }
             }
             catch (Exception ex)
             {
@@ -483,10 +748,26 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");                 }
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty;
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];
+                if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")
+                {
+                    Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
+                }
                 if (exter == false)
-                    return RedirectToAction("Error", new { exception = "true" });
-                return Ok(new { error = HttpContext.Session.GetObject<string>("error_exception_log") });
+                    return RedirectToAction("Error", new
+                    {
+                        exception = "true"
+                    });
+                return Ok(new
+                {
+                    error = HttpContext.Session.GetObject<string>("error_exception_log")
+                });
             }
         }
 
@@ -495,10 +776,55 @@ namespace MyWebPlay.Controllers
         [HttpGet]
         public ActionResult Copy_CreateDatabase()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            khoawebsiteClient(null);
+            var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
             {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+            if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+            if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+            if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+            if (HttpContext.Session.GetString("TuyetDoi") != null)
+            {
+                TempData["UyTin"] = "true";
+                var td = HttpContext.Session.GetString("TuyetDoi");
+                if (td == "true")
+                {
+                    TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                }
+                else
+                {
+                    TempData["TestTuyetDoi"] = "false";
+                }
+            }
+            if (TempData["tathoatdong"] == "true")
+            {
+                return RedirectToAction("Error");
+            }
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+            {
+                HttpContext.Session.Remove("userIP");
+                HttpContext.Session.SetString("userIP", "0.0.0.0");
                 TempData["skipIP"] = "true";
             }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
@@ -518,18 +844,72 @@ namespace MyWebPlay.Controllers
             var nix = sql;
             sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
 
-              Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = sql;
-            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
-            return View("SQL_InsertDoc","Home");
+            Calendar soi = CultureInfo.InvariantCulture.Calendar;
+            var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
+            if (string.IsNullOrEmpty(chim)) chim = "Default";
+            var cuctac = soi.AddHours(DateTime.UtcNow, 7) + "_" + chim;
+            var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt");
+            TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt";
+            new FileInfo(sox).Create().Dispose();
+            System.IO.File.WriteAllText(sox, nix);
+            ViewBag.Result = sql;
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            return View("SQL_InsertDoc", "Home");
         }
 
         [HttpGet]
         public ActionResult Copy_BackupDatabase1()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            khoawebsiteClient(null);
+            var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
             {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+            if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+            if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+            if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+            if (HttpContext.Session.GetString("TuyetDoi") != null)
+            {
+                TempData["UyTin"] = "true";
+                var td = HttpContext.Session.GetString("TuyetDoi");
+                if (td == "true")
+                {
+                    TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                }
+                else
+                {
+                    TempData["TestTuyetDoi"] = "false";
+                }
+            }
+            if (TempData["tathoatdong"] == "true")
+            {
+                return RedirectToAction("Error");
+            }
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+            {
+                HttpContext.Session.Remove("userIP");
+                HttpContext.Session.SetString("userIP", "0.0.0.0");
                 TempData["skipIP"] = "true";
             }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
@@ -550,19 +930,73 @@ namespace MyWebPlay.Controllers
             var nix = sql;
             sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
 
-              Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt");  TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = sql;
+            Calendar soi = CultureInfo.InvariantCulture.Calendar;
+            var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
+            if (string.IsNullOrEmpty(chim)) chim = "Default";
+            var cuctac = soi.AddHours(DateTime.UtcNow, 7) + "_" + chim;
+            var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt");
+            TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt";
+            new FileInfo(sox).Create().Dispose();
+            System.IO.File.WriteAllText(sox, nix);
+            ViewBag.Result = sql;
 
-            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
         [HttpGet]
         public ActionResult Copy_BackupDatabase2()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            khoawebsiteClient(null);
+            var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
             {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+            if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+            if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+            if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+            if (HttpContext.Session.GetString("TuyetDoi") != null)
+            {
+                TempData["UyTin"] = "true";
+                var td = HttpContext.Session.GetString("TuyetDoi");
+                if (td == "true")
+                {
+                    TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                }
+                else
+                {
+                    TempData["TestTuyetDoi"] = "false";
+                }
+            }
+            if (TempData["tathoatdong"] == "true")
+            {
+                return RedirectToAction("Error");
+            }
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+            {
+                HttpContext.Session.Remove("userIP");
+                HttpContext.Session.SetString("userIP", "0.0.0.0");
                 TempData["skipIP"] = "true";
             }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
@@ -577,24 +1011,78 @@ namespace MyWebPlay.Controllers
             }
             khoawebsiteClient(listIP);
             //TextCopy.ClipboardService.SetText("backup database SinhVien\r\nto disk = 'D:\\SinhVien.bak'\r\nwith password = '12345'");
-            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
 
             String sql = "\r\n\r\nbackup database SinhVien\r\nto disk = 'D:\\SinhVien.bak'\r\nwith password = '12345'";
             // sql = sql.Replace("\r\n", "<br>");
             var nix = sql;
             sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
 
-              Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = sql;
+            Calendar soi = CultureInfo.InvariantCulture.Calendar;
+            var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
+            if (string.IsNullOrEmpty(chim)) chim = "Default";
+            var cuctac = soi.AddHours(DateTime.UtcNow, 7) + "_" + chim;
+            var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt");
+            TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt";
+            new FileInfo(sox).Create().Dispose();
+            System.IO.File.WriteAllText(sox, nix);
+            ViewBag.Result = sql;
             return View("SQL_InsertDoc", "Home");
         }
 
         [HttpGet]
         public ActionResult Copy_RestoreDatabase1()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            khoawebsiteClient(null);
+            var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
             {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+            if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+            if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+            if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+            if (HttpContext.Session.GetString("TuyetDoi") != null)
+            {
+                TempData["UyTin"] = "true";
+                var td = HttpContext.Session.GetString("TuyetDoi");
+                if (td == "true")
+                {
+                    TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                }
+                else
+                {
+                    TempData["TestTuyetDoi"] = "false";
+                }
+            }
+            if (TempData["tathoatdong"] == "true")
+            {
+                return RedirectToAction("Error");
+            }
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+            {
+                HttpContext.Session.Remove("userIP");
+                HttpContext.Session.SetString("userIP", "0.0.0.0");
                 TempData["skipIP"] = "true";
             }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
@@ -614,18 +1102,72 @@ namespace MyWebPlay.Controllers
             var nix = sql;
             sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
 
-              Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = sql;
-            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            Calendar soi = CultureInfo.InvariantCulture.Calendar;
+            var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
+            if (string.IsNullOrEmpty(chim)) chim = "Default";
+            var cuctac = soi.AddHours(DateTime.UtcNow, 7) + "_" + chim;
+            var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt");
+            TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt";
+            new FileInfo(sox).Create().Dispose();
+            System.IO.File.WriteAllText(sox, nix);
+            ViewBag.Result = sql;
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
         [HttpGet]
         public ActionResult Copy_RestoreDatabase2()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            khoawebsiteClient(null);
+            var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
             {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+            if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+            if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+            if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+            if (HttpContext.Session.GetString("TuyetDoi") != null)
+            {
+                TempData["UyTin"] = "true";
+                var td = HttpContext.Session.GetString("TuyetDoi");
+                if (td == "true")
+                {
+                    TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                }
+                else
+                {
+                    TempData["TestTuyetDoi"] = "false";
+                }
+            }
+            if (TempData["tathoatdong"] == "true")
+            {
+                return RedirectToAction("Error");
+            }
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+            {
+                HttpContext.Session.Remove("userIP");
+                HttpContext.Session.SetString("userIP", "0.0.0.0");
                 TempData["skipIP"] = "true";
             }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
@@ -645,18 +1187,72 @@ namespace MyWebPlay.Controllers
             var nix = sql;
             sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
 
-              Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = sql;
-            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            Calendar soi = CultureInfo.InvariantCulture.Calendar;
+            var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
+            if (string.IsNullOrEmpty(chim)) chim = "Default";
+            var cuctac = soi.AddHours(DateTime.UtcNow, 7) + "_" + chim;
+            var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt");
+            TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt";
+            new FileInfo(sox).Create().Dispose();
+            System.IO.File.WriteAllText(sox, nix);
+            ViewBag.Result = sql;
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
         [HttpGet]
         public ActionResult Copy_RestoreDatabase3()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            khoawebsiteClient(null);
+            var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
             {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+            if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+            if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+            if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+            if (HttpContext.Session.GetString("TuyetDoi") != null)
+            {
+                TempData["UyTin"] = "true";
+                var td = HttpContext.Session.GetString("TuyetDoi");
+                if (td == "true")
+                {
+                    TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                }
+                else
+                {
+                    TempData["TestTuyetDoi"] = "false";
+                }
+            }
+            if (TempData["tathoatdong"] == "true")
+            {
+                return RedirectToAction("Error");
+            }
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+            {
+                HttpContext.Session.Remove("userIP");
+                HttpContext.Session.SetString("userIP", "0.0.0.0");
                 TempData["skipIP"] = "true";
             }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
@@ -676,18 +1272,72 @@ namespace MyWebPlay.Controllers
             var nix = sql;
             sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
 
-              Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = sql;
-            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            Calendar soi = CultureInfo.InvariantCulture.Calendar;
+            var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
+            if (string.IsNullOrEmpty(chim)) chim = "Default";
+            var cuctac = soi.AddHours(DateTime.UtcNow, 7) + "_" + chim;
+            var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt");
+            TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt";
+            new FileInfo(sox).Create().Dispose();
+            System.IO.File.WriteAllText(sox, nix);
+            ViewBag.Result = sql;
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
         [HttpGet]
         public ActionResult Copy_RestoreDatabase4()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            khoawebsiteClient(null);
+            var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
             {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+            if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+            if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+            if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+            if (HttpContext.Session.GetString("TuyetDoi") != null)
+            {
+                TempData["UyTin"] = "true";
+                var td = HttpContext.Session.GetString("TuyetDoi");
+                if (td == "true")
+                {
+                    TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                }
+                else
+                {
+                    TempData["TestTuyetDoi"] = "false";
+                }
+            }
+            if (TempData["tathoatdong"] == "true")
+            {
+                return RedirectToAction("Error");
+            }
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+            {
+                HttpContext.Session.Remove("userIP");
+                HttpContext.Session.SetString("userIP", "0.0.0.0");
                 TempData["skipIP"] = "true";
             }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
@@ -707,18 +1357,72 @@ namespace MyWebPlay.Controllers
             var nix = sql;
             sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
 
-              Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = sql;
-            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            Calendar soi = CultureInfo.InvariantCulture.Calendar;
+            var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
+            if (string.IsNullOrEmpty(chim)) chim = "Default";
+            var cuctac = soi.AddHours(DateTime.UtcNow, 7) + "_" + chim;
+            var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt");
+            TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt";
+            new FileInfo(sox).Create().Dispose();
+            System.IO.File.WriteAllText(sox, nix);
+            ViewBag.Result = sql;
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
         [HttpGet]
         public ActionResult Copy_AttachDatabase()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            khoawebsiteClient(null);
+            var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
             {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+            if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+            if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+            if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+            if (HttpContext.Session.GetString("TuyetDoi") != null)
+            {
+                TempData["UyTin"] = "true";
+                var td = HttpContext.Session.GetString("TuyetDoi");
+                if (td == "true")
+                {
+                    TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                }
+                else
+                {
+                    TempData["TestTuyetDoi"] = "false";
+                }
+            }
+            if (TempData["tathoatdong"] == "true")
+            {
+                return RedirectToAction("Error");
+            }
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+            {
+                HttpContext.Session.Remove("userIP");
+                HttpContext.Session.SetString("userIP", "0.0.0.0");
                 TempData["skipIP"] = "true";
             }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
@@ -738,18 +1442,72 @@ namespace MyWebPlay.Controllers
             var nix = sql;
             sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
 
-              Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = sql;
-            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            Calendar soi = CultureInfo.InvariantCulture.Calendar;
+            var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
+            if (string.IsNullOrEmpty(chim)) chim = "Default";
+            var cuctac = soi.AddHours(DateTime.UtcNow, 7) + "_" + chim;
+            var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt");
+            TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt";
+            new FileInfo(sox).Create().Dispose();
+            System.IO.File.WriteAllText(sox, nix);
+            ViewBag.Result = sql;
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
         [HttpGet]
         public ActionResult Copy_DetachDatabase()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            khoawebsiteClient(null);
+            var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
             {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+            if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+            if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+            if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+            if (HttpContext.Session.GetString("TuyetDoi") != null)
+            {
+                TempData["UyTin"] = "true";
+                var td = HttpContext.Session.GetString("TuyetDoi");
+                if (td == "true")
+                {
+                    TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                }
+                else
+                {
+                    TempData["TestTuyetDoi"] = "false";
+                }
+            }
+            if (TempData["tathoatdong"] == "true")
+            {
+                return RedirectToAction("Error");
+            }
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+            {
+                HttpContext.Session.Remove("userIP");
+                HttpContext.Session.SetString("userIP", "0.0.0.0");
                 TempData["skipIP"] = "true";
             }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
@@ -769,18 +1527,72 @@ namespace MyWebPlay.Controllers
             var nix = sql;
             sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
 
-              Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = sql;
-            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            Calendar soi = CultureInfo.InvariantCulture.Calendar;
+            var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
+            if (string.IsNullOrEmpty(chim)) chim = "Default";
+            var cuctac = soi.AddHours(DateTime.UtcNow, 7) + "_" + chim;
+            var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt");
+            TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt";
+            new FileInfo(sox).Create().Dispose();
+            System.IO.File.WriteAllText(sox, nix);
+            ViewBag.Result = sql;
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
         [HttpGet]
         public ActionResult Copy_Index()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            khoawebsiteClient(null);
+            var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
             {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+            if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+            if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+            if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+            if (HttpContext.Session.GetString("TuyetDoi") != null)
+            {
+                TempData["UyTin"] = "true";
+                var td = HttpContext.Session.GetString("TuyetDoi");
+                if (td == "true")
+                {
+                    TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                }
+                else
+                {
+                    TempData["TestTuyetDoi"] = "false";
+                }
+            }
+            if (TempData["tathoatdong"] == "true")
+            {
+                return RedirectToAction("Error");
+            }
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+            {
+                HttpContext.Session.Remove("userIP");
+                HttpContext.Session.SetString("userIP", "0.0.0.0");
                 TempData["skipIP"] = "true";
             }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
@@ -800,18 +1612,72 @@ namespace MyWebPlay.Controllers
             var nix = sql;
             sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
 
-              Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = sql;
-            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            Calendar soi = CultureInfo.InvariantCulture.Calendar;
+            var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
+            if (string.IsNullOrEmpty(chim)) chim = "Default";
+            var cuctac = soi.AddHours(DateTime.UtcNow, 7) + "_" + chim;
+            var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt");
+            TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt";
+            new FileInfo(sox).Create().Dispose();
+            System.IO.File.WriteAllText(sox, nix);
+            ViewBag.Result = sql;
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
         [HttpGet]
         public ActionResult Copy_View()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            khoawebsiteClient(null);
+            var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
             {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+            if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+            if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+            if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+            if (HttpContext.Session.GetString("TuyetDoi") != null)
+            {
+                TempData["UyTin"] = "true";
+                var td = HttpContext.Session.GetString("TuyetDoi");
+                if (td == "true")
+                {
+                    TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                }
+                else
+                {
+                    TempData["TestTuyetDoi"] = "false";
+                }
+            }
+            if (TempData["tathoatdong"] == "true")
+            {
+                return RedirectToAction("Error");
+            }
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+            {
+                HttpContext.Session.Remove("userIP");
+                HttpContext.Session.SetString("userIP", "0.0.0.0");
                 TempData["skipIP"] = "true";
             }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
@@ -831,18 +1697,72 @@ namespace MyWebPlay.Controllers
             var nix = sql;
             sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
 
-              Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = sql;
-            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            Calendar soi = CultureInfo.InvariantCulture.Calendar;
+            var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
+            if (string.IsNullOrEmpty(chim)) chim = "Default";
+            var cuctac = soi.AddHours(DateTime.UtcNow, 7) + "_" + chim;
+            var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt");
+            TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt";
+            new FileInfo(sox).Create().Dispose();
+            System.IO.File.WriteAllText(sox, nix);
+            ViewBag.Result = sql;
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
         [HttpGet]
         public ActionResult Copy_Procedure()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            khoawebsiteClient(null);
+            var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
             {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+            if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+            if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+            if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+            if (HttpContext.Session.GetString("TuyetDoi") != null)
+            {
+                TempData["UyTin"] = "true";
+                var td = HttpContext.Session.GetString("TuyetDoi");
+                if (td == "true")
+                {
+                    TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                }
+                else
+                {
+                    TempData["TestTuyetDoi"] = "false";
+                }
+            }
+            if (TempData["tathoatdong"] == "true")
+            {
+                return RedirectToAction("Error");
+            }
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+            {
+                HttpContext.Session.Remove("userIP");
+                HttpContext.Session.SetString("userIP", "0.0.0.0");
                 TempData["skipIP"] = "true";
             }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
@@ -862,18 +1782,72 @@ namespace MyWebPlay.Controllers
             var nix = sql;
             sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
 
-              Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = sql;
-            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            Calendar soi = CultureInfo.InvariantCulture.Calendar;
+            var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
+            if (string.IsNullOrEmpty(chim)) chim = "Default";
+            var cuctac = soi.AddHours(DateTime.UtcNow, 7) + "_" + chim;
+            var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt");
+            TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt";
+            new FileInfo(sox).Create().Dispose();
+            System.IO.File.WriteAllText(sox, nix);
+            ViewBag.Result = sql;
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
         [HttpGet]
         public ActionResult Copy_Function()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            khoawebsiteClient(null);
+            var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
             {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+            if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+            if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+            if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+            if (HttpContext.Session.GetString("TuyetDoi") != null)
+            {
+                TempData["UyTin"] = "true";
+                var td = HttpContext.Session.GetString("TuyetDoi");
+                if (td == "true")
+                {
+                    TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                }
+                else
+                {
+                    TempData["TestTuyetDoi"] = "false";
+                }
+            }
+            if (TempData["tathoatdong"] == "true")
+            {
+                return RedirectToAction("Error");
+            }
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+            {
+                HttpContext.Session.Remove("userIP");
+                HttpContext.Session.SetString("userIP", "0.0.0.0");
                 TempData["skipIP"] = "true";
             }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
@@ -887,24 +1861,78 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Index");
             }
             khoawebsiteClient(listIP);
-            //TextCopy.ClipboardService.SetText("-- Trả về giá trị\r\nCREATE FUNCTION <Tên Function> (@<Danh sách các tham số và kiểu dữ liệu>) RETURNS <Kiểu dữ liệu trả về>\r\nAS\r\n\r\n\tBEGIN\r\n\r\nDECLARE @<Danh sách các biến và kiểu dữ liệu>\r\nSET @<Tên biến> = <Giá Trị Gán>\r\nIF (<...>)\r\n(<...>)\r\nELSE\r\n<...>\r\nRETURN <Biến cần trả về>\r\n\r\n\tEND\r\n\r\n-- Trả về Table (không có điều kiện)\r\nCREATE FUNCTION <Tên Function> (@<Danh sách các tham số và kiểu dữ liệu>) RETURNS Table\r\nAS\r\nRETURN (<Câu lệnh Select>)\r\n\r\n-- Trả về Table (có điều kiện)\r\nCREATE FUNCTION <Tên Function> (@<Danh sách các tham số và kiểu dữ liệu>) RETURNS @<Tên biến bảng> Table (<Danh sách các cột cần xuất cùng kiểu dữ liệu>)\r\nAS\r\n\tBEGIN\r\n\r\nIF(<...>) INSERT INTO @<Tên biến bảng>\r\n<Câu lệnh Select - Chỉ Select với đúng tên và đúng số lượng cột đã khai báo ở trên>\r\nELSE\r\n<...Tương tự...>\r\n\r\n\tEND\r\n\r\n---- Thực thi Function\r\nSELECT DBO.<Tên Function>(@<Danh sách các giá trị của tham số)\r\n");
+            //TextCopy.ClipboardService.SetText("-- Trả về giá trị\r\nCREATE FUNCTION <Tên Function> (@<Danh sách các tham số và kiểu dữ liệu>) RETURNS <Kiểu dữ liệu trả về>\r\nAS\r\n\r\n\tBEGIN\r\n\r\nDECLARE @<Danh sách các biến và kiểu dữ liệu>\r\nSET @<Tên biến>= <Giá Trị Gán>\r\nIF (<...>)\r\n(<...>)\r\nELSE\r\n<...>\r\nRETURN <Biến cần trả về>\r\n\r\n\tEND\r\n\r\n-- Trả về Table (không có điều kiện)\r\nCREATE FUNCTION <Tên Function> (@<Danh sách các tham số và kiểu dữ liệu>) RETURNS Table\r\nAS\r\nRETURN (<Câu lệnh Select>)\r\n\r\n-- Trả về Table (có điều kiện)\r\nCREATE FUNCTION <Tên Function> (@<Danh sách các tham số và kiểu dữ liệu>) RETURNS @<Tên biến bảng> Table (<Danh sách các cột cần xuất cùng kiểu dữ liệu>)\r\nAS\r\n\tBEGIN\r\n\r\nIF(<...>) INSERT INTO @<Tên biến bảng>\r\n<Câu lệnh Select - Chỉ Select với đúng tên và đúng số lượng cột đã khai báo ở trên>\r\nELSE\r\n<...Tương tự...>\r\n\r\n\tEND\r\n\r\n---- Thực thi Function\r\nSELECT DBO.<Tên Function>(@<Danh sách các giá trị của tham số)\r\n");
             String sql = "\r\n- Trả về giá trị\r\nCREATE FUNCTION &lt;Tên Function&gt; (@&lt;Danh sách các tham số và kiểu dữ liệu&gt;) RETURNS &lt;Kiểu dữ liệu trả về&gt;\r\nAS\r\n\r\n\tBEGIN\r\n\r\nDECLARE @&lt;Danh sách các biến và kiểu dữ liệu&gt;\r\nSET @&lt;Tên biến&gt; = &lt;Giá Trị Gán&gt;\r\nIF (&lt;...&gt;)\r\n(&lt;...&gt;)\r\nELSE\r\n&lt;...&gt;\r\nRETURN &lt;Biến cần trả về&gt;\r\n\r\n\tEND\r\n\r\n-- Trả về Table (không có điều kiện)\r\nCREATE FUNCTION &lt;Tên Function&gt; (@&lt;Danh sách các tham số và kiểu dữ liệu&gt;) RETURNS Table\r\nAS\r\nRETURN (&lt;Câu lệnh Select&gt;)\r\n\r\n-- Trả về Table (có điều kiện)\r\nCREATE FUNCTION &lt;Tên Function&gt; (@&lt;Danh sách các tham số và kiểu dữ liệu&gt;) RETURNS @&lt;Tên biến bảng&gt; Table (&lt;Danh sách các cột cần xuất cùng kiểu dữ liệu&gt;)\r\nAS\r\n\tBEGIN\r\n\r\nIF(&lt;...&gt;) INSERT INTO @&lt;Tên biến bảng&gt;\r\n&lt;Câu lệnh Select - Chỉ Select với đúng tên và đúng số lượng cột đã khai báo ở trên&gt;\r\nELSE\r\n&lt;...Tương tự...&gt;\r\n\r\n\tEND\r\n\r\n---- Thực thi Function\r\nSELECT DBO.&lt;Tên Function&gt;(@&lt;Danh sách các giá trị của tham số)\r\n";
             // sql = sql.Replace("\r\n", "<br>");
             var nix = sql;
             sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
 
-              Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = sql;
-            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            Calendar soi = CultureInfo.InvariantCulture.Calendar;
+            var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
+            if (string.IsNullOrEmpty(chim)) chim = "Default";
+            var cuctac = soi.AddHours(DateTime.UtcNow, 7) + "_" + chim;
+            var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt");
+            TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt";
+            new FileInfo(sox).Create().Dispose();
+            System.IO.File.WriteAllText(sox, nix);
+            ViewBag.Result = sql;
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
         [HttpGet]
         public ActionResult Copy_Trigger()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            khoawebsiteClient(null);
+            var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
             {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+            if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+            if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+            if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+            if (HttpContext.Session.GetString("TuyetDoi") != null)
+            {
+                TempData["UyTin"] = "true";
+                var td = HttpContext.Session.GetString("TuyetDoi");
+                if (td == "true")
+                {
+                    TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                }
+                else
+                {
+                    TempData["TestTuyetDoi"] = "false";
+                }
+            }
+            if (TempData["tathoatdong"] == "true")
+            {
+                return RedirectToAction("Error");
+            }
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+            {
+                HttpContext.Session.Remove("userIP");
+                HttpContext.Session.SetString("userIP", "0.0.0.0");
                 TempData["skipIP"] = "true";
             }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
@@ -924,18 +1952,72 @@ namespace MyWebPlay.Controllers
             var nix = sql;
             sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
 
-              Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = sql;
-            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            Calendar soi = CultureInfo.InvariantCulture.Calendar;
+            var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
+            if (string.IsNullOrEmpty(chim)) chim = "Default";
+            var cuctac = soi.AddHours(DateTime.UtcNow, 7) + "_" + chim;
+            var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt");
+            TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt";
+            new FileInfo(sox).Create().Dispose();
+            System.IO.File.WriteAllText(sox, nix);
+            ViewBag.Result = sql;
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
         [HttpGet]
         public ActionResult Copy_AddColumn()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            khoawebsiteClient(null);
+            var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
             {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+            if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+            if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+            if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+            if (HttpContext.Session.GetString("TuyetDoi") != null)
+            {
+                TempData["UyTin"] = "true";
+                var td = HttpContext.Session.GetString("TuyetDoi");
+                if (td == "true")
+                {
+                    TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                }
+                else
+                {
+                    TempData["TestTuyetDoi"] = "false";
+                }
+            }
+            if (TempData["tathoatdong"] == "true")
+            {
+                return RedirectToAction("Error");
+            }
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+            {
+                HttpContext.Session.Remove("userIP");
+                HttpContext.Session.SetString("userIP", "0.0.0.0");
                 TempData["skipIP"] = "true";
             }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
@@ -955,18 +2037,72 @@ namespace MyWebPlay.Controllers
             var nix = sql;
             sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
 
-              Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = sql;
-            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            Calendar soi = CultureInfo.InvariantCulture.Calendar;
+            var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
+            if (string.IsNullOrEmpty(chim)) chim = "Default";
+            var cuctac = soi.AddHours(DateTime.UtcNow, 7) + "_" + chim;
+            var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt");
+            TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt";
+            new FileInfo(sox).Create().Dispose();
+            System.IO.File.WriteAllText(sox, nix);
+            ViewBag.Result = sql;
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
         [HttpGet]
         public ActionResult Copy_DeleteColumn()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            khoawebsiteClient(null);
+            var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
             {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+            if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+            if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+            if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+            if (HttpContext.Session.GetString("TuyetDoi") != null)
+            {
+                TempData["UyTin"] = "true";
+                var td = HttpContext.Session.GetString("TuyetDoi");
+                if (td == "true")
+                {
+                    TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                }
+                else
+                {
+                    TempData["TestTuyetDoi"] = "false";
+                }
+            }
+            if (TempData["tathoatdong"] == "true")
+            {
+                return RedirectToAction("Error");
+            }
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+            {
+                HttpContext.Session.Remove("userIP");
+                HttpContext.Session.SetString("userIP", "0.0.0.0");
                 TempData["skipIP"] = "true";
             }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
@@ -986,18 +2122,72 @@ namespace MyWebPlay.Controllers
             var nix = sql;
             sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
 
-              Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = sql;
-            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            Calendar soi = CultureInfo.InvariantCulture.Calendar;
+            var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
+            if (string.IsNullOrEmpty(chim)) chim = "Default";
+            var cuctac = soi.AddHours(DateTime.UtcNow, 7) + "_" + chim;
+            var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt");
+            TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt";
+            new FileInfo(sox).Create().Dispose();
+            System.IO.File.WriteAllText(sox, nix);
+            ViewBag.Result = sql;
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
         [HttpGet]
         public ActionResult Copy_RepairColumn1()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            khoawebsiteClient(null);
+            var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
             {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+            if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+            if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+            if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+            if (HttpContext.Session.GetString("TuyetDoi") != null)
+            {
+                TempData["UyTin"] = "true";
+                var td = HttpContext.Session.GetString("TuyetDoi");
+                if (td == "true")
+                {
+                    TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                }
+                else
+                {
+                    TempData["TestTuyetDoi"] = "false";
+                }
+            }
+            if (TempData["tathoatdong"] == "true")
+            {
+                return RedirectToAction("Error");
+            }
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+            {
+                HttpContext.Session.Remove("userIP");
+                HttpContext.Session.SetString("userIP", "0.0.0.0");
                 TempData["skipIP"] = "true";
             }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
@@ -1017,18 +2207,72 @@ namespace MyWebPlay.Controllers
             var nix = sql;
             sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
 
-              Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = sql;
-            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            Calendar soi = CultureInfo.InvariantCulture.Calendar;
+            var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
+            if (string.IsNullOrEmpty(chim)) chim = "Default";
+            var cuctac = soi.AddHours(DateTime.UtcNow, 7) + "_" + chim;
+            var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt");
+            TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt";
+            new FileInfo(sox).Create().Dispose();
+            System.IO.File.WriteAllText(sox, nix);
+            ViewBag.Result = sql;
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
         [HttpGet]
         public ActionResult Copy_RepairColumn2()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            khoawebsiteClient(null);
+            var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
             {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+            if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+            if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+            if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+            if (HttpContext.Session.GetString("TuyetDoi") != null)
+            {
+                TempData["UyTin"] = "true";
+                var td = HttpContext.Session.GetString("TuyetDoi");
+                if (td == "true")
+                {
+                    TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                }
+                else
+                {
+                    TempData["TestTuyetDoi"] = "false";
+                }
+            }
+            if (TempData["tathoatdong"] == "true")
+            {
+                return RedirectToAction("Error");
+            }
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+            {
+                HttpContext.Session.Remove("userIP");
+                HttpContext.Session.SetString("userIP", "0.0.0.0");
                 TempData["skipIP"] = "true";
             }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
@@ -1048,18 +2292,72 @@ namespace MyWebPlay.Controllers
             var nix = sql;
             sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
 
-              Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = sql;
-            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            Calendar soi = CultureInfo.InvariantCulture.Calendar;
+            var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
+            if (string.IsNullOrEmpty(chim)) chim = "Default";
+            var cuctac = soi.AddHours(DateTime.UtcNow, 7) + "_" + chim;
+            var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt");
+            TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt";
+            new FileInfo(sox).Create().Dispose();
+            System.IO.File.WriteAllText(sox, nix);
+            ViewBag.Result = sql;
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
         [HttpGet]
         public ActionResult Copy_RepairColumn3()
         {
-             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
+            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+            khoawebsiteClient(null);
+            var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
             {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+            if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+            if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+            if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+            if (HttpContext.Session.GetString("TuyetDoi") != null)
+            {
+                TempData["UyTin"] = "true";
+                var td = HttpContext.Session.GetString("TuyetDoi");
+                if (td == "true")
+                {
+                    TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                }
+                else
+                {
+                    TempData["TestTuyetDoi"] = "false";
+                }
+            }
+            if (TempData["tathoatdong"] == "true")
+            {
+                return RedirectToAction("Error");
+            }
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+            {
+                HttpContext.Session.Remove("userIP");
+                HttpContext.Session.SetString("userIP", "0.0.0.0");
                 TempData["skipIP"] = "true";
             }
             TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
@@ -1079,8 +2377,17 @@ namespace MyWebPlay.Controllers
             var nix = sql;
             sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
 
-              Calendar soi = CultureInfo.InvariantCulture.Calendar; var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home",""); if (string.IsNullOrEmpty(chim)) chim = "Default"; var cuctac = soi.AddHours(DateTime.UtcNow, 7)+"_"+chim; var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt"); TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "")  + "_dataresult.txt"; new FileInfo(sox).Create().Dispose(); System.IO.File.WriteAllText(sox, nix); ViewBag.Result = sql;
-            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";  if(TempData["ConnectLinkDown"] == "true")  return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            Calendar soi = CultureInfo.InvariantCulture.Calendar;
+            var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
+            if (string.IsNullOrEmpty(chim)) chim = "Default";
+            var cuctac = soi.AddHours(DateTime.UtcNow, 7) + "_" + chim;
+            var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt");
+            TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt";
+            new FileInfo(sox).Create().Dispose();
+            System.IO.File.WriteAllText(sox, nix);
+            ViewBag.Result = sql;
+            ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
     }

@@ -1,73 +1,65 @@
 ﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
-     var id;
+    var id;
     var so = 0;
     function xongroi()
     {
-        document.getElementById("xong").style.display = "none";
-        document.getElementById("loading").style.display = "inline-block";
-        document.getElementById("chuoi").readOnly = true;
-        id = setInterval(myAlertX, 1000);
+       document.getElementById("xong").style.display = "none";
+       document.getElementById("loading").style.display = "inline-block";
+       document.getElementById("chuoi").readOnly = true;
+       id = setInterval(myAlertX, 1000);
     }
-
+    
     var xw = new Number('@TempData["Time_Waiting"]') * 3;
-
+    
     function myAlertX()
     {
-        if (so == xw)
-        {
-            document.getElementById("ok").click();
-             clearInterval(id);
-            return;
-        }
-                so++;
+       if (so == xw)
+       {
+           document.getElementById("ok").click();
+            clearInterval(id);
+           return;
+       }
+               so++;
     }
 </script>
-    <h2 style="text-align:center">File Question/Answer Theo Hệ Thống (dành cho admin hoặc các user hiểu biết chức năng)</h2>
-
-    <h3 style="color:deeppink">@Html.Raw(ViewBag.KetQua)</h3>
-
-        <br />
-
-    @if ((ViewBag.KetQua == null || ViewBag.KetQua == "") || (ViewBag.KetQua != null && ViewBag.KetQua.ToString().Contains("[ERROR]") == true))
-    {
+<h2 style="text-align:center">File Question/Answer Theo Hệ Thống (dành cho admin hoặc các user hiểu biết chức năng)</h2>
+<h3 style="color:deeppink">@Html.Raw(ViewBag.KetQua)</h3>
+<br />
+@if ((ViewBag.KetQua == null || ViewBag.KetQua == "") || (ViewBag.KetQua != null && ViewBag.KetQua.ToString().Contains("[ERROR]") == true))
+{
 <table align="center">
-
-        @using (Html.BeginForm())
-        {
-            @Html.ValidationSummary(true)
-
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <br>
-                    <b>Dán bài question/answer của bạn tại đây (xem ví dụ tương đương) :</b>
-                    <br>
-                    <b style="color:deeppink">Để tránh trường hợp có thể xảy ra, tốt nhất bạn nên lưu và thực hiện nội dung question answer đâu đó trên local và sao chép chúng thông qua vào trường điền dưới đây...</b>
-                    <br>
-                    <textarea rows="20" cols="150" id="chuoi" name="txtChuoi" autofocus>@ViewBag.ChuoiVD</textarea>
-                </td>
-            </tr>
-
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <input id="ok" type="Submit" value="Kết Quả" hidden />
-                    <br>
-                    <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
-                </td>
-            </tr>
-        }
-
-        <tr style="height:40px" id="xong">
-            <td></td>
-            <td>
-                <button><b onclick="xongroi()">XỬ LÝ</b></button>
-            </td>
-        </tr>
-
-        </table>
+    @using (Html.BeginForm())
+    {
+    @Html.ValidationSummary(true)
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <br>
+            <b>Dán bài question/answer của bạn tại đây (xem ví dụ tương đương) :</b>
+            <br>
+            <b style="color:deeppink">Để tránh trường hợp có thể xảy ra, tốt nhất bạn nên lưu và thực hiện nội dung question answer đâu đó trên local và sao chép chúng thông qua vào trường điền dưới đây...</b>
+            <br>
+            <textarea rows="20" cols="150" id="chuoi" name="txtChuoi" autofocus>@ViewBag.ChuoiVD</textarea>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input id="ok" type="Submit" value="Kết Quả" hidden />
+            <br>
+            <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
+        </td>
+    </tr>
     }
+    <tr style="height:40px" id="xong">
+        <td></td>
+        <td>
+            <button><b onclick="xongroi()">XỬ LÝ</b></button>
+        </td>
+    </tr>
+</table>
+}

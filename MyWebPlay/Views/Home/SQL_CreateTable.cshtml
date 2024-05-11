@@ -1,89 +1,79 @@
 ﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
-      function xoaValue(ele)
+    function xoaValue(ele)
     {
-            document.getElementById(ele).value = "";
-            document.getElementById(ele).focus();
+          document.getElementById(ele).value = "";
+          document.getElementById(ele).focus();
     }
 </script>
 <table align="center">
     <h2 style="text-align:center">SQL - CREATE TABLE</h2>
-
     <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
-
     @using (Html.BeginForm())
     {
-        @Html.ValidationSummary(true)
-
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                <br>
-                    <a href="#xuly" onclick="xoaValue('table')"><b>Tên danh sách Table (thứ tự theo mẫu) : </b></a>
-                    <br>
-                <input type="text" size="50" name="Table" id="table" value="SINHVIEN-MONHOC-DIEMSINHVIEN">
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
-            </td>
-        </tr>
-        <br />
-        <br />
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                <br>
-                    <a href="#xuly" onclick="xoaValue('key')"><b>Nhập số lượng cột cần làm khoá chính (lưu ý sẽ lấy các cột đầu tiên - ví dụ)</b></a>
-                    <br>
-                <input type="text" size="50" name="Key" id="key" value="1-1-2">
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
-            </td>
-        </tr>
-        <br />
-        <br />
-        <tr style="height:40px">
-            <td></td>
-            <td>
-                <br>
-                    <a href="#xuly" onclick="xoaValue('dulieu')"><b>Nhập dãy dữ liệu các Table (theo mẫu và lưu ý) :</b></a>
-                <br>
-                <textarea name="DuLieu" id="dulieu" cols="100" rows="50">MSSV VARCHAR(5)
+    @Html.ValidationSummary(true)
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <a href="#xuly" onclick="xoaValue('table')"><b>Tên danh sách Table (thứ tự theo mẫu) : </b></a>
+            <br>
+            <input type="text" size="50" name="Table" id="table" value="SINHVIEN-MONHOC-DIEMSINHVIEN">
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+        </td>
+    </tr>
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <a href="#xuly" onclick="xoaValue('key')"><b>Nhập số lượng cột cần làm khoá chính (lưu ý sẽ lấy các cột đầu tiên - ví dụ)</b></a>
+            <br>
+            <input type="text" size="50" name="Key" id="key" value="1-1-2">
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+        </td>
+    </tr>
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <br>
+            <a href="#xuly" onclick="xoaValue('dulieu')"><b>Nhập dãy dữ liệu các Table (theo mẫu và lưu ý) :</b></a>
+            <br>
+            <textarea name="DuLieu" id="dulieu" cols="100" rows="50">MSSV VARCHAR(5)
 HOTEN NVARCHAR(30)
 PHAI BIT
 NTNS DATE
-
 MAMH VARCHAR(5)
 TENMONHOC NVARCHAR(30)
 SOTINCHI TINYINT
-
 MSSV VARCHAR(5) [SINHVIEN] MSSV
 MAMH VARCHAR(5) [MONHOC] MAMH
 DIEM FLOAT</textarea>
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
-            </td>
-        </tr>
-
-
-        <tr style="height:40px">
-            <td></td>
-            <td>
-                <input type="Submit" value="Kết Quả" />
-            </td>
-        </tr>
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input type="Submit" value="Kết Quả" />
+        </td>
+    </tr>
     }
 </table>
-
 <br /><br /><br />
 ******************************************************************************************************************************************************************************
-
 <br />
 <br />
 <br />
-
 <div id="hihi">
     @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
 </div>

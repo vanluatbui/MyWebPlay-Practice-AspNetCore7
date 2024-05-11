@@ -1,60 +1,53 @@
-﻿    @if (TempData["ViewSiteBasic"] == "true")
+﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
-      function xoaValue(ele)
+    function xoaValue(ele)
     {
-            document.getElementById(ele).value = "";
-            document.getElementById(ele).focus();
+          document.getElementById(ele).value = "";
+          document.getElementById(ele).focus();
     }
 </script>
 <table align="center">
     <h2 style="text-align:center">Xử Lý SQL 8</h2>
-
     <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
-
     @using (Html.BeginForm())
     {
-        @Html.ValidationSummary(true)
-
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                <a href="#xuly" onclick="xoaValue('table')"><b>Nhập tên table : </b></a>
-                <br>
-                <input type="text" name="txtTable" id="table" value="User" />
-                <br>
-                <b>Với 1 : trình bày theo name + type (từ file script) hoặc 2 : nguyên như sự ở Constants.cs (nhưng các type đều sẽ mặc định tất cả là nvarchar(max)?</b>
-                <br>
-                <input type="number" name="txtLoai" min="1" max="2" value="1" />
-                <br>
-               <a href="#xuly" onclick="xoaValue('field')"> <b>Nhập toàn bộ fields + type hiện có (lấy từ script sql file - tách nhau bởi Enter) hoặc liệt kê trong sự Constants : </b></a>
-                <br>
-                <textarea name="txtFields" id="field" cols="100" rows="12">Column1 nvarchar(10)
+    @Html.ValidationSummary(true)
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <a href="#xuly" onclick="xoaValue('table')"><b>Nhập tên table : </b></a>
+            <br>
+            <input type="text" name="txtTable" id="table" value="User" />
+            <br>
+            <b>Với 1 : trình bày theo name + type (từ file script) hoặc 2 : nguyên như sự ở Constants.cs (nhưng các type đều sẽ mặc định tất cả là nvarchar(max)?</b>
+            <br>
+            <input type="number" name="txtLoai" min="1" max="2" value="1" />
+            <br>
+            <a href="#xuly" onclick="xoaValue('field')"> <b>Nhập toàn bộ fields + type hiện có (lấy từ script sql file - tách nhau bởi Enter) hoặc liệt kê trong sự Constants : </b></a>
+            <br>
+            <textarea name="txtFields" id="field" cols="100" rows="12">Column1 nvarchar(10)
 Column2 int
 Column3 money
 Column4 varchar(5)
 Column5 datetime</textarea>
-            </td>
-        </tr>
-      
-        <tr style="height:40px">
-            <td></td>
-            <td><br>
-                <input type="Submit" value="Kết Quả" />
-            </td>
-        </tr>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td><br>
+            <input type="Submit" value="Kết Quả" />
+        </td>
+    </tr>
     }
 </table>
 <br /><br />
-
 ******************************************************************************************************************************************************************************
-
 <br />
 <br />
 <br />
-
 <div id="hihi">
-                @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
+    @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
 </div>

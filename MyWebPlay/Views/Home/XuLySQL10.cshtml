@@ -1,58 +1,51 @@
-﻿    @if (TempData["ViewSiteBasic"] == "true")
+﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
-      function xoaValue(ele)
+    function xoaValue(ele)
     {
-            document.getElementById(ele).value = "";
-            document.getElementById(ele).focus();
+          document.getElementById(ele).value = "";
+          document.getElementById(ele).focus();
     }
 </script>
 <table align="center">
     <h2 style="text-align:center">Xử Lý SQL 10</h2>
-
     <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
-
     @using (Html.BeginForm())
     {
-        @Html.ValidationSummary(true)
-
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-               <a href="#xuly" onclick="xoaValue('statement')"> <b>Nhập nội dung statement : </b></a>
-                <br>
-                <textarea name="txtStatement" id="statement" cols="100" rows="12">@ViewBag.Statement</textarea>
-                <br><br>
-                <a href="#xuly" onclick="xoaValue('replace')"><b>Nhập input [T-PLAY] output - replace params (cách nhau bởi Enter) : </b></a>
-                <br>
-                <textarea name="txtReplace" id="replace" cols="100" rows="12">@ViewBag.Replace</textarea>
-                <br><br>
-                 <a href="#xuly" onclick="xoaValue('param')"><b>Copy từ file SQL Db Xml và dán liệt kê các param + type của mỗi thành phần tại đây (xem ví dụ - cách nhau bởi Enter) : </b></a>
-                <br>
-                <textarea name="txtParam" id="param" cols="100" rows="12">@ViewBag.Param</textarea>
-                <br>
-<input type="checkbox" name="txtChon" /><b style="color:deeppink"> Gán mặc định tất cả các params đều thuộc dạng chuỗi</b>
-            </td>
-        </tr>
-      
-        <tr style="height:40px">
-            <td></td>
-            <td><br>
-                <input type="Submit" value="Kết Quả" />
-            </td>
-        </tr>
+    @Html.ValidationSummary(true)
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <a href="#xuly" onclick="xoaValue('statement')"> <b>Nhập nội dung statement : </b></a>
+            <br>
+            <textarea name="txtStatement" id="statement" cols="100" rows="12">@ViewBag.Statement</textarea>
+            <br><br>
+            <a href="#xuly" onclick="xoaValue('replace')"><b>Nhập input [T-PLAY] output - replace params (cách nhau bởi Enter) : </b></a>
+            <br>
+            <textarea name="txtReplace" id="replace" cols="100" rows="12">@ViewBag.Replace</textarea>
+            <br><br>
+            <a href="#xuly" onclick="xoaValue('param')"><b>Copy từ file SQL Db Xml và dán liệt kê các param + type của mỗi thành phần tại đây (xem ví dụ - cách nhau bởi Enter) : </b></a>
+            <br>
+            <textarea name="txtParam" id="param" cols="100" rows="12">@ViewBag.Param</textarea>
+            <br>
+            <input type="checkbox" name="txtChon" /><b style="color:deeppink"> Gán mặc định tất cả các params đều thuộc dạng chuỗi</b>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td><br>
+            <input type="Submit" value="Kết Quả" />
+        </td>
+    </tr>
     }
 </table>
 <br /><br />
-
 ******************************************************************************************************************************************************************************
-
 <br />
 <br />
 <br />
-
 <div id="hihi">
-                @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
+    @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
 </div>

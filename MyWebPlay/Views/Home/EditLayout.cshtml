@@ -1,6 +1,6 @@
 ﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
     function defaultlayout()
@@ -9,37 +9,32 @@
     }
 </script>
 <table align="center">
-
-      <h2 style="text-align:center">Edit Random Layout File&nbsp;&nbsp;&nbsp;&nbsp;<button style="color:orangered" onclick="defaultlayout()">LẤY NỘI DUNG LAYOUT MẶC ĐỊNH</button></h2>
-
+    <h2 style="text-align:center">Edit Random Layout File&nbsp;&nbsp;&nbsp;&nbsp;<button style="color:orangered" onclick="defaultlayout()">LẤY NỘI DUNG LAYOUT MẶC ĐỊNH</button></h2>
     @using(Html.BeginForm())
     {
-        
-     <tr style="height:40px">
-                <td></td>
-                <td>
-                    <input type="Submit" value="LƯU" />
-                    <br>
-                     <h4>@Html.ActionLink("Trở về", "RandomLayout")</h4>
-                </td>
-            </tr>
-
-        <tr style="height:40px">
-            <td></td>
-            <td>
-                <br>
-                <br>
-                    <textarea id="textX" rows="500" cols="150" name="txtText" autofocus>@ViewBag.Text</textarea>
-            </td>
-        </tr>
-
-         <tr style="height:40px">
-                <td></td>
-                <td>
-                    <input type="Submit" value="LƯU" />
-                    <br>
-                    <h4>@Html.ActionLink("Trở về", "RandomLayout")</h4>
-                </td>
-            </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input type="Submit" value="LƯU" />
+            <br>
+            <h4>@Html.ActionLink("Trở về", "RandomLayout")</h4>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <br>
+            <br>
+            <textarea id="textX" rows="500" cols="150" name="txtText" autofocus>@ViewBag.Text</textarea>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input type="Submit" value="LƯU" />
+            <br>
+            <h4>@Html.ActionLink("Trở về", "RandomLayout")</h4>
+        </td>
+    </tr>
     }
 </table>

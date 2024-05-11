@@ -1,17 +1,14 @@
 ﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <br />
 <h3 style="color:red"><a target="_blank" href="http://github.com/vanluatbui/WebBansach_AspNetMVC">Link xem project (đầy đủ) mẫu tất cả - Web Bán Sách MVC * [HD]</a></h3>
 <br>
-
 <br />
 <h3 style="color:red"><a target="_blank" href="http://github.com/vanluatbui/BigSchool_AspNetMVC">Link xem project (đầy đủ) mẫu tất cả - Web BigSchool MVC * [HD]</a></h3>
 <br>
-
 <h2 style="color :blue">[VÌ TÍNH CHẤT GẦN TƯƠNG TỰ, HÃY XEM THÊM VỀ PHẦN <a href="/Home/HD_Web_AspNetCore" target="_blank">ASP NET CORE</a> ĐỂ HIỂU ĐỦ RÕ HƠN ...] </h2>
-
 <br>
 <br>
 - Các file css, js hay hình ảnh lưu trữ trong /Content hoặc cũng có thể tạo thư mục riêng bên ngoài<br>
@@ -34,13 +31,13 @@ Ví dụ : <br>
 <br>
 Hoặc :<br>
 <br>
-	List&lt;Giohang&gt; lstGiohang = Session["Giohang"] as List&lt;Giohang&gt;;<br>
-            if (lstGiohang == null)<br>
-            {<br>
-                //Neu gio hang chua ton tai thi khoi tao listGiohang<br>
-                lstGiohang = new List&lt;Giohang&gt;();<br>
-                Session["Giohang"] = lstGiohang;<br>
-            }<br>
+List&lt;Giohang&gt; lstGiohang = Session["Giohang"] as List&lt;Giohang&gt;;<br>
+if (lstGiohang == null)<br>
+{<br>
+//Neu gio hang chua ton tai thi khoi tao listGiohang<br>
+lstGiohang = new List&lt;Giohang&gt;();<br>
+Session["Giohang"] = lstGiohang;<br>
+}<br>
 <br>
 <br>
 <br>
@@ -54,58 +51,58 @@ Hoặc :<br>
 <br>
 - Tại Models tạo file IdentityModel.cs [hay còn gọi là ApplicationUser - chính là class Table User trong CSDL] :<br>
 <br>
-     public class ApplicationUser : IdentityUser<br>
-    {<br>
-        // Các thuộc tính cần thêm của ApsNetUser trong Database...<br>
+public class ApplicationUser : IdentityUser<br>
+{<br>
+// Các thuộc tính cần thêm của ApsNetUser trong Database...<br>
 <br>
-        public string Name { get; set; }<br>
-	...<br>
-	<br>
-        public async Task&lt;ClaimsIdentity&gt; GenerateUserIdentityAsync(UserManager&lt;ApplicationUser&gt; manager)<br>
-        {<br>
-            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType<br>
-            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);<br>
-            // Add custom user claims here<br>
-            return userIdentity;<br>
-        }<br>
-    }<br>
+public string Name { get; set; }<br>
+...<br>
 <br>
- public class ApplicationDbContext : IdentityDbContext&lt;ApplicationUser&gt;<br>
-    {<br>
-        public ApplicationDbContext()<br>
-            : base("DefaultConnection", throwIfV1Schema: false)<br>
-        {<br>
-        }<br>
+public async Task&lt;ClaimsIdentity&gt; GenerateUserIdentityAsync(UserManager&lt;ApplicationUser&gt; manager)<br>
+{<br>
+// Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType<br>
+var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);<br>
+// Add custom user claims here<br>
+return userIdentity;<br>
+}<br>
+}<br>
 <br>
-        public static ApplicationDbContext Create()<br>
-        {<br>
-            return new ApplicationDbContext();<br>
-        }<br>
-    }<br>
+public class ApplicationDbContext : IdentityDbContext&lt;ApplicationUser&gt;<br>
+{<br>
+public ApplicationDbContext()<br>
+: base("DefaultConnection", throwIfV1Schema: false)<br>
+{<br>
+}<br>
+<br>
+public static ApplicationDbContext Create()<br>
+{<br>
+return new ApplicationDbContext();<br>
+}<br>
+}<br>
 }<br>
 <br>
 - Tại file BigSchoolContext.cs (xem lưu ý mẫu ví dụ như file web.config HD bên dưới...) :<br>
 <br>
 public partial class BigSchoolContext : DbContext<br>
-    {<br>
-        public BigSchoolContext()<br>
-            : base("name=BigSchoolContext")<br>
-        {<br>
-        }<br>
+{<br>
+public BigSchoolContext()<br>
+: base("name=BigSchoolContext")<br>
+{<br>
+}<br>
 <br>
-        public virtual DbSet&lt;Attendance&gt; Attendance { get; set; }<br>
-        public virtual DbSet&lt;Category&gt; Category { get; set; }<br>
-        public virtual DbSet&lt;Course&gt; Course { get; set; }<br>
-        public virtual DbSet&lt;Followings&gt; Followings { get; set; }<br>
+public virtual DbSet&lt;Attendance&gt; Attendance { get; set; }<br>
+public virtual DbSet&lt;Category&gt; Category { get; set; }<br>
+public virtual DbSet&lt;Course&gt; Course { get; set; }<br>
+public virtual DbSet&lt;Followings&gt; Followings { get; set; }<br>
 <br>
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)<br>
-        {<br>
-            modelBuilder.Entity&lt;Course&gt;()<br>
-                .HasMany(e =&gt; e.Attendance)<br>
-                .WithRequired(e =&gt; e.Course)<br>
-                .WillCascadeOnDelete(false);<br>
-        }<br>
-    }<br>
+protected override void OnModelCreating(DbModelBuilder modelBuilder)<br>
+{<br>
+modelBuilder.Entity&lt;Course&gt;()<br>
+.HasMany(e =&gt; e.Attendance)<br>
+.WithRequired(e =&gt; e.Course)<br>
+.WillCascadeOnDelete(false);<br>
+}<br>
+}<br>
 <br>
 <br>
 - Tại web.config :<br>
@@ -113,19 +110,19 @@ public partial class BigSchoolContext : DbContext<br>
 <br>
 &lt;?xml version="1.0" encoding="utf-8"?&gt;<br>
 &lt;!--<br>
-  For more information on how to configure your ASP.NET application, please visit<br>
-  http://go.microsoft.com/fwlink/?LinkId=301880<br>
-  --&gt;<br>
+For more information on how to configure your ASP.NET application, please visit<br>
+http://go.microsoft.com/fwlink/?LinkId=301880<br>
+--&gt;<br>
 &lt;configuration&gt;<br>
-  &lt;configSections&gt;<br>
-    &lt;!-- For more information on Entity Framework configuration, visit http://go.microsoft.com/fwlink/?LinkID=237468 --&gt;<br>
-    &lt;section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" /&gt;<br>
-  &lt;/configSections&gt;<br>
+&lt;configSections&gt;<br>
+&lt;!-- For more information on Entity Framework configuration, visit http://go.microsoft.com/fwlink/?LinkID=237468 --&gt;<br>
+&lt;section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" /&gt;<br>
+&lt;/configSections&gt;<br>
 <br>
-  &lt;connectionStrings&gt;<br>
-     &lt;add name="DefaultConnection" connectionString="Data Source=[SERVER_SQL];Initial Catalog=[DB_Name];[...]Integrated Security=True" providerName="System.Data.SqlClient" /&gt;<br>
+&lt;connectionStrings&gt;<br>
+&lt;add name="DefaultConnection" connectionString="Data Source=[SERVER_SQL];Initial Catalog=[DB_Name];[...]Integrated Security=True" providerName="System.Data.SqlClient" /&gt;<br>
 <br>
-  &lt;add name="BigSchoolContext" connectionString="data source=[SERVER_SQL];initial catalog=[DB_Name];user id =[];pwd=[];integrated security=True;MultipleActiveResultSets=True;App=EntityFramework" providerName="System.Data.SqlClient" /&gt;&lt;/connectionStrings&gt;<br>
+&lt;add name="BigSchoolContext" connectionString="data source=[SERVER_SQL];initial catalog=[DB_Name];user id =[];pwd=[];integrated security=True;MultipleActiveResultSets=True;App=EntityFramework" providerName="System.Data.SqlClient" /&gt;&lt;/connectionStrings&gt;<br>
 <br>
 ...<br>
 <br>
@@ -139,21 +136,21 @@ update-database<br>
 - Dropdown trong Views :<br>
 <br>
 &lt;div class="form-group"&gt;<br>
-            &commat;Html.LabelFor(model =&gt; model.CategoryId, htmlAttributes: new { &commat;class = "control-label col-md-2" })<br>
-            &lt;div class="col-md-10"&gt;<br>
-                &commat;Html.DropDownList("CategoryId", new SelectList(Model.listCategory, "Id", "Name"), htmlAttributes: new { &commat;class = "form-control" })<br>
-                &commat;Html.ValidationMessageFor(model =&gt; model.CategoryId, "", new { &commat;class = "text-danger" })<br>
-            &lt;/div&gt;<br>
+&commat;Html.LabelFor(model =&gt; model.CategoryId, htmlAttributes: new { &commat;class = "control-label col-md-2" })<br>
+&lt;div class="col-md-10"&gt;<br>
+&commat;Html.DropDownList("CategoryId", new SelectList(Model.listCategory, "Id", "Name"), htmlAttributes: new { &commat;class = "form-control" })<br>
+&commat;Html.ValidationMessageFor(model =&gt; model.CategoryId, "", new { &commat;class = "text-danger" })<br>
+&lt;/div&gt;<br>
 <br>
 - Dropdown tại controller :<br>
 <br>
- public ActionResult Create()<br>
-        {<br>
-            BigSchoolContext context = new BigSchoolContext();<br>
-            Course x = new Course();<br>
-            x.listCategory = context.Category.ToList();<br>
-            return View(x);<br>
-        }<br>
+public ActionResult Create()<br>
+{<br>
+BigSchoolContext context = new BigSchoolContext();<br>
+Course x = new Course();<br>
+x.listCategory = context.Category.ToList();<br>
+return View(x);<br>
+}<br>
 <br>
 - Lúc action nào cần xác thực (phải đăng nhập trước khi truy cập, ta thêm [Authorize] trước method action đó trong controller...<br>
 <br>
@@ -166,40 +163,40 @@ update-database<br>
 <br>
 public class FutureDate : ValidationAttribute<br>
 {<br>
-	public overide bool IsValid(object value)<br>
-	{<br>
-		DateTime datetime;<br>
-		var isValid = DateTime.TryParseExact(Convert.ToString(value),<br>
-		"dd/MM/yyyy",<br>
-		CultureInfo.CurrentCulture,<br>
-		DateTimeStyle.None,<br>
-		out DateTime);<br>
+public overide bool IsValid(object value)<br>
+{<br>
+DateTime datetime;<br>
+var isValid = DateTime.TryParseExact(Convert.ToString(value),<br>
+"dd/MM/yyyy",<br>
+CultureInfo.CurrentCulture,<br>
+DateTimeStyle.None,<br>
+out DateTime);<br>
 <br>
-		return (isValid && datetime &gt; DateTime.Now);<br>
-	}<br>
+return (isValid && datetime &gt; DateTime.Now);<br>
+}<br>
 <br>
 <br>
 - Tại Model và class SinhVien.cs ta có như sau :<br>
 <br>
 class SinhVien<br>
 {<br>
-	public int MSSV {get; set;}<br>
-	<br>
-	[Required]<br>
-	public string HoTen {get; set;}<br>
+public int MSSV {get; set;}<br>
+<br>
+[Required]<br>
+public string HoTen {get; set;}<br>
 <br>
 ...<br>
 <br>
-	[Required]<br>
-	[FutureDate]<br>
-	public string NgayTrucNhat {get; set;}<br>
+[Required]<br>
+[FutureDate]<br>
+public string NgayTrucNhat {get; set;}<br>
 <br>
 }<br>
 <br>
 - Tại những View có form nhập liệu, nếu nhập sai thì không cần gửi request về Server (đặt cuối trang - xem thêm đoạn code dài gần bên dưới) :<br>
 <br>
-	&commat;section Scripts {<br>
-    &commat;Scripts.Render("~/bundles/jqueryval")<br>
+&commat;section Scripts {<br>
+&commat;Scripts.Render("~/bundles/jqueryval")<br>
 }<br>
 <br>
 <br>
@@ -208,7 +205,7 @@ class SinhVien<br>
 &commat;model BigSchool_THBuoi4.Models.Course<br>
 <br>
 &commat;{<br>
-    ViewBag.Title = "Create";<br>
+ViewBag.Title = "Create";<br>
 }<br>
 <br>
 &lt;link rel="stylesheet" type="text/css" href="~/Content/Site.css" /&gt;<br>
@@ -218,44 +215,44 @@ class SinhVien<br>
 <br>
 &commat;using (Html.BeginForm()) <br>
 {<br>
-    &commat;Html.AntiForgeryToken()<br>
-    <br>
-    &lt;div class="form-horizontal"&gt;<br>
-        &lt;h4&gt;Course&lt;/h4&gt;<br>
-        &lt;hr /&gt;<br>
-        &commat;Html.ValidationSummary(true, "", new { &commat;class = "text-danger" })<br>
+&commat;Html.AntiForgeryToken()<br>
 <br>
-        &lt;div class="form-group"&gt;<br>
-            &commat;Html.LabelFor(model =&gt; model.Place, htmlAttributes: new { &commat;class = "control-label col-md-2" })<br>
-            &lt;div class="col-md-10"&gt;<br>
-                &commat;Html.EditorFor(model =&gt; model.Place, new { htmlAttributes = new { &commat;class = "form-control" } })<br>
-                &commat;Html.ValidationMessageFor(model =&gt; model.Place, "", new { &commat;class = "text-danger" })<br>
-            &lt;/div&gt;<br>
-        &lt;/div&gt;<br>
+&lt;div class="form-horizontal"&gt;<br>
+&lt;h4&gt;Course&lt;/h4&gt;<br>
+&lt;hr /&gt;<br>
+&commat;Html.ValidationSummary(true, "", new { &commat;class = "text-danger" })<br>
 <br>
-        &lt;div class="form-group"&gt;<br>
-            &commat;Html.LabelFor(model =&gt; model.Date_Time, htmlAttributes: new { &commat;class = "control-label col-md-2" })<br>
-            &lt;div class="col-md-10"&gt;<br>
-               &lt;input type="date" name="Date_Time" /&gt;<br>
+&lt;div class="form-group"&gt;<br>
+&commat;Html.LabelFor(model =&gt; model.Place, htmlAttributes: new { &commat;class = "control-label col-md-2" })<br>
+&lt;div class="col-md-10"&gt;<br>
+&commat;Html.EditorFor(model =&gt; model.Place, new { htmlAttributes = new { &commat;class = "form-control" } })<br>
+&commat;Html.ValidationMessageFor(model =&gt; model.Place, "", new { &commat;class = "text-danger" })<br>
+&lt;/div&gt;<br>
+&lt;/div&gt;<br>
 <br>
-                &commat;Html.ValidationMessageFor(model =&gt; model.Date_Time, "", new { &commat;class = "text-danger" })<br>
-            &lt;/div&gt;<br>
-        &lt;/div&gt;<br>
+&lt;div class="form-group"&gt;<br>
+&commat;Html.LabelFor(model =&gt; model.Date_Time, htmlAttributes: new { &commat;class = "control-label col-md-2" })<br>
+&lt;div class="col-md-10"&gt;<br>
+&lt;input type="date" name="Date_Time" /&gt;<br>
 <br>
-        &lt;div class="form-group"&gt;<br>
-            &commat;Html.LabelFor(model =&gt; model.CategoryId, htmlAttributes: new { &commat;class = "control-label col-md-2" })<br>
-            &lt;div class="col-md-10"&gt;<br>
-                &commat;Html.DropDownList("CategoryId", new SelectList(Model.listCategory, "Id", "Name"), htmlAttributes: new { &commat;class = "form-control" })<br>
-                &commat;Html.ValidationMessageFor(model =&gt; model.CategoryId, "", new { &commat;class = "text-danger" })<br>
-            &lt;/div&gt;<br>
-        &lt;/div&gt;<br>
+&commat;Html.ValidationMessageFor(model =&gt; model.Date_Time, "", new { &commat;class = "text-danger" })<br>
+&lt;/div&gt;<br>
+&lt;/div&gt;<br>
 <br>
-        &lt;div class="form-group"&gt;<br>
-            &lt;div class="col-md-offset-2 col-md-10"&gt;<br>
-                &lt;input type="submit" value="Create" class="btn btn-default" /&gt;<br>
-            &lt;/div&gt;<br>
-        &lt;/div&gt;<br>
-    &lt;/div&gt;<br>
+&lt;div class="form-group"&gt;<br>
+&commat;Html.LabelFor(model =&gt; model.CategoryId, htmlAttributes: new { &commat;class = "control-label col-md-2" })<br>
+&lt;div class="col-md-10"&gt;<br>
+&commat;Html.DropDownList("CategoryId", new SelectList(Model.listCategory, "Id", "Name"), htmlAttributes: new { &commat;class = "form-control" })<br>
+&commat;Html.ValidationMessageFor(model =&gt; model.CategoryId, "", new { &commat;class = "text-danger" })<br>
+&lt;/div&gt;<br>
+&lt;/div&gt;<br>
+<br>
+&lt;div class="form-group"&gt;<br>
+&lt;div class="col-md-offset-2 col-md-10"&gt;<br>
+&lt;input type="submit" value="Create" class="btn btn-default" /&gt;<br>
+&lt;/div&gt;<br>
+&lt;/div&gt;<br>
+&lt;/div&gt;<br>
 }<br>
 <br>
 ...<br>
@@ -263,26 +260,26 @@ class SinhVien<br>
 - Bảo mật phòng chống lỗi request giả mạo, tại những controller mà action đến Views có form nhập liệu [ví dụ] :<br>
 <br>
 <br>
-	[Authorize]<br>
-        [HttpPost]<br>
-        [ValidateAntiForgeryToken]<br>
-        public ActionResult Create(Course x)<br>
-        {<br>
-            BigSchoolContext context = new BigSchoolContext();<br>
-            ModelState.Remove("LecturerId");<br>
-            if (!ModelState.IsValid)<br>
-            {<br>
-                x.listCategory = context.Category.ToList();<br>
-                return View("Create", x);<br>
-            }<br>
+[Authorize]<br>
+[HttpPost]<br>
+[ValidateAntiForgeryToken]<br>
+public ActionResult Create(Course x)<br>
+{<br>
+BigSchoolContext context = new BigSchoolContext();<br>
+ModelState.Remove("LecturerId");<br>
+if (!ModelState.IsValid)<br>
+{<br>
+x.listCategory = context.Category.ToList();<br>
+return View("Create", x);<br>
+}<br>
 <br>
-		// Lấy thông tin User<br>
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager&lt;ApplicationUserManager&gt;().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());<br>
-            x.LecturerId = user.Id;<br>
-            context.Course.Add(x);<br>
-            context.SaveChanges();<br>
-            return RedirectToAction("Index", "Home");<br>
-        }<br>
+// Lấy thông tin User<br>
+ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager&lt;ApplicationUserManager&gt;().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());<br>
+x.LecturerId = user.Id;<br>
+context.Course.Add(x);<br>
+context.SaveChanges();<br>
+return RedirectToAction("Index", "Home");<br>
+}<br>
 <br>
 - Lưu trữ file ManageController :<br>
 <br>
@@ -297,126 +294,126 @@ using System.Web.Mvc;<br>
 <br>
 namespace BigSchool_THBuoi4.Controllers<br>
 {<br>
-    public class CourseController : Controller<br>
-    {<br>
-        // GET: Course<br>
-        public ActionResult Create()<br>
-        {<br>
-            BigSchoolContext context = new BigSchoolContext();<br>
-            Course x = new Course();<br>
-            x.listCategory = context.Category.ToList();<br>
-            return View(x);<br>
-        }<br>
+public class CourseController : Controller<br>
+{<br>
+// GET: Course<br>
+public ActionResult Create()<br>
+{<br>
+BigSchoolContext context = new BigSchoolContext();<br>
+Course x = new Course();<br>
+x.listCategory = context.Category.ToList();<br>
+return View(x);<br>
+}<br>
 <br>
-        [Authorize]<br>
-        [HttpPost]<br>
-        [ValidateAntiForgeryToken]<br>
-        public ActionResult Create(Course x)<br>
-        {<br>
-            BigSchoolContext context = new BigSchoolContext();<br>
-            ModelState.Remove("LecturerId");<br>
-            if (!ModelState.IsValid)<br>
-            {<br>
-                x.listCategory = context.Category.ToList();<br>
-                return View("Create", x);<br>
-            }<br>
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager&lt;ApplicationUserManager&gt;().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());<br>
-            x.LecturerId = user.Id;<br>
-            context.Course.Add(x);<br>
-            context.SaveChanges();<br>
-            return RedirectToAction("Index", "Home");<br>
-        }<br>
+[Authorize]<br>
+[HttpPost]<br>
+[ValidateAntiForgeryToken]<br>
+public ActionResult Create(Course x)<br>
+{<br>
+BigSchoolContext context = new BigSchoolContext();<br>
+ModelState.Remove("LecturerId");<br>
+if (!ModelState.IsValid)<br>
+{<br>
+x.listCategory = context.Category.ToList();<br>
+return View("Create", x);<br>
+}<br>
+ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager&lt;ApplicationUserManager&gt;().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());<br>
+x.LecturerId = user.Id;<br>
+context.Course.Add(x);<br>
+context.SaveChanges();<br>
+return RedirectToAction("Index", "Home");<br>
+}<br>
 <br>
-        public ActionResult Attending()<br>
-        {<br>
-            BigSchoolContext context = new BigSchoolContext();<br>
-            ApplicationUser currentUser =<br>
+public ActionResult Attending()<br>
+{<br>
+BigSchoolContext context = new BigSchoolContext();<br>
+ApplicationUser currentUser =<br>
 System.Web.HttpContext.Current.GetOwinContext().GetUserManager&lt;ApplicationUserManager&gt;().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());<br>
-            var listAttendances = context.Attendance.Where(p =&gt; p.Attendee == currentUser.Id).ToList();<br>
-            var courses = new List&lt;Course&gt;();<br>
-            foreach (Attendance temp in listAttendances)<br>
-            {<br>
-                Course objCourse = temp.Course;<br>
-                objCourse.LectureName =<br>
-               System.Web.HttpContext.Current.GetOwinContext().GetUserManager&lt;ApplicationUserManager&gt;().FindById(objCourse.LecturerId).Name;<br>
-                courses.Add(objCourse);<br>
-            }<br>
-            return View(courses);<br>
-        }<br>
+var listAttendances = context.Attendance.Where(p =&gt; p.Attendee == currentUser.Id).ToList();<br>
+var courses = new List&lt;Course&gt;();<br>
+foreach (Attendance temp in listAttendances)<br>
+{<br>
+Course objCourse = temp.Course;<br>
+objCourse.LectureName =<br>
+System.Web.HttpContext.Current.GetOwinContext().GetUserManager&lt;ApplicationUserManager&gt;().FindById(objCourse.LecturerId).Name;<br>
+courses.Add(objCourse);<br>
+}<br>
+return View(courses);<br>
+}<br>
 <br>
-        public ActionResult Mine()<br>
-        {<br>
-            ApplicationUser currentUser =<br>
-           System.Web.HttpContext.Current.GetOwinContext().GetUserManager&lt;ApplicationUserManager&gt;().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());<br>
-            BigSchoolContext context = new BigSchoolContext();<br>
-            var courses = context.Course.Where(c =&gt; c.LecturerId == currentUser.Id && c.Date_Time &gt; DateTime.Now).ToList();<br>
-            foreach (Course i in courses)<br>
-            {<br>
-                i.LectureName = currentUser.Name; //Name la cot da them vao Aspnetuser  } <br>
-            }<br>
-            return View(courses);<br>
+public ActionResult Mine()<br>
+{<br>
+ApplicationUser currentUser =<br>
+System.Web.HttpContext.Current.GetOwinContext().GetUserManager&lt;ApplicationUserManager&gt;().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());<br>
+BigSchoolContext context = new BigSchoolContext();<br>
+var courses = context.Course.Where(c =&gt; c.LecturerId == currentUser.Id && c.Date_Time &gt; DateTime.Now).ToList();<br>
+foreach (Course i in courses)<br>
+{<br>
+i.LectureName = currentUser.Name; //Name la cot da them vao Aspnetuser  } <br>
+}<br>
+return View(courses);<br>
 <br>
-        }<br>
+}<br>
 <br>
-        public ActionResult Edit(int id)<br>
-        {<br>
-            BigSchoolContext context = new BigSchoolContext();<br>
-            Course x = context.Course.FirstOrDefault(p =&gt; p.Id == id);<br>
-            x.listCategory = context.Category.ToList();<br>
-            return View(x);<br>
-        }<br>
+public ActionResult Edit(int id)<br>
+{<br>
+BigSchoolContext context = new BigSchoolContext();<br>
+Course x = context.Course.FirstOrDefault(p =&gt; p.Id == id);<br>
+x.listCategory = context.Category.ToList();<br>
+return View(x);<br>
+}<br>
 <br>
-        [HttpPost,ActionName("Edit")]<br>
-        public ActionResult xoa1Course(int id)<br>
-        {<br>
-            BigSchoolContext context = new BigSchoolContext();<br>
-            Course x = context.Course.FirstOrDefault(P =&gt; P.Id == id);<br>
-            UpdateModel(x);<br>
-            context.SaveChanges();<br>
-            return RedirectToAction("Index", "Home");<br>
-        }<br>
+[HttpPost,ActionName("Edit")]<br>
+public ActionResult xoa1Course(int id)<br>
+{<br>
+BigSchoolContext context = new BigSchoolContext();<br>
+Course x = context.Course.FirstOrDefault(P =&gt; P.Id == id);<br>
+UpdateModel(x);<br>
+context.SaveChanges();<br>
+return RedirectToAction("Index", "Home");<br>
+}<br>
 <br>
-        public ActionResult Delete(int id)<br>
-        {<br>
-            BigSchoolContext context = new BigSchoolContext();<br>
-            Course x = context.Course.FirstOrDefault(P =&gt; P.Id == id);<br>
+public ActionResult Delete(int id)<br>
+{<br>
+BigSchoolContext context = new BigSchoolContext();<br>
+Course x = context.Course.FirstOrDefault(P =&gt; P.Id == id);<br>
 <br>
-            //Trước tiên, kiểm tra khóa ngoại ở bảng Attendances...<br>
-            Attendance y = context.Attendance.FirstOrDefault(P =&gt; P.CourseId == id);<br>
+//Trước tiên, kiểm tra khóa ngoại ở bảng Attendances...<br>
+Attendance y = context.Attendance.FirstOrDefault(P =&gt; P.CourseId == id);<br>
 <br>
-            if (y != null)<br>
-                return HttpNotFound("Khong the xoa khoa hoc hien tai, vui long kiem tra khoa ngoai tu bang Attendance !");<br>
+if (y != null)<br>
+return HttpNotFound("Khong the xoa khoa hoc hien tai, vui long kiem tra khoa ngoai tu bang Attendance !");<br>
 <br>
-            context.Course.Remove(x);<br>
-            context.SaveChanges();<br>
-            return RedirectToAction("Index", "Home");<br>
-        }<br>
+context.Course.Remove(x);<br>
+context.SaveChanges();<br>
+return RedirectToAction("Index", "Home");<br>
+}<br>
 <br>
-        public ActionResult LectureIamGoing()<br>
-        {<br>
-            ApplicationUser currentUser =<br>
-           System.Web.HttpContext.Current.GetOwinContext().GetUserManager&lt;ApplicationUserManager&gt;().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId()); BigSchoolContext context = new BigSchoolContext();<br>
-            //danh sách giảng viên được theo dõi bởi người dùng (đăng nhập) hiện tại<br>
-            var listFollwee = context.Followings.Where(p =&gt; p.FollowerId == <br>
-            currentUser.Id).ToList();<br>
-            //danh sách các khóa học mà người dùng đã đăng ký <br>
-            var listAttendances = context.Attendance.Where(p =&gt; p.Attendee == <br>
-            currentUser.Id).ToList();<br>
-            var courses = new List&lt;Course&gt;();<br>
-            foreach (var course in listAttendances)<br>
-            {<br>
-                foreach (var item in listFollwee)<br>
-                {<br>
-                    if (item.FolloweeId == course.Course.LecturerId)<br>
-                    {<br>
-                        Course objCourse = course.Course; objCourse.LectureName = System.Web.HttpContext.Current.GetOwinContext().GetUserManager&lt;ApplicationUserManager&gt;().FindById(objCourse.LecturerId).Name; courses.Add(objCourse);<br>
-                    }<br>
-                }<br>
+public ActionResult LectureIamGoing()<br>
+{<br>
+ApplicationUser currentUser =<br>
+System.Web.HttpContext.Current.GetOwinContext().GetUserManager&lt;ApplicationUserManager&gt;().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId()); BigSchoolContext context = new BigSchoolContext();<br>
+//danh sách giảng viên được theo dõi bởi người dùng (đăng nhập) hiện tại<br>
+var listFollwee = context.Followings.Where(p =&gt; p.FollowerId == <br>
+currentUser.Id).ToList();<br>
+//danh sách các khóa học mà người dùng đã đăng ký <br>
+var listAttendances = context.Attendance.Where(p =&gt; p.Attendee == <br>
+currentUser.Id).ToList();<br>
+var courses = new List&lt;Course&gt;();<br>
+foreach (var course in listAttendances)<br>
+{<br>
+foreach (var item in listFollwee)<br>
+{<br>
+if (item.FolloweeId == course.Course.LecturerId)<br>
+{<br>
+Course objCourse = course.Course; objCourse.LectureName = System.Web.HttpContext.Current.GetOwinContext().GetUserManager&lt;ApplicationUserManager&gt;().FindById(objCourse.LecturerId).Name; courses.Add(objCourse);<br>
+}<br>
+}<br>
 <br>
-            }<br>
-            return View(courses);<br>
-        }<br>
-    }<br>
+}<br>
+return View(courses);<br>
+}<br>
+}<br>
 }<br>
 <br>
 - Lưu trữ file AccountController (đặc biệt chú ý method Register ... ...) :<br>
@@ -435,478 +432,478 @@ using BigSchool_THBuoi4.Models;<br>
 <br>
 namespace BigSchool_THBuoi4.Controllers<br>
 {<br>
-    [Authorize]<br>
-    public class AccountController : Controller<br>
-    {<br>
-        private ApplicationSignInManager _signInManager;<br>
-        private ApplicationUserManager _userManager;<br>
+[Authorize]<br>
+public class AccountController : Controller<br>
+{<br>
+private ApplicationSignInManager _signInManager;<br>
+private ApplicationUserManager _userManager;<br>
 <br>
-        public AccountController()<br>
-        {<br>
-        }<br>
+public AccountController()<br>
+{<br>
+}<br>
 <br>
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )<br>
-        {<br>
-            UserManager = userManager;<br>
-            SignInManager = signInManager;<br>
-        }<br>
+public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )<br>
+{<br>
+UserManager = userManager;<br>
+SignInManager = signInManager;<br>
+}<br>
 <br>
-        public ApplicationSignInManager SignInManager<br>
-        {<br>
-            get<br>
-            {<br>
-                return _signInManager ?? HttpContext.GetOwinContext().Get&lt;ApplicationSignInManager&gt;();<br>
-            }<br>
-            private set <br>
-            { <br>
-                _signInManager = value; <br>
-            }<br>
-        }<br>
+public ApplicationSignInManager SignInManager<br>
+{<br>
+get<br>
+{<br>
+return _signInManager ?? HttpContext.GetOwinContext().Get&lt;ApplicationSignInManager&gt;();<br>
+}<br>
+private set <br>
+{ <br>
+_signInManager = value; <br>
+}<br>
+}<br>
 <br>
-        public ApplicationUserManager UserManager<br>
-        {<br>
-            get<br>
-            {<br>
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager&lt;ApplicationUserManager&gt;();<br>
-            }<br>
-            private set<br>
-            {<br>
-                _userManager = value;<br>
-            }<br>
-        }<br>
+public ApplicationUserManager UserManager<br>
+{<br>
+get<br>
+{<br>
+return _userManager ?? HttpContext.GetOwinContext().GetUserManager&lt;ApplicationUserManager&gt;();<br>
+}<br>
+private set<br>
+{<br>
+_userManager = value;<br>
+}<br>
+}<br>
 <br>
-        //<br>
-        // GET: /Account/Login<br>
-        [AllowAnonymous]<br>
-        public ActionResult Login(string returnUrl)<br>
-        {<br>
-            ViewBag.ReturnUrl = returnUrl;<br>
-            return View();<br>
-        }<br>
+//<br>
+// GET: /Account/Login<br>
+[AllowAnonymous]<br>
+public ActionResult Login(string returnUrl)<br>
+{<br>
+ViewBag.ReturnUrl = returnUrl;<br>
+return View();<br>
+}<br>
 <br>
-        //<br>
-        // POST: /Account/Login<br>
-        [HttpPost]<br>
-        [AllowAnonymous]<br>
-        [ValidateAntiForgeryToken]<br>
-        public async Task&lt;ActionResult&gt; Login(LoginViewModel model, string returnUrl)<br>
-        {<br>
-            if (!ModelState.IsValid)<br>
-            {<br>
-                return View(model);<br>
-            }<br>
+//<br>
+// POST: /Account/Login<br>
+[HttpPost]<br>
+[AllowAnonymous]<br>
+[ValidateAntiForgeryToken]<br>
+public async Task&lt;ActionResult&gt; Login(LoginViewModel model, string returnUrl)<br>
+{<br>
+if (!ModelState.IsValid)<br>
+{<br>
+return View(model);<br>
+}<br>
 <br>
-            // This doesn't count login failures towards account lockout<br>
-            // To enable password failures to trigger account lockout, change to shouldLockout: true<br>
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);<br>
-            switch (result)<br>
-            {<br>
-                case SignInStatus.Success:<br>
-                    return RedirectToLocal(returnUrl);<br>
-                case SignInStatus.LockedOut:<br>
-                    return View("Lockout");<br>
-                case SignInStatus.RequiresVerification:<br>
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });<br>
-                case SignInStatus.Failure:<br>
-                default:<br>
-                    ModelState.AddModelError("", "Invalid login attempt.");<br>
-                    return View(model);<br>
-            }<br>
-        }<br>
+// This doesn't count login failures towards account lockout<br>
+// To enable password failures to trigger account lockout, change to shouldLockout: true<br>
+var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);<br>
+switch (result)<br>
+{<br>
+case SignInStatus.Success:<br>
+return RedirectToLocal(returnUrl);<br>
+case SignInStatus.LockedOut:<br>
+return View("Lockout");<br>
+case SignInStatus.RequiresVerification:<br>
+return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });<br>
+case SignInStatus.Failure:<br>
+default:<br>
+ModelState.AddModelError("", "Invalid login attempt.");<br>
+return View(model);<br>
+}<br>
+}<br>
 <br>
-        //<br>
-        // GET: /Account/VerifyCode<br>
-        [AllowAnonymous]<br>
-        public async Task&lt;ActionResult&gt; VerifyCode(string provider, string returnUrl, bool rememberMe)<br>
-        {<br>
-            // Require that the user has already logged in via username/password or external login<br>
-            if (!await SignInManager.HasBeenVerifiedAsync())<br>
-            {<br>
-                return RedirectToAction("Error");<br>
-            }<br>
-            return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });<br>
-        }<br>
+//<br>
+// GET: /Account/VerifyCode<br>
+[AllowAnonymous]<br>
+public async Task&lt;ActionResult&gt; VerifyCode(string provider, string returnUrl, bool rememberMe)<br>
+{<br>
+// Require that the user has already logged in via username/password or external login<br>
+if (!await SignInManager.HasBeenVerifiedAsync())<br>
+{<br>
+return RedirectToAction("Error");<br>
+}<br>
+return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });<br>
+}<br>
 <br>
-        //<br>
-        // POST: /Account/VerifyCode<br>
-        [HttpPost]<br>
-        [AllowAnonymous]<br>
-        [ValidateAntiForgeryToken]<br>
-        public async Task&lt;ActionResult&gt; VerifyCode(VerifyCodeViewModel model)<br>
-        {<br>
-            if (!ModelState.IsValid)<br>
-            {<br>
-                return View(model);<br>
-            }<br>
+//<br>
+// POST: /Account/VerifyCode<br>
+[HttpPost]<br>
+[AllowAnonymous]<br>
+[ValidateAntiForgeryToken]<br>
+public async Task&lt;ActionResult&gt; VerifyCode(VerifyCodeViewModel model)<br>
+{<br>
+if (!ModelState.IsValid)<br>
+{<br>
+return View(model);<br>
+}<br>
 <br>
-            // The following code protects for brute force attacks against the two factor codes. <br>
-            // If a user enters incorrect codes for a specified amount of time then the user account <br>
-            // will be locked out for a specified amount of time. <br>
-            // You can configure the account lockout settings in IdentityConfig<br>
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);<br>
-            switch (result)<br>
-            {<br>
-                case SignInStatus.Success:<br>
-                    return RedirectToLocal(model.ReturnUrl);<br>
-                case SignInStatus.LockedOut:<br>
-                    return View("Lockout");<br>
-                case SignInStatus.Failure:<br>
-                default:<br>
-                    ModelState.AddModelError("", "Invalid code.");<br>
-                    return View(model);<br>
-            }<br>
-        }<br>
+// The following code protects for brute force attacks against the two factor codes. <br>
+// If a user enters incorrect codes for a specified amount of time then the user account <br>
+// will be locked out for a specified amount of time. <br>
+// You can configure the account lockout settings in IdentityConfig<br>
+var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);<br>
+switch (result)<br>
+{<br>
+case SignInStatus.Success:<br>
+return RedirectToLocal(model.ReturnUrl);<br>
+case SignInStatus.LockedOut:<br>
+return View("Lockout");<br>
+case SignInStatus.Failure:<br>
+default:<br>
+ModelState.AddModelError("", "Invalid code.");<br>
+return View(model);<br>
+}<br>
+}<br>
 <br>
-        //<br>
-        // GET: /Account/Register<br>
-        [AllowAnonymous]<br>
-        public ActionResult Register()<br>
-        {<br>
-            return View();<br>
-        }<br>
+//<br>
+// GET: /Account/Register<br>
+[AllowAnonymous]<br>
+public ActionResult Register()<br>
+{<br>
+return View();<br>
+}<br>
 <br>
-        //<br>
-        // POST: /Account/Register<br>
-        [HttpPost]<br>
-        [AllowAnonymous]<br>
-        [ValidateAntiForgeryToken]<br>
-        public async Task&lt;ActionResult&gt; Register(RegisterViewModel model)<br>
-        {<br>
-            if (ModelState.IsValid)<br>
-            {<br>
-			// do DB Table AspNetUser ta đã bổ sung thuộc tính name trước đó...<br>
+//<br>
+// POST: /Account/Register<br>
+[HttpPost]<br>
+[AllowAnonymous]<br>
+[ValidateAntiForgeryToken]<br>
+public async Task&lt;ActionResult&gt; Register(RegisterViewModel model)<br>
+{<br>
+if (ModelState.IsValid)<br>
+{<br>
+// do DB Table AspNetUser ta đã bổ sung thuộc tính name trước đó...<br>
 <br>
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,Name = model.Name };<br>
-                var result = await UserManager.CreateAsync(user, model.Password);<br>
-                if (result.Succeeded)<br>
-                {<br>
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);<br>
-                    <br>
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771<br>
-                    // Send an email with this link<br>
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);<br>
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);<br>
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking &lt;a href=\"" + callbackUrl + "\"&gt;here&lt;/a&gt;");<br>
+var user = new ApplicationUser { UserName = model.Email, Email = model.Email,Name = model.Name };<br>
+var result = await UserManager.CreateAsync(user, model.Password);<br>
+if (result.Succeeded)<br>
+{<br>
+await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);<br>
 <br>
-                    return RedirectToAction("Index", "Home");<br>
-                }<br>
-                AddErrors(result);<br>
-            }<br>
+// For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771<br>
+// Send an email with this link<br>
+// string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);<br>
+// var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);<br>
+// await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking &lt;a href=\"" + callbackUrl + "\"&gt;here&lt;/a&gt;");<br>
 <br>
-            // If we got this far, something failed, redisplay form<br>
-            return View(model);<br>
-        }<br>
+return RedirectToAction("Index", "Home");<br>
+}<br>
+AddErrors(result);<br>
+}<br>
 <br>
-        //<br>
-        // GET: /Account/ConfirmEmail<br>
-        [AllowAnonymous]<br>
-        public async Task&lt;ActionResult&gt; ConfirmEmail(string userId, string code)<br>
-        {<br>
-            if (userId == null || code == null)<br>
-            {<br>
-                return RedirectToAction("Error");<br>
-            }<br>
-            var result = await UserManager.ConfirmEmailAsync(userId, code);<br>
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");<br>
-        }<br>
+// If we got this far, something failed, redisplay form<br>
+return View(model);<br>
+}<br>
 <br>
-        //<br>
-        // GET: /Account/ForgotPassword<br>
-        [AllowAnonymous]<br>
-        public ActionResult ForgotPassword()<br>
-        {<br>
-            return View();<br>
-        }<br>
+//<br>
+// GET: /Account/ConfirmEmail<br>
+[AllowAnonymous]<br>
+public async Task&lt;ActionResult&gt; ConfirmEmail(string userId, string code)<br>
+{<br>
+if (userId == null || code == null)<br>
+{<br>
+return RedirectToAction("Error");<br>
+}<br>
+var result = await UserManager.ConfirmEmailAsync(userId, code);<br>
+return View(result.Succeeded ? "ConfirmEmail" : "Error");<br>
+}<br>
 <br>
-        //<br>
-        // POST: /Account/ForgotPassword<br>
-        [HttpPost]<br>
-        [AllowAnonymous]<br>
-        [ValidateAntiForgeryToken]<br>
-        public async Task&lt;ActionResult&gt; ForgotPassword(ForgotPasswordViewModel model)<br>
-        {<br>
-            if (ModelState.IsValid)<br>
-            {<br>
-                var user = await UserManager.FindByNameAsync(model.Email);<br>
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))<br>
-                {<br>
-                    // Don't reveal that the user does not exist or is not confirmed<br>
-                    return View("ForgotPasswordConfirmation");<br>
-                }<br>
+//<br>
+// GET: /Account/ForgotPassword<br>
+[AllowAnonymous]<br>
+public ActionResult ForgotPassword()<br>
+{<br>
+return View();<br>
+}<br>
 <br>
-                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771<br>
-                // Send an email with this link<br>
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);<br>
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		<br>
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking &lt;a href=\"" + callbackUrl + "\"&gt;here&lt;/a&gt;");<br>
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");<br>
-            }<br>
+//<br>
+// POST: /Account/ForgotPassword<br>
+[HttpPost]<br>
+[AllowAnonymous]<br>
+[ValidateAntiForgeryToken]<br>
+public async Task&lt;ActionResult&gt; ForgotPassword(ForgotPasswordViewModel model)<br>
+{<br>
+if (ModelState.IsValid)<br>
+{<br>
+var user = await UserManager.FindByNameAsync(model.Email);<br>
+if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))<br>
+{<br>
+// Don't reveal that the user does not exist or is not confirmed<br>
+return View("ForgotPasswordConfirmation");<br>
+}<br>
 <br>
-            // If we got this far, something failed, redisplay form<br>
-            return View(model);<br>
-        }<br>
+// For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771<br>
+// Send an email with this link<br>
+// string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);<br>
+// var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		<br>
+// await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking &lt;a href=\"" + callbackUrl + "\"&gt;here&lt;/a&gt;");<br>
+// return RedirectToAction("ForgotPasswordConfirmation", "Account");<br>
+}<br>
 <br>
-        //<br>
-        // GET: /Account/ForgotPasswordConfirmation<br>
-        [AllowAnonymous]<br>
-        public ActionResult ForgotPasswordConfirmation()<br>
-        {<br>
-            return View();<br>
-        }<br>
+// If we got this far, something failed, redisplay form<br>
+return View(model);<br>
+}<br>
 <br>
-        //<br>
-        // GET: /Account/ResetPassword<br>
-        [AllowAnonymous]<br>
-        public ActionResult ResetPassword(string code)<br>
-        {<br>
-            return code == null ? View("Error") : View();<br>
-        }<br>
+//<br>
+// GET: /Account/ForgotPasswordConfirmation<br>
+[AllowAnonymous]<br>
+public ActionResult ForgotPasswordConfirmation()<br>
+{<br>
+return View();<br>
+}<br>
 <br>
-        //<br>
-        // POST: /Account/ResetPassword<br>
-        [HttpPost]<br>
-        [AllowAnonymous]<br>
-        [ValidateAntiForgeryToken]<br>
-        public async Task&lt;ActionResult&gt; ResetPassword(ResetPasswordViewModel model)<br>
-        {<br>
-            if (!ModelState.IsValid)<br>
-            {<br>
-                return View(model);<br>
-            }<br>
-            var user = await UserManager.FindByNameAsync(model.Email);<br>
-            if (user == null)<br>
-            {<br>
-                // Don't reveal that the user does not exist<br>
-                return RedirectToAction("ResetPasswordConfirmation", "Account");<br>
-            }<br>
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);<br>
-            if (result.Succeeded)<br>
-            {<br>
-                return RedirectToAction("ResetPasswordConfirmation", "Account");<br>
-            }<br>
-            AddErrors(result);<br>
-            return View();<br>
-        }<br>
+//<br>
+// GET: /Account/ResetPassword<br>
+[AllowAnonymous]<br>
+public ActionResult ResetPassword(string code)<br>
+{<br>
+return code == null ? View("Error") : View();<br>
+}<br>
 <br>
-        //<br>
-        // GET: /Account/ResetPasswordConfirmation<br>
-        [AllowAnonymous]<br>
-        public ActionResult ResetPasswordConfirmation()<br>
-        {<br>
-            return View();<br>
-        }<br>
+//<br>
+// POST: /Account/ResetPassword<br>
+[HttpPost]<br>
+[AllowAnonymous]<br>
+[ValidateAntiForgeryToken]<br>
+public async Task&lt;ActionResult&gt; ResetPassword(ResetPasswordViewModel model)<br>
+{<br>
+if (!ModelState.IsValid)<br>
+{<br>
+return View(model);<br>
+}<br>
+var user = await UserManager.FindByNameAsync(model.Email);<br>
+if (user == null)<br>
+{<br>
+// Don't reveal that the user does not exist<br>
+return RedirectToAction("ResetPasswordConfirmation", "Account");<br>
+}<br>
+var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);<br>
+if (result.Succeeded)<br>
+{<br>
+return RedirectToAction("ResetPasswordConfirmation", "Account");<br>
+}<br>
+AddErrors(result);<br>
+return View();<br>
+}<br>
 <br>
-        //<br>
-        // POST: /Account/ExternalLogin<br>
-        [HttpPost]<br>
-        [AllowAnonymous]<br>
-        [ValidateAntiForgeryToken]<br>
-        public ActionResult ExternalLogin(string provider, string returnUrl)<br>
-        {<br>
-            // Request a redirect to the external login provider<br>
-            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));<br>
-        }<br>
+//<br>
+// GET: /Account/ResetPasswordConfirmation<br>
+[AllowAnonymous]<br>
+public ActionResult ResetPasswordConfirmation()<br>
+{<br>
+return View();<br>
+}<br>
 <br>
-        //<br>
-        // GET: /Account/SendCode<br>
-        [AllowAnonymous]<br>
-        public async Task&lt;ActionResult&gt; SendCode(string returnUrl, bool rememberMe)<br>
-        {<br>
-            var userId = await SignInManager.GetVerifiedUserIdAsync();<br>
-            if (userId == null)<br>
-            {<br>
-                return RedirectToAction("Error");<br>
-            }<br>
-            var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);<br>
-            var factorOptions = userFactors.Select(purpose =&gt; new SelectListItem { Text = purpose, Value = purpose }).ToList();<br>
-            return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });<br>
-        }<br>
+//<br>
+// POST: /Account/ExternalLogin<br>
+[HttpPost]<br>
+[AllowAnonymous]<br>
+[ValidateAntiForgeryToken]<br>
+public ActionResult ExternalLogin(string provider, string returnUrl)<br>
+{<br>
+// Request a redirect to the external login provider<br>
+return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));<br>
+}<br>
 <br>
-        //<br>
-        // POST: /Account/SendCode<br>
-        [HttpPost]<br>
-        [AllowAnonymous]<br>
-        [ValidateAntiForgeryToken]<br>
-        public async Task&lt;ActionResult&gt; SendCode(SendCodeViewModel model)<br>
-        {<br>
-            if (!ModelState.IsValid)<br>
-            {<br>
-                return View();<br>
-            }<br>
+//<br>
+// GET: /Account/SendCode<br>
+[AllowAnonymous]<br>
+public async Task&lt;ActionResult&gt; SendCode(string returnUrl, bool rememberMe)<br>
+{<br>
+var userId = await SignInManager.GetVerifiedUserIdAsync();<br>
+if (userId == null)<br>
+{<br>
+return RedirectToAction("Error");<br>
+}<br>
+var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);<br>
+var factorOptions = userFactors.Select(purpose =&gt; new SelectListItem { Text = purpose, Value = purpose }).ToList();<br>
+return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });<br>
+}<br>
 <br>
-            // Generate the token and send it<br>
-            if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))<br>
-            {<br>
-                return RedirectToAction("Error");<br>
-            }<br>
-            return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });<br>
-        }<br>
+//<br>
+// POST: /Account/SendCode<br>
+[HttpPost]<br>
+[AllowAnonymous]<br>
+[ValidateAntiForgeryToken]<br>
+public async Task&lt;ActionResult&gt; SendCode(SendCodeViewModel model)<br>
+{<br>
+if (!ModelState.IsValid)<br>
+{<br>
+return View();<br>
+}<br>
 <br>
-        //<br>
-        // GET: /Account/ExternalLoginCallback<br>
-        [AllowAnonymous]<br>
-        public async Task&lt;ActionResult&gt; ExternalLoginCallback(string returnUrl)<br>
-        {<br>
-            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();<br>
-            if (loginInfo == null)<br>
-            {<br>
-                return RedirectToAction("Login");<br>
-            }<br>
+// Generate the token and send it<br>
+if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))<br>
+{<br>
+return RedirectToAction("Error");<br>
+}<br>
+return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });<br>
+}<br>
 <br>
-            // Sign in the user with this external login provider if the user already has a login<br>
-            var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);<br>
-            switch (result)<br>
-            {<br>
-                case SignInStatus.Success:<br>
-                    return RedirectToLocal(returnUrl);<br>
-                case SignInStatus.LockedOut:<br>
-                    return View("Lockout");<br>
-                case SignInStatus.RequiresVerification:<br>
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });<br>
-                case SignInStatus.Failure:<br>
-                default:<br>
-                    // If the user does not have an account, then prompt the user to create an account<br>
-                    ViewBag.ReturnUrl = returnUrl;<br>
-                    ViewBag.LoginProvider = loginInfo.Login.LoginProvider;<br>
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });<br>
-            }<br>
-        }<br>
+//<br>
+// GET: /Account/ExternalLoginCallback<br>
+[AllowAnonymous]<br>
+public async Task&lt;ActionResult&gt; ExternalLoginCallback(string returnUrl)<br>
+{<br>
+var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();<br>
+if (loginInfo == null)<br>
+{<br>
+return RedirectToAction("Login");<br>
+}<br>
 <br>
-        //<br>
-        // POST: /Account/ExternalLoginConfirmation<br>
-        [HttpPost]<br>
-        [AllowAnonymous]<br>
-        [ValidateAntiForgeryToken]<br>
-        public async Task&lt;ActionResult&gt; ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)<br>
-        {<br>
-            if (User.Identity.IsAuthenticated)<br>
-            {<br>
-                return RedirectToAction("Index", "Manage");<br>
-            }<br>
+// Sign in the user with this external login provider if the user already has a login<br>
+var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);<br>
+switch (result)<br>
+{<br>
+case SignInStatus.Success:<br>
+return RedirectToLocal(returnUrl);<br>
+case SignInStatus.LockedOut:<br>
+return View("Lockout");<br>
+case SignInStatus.RequiresVerification:<br>
+return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });<br>
+case SignInStatus.Failure:<br>
+default:<br>
+// If the user does not have an account, then prompt the user to create an account<br>
+ViewBag.ReturnUrl = returnUrl;<br>
+ViewBag.LoginProvider = loginInfo.Login.LoginProvider;<br>
+return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });<br>
+}<br>
+}<br>
 <br>
-            if (ModelState.IsValid)<br>
-            {<br>
-                // Get the information about the user from the external login provider<br>
-                var info = await AuthenticationManager.GetExternalLoginInfoAsync();<br>
-                if (info == null)<br>
-                {<br>
-                    return View("ExternalLoginFailure");<br>
-                }<br>
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };<br>
-                var result = await UserManager.CreateAsync(user);<br>
-                if (result.Succeeded)<br>
-                {<br>
-                    result = await UserManager.AddLoginAsync(user.Id, info.Login);<br>
-                    if (result.Succeeded)<br>
-                    {<br>
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);<br>
-                        return RedirectToLocal(returnUrl);<br>
-                    }<br>
-                }<br>
-                AddErrors(result);<br>
-            }<br>
+//<br>
+// POST: /Account/ExternalLoginConfirmation<br>
+[HttpPost]<br>
+[AllowAnonymous]<br>
+[ValidateAntiForgeryToken]<br>
+public async Task&lt;ActionResult&gt; ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)<br>
+{<br>
+if (User.Identity.IsAuthenticated)<br>
+{<br>
+return RedirectToAction("Index", "Manage");<br>
+}<br>
 <br>
-            ViewBag.ReturnUrl = returnUrl;<br>
-            return View(model);<br>
-        }<br>
+if (ModelState.IsValid)<br>
+{<br>
+// Get the information about the user from the external login provider<br>
+var info = await AuthenticationManager.GetExternalLoginInfoAsync();<br>
+if (info == null)<br>
+{<br>
+return View("ExternalLoginFailure");<br>
+}<br>
+var user = new ApplicationUser { UserName = model.Email, Email = model.Email };<br>
+var result = await UserManager.CreateAsync(user);<br>
+if (result.Succeeded)<br>
+{<br>
+result = await UserManager.AddLoginAsync(user.Id, info.Login);<br>
+if (result.Succeeded)<br>
+{<br>
+await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);<br>
+return RedirectToLocal(returnUrl);<br>
+}<br>
+}<br>
+AddErrors(result);<br>
+}<br>
 <br>
-        //<br>
-        // POST: /Account/LogOff<br>
-        [HttpPost]<br>
-        [ValidateAntiForgeryToken]<br>
-        public ActionResult LogOff()<br>
-        {<br>
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);<br>
-            return RedirectToAction("Index", "Home");<br>
-        }<br>
+ViewBag.ReturnUrl = returnUrl;<br>
+return View(model);<br>
+}<br>
 <br>
-        //<br>
-        // GET: /Account/ExternalLoginFailure<br>
-        [AllowAnonymous]<br>
-        public ActionResult ExternalLoginFailure()<br>
-        {<br>
-            return View();<br>
-        }<br>
+//<br>
+// POST: /Account/LogOff<br>
+[HttpPost]<br>
+[ValidateAntiForgeryToken]<br>
+public ActionResult LogOff()<br>
+{<br>
+AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);<br>
+return RedirectToAction("Index", "Home");<br>
+}<br>
 <br>
-        protected override void Dispose(bool disposing)<br>
-        {<br>
-            if (disposing)<br>
-            {<br>
-                if (_userManager != null)<br>
-                {<br>
-                    _userManager.Dispose();<br>
-                    _userManager = null;<br>
-                }<br>
+//<br>
+// GET: /Account/ExternalLoginFailure<br>
+[AllowAnonymous]<br>
+public ActionResult ExternalLoginFailure()<br>
+{<br>
+return View();<br>
+}<br>
 <br>
-                if (_signInManager != null)<br>
-                {<br>
-                    _signInManager.Dispose();<br>
-                    _signInManager = null;<br>
-                }<br>
-            }<br>
+protected override void Dispose(bool disposing)<br>
+{<br>
+if (disposing)<br>
+{<br>
+if (_userManager != null)<br>
+{<br>
+_userManager.Dispose();<br>
+_userManager = null;<br>
+}<br>
 <br>
-            base.Dispose(disposing);<br>
-        }<br>
+if (_signInManager != null)<br>
+{<br>
+_signInManager.Dispose();<br>
+_signInManager = null;<br>
+}<br>
+}<br>
 <br>
-        #region Helpers<br>
-        // Used for XSRF protection when adding external logins<br>
-        private const string XsrfKey = "XsrfId";<br>
+base.Dispose(disposing);<br>
+}<br>
 <br>
-        private IAuthenticationManager AuthenticationManager<br>
-        {<br>
-            get<br>
-            {<br>
-                return HttpContext.GetOwinContext().Authentication;<br>
-            }<br>
-        }<br>
+#region Helpers<br>
+// Used for XSRF protection when adding external logins<br>
+private const string XsrfKey = "XsrfId";<br>
 <br>
-        private void AddErrors(IdentityResult result)<br>
-        {<br>
-            foreach (var error in result.Errors)<br>
-            {<br>
-                ModelState.AddModelError("", error);<br>
-            }<br>
-        }<br>
+private IAuthenticationManager AuthenticationManager<br>
+{<br>
+get<br>
+{<br>
+return HttpContext.GetOwinContext().Authentication;<br>
+}<br>
+}<br>
 <br>
-        private ActionResult RedirectToLocal(string returnUrl)<br>
-        {<br>
-            if (Url.IsLocalUrl(returnUrl))<br>
-            {<br>
-                return Redirect(returnUrl);<br>
-            }<br>
-            return RedirectToAction("Index", "Home");<br>
-        }<br>
+private void AddErrors(IdentityResult result)<br>
+{<br>
+foreach (var error in result.Errors)<br>
+{<br>
+ModelState.AddModelError("", error);<br>
+}<br>
+}<br>
 <br>
-        internal class ChallengeResult : HttpUnauthorizedResult<br>
-        {<br>
-            public ChallengeResult(string provider, string redirectUri)<br>
-                : this(provider, redirectUri, null)<br>
-            {<br>
-            }<br>
+private ActionResult RedirectToLocal(string returnUrl)<br>
+{<br>
+if (Url.IsLocalUrl(returnUrl))<br>
+{<br>
+return Redirect(returnUrl);<br>
+}<br>
+return RedirectToAction("Index", "Home");<br>
+}<br>
 <br>
-            public ChallengeResult(string provider, string redirectUri, string userId)<br>
-            {<br>
-                LoginProvider = provider;<br>
-                RedirectUri = redirectUri;<br>
-                UserId = userId;<br>
-            }<br>
+internal class ChallengeResult : HttpUnauthorizedResult<br>
+{<br>
+public ChallengeResult(string provider, string redirectUri)<br>
+: this(provider, redirectUri, null)<br>
+{<br>
+}<br>
 <br>
-            public string LoginProvider { get; set; }<br>
-            public string RedirectUri { get; set; }<br>
-            public string UserId { get; set; }<br>
+public ChallengeResult(string provider, string redirectUri, string userId)<br>
+{<br>
+LoginProvider = provider;<br>
+RedirectUri = redirectUri;<br>
+UserId = userId;<br>
+}<br>
 <br>
-            public override void ExecuteResult(ControllerContext context)<br>
-            {<br>
-                var properties = new AuthenticationProperties { RedirectUri = RedirectUri };<br>
-                if (UserId != null)<br>
-                {<br>
-                    properties.Dictionary[XsrfKey] = UserId;<br>
-                }<br>
-                context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);<br>
-            }<br>
-        }<br>
-        #endregion<br>
-    }<br>
+public string LoginProvider { get; set; }<br>
+public string RedirectUri { get; set; }<br>
+public string UserId { get; set; }<br>
+<br>
+public override void ExecuteResult(ControllerContext context)<br>
+{<br>
+var properties = new AuthenticationProperties { RedirectUri = RedirectUri };<br>
+if (UserId != null)<br>
+{<br>
+properties.Dictionary[XsrfKey] = UserId;<br>
+}<br>
+context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);<br>
+}<br>
+}<br>
+#endregion<br>
+}<br>
 }<br>
 <br>
 <br>
@@ -925,28 +922,28 @@ using System.Web.Http;<br>
 <br>
 namespace BigSchool_THBuoi4.Controllers<br>
 {<br>
-    public class AttendancesController : ApiController<br>
-    {<br>
-        [HttpPost]<br>
-        public IHttpActionResult Attend(Course attendanceDto)<br>
-        {<br>
-            var userID = User.Identity.GetUserId();<br>
-            BigSchoolContext context = new BigSchoolContext();<br>
+public class AttendancesController : ApiController<br>
+{<br>
+[HttpPost]<br>
+public IHttpActionResult Attend(Course attendanceDto)<br>
+{<br>
+var userID = User.Identity.GetUserId();<br>
+BigSchoolContext context = new BigSchoolContext();<br>
 <br>
-		// nếu đã tồn tại trong CSDL tức là khi click button --&gt; muốn hủy tham gia khóa học...<br>
-            if (context.Attendance.Any(p =&gt; p.Attendee == userID && p.CourseId == attendanceDto.Id))<br>
-            {<br>
-                // return BadRequest("The attendance already exists!");<br>
-                // xóa thông tin khóa học đã đăng ký tham gia trong bảng Attendances<br>
-                context.Attendance.Remove(context.Attendance.SingleOrDefault(p =&gt; p.Attendee == userID && p.CourseId == attendanceDto.Id));<br>
-                context.SaveChanges();<br>
-                return Ok("cancel");<br>
-            }<br>
-            var attendance = new Attendance() { CourseId = attendanceDto.Id, Attendee = User.Identity.GetUserId() };<br>
-            context.Attendance.Add(attendance); context.SaveChanges();<br>
-            return Ok();<br>
-        }<br>
-    }<br>
+// nếu đã tồn tại trong CSDL tức là khi click button --&gt; muốn hủy tham gia khóa học...<br>
+if (context.Attendance.Any(p =&gt; p.Attendee == userID && p.CourseId == attendanceDto.Id))<br>
+{<br>
+// return BadRequest("The attendance already exists!");<br>
+// xóa thông tin khóa học đã đăng ký tham gia trong bảng Attendances<br>
+context.Attendance.Remove(context.Attendance.SingleOrDefault(p =&gt; p.Attendee == userID && p.CourseId == attendanceDto.Id));<br>
+context.SaveChanges();<br>
+return Ok("cancel");<br>
+}<br>
+var attendance = new Attendance() { CourseId = attendanceDto.Id, Attendee = User.Identity.GetUserId() };<br>
+context.Attendance.Add(attendance); context.SaveChanges();<br>
+return Ok();<br>
+}<br>
+}<br>
 }<br>
 <br>
 - Mở file Global.asax hay Global.asax.cs gì gì đó không nhớ :)), bổ sung thêm dòng này ... :<br>
@@ -964,20 +961,20 @@ using System.Web.Routing;<br>
 <br>
 namespace BigSchool_THBuoi4<br>
 {<br>
-    public class MvcApplication : System.Web.HttpApplication<br>
-    {<br>
-        protected void Application_Start()<br>
-        {<br>
-		// Bổ sung dòng này ... :<br>
-            GlobalConfiguration.Configure(WebApiConfig.Register);<br>
-	Database.SetInitializer&lt;ApplicationDbContext&gt;(null);<br>
+public class MvcApplication : System.Web.HttpApplication<br>
+{<br>
+protected void Application_Start()<br>
+{<br>
+// Bổ sung dòng này ... :<br>
+GlobalConfiguration.Configure(WebApiConfig.Register);<br>
+Database.SetInitializer&lt;ApplicationDbContext&gt;(null);<br>
 <br>
-            AreaRegistration.RegisterAllAreas();<br>
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);<br>
-            RouteConfig.RegisterRoutes(RouteTable.Routes);<br>
-            BundleConfig.RegisterBundles(BundleTable.Bundles);<br>
-        }<br>
-    }<br>
+AreaRegistration.RegisterAllAreas();<br>
+FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);<br>
+RouteConfig.RegisterRoutes(RouteTable.Routes);<br>
+BundleConfig.RegisterBundles(BundleTable.Bundles);<br>
+}<br>
+}<br>
 }<br>
 <br>
 <br>
@@ -985,130 +982,130 @@ namespace BigSchool_THBuoi4<br>
 <br>
 <br>
 &commat;{<br>
-    ViewBag.Title = "Index";<br>
-    Layout = "~/Views/Shared/_Layout.cshtml";<br>
+ViewBag.Title = "Index";<br>
+Layout = "~/Views/Shared/_Layout.cshtml";<br>
 }<br>
 <br>
 &lt;link rel="stylesheet" type="text/css" href="~/Content/Site.css" /&gt;<br>
 <br>
 <br>
 &lt;div class="row"&gt;<br>
- &lt;ul class="course"&gt;<br>
-        &commat;foreach(var item in Model)<br>
-        {<br>
-            &lt;li&gt;<br>
-                &lt;div class="date"&gt;<br>
-                    &lt;div class="month"&gt;<br>
-                        &commat;item.Date_Time.ToString().Substring(3, 2)<br>
-                    &lt;/div&gt;<br>
-                    &lt;div class="day"&gt;<br>
-                        &commat;item.Date_Time.ToString().Substring(0, 2)<br>
-                    &lt;/div&gt;<br>
-                &lt;/div&gt;<br>
+&lt;ul class="course"&gt;<br>
+&commat;foreach(var item in Model)<br>
+{<br>
+&lt;li&gt;<br>
+&lt;div class="date"&gt;<br>
+&lt;div class="month"&gt;<br>
+&commat;item.Date_Time.ToString().Substring(3, 2)<br>
+&lt;/div&gt;<br>
+&lt;div class="day"&gt;<br>
+&commat;item.Date_Time.ToString().Substring(0, 2)<br>
+&lt;/div&gt;<br>
+&lt;/div&gt;<br>
 <br>
 ...<br>
 <br>
 ...<br>
 <br>
-		 &lt;div class="details"&gt;<br>
-                    &lt;span class="lecture"&gt;<br>
-                        &commat;item.Name<br>
-                        &commat;if (item.isLogin)<br>
-                        {<br>
-                            if (item.isShowFollow)<br>
-                            {<br>
-                                &lt;button data-user-id="&commat;item.LecturerId" class="btn btn-default btn-sm js-tongle-follow"&gt;<br>
-                                    Follow<br>
-                                &lt;/button&gt;<br>
-                            }<br>
-                            else<br>
-                            {<br>
-                                &lt;button data-user-id="&commat;item.LecturerId" class="btn btn-success btn-sm js-tongle-follow"&gt;<br>
-                                    Following<br>
-                                &lt;/button&gt;<br>
-                            }<br>
-                        }<br>
+&lt;div class="details"&gt;<br>
+&lt;span class="lecture"&gt;<br>
+&commat;item.Name<br>
+&commat;if (item.isLogin)<br>
+{<br>
+if (item.isShowFollow)<br>
+{<br>
+&lt;button data-user-id="&commat;item.LecturerId" class="btn btn-default btn-sm js-tongle-follow"&gt;<br>
+Follow<br>
+&lt;/button&gt;<br>
+}<br>
+else<br>
+{<br>
+&lt;button data-user-id="&commat;item.LecturerId" class="btn btn-success btn-sm js-tongle-follow"&gt;<br>
+Following<br>
+&lt;/button&gt;<br>
+}<br>
+}<br>
 <br>
-                    &lt;/span&gt;<br>
+&lt;/span&gt;<br>
 <br>
-                    &lt;br /&gt;<br>
-                    &lt;span class="category"&gt;<br>
-                    &commat;item.Category.Name<br>
-                        &commat;if (item.isLogin)<br>
-                        {<br>
-                            if (item.isShowGoing)<br>
-                            {<br>
-                                &lt;button data-course-id="&commat;item.Id" class="btn btn-default btn-sm js-tongle-attendance"&gt;<br>
-                                    Going?<br>
-                                &lt;/button&gt;<br>
-                            }<br>
-                            else<br>
-                            {<br>
-                                &lt;button data-course-id="&commat;item.Id" class="btn btn-info btn-sm js-tongle-attendance"&gt;<br>
-                                  Going<br>
-                                &lt;/button&gt;<br>
-                            }<br>
-                        }<br>
-                    &lt;/span&gt;<br>
+&lt;br /&gt;<br>
+&lt;span class="category"&gt;<br>
+&commat;item.Category.Name<br>
+&commat;if (item.isLogin)<br>
+{<br>
+if (item.isShowGoing)<br>
+{<br>
+&lt;button data-course-id="&commat;item.Id" class="btn btn-default btn-sm js-tongle-attendance"&gt;<br>
+Going?<br>
+&lt;/button&gt;<br>
+}<br>
+else<br>
+{<br>
+&lt;button data-course-id="&commat;item.Id" class="btn btn-info btn-sm js-tongle-attendance"&gt;<br>
+Going<br>
+&lt;/button&gt;<br>
+}<br>
+}<br>
+&lt;/span&gt;<br>
 <br>
-                &lt;/div&gt;<br>
-            &lt;/li&gt;<br>
-        }<br>
-    &lt;/ul&gt;<br>
+&lt;/div&gt;<br>
+&lt;/li&gt;<br>
+}<br>
+&lt;/ul&gt;<br>
 <br>
 // [PHẦN QUAN TRỌNG...]<br>
 <br>
-    &commat;section scripts<br>
- {<br>
-        &lt;script&gt;<br>
+&commat;section scripts<br>
+{<br>
+&lt;script&gt;<br>
 <br>
- $(document).ready(function () {<br>
-     $(".js-tongle-attendance").click(function (e)<br>
-     {<br>
-         var button = $(e.target); $.post("/api/attendances", { Id: button.attr("data-course-id") }).done(function (result)<br>
-         {<br>
-             if (result == "cancel")<br>
-             {<br>
-                 alert("Cancel register course sucessfully!")<br>
-         button  <br>
-         .removeClass("btn-info").addClass("btn-default").text("Going?");<br>
-             }<br>
-             else<br>
-             {<br>
-         alert("Register course sucessfully!")<br>
-         button<br>
-         .removeClass("btn-default").addClass("btn-info").text("Going");<br>
-             }<br>
-         }).fail(function () {<br>
-             alert("Something fail");<br>
-         });<br>
-     }); <br>
+$(document).ready(function () {<br>
+$(".js-tongle-attendance").click(function (e)<br>
+{<br>
+var button = $(e.target); $.post("/api/attendances", { Id: button.attr("data-course-id") }).done(function (result)<br>
+{<br>
+if (result == "cancel")<br>
+{<br>
+alert("Cancel register course sucessfully!")<br>
+button  <br>
+.removeClass("btn-info").addClass("btn-default").text("Going?");<br>
+}<br>
+else<br>
+{<br>
+alert("Register course sucessfully!")<br>
+button<br>
+.removeClass("btn-default").addClass("btn-info").text("Going");<br>
+}<br>
+}).fail(function () {<br>
+alert("Something fail");<br>
+});<br>
+}); <br>
 <br>
-     $(".js-tongle-follow").click(function (e) {<br>
-         var button = $(e.target); var followee = button.attr("data-user-id"); $.post("/api/followings", { FolloweeId: button.attr("data-user-id") }).done(function (result) {<br>
-             if (result == "cancel") {<br>
-                 $('.js-tongle-follow').each(function (i, obj) {<br>
-                     if ($(this).attr('data-user-id') == followee) {<br>
-                         $(this).removeClass("btn-success")<br>
-                          .addClass("btn-default").text("Follow");<br>
-                     }<br>
-                 });<br>
-                 alert("unFollow sucessfully")<br>
-             } else {<br>
-                 $('.js-tongle-follow').each(function (i, obj) {<br>
-                     if ($(this).attr('data-user-id') == followee) {<br>
-                         $(this).removeClass("btn-default")<br>
-                         .addClass("btn-success").text("Following");<br>
-                     }<br>
-                 });<br>
-                 alert("Follow sucessfully")<br>
-             }<br>
-         }).fail(function () { alert("Something fail"); });<br>
-     });<br>
+$(".js-tongle-follow").click(function (e) {<br>
+var button = $(e.target); var followee = button.attr("data-user-id"); $.post("/api/followings", { FolloweeId: button.attr("data-user-id") }).done(function (result) {<br>
+if (result == "cancel") {<br>
+$('.js-tongle-follow').each(function (i, obj) {<br>
+if ($(this).attr('data-user-id') == followee) {<br>
+$(this).removeClass("btn-success")<br>
+.addClass("btn-default").text("Follow");<br>
+}<br>
+});<br>
+alert("unFollow sucessfully")<br>
+} else {<br>
+$('.js-tongle-follow').each(function (i, obj) {<br>
+if ($(this).attr('data-user-id') == followee) {<br>
+$(this).removeClass("btn-default")<br>
+.addClass("btn-success").text("Following");<br>
+}<br>
+});<br>
+alert("Follow sucessfully")<br>
+}<br>
+}).fail(function () { alert("Something fail"); });<br>
+});<br>
 <br>
- });<br>
-        &lt;/script&gt;<br>
-    }<br>
+});<br>
+&lt;/script&gt;<br>
+}<br>
 <br>
 &lt;/div&gt;<br>
 <br>
@@ -1124,30 +1121,30 @@ using PagedList.Mvc;<br>
 <br>
 namespace Webbansach.Controllers<br>
 {<br>
-    public class BookStoreController : Controller<br>
-    {<br>
-        // GET: BookStore<br>
-        //Tao doi tuong data chưa dữ liệu từ model dbQLBansach đã tạo. <br>
-        dbQLBansachDataContext data = new dbQLBansachDataContext();<br>
+public class BookStoreController : Controller<br>
+{<br>
+// GET: BookStore<br>
+//Tao doi tuong data chưa dữ liệu từ model dbQLBansach đã tạo. <br>
+dbQLBansachDataContext data = new dbQLBansachDataContext();<br>
 <br>
-        // Ham lay n quyen sach moi <br>
-        private List&lt;SACH&gt; Laysachmoi(int count)<br>
-        {<br>
-            //Sắp xếp sách theo ngày cập nhật, sau đó lấy top &commat;count <br>
-            return data.SACHes.OrderByDescending(a =&gt; a.Ngaycapnhat).Take(count).ToList();<br>
-        }<br>
+// Ham lay n quyen sach moi <br>
+private List&lt;SACH&gt; Laysachmoi(int count)<br>
+{<br>
+//Sắp xếp sách theo ngày cập nhật, sau đó lấy top &commat;count <br>
+return data.SACHes.OrderByDescending(a =&gt; a.Ngaycapnhat).Take(count).ToList();<br>
+}<br>
 <br>
-        //Phuong thức Index: Không có tham số (null) hoặc có tham số là số nguyên (biến page)<br>
-        public ActionResult Index(int ? page)<br>
-        {<br>
-            //kích thước trang = số mẫu tin cho 1 trang<br>
-            int pagesize = 5;<br>
-            //Số thứ tự trang: nêu page là null thì pagenum =1, ngược lại pagenum=page<br>
-            int pagenum = (page ?? 1);<br>
-            //Lấy top 5 Album bán chạy nhất<br>
-            var sachmoi = Laysachmoi(15);<br>
-            return View(sachmoi.ToPagedList(pagenum, pagesize));<br>
-        }<br>
+//Phuong thức Index: Không có tham số (null) hoặc có tham số là số nguyên (biến page)<br>
+public ActionResult Index(int ? page)<br>
+{<br>
+//kích thước trang = số mẫu tin cho 1 trang<br>
+int pagesize = 5;<br>
+//Số thứ tự trang: nêu page là null thì pagenum =1, ngược lại pagenum=page<br>
+int pagenum = (page ?? 1);<br>
+//Lấy top 5 Album bán chạy nhất<br>
+var sachmoi = Laysachmoi(15);<br>
+return View(sachmoi.ToPagedList(pagenum, pagesize));<br>
+}<br>
 <br>
 ...<br>
 <br>
@@ -1160,57 +1157,56 @@ namespace Webbansach.Controllers<br>
 <br>
 <br>
 &commat;{<br>
-    ViewBag.Title = "Index";<br>
-    Layout = "~/Views/Shared/_LayoutUser.cshtml";<br>
+ViewBag.Title = "Index";<br>
+Layout = "~/Views/Shared/_LayoutUser.cshtml";<br>
 }<br>
 <br>
 &lt;h2&gt;SẢN PHẨM MỚI &lt;/h2&gt;<br>
 <br>
 &lt;div class="row"&gt;<br>
-    &commat;foreach (var sach in Model)<br>
-    {<br>
-        &lt;div class="col-sm-4 col-lg-4 col-md-4"&gt;<br>
-            &lt;div class="thumbnail"&gt;<br>
-                &lt;a href="&commat;Url.Action("Chitietsach", "BookStore", new { id = sach.Masach})"&gt;<br>
-                    &lt;img alt="&commat;sach.Tensach" src="~/Hinhsanpham/&commat;sach.Anhbia" width="200" /&gt;<br>
-                    &lt;div&gt;<br>
-                        &lt;br /&gt;<br>
-                        &lt;h4 style="text-align:center"&gt;<br>
-                            &commat;sach.Tensach<br>
-                        &lt;/h4&gt;<br>
-                        &lt;p&gt;&lt;/p&gt;<br>
-                    &lt;/div&gt;<br>
-                &lt;/a&gt;<br>
-                    &lt;div class="ratings"&gt;<br>
-                        &lt;p class="pull-right"&gt;15 reviews&lt;/p&gt;<br>
-                        &lt;p&gt;<br>
-                            &lt;span class="glyphicon glyphicon-star"&gt;&lt;/span&gt;<br>
-                            &lt;span class="glyphicon glyphicon-star"&gt;<br>
-                            &lt;/span&gt;<br>
-                            &lt;span class="glyphicon glyphicon-star"&gt;&lt;/span&gt;<br>
-                            &lt;span class="glyphicon glyphicon-star"&gt;&lt;/span&gt;<br>
-                            &lt;span class="glyphicon glyphicon-star"&gt;&lt;/span&gt;<br>
-                        &lt;/p&gt;<br>
-                    &lt;/div&gt;<br>
-            &lt;/div&gt;<br>
-        &lt;/div&gt;<br>
-    }<br>
+&commat;foreach (var sach in Model)<br>
+{<br>
+&lt;div class="col-sm-4 col-lg-4 col-md-4"&gt;<br>
+&lt;div class="thumbnail"&gt;<br>
+&lt;a href="&commat;Url.Action("Chitietsach", "BookStore", new { id = sach.Masach})"&gt;<br>
+&lt;img alt="&commat;sach.Tensach" src="~/Hinhsanpham/&commat;sach.Anhbia" width="200" /&gt;<br>
+&lt;div&gt;<br>
+&lt;br /&gt;<br>
+&lt;h4 style="text-align:center"&gt;<br>
+&commat;sach.Tensach<br>
+&lt;/h4&gt;<br>
+&lt;p&gt;&lt;/p&gt;<br>
+&lt;/div&gt;<br>
+&lt;/a&gt;<br>
+&lt;div class="ratings"&gt;<br>
+&lt;p class="pull-right"&gt;15 reviews&lt;/p&gt;<br>
+&lt;p&gt;<br>
+&lt;span class="glyphicon glyphicon-star"&gt;&lt;/span&gt;<br>
+&lt;span class="glyphicon glyphicon-star"&gt;<br>
+&lt;/span&gt;<br>
+&lt;span class="glyphicon glyphicon-star"&gt;&lt;/span&gt;<br>
+&lt;span class="glyphicon glyphicon-star"&gt;&lt;/span&gt;<br>
+&lt;span class="glyphicon glyphicon-star"&gt;&lt;/span&gt;<br>
+&lt;/p&gt;<br>
+&lt;/div&gt;<br>
+&lt;/div&gt;<br>
+&lt;/div&gt;<br>
+}<br>
 &lt;/div&gt;<br>
 <br>
 // PHÂN TRANG TẠI ĐÂY...<br>
 <br>
 <br>
 &lt;div&gt;<br>
-    Trang &commat;(Model.PageNumber&gt;Model.PageCount?3:Model.PageNumber) /&commat;Model.PageCount<br>
+Trang &commat;(Model.PageNumber&gt;Model.PageCount?3:Model.PageNumber) /&commat;Model.PageCount<br>
 &lt;/div&gt;<br>
 &lt;div class="Menutrang"&gt;<br>
-    &commat;Html.PagedListPager(Model, page =&gt; Url.Action("Index", new { page = page }))<br>
+&commat;Html.PagedListPager(Model, page =&gt; Url.Action("Index", new { page = page }))<br>
 &lt;/div&gt;<br>
 <br>
 &lt;style&gt;<br>
-    .Menutran li{<br>
-        display:inline<br>
-    }<br>
+.Menutran li{<br>
+display:inline<br>
+}<br>
 &lt;/style&gt;<br>
-
-            ...
+...

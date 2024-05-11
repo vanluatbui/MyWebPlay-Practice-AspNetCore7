@@ -1,61 +1,55 @@
 ﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
-      function xoaValue(ele)
+    function xoaValue(ele)
     {
-            document.getElementById(ele).value = "";
-            document.getElementById(ele).focus();
+          document.getElementById(ele).value = "";
+          document.getElementById(ele).focus();
     }
 </script>
 <table align="center">
     <h2 style="text-align:center">Replace Text - Harmony</h2>
-
     <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
-
     @using (Html.BeginForm())
     {
-        @Html.ValidationSummary(true)
-
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                <br>
-                   <a href="#xuly" onclick="xoaValue('index')"> <b>Nhập số lượng index thay thế : </b></a><br />
-                <br>
-                    <input type="number" name="txtIndex" id="index" size="10" value="3" />
-                <br><br>
-                   <a href="#xuly" onclick="xoaValue('chuoi')"> <b>Nhập mẫu chuỗi gốc (chỗ cần replace phải đúng như với số lượng index trên - ví dụ nhập dấu hiệu tại đó là [i]) : </b></a><br>
-                <br>
-                    <textarea cols="100" rows="10" id="chuoi" name="txtChuoi">[1] + [2] = [3]</textarea>
-                <br><br>
-                   <a href="#xuly" onclick="xoaValue('input')"> <b>Nhập input (mỗi thành phần cách nhau bởi Enter, mỗi index cách nhau bởi Tab) : </b></a><br>
-                <br>
-                    <textarea cols="100" rows="10" id="input" name="txtInput">1[T-PLAY]2[T-PLAY]3
+    @Html.ValidationSummary(true)
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <a href="#xuly" onclick="xoaValue('index')"> <b>Nhập số lượng index thay thế : </b></a><br />
+            <br>
+            <input type="number" name="txtIndex" id="index" size="10" value="3" />
+            <br><br>
+            <a href="#xuly" onclick="xoaValue('chuoi')"> <b>Nhập mẫu chuỗi gốc (chỗ cần replace phải đúng như với số lượng index trên - ví dụ nhập dấu hiệu tại đó là [i]) : </b></a><br>
+            <br>
+            <textarea cols="100" rows="10" id="chuoi" name="txtChuoi">[1] + [2] = [3]</textarea>
+            <br><br>
+            <a href="#xuly" onclick="xoaValue('input')"> <b>Nhập input (mỗi thành phần cách nhau bởi Enter, mỗi index cách nhau bởi Tab) : </b></a><br>
+            <br>
+            <textarea cols="100" rows="10" id="input" name="txtInput">1[T-PLAY]2[T-PLAY]3
 5[T-PLAY]3[T-PLAY]8
 10[T-PLAY]8[T-PLAY]18
 100[T-PLAY]100[T-PLAY]200
 12[T-PLAY]36[T-PLAY]48</textarea>
-                <br>
-            </td>
-        </tr>
-        <tr style="height:40px">
-            <td></td>
-            <td>
-                <input type="Submit" value="Kết Quả" />
-            </td>
-        </tr>
+            <br>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input type="Submit" value="Kết Quả" />
+        </td>
+    </tr>
     }
 </table>
 <br /><br />
-
 ******************************************************************************************************************************************************************************
-
 <br />
 <br />
 <br />
-
 <div id="hihi">
-                @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
+    @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
 </div>

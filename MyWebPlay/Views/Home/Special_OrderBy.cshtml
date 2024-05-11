@@ -1,37 +1,33 @@
 ﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <table align="center">
     <h2 style="text-align:center">Special - OrderBy (Sắp xếp tăng dần)</h2>
-
     <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
-
     @using (Html.BeginForm())
     {
-        @Html.ValidationSummary(true)
-
-        <tr style="height:40px">
-            <td></td>
-            <td>
-                <br>
-                    <b>Dữ kiện thứ tự sắp xếp và ưu tiên (index mỗi từ) : </b>
-                    <br>
-                <input type="text" size="50" name="SapXep" value="N-1=N-2=0=1">
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
-            </td>
-        </tr>
-        <br />
-        <br />
-
-        <tr style="height:40px">
-            <td>  </td>
-            <td>
-                <br>
-                    <b>Chuỗi của bạn :</b>
-                <br>
-                <textarea rows="20" cols="150" name="Chuoi" autofocus>Bùi Nguyễn Tú Dương
+    @Html.ValidationSummary(true)
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <br>
+            <b>Dữ kiện thứ tự sắp xếp và ưu tiên (index mỗi từ) : </b>
+            <br>
+            <input type="text" size="50" name="SapXep" value="N-1=N-2=0=1">
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+        </td>
+    </tr>
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td>  </td>
+        <td>
+            <br>
+            <b>Chuỗi của bạn :</b>
+            <br>
+            <textarea rows="20" cols="150" name="Chuoi" autofocus>Bùi Nguyễn Tú Dương
 Nguyễn Thị Xuân Hoài Anh
 Lê Trần Anh Huy
 MyWebPlay Asp Net Core
@@ -69,25 +65,23 @@ Bùi Ngọc Tú
 Lê Anh Hào
 Phạm Xuân Anh
 Trần Phương Thảo</textarea>
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
-            </td>
-        </tr>
-        <tr style="height:40px">
-            <td></td>
-            <td>
-                <input type="Submit" value="Kết Quả" />
-            </td>
-        </tr>
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input type="Submit" value="Kết Quả" />
+        </td>
+    </tr>
     }
 </table>
 <br /><br /><br />
 ******************************************************************************************************************************************************************************
-
 <br />
 <br />
 <br />
-
 <div id="hihi">
     @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>} 
 </div>

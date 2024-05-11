@@ -1,62 +1,55 @@
-﻿    @if (TempData["ViewSiteBasic"] == "true")
+﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
-      function xoaValue(ele)
+    function xoaValue(ele)
     {
-            document.getElementById(ele).value = "";
-            document.getElementById(ele).focus();
+          document.getElementById(ele).value = "";
+          document.getElementById(ele).focus();
     }
 </script>
 <table align="center">
     <h2 style="text-align:center">Xử Lý SQL 7</h2>
-
     <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
-
     @using (Html.BeginForm())
     {
-        @Html.ValidationSummary(true)
-
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                <a href="#xuly" onclick="xoaValue('table')"><b>Nhập tên table : </b></a>
-                <br>
-                <input type="text" id="table" name="txtTable" value="User" />
-                <br><br>
-                <a href="#xuly" onclick="xoaValue('daydu')"><b>Nhập nội dung được cho là đầy đủ (fileds - type) (liệt kê tách bởi Enter/sử dụng file SQL) : </b>
-                <br></a>
-                <textarea name="txtDayDu" id="daydu" cols="100" rows="12">Column1 nvarchar(10)
+    @Html.ValidationSummary(true)
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <a href="#xuly" onclick="xoaValue('table')"><b>Nhập tên table : </b></a>
+            <br>
+            <input type="text" id="table" name="txtTable" value="User" />
+            <br><br>
+            <a href="#xuly" onclick="xoaValue('daydu')"><b>Nhập nội dung được cho là đầy đủ (fileds - type) (liệt kê tách bởi Enter/sử dụng file SQL) : </b>
+            <br></a>
+            <textarea name="txtDayDu" id="daydu" cols="100" rows="12">Column1 nvarchar(10)
 Column2 int
 Column3 money
 Column4 varchar(5)
 Column5 datetime</textarea>
-                <br><br>
-                <a href="#xuly" onclick="xoaValue('hientai')"><b>Nhập các fileds hiện có - tách bởi Enter (có thể dùng lệnh : SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'name') : </b></a>
-                <br>
-                <textarea name="txtHienTai" id="hientai" cols="100" rows="12">Column1
+            <br><br>
+            <a href="#xuly" onclick="xoaValue('hientai')"><b>Nhập các fileds hiện có - tách bởi Enter (có thể dùng lệnh : SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'name') : </b></a>
+            <br>
+            <textarea name="txtHienTai" id="hientai" cols="100" rows="12">Column1
 Column2
 Column4</textarea>
-            </td>
-        </tr>
-      
-        <tr style="height:40px">
-            <td></td>
-            <td><br>
-                <input type="Submit" value="Kết Quả" />
-            </td>
-        </tr>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td><br>
+            <input type="Submit" value="Kết Quả" />
+        </td>
+    </tr>
     }
 </table>
 <br /><br />
-
 ******************************************************************************************************************************************************************************
-
 <br />
 <br />
 <br />
-
 <div id="hihi">
-                @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
+    @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
 </div>

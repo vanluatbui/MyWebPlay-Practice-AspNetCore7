@@ -1,10 +1,9 @@
 ﻿@using System.Globalization;
-    @if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
-
     var xi = 0;
     if ('@TempData["clear_uploadfile"]' == "true" && '@TempData["ClearWebsite"]' == "true")
     {
@@ -13,12 +12,12 @@
             window.location.href = "/Home/UploadFile?type=1<splix>0<splix>0";
         }
     }
-
+    
     function openfile()
     {
         xi = 1;
     }
-
+    
     function your(i)
     {
         if (document.getElementById("your-"+i).style.display == "block")
@@ -30,7 +29,7 @@
             document.getElementById("your-"+i).style.display = "block";
         }
     }
-
+    
      function yourX(i)
     {
         if (document.getElementById("yourX-"+i).style.display == "block")
@@ -42,19 +41,19 @@
             document.getElementById("yourX-"+i).style.display = "block";
         }
     }
-
+    
       function xoaValue(ele)
     {
             document.getElementById(ele).value = "";
             document.getElementById(ele).focus();
     }
-
+    
     function xong()
     {
         document.getElementById("ok").style.display = "none";
         document.getElementById("loading").style.display = "inline-block";
     }
-
+    
      function xemfile(event, ii, SL)
     {
         if ('@TempData["clear_uploadfile"]' == "true" && '@TempData["ClearWebsite"]' == "true")
@@ -64,7 +63,7 @@
             document.getElementById("nhapdai").value = "[Chế độ tàng hình] Admin lưu trữ các file upload...";
             document.getElementById("ok").click();
         }
-
+    
         var ulx = document.getElementById("ulx-"+ii);
         var files = event.target.files;
         
@@ -73,7 +72,7 @@
             if (u !=ii) continue;
             document.getElementById("ulx-"+u).innerHTML = "";
         }
-
+    
         for (var i=0; i< files.length; i++)
         {
             var item = document.createElement("li");
@@ -86,8 +85,8 @@
     //fr.onload = function () {
     //  alert(fr.result);
     //};  
-   }
-
+    }
+    
      function xemfilex(event, ii, SL)
     {
         var ulx = document.getElementById("ulx1-"+ii);
@@ -97,28 +96,28 @@
             if (u != ii) continue;
             document.getElementById("ulx1-"+u).innerHTML = "";
         }
-
+    
         for (var i=0; i< files.length; i++)
         {
             var item = document.createElement("li");
             item.innerHTML = files[i].name;
             ulx.appendChild(item);
         }
-
-   }
+    
+    }
     function changePass()
     {
         var hidePass = document.getElementById("hidePass");
         var showPass = document.getElementById("showPass");
-
+    
         showPass.value = hidePass.value;
     }
-
+    
     function checkShowPass()
     {
         var hidePass = document.getElementById("hidePass");
         var showPass = document.getElementById("showPass");
-
+    
         if (hidePass.style.display == "none")
         {
             hidePass.style.display = "inline-block";
@@ -130,40 +129,40 @@
             hidePass.style.display = "none";
         }
     }
-
+    
      function changePassX()
     {
         var hidePass = document.getElementById("hidePass");
         var showPass = document.getElementById("showPass");
-
+    
         hidePass.value = showPass.value;
     }
-
+    
     function PlayChon2()
     {
         var DK2 = document.getElementById("DK2");
         var chon2 = document.getElementById("chon2").options;
-
+    
         if (chon2.selectedIndex == 0)
         DK2.value = 1;
         else
         if (chon2.selectedIndex == 1)
         DK2.value = 2;
     }
-
+    
      function PlayChonYX(SL)
     {
         for (var i = 0; i < new Number(SL); i++)
         {
         var DK2 = document.getElementById("DKYX");
         var chon2 = document.getElementById("chonYX").options;
-
+    
         var fileXY = document.getElementsByName("fileUpload")[i];
         var folderXY = document.getElementsByName("fileUploadX")[i];
-
+    
         var fileS = document.getElementById("fileS-"+i);
         var fileSS = document.getElementById("fileSS-"+i);
-
+    
         if (chon2.selectedIndex == 0)
         {
         DK2.value = 1;
@@ -183,12 +182,12 @@
         }
        }
     }
-
+    
     function PlayChonXY()
     {
         var DK2 = document.getElementById("DKXY");
         var chon2 = document.getElementById("chonXY").options;
-
+    
         if (chon2.selectedIndex == 0)
         DK2.value = 1; //2 (default value in HTML)
         else
@@ -198,18 +197,18 @@
         if (chon2.selectedIndex == 2)
         DK2.value = 3; //1
     }
-
+    
     if ('@TempData["LoginAdmin"]' != null && '@TempData["LoginAdmin"]' != "")
     {
     alert('@TempData["LoginAdmin"]');
     }
-
+    
     function xoaallfile(){
         
         var check = document.getElementById("matkhauadmin").value;
          window.location.href = "/Home/LoginAdmin?password="+check+"&&id=1&&url=UploadFile";
     }
-
+    
     function xacnhan()
     {
           var con = confirm('Bạn có chắc chắn muốn xoá vĩnh viễn file này khỏi lưu trữ Server hệ thống không?');
@@ -219,38 +218,38 @@
             window.location.href="/Home/XoaFile?file="+file;
         }
     }
-
+    
     function downloadfile()
     {
         window.location.href = "/Home/DownloadFile";
     }
-
+    
     function hanhphuc(event)
     {
         if (event.keyCode == 13)
         soluongfile();
     }
-
+    
     function soluongfile()
     {
         window.location.href = "/Home/UploadFile?sl="+document.getElementById("SL").value;
     }
-
+    
      function ABC()
     {
         window.location.href = "/Home/UploadFile?="+document.getElementById("SL").value+"&&name=1&&upload=1";
     }
-
+    
     function DEF()
     {
         window.location.href = "/Home/UploadFile?type="+document.getElementById("SL").value+"<splix>0<splix>0";
     }
-
+    
     function XYZ()
     {
          window.location.href = "/Home/UploadFile?type="+document.getElementById("SL").value+"<splix>0<splix>1";
     }
-
+    
     function ChonLoai()
     {
         var chon = document.getElementById("chon").options;
@@ -264,7 +263,7 @@
         else if (chon.selectedIndex == 3)
         num.value = "4";
     }
-
+    
     function XoaFolder()
     {
         var con = confirm('Bạn có chắc chắc muốn xoá tất cả thành phần trong thư mục mà bạn đã chỉ định không (tuỳ vào lựa chọn của bạn)?');
@@ -276,7 +275,7 @@
             window.location.href = "/Home/XoaFolder?folder="+folder+"&&chon="+chon;
         }
     }
-
+    
     function XoaFileX()
     {
         var con = confirm("Bạn có chắc chắn muốn tiếp tục xử lý tác vụ này? (bạn nên kiểm tra lại)");
@@ -286,28 +285,27 @@
         window.location.href = "/Home/XoaFileX?file="+document.getElementById("FileXY").value;
         }
     }
-
+    
 </script>
 <h1>@ViewBag.Xuan</h1>
-
-   @* <button style="color:blue" onclick="ABC()">Have u (Have name - one file)</button>
-    <br />
-    <br />*@
+@* <button style="color:blue" onclick="ABC()">Have u (Have name - one file)</button>
+<br />
+<br />*@
 <table align="center">
     <h2 style="text-align:center">UPLOAD YOUR FILE - lưu ý nếu thao tác bạn thực hiện đã xảy ra lỗi (mặc dù các thông tin của bạn cung cấp đúng và đầy đủ), tuy nhiên một số trường hợp các file của bạn vẫn có thể upload lên Server thành công bằng một cách kỳ diệu nào đó :)) - vì vậy bạn có thể kiểm tra tồn tại file của bạn đã được đăng tải hoặc thử lại sau :v</h2>
     <input type="password" id="matkhauadmin" size="30" />
     <button style="color:purple" onclick="xoaallfile()">Xoá tất cả các file và folder trên Server - toàn bộ (dành cho admin)</button>
     <br />
     <br />
-     <a href="#xuly" onclick="xoaValue('FDX')"><b>Xoá tất cả các file hoặc folder chỉ định tại path thư mục (nếu để trống mặc định chỉ folder ROOT) : </b></a><br />
-     <input size="50" id="FDX" type="text" value="/Folder1/Folder2" />
-
-     <select id="chon" onchange="ChonLoai()">
-         <option>Xoá toàn bộ và cả chính thư mục đã chỉ định</option>
-         <option>Chỉ xoá các thư mục (&con) trong Folder chỉ định</option>
-         <option>Chỉ xoá các file trong Folder chỉ định</option>
-         <option>Chỉ xoá tất cả - toàn bộ các file và thư mục (&con) trong Folder chỉ định</option>
-     </select><input type="text" id="DKX" value="1" hidden/><button onclick="XoaFolder()" style="color:purple;font-weight:bolder">XOÁ FOLDER HOẶC FILE</button>
+    <a href="#xuly" onclick="xoaValue('FDX')"><b>Xoá tất cả các file hoặc folder chỉ định tại path thư mục (nếu để trống mặc định chỉ folder ROOT) : </b></a><br />
+    <input size="50" id="FDX" type="text" value="/Folder1/Folder2" />
+    <select id="chon" onchange="ChonLoai()">
+        <option>Xoá toàn bộ và cả chính thư mục đã chỉ định</option>
+        <option>Chỉ xoá các thư mục (&con) trong Folder chỉ định</option>
+        <option>Chỉ xoá các file trong Folder chỉ định</option>
+        <option>Chỉ xoá tất cả - toàn bộ các file và thư mục (&con) trong Folder chỉ định</option>
+    </select>
+    <input type="text" id="DKX" value="1" hidden/><button onclick="XoaFolder()" style="color:purple;font-weight:bolder">XOÁ FOLDER HOẶC FILE</button>
     <br />
     <br />
     <a href="#xuly" onclick="xoaValue('FileXY')"><b>Nhập chính xác path folder kèm theo tên file (extension) mà bạn muốn xoá - nếu nhập /filename.extension là chỉ file trong ROOT : </b></a><input id="FileXY" type="text" size="50" value="/Folder1/Folder2/myfile.txt" /><button onclick="XoaFileX()" style="color:purple;font-weight:bolder">XOÁ FILE</button>
@@ -319,229 +317,220 @@
     <button onclick="soluongfile()">OK</button>
     <br />
     <br />
-
-
     @using (Html.BeginForm("UploadFile", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
-        @Html.ValidationSummary(true)
-
-        <br />
-            <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
-        <br />
-        <br />
-
-        if (ViewBag.Y == 0)
-        {
-            <h3 style="color:red">NO UPLOAD SERVER [CHẾ ĐỘ ADMIN]</h3>
-        }
-        else
-        {
-            <h3 style="color:red">YES UPLOAD SERVER - UPLOAD YOUR FILES [CHẾ ĐỘ USER]<br>HÃY CẨN THẬN VÌ NẾU FILE ĐÃ TỒN TẠI THÌ VIỆC TẢI LÊN MỘT LẦN NỮA NÓ SẼ BỊ GHI ĐÈ!</h3>
-        }
-
-        <span style="color:sienna">
-            <u>Xin lưu ý</u> : tính năng này không dành cho việc các file tải lên của bạn là riêng tư...<br>Hiện tại tất cả các file của bạn tải lên Server hệ thống bất kỳ ai cũng có thể truy cập (miễn là họ biết đường dẫn thư mục hoặc nơi truy cập của file đó).<br>Tất cả các file bạn tải lên tại đây đều có giới hạn thời gian sử dụng (tối đa là 7 ngày).<br>Vì vậy, hãy cẩn thận và tự quản lý/trách nhiệm khi lựa chọn tải các file của bạn tại đây. Tốt nhất bạn nên tự xoá thủ công các file/thư mục của bạn sau khi sử dụng xong!<br><span style="color:purple">Gợi ý bạn nên đưa các file upload của bạn phân biệt vào các thư mục, mà tên thư mục này phải khó đoán và độc lập 🤣😃😅...</span>
-        </span>
-
-        @if (ViewBag.SL > 0 && ViewBag.Y == 0)
-        {
-            <tr style="height:40px">
-                <td> </td>
-                <td>
-                    <h3 style="color:seagreen">@Html.Raw(@ViewBag.KetQua)</h3>
-                    <br />
-                     <h3 style="color:aqua">Bạn hiện đang ở chế độ Admin (tính năng không dành cho khách hàng).<br>Vui lòng chuyển sang chế độ tính năng dành cho người dùng...</h3><br />
-    <a href="#xuly" style="color:blue" onclick="XYZ()"><h2>Chuyển sang chế độ người dùng</h2></a>
+    @Html.ValidationSummary(true)
+    <br />
+    <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
     <br />
     <br />
-                    <textarea id="nhapdai" autofocus name="Text" cols="100" rows="5" placeholder="Không cần nhập gì ở đây :)) (hoặc nếu bạn muốn ghi chú cho vui - mà kể cũng thiệt :v)"></textarea>
-                    <br>
-                </td>
-            </tr>
+    if (ViewBag.Y == 0)
+    {
+    <h3 style="color:red">NO UPLOAD SERVER [CHẾ ĐỘ ADMIN]</h3>
+    }
+    else
+    {
+    <h3 style="color:red">YES UPLOAD SERVER - UPLOAD YOUR FILES [CHẾ ĐỘ USER]<br>HÃY CẨN THẬN VÌ NẾU FILE ĐÃ TỒN TẠI THÌ VIỆC TẢI LÊN MỘT LẦN NỮA NÓ SẼ BỊ GHI ĐÈ!</h3>
+    }
+    <span style="color:sienna">
+    <u>Xin lưu ý</u> : tính năng này không dành cho việc các file tải lên của bạn là riêng tư...<br>Hiện tại tất cả các file của bạn tải lên Server hệ thống bất kỳ ai cũng có thể truy cập (miễn là họ biết đường dẫn thư mục hoặc nơi truy cập của file đó).<br>Tất cả các file bạn tải lên tại đây đều có giới hạn thời gian sử dụng (tối đa là 7 ngày).<br>Vì vậy, hãy cẩn thận và tự quản lý/trách nhiệm khi lựa chọn tải các file của bạn tại đây. Tốt nhất bạn nên tự xoá thủ công các file/thư mục của bạn sau khi sử dụng xong!<br><span style="color:purple">Gợi ý bạn nên đưa các file upload của bạn phân biệt vào các thư mục, mà tên thư mục này phải khó đoán và độc lập 🤣😃😅...</span>
+    </span>
+    @if (ViewBag.SL > 0 && ViewBag.Y == 0)
+    {
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <h3 style="color:seagreen">@Html.Raw(@ViewBag.KetQua)</h3>
             <br />
-        }
-
-
-        @if (ViewBag.Y != 0)
-        {
-             <tr style="height:40px">
-                <td></td>
-                <td>
-                    <h3 style="color:deeppink">@Html.Raw(@ViewBag.KetQua)</h3>
-<br />
-                    <a href="#xuly" style="color:darkgrey" onclick="DEF()"><h2>Chuyển sang chế độ Admin</h2></a>
+            <h3 style="color:aqua">Bạn hiện đang ở chế độ Admin (tính năng không dành cho khách hàng).<br>Vui lòng chuyển sang chế độ tính năng dành cho người dùng...</h3>
+            <br />
+            <a href="#xuly" style="color:blue" onclick="XYZ()">
+                <h2>Chuyển sang chế độ người dùng</h2>
+            </a>
+            <br />
+            <br />
+            <textarea id="nhapdai" autofocus name="Text" cols="100" rows="5" placeholder="Không cần nhập gì ở đây :)) (hoặc nếu bạn muốn ghi chú cho vui - mà kể cũng thiệt :v)"></textarea>
+            <br>
+        </td>
+    </tr>
     <br />
-                    <br>
-                    <b>Nhập mật mã hoặc nhận dạng Admin để có thể sử dụng các ưu đãi về tính năng nếu có (hoặc bạn bỏ qua bước này)</b>
-                    <br>
-                    <input autofocus onchange="changePass()" id="hidePass" type="Password" name="Admin" size="50" value="@TempData["Password"]" />
-                    <input autofocus style="display:none" name="AdminX" id="showPass" onchange="changePassX()" type="text" size="50" value="@TempData["Password"]" />
-                    <input type="checkbox" onchange="checkShowPass()" value="Hiện mật mã"/>Hiện mật mã<br>
-
-                    <br>
-                    <p style="color:midnightblue">Chỉ khi nhập đúng mật mã, ưu đãi tính năng mới được áp dụng dành cho bạn!</p>
-        <br />
-                </td>
-            </tr>
+    }
+    @if (ViewBag.Y != 0)
+    {
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <h3 style="color:deeppink">@Html.Raw(@ViewBag.KetQua)</h3>
             <br />
+            <a href="#xuly" style="color:darkgrey" onclick="DEF()">
+                <h2>Chuyển sang chế độ Admin</h2>
+            </a>
             <br />
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <br>
-                    <a href="#xuly" onclick="xoaValue('folx')"><b>Nhập tên thư mục (nếu bạn muốn upload các file của bạn phân biệt vào Folder này) - nếu bỏ trống mặc định các file của bạn sẽ upload vào thư mục gốc ROOT của Server * XIN HÃY GHI NHỚ...</b></a>
-                    <br>
-                    <input type="text" name="Folder" id="folx" size="50" value="/Folder1/Folder2"/>
-                    <br>
-                     <span style="color:seagreen; font-style:italic">Khuyến cáo bạn không nên tạo thư mục mà để nó bị trống quá lâu (không chứa file nào bên trong) - và hạn chế sử dụng các kí tự đặc biệt hoặc dễ bị mã hoá nhầm lần với tên thư mục/file...</span>
-                     <br>
-                     <span style="color:red; font-style:italic">@ViewData["LoiX"] </span>
-        <br />
-                </td>
-            </tr>
+            <br>
+            <b>Nhập mật mã hoặc nhận dạng Admin để có thể sử dụng các ưu đãi về tính năng nếu có (hoặc bạn bỏ qua bước này)</b>
+            <br>
+            <input autofocus onchange="changePass()" id="hidePass" type="Password" name="Admin" size="50" value="@TempData["Password"]" />
+            <input autofocus style="display:none" name="AdminX" id="showPass" onchange="changePassX()" type="text" size="50" value="@TempData["Password"]" />
+            <input type="checkbox" onchange="checkShowPass()" value="Hiện mật mã"/>Hiện mật mã<br>
+            <br>
+            <p style="color:midnightblue">Chỉ khi nhập đúng mật mã, ưu đãi tính năng mới được áp dụng dành cho bạn!</p>
             <br />
+        </td>
+    </tr>
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <br>
+            <a href="#xuly" onclick="xoaValue('folx')"><b>Nhập tên thư mục (nếu bạn muốn upload các file của bạn phân biệt vào Folder này) - nếu bỏ trống mặc định các file của bạn sẽ upload vào thư mục gốc ROOT của Server * XIN HÃY GHI NHỚ...</b></a>
+            <br>
+            <input type="text" name="Folder" id="folx" size="50" value="/Folder1/Folder2"/>
+            <br>
+            <span style="color:seagreen; font-style:italic">Khuyến cáo bạn không nên tạo thư mục mà để nó bị trống quá lâu (không chứa file nào bên trong) - và hạn chế sử dụng các kí tự đặc biệt hoặc dễ bị mã hoá nhầm lần với tên thư mục/file...</span>
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["LoiX"] </span>
             <br />
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <br>
-                    <b>Mời bạn lựa chọn (1 : Nếu thư mục đã tồn tại, tiếp tục upload/update các file mới vào _ tự động mà không báo trước | 2 : Nếu thư mục đã tồn tại, hãy thông báo cho tôi biết và tôi sẽ nhập lại tên thư mục khác) - Chỉ áp dụng khi bạn có nhập dữ liệu cho trường Input trên</b>
-                    <br>
-                     <select id="chon2" onchange="PlayChon2()">
-                          <option>Nếu thư mục đã tồn tại, tiếp tục upload các file mới vào</option>
-                          <option>Nếu thư mục đã tồn tại, hãy thông báo cho tôi biết và tôi sẽ nhập lại tên thư mục khác</option>
-                    </select>
-                    <input type="number" name="DuKien" min="1" max="2" id="DK2" value="1"/>
-                    <br>
-                </td>
-            </tr>
-            <br /><br />
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <br />
-                    <b>Việc tải file của bạn lên hệ thống chỉ là tạm thời, vui lòng chọn ngày hết hạn mong muốn của các file này (nếu bạn là admin hay có mã ưu đãi user thì các file được phép tồn tại không giới hạn) : </b>
-                    <input type="date" name="txtHetHan" value="@CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)"/><br>
-                    <span style="color:seagreen">Nếu đến ngày hết hạn bạn đã cài đặt, các file của bạn sẽ tự động xoá khỏi hệ thống (có thể sớm/trễ hơn dự kiến nhưng sẽ phạm vi trong ngày này).<br />
-                        Ngoài ra bạn cũng có thể tự xoá file thủ công trước khi đến ngày hết hạn...<br />
-                        <u>Lưu ý</u> : vui lòng tự ghi nhớ ngày hết hạn các file bạn sẽ cài đặt này, hệ thống sẽ tự động xoá các file mà không cần thông báo!</span>
-                        <br>
-                         <span style="color:red; font-style:italic">@ViewData["LoiY"] </span><br>
-                </td>
-            </tr>
-        }
-
-        <br />
+        </td>
+    </tr>
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <br>
+            <b>Mời bạn lựa chọn (1 : Nếu thư mục đã tồn tại, tiếp tục upload/update các file mới vào _ tự động mà không báo trước | 2 : Nếu thư mục đã tồn tại, hãy thông báo cho tôi biết và tôi sẽ nhập lại tên thư mục khác) - Chỉ áp dụng khi bạn có nhập dữ liệu cho trường Input trên</b>
+            <br>
+            <select id="chon2" onchange="PlayChon2()">
+                <option>Nếu thư mục đã tồn tại, tiếp tục upload các file mới vào</option>
+                <option>Nếu thư mục đã tồn tại, hãy thông báo cho tôi biết và tôi sẽ nhập lại tên thư mục khác</option>
+            </select>
+            <input type="number" name="DuKien" min="1" max="2" id="DK2" value="1"/>
+            <br>
+        </td>
+    </tr>
+    <br /><br />
+    <tr style="height:40px">
+        <td></td>
+        <td>
             <br />
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <br>
-                    <b>Mời bạn lựa chọn việc tải lên [1 : Tải lên các file | 2 : Tải lên 1 folder (bên trong chứa các file hoặc các file trong các thư mục con của nó mà bạn muốn upload)]</b>
-                    <br>
-                     <select id="chonYX" onchange="PlayChonYX(@ViewBag.SL)">
-                         <option>Tải lên các file</option>
-                         <option>Tải lên 1 folder (bên trong chứa các file hoặc các file trong các thư mục con của nó mà bạn muốn upload)</option>
-                    </select>
-                    <input onchange="PlayChonYX()" type="number" name="DuKienYX" min="1" max="2" id="DKYX" value="1"/>
-                    <br>
-                </td>
-            </tr>
-            <br />
-            <br />
-
-        @for (int i = 0; i < ViewBag.SL; i++)
-        {
-            <tr style="height:40px">
-                        <td></td>
-                <td>
-                    <br>
-                           @if (ViewBag.X == 0)
-                           {
-                        <b>@(i + 1).</b> <span>Upload 1 hay nhiều file (hoặc 1 folder chứa các file/con) của bạn :</span>
-                    }
-                    else
-                    {
-                        <b>@(i + 1).</b> <span>Upload 1 file của bạn :</span>
-                    }
-
-                         <br>
-                     @if (ViewBag.X == 0)
-                     {
-                        <input onclick="openfile()" onchange="return xemfile(event,@i, @ViewBag.SL)" type="file" id="fileYX" name="fileUpload" multiple>
-                        <input onchange="return xemfilex(event,@i, @ViewBag.SL)" type="file" id="folderYX" style="display:none" name="fileUploadX" webkitdirectory multiple>
-                         <br><br>
-
-            <div id="fileS-@i">
-                    <a href="#xuly" onclick="your(@i)"><h4 style="color:midnightblue">Danh sách các file bạn đã chọn :</h4></a>
-<div id="your-@i" style="display:block">
-<ul id="ulx-@i">
-</ul>
-</div>
-</div>
-
-           <div id="fileSS-@i" style="display:none">
-                    <a href="#xuly" onclick="yourX(@i)"><h4 style="color:midnightblue">Danh sách các file (all and sub folder) bạn đã chọn :</h4></a>
-<div id="yourX-@i" style="display:block">
-<ul id="ulx1-@i">
-</ul>
-</div>
-</div>
-                    }
-                    else
-                    {
-                         <input type="file" name="fileUpload">
-                    }
-                    <br>
-                </td>
-            </tr>
-
-            @* @if (ViewBag.X != 0)
+            <b>Việc tải file của bạn lên hệ thống chỉ là tạm thời, vui lòng chọn ngày hết hạn mong muốn của các file này (nếu bạn là admin hay có mã ưu đãi user thì các file được phép tồn tại không giới hạn) : </b>
+            <input type="date" name="txtHetHan" value="@CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)"/><br>
+            <span style="color:seagreen">Nếu đến ngày hết hạn bạn đã cài đặt, các file của bạn sẽ tự động xoá khỏi hệ thống (có thể sớm/trễ hơn dự kiến nhưng sẽ phạm vi trong ngày này).<br />
+            Ngoài ra bạn cũng có thể tự xoá file thủ công trước khi đến ngày hết hạn...<br />
+            <u>Lưu ý</u> : vui lòng tự ghi nhớ ngày hết hạn các file bạn sẽ cài đặt này, hệ thống sẽ tự động xoá các file mà không cần thông báo!</span>
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["LoiY"] </span><br>
+        </td>
+    </tr>
+    }
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <br>
+            <b>Mời bạn lựa chọn việc tải lên [1 : Tải lên các file | 2 : Tải lên 1 folder (bên trong chứa các file hoặc các file trong các thư mục con của nó mà bạn muốn upload)]</b>
+            <br>
+            <select id="chonYX" onchange="PlayChonYX(@ViewBag.SL)">
+                <option>Tải lên các file</option>
+                <option>Tải lên 1 folder (bên trong chứa các file hoặc các file trong các thư mục con của nó mà bạn muốn upload)</option>
+            </select>
+            <input onchange="PlayChonYX()" type="number" name="DuKienYX" min="1" max="2" id="DKYX" value="1"/>
+            <br>
+        </td>
+    </tr>
+    <br />
+    <br />
+    @for (int i = 0; i < ViewBag.SL; i++)
+    {
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <br>
+            @if (ViewBag.X == 0)
             {
-                <tr style="height:40px">
-                    <td> </td>
-                <td>
-                    <br>
-                            <b>@(i + 1).2</b> Đặt lại tên file ngắn gọn tuỳ bạn gợi nhớ (file được lưu trữ trên Server sẽ mang tên này) :
-                            <br>
-                    <input type="text" size="50" name="TenFile">
-                    <br>
-                </td>
-            </tr>
-            }*@
-        }
-            
-        @if(ViewBag.SL > 0)
-        {
-             <br />
+            <b>@(i + 1).</b> <span>Upload 1 hay nhiều file (hoặc 1 folder chứa các file/con) của bạn :</span>
+            }
+            else
+            {
+            <b>@(i + 1).</b> <span>Upload 1 file của bạn :</span>
+            }
+            <br>
+            @if (ViewBag.X == 0)
+            {
+            <input onclick="openfile()" onchange="return xemfile(event,@i, @ViewBag.SL)" type="file" id="fileYX" name="fileUpload" multiple>
+            <input onchange="return xemfilex(event,@i, @ViewBag.SL)" type="file" id="folderYX" style="display:none" name="fileUploadX" webkitdirectory multiple>
+            <br><br>
+            <div id="fileS-@i">
+                <a href="#xuly" onclick="your(@i)">
+                    <h4 style="color:midnightblue">Danh sách các file bạn đã chọn :</h4>
+                </a>
+                <div id="your-@i" style="display:block">
+                    <ul id="ulx-@i"></ul>
+                </div>
+            </div>
+            <div id="fileSS-@i" style="display:none">
+                <a href="#xuly" onclick="yourX(@i)">
+                    <h4 style="color:midnightblue">Danh sách các file (all and sub folder) bạn đã chọn :</h4>
+                </a>
+                <div id="yourX-@i" style="display:block">
+                    <ul id="ulx1-@i"></ul>
+                </div>
+            </div>
+            }
+            else
+            {
+            <input type="file" name="fileUpload">
+            }
+            <br>
+        </td>
+    </tr>
+    @* @if (ViewBag.X != 0)
+    {
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <b>@(i + 1).2</b> Đặt lại tên file ngắn gọn tuỳ bạn gợi nhớ (file được lưu trữ trên Server sẽ mang tên này) :
+            <br>
+            <input type="text" size="50" name="TenFile">
+            <br>
+        </td>
+    </tr>
+    }*@
+    }
+    @if(ViewBag.SL > 0)
+    {
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <br>
+            <b>Mời bạn lựa chọn Server xử lý (chỉ chuyển sử dụng Server khác nếu bạn gặp vấn đề khi tải lên các file, nếu không vui lòng bỏ qua bước này) - SERVER đã chọn mặc định bên dưới được khuyến nghị (các server còn lại chỉ là tạm thời thử sức hỗ trợ, mặc dù càng về sau tốc độ xử lý càng giảm...😅)</b>
+            <br>
+            <select id="chonXY" onchange="PlayChonXY()">
+                <option>SERVER 1 (khuyến nghị) - EM&MG</option>
+                <option>SERVER 2 - EM</option>
+                <option>SERVER 3 - MG</option>
+            </select>
+            <input type="number" name="DuKienXY" min="1" max="3" id="DKXY" value="1" hidden />
+            <br>
+            <span style="color:seagreen">Nếu tất cả Server áp dụng bạn đều gặp lỗi khi upload các file, hãy kiểm tra lại mặc dù kết quả không thành công nhưng rất có thể các file của bạn đã âm thầm upload lên hệ thống 😁😂. Ngoài ra, bạn vui lòng thử lại vào dịp khác và khuyến cáo không nên thử lại quá nhiều lần thất bại!</span>
+            <br>
+        </td>
+    </tr>
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input id="ok" onclick="xong()" style="font-weight:bolder" type="Submit" value="OK UPLOAD" />
             <br />
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <br>
-                    <b>Mời bạn lựa chọn Server xử lý (chỉ chuyển sử dụng Server khác nếu bạn gặp vấn đề khi tải lên các file, nếu không vui lòng bỏ qua bước này) - SERVER đã chọn mặc định bên dưới được khuyến nghị (các server còn lại chỉ là tạm thời thử sức hỗ trợ, mặc dù càng về sau tốc độ xử lý càng giảm...😅)</b>
-                    <br>
-                     <select id="chonXY" onchange="PlayChonXY()">
-                         <option>SERVER 1 (khuyến nghị) - EM&MG</option>
-                         <option>SERVER 2 - EM</option>
-                         <option>SERVER 3 - MG</option>
-                    </select>
-                    <input type="number" name="DuKienXY" min="1" max="3" id="DKXY" value="1" hidden />
-                    <br>
-                    <span style="color:seagreen">Nếu tất cả Server áp dụng bạn đều gặp lỗi khi upload các file, hãy kiểm tra lại mặc dù kết quả không thành công nhưng rất có thể các file của bạn đã âm thầm upload lên hệ thống 😁😂. Ngoài ra, bạn vui lòng thử lại vào dịp khác và khuyến cáo không nên thử lại quá nhiều lần thất bại!</span>
-                    <br>
-                </td>
-            </tr>
-              <br />
-            <br />
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <input id="ok" onclick="xong()" style="font-weight:bolder" type="Submit" value="OK UPLOAD" />
-                    <br />
-                    <img id="loading" src="/Image_Play/waiting.gif" style="display:none"/>
-                </td>
-            </tr>
-        }
+            <img id="loading" src="/Image_Play/waiting.gif" style="display:none"/>
+        </td>
+    </tr>
+    }
     }
 </table>

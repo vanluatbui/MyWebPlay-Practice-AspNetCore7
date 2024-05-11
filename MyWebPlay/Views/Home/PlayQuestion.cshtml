@@ -1,23 +1,20 @@
 ﻿@model MyWebPlay.Model.TracNghiem
-
 @if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
-
 <script>
-
     var indexJP = -1;
-
+    
     setInterval(myJapan, 1);
-
+    
     function myJapan()
     {
         document.getElementById("answix-"+indexJP).value = new String(document.getElementById("answix-"+indexJP).value).replaceAll("\r","").replaceAll("\n","");
-
+    
         if ('@TempData["chuyendoiJapan"]' != "true" || indexJP == -1)
         return;
-
+    
           var rpJP = document.getElementById("rpJP").value.split('\n');
         for (var j =0; j < rpJP.length; j++)
         {
@@ -25,26 +22,26 @@
             document.getElementById("answix-"+indexJP).value = new String(document.getElementById("answix-"+indexJP).value).replaceAll(xu[0],xu[1]);
         }
     }
-
+    
     function chuyendoiJapan(i)
     {
                 indexJP = i;
     }
-
+    
     var timeX = '@ViewBag.TimeLamBai' * 60;
-
+    
     var id = setInterval(myAlert, 1000);
-
+    
     function myAlert() {
-
+    
         if ('@ViewBag.TimeLamBai' != "")
         {
        var t = document.getElementById("Time");
-
+    
        var h = Math.floor(timeX / 3600);
        var m = Math.floor((timeX / 60) % 60) ;
        var s = timeX % 60;
-
+    
         if (h< 10 && m < 10 && s < 10)
                 t.innerHTML = "0" + h + " : 0" + m + " : 0" + s;
             if (h < 10 && m < 10 && s >= 10)
@@ -61,112 +58,108 @@
                 t.innerHTML = "" + h + " : " + m + " : 0" + s;
             if (h >=10 && m >= 10 && s >= 10)
                 t.innerHTML = "" + h + " : " + m + " : " + s;
-
+    
             timeX--;
-
+    
             if (timeX == -1)
             {
                 alert('Đã hết thời gian làm bài...\nBấm OK - Bài kiểm tra của bạn sẽ được nộp đánh giá sau đó!');
                 clearInterval(id);
-
+    
                 var ok = document.getElementById("OKX");
                 ok.click();
             }
          }
     }
-
+    
 </script>
-
 <table align="center">
     <h2 style="text-align:center;color:lightsalmon">Play Test Question Answer</h2>
-
     <h3 style="color:aqua">@ViewBag.KetQuaDung</h3>
     <h3 style="color:aqua">@ViewBag.KetQuaSai</h3>
     <h3 style="color:aqua">@ViewBag.KetQuaChuaLam</h3>
     <h2 style="color:lightgreen">@ViewBag.KetQuaDiem</h2>
-
-
     @using (Html.BeginForm("PlayQuestion", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
-        @Html.ValidationSummary(true)
-
-            <br />
-        <br />
-            <b>Tên môn học/kỳ kiểm tra : @Model.tenmon</b>
-            <br />
-        <b>Tổng số câu cần làm : @Model.gioihancau/@Model.tongsocau</b>
-        <br />
-            <b>Thời gian làm bài : @Model.timelambai phút
-                     @if (ViewBag.TimeLamBai != null)
-                     {
-                         <div class="divOnTop">
-                <span style="color:blue;text-align:center">
-                <h2 id="Time">00 : 00 : 00</h2></span></div>
-                     }
-                </b>
-        <br />
-        <br />
-        <hr />
-
-        @for (int i = 0; i < @Model.gioihancau; i++)
+    @Html.ValidationSummary(true)
+    <br />
+    <br />
+    <b>Tên môn học/kỳ kiểm tra : @Model.tenmon</b>
+    <br />
+    <b>Tổng số câu cần làm : @Model.gioihancau/@Model.tongsocau</b>
+    <br />
+    <b>
+        Thời gian làm bài : @Model.timelambai phút
+        @if (ViewBag.TimeLamBai != null)
         {
-            <tr style="height:40px; background-color: @TempData["mau-question-"+i]">
-                <td></td>
-                        <td><h3><b name="mau-TN-1">Câu số @(i + 1)</b>.<span  name="mau-TN-2"> @Html.Raw(Model.ch[@i])</span></h3></td>
-            </tr>
-
-                    @if(ViewData["KetQua-"+@i] ==  null)
-                    {
-                                <tr style="height:40px; background-color: @TempData["mau-question-"+i]">
-                                                 <td></td>
-                                    <td><h4><b style="color:black"> Nhập answer cho câu @(i+1) của bạn : </b></h4>
-  <h3><textarea type="text" name="dapan-@i" id="answix-@i" cols="80" rows="1" onclick="chuyendoiJapan(@i)"></textarea></h3><br><br />
+        <div class="divOnTop">
+            <span style="color:blue;text-align:center">
+                <h2 id="Time">00 : 00 : 00</h2>
+            </span>
+        </div>
+        }
+    </b>
+    <br />
+    <br />
+    <hr />
+    @for (int i = 0; i < @Model.gioihancau; i++)
+    {
+    <tr style="height:40px; background-color: @TempData["mau-question-"+i]">
+    <td></td>
+    <td>
+        <h3><b name="mau-TN-1">Câu số @(i + 1)</b>.<span  name="mau-TN-2"> @Html.Raw(Model.ch[@i])</span></h3>
+    </td>
+    </tr>
+    @if(ViewData["KetQua-"+@i] ==  null)
+    {
+    <tr style="height:40px; background-color: @TempData["mau-question-"+i]">
+    <td></td>
+    <td>
+        <h4><b style="color:black"> Nhập answer cho câu @(i+1) của bạn : </b></h4>
+        <h3><textarea type="text" name="dapan-@i" id="answix-@i" cols="80" rows="1" onclick="chuyendoiJapan(@i)"></textarea></h3>
+        <br><br />
+    </td>
+    </tr>
+    }
+    else
+    {
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            @Html.Raw(ViewData["ketqua-"+@i])
+            <h4>@Html.Raw(ViewData["dapandachon-"+@i])</h4>
+            <h4>@Html.Raw(ViewData["dapandung-"+@i])</h4>
+            <br><br />
         </td>
-                            </tr>
-                    }
-                    else
-                    {
- <tr style="height:40px">
-                  <td></td>
-     <td>
-         @Html.Raw(ViewData["ketqua-"+@i])
-                       <h4>@Html.Raw(ViewData["dapandachon-"+@i])</h4> 
-                        <h4>@Html.Raw(ViewData["dapandung-"+@i])</h4>
-                        <br><br />
-                </td>
-     </tr>
-                    }
-
-        }
-
-        @if (ViewBag.KetQuaDung == "")
-        {
-                <tr style="height:40px">
-                    <td></td>
-                    <td>
-                        <input style="font-weight:bolder" id="OKX" type="Submit" value="Đánh Giá Bài Làm" />
-                        <br>
-                            <p style="color:deeppink">Lưu ý : kiểm tra thật kỹ toàn bộ bài làm trước khi xem kết quả!</p>
-                    </td>
-            </tr>
-        }
-        else
-        {
-           <h3>@Html.ActionLink("Thực hiện bài test [text question/answer] mới", "PlayQuestion_Multiple")</h3>
-           <br />
-        }
-
-         <input type="text" readonly name="TongSoCau" value="@ViewBag.TongSoCau" hidden />
-        <input type="text" id="socau" readonly name="GioiHanCau" value="@ViewBag.GioiHanCau" hidden />
-        <input type="text" readonly name="TimeLamBai" value="@ViewBag.TimeLamBaiX" hidden />
-        <input type="text" readonly name="TenMon" value="@ViewBag.TenMon" hidden>
-
-        <textarea readonly name="CauHoi" hidden>@ViewBag.CauHoi</textarea>
-        <textarea readonly name="A" hidden>@ViewBag.A</textarea>
-        <textarea readonly name="B" hidden>@ViewBag.B</textarea>
-        <textarea readonly name="C" hidden>@ViewBag.C</textarea>
-        <textarea readonly name="D" hidden>@ViewBag.D</textarea>
-         <textarea readonly name="Dung" hidden>@ViewBag.Dung</textarea>
-          <textarea readonly id="rpJP" hidden>@TempData["replaceJapan"]</textarea>
+    </tr>
+    }
+    }
+    @if (ViewBag.KetQuaDung == "")
+    {
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input style="font-weight:bolder" id="OKX" type="Submit" value="Đánh Giá Bài Làm" />
+            <br>
+            <p style="color:deeppink">Lưu ý : kiểm tra thật kỹ toàn bộ bài làm trước khi xem kết quả!</p>
+        </td>
+    </tr>
+    }
+    else
+    {
+    <h3>@Html.ActionLink("Thực hiện bài test [text question/answer] mới", "PlayQuestion_Multiple")</h3>
+    <br />
+    }
+    <input type="text" readonly name="TongSoCau" value="@ViewBag.TongSoCau" hidden />
+    <input type="text" id="socau" readonly name="GioiHanCau" value="@ViewBag.GioiHanCau" hidden />
+    <input type="text" readonly name="TimeLamBai" value="@ViewBag.TimeLamBaiX" hidden />
+    <input type="text" readonly name="TenMon" value="@ViewBag.TenMon" hidden>
+    <textarea readonly name="CauHoi" hidden>@ViewBag.CauHoi</textarea>
+    <textarea readonly name="A" hidden>@ViewBag.A</textarea>
+    <textarea readonly name="B" hidden>@ViewBag.B</textarea>
+    <textarea readonly name="C" hidden>@ViewBag.C</textarea>
+    <textarea readonly name="D" hidden>@ViewBag.D</textarea>
+    <textarea readonly name="Dung" hidden>@ViewBag.Dung</textarea>
+    <textarea readonly id="rpJP" hidden>@TempData["replaceJapan"]</textarea>
     }
 </table>

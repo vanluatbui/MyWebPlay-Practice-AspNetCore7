@@ -1,22 +1,21 @@
 ﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
-
     var playmute = 0;
-
+    
     function ketquaplay()
     {
         playmute = 1;
     }
-
+    
     function playketqua()
     {
         playmute = 0;
         document.getElementById("muteplay").play();
     }
-
+    
         var LBH= [];
         var time_XuatHien= [];
         var time_LuuVet= [];
@@ -24,10 +23,10 @@
         var nn = 0;
         var k = 0;
         var t = 10;
-
+    
         var id;
         var flox = 0;
-
+    
         function startplay()
         {
             var music = document.getElementById("music");
@@ -36,28 +35,28 @@
                   alert("Hệ thống đang chuẩn bị sẵn sàng...\nHãy chờ và thử lại sau!")
             return;
               }
-
+    
              music.play();
              document.getElementById("xuxu").style.display = "none";
              document.getElementById("LBH2").innerHTML = "&nbsp;";
         }
-
-
-   function PlayKaraoke()
-   {
+    
+    
+    function PlayKaraoke()
+    {
        var music = document.getElementById("music");
-
+    
        music.style.display = "none";
-
+    
        var xong = document.getElementById("xong");
        xong.style.display = "block";
-
+    
        document.getElementById("txtVD").focus();
-
+    
        t = 0;
                
                 //--------------------------------
-
+    
                 LBH = document.getElementById("Lyric").value.split(/\r|\n/);
                 time_XuatHien = [];
                 time_LuuVet = [];
@@ -66,10 +65,10 @@
                 nn = 0;
                 
                  id = setInterval(myAlert, 100);
-   }
-
-   function myAlert()
-   {
+    }
+    
+    function myAlert()
+    {
        t++;
        var music = document.getElementById("music").currentTime + "";
        var time = music.split('.');
@@ -77,13 +76,13 @@
          var h = Math.floor(tgian / 3600);
        var m = Math.floor((tgian / 60) % 60);
        var s = tgian % 60;
-
+    
         if (flox == 0 && h == 0 && m == 0 && s == 1 && t > 0)
        {
            flox = 1;
            document.getElementById("error").style.display = "inline-block";
        }
-
+    
         if (h< 10 && m < 10 && s < 10)
                 document.getElementById("tgian").innerHTML = "ĐANG PHÁT - "+ "0" + h + " : 0" + m + " : 0" + s;
             if (h < 10 && m < 10 && s >= 10)
@@ -100,11 +99,11 @@
                 document.getElementById("tgian").innerHTML = "ĐANG PHÁT - "+ "" + h + " : " + m + " : 0" + s;
             if (h >=10 && m >= 10 && s >= 10)
                 document.getElementById("tgian").innerHTML = "ĐANG PHÁT - "+ "" + h + " : " + m + " : " + s;
-   }
-
-   var idSo;
-   var so = 0;
-   var xw = new Number('@TempData["Time_Waiting"]') * 6;
+    }
+    
+    var idSo;
+    var so = 0;
+    var xw = new Number('@TempData["Time_Waiting"]') * 6;
                     function myAlertSo()
                     {
                         if (so == xw)
@@ -115,18 +114,18 @@
                              clearInterval(idSo);
                             return;
                         }
-
+    
                         so++;
                     }
-
-   function xulyKaraoke()
-   {
+    
+    function xulyKaraoke()
+    {
        var ss = "";
             for (var i = 0; i<LBH.length;i++)
             {
                 if (LBH[i] != "[Empty]" && LBH[i] != "[Empty-X]")
                 {
-
+    
                          var lbh = LBH[i].split(' ');
                             var kk = "";
                             for (var j = 0; j< lbh.length;j++)
@@ -134,13 +133,13 @@
                                 kk += lbh[j];
                                 if (j < lbh.length - 1 && j != (lbh.length / 2) - 1)
                                     kk += " ";
-
+    
                                     var x = 0;
                                     if (lbh.length % 2 != 0)
                                     x = lbh.length + 1;
                                     else
                                     x = lbh.length;
-
+    
                                 if (j == (x / 2) - 1)
                                     kk += "*";
                             }
@@ -161,20 +160,20 @@
       document.getElementById("music").pause();
             alert("Đã xử lý thành công nội dung text Karaoke cho mp3 của bạn đã phân tích. Cuối cùng, hãy đợi quá trình xử lý thêm một lúc và click nút Hoàn tất sau khi xuất hiện!");
             idSo = setInterval(myAlertSo, 1000);
-   }
-
+    }
+    
        function KeyPlay(event)
        {
            document.getElementById("txtVD").value = "";
-
+    
            if (event.keyCode == 13)
            {
              var lbh = document.getElementById("BH2").value.split(' ');
                 nn += lbh[k].length + 1;
-
+    
                 document.getElementById("LBH1").innerHTML = new String (document.getElementById("BH2").value).substring(0,nn).toUpperCase();
                 document.getElementById("LBH2").innerHTML = new String (document.getElementById("BH2").value).substring(nn,document.getElementById("BH2").value.length).toUpperCase();
-
+    
                 time_LuuVet[n-1] += t + "-" + nn;
                 if (k < lbh.length - 1)
                     time_LuuVet[n - 1] += ",";
@@ -186,94 +185,86 @@
                 nn = 0;
                 document.getElementById("LBH2").innerHTML = new String(LBH[n]).toUpperCase();
                document.getElementById("LBH1").innerHTML = "";
-
+    
                 document.getElementById("BH2").value = LBH[n];
                 document.getElementById("BH1").value = "";
-
+    
                 time_XuatHien[n] = t;
                 n++;
            }
        }
-
-
- </script>
-
- @if (ViewBag.KaraX == "")
- {
-  <h3 style="color:aqua">[THÔNG BÁO]<br /><br />Xin vui lòng không refresh lại trang này vì sẽ làm mất dữ liệu...<br />Nếu bạn vô tình làm như vậy, hãy quay lại trang trước đó và thử lại!</h3><br />
- }
-
- <h3 style="color:deeppink">@Html.Raw(@ViewBag.FileKaraoke)</h3>
-
-<br /><br />
-
+    
+    
+</script>
 @if (ViewBag.KaraX == "")
 {
-    <audio id="muteplay" autoplay hidden onplaying="ketquaplay()" onpause="playketqua()" onended="playketqua()" muted>
-        <source src="/karaoke_Example/ExamKara/KaraokeDemo.mp3" type="audio/mpeg">
+<h3 style="color:aqua">[THÔNG BÁO]<br /><br />Xin vui lòng không refresh lại trang này vì sẽ làm mất dữ liệu...<br />Nếu bạn vô tình làm như vậy, hãy quay lại trang trước đó và thử lại!</h3>
+<br />
+}
+<h3 style="color:deeppink">@Html.Raw(@ViewBag.FileKaraoke)</h3>
+<br /><br />
+@if (ViewBag.KaraX == "")
+{
+<audio id="muteplay" autoplay hidden onplaying="ketquaplay()" onpause="playketqua()" onended="playketqua()" muted>
+    <source src="/karaoke_Example/ExamKara/KaraokeDemo.mp3" type="audio/mpeg">
+</audio>
+<table align="center">
+    <h2 style="text-align:center">Create File Your Karaoke - Online</h2>
+    <br />
+    <h2 style="color:red">HƯỚNG DẪN THỰC HIỆN - VUI LÒNG ĐỌC KỸ TRƯỚC KHI THỰC HIỆN</h2>
+    - Sẵn sàng nghe nhạc mp3 của bạn cùng ca sĩ hát để xác định thời điểm của mỗi khúc lyric mà ca sĩ sẽ hát.
+    <br>
+    - Nếu bạn đã chuẩn bị sẵn sàng, nhấn nút Start Play và nghe bản nhạc của bạn bên dưới. Trong khi đang nghe, bạn sẽ vừa thao tác để tiến hành tạo file Karaoke của bạn.
+    <br>
+    - Cách thực hiện : vừa nghe nhạc, đồng thời hai ngón tay của bạn luôn giữ phím <b>Enter</b> và <b>Space</b> để thao tác trong suốt quá trình.
+    <br>
+    + Nếu ca sĩ sắp hát đến đoạn lyric nào, hãy nhấn <b>Space</b> (đoạn lyric đó sẽ xuất hiện - ca sĩ sắp hát đến đoạn đó (nên dành thời gian 1-3 giây hoặc từ 5-8 giây (nếu sau nhạc dạo)).
+    <br>
+    + Nếu ca sĩ đang hát đến từ nào trong đoạn lyric, hãy nhấn phím <b>Enter</b> (màu chữ của từ đó sẽ được tô) - ngoại trừ các đoạn nhạc dạo <b>[Empty]</b> bạn có thể bỏ qua mà không cần gõ để tô màu đoạn này!
+    <br>
+    + Và thực hiện tương tự cho đến khi hết bài hát!
+    <br />
+    LƯU Ý : trong suốt quá trình thực hiện, bạn không nên có bất kỳ thao tác nào khác ngoài việc bạn chỉ cần giữ và canh gõ 2 phím : <b>Enter</b> và <b>Space</b> - đảm bảo tại textbox này luôn được trạng thái focus chuột (khi bạn click button play start nhạc bên dưới thì textbox này sẽ được forcus chuột trở lại và bạn không nên thoát khỏi nó 😂) : <br /> <input id="txtVD" onkeydown="return KeyPlay(event)" type="text" size="1" autofocus/><br />
+    <br /><u>XIN LỖI VÌ SỰ BẤT TIỆN</u> : mọi thao tác sai, bạn phải thực hiện lại từ đầu :)) - khi dò xét mỗi đoạn lyric mà đoạn đó có bao nhiêu từ thì bạn chỉ gõ đúng số lần đó (VD : đoạn lyric có 5 từ sẽ tương ứng chỉ đủ 5 lần gõ phím <b>Enter</b> của bạn [tô màu đủ số từ đang hiển thị]  tại đoạn Lyric đang dò xét đó - không nên nhấn lố hay thiếu (hãy cẩn thận)) ... Chúc bạn thành công!😄
+    <br />
+    <span style="color:orangered">Thông tin bổ sung : hiện tại dịch vụ thiết kế Karaoke của my web play chỉ là một tính năng nhỏ, cơ bản và có thể không được hoàn hảo như bạn mong muốn; có lẽ bạn phải tự thử đi thử lại nhiều lần (tuỳ vào cảm nhận của bạn về ứng dụng và lần sau khi tạo bản karaoke khác, sẽ dựa vào kinh nghiệm của bạn và theo phong cách của bạn - lúc đó bạn có thể tự tạo cho mình cách thiết kết karaoke từ my web play vì bạn đã hiểu được cách mà ứng dụng này nó hoạt động ra sao (mỗi người mỗi nhu cầu và cách xử lý sẽ khác nhau 😂). Thành thật xin lỗi vì điều này, nhưng mình sẽ cố gắng nâng cấp phiên bản mới tốt hơn từng ngày nếu có thể). Và trong khi play, nếu gặp một từ mà ca sĩ hát kéo dài (đoạn hơi dài), gợi ý bạn vui lòng đợi sau khi ca sĩ sắp và gần chót hát xong từ đó thì mới hãy tô màu cho từ chữ đó mà singer đang đã ca xong; còn nếu từ đó được singer ca và lấy hơi kéo quá dài thì bạn hãy bổ sung đại diện các dấu ba chấm sau từ đang ca đó - VD :"🎼 Hò ... ... ơi ..." (tuỳ chọn và tuỳ độ dài) và cũng tô màu cho chúng (tốt hơn hết đừng vì một từ mà đợi/kéo dài quá 0.3 giây mới tô) 😀.</span>
+    <br />
+    <br />
+    <h3 style="color:deeppink">Nếu bạn đã hiểu và sẵn sàng, nhấn nút START PLAY và bắt đầu nghe nhạc của bạn : </h3>
+    <br />
+    <b style="color:red;display:none" id="error">⚠️ Cảnh báo về một lỗi có thể xảy ra nếu bạn tiếp tục thực hiện, vui lòng thử thao tác lại sau.</b>
+    <br />
+    <audio id="music" onplay="PlayKaraoke()" hidden>
+        <source src="@TempData["Music"]" type="audio/mpeg">
     </audio>
-
-    <table align="center">
-        <h2 style="text-align:center">Create File Your Karaoke - Online</h2>
-        <br />
-        <h2 style="color:red">HƯỚNG DẪN THỰC HIỆN - VUI LÒNG ĐỌC KỸ TRƯỚC KHI THỰC HIỆN</h2>
-        - Sẵn sàng nghe nhạc mp3 của bạn cùng ca sĩ hát để xác định thời điểm của mỗi khúc lyric mà ca sĩ sẽ hát.
-        <br>
-        - Nếu bạn đã chuẩn bị sẵn sàng, nhấn nút Start Play và nghe bản nhạc của bạn bên dưới. Trong khi đang nghe, bạn sẽ vừa thao tác để tiến hành tạo file Karaoke của bạn.
-        <br>
-        - Cách thực hiện : vừa nghe nhạc, đồng thời hai ngón tay của bạn luôn giữ phím <b>Enter</b> và <b>Space</b> để thao tác trong suốt quá trình.
-        <br>
-        + Nếu ca sĩ sắp hát đến đoạn lyric nào, hãy nhấn <b>Space</b> (đoạn lyric đó sẽ xuất hiện - ca sĩ sắp hát đến đoạn đó (nên dành thời gian 1-3 giây hoặc từ 5-8 giây (nếu sau nhạc dạo)).
-        <br>
-        + Nếu ca sĩ đang hát đến từ nào trong đoạn lyric, hãy nhấn phím <b>Enter</b> (màu chữ của từ đó sẽ được tô) - ngoại trừ các đoạn nhạc dạo <b>[Empty]</b> bạn có thể bỏ qua mà không cần gõ để tô màu đoạn này!
-        <br>
-        + Và thực hiện tương tự cho đến khi hết bài hát!
-        <br />
-        LƯU Ý : trong suốt quá trình thực hiện, bạn không nên có bất kỳ thao tác nào khác ngoài việc bạn chỉ cần giữ và canh gõ 2 phím : <b>Enter</b> và <b>Space</b> - đảm bảo tại textbox này luôn được trạng thái focus chuột (khi bạn click button play start nhạc bên dưới thì textbox này sẽ được forcus chuột trở lại và bạn không nên thoát khỏi nó 😂) : <br /> <input id="txtVD" onkeydown="return KeyPlay(event)" type="text" size="1" autofocus/><br />
-        <br /><u>XIN LỖI VÌ SỰ BẤT TIỆN</u> : mọi thao tác sai, bạn phải thực hiện lại từ đầu :)) - khi dò xét mỗi đoạn lyric mà đoạn đó có bao nhiêu từ thì bạn chỉ gõ đúng số lần đó (VD : đoạn lyric có 5 từ sẽ tương ứng chỉ đủ 5 lần gõ phím <b>Enter</b> của bạn [tô màu đủ số từ đang hiển thị]  tại đoạn Lyric đang dò xét đó - không nên nhấn lố hay thiếu (hãy cẩn thận)) ... Chúc bạn thành công!😄
-        <br />
-        <span style="color:orangered">Thông tin bổ sung : hiện tại dịch vụ thiết kế Karaoke của my web play chỉ là một tính năng nhỏ, cơ bản và có thể không được hoàn hảo như bạn mong muốn; có lẽ bạn phải tự thử đi thử lại nhiều lần (tuỳ vào cảm nhận của bạn về ứng dụng và lần sau khi tạo bản karaoke khác, sẽ dựa vào kinh nghiệm của bạn và theo phong cách của bạn - lúc đó bạn có thể tự tạo cho mình cách thiết kết karaoke từ my web play vì bạn đã hiểu được cách mà ứng dụng này nó hoạt động ra sao (mỗi người mỗi nhu cầu và cách xử lý sẽ khác nhau 😂). Thành thật xin lỗi vì điều này, nhưng mình sẽ cố gắng nâng cấp phiên bản mới tốt hơn từng ngày nếu có thể). Và trong khi play, nếu gặp một từ mà ca sĩ hát kéo dài (đoạn hơi dài), gợi ý bạn vui lòng đợi sau khi ca sĩ sắp và gần chót hát xong từ đó thì mới hãy tô màu cho từ chữ đó mà singer đang đã ca xong; còn nếu từ đó được singer ca và lấy hơi kéo quá dài thì bạn hãy bổ sung đại diện các dấu ba chấm sau từ đang ca đó - VD :"🎼 Hò ... ... ơi ..." (tuỳ chọn và tuỳ độ dài) và cũng tô màu cho chúng (tốt hơn hết đừng vì một từ mà đợi/kéo dài quá 0.3 giây mới tô) 😀.</span>
-        <br />
-        <br />
-        <h3 style="color:deeppink">Nếu bạn đã hiểu và sẵn sàng, nhấn nút START PLAY và bắt đầu nghe nhạc của bạn : </h3>
-        <br />
-        <b style="color:red;display:none" id="error">⚠️ Cảnh báo về một lỗi có thể xảy ra nếu bạn tiếp tục thực hiện, vui lòng thử thao tác lại sau.</b>
-        <br />
-        <audio id="music" onplay="PlayKaraoke()" hidden>
-            <source src="@TempData["Music"]" type="audio/mpeg">
-        </audio>
-        <br />
-        <button style="color:olive" id="xuxu" onclick="startplay()"><b>START PLAY</b></button>
-        <br />
-        <b id="tgian" style="color:deeppink; font-size:20px"></b>
-        <br /><br />
-        <button style="display:none" id="xong" onclick="xulyKaraoke()"><b>XONG - XỬ LÝ FILE KARAOKE</b></button>
-        <br>
-        <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
-        <br /><br />
-        <textarea rows="30" cols="50" id="Lyric" hidden>@TempData["Lyric"]</textarea>
-        <input type="text" id="BH1" hidden />
-        <input type="text" id="BH2" hidden />
-
-        <h1 id="textLBH" style="background-color:orangered"><span id="LBH1" style="color:blue"></span>
-            <span id="LBH2" name="colorX" style="color:@TempData["mau_text"]">&nbsp;</span></h1>
-
-        <br /><br />
-
-        <p hidden>
-            @using (Html.BeginForm("PlayCreateFile_Karaoke", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
-            {
-                @Html.ValidationSummary(true)
-
-                <textarea rows="30" cols="50" id="Lyrix" name="txtLyric"></textarea>
-
-                <tr style="height:40px">
-                    <td></td>
-                    <td>
-                        <input id="ok" style="font-weight:bolder; display:none" type="Submit" value="HOÀN TẤT" />
-                    </td>
-                </tr>
-            }
-        </p>
-    </table>
+    <br />
+    <button style="color:olive" id="xuxu" onclick="startplay()"><b>START PLAY</b></button>
+    <br />
+    <b id="tgian" style="color:deeppink; font-size:20px"></b>
+    <br /><br />
+    <button style="display:none" id="xong" onclick="xulyKaraoke()"><b>XONG - XỬ LÝ FILE KARAOKE</b></button>
+    <br>
+    <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
+    <br /><br />
+    <textarea rows="30" cols="50" id="Lyric" hidden>@TempData["Lyric"]</textarea>
+    <input type="text" id="BH1" hidden />
+    <input type="text" id="BH2" hidden />
+    <h1 id="textLBH" style="background-color:orangered"><span id="LBH1" style="color:blue"></span>
+        <span id="LBH2" name="colorX" style="color:@TempData["mau_text"]">&nbsp;</span>
+    </h1>
+    <br /><br />
+    <p hidden>
+        @using (Html.BeginForm("PlayCreateFile_Karaoke", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+        @Html.ValidationSummary(true)
+        <textarea rows="30" cols="50" id="Lyrix" name="txtLyric"></textarea>
+        <tr style="height:40px">
+    <td></td>
+    <td>
+    <input id="ok" style="font-weight:bolder; display:none" type="Submit" value="HOÀN TẤT" />
+    </td>
+    </tr>
     }
+    </p>
+</table>
+}

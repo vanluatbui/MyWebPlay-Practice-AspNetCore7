@@ -1,162 +1,146 @@
 ﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
-      function xoaValue(ele)
+    function xoaValue(ele)
     {
-            document.getElementById(ele).value = "";
-            document.getElementById(ele).focus();
+          document.getElementById(ele).value = "";
+          document.getElementById(ele).focus();
     }
-     function PlayChon1()
+    function PlayChon1()
     {
-        var DK2 = document.getElementById("DK1");
-        var chon2 = document.getElementById("chon1").options;
-
-        if (chon2.selectedIndex == 0)
-        DK2.value = 2;
-        else
-        if (chon2.selectedIndex == 1)
-        DK2.value = 1;
+      var DK2 = document.getElementById("DK1");
+      var chon2 = document.getElementById("chon1").options;
+    
+      if (chon2.selectedIndex == 0)
+      DK2.value = 2;
+      else
+      if (chon2.selectedIndex == 1)
+      DK2.value = 1;
     }
-
+    
     function TabChuoi()
     {
-        var chuoi = document.getElementById("Chuoi");
-        
-        chuoi.value += "\t";
+      var chuoi = document.getElementById("Chuoi");
+      
+      chuoi.value += "\t";
     }
-
+    
     function TabInput()
     {
-        var input = document.getElementById("Input");
-        
-        input.value += "\t";
+      var input = document.getElementById("Input");
+      
+      input.value += "\t";
     }
-
+    
     function TabOutput()
     {
-        var output = document.getElementById("Output");
-        
-        output.value += "\t";
+      var output = document.getElementById("Output");
+      
+      output.value += "\t";
     }
 </script>
 <table align="center">
     <h2 style="text-align:center">Replace - Regex</h2>
-
     <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
-
     @using (Html.BeginForm())
     {
-        @Html.ValidationSummary(true)
-
-        <tr style="height:40px">
-            <td></td>
-            <td>
-                <br>
-                    <a href="#xuly" onclick="xoaValue('Chuoi')"><b>Chuỗi của bạn : </b></a>
-                <br>
-                <input type="radio" onclick="TabChuoi()" checked><b>Click để thêm [TAB] vào cuối</b>
-                <br>
-                <textarea rows="20" cols="150" name="Chuoi" id="Chuoi" autofocus></textarea>
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
-            </td>
-        </tr>
-
-        <br />
-        <br />
-
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                <br>
-                <input type="radio" onclick="TabInput()" checked><b>Click để thêm [TAB] vào cuối</b>
-                <br>
-                  <a href="#xuly" onclick="xoaValue('Input')">  <b> Nhập pattern-input cần được thay thế : </b></a>
-                <br>
-                <textarea rows="10" cols="100" name="Input" id="Input" autofocus></textarea>
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
-            </td>
-        </tr>
-
-        <br />
-        <br />
-
-             <tr style="height:40px">
-                <td></td>
-            <td>
-                <br>
-                <input type="radio" onclick="TabOutput()" checked><b>Click để thêm [TAB] vào cuối</b>
-                <br>
-                    <a href="#xuly" onclick="xoaValue('Output')"><b> Nhập pattern-output sẽ được thay thế thành : </b></a>
-                <br>
-                <textarea rows="10" cols="100" name="Output" id="Output" autofocus></textarea>
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
-            </td>
-        </tr>
-
-            <br />
-            <br />
-
-                <tr style="height:40px">
-                <td> </td>
-            <td>
-                <br>
-                    <b>Mời bạn lựa chọn áp dụng Regex (Với 1 : Áp dụng Regex, 2 : Không áp dụng Regex)</b>
-                    <br>
-                  <select id="chon1" onchange="PlayChon1()">
-                        <option>Không áp dụng Regex</option>
-                        <option>Áp dụng Regex</option>
-                    </select>
-                <input type="number" min="1" max="2" name="DuKien1" id="DK1" value="2" hidden>
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi4"] </span>
-            </td>
-        </tr>
-
-            <br />
-
-        <br />
-
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                <br>
-                    <b>Nhập số lượng thay thế kết quả áp dụng - [Chú ý nếu đã chọn không áp dụng Regex thì nó sẽ áp dụng tất cả...] (ưu tiên các kết quả đầu tiên) # Có thể nhập -1 để áp dụng tất cả...</b>
-                    <br>
-                <input type="number" min="-1" name="DuKien2" value="-1">
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi5"] </span>
-            </td>
-        </tr>
-
-        <br />
-        <br />
-
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                <br>
-                    <b>Nhập số lượng lần lặp cần thay thế (với 0 là tất cả mãi mãi)</b>
-                    <br>
-                <input type="number" min="0" name="DuKien3" value="0">
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi6"] </span>
-            </td>
-        </tr>
-
-        <br />
-        <br />
-
-        <tr style="height:40px">
-            <td></td>
-            <td>
-                <input type="Submit" value="Kết Quả" />
-            </td>
-        </tr>
+    @Html.ValidationSummary(true)
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <br>
+            <a href="#xuly" onclick="xoaValue('Chuoi')"><b>Chuỗi của bạn : </b></a>
+            <br>
+            <input type="radio" onclick="TabChuoi()" checked><b>Click để thêm [TAB] vào cuối</b>
+            <br>
+            <textarea rows="20" cols="150" name="Chuoi" id="Chuoi" autofocus></textarea>
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+        </td>
+    </tr>
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <input type="radio" onclick="TabInput()" checked><b>Click để thêm [TAB] vào cuối</b>
+            <br>
+            <a href="#xuly" onclick="xoaValue('Input')">  <b> Nhập pattern-input cần được thay thế : </b></a>
+            <br>
+            <textarea rows="10" cols="100" name="Input" id="Input" autofocus></textarea>
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+        </td>
+    </tr>
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <br>
+            <input type="radio" onclick="TabOutput()" checked><b>Click để thêm [TAB] vào cuối</b>
+            <br>
+            <a href="#xuly" onclick="xoaValue('Output')"><b> Nhập pattern-output sẽ được thay thế thành : </b></a>
+            <br>
+            <textarea rows="10" cols="100" name="Output" id="Output" autofocus></textarea>
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
+        </td>
+    </tr>
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <b>Mời bạn lựa chọn áp dụng Regex (Với 1 : Áp dụng Regex, 2 : Không áp dụng Regex)</b>
+            <br>
+            <select id="chon1" onchange="PlayChon1()">
+                <option>Không áp dụng Regex</option>
+                <option>Áp dụng Regex</option>
+            </select>
+            <input type="number" min="1" max="2" name="DuKien1" id="DK1" value="2" hidden>
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi4"] </span>
+        </td>
+    </tr>
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <b>Nhập số lượng thay thế kết quả áp dụng - [Chú ý nếu đã chọn không áp dụng Regex thì nó sẽ áp dụng tất cả...] (ưu tiên các kết quả đầu tiên) # Có thể nhập -1 để áp dụng tất cả...</b>
+            <br>
+            <input type="number" min="-1" name="DuKien2" value="-1">
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi5"] </span>
+        </td>
+    </tr>
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <b>Nhập số lượng lần lặp cần thay thế (với 0 là tất cả mãi mãi)</b>
+            <br>
+            <input type="number" min="0" name="DuKien3" value="0">
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi6"] </span>
+        </td>
+    </tr>
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input type="Submit" value="Kết Quả" />
+        </td>
+    </tr>
     }
 </table>
 <br>
@@ -220,11 +204,9 @@
 <br>
 <br /><br /><br />
 ******************************************************************************************************************************************************************************
-
 <br />
 <br />
 <br />
-
 <div id="hihi">
     @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
 </div>

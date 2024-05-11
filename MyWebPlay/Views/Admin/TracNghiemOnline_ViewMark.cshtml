@@ -1,120 +1,122 @@
 ﻿@{
-    Layout = null;
+Layout = null;
 }
-
 @if (TempData["HTML-visible"].ToString() == "0")
 {
 <html lang="vi">
-<head>
-     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>C# | Asp Net Core | Công nghệ thông tin</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>C# | Asp Net Core | Công nghệ thông tin</title>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
         <link rel="icon" href="/images/imagex.png">
-        </head>
-        <body name="backgroundX" style="background-color:@TempData["mau_background"]">
+    </head>
+    <body name="backgroundX" style="background-color:@TempData["mau_background"]">
     <meta charset="ISO-8859-1">
-<script>
-
-     var sang = 0;
-         if ('@TempData["mau_background"]' == "white")
-         {
-             sang = 1;
-         }
-
-         var xongmau = 0;
-         var iss = setInterval(function(){
-              if (xongmau == 1) return;
-
-             if (localStorage.getItem("nensangtoi") != null)
-             {
-                 sang = localStorage.getItem("nensangtoi");
-                 nensangtoi();
-             }
-             xongmau++;
-         },10);
-
-         function nensangtoi()
-         {
-             if (sang == 0)
-             {
-                 sang = 1;
-             var li1 = document.getElementsByName("backgroundX").length;
-             for (var i = 0 ; i<li1; i++)
-             {
-                 document.getElementsByName("backgroundX")[i].style.backgroundColor = "white";
-             }
-
-             var li2 = document.getElementsByName("colorX").length;
-             for (var i = 0 ; i<li2; i++)
-             {
-                 document.getElementsByName("colorX")[i].style.color = "black";
-             }
-            }
-            else
+    <script>
+        var sang = 0;
+            if ('@TempData["mau_background"]' == "white")
             {
-                sang = 0;
-             var li1 = document.getElementsByName("backgroundX").length;
-             for (var i = 0 ; i<li1; i++)
-             {
-                 document.getElementsByName("backgroundX")[i].style.backgroundColor = "black";
-             }
-
-             var li2 = document.getElementsByName("colorX").length;
-             for (var i = 0 ; i<li2; i++)
-             {
-                 document.getElementsByName("colorX")[i].style.color = "white";
-             }
+                sang = 1;
             }
+        
+            var xongmau = 0;
+            var iss = setInterval(function(){
+                 if (xongmau == 1) return;
+        
+                if (localStorage.getItem("nensangtoi") != null)
+                {
+                    sang = localStorage.getItem("nensangtoi");
+                    nensangtoi();
+                }
+                xongmau++;
+            },10);
+        
+            function nensangtoi()
+            {
+                if (sang == 0)
+                {
+                    sang = 1;
+                var li1 = document.getElementsByName("backgroundX").length;
+                for (var i = 0 ; i<li1; i++)
+                {
+                    document.getElementsByName("backgroundX")[i].style.backgroundColor = "white";
+                }
+        
+                var li2 = document.getElementsByName("colorX").length;
+                for (var i = 0 ; i<li2; i++)
+                {
+                    document.getElementsByName("colorX")[i].style.color = "black";
+                }
+               }
+               else
+               {
+                   sang = 0;
+                var li1 = document.getElementsByName("backgroundX").length;
+                for (var i = 0 ; i<li1; i++)
+                {
+                    document.getElementsByName("backgroundX")[i].style.backgroundColor = "black";
+                }
+        
+                var li2 = document.getElementsByName("colorX").length;
+                for (var i = 0 ; i<li2; i++)
+                {
+                    document.getElementsByName("colorX")[i].style.color = "white";
+                }
+               }
+            }
+        
+         function xoa()
+         {
+             var con = confirm("Bạn có chắc chắn muốn xoá không?");
+             if (con == true)
+             window.location.href = "/Admin/XoaViewMark";
          }
-
-      function xoa()
-      {
-          var con = confirm("Bạn có chắc chắn muốn xoá không?");
-          if (con == true)
-          window.location.href = "/Admin/XoaViewMark";
-      }
-      function chonX()
-      {
-          if (document.getElementById("chon").options.selectedIndex == 0)
-          {
-              document.getElementById("textboxX").style.display = "inline-block";
-              document.getElementById("preX").style.display = "none";
-          }
-          else
-          {
-              document.getElementById("preX").style.display = "inline-block";
-              document.getElementById("textboxX").style.display = "none";
-          }
-      }
-  </script>
-   <select id="chon" onchange="chonX()">
-                    <option>Xem view dưới dạng textbox</option>
-                    <option>Xem view dưới dạng lable</option>
-   </select> <button onclick="xoa()"><b style="color:red">XOÁ</b></button>
-   <h3 style="color:pink"> @ViewBag.DateTime </h3>
-   <br /><br />
-   <h3>@Html.ActionLink("Chỉnh sửa Student Test Mark", "EditStudentMark")</h3>
- <br />
-<table align="center">
-    <h2 style="text-align:center;color:deeppink">View Of Student Mark Test</h2>
+         function chonX()
+         {
+             if (document.getElementById("chon").options.selectedIndex == 0)
+             {
+                 document.getElementById("textboxX").style.display = "inline-block";
+                 document.getElementById("preX").style.display = "none";
+             }
+             else
+             {
+                 document.getElementById("preX").style.display = "inline-block";
+                 document.getElementById("textboxX").style.display = "none";
+             }
+         }
+    </script>
+    <select id="chon" onchange="chonX()">
+        <option>Xem view dưới dạng textbox</option>
+        <option>Xem view dưới dạng lable</option>
+    </select>
+    <button onclick="xoa()"><b style="color:red">XOÁ</b></button>
+    <h3 style="color:pink"> @ViewBag.DateTime </h3>
+    <br /><br />
+    <h3>@Html.ActionLink("Chỉnh sửa Student Test Mark", "EditStudentMark")</h3>
+    <br />
+    <table align="center">
+        <h2 style="text-align:center;color:deeppink">View Of Student Mark Test</h2>
         <tr style="height:40px">
             <td>
             </td>
             <td>
                 <br>
                 <br>
-                <hr /><br />
-                    <textarea id="textboxX" rows="500" cols="150" name="txtText" readonly placeholder="Nội dung view student mark file hiện đang trống..." autofocus>@ViewBag.Text1</textarea>
-                    @Html.Raw(@ViewBag.Text2)
-                    <br /><hr /><br /><br />
+                <hr />
+                <br />
+                <textarea id="textboxX" rows="500" cols="150" name="txtText" readonly placeholder="Nội dung view student mark file hiện đang trống..." autofocus>@ViewBag.Text1</textarea>
+                @Html.Raw(@ViewBag.Text2)
+                <br />
+                <hr />
+                <br /><br />
             </td>
         </tr>
-</table>
-<br />
-            <h3>@Html.ActionLink("Chỉnh sửa Student Test Mark", "EditStudentMark")</h3>
- </body>
- </html>
- }
+    </table>
+    <br />
+    <h3>@Html.ActionLink("Chỉnh sửa Student Test Mark", "EditStudentMark")</h3>
+    </body>
+</html>
+}

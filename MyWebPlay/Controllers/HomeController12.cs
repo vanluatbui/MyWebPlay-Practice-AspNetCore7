@@ -12,37 +12,82 @@ namespace MyWebPlay.Controllers
         {
             try
             {
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
-            {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
-                TempData["skipIP"] = "true";
-            }
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                khoawebsiteClient(null);
+                var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+                if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
+                {
+                    if (this.HttpContext.Request.Method == "GET")
+                    {
+                        if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", 1);
+                            return Redirect("https://google.com");
+                        }
+                        else
+                        {
+                            var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                            if (lan != 10)
+                            {
+                                HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                return Redirect("https://google.com");
+                            }
+                        }
+                    }
+                }
+                if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+                if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+                if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+                if (HttpContext.Session.GetString("TuyetDoi") != null)
+                {
+                    TempData["UyTin"] = "true";
+                    var td = HttpContext.Session.GetString("TuyetDoi");
+                    if (td == "true")
+                    {
+                        TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                    }
+                    else
+                    {
+                        TempData["TestTuyetDoi"] = "false";
+                    }
+                }
+                if (TempData["tathoatdong"] == "true")
+                {
+                    return RedirectToAction("Error");
+                }
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+                {
+                    HttpContext.Session.Remove("userIP");
+                    HttpContext.Session.SetString("userIP", "0.0.0.0");
+                    TempData["skipIP"] = "true";
+                }
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                var listIP = new List<string>();
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            khoawebsiteClient(listIP);
-            HttpContext.Session.Remove("TracNghiem");
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                    listIP.Add(HttpContext.Session.GetString("userIP"));
+                else
+                {
+                    TempData["GetDataIP"] = "true";
+                    return RedirectToAction("Index");
+                }
+                khoawebsiteClient(listIP);
+                HttpContext.Session.Remove("TracNghiem");
 
-            var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
+                var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
 
-            foreach (var file in listFile)
-            {
-                FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", file));
-                f.Delete();
-            }
+                foreach (var file in listFile)
+                {
+                    FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", file));
+                    f.Delete();
+                }
 
-            if (sl == null)
-                ViewBag.SL = 0;
+                if (sl == null)
+                    ViewBag.SL = 0;
 
-            ViewBag.SL = sl;
+                ViewBag.SL = sl;
 
                 return View();
             }
@@ -53,8 +98,21 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");                 }
-                return RedirectToAction("Error", new { exception = "true" });
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty;
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];
+                if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")
+                {
+                    Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
+                }
+                return RedirectToAction("Error", new
+                {
+                    exception = "true"
+                });
             }
         }
 
@@ -62,31 +120,76 @@ namespace MyWebPlay.Controllers
         {
             try
             {
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
-            {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
-                TempData["skipIP"] = "true";
-            }
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                khoawebsiteClient(null);
+                var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+                if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
+                {
+                    if (this.HttpContext.Request.Method == "GET")
+                    {
+                        if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", 1);
+                            return Redirect("https://google.com");
+                        }
+                        else
+                        {
+                            var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                            if (lan != 10)
+                            {
+                                HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                return Redirect("https://google.com");
+                            }
+                        }
+                    }
+                }
+                if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+                if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+                if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+                if (HttpContext.Session.GetString("TuyetDoi") != null)
+                {
+                    TempData["UyTin"] = "true";
+                    var td = HttpContext.Session.GetString("TuyetDoi");
+                    if (td == "true")
+                    {
+                        TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                    }
+                    else
+                    {
+                        TempData["TestTuyetDoi"] = "false";
+                    }
+                }
+                if (TempData["tathoatdong"] == "true")
+                {
+                    return RedirectToAction("Error");
+                }
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+                {
+                    HttpContext.Session.Remove("userIP");
+                    HttpContext.Session.SetString("userIP", "0.0.0.0");
+                    TempData["skipIP"] = "true";
+                }
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                var listIP = new List<string>();
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            khoawebsiteClient(listIP);
-            HttpContext.Session.Remove("TracNghiem");
-            var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                    listIP.Add(HttpContext.Session.GetString("userIP"));
+                else
+                {
+                    TempData["GetDataIP"] = "true";
+                    return RedirectToAction("Index");
+                }
+                khoawebsiteClient(listIP);
+                HttpContext.Session.Remove("TracNghiem");
+                var listFile = System.IO.Directory.GetFiles(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem"));
 
-            foreach (var file in listFile)
-            {
-                FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", file));
-                f.Delete();
-            }
+                foreach (var file in listFile)
+                {
+                    FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", file));
+                    f.Delete();
+                }
 
                 return View();
             }
@@ -97,8 +200,21 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");                 }
-                return RedirectToAction("Error", new { exception = "true" });
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty;
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];
+                if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")
+                {
+                    Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
+                }
+                return RedirectToAction("Error", new
+                {
+                    exception = "true"
+                });
             }
         }
 
@@ -119,125 +235,176 @@ namespace MyWebPlay.Controllers
                     fix += string.Format("txtFile[{0}] : {1}\n", i + "", item.FileName);
                     i++;
                 }
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
-            {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
-                TempData["skipIP"] = "true";
-            }
-            /*HttpContext.Session.Remove("ok-data");*/
-            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
-
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            khoawebsiteClient(listIP);
-            HttpContext.Session.Remove("ok-data");
-            Calendar xi = CultureInfo.InvariantCulture.Calendar;
-
-            var xuxu = xi.AddHours(DateTime.UtcNow, 7);
-
-            if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
-            {
-                TempData["mau_background"] = "white";
-                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
-                 TempData["winx"] = "❤";
-            }
-            else
-            {
-                TempData["mau_background"] = "black";
-                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
-                 TempData["winx"] = "❤";
-            }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
-            var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            var flax = 0;
-            for (i = 0; i < listSetting.Length; i++)
-            {
-                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-
-                if (flax == 0 && (info[0] == "Email_Upload_User"
-                    || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
-                    || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
-                    || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
-                    || info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                khoawebsiteClient(null);
+                var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+                if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
                 {
-                    if (info[1] == "false")
+                    if (this.HttpContext.Request.Method == "GET")
                     {
-                        
-                        TempData["mau_winx"] = "red";
-                        flax = 1;
+                        if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", 1);
+                            return Redirect("https://google.com");
+                        }
+                        else
+                        {
+                            var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                            if (lan != 10)
+                            {
+                                HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                return Redirect("https://google.com");
+                            }
+                        }
+                    }
+                }
+                if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+                if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+                if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+                if (HttpContext.Session.GetString("TuyetDoi") != null)
+                {
+                    TempData["UyTin"] = "true";
+                    var td = HttpContext.Session.GetString("TuyetDoi");
+                    if (td == "true")
+                    {
+                        TempData["TestTuyetDoi"] = "true"; /*return View();*/
                     }
                     else
                     {
-                        
-                        TempData["mau_winx"] = "deeppink";
-                        flax = 0;
+                        TempData["TestTuyetDoi"] = "false";
                     }
                 }
-            }
-            int sl = int.Parse(f["txtSoLuong"].ToString());
-            ViewBag.SL = sl;
-            
-           string txtSoCau = f["txtSoCau"].ToString();
-            string txtTime = f["txtTime"].ToString();
-            string txtMon = f["txtMon"].ToString();
-            if (string.IsNullOrWhiteSpace(txtMon))
-            {
-                txtMon = txtFile[0].FileName;
-            }
-
-            if (string.IsNullOrEmpty(txtSoCau))
-            {
-                ViewData["Loi2"] = "Không được bỏ trống trường này";
-                HttpContext.Session.SetString("data-result", "true"); return this.TracNghiem_Multiple(ViewBag.SL);
-            }
-
-            if (string.IsNullOrEmpty(txtTime))
-            {
-                ViewData["Loi3"] = "Không được bỏ trống trường này";
-                HttpContext.Session.SetString("data-result", "true"); return this.TracNghiem_Multiple(ViewBag.SL);
-            }
-
-            int time = int.Parse(txtTime);
-            if (time < 1 || time > 1200)
-            {
-                ViewData["Loi3"] = "Thời gian làm bài phải tối thiểu 1 phút và không vượt quá 20 giờ...";
-
-                HttpContext.Session.SetString("data-result", "true"); return this.TracNghiem_Multiple(ViewBag.SL);
-            }
-
-            if (txtFile.Count() < sl)
-            {
-                ViewData["Loi1-" + txtFile.Count()] = "Mời bạn chọn file TXT trắc nghiệm cho chương " + (txtFile.Count() + 1) + "...";
-                HttpContext.Session.SetString("data-result", "true"); return this.TracNghiem_Multiple(ViewBag.SL);
-            }
-
-
-            int n9_S = 0;
-
-            //------
-
-            TracNghiem[] tn = new TracNghiem[sl];
-
-            for (int h = 0; h < txtFile.Count(); h++)
-            {
-                tn[h] = new TracNghiem();
-
-                var path = Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", Path.GetFileName(txtFile[h].FileName));
-
-                using (Stream fileStream = new FileStream(path, FileMode.Create))
+                if (TempData["tathoatdong"] == "true")
                 {
-                    txtFile[h].CopyTo(fileStream);
-
+                    return RedirectToAction("Error");
                 }
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+                {
+                    HttpContext.Session.Remove("userIP");
+                    HttpContext.Session.SetString("userIP", "0.0.0.0");
+                    TempData["skipIP"] = "true";
+                }
+                /*HttpContext.Session.Remove("ok-data");*/
+                TempData["dataPost"] = "[POST]";
+                HttpContext.Session.SetString("data-result", "true");
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                var listIP = new List<string>();
+
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                    listIP.Add(HttpContext.Session.GetString("userIP"));
+                else
+                {
+                    TempData["GetDataIP"] = "true";
+                    return RedirectToAction("Index");
+                }
+                khoawebsiteClient(listIP);
+                HttpContext.Session.Remove("ok-data");
+                Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+                var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+
+                if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
+                {
+                    TempData["mau_background"] = "white";
+                    TempData["mau_text"] = "black";
+                    TempData["mau_nen"] = "dodgerblue";
+                    TempData["winx"] = "❤";
+                }
+                else
+                {
+                    TempData["mau_background"] = "black";
+                    TempData["mau_text"] = "white";
+                    TempData["mau_nen"] = "rebeccapurple";
+                    TempData["winx"] = "❤";
+                }
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidungX = System.IO.File.ReadAllText(pathX);
+                var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var flax = 0;
+                for (i = 0; i < listSetting.Length; i++)
+                {
+                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                    if (flax == 0 && (info[0] == "Email_Upload_User" ||
+                        info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create" ||
+                        info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question" ||
+                        info[0] == "Email_User_Website" || info[0] == "Email_User_Continue" ||
+                        info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                    {
+                        if (info[1] == "false")
+                        {
+
+                            TempData["mau_winx"] = "red";
+                            flax = 1;
+                        }
+                        else
+                        {
+
+                            TempData["mau_winx"] = "deeppink";
+                            flax = 0;
+                        }
+                    }
+                }
+                int sl = int.Parse(f["txtSoLuong"].ToString());
+                ViewBag.SL = sl;
+
+                string txtSoCau = f["txtSoCau"].ToString();
+                string txtTime = f["txtTime"].ToString();
+                string txtMon = f["txtMon"].ToString();
+                if (string.IsNullOrWhiteSpace(txtMon))
+                {
+                    txtMon = txtFile[0].FileName;
+                }
+
+                if (string.IsNullOrEmpty(txtSoCau))
+                {
+                    ViewData["Loi2"] = "Không được bỏ trống trường này";
+                    HttpContext.Session.SetString("data-result", "true");
+                    return this.TracNghiem_Multiple(ViewBag.SL);
+                }
+
+                if (string.IsNullOrEmpty(txtTime))
+                {
+                    ViewData["Loi3"] = "Không được bỏ trống trường này";
+                    HttpContext.Session.SetString("data-result", "true");
+                    return this.TracNghiem_Multiple(ViewBag.SL);
+                }
+
+                int time = int.Parse(txtTime);
+                if (time < 1 || time > 1200)
+                {
+                    ViewData["Loi3"] = "Thời gian làm bài phải tối thiểu 1 phút và không vượt quá 20 giờ...";
+
+                    HttpContext.Session.SetString("data-result", "true");
+                    return this.TracNghiem_Multiple(ViewBag.SL);
+                }
+
+                if (txtFile.Count() < sl)
+                {
+                    ViewData["Loi1-" + txtFile.Count()] = "Mời bạn chọn file TXT trắc nghiệm cho chương " + (txtFile.Count() + 1) + "...";
+                    HttpContext.Session.SetString("data-result", "true");
+                    return this.TracNghiem_Multiple(ViewBag.SL);
+                }
+
+                int n9_S = 0;
+
+                //------
+
+                TracNghiem[] tn = new TracNghiem[sl];
+
+                for (int h = 0; h < txtFile.Count(); h++)
+                {
+                    tn[h] = new TracNghiem();
+
+                    var path = Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", Path.GetFileName(txtFile[h].FileName));
+
+                    using (Stream fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        txtFile[h].CopyTo(fileStream);
+
+                    }
 
                     var xu = docfile(path);
                     var encrypt = false;
@@ -258,64 +425,70 @@ namespace MyWebPlay.Controllers
 
                     String ND_file = xu;
 
-                FileInfo fx = new FileInfo(path);
-                fx.Delete();
+                    FileInfo fx = new FileInfo(path);
+                    fx.Delete();
 
-                if (ND_file.Length == 0)
-                {
-                    ViewData["Loi1-"+h] = "Bài kiểm tra hay file văn bản chương "+(h+1)+" của bạn hiện chưa có nội dung nào!";
-                    HttpContext.Session.SetString("data-result", "true"); return this.TracNghiem_Multiple(ViewBag.SL);
-                }
-
-                String[] split = { "\n#\n" };
-                String[] t1 = ND_file.Split(split, StringSplitOptions.RemoveEmptyEntries);
-
-                for (i = 0; i < t1.Length; i++)
-                {
-                    String[] t2 = t1[i].Replace("\r","").Split('\n');
-                    if (t2.Length != 6)
+                    if (ND_file.Length == 0)
                     {
-
-                        string err = "WRONG INDEX QUESTION [CHƯƠNG "+(i+1)+"] : " + t2[0] + "";
-                        //err += "Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi, còn $ dùng đế xác định câu hỏi không cần hoán vị đáp án. Xin lỗi vì sự bất tiện này! ]";
-                        ViewData["Loi1-"+h] = err;
-                        HttpContext.Session.SetString("data-result", "true"); return this.TracNghiem_Multiple(ViewBag.SL);
+                        ViewData["Loi1-" + h] = "Bài kiểm tra hay file văn bản chương " + (h + 1) + " của bạn hiện chưa có nội dung nào!";
+                        HttpContext.Session.SetString("data-result", "true");
+                        return this.TracNghiem_Multiple(ViewBag.SL);
                     }
 
-                    char[] t2_x = t2[5].ToCharArray();
-                    if (t2_x[0] != '[' || t2_x[t2[5].Length - 1] != ']')
+                    String[] split = {
+            "\n#\n"
+          };
+                    String[] t1 = ND_file.Split(split, StringSplitOptions.RemoveEmptyEntries);
+
+                    for (i = 0; i < t1.Length; i++)
                     {
-                        string err = "WRONG INDEX QUESTION [CHƯƠNG "+(i+1)+"] : " + t2[0] + "";
-                        //err += "Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi, còn $ dùng đế xác định câu hỏi không cần hoán vị đáp án. Xin lỗi vì sự bất tiện này! ]";
-
-                        ViewData["Loi1-"+h] = err;
-                        HttpContext.Session.SetString("data-result", "true"); return this.TracNghiem_Multiple(ViewBag.SL);
-                    }
-                }
-
-                //-------------------
-
-                for (i = 0; i < t1.Length; i++)
-                {
-                    String[] t2 = t1[i].Replace("\r","").Split('\n');
-                    int flag = 0;
-                    String DA = t2[t2.Length - 1].Replace("[", "");
-                    DA = DA.Replace("]", "");
-                    for (int j = t2.Length - 2; j > 0; j--)
-                    {
-                        if (DA.CompareTo(t2[j]) == 0)
+                        String[] t2 = t1[i].Replace("\r", "").Split('\n');
+                        if (t2.Length != 6)
                         {
-                            flag = 1;
-                            break;
+
+                            string err = "WRONG INDEX QUESTION [CHƯƠNG " + (i + 1) + "] : " + t2[0] + "";
+                            //err += "Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi, còn $ dùng đế xác định câu hỏi không cần hoán vị đáp án. Xin lỗi vì sự bất tiện này! ]";
+                            ViewData["Loi1-" + h] = err;
+                            HttpContext.Session.SetString("data-result", "true");
+                            return this.TracNghiem_Multiple(ViewBag.SL);
+                        }
+
+                        char[] t2_x = t2[5].ToCharArray();
+                        if (t2_x[0] != '[' || t2_x[t2[5].Length - 1] != ']')
+                        {
+                            string err = "WRONG INDEX QUESTION [CHƯƠNG " + (i + 1) + "] : " + t2[0] + "";
+                            //err += "Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi, còn $ dùng đế xác định câu hỏi không cần hoán vị đáp án. Xin lỗi vì sự bất tiện này! ]";
+
+                            ViewData["Loi1-" + h] = err;
+                            HttpContext.Session.SetString("data-result", "true");
+                            return this.TracNghiem_Multiple(ViewBag.SL);
                         }
                     }
-                    if (flag == 0)
+
+                    //-------------------
+
+                    for (i = 0; i < t1.Length; i++)
                     {
-                        //MessageBox.Show("Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi.\nXin lỗi vì sự bất tiện này! ]");
-                        ViewData["Loi1-"+h] = "WRONG INDEX ANSWER OF QUESTION [CHƯƠNG " + (h + 1) + "] : " + t2[0] + "";
-                        HttpContext.Session.SetString("data-result", "true"); return this.TracNghiem_Multiple(ViewBag.SL);
+                        String[] t2 = t1[i].Replace("\r", "").Split('\n');
+                        int flag = 0;
+                        String DA = t2[t2.Length - 1].Replace("[", "");
+                        DA = DA.Replace("]", "");
+                        for (int j = t2.Length - 2; j > 0; j--)
+                        {
+                            if (DA.CompareTo(t2[j]) == 0)
+                            {
+                                flag = 1;
+                                break;
+                            }
+                        }
+                        if (flag == 0)
+                        {
+                            //MessageBox.Show("Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi.\nXin lỗi vì sự bất tiện này! ]");
+                            ViewData["Loi1-" + h] = "WRONG INDEX ANSWER OF QUESTION [CHƯƠNG " + (h + 1) + "] : " + t2[0] + "";
+                            HttpContext.Session.SetString("data-result", "true");
+                            return this.TracNghiem_Multiple(ViewBag.SL);
+                        }
                     }
-                }
 
                     if (f["txtMucDox"].ToString() == "on")
                     {
@@ -327,143 +500,140 @@ namespace MyWebPlay.Controllers
                         if (s != 100)
                         {
                             ViewData["LoiMucDo"] = "Vui lòng chỉ định từng mức độ phân phối các câu hỏi cho mỗi chương sao cho tổng là 100%";
-                            HttpContext.Session.SetString("data-result", "true"); return this.TracNghiem_Multiple(ViewBag.SL);
+                            HttpContext.Session.SetString("data-result", "true");
+                            return this.TracNghiem_Multiple(ViewBag.SL);
                         }
                     }
 
                     int[] chuaxet_ch;
-                int[][] chuaxet_da;
+                    int[][] chuaxet_da;
 
-                int n9 = t1.Length;
-                n9_S += n9;
+                    int n9 = t1.Length;
+                    n9_S += n9;
 
-                tn[h].ch = new String[t1.Length];
-                tn[h].a = new String[t1.Length];
-                tn[h].b = new String[t1.Length];
-                tn[h].c = new String[t1.Length];
-                tn[h].d = new String[t1.Length];
-                tn[h].dung = new String[t1.Length];
+                    tn[h].ch = new String[t1.Length];
+                    tn[h].a = new String[t1.Length];
+                    tn[h].b = new String[t1.Length];
+                    tn[h].c = new String[t1.Length];
+                    tn[h].d = new String[t1.Length];
+                    tn[h].dung = new String[t1.Length];
 
-                chuaxet_ch = new int[t1.Length];
+                    chuaxet_ch = new int[t1.Length];
 
-                chuaxet_da = new int[t1.Length][];
+                    chuaxet_da = new int[t1.Length][];
 
-                for (i = 0; i < t1.Length; i++)
-                    chuaxet_da[i] = new int[5];
+                    for (i = 0; i < t1.Length; i++)
+                        chuaxet_da[i] = new int[5];
 
-                //=======
+                    //=======
 
-                int dem = 0;
-                while (true)
-                {
-                    if (dem == t1.Length)
-                        break;
-
-
-                    Random r = new Random();
-                    double x = r.Next(0, t1.Length);
-
-                    if (chuaxet_ch[int.Parse(x.ToString())] == 1)
-                        continue;
-
-                    chuaxet_ch[int.Parse(x.ToString())] = 1;
-                    i = int.Parse(x.ToString());
-                    String[] t2 = t1[i].Replace("\r","").Split('\n');
-
-                    char[] CH = t2[0].ToCharArray();
-
-                    if (CH[0] == '$')
+                    int dem = 0;
+                    while (true)
                     {
-                        t2[0].Remove(0, 1);
-                        tn[h].ch[dem] = t2[0].Replace("$", "");
-                        tn[h].a[dem] = t2[1];
-                        tn[h].b[dem] = t2[2];
-                        tn[h].c[dem] = t2[3];
-                        tn[h].d[dem] = t2[4];
-                        String DAx = t2[5].Replace("[", "");
-                        DAx = DAx.Replace("]", "");
-                        tn[h].dung[dem] = DAx;
+                        if (dem == t1.Length)
+                            break;
+
+                        Random r = new Random();
+                        double x = r.Next(0, t1.Length);
+
+                        if (chuaxet_ch[int.Parse(x.ToString())] == 1)
+                            continue;
+
+                        chuaxet_ch[int.Parse(x.ToString())] = 1;
+                        i = int.Parse(x.ToString());
+                        String[] t2 = t1[i].Replace("\r", "").Split('\n');
+
+                        char[] CH = t2[0].ToCharArray();
+
+                        if (CH[0] == '$')
+                        {
+                            t2[0].Remove(0, 1);
+                            tn[h].ch[dem] = t2[0].Replace("$", "");
+                            tn[h].a[dem] = t2[1];
+                            tn[h].b[dem] = t2[2];
+                            tn[h].c[dem] = t2[3];
+                            tn[h].d[dem] = t2[4];
+                            String DAx = t2[5].Replace("[", "");
+                            DAx = DAx.Replace("]", "");
+                            tn[h].dung[dem] = DAx;
+                        }
+                        else
+                        {
+                            int aa, bb, cc, dd;
+
+                            tn[h].ch[dem] = t2[0];
+
+                            do
+                            {
+                                aa = r.Next(1, 5);
+                            }
+                            while (chuaxet_da[dem][int.Parse(aa.ToString())] == 1);
+                            chuaxet_da[dem][int.Parse(aa.ToString())] = 1;
+
+                            tn[h].a[dem] = t2[aa];
+
+                            do
+                            {
+                                bb = r.Next(1, 5);
+                            }
+                            while (chuaxet_da[dem][int.Parse(bb.ToString())] == 1);
+                            chuaxet_da[dem][int.Parse(bb.ToString())] = 1;
+
+                            tn[h].b[dem] = t2[bb];
+
+                            do
+                            {
+                                cc = r.Next(1, 5);
+                            }
+                            while (chuaxet_da[dem][int.Parse(cc.ToString())] == 1);
+                            chuaxet_da[dem][int.Parse(cc.ToString())] = 1;
+
+                            tn[h].c[dem] = t2[cc];
+
+                            do
+                            {
+                                dd = r.Next(1, 5);
+                            }
+                            while (chuaxet_da[dem][int.Parse(dd.ToString())] == 1);
+                            chuaxet_da[dem][int.Parse(dd.ToString())] = 1;
+
+                            tn[h].d[dem] = t2[dd];
+                            String DA = t2[5].Replace("[", "");
+                            DA = DA.Replace("]", "");
+                            tn[h].dung[dem] = DA;
+                        }
+                        dem++;
                     }
-                    else
-                    {
-                        int aa, bb, cc, dd;
-
-                        tn[h].ch[dem] = t2[0];
-
-                        do
-                        {
-                            aa = r.Next(1, 5);
-                        }
-                        while (chuaxet_da[dem][int.Parse(aa.ToString())] == 1);
-                        chuaxet_da[dem][int.Parse(aa.ToString())] = 1;
-
-
-                        tn[h].a[dem] = t2[aa];
-
-                        do
-                        {
-                            bb = r.Next(1, 5);
-                        }
-                        while (chuaxet_da[dem][int.Parse(bb.ToString())] == 1);
-                        chuaxet_da[dem][int.Parse(bb.ToString())] = 1;
-
-
-                        tn[h].b[dem] = t2[bb];
-
-                        do
-                        {
-                            cc = r.Next(1, 5);
-                        }
-                        while (chuaxet_da[dem][int.Parse(cc.ToString())] == 1);
-                        chuaxet_da[dem][int.Parse(cc.ToString())] = 1;
-
-                        tn[h].c[dem] = t2[cc];
-
-                        do
-                        {
-                            dd = r.Next(1, 5);
-                        }
-                        while (chuaxet_da[dem][int.Parse(dd.ToString())] == 1);
-                        chuaxet_da[dem][int.Parse(dd.ToString())] = 1;
-
-                        tn[h].d[dem] = t2[dd];
-                        String DA = t2[5].Replace("[", "");
-                        DA = DA.Replace("]", "");
-                        tn[h].dung[dem] = DA;
-                    }
-                    dem++;
+                    tn[h].tongsocau = n9;
                 }
-                tn[h].tongsocau = n9;
-            }
 
-            TracNghiem tnX = new TracNghiem();
-            tnX.ch = new String[int.Parse(txtSoCau)];
-            tnX.a = new String[int.Parse(txtSoCau)];
-            tnX.b = new String[int.Parse(txtSoCau)];
-            tnX.c = new String[int.Parse(txtSoCau)];
-            tnX.d = new String[int.Parse(txtSoCau)];
-            tnX.dung = new String[int.Parse(txtSoCau)];
+                TracNghiem tnX = new TracNghiem();
+                tnX.ch = new String[int.Parse(txtSoCau)];
+                tnX.a = new String[int.Parse(txtSoCau)];
+                tnX.b = new String[int.Parse(txtSoCau)];
+                tnX.c = new String[int.Parse(txtSoCau)];
+                tnX.d = new String[int.Parse(txtSoCau)];
+                tnX.dung = new String[int.Parse(txtSoCau)];
 
-            tnX.tongsocau = n9_S;
-  
-            if (txtSoCau.Length > 0 && int.Parse(txtSoCau) > n9_S)
-            {
-                txtSoCau = n9_S.ToString();
-            }
+                tnX.tongsocau = n9_S;
 
-            tnX.gioihancau = int.Parse(txtSoCau);
-
-            int[][] chuaxetX = new int[sl][];
-
-            for (i =0; i< sl;i++)
-            {
-                chuaxetX[i] = new int[tn[i].tongsocau];
-                for (int j = 0; j < chuaxetX[i].Length; j++)
+                if (txtSoCau.Length > 0 && int.Parse(txtSoCau) > n9_S)
                 {
-                    chuaxetX[i][j] = 0;
+                    txtSoCau = n9_S.ToString();
                 }
-            }
 
+                tnX.gioihancau = int.Parse(txtSoCau);
+
+                int[][] chuaxetX = new int[sl][];
+
+                for (i = 0; i < sl; i++)
+                {
+                    chuaxetX[i] = new int[tn[i].tongsocau];
+                    for (int j = 0; j < chuaxetX[i].Length; j++)
+                    {
+                        chuaxetX[i][j] = 0;
+                    }
+                }
 
                 var listMucDo = new int[sl];
                 var checkMucDo = new int[sl];
@@ -475,7 +645,8 @@ namespace MyWebPlay.Controllers
                         if (socau > tn[y].tongsocau)
                         {
                             ViewData["LoiMucDo"] = "Hệ thống không thể xử lý dựa trên các mức độ phân phối mà bạn đã đặt ra, vui lòng kiểm tra lại...";
-                            HttpContext.Session.SetString("data-result", "true"); return this.TracNghiem_Multiple(ViewBag.SL);
+                            HttpContext.Session.SetString("data-result", "true");
+                            return this.TracNghiem_Multiple(ViewBag.SL);
                         }
                         listMucDo[y] = socau;
                         checkMucDo[y] = 0;
@@ -494,13 +665,12 @@ namespace MyWebPlay.Controllers
                         {
                             int chuong = r.Next(0, sl);
                             listMucDo[chuong]++;
-                            
+
                         }
                     }
                 }
 
-
-                    for (i =0;i <tnX.gioihancau;i++)
+                for (i = 0; i < tnX.gioihancau; i++)
                 {
                     if (f["txtMucDox"].ToString() == "on")
                     {
@@ -545,28 +715,28 @@ namespace MyWebPlay.Controllers
                         tnX.d[i] = tn[chuong].d[soluong];
                         tnX.dung[i] = tn[chuong].dung[soluong];
                     }
-            }
+                }
 
-            tnX.timelambai = int.Parse(txtTime);
-            tnX.tenmon = txtMon;
+                tnX.timelambai = int.Parse(txtTime);
+                tnX.tenmon = txtMon;
 
-           ViewBag.TimeLamBai = tnX.timelambai;
+                ViewBag.TimeLamBai = tnX.timelambai;
 
-            HttpContext.Session.SetObject("TracNghiem", tnX);
+                HttpContext.Session.SetObject("TracNghiem", tnX);
 
-            ViewBag.TongSoCau = tnX.tongsocau;
-            ViewBag.GioiHanCau = tnX.gioihancau;
-            ViewBag.TimeLamBaiX = tnX.timelambai;
-            ViewBag.TenMon = tnX.tenmon;
+                ViewBag.TongSoCau = tnX.tongsocau;
+                ViewBag.GioiHanCau = tnX.gioihancau;
+                ViewBag.TimeLamBaiX = tnX.timelambai;
+                ViewBag.TenMon = tnX.tenmon;
 
-            ViewBag.CauHoi = String.Join("\r\n", tnX.ch);
-            ViewBag.A = String.Join("\r\n", tnX.a);
-            ViewBag.B = String.Join("\r\n", tnX.b);
-            ViewBag.C = String.Join("\r\n", tnX.c);
-            ViewBag.D = String.Join("\r\n", tnX.d);
-            ViewBag.Dung = String.Join("\r\n", tnX.dung);
+                ViewBag.CauHoi = String.Join("\r\n", tnX.ch);
+                ViewBag.A = String.Join("\r\n", tnX.a);
+                ViewBag.B = String.Join("\r\n", tnX.b);
+                ViewBag.C = String.Join("\r\n", tnX.c);
+                ViewBag.D = String.Join("\r\n", tnX.d);
+                ViewBag.Dung = String.Join("\r\n", tnX.dung);
 
-            ViewBag.KetQuaDung = "";
+                ViewBag.KetQuaDung = "";
 
                 return View("PlayTracNghiem", tnX);
             }
@@ -577,8 +747,21 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");                 }
-                return RedirectToAction("Error", new { exception = "true" });
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty;
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];
+                if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")
+                {
+                    Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
+                }
+                return RedirectToAction("Error", new
+                {
+                    exception = "true"
+                });
             }
         }
 
@@ -601,136 +784,189 @@ namespace MyWebPlay.Controllers
                 }
 
                 HttpContext.Session.SetString("hanhdong_3275", fix);
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
-            {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
-                TempData["skipIP"] = "true";
-            }
-            /*HttpContext.Session.Remove("ok-data");*/
-            TempData["dataPost"] = "[POST]"; HttpContext.Session.SetString("data-result", "true");
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
-
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            khoawebsiteClient(listIP);
-            HttpContext.Session.Remove("ok-data");
-            Calendar xi = CultureInfo.InvariantCulture.Calendar;
-
-            var xuxu = xi.AddHours(DateTime.UtcNow, 7);
-
-            if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
-            {
-                TempData["mau_background"] = "white";
-                TempData["mau_text"] = "black";TempData["mau_nen"] = "dodgerblue";
-                 TempData["winx"] = "❤";
-            }
-            else
-            {
-                TempData["mau_background"] = "black";
-                TempData["mau_text"] = "white";TempData["mau_nen"] = "rebeccapurple";
-                 TempData["winx"] = "❤";
-            }
-            var pathX = Path.Combine(_webHostEnvironment.WebRootPath,"Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
-            var noidungX = System.IO.File.ReadAllText(pathX);
-            var listSetting = noidungX.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            var flax = 0;
-            for (i = 0; i < listSetting.Length; i++)
-            {
-                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-
-                if (flax == 0 && (info[0] == "Email_Upload_User"
-                    || info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create"
-                    || info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question"
-                    || info[0] == "Email_User_Website" || info[0] == "Email_User_Continue"
-                    || info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                khoawebsiteClient(null);
+                var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+                if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
                 {
-                    if (info[1] == "false")
+                    if (this.HttpContext.Request.Method == "GET")
                     {
-                        
-                        TempData["mau_winx"] = "red";
-                        flax = 1;
+                        if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", 1);
+                            return Redirect("https://google.com");
+                        }
+                        else
+                        {
+                            var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                            if (lan != 10)
+                            {
+                                HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                return Redirect("https://google.com");
+                            }
+                        }
+                    }
+                }
+                if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+                if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+                if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+                if (HttpContext.Session.GetString("TuyetDoi") != null)
+                {
+                    TempData["UyTin"] = "true";
+                    var td = HttpContext.Session.GetString("TuyetDoi");
+                    if (td == "true")
+                    {
+                        TempData["TestTuyetDoi"] = "true"; /*return View();*/
                     }
                     else
                     {
-                        
-                        TempData["mau_winx"] = "deeppink";
-                        flax = 0;
+                        TempData["TestTuyetDoi"] = "false";
                     }
                 }
-            }
-            int sl = txtFile.Count();
-            var cFile = "";
-
-             string txtSoCau = f["txtSoCau"].ToString();
-            var tick = f["txtTick"].ToString();
-
-            string txtTime = f["txtTime"].ToString();
-            string txtMon = f["txtMon"].ToString();
-
-            if (tick != "on" && string.IsNullOrWhiteSpace(txtMon))
-            {
-                txtMon = txtFile[0].FileName;
-            }
-
-            if (tick != "on" && string.IsNullOrEmpty(txtSoCau))
-            {
-                ViewData["Loi2"] = "Không được bỏ trống trường này";
-                HttpContext.Session.SetString("data-result", "true"); return this.TracNghiemX_Multiple();
-            }
-
-            if (tick != "on" &&  string.IsNullOrEmpty(txtTime))
-            {
-                ViewData["Loi3"] = "Không được bỏ trống trường này";
-                HttpContext.Session.SetString("data-result", "true"); return this.TracNghiemX_Multiple();
-            }
-
-            if (tick != "on")
-            {
-                int time = int.Parse(txtTime);
-                if (time < 1 || time > 1200)
+                if (TempData["tathoatdong"] == "true")
                 {
-                    ViewData["Loi3"] = "Thời gian làm bài phải tối thiểu 1 phút và không vượt quá 20 giờ...";
-
-                    HttpContext.Session.SetString("data-result", "true"); return this.TracNghiemX_Multiple();
+                    return RedirectToAction("Error");
                 }
-            }
-
-            if (tick != "on" && txtFile.Count() <= 0)
-            {
-                ViewData["Loi1"] = "Mời bạn chọn file TXT trắc nghiệm (có thể chọn nhiều file thể hiện một môn học trắc nghiệm có nhiều chương/mục/phần/bài)...";
-                HttpContext.Session.SetString("data-result", "true"); return this.TracNghiemX_Multiple();
-            }
-
-            if (tick == "on" && txtFile.Count() != 1)
-            {
-                ViewData["Loi1"] = "Xin lỗi nếu bạn sử dụng tính năng này để setting lại answer cho file trắc nghiệm của bạn, bạn chỉ có thể tải lên tương đương 1 file - vui lòng tải lên 1 file trắc nghiệm của bạn!";
-                HttpContext.Session.SetString("data-result", "true"); return this.TracNghiemX_Multiple();
-            }
-
-            int n9_S = 0;
-
-            //------
-
-            TracNghiem[] tn = new TracNghiem[sl];
-
-            for (int h = 0; h < txtFile.Count(); h++)
-            {
-                tn[h] = new TracNghiem();
-
-                var path = Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", Path.GetFileName(txtFile[h].FileName));
-
-                using (Stream fileStream = new FileStream(path, FileMode.Create))
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
                 {
-                    txtFile[h].CopyTo(fileStream);
-
+                    HttpContext.Session.Remove("userIP");
+                    HttpContext.Session.SetString("userIP", "0.0.0.0");
+                    TempData["skipIP"] = "true";
                 }
+                /*HttpContext.Session.Remove("ok-data");*/
+                TempData["dataPost"] = "[POST]";
+                HttpContext.Session.SetString("data-result", "true");
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                var listIP = new List<string>();
+
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                    listIP.Add(HttpContext.Session.GetString("userIP"));
+                else
+                {
+                    TempData["GetDataIP"] = "true";
+                    return RedirectToAction("Index");
+                }
+                khoawebsiteClient(listIP);
+                HttpContext.Session.Remove("ok-data");
+                Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+                var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+
+                if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
+                {
+                    TempData["mau_background"] = "white";
+                    TempData["mau_text"] = "black";
+                    TempData["mau_nen"] = "dodgerblue";
+                    TempData["winx"] = "❤";
+                }
+                else
+                {
+                    TempData["mau_background"] = "black";
+                    TempData["mau_text"] = "white";
+                    TempData["mau_nen"] = "rebeccapurple";
+                    TempData["winx"] = "❤";
+                }
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidungX = System.IO.File.ReadAllText(pathX);
+                var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var flax = 0;
+                for (i = 0; i < listSetting.Length; i++)
+                {
+                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                    if (flax == 0 && (info[0] == "Email_Upload_User" ||
+                        info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create" ||
+                        info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question" ||
+                        info[0] == "Email_User_Website" || info[0] == "Email_User_Continue" ||
+                        info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                    {
+                        if (info[1] == "false")
+                        {
+
+                            TempData["mau_winx"] = "red";
+                            flax = 1;
+                        }
+                        else
+                        {
+
+                            TempData["mau_winx"] = "deeppink";
+                            flax = 0;
+                        }
+                    }
+                }
+                int sl = txtFile.Count();
+                var cFile = "";
+
+                string txtSoCau = f["txtSoCau"].ToString();
+                var tick = f["txtTick"].ToString();
+
+                string txtTime = f["txtTime"].ToString();
+                string txtMon = f["txtMon"].ToString();
+
+                if (tick != "on" && string.IsNullOrWhiteSpace(txtMon))
+                {
+                    txtMon = txtFile[0].FileName;
+                }
+
+                if (tick != "on" && string.IsNullOrEmpty(txtSoCau))
+                {
+                    ViewData["Loi2"] = "Không được bỏ trống trường này";
+                    HttpContext.Session.SetString("data-result", "true");
+                    return this.TracNghiemX_Multiple();
+                }
+
+                if (tick != "on" && string.IsNullOrEmpty(txtTime))
+                {
+                    ViewData["Loi3"] = "Không được bỏ trống trường này";
+                    HttpContext.Session.SetString("data-result", "true");
+                    return this.TracNghiemX_Multiple();
+                }
+
+                if (tick != "on")
+                {
+                    int time = int.Parse(txtTime);
+                    if (time < 1 || time > 1200)
+                    {
+                        ViewData["Loi3"] = "Thời gian làm bài phải tối thiểu 1 phút và không vượt quá 20 giờ...";
+
+                        HttpContext.Session.SetString("data-result", "true");
+                        return this.TracNghiemX_Multiple();
+                    }
+                }
+
+                if (tick != "on" && txtFile.Count() <= 0)
+                {
+                    ViewData["Loi1"] = "Mời bạn chọn file TXT trắc nghiệm (có thể chọn nhiều file thể hiện một môn học trắc nghiệm có nhiều chương/mục/phần/bài)...";
+                    HttpContext.Session.SetString("data-result", "true");
+                    return this.TracNghiemX_Multiple();
+                }
+
+                if (tick == "on" && txtFile.Count() != 1)
+                {
+                    ViewData["Loi1"] = "Xin lỗi nếu bạn sử dụng tính năng này để setting lại answer cho file trắc nghiệm của bạn, bạn chỉ có thể tải lên tương đương 1 file - vui lòng tải lên 1 file trắc nghiệm của bạn!";
+                    HttpContext.Session.SetString("data-result", "true");
+                    return this.TracNghiemX_Multiple();
+                }
+
+                int n9_S = 0;
+
+                //------
+
+                TracNghiem[] tn = new TracNghiem[sl];
+
+                for (int h = 0; h < txtFile.Count(); h++)
+                {
+                    tn[h] = new TracNghiem();
+
+                    var path = Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", Path.GetFileName(txtFile[h].FileName));
+
+                    using (Stream fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        txtFile[h].CopyTo(fileStream);
+
+                    }
 
                     var xu = docfile(path);
                     var encrypt = false;
@@ -750,123 +986,129 @@ namespace MyWebPlay.Controllers
                     }
 
                     String ND_file = xu;
-                cFile = ND_file;
+                    cFile = ND_file;
 
-                FileInfo fx = new FileInfo(path);
-                fx.Delete();
+                    FileInfo fx = new FileInfo(path);
+                    fx.Delete();
 
-                if (ND_file.Length == 0)
-                {
-                    ViewData["Loi1"] = "Bài kiểm tra hay file văn bản chương (hoặc file của bạn tải lên thứ) " + (h + 1) + " của bạn hiện chưa có nội dung nào!";
-                    HttpContext.Session.SetString("data-result", "true"); return this.TracNghiemX_Multiple();
-                }
-
-                String[] split = { "\n#\n" };
-                String[] t1 = ND_file.Split(split, StringSplitOptions.RemoveEmptyEntries);
-
-                if (tick != "on")
-                {
-                    for (i = 0; i < t1.Length; i++)
+                    if (ND_file.Length == 0)
                     {
-                        String[] t2 = t1[i].Replace("\r","").Split('\n');
-                        if (t2.Length != 6)
-                        {
-
-                            string err = "WRONG INDEX QUESTION [CHƯƠNG/FILE " + (i + 1) + "] : " + t2[0] + "";
-                            //err += "Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi, còn $ dùng đế xác định câu hỏi không cần hoán vị đáp án. Xin lỗi vì sự bất tiện này! ]";
-                            ViewData["Loi1"] = err;
-                            HttpContext.Session.SetString("data-result", "true"); return this.TracNghiemX_Multiple();
-                        }
-
-                        char[] t2_x = t2[5].ToCharArray();
-                        if (t2_x[0] != '[' || t2_x[t2[5].Length - 1] != ']')
-                        {
-                            string err = "WRONG INDEX QUESTION [CHƯƠNG/FILE " + (i + 1) + "] : " + t2[0] + "";
-                            //err += "Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi, còn $ dùng đế xác định câu hỏi không cần hoán vị đáp án. Xin lỗi vì sự bất tiện này! ]";
-
-                            ViewData["Loi1"] = err;
-                            HttpContext.Session.SetString("data-result", "true"); return this.TracNghiemX_Multiple();
-                        }
+                        ViewData["Loi1"] = "Bài kiểm tra hay file văn bản chương (hoặc file của bạn tải lên thứ) " + (h + 1) + " của bạn hiện chưa có nội dung nào!";
+                        HttpContext.Session.SetString("data-result", "true");
+                        return this.TracNghiemX_Multiple();
                     }
+
+                    String[] split = {
+            "\n#\n"
+          };
+                    String[] t1 = ND_file.Split(split, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (tick != "on")
+                    {
+                        for (i = 0; i < t1.Length; i++)
+                        {
+                            String[] t2 = t1[i].Replace("\r", "").Split('\n');
+                            if (t2.Length != 6)
+                            {
+
+                                string err = "WRONG INDEX QUESTION [CHƯƠNG/FILE " + (i + 1) + "] : " + t2[0] + "";
+                                //err += "Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi, còn $ dùng đế xác định câu hỏi không cần hoán vị đáp án. Xin lỗi vì sự bất tiện này! ]";
+                                ViewData["Loi1"] = err;
+                                HttpContext.Session.SetString("data-result", "true");
+                                return this.TracNghiemX_Multiple();
+                            }
+
+                            char[] t2_x = t2[5].ToCharArray();
+                            if (t2_x[0] != '[' || t2_x[t2[5].Length - 1] != ']')
+                            {
+                                string err = "WRONG INDEX QUESTION [CHƯƠNG/FILE " + (i + 1) + "] : " + t2[0] + "";
+                                //err += "Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi, còn $ dùng đế xác định câu hỏi không cần hoán vị đáp án. Xin lỗi vì sự bất tiện này! ]";
+
+                                ViewData["Loi1"] = err;
+                                HttpContext.Session.SetString("data-result", "true");
+                                return this.TracNghiemX_Multiple();
+                            }
+                        }
 
                         //-------------------
 
                         for (i = 0; i < t1.Length; i++)
-                    {
-                        String[] t2 = t1[i].Replace("\r","").Split('\n');
-                        int flag = 0;
-                        String DA = t2[t2.Length - 1].Replace("[", "");
-                        DA = DA.Replace("]", "");
-                        for (int j = t2.Length - 2; j > 0; j--)
                         {
-                            if (DA.CompareTo(t2[j]) == 0)
+                            String[] t2 = t1[i].Replace("\r", "").Split('\n');
+                            int flag = 0;
+                            String DA = t2[t2.Length - 1].Replace("[", "");
+                            DA = DA.Replace("]", "");
+                            for (int j = t2.Length - 2; j > 0; j--)
                             {
-                                flag = 1;
-                                break;
+                                if (DA.CompareTo(t2[j]) == 0)
+                                {
+                                    flag = 1;
+                                    break;
+                                }
+                            }
+                            if (flag == 0)
+                            {
+                                //MessageBox.Show("Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi.\nXin lỗi vì sự bất tiện này! ]");
+                                ViewData["Loi1"] = "WRONG INDEX ANSWER OF QUESTION [CHƯƠNG/FILE " + (h + 1) + "] : " + t2[0] + "";
+                                HttpContext.Session.SetString("data-result", "true");
+                                return this.TracNghiem_Multiple(ViewBag.SL);
                             }
                         }
-                        if (flag == 0)
-                        {
-                            //MessageBox.Show("Định dạng file bạn đã chọn không đúng cú pháp (vui lòng kiểm tra và thử chọn lại file văn bản hoặc liên hệ Admin)! \n\n[CHÚ Ý : Kí tự # dùng để báo hiệu khoảng cách biệt mỗi câu, vì vậy tránh sử dụng # xuất hiện trong mỗi phần câu hỏi.\nXin lỗi vì sự bất tiện này! ]");
-                            ViewData["Loi1"] = "WRONG INDEX ANSWER OF QUESTION [CHƯƠNG/FILE " + (h + 1) + "] : " + t2[0] + "";
-                            HttpContext.Session.SetString("data-result", "true"); return this.TracNghiem_Multiple(ViewBag.SL);
-                        }
                     }
-                }
 
                     var hvix = "";
 
                     int[] chuaxet_ch;
-                int[][] chuaxet_da;
+                    int[][] chuaxet_da;
 
-                int n9 = t1.Length;
-                n9_S += n9;
+                    int n9 = t1.Length;
+                    n9_S += n9;
 
-                tn[h].ch = new String[t1.Length];
-                tn[h].a = new String[t1.Length];
-                tn[h].b = new String[t1.Length];
-                tn[h].c = new String[t1.Length];
-                tn[h].d = new String[t1.Length];
-                tn[h].dung = new String[t1.Length];
+                    tn[h].ch = new String[t1.Length];
+                    tn[h].a = new String[t1.Length];
+                    tn[h].b = new String[t1.Length];
+                    tn[h].c = new String[t1.Length];
+                    tn[h].d = new String[t1.Length];
+                    tn[h].dung = new String[t1.Length];
 
-                chuaxet_ch = new int[t1.Length];
+                    chuaxet_ch = new int[t1.Length];
 
-                chuaxet_da = new int[t1.Length][];
+                    chuaxet_da = new int[t1.Length][];
 
-                for (i = 0; i < t1.Length; i++)
-                    chuaxet_da[i] = new int[5];
+                    for (i = 0; i < t1.Length; i++)
+                        chuaxet_da[i] = new int[5];
 
-                //=======
+                    //=======
 
-                int dem = 0;
-                var ix = 0;
-                while (true)
-                {
-                    if (dem == t1.Length)
-                        break;
-
-                    double x = 0;
-                    Random r = new Random();
-
-                    if (tick != "on")
+                    int dem = 0;
+                    var ix = 0;
+                    while (true)
                     {
-                        x = r.Next(0, t1.Length);
-                    }
-                    else
-                    {
-                        x = ix;
-                        ix++;
-                    }
+                        if (dem == t1.Length)
+                            break;
 
-                    if (chuaxet_ch[int.Parse(x.ToString())] == 1)
-                        continue;
+                        double x = 0;
+                        Random r = new Random();
 
-                    chuaxet_ch[int.Parse(x.ToString())] = 1;
+                        if (tick != "on")
+                        {
+                            x = r.Next(0, t1.Length);
+                        }
+                        else
+                        {
+                            x = ix;
+                            ix++;
+                        }
 
-                    i = int.Parse(x.ToString());
-                    String[] t2 = t1[i].Replace("\r","").Split('\n');
+                        if (chuaxet_ch[int.Parse(x.ToString())] == 1)
+                            continue;
 
-                    char[] CH = t2[0].ToCharArray();
+                        chuaxet_ch[int.Parse(x.ToString())] = 1;
+
+                        i = int.Parse(x.ToString());
+                        String[] t2 = t1[i].Replace("\r", "").Split('\n');
+
+                        char[] CH = t2[0].ToCharArray();
 
                         if (CH[0] == '$')
                         {
@@ -891,37 +1133,35 @@ namespace MyWebPlay.Controllers
 
                             do
                             {
-                            if (tick != "on")
-                                aa = r.Next(1, 5);
-                            else
-                                aa = 1;
+                                if (tick != "on")
+                                    aa = r.Next(1, 5);
+                                else
+                                    aa = 1;
                             }
                             while (chuaxet_da[dem][int.Parse(aa.ToString())] == 1);
                             chuaxet_da[dem][int.Parse(aa.ToString())] = 1;
-
 
                             tn[h].a[dem] = t2[aa];
 
                             do
                             {
-                            if (tick != "on")
-                                bb = r.Next(1, 5);
-                            else
-                               bb = 2;
-                        }
+                                if (tick != "on")
+                                    bb = r.Next(1, 5);
+                                else
+                                    bb = 2;
+                            }
                             while (chuaxet_da[dem][int.Parse(bb.ToString())] == 1);
                             chuaxet_da[dem][int.Parse(bb.ToString())] = 1;
-
 
                             tn[h].b[dem] = t2[bb];
 
                             do
                             {
-                            if (tick != "on")
-                                cc = r.Next(1, 5);
-                            else
-                                cc = 3;
-                        }
+                                if (tick != "on")
+                                    cc = r.Next(1, 5);
+                                else
+                                    cc = 3;
+                            }
                             while (chuaxet_da[dem][int.Parse(cc.ToString())] == 1);
                             chuaxet_da[dem][int.Parse(cc.ToString())] = 1;
 
@@ -929,11 +1169,11 @@ namespace MyWebPlay.Controllers
 
                             do
                             {
-                            if (tick != "on")
-                                dd = r.Next(1, 5);
-                            else
-                                dd = 4;
-                        }
+                                if (tick != "on")
+                                    dd = r.Next(1, 5);
+                                else
+                                    dd = 4;
+                            }
                             while (chuaxet_da[dem][int.Parse(dd.ToString())] == 1);
                             chuaxet_da[dem][int.Parse(dd.ToString())] = 1;
 
@@ -943,100 +1183,99 @@ namespace MyWebPlay.Controllers
                             tn[h].dung[dem] = DA;
                         }
                         dem++;
-                }
-                tn[h].tongsocau = n9;
+                    }
+                    tn[h].tongsocau = n9;
                     HttpContext.Session.SetString("hoanvis", hvix);
                 }
 
+                if (tick == "on")
+                    txtSoCau = n9_S.ToString();
 
-            if (tick == "on")
-                txtSoCau = n9_S.ToString();
+                TracNghiem tnX = new TracNghiem();
+                tnX.ch = new String[int.Parse(txtSoCau)];
+                tnX.a = new String[int.Parse(txtSoCau)];
+                tnX.b = new String[int.Parse(txtSoCau)];
+                tnX.c = new String[int.Parse(txtSoCau)];
+                tnX.d = new String[int.Parse(txtSoCau)];
+                tnX.dung = new String[int.Parse(txtSoCau)];
 
-            TracNghiem tnX = new TracNghiem();
-            tnX.ch = new String[int.Parse(txtSoCau)];
-            tnX.a = new String[int.Parse(txtSoCau)];
-            tnX.b = new String[int.Parse(txtSoCau)];
-            tnX.c = new String[int.Parse(txtSoCau)];
-            tnX.d = new String[int.Parse(txtSoCau)];
-            tnX.dung = new String[int.Parse(txtSoCau)];
+                tnX.tongsocau = n9_S;
 
-            tnX.tongsocau = n9_S;
-
-            if (txtSoCau.Length > 0 && int.Parse(txtSoCau) > n9_S)
-            {
-                txtSoCau = n9_S.ToString();
-            }
-
-            if (tick != "on")
-                tnX.gioihancau = int.Parse(txtSoCau);
-            else
-                tnX.gioihancau = n9_S;
-
-           int[][] chuaxetX = new int[sl][];
-
-            for (i = 0; i < sl; i++)
-            {
-                chuaxetX[i] = new int[tn[i].tongsocau];
-                for (int j = 0; j < chuaxetX[i].Length; j++)
+                if (txtSoCau.Length > 0 && int.Parse(txtSoCau) > n9_S)
                 {
-                    chuaxetX[i][j] = 0;
+                    txtSoCau = n9_S.ToString();
                 }
-            }
 
-            int xx = 0;
-            for (i = 0; i < tnX.gioihancau; i++)
-            {
-                int chuong = 0;
-                int soluong= 0;
                 if (tick != "on")
-                {
-                    Random r = new Random();
-
-                do
-                {
-                    chuong = r.Next(0, sl);
-                    soluong = r.Next(0, tn[chuong].tongsocau);
-                }
-                while (chuaxetX[chuong][soluong] == 1);
-                }
+                    tnX.gioihancau = int.Parse(txtSoCau);
                 else
+                    tnX.gioihancau = n9_S;
+
+                int[][] chuaxetX = new int[sl][];
+
+                for (i = 0; i < sl; i++)
                 {
-                    soluong = xx;
-                    xx++;
-                }    
+                    chuaxetX[i] = new int[tn[i].tongsocau];
+                    for (int j = 0; j < chuaxetX[i].Length; j++)
+                    {
+                        chuaxetX[i][j] = 0;
+                    }
+                }
 
-                chuaxetX[chuong][soluong] = 1;
+                int xx = 0;
+                for (i = 0; i < tnX.gioihancau; i++)
+                {
+                    int chuong = 0;
+                    int soluong = 0;
+                    if (tick != "on")
+                    {
+                        Random r = new Random();
 
-                tnX.ch[i] = tn[chuong].ch[soluong];
-                tnX.a[i] = tn[chuong].a[soluong];
-                tnX.b[i] = tn[chuong].b[soluong];
-                tnX.c[i] = tn[chuong].c[soluong];
-                tnX.d[i] = tn[chuong].d[soluong];
-                tnX.dung[i] = tn[chuong].dung[soluong];
-            }
+                        do
+                        {
+                            chuong = r.Next(0, sl);
+                            soluong = r.Next(0, tn[chuong].tongsocau);
+                        }
+                        while (chuaxetX[chuong][soluong] == 1);
+                    }
+                    else
+                    {
+                        soluong = xx;
+                        xx++;
+                    }
 
-            if (tick  != "on")
-            tnX.timelambai = int.Parse(txtTime);
-            tnX.tenmon = txtMon;
+                    chuaxetX[chuong][soluong] = 1;
 
-            if (tick != "on")
-            ViewBag.TimeLamBai = tnX.timelambai;
+                    tnX.ch[i] = tn[chuong].ch[soluong];
+                    tnX.a[i] = tn[chuong].a[soluong];
+                    tnX.b[i] = tn[chuong].b[soluong];
+                    tnX.c[i] = tn[chuong].c[soluong];
+                    tnX.d[i] = tn[chuong].d[soluong];
+                    tnX.dung[i] = tn[chuong].dung[soluong];
+                }
 
-            HttpContext.Session.SetObject("TracNghiem", tnX);
+                if (tick != "on")
+                    tnX.timelambai = int.Parse(txtTime);
+                tnX.tenmon = txtMon;
 
-            ViewBag.TongSoCau = tnX.tongsocau;
-            ViewBag.GioiHanCau = tnX.gioihancau;
-            ViewBag.TimeLamBaiX = tnX.timelambai;
-            ViewBag.TenMon = tnX.tenmon;
+                if (tick != "on")
+                    ViewBag.TimeLamBai = tnX.timelambai;
 
-            ViewBag.CauHoi = String.Join("\r\n", tnX.ch);
-            ViewBag.A = String.Join("\r\n", tnX.a);
-            ViewBag.B = String.Join("\r\n", tnX.b);
-            ViewBag.C = String.Join("\r\n", tnX.c);
-            ViewBag.D = String.Join("\r\n", tnX.d);
-            ViewBag.Dung = String.Join("\r\n", tnX.dung);
+                HttpContext.Session.SetObject("TracNghiem", tnX);
 
-            ViewBag.KetQuaDung = "";
+                ViewBag.TongSoCau = tnX.tongsocau;
+                ViewBag.GioiHanCau = tnX.gioihancau;
+                ViewBag.TimeLamBaiX = tnX.timelambai;
+                ViewBag.TenMon = tnX.tenmon;
+
+                ViewBag.CauHoi = String.Join("\r\n", tnX.ch);
+                ViewBag.A = String.Join("\r\n", tnX.a);
+                ViewBag.B = String.Join("\r\n", tnX.b);
+                ViewBag.C = String.Join("\r\n", tnX.c);
+                ViewBag.D = String.Join("\r\n", tnX.d);
+                ViewBag.Dung = String.Join("\r\n", tnX.dung);
+
+                ViewBag.KetQuaDung = "";
 
                 var maudivPlay = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[6];
                 if (maudivPlay == "COLOR_DIV_TRAC_NGHIEM_ON")
@@ -1050,57 +1289,56 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
+                if (tick == "on")
+                    ViewBag.ND_File = cFile;
+                else
+                    ViewBag.ND_File = null;
 
                 if (tick == "on")
-                ViewBag.ND_File = cFile;
-            else
-                ViewBag.ND_File = null;
-
-            if (tick == "on")
-            {
-                txtSoCau = n9_S.ToString();
-                ViewBag.TongCau = n9_S;
-
-                Regex regExp = new Regex("<br><img.*/><br>");
-
-                ViewBag.HinhAnh = "";
-
-                for (i = 0; i < tnX.tongsocau; i++)
                 {
-                    string result = "";
-                    foreach (Match match in regExp.Matches(tnX.ch[i]))
-                    {
-                        result += match.Value;
-                        break;
-                    }
-                    ViewBag.HinhAnh += String.Join("\r\n", result.Split("<br><br>")).Replace("<br>", "") + "\n\n";
-                }
+                    txtSoCau = n9_S.ToString();
+                    ViewBag.TongCau = n9_S;
 
-                ViewBag.HinhAnh = ViewBag.HinhAnh.TrimEnd("\n\n".ToCharArray());
+                    Regex regExp = new Regex("<br><img.*/><br>");
+
+                    ViewBag.HinhAnh = "";
+
+                    for (i = 0; i < tnX.tongsocau; i++)
+                    {
+                        string result = "";
+                        foreach (Match match in regExp.Matches(tnX.ch[i]))
+                        {
+                            result += match.Value;
+                            break;
+                        }
+                        ViewBag.HinhAnh += String.Join("\r\n", result.Split("<br><br>")).Replace("<br>", "") + "\n\n";
+                    }
+
+                    ViewBag.HinhAnh = ViewBag.HinhAnh.TrimEnd("\n\n".ToCharArray());
 
                     var s = "";
-                for (i = 0; i< tnX.tongsocau; i++)
-                {
-                    tnX.ch[i] = Regex.Replace(tnX.ch[i], "<br><img name=\"hinhcau"+i+"\".*><br>", "");
-                    ViewBag.ND_File = Regex.Replace(ViewBag.ND_File, "<br><img name=\"hinhcau"+i+"\".*><br>", "");
+                    for (i = 0; i < tnX.tongsocau; i++)
+                    {
+                        tnX.ch[i] = Regex.Replace(tnX.ch[i], "<br><img name=\"hinhcau" + i + "\".*><br>", "");
+                        ViewBag.ND_File = Regex.Replace(ViewBag.ND_File, "<br><img name=\"hinhcau" + i + "\".*><br>", "");
 
-                    if (tnX.dung[i] == tnX.a[i])
-                        s += "1\n";
-                    else if (tnX.dung[i] == tnX.b[i])
-                        s += "2\n";
-                    else if (tnX.dung[i] == tnX.c[i])
-                        s += "3\n";
-                    else if (tnX.dung[i] == tnX.d[i])
-                        s += "4\n";
-                    else
-                        s += "0\n";
-                }
+                        if (tnX.dung[i] == tnX.a[i])
+                            s += "1\n";
+                        else if (tnX.dung[i] == tnX.b[i])
+                            s += "2\n";
+                        else if (tnX.dung[i] == tnX.c[i])
+                            s += "3\n";
+                        else if (tnX.dung[i] == tnX.d[i])
+                            s += "4\n";
+                        else
+                            s += "0\n";
+                    }
 
-                s = s.TrimEnd('\n');
-                ViewBag.SettingAnswer = s;
+                    s = s.TrimEnd('\n');
+                    ViewBag.SettingAnswer = s;
 
-                 ViewBag.HoanVis = HttpContext.Session.GetString("hoanvis");
-                 HttpContext.Session.Remove("hoanvis");
+                    ViewBag.HoanVis = HttpContext.Session.GetString("hoanvis");
+                    HttpContext.Session.Remove("hoanvis");
                 }
 
                 return View("PlayTracNghiem", tnX);
@@ -1112,8 +1350,21 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");                 }
-                return RedirectToAction("Error", new { exception = "true" });
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty;
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];
+                if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")
+                {
+                    Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
+                }
+                return RedirectToAction("Error", new
+                {
+                    exception = "true"
+                });
             }
         }
 
@@ -1121,24 +1372,69 @@ namespace MyWebPlay.Controllers
         {
             try
             {
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", ""); khoawebsiteClient(null);  var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")                 {                     if (this.HttpContext.Request.Method == "GET")                     {                         if (HttpContext.Session.GetObject<int>("google-trick-web") == null)                         {                             HttpContext.Session.SetObject("google-trick-web", 1);                             return Redirect("https://google.com");                         }                         else                         {                             var lan = HttpContext.Session.GetObject<int>("google-trick-web");                             if (lan != 10)                             {                                 HttpContext.Session.SetObject("google-trick-web", lan + 1);                                 return Redirect("https://google.com");                             }                         }                     }                 } if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home"); if (TempData["errorXY"] == "true") return Redirect("https://google.com"); if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";  if (HttpContext.Session.GetString("TuyetDoi") != null) { TempData["UyTin"] = "true"; var td = HttpContext.Session.GetString("TuyetDoi");  if (td == "true") { TempData["TestTuyetDoi"] = "true"; /*return View();*/ } else { TempData["TestTuyetDoi"] = "false"; } } if (TempData["tathoatdong"] == "true") { return RedirectToAction("Error"); } if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP"); if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-            if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */)
-            {
-                HttpContext.Session.Remove("userIP"); HttpContext.Session.SetString("userIP", "0.0.0.0");
-                TempData["skipIP"] = "true";
-            }
-            TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-            var listIP = new List<string>();
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                khoawebsiteClient(null);
+                var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[14];
+                if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
+                {
+                    if (this.HttpContext.Request.Method == "GET")
+                    {
+                        if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", 1);
+                            return Redirect("https://google.com");
+                        }
+                        else
+                        {
+                            var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                            if (lan != 10)
+                            {
+                                HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                return Redirect("https://google.com");
+                            }
+                        }
+                    }
+                }
+                if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+                if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+                if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+                if (HttpContext.Session.GetString("TuyetDoi") != null)
+                {
+                    TempData["UyTin"] = "true";
+                    var td = HttpContext.Session.GetString("TuyetDoi");
+                    if (td == "true")
+                    {
+                        TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                    }
+                    else
+                    {
+                        TempData["TestTuyetDoi"] = "false";
+                    }
+                }
+                if (TempData["tathoatdong"] == "true")
+                {
+                    return RedirectToAction("Error");
+                }
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+                {
+                    HttpContext.Session.Remove("userIP");
+                    HttpContext.Session.SetString("userIP", "0.0.0.0");
+                    TempData["skipIP"] = "true";
+                }
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                var listIP = new List<string>();
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                listIP.Add(HttpContext.Session.GetString("userIP"));
-            else
-            {
-                TempData["GetDataIP"] = "true";
-                return RedirectToAction("Index");
-            }
-            khoawebsiteClient(listIP);
-            return View();
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                    listIP.Add(HttpContext.Session.GetString("userIP"));
+                else
+                {
+                    TempData["GetDataIP"] = "true";
+                    return RedirectToAction("Index");
+                }
+                khoawebsiteClient(listIP);
+                return View();
             }
             catch (Exception ex)
             {
@@ -1147,8 +1443,21 @@ namespace MyWebPlay.Controllers
                 if (req == "/" || string.IsNullOrEmpty(req))
                     req = "/Home/Index";
 
-                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty; HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx); var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")                 {                     Calendar xz = CultureInfo.InvariantCulture.Calendar;                      string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);                       string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");                      SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com","mywebplay.savefile@gmail.com", hostz + "[ADMIN - "+TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz,"[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");                 }
-                return RedirectToAction("Error", new { exception = "true" });
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty;
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[11];
+                if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")
+                {
+                    Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + TempData["userIP"] + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
+                }
+                return RedirectToAction("Error", new
+                {
+                    exception = "true"
+                });
             }
         }
     }

@@ -1,6 +1,6 @@
-﻿ @if (TempData["ViewSiteBasic"] == "true")
+﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
     function xong()
@@ -8,68 +8,64 @@
         document.getElementById("ok").style.display = "none";
         document.getElementById("loading").style.display = "inline-block";
     }
- </script>
+</script>
 <table align="center">
     <h2 style="text-align:center">Create File Your Karaoke - Online</h2>
-
     <br />
-
     <p id="HD1">
-        <h2 style="color:red">HƯỚNG DẪN CÁCH SỬ DỤNG - TẠO FILE TEXT KARAOKE TỪ HỆ THỐNG</h2>
-        - Trước tiên bạn cần phải có file mp3 nhạc và ca sĩ sẽ hát cần tạo file karaoke cho bạn.<br>        - Bạn cần nghe bản nhạc đó và nắm rõ ca sĩ (lời bài hát) và các đoạn lyric mà ca sĩ đó sẽ hát tại thời điểm nào.<br>        - Ghi các đoạn lyric, mỗi đoạn cách nhau bởi Enter (chú ý mỗi đoạn không nên quá dài) và xác định thời điểm (tốc độ hát) mà ca sĩ sẽ hát<br>        đoạn lyric đó cũng như thời điểm ca sĩ hát mỗi từ trong đoạn.<br>        - Thông thường nhạc dạo (nhạc giữa/nhạc kết)... thường bạn có thể ghi là <b>[Empty]</b> (sau đó nếu ca sĩ tiếp tục hát sẽ được đếm ngược thời gian bắt đầu/ngoại trừ đoạn kết) hoặc <b>[Empty-X] (hoặc chỉ 1 dấu Tab)</b> (chỉ đơn giản là nghỉ ngắn giữa chừng/nếu đoạn kết không nên xài cái này).<br><br>        - Để dễ hình dung, mời bạn nghe nhạc và xem lyric mẫu dưới đây :<br><br />        <audio controls><br>    <source src="/karaoke_Example/ExamKara/NhacDemo.mp3" type="audio/mpeg"><br>    </audio><br><br />    <h3 style="color:deeppink">LYRIC CHO BÀI HÁT MẪU TRÊN</h3>
-        @Html.Raw(TempData["lyricdemo"])
-
-
-
-<br /><br />
-<h2 style="color:deeppink">NẾU BẠN ĐÃ HIỂU, MỜI BẠN THAO TÁC TIẾP TỤC Ở BÊN DƯỚI : </h2>
+    <h2 style="color:red">HƯỚNG DẪN CÁCH SỬ DỤNG - TẠO FILE TEXT KARAOKE TỪ HỆ THỐNG</h2>
+    - Trước tiên bạn cần phải có file mp3 nhạc và ca sĩ sẽ hát cần tạo file karaoke cho bạn.<br>        - Bạn cần nghe bản nhạc đó và nắm rõ ca sĩ (lời bài hát) và các đoạn lyric mà ca sĩ đó sẽ hát tại thời điểm nào.<br>        - Ghi các đoạn lyric, mỗi đoạn cách nhau bởi Enter (chú ý mỗi đoạn không nên quá dài) và xác định thời điểm (tốc độ hát) mà ca sĩ sẽ hát<br>        đoạn lyric đó cũng như thời điểm ca sĩ hát mỗi từ trong đoạn.<br>        - Thông thường nhạc dạo (nhạc giữa/nhạc kết)... thường bạn có thể ghi là <b>[Empty]</b> (sau đó nếu ca sĩ tiếp tục hát sẽ được đếm ngược thời gian bắt đầu/ngoại trừ đoạn kết) hoặc <b>[Empty-X] (hoặc chỉ 1 dấu Tab)</b> (chỉ đơn giản là nghỉ ngắn giữa chừng/nếu đoạn kết không nên xài cái này).<br><br>        - Để dễ hình dung, mời bạn nghe nhạc và xem lyric mẫu dưới đây :<br><br />        
+    <audio controls>
+        <br>    
+        <source src="/karaoke_Example/ExamKara/NhacDemo.mp3" type="audio/mpeg">
+        <br>    
+    </audio>
+    <br><br />    
+    <h3 style="color:deeppink">LYRIC CHO BÀI HÁT MẪU TRÊN</h3>
+    @Html.Raw(TempData["lyricdemo"])
+    <br /><br />
+    <h2 style="color:deeppink">NẾU BẠN ĐÃ HIỂU, MỜI BẠN THAO TÁC TIẾP TỤC Ở BÊN DƯỚI : </h2>
     </p>
-
     <p id="HD2">
-     @using (Html.BeginForm("CreateFile_Karaoke", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
-    {
+        @using (Html.BeginForm("CreateFile_Karaoke", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
         @Html.ValidationSummary(true)
-
-            <tr style="height:40px">
-                <td> <b> Nhập đoạn lyrics mà bạn đã nghe nhạc cũng như phân tích mp3 của bạn tại đây :  </b>
-                    <br>
-                    <span style="color:saddlebrown"><u>Lưu ý</u> : mỗi một đoạn của lyric không nên quá dài nhé 😁, hãy canh chừng so với phần textbox bên phải nếu đoạn đó không vừa khít một hàng của textbox (vì quá dài mà nó bị xuống hàng bớt) thì cảm phiền khuyên bạn nên giảm bớt hoặc thay đổi đoạn đó cho phù hợp nhé 😂.<br />Ngoài ra bạn còn có thể kiểm tra luôn về lỗi chính tả, sự dư thừa như các khoảng trắng, Enter và độ chính xác từng câu từ mà ca sĩ sẽ hát,... để được đảm bảo hơn bạn nhé!</span>
-                </td>
-                <td>
-                        <textarea rows="30" cols="40" name="txtLyric">@ViewBag.LyricVD</textarea>
-                        <br />
-                        <span style="color:orangered">Tránh sử dụng các kí tự đặc biệt, encode trong phần text Karaoke</span>
-                        <br /><br />
-                </td>
-            </tr>
-
-             <tr style="height:40px">
-                <td> <b> Tải file MP3 của bạn (nhằm giúp bạn nghe ca sĩ hát để xác định thời điểm của mỗi đoạn lyric) :  </b></td>
-                <td>
-                        <input type="file" name="txtMusic"/>
-                    <br>
-                </td>
-            </tr>
-
-             <tr style="height:40px">
-                <td><b style="color:red">Icon trang trí sau đây cũng thuộc trong phần Text karaoke, vui lòng cũng hãy quét tô và định vị nó trong khi Play nhé : </b></td>
-                <td>
-                        <input type="text" name="txtTrangTri" size="50" maxlength="2" placeholder="Sử dụng icon tiền tố (để trang trí) - được khuyến nghị" value="🎼" />
-                        <br /><br />
-                        <input type="checkbox" name="txtCuoiCung" checked />&nbsp;<b>Không sử dụng icon tiền đề trên trong khi play, sẽ tự động thêm vào file *.TXT sau khi play karaoke xong</b>
-                    <br>
-                </td>
-            </tr>
-
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                        <input id="ok" onclick="xong()" style="font-weight:bolder" type="Submit" value="Bắt Đầu" />
-                        <br>
-                        <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
-                </td>
-            </tr>
+        <tr style="height:40px">
+    <td> <b> Nhập đoạn lyrics mà bạn đã nghe nhạc cũng như phân tích mp3 của bạn tại đây :  </b>
+    <br>
+    <span style="color:saddlebrown"><u>Lưu ý</u> : mỗi một đoạn của lyric không nên quá dài nhé 😁, hãy canh chừng so với phần textbox bên phải nếu đoạn đó không vừa khít một hàng của textbox (vì quá dài mà nó bị xuống hàng bớt) thì cảm phiền khuyên bạn nên giảm bớt hoặc thay đổi đoạn đó cho phù hợp nhé 😂.<br />Ngoài ra bạn còn có thể kiểm tra luôn về lỗi chính tả, sự dư thừa như các khoảng trắng, Enter và độ chính xác từng câu từ mà ca sĩ sẽ hát,... để được đảm bảo hơn bạn nhé!</span>
+    </td>
+    <td>
+    <textarea rows="30" cols="40" name="txtLyric">@ViewBag.LyricVD</textarea>
+    <br />
+    <span style="color:orangered">Tránh sử dụng các kí tự đặc biệt, encode trong phần text Karaoke</span>
+    <br /><br />
+    </td>
+    </tr>
+    <tr style="height:40px">
+        <td> <b> Tải file MP3 của bạn (nhằm giúp bạn nghe ca sĩ hát để xác định thời điểm của mỗi đoạn lyric) :  </b></td>
+        <td>
+            <input type="file" name="txtMusic"/>
+            <br>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td><b style="color:red">Icon trang trí sau đây cũng thuộc trong phần Text karaoke, vui lòng cũng hãy quét tô và định vị nó trong khi Play nhé : </b></td>
+        <td>
+            <input type="text" name="txtTrangTri" size="50" maxlength="2" placeholder="Sử dụng icon tiền tố (để trang trí) - được khuyến nghị" value="🎼" />
+            <br /><br />
+            <input type="checkbox" name="txtCuoiCung" checked />&nbsp;<b>Không sử dụng icon tiền đề trên trong khi play, sẽ tự động thêm vào file *.TXT sau khi play karaoke xong</b>
+            <br>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input id="ok" onclick="xong()" style="font-weight:bolder" type="Submit" value="Bắt Đầu" />
+            <br>
+            <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
+        </td>
+    </tr>
     }
     </p>
-
 </table>

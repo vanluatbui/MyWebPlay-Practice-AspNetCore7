@@ -1,209 +1,191 @@
 ﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
-      function xoaValue(ele)
+    function xoaValue(ele)
     {
-            document.getElementById(ele).value = "";
-            document.getElementById(ele).focus();
+          document.getElementById(ele).value = "";
+          document.getElementById(ele).focus();
     }
-
-     function PlayChon1()
+    
+    function PlayChon1()
     {
-        var DK2 = document.getElementById("DK1");
-        var chon2 = document.getElementById("chon1").options;
-
-        if (chon2.selectedIndex == 0)
-        DK2.value = 0;
-        else
-        if (chon2.selectedIndex == 1)
-        DK2.value = 1;
+      var DK2 = document.getElementById("DK1");
+      var chon2 = document.getElementById("chon1").options;
+    
+      if (chon2.selectedIndex == 0)
+      DK2.value = 0;
+      else
+      if (chon2.selectedIndex == 1)
+      DK2.value = 1;
     }
-
+    
     function PlayChon2()
     {
-        var DK2 = document.getElementById("DK2");
-        var chon2 = document.getElementById("chon2").options;
-
-        if (chon2.selectedIndex == 0)
-        DK2.value = 2;
-        else
-        if (chon2.selectedIndex == 1)
-        DK2.value = 1;
+      var DK2 = document.getElementById("DK2");
+      var chon2 = document.getElementById("chon2").options;
+    
+      if (chon2.selectedIndex == 0)
+      DK2.value = 2;
+      else
+      if (chon2.selectedIndex == 1)
+      DK2.value = 1;
     }
-
+    
     function TabChuoi()
     {
-        var chuoi = document.getElementById("Chuoi");
-        
-        chuoi.value += "\t";
+      var chuoi = document.getElementById("Chuoi");
+      
+      chuoi.value += "\t";
     }
-
+    
     function TabInput()
     {
-        var input = document.getElementById("Input");
-        
-        input.value += "\t";
+      var input = document.getElementById("Input");
+      
+      input.value += "\t";
     }
-
+    
     function TabOutput()
     {
-        var output = document.getElementById("Output");
-        
-        output.value += "\t";
+      var output = document.getElementById("Output");
+      
+      output.value += "\t";
     }
 </script>
 <table align="center">
     <h2 style="text-align:center">Replace - Regex Multiple - <span style="color:deeppink">???</span></h2>
-
     <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
-
     @using (Html.BeginForm())
     {
-        @Html.ValidationSummary(true)
-
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <br>
-                    <input type="radio" onclick="TabChuoi()" checked><b>Click để thêm [TAB] vào cuối</b>
-                    <br>
-                        <a href="#xuly" onclick="xoaValue('Chuoi')"><b>Chuỗi của bạn :</b></a>
-                    <br>
-                    <textarea rows="20" cols="150" name="Chuoi" id="Chuoi" autofocus>I. MyWebPlay Asp Net Core
+    @Html.ValidationSummary(true)
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <br>
+            <input type="radio" onclick="TabChuoi()" checked><b>Click để thêm [TAB] vào cuối</b>
+            <br>
+            <a href="#xuly" onclick="xoaValue('Chuoi')"><b>Chuỗi của bạn :</b></a>
+            <br>
+            <textarea rows="20" cols="150" name="Chuoi" id="Chuoi" autofocus>I. MyWebPlay Asp Net Core
 II. Lê Xuân Thảo
 III. Trần Thị Mỹ Anh
 IV. Dương Hoàng Ngọc Mỹ
 V. Lê Thị Cẩm Tiên
 VI. Nguyễn Minh Đức</textarea>
-                    <br>
-                    <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
-                </td>
-            </tr>
-
-            <br />
-            <br />
-
-            <tr style="height:40px">
-                <td> </td>
-                <td>
-                    <br>
-                    <input type="radio" onclick="TabInput()" checked><b>Click để thêm [TAB] vào cuối</b>
-                    <br>
-                       <a href="#xuly" onclick="xoaValue('Input')"> <b> Nhập pattern-input cần được thay thế (mỗi phần tử cách nhau bởi Enter - với Enter (enter này nó khác với enter sự phân tách mỗi thành phần à nhé 😂) là \n hoặc \r\n, Tab là \t) : </b></a>
-                    <br>
-                    <textarea rows="15" cols="100" name="Input" id="Input" autofocus>I.
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+        </td>
+    </tr>
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <input type="radio" onclick="TabInput()" checked><b>Click để thêm [TAB] vào cuối</b>
+            <br>
+            <a href="#xuly" onclick="xoaValue('Input')"> <b> Nhập pattern-input cần được thay thế (mỗi phần tử cách nhau bởi Enter - với Enter (enter này nó khác với enter sự phân tách mỗi thành phần à nhé 😂) là \n hoặc \r\n, Tab là \t) : </b></a>
+            <br>
+            <textarea rows="15" cols="100" name="Input" id="Input" autofocus>I.
 II.
 III.
 IV.
 V.
 VI.</textarea>
-                    <br>
-                    <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
-                </td>
-            </tr>
-
-            <br />
-            <br />
-
-                 <tr style="height:40px">
-                        <td> </td>
-                    <td>
-                        <br>
-                            <b>Bạn có cho phép các phần tử pattern - input liền trước khi thay thế tại mỗi thời điểm sẽ ảnh hưởng đến các phần tử input liền sau không? (Với 0 : NO, 1 : YES)</b>
-                            <br>
-                             <select id="chon1" onchange="PlayChon1()">
-                        <option>NO</option>
-                        <option>YES</option>
-                    </select>
-                        <input type="number" min="0" max="1" name="DuKien3" id="DK1" value="0" hidden>
-                        <br>
-                        <span style="color:red; font-style:italic">@ViewData["Loi6"] </span>
-                    </td>
-                </tr>
-
-                <br />
-                <br />
-
-                 <tr style="height:40px">
-                    <td></td>
-                <td>
-                    <br>
-                    <input type="radio" onclick="TabOutput()" checked><b>Click để thêm [TAB] vào cuối</b>
-                    <br>
-                            <a href="#xuly" onclick="xoaValue('Output')"><b> Nhập pattern-output sẽ được thay thế thành (mỗi phần tử cách nhau bởi Enter và phải tương xứng với index của các input  - với Enter là \n hoặc \r\n, Tab là \t) : </b></a>
-                    <br>
-                    <textarea rows="15" cols="100" name="Output" id="Output" autofocus>1.
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+        </td>
+    </tr>
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <b>Bạn có cho phép các phần tử pattern - input liền trước khi thay thế tại mỗi thời điểm sẽ ảnh hưởng đến các phần tử input liền sau không? (Với 0 : NO, 1 : YES)</b>
+            <br>
+            <select id="chon1" onchange="PlayChon1()">
+                <option>NO</option>
+                <option>YES</option>
+            </select>
+            <input type="number" min="0" max="1" name="DuKien3" id="DK1" value="0" hidden>
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi6"] </span>
+        </td>
+    </tr>
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <br>
+            <input type="radio" onclick="TabOutput()" checked><b>Click để thêm [TAB] vào cuối</b>
+            <br>
+            <a href="#xuly" onclick="xoaValue('Output')"><b> Nhập pattern-output sẽ được thay thế thành (mỗi phần tử cách nhau bởi Enter và phải tương xứng với index của các input  - với Enter là \n hoặc \r\n, Tab là \t) : </b></a>
+            <br>
+            <textarea rows="15" cols="100" name="Output" id="Output" autofocus>1.
 2.
 3.
 4.
 5.
 6.</textarea>
-                    <br>
-                    <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
-                </td>
-            </tr>
-
-                <br />
-                <br />
-
-                    <tr style="height:40px">
-                    <td> </td>
-                <td>
-                    <br>
-                        <b>Mời bạn lựa chọn áp dụng Regex (Với 1 : Áp dụng Regex, 2 : Không áp dụng Regex)</b>
-                        <br>
-                         <select id="chon2" onchange="PlayChon2()">
-                        <option>Không áp dụng Regex</option>
-                        <option>Áp dụng Regex</option>
-                    </select>
-                    <input type="number" min="1" max="2" name="DuKien1" id="DK2" value="2" hidden>
-                    <br>
-                    <span style="color:red; font-style:italic">@ViewData["Loi4"] </span>
-                </td>
-            </tr>
-
-                <br />
-
-            <br />
-
-            <tr style="height:40px">
-                <td> </td>
-                <td>
-                    <br>
-                        <b>Nhập số lượng thay thế kết quả áp dụng - [Chú ý nếu đã chọn không áp dụng Regex thì nó sẽ áp dụng tất cả...] (ưu tiên các kết quả đầu tiên) # Có thể nhập -1 để áp dụng tất cả...</b>
-                        <br>
-                    <input type="number" min="-1" name="DuKien2" value="-1">
-                    <br>
-                    <span style="color:red; font-style:italic">@ViewData["Loi5"] </span>
-                </td>
-            </tr>
-
-            <br />
-            <br />
-
-             <tr style="height:40px">
-            <td> </td>
-            <td>
-                <br>
-                    <b>Nhập số lượng lần lặp cần thay thế (với 0 là tất cả mãi mãi)</b>
-                    <br>
-                <input type="number" min="0" name="DuKien4" value="0">
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi7"] </span>
-            </td>
-        </tr>
-
-        <br />
-        <br />
-
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <input type="Submit" value="Kết Quả" />
-                </td>
-            </tr>
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
+        </td>
+    </tr>
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <b>Mời bạn lựa chọn áp dụng Regex (Với 1 : Áp dụng Regex, 2 : Không áp dụng Regex)</b>
+            <br>
+            <select id="chon2" onchange="PlayChon2()">
+                <option>Không áp dụng Regex</option>
+                <option>Áp dụng Regex</option>
+            </select>
+            <input type="number" min="1" max="2" name="DuKien1" id="DK2" value="2" hidden>
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi4"] </span>
+        </td>
+    </tr>
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <b>Nhập số lượng thay thế kết quả áp dụng - [Chú ý nếu đã chọn không áp dụng Regex thì nó sẽ áp dụng tất cả...] (ưu tiên các kết quả đầu tiên) # Có thể nhập -1 để áp dụng tất cả...</b>
+            <br>
+            <input type="number" min="-1" name="DuKien2" value="-1">
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi5"] </span>
+        </td>
+    </tr>
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <b>Nhập số lượng lần lặp cần thay thế (với 0 là tất cả mãi mãi)</b>
+            <br>
+            <input type="number" min="0" name="DuKien4" value="0">
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi7"] </span>
+        </td>
+    </tr>
+    <br />
+    <br />
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input type="Submit" value="Kết Quả" />
+        </td>
+    </tr>
     }
 </table>
 <br>
@@ -267,11 +249,9 @@ VI.</textarea>
 <br>
 <br /><br /><br />
 ******************************************************************************************************************************************************************************
-
 <br />
 <br />
 <br />
-
 <div id="hihi">
     @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
 </div>

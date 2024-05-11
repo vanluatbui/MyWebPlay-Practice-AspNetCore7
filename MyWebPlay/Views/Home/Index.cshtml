@@ -1,71 +1,65 @@
 ﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
-
 <span style="color:red"><u>Lưu ý</u> : Tại web của chúng tôi, trong tất cả các input bạn muốn nhập; nếu bạn cần gõ phím Tab thì tạm thời bạn cứ gõ là <b>[T-PLAY]</b> hoặc nếu bạn muốn nhập phím Enter thì ban đầu bạn cứ gõ là <b>[N-PLAY]</b> hay <b>[R-PLAY]</b> . Hệ thống sau đó sẽ chuyển đổi phù hợp cho bạn và xử lý sau, nếu bạn có thể giữ nguyên gõ kí tự gốc cũng không sao! Ngoại trừ một số tính năng có thể không áp dụng được chiêu thức này 😂 ...❤😀😀😀❤</span>
 <br /><br />
 @using MyWebPlay.Extension
-
- <div class="col-md-3">
-
-<p class="lead" style="color:crimson">MENU</p>
-@Html.Action("Menu")
-            </div>
+<div class="col-md-3">
+    <p class="lead" style="color:crimson">MENU</p>
+    @Html.Action("Menu")
+</div>
 <br /><br /><br />
 <h3>
-@Html.ActionLink("Copy ví dụ lệnh tạo và sử dụng database Sinh Viên","Copy_CreateDatabase") <br />
-@Html.ActionLink("Copy ví dụ lệnh backup database Sinh Viên - không mật khẩu","Copy_BackupDatabase1") <br />
-@Html.ActionLink("Copy ví dụ lệnh backup database Sinh Viên - có mật khẩu","Copy_BackupDatabase2")<br />
-@Html.ActionLink("Copy ví dụ lệnh restore database Sinh Viên - không mật khẩu, không ghi đè lên database cũ","Copy_RestoreDatabase1")
-<br />
-@Html.ActionLink("Copy ví dụ lệnh restore database Sinh Viên - không mật khẩu, có ghi đè lên database cũ","Copy_RestoreDatabase2")
-<br />
-@Html.ActionLink("Copy ví dụ lệnh restore database Sinh Viên - có mật khẩu, không ghi đè lên database cũ","Copy_RestoreDatabase3")
-<br />
-@Html.ActionLink("Copy ví dụ lệnh restore database Sinh Viên - có mật khẩu, có ghi đè lên database cũ","Copy_RestoreDatabase4")
-<br />
-@Html.ActionLink("Copy ví dụ lệnh attach database Sinh Viên","Copy_AttachDatabase")
-<br />
-@Html.ActionLink("Copy ví dụ lệnh detach database Sinh Viên","Copy_DetachDatabase")
-<br />
-@Html.ActionLink("Copy ví dụ lệnh tạo index","Copy_Index")
-<br />
-@Html.ActionLink("Copy ví dụ lệnh tạo view","Copy_View")
-<br />
-@Html.ActionLink("Copy ví dụ lệnh tạo procedure","Copy_Procedure")
-<br />
-@Html.ActionLink("Copy ví dụ lệnh tạo function","Copy_Function")
-<br />
-@Html.ActionLink("Copy ví dụ lệnh tạo trigger","Copy_Trigger")
-<br />
-@Html.ActionLink("Copy ví dụ lệnh thêm các cột cho table Sinh Viên","Copy_AddColumn")
-<br />
-@Html.ActionLink("Copy ví dụ lệnh xoá các cột cho table Sinh Viên","Copy_DeleteColumn")
-<br />
-@Html.ActionLink("Copy ví dụ lệnh sửa cột (sửa kiểu dữ liệu) cho table Sinh Viên","Copy_RepairColumn1")
-<br />
-@Html.ActionLink("Copy ví dụ lệnh sửa cột (thêm khoá chính) cho table Sinh Viên","Copy_RepairColumn2")
-<br />
-@Html.ActionLink("Copy ví dụ lệnh sửa cột (thêm khoá ngoại) cho table Sinh Viên","Copy_RepairColumn3")
-<hr />
+    @Html.ActionLink("Copy ví dụ lệnh tạo và sử dụng database Sinh Viên","Copy_CreateDatabase") <br />
+    @Html.ActionLink("Copy ví dụ lệnh backup database Sinh Viên - không mật khẩu","Copy_BackupDatabase1") <br />
+    @Html.ActionLink("Copy ví dụ lệnh backup database Sinh Viên - có mật khẩu","Copy_BackupDatabase2")<br />
+    @Html.ActionLink("Copy ví dụ lệnh restore database Sinh Viên - không mật khẩu, không ghi đè lên database cũ","Copy_RestoreDatabase1")
+    <br />
+    @Html.ActionLink("Copy ví dụ lệnh restore database Sinh Viên - không mật khẩu, có ghi đè lên database cũ","Copy_RestoreDatabase2")
+    <br />
+    @Html.ActionLink("Copy ví dụ lệnh restore database Sinh Viên - có mật khẩu, không ghi đè lên database cũ","Copy_RestoreDatabase3")
+    <br />
+    @Html.ActionLink("Copy ví dụ lệnh restore database Sinh Viên - có mật khẩu, có ghi đè lên database cũ","Copy_RestoreDatabase4")
+    <br />
+    @Html.ActionLink("Copy ví dụ lệnh attach database Sinh Viên","Copy_AttachDatabase")
+    <br />
+    @Html.ActionLink("Copy ví dụ lệnh detach database Sinh Viên","Copy_DetachDatabase")
+    <br />
+    @Html.ActionLink("Copy ví dụ lệnh tạo index","Copy_Index")
+    <br />
+    @Html.ActionLink("Copy ví dụ lệnh tạo view","Copy_View")
+    <br />
+    @Html.ActionLink("Copy ví dụ lệnh tạo procedure","Copy_Procedure")
+    <br />
+    @Html.ActionLink("Copy ví dụ lệnh tạo function","Copy_Function")
+    <br />
+    @Html.ActionLink("Copy ví dụ lệnh tạo trigger","Copy_Trigger")
+    <br />
+    @Html.ActionLink("Copy ví dụ lệnh thêm các cột cho table Sinh Viên","Copy_AddColumn")
+    <br />
+    @Html.ActionLink("Copy ví dụ lệnh xoá các cột cho table Sinh Viên","Copy_DeleteColumn")
+    <br />
+    @Html.ActionLink("Copy ví dụ lệnh sửa cột (sửa kiểu dữ liệu) cho table Sinh Viên","Copy_RepairColumn1")
+    <br />
+    @Html.ActionLink("Copy ví dụ lệnh sửa cột (thêm khoá chính) cho table Sinh Viên","Copy_RepairColumn2")
+    <br />
+    @Html.ActionLink("Copy ví dụ lệnh sửa cột (thêm khoá ngoại) cho table Sinh Viên","Copy_RepairColumn3")
+    <hr />
 </h3>
 <br /><br /><br />
-
- <h3>@Html.ActionLink("Xử Lý SQL 1 ? (tạo proc count all table/dành cho admin)","XuLySQL1")</h3>
-   <h3>@Html.ActionLink("Xử Lý SQL 2 ? (tạo-xoá trigger thông báo phát hiện Table insert-update-delete/dành cho admin)","XuLySQL2")</h3>
-   <h3>@Html.ActionLink("Xử Lý SQL 3 ? (tên cột #3275# old value #3275# new value - trình bày lại để có thể copy vào Excel/dành cho admin)","XuLySQL3")</h3>
-   <h3>@Html.ActionLink("Xử Lý SQL 4 ? (tìm phát hiện và thêm cột của Table còn thiếu [đã biết trước]/dành cho admin)","XuLySQL4")</h3>
-    <h3>@Html.ActionLink("Xử Lý SQL 5 ? (cũng như No.1 nhưng nhập các Tables bằng file)","XuLySQL5")*<span style="color:red">(Khuyên dùng - Create Proc Count All Tables)</span></h3>
-     <h3>@Html.ActionLink("Xử Lý SQL 6 ? (nhập file và tìm các Table còn thiếu)","XuLySQL6")*<span style="color:red">(Khuyên dùng - Tìm Table chưa có)</span></h3>
-     <h3>@Html.ActionLink("Xử Lý SQL 7 ? (tìm phát hiện và thêm cột của Table còn thiếu [chưa biết trước & duyệt tất cả]/dành cho admin)","XuLySQL7")</h3>
-      <h3>@Html.ActionLink("Xử Lý SQL 8 (nên xài này thay vì 7) ? (nghi ngờ Table còn thiếu cột-đem vào toàn bộ và bổ sung+cái nào đã tồn tại thì bỏ qua/dành cho admin)","XuLySQL8")*<span style="color:red">(Khuyên dùng - Tìm và tạo các cột chưa có của Table)</span></h3>
-       <h3>@Html.ActionLink("Xử Lý Code 9 ? (ghi ra file D:/XemCode script lưu trữ và theo dõi biến đổi các giá trị của variation.../dành cho admin)","XuLyCode9")* <span style="color:red">(Khuyên dùng - D:/ value params code C#)</span></h3>
-       <h3>@Html.ActionLink("Xử Lý SQL 10 ? (cập nhật statement thực thi SQL kèm theo đầy đủ các param khi debug cần tìm hiện tại từ D:/.../dành cho admin)","XuLySQL10")*<span style="color:red">(Khuyên dùng - D:/ params relace statement SQL)</span></h3>
-       <h3>@Html.ActionLink("Xử Lý SQL 11 ? (tìm và tạo các cột bị thiếu cho Table (kết hợp giữa file script .sql và constants/dành cho admin)","XuLySQL11")*<span style="color:red">(Khuyên dùng - Tìm và tạo các cột bị thiếu cho Table (kết hợp giữa file script .sql và constants))</span></h3>
-        <h3>@Html.ActionLink("Xử Lý SQL 12 ? (cấu trúc customize và file script sql dành cho template mail (code rule) ở bảng w2_MailTemplate/dành cho admin)","XuLySQL12")*<span style="color:red">(Khuyên dùng - Cấu trúc customize và file script sql dành cho template mail (code rule) ở bảng w2_MailTemplate)</span></h3>
-         <h3>@Html.ActionLink("Xử Lý SQL 13 ? (tìm và tạo các cột bị thiếu cho Table (kết hợp giữa file model và constants, chính xác hơn về kiểu dữ liệu/dành cho admin)","XuLySQL13")*<span style="color:red">(Khuyên dùng - Tìm và tạo các cột bị thiếu cho Table (kết hợp giữa file model và constants, chính xác hơn về kiểu dữ liệu))</span></h3>
-
+<h3>@Html.ActionLink("Xử Lý SQL 1 ? (tạo proc count all table/dành cho admin)","XuLySQL1")</h3>
+<h3>@Html.ActionLink("Xử Lý SQL 2 ? (tạo-xoá trigger thông báo phát hiện Table insert-update-delete/dành cho admin)","XuLySQL2")</h3>
+<h3>@Html.ActionLink("Xử Lý SQL 3 ? (tên cột #3275# old value #3275# new value - trình bày lại để có thể copy vào Excel/dành cho admin)","XuLySQL3")</h3>
+<h3>@Html.ActionLink("Xử Lý SQL 4 ? (tìm phát hiện và thêm cột của Table còn thiếu [đã biết trước]/dành cho admin)","XuLySQL4")</h3>
+<h3>@Html.ActionLink("Xử Lý SQL 5 ? (cũng như No.1 nhưng nhập các Tables bằng file)","XuLySQL5")*<span style="color:red">(Khuyên dùng - Create Proc Count All Tables)</span></h3>
+<h3>@Html.ActionLink("Xử Lý SQL 6 ? (nhập file và tìm các Table còn thiếu)","XuLySQL6")*<span style="color:red">(Khuyên dùng - Tìm Table chưa có)</span></h3>
+<h3>@Html.ActionLink("Xử Lý SQL 7 ? (tìm phát hiện và thêm cột của Table còn thiếu [chưa biết trước & duyệt tất cả]/dành cho admin)","XuLySQL7")</h3>
+<h3>@Html.ActionLink("Xử Lý SQL 8 (nên xài này thay vì 7) ? (nghi ngờ Table còn thiếu cột-đem vào toàn bộ và bổ sung+cái nào đã tồn tại thì bỏ qua/dành cho admin)","XuLySQL8")*<span style="color:red">(Khuyên dùng - Tìm và tạo các cột chưa có của Table)</span></h3>
+<h3>@Html.ActionLink("Xử Lý Code 9 ? (ghi ra file D:/XemCode script lưu trữ và theo dõi biến đổi các giá trị của variation.../dành cho admin)","XuLyCode9")* <span style="color:red">(Khuyên dùng - D:/ value params code C#)</span></h3>
+<h3>@Html.ActionLink("Xử Lý SQL 10 ? (cập nhật statement thực thi SQL kèm theo đầy đủ các param khi debug cần tìm hiện tại từ D:/.../dành cho admin)","XuLySQL10")*<span style="color:red">(Khuyên dùng - D:/ params relace statement SQL)</span></h3>
+<h3>@Html.ActionLink("Xử Lý SQL 11 ? (tìm và tạo các cột bị thiếu cho Table (kết hợp giữa file script .sql và constants/dành cho admin)","XuLySQL11")*<span style="color:red">(Khuyên dùng - Tìm và tạo các cột bị thiếu cho Table (kết hợp giữa file script .sql và constants))</span></h3>
+<h3>@Html.ActionLink("Xử Lý SQL 12 ? (cấu trúc customize và file script sql dành cho template mail (code rule) ở bảng w2_MailTemplate/dành cho admin)","XuLySQL12")*<span style="color:red">(Khuyên dùng - Cấu trúc customize và file script sql dành cho template mail (code rule) ở bảng w2_MailTemplate)</span></h3>
+<h3>@Html.ActionLink("Xử Lý SQL 13 ? (tìm và tạo các cột bị thiếu cho Table (kết hợp giữa file model và constants, chính xác hơn về kiểu dữ liệu/dành cho admin)","XuLySQL13")*<span style="color:red">(Khuyên dùng - Tìm và tạo các cột bị thiếu cho Table (kết hợp giữa file model và constants, chính xác hơn về kiểu dữ liệu))</span></h3>
 *******************************************************************************************************************************************************************************************
-  
 <h1>@ViewBag.Loi</h1>

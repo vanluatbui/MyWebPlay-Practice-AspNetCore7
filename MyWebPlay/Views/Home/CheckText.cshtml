@@ -1,34 +1,27 @@
 ﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
-      function xoaValue(ele)
+    function xoaValue(ele)
     {
-            document.getElementById(ele).value = "";
-            document.getElementById(ele).focus();
+          document.getElementById(ele).value = "";
+          document.getElementById(ele).focus();
     }
 </script>
 <table align="center">
     <h2 style="text-align:center">Chỉnh sửa 50% lỗi cơ bản của văn bản :)) - ứng dụng này coi như bỏ :v</h2>
-
     <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
-
     @using (Html.BeginForm())
     {
-        @Html.ValidationSummary(true)
-
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <br>
-                        <a href="#xuly" onclick="xoaValue('chuoi')"><b>Chuỗi của bạn : </b></a>
-                        <br>
-                    <textarea rows="20" cols="150" name="Chuoi" id="chuoi" autofocus>
-
-
-
-        Hạnh phúc là gì?
+    @Html.ValidationSummary(true)
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <br>
+            <a href="#xuly" onclick="xoaValue('chuoi')"><b>Chuỗi của bạn : </b></a>
+            <br>
+            <textarea rows="20" cols="150" name="Chuoi" id="chuoi" autofocus>Hạnh phúc là gì?
 
              là những điều TUYỆT		 vỜI NHẤT của chúng ta, NHƯng ta Lại qUÊn mất rằng bạn xứng đáng:được HẠNH PHÚC.cuộc sống là những : "Niềm vui"...
 
@@ -36,36 +29,24 @@
 
 
     bên cạnh những người thân YÊU,CÙNG nhau cố gắng phát triển bản thân. hơn nữa, chúng ta hãy cười mỗi ngày.
-    hãy cười lên nhé!rồi một ngày nào đó,Nỗ lực của bạn sẽ được đền đáp XỨng đÁNg.
-
-
-
-
-
-
-
-
-
-    </textarea>
-                <br>
-                    <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
-                </td>
-            </tr>
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <input type="Submit" value="Kết Quả" />
-                </td>
-            </tr>
+    hãy cười lên nhé!rồi một ngày nào đó,Nỗ lực của bạn sẽ được đền đáp XỨng đÁNg.</textarea>
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input type="Submit" value="Kết Quả" />
+        </td>
+    </tr>
     }
 </table>
 <br /><br /><br />
 ******************************************************************************************************************************************************************************
-
 <br />
 <br />
 <br />
-
 <div id="hihi">
     @Html.Raw(ViewBag.Result) <br><br> @if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
 </div>

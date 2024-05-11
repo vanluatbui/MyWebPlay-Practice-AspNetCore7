@@ -1,23 +1,20 @@
 ﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <table align="center">
     <h2 style="text-align:center">Read Number</h2>
-
     <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
-
     @using (Html.BeginForm())
     {
-        @Html.ValidationSummary(true)
-
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                <br>
-                    <b>Chuỗi dãy số của bạn (mỗi phần tử cách nhau bởi Enter) : </b>
-                <br>
-                <textarea rows="20" cols="150" name="Chuoi" autofocus>0
+    @Html.ValidationSummary(true)
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <b>Chuỗi dãy số của bạn (mỗi phần tử cách nhau bởi Enter) : </b>
+            <br>
+            <textarea rows="20" cols="150" name="Chuoi" autofocus>0
 100
 15
 20
@@ -28,26 +25,23 @@
 2023
 1005008
 5000</textarea>
-                <br>
-                <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
-            </td>
-        </tr>
-
-        <tr style="height:40px">
-            <td></td>
-            <td>
-                <input type="Submit" value="Kết Quả" />
-            </td>
-        </tr>
+            <br>
+            <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input type="Submit" value="Kết Quả" />
+        </td>
+    </tr>
     }
 </table>
 <br /><br /><br />
 ******************************************************************************************************************************************************************************
-
 <br />
 <br />
 <br />
-
 <div id="hihi" style="color:crimson">
     @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
 </div>

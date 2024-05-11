@@ -1,59 +1,52 @@
-﻿    @if (TempData["ViewSiteBasic"] == "true")
+﻿@if (TempData["ViewSiteBasic"] == "true")
 {
-    Layout = null;
+Layout = null;
 }
 <script>
-      function xoaValue(ele)
+    function xoaValue(ele)
     {
-            document.getElementById(ele).value = "";
-            document.getElementById(ele).focus();
+          document.getElementById(ele).value = "";
+          document.getElementById(ele).focus();
     }
 </script>
 <table align="center">
     <h2 style="text-align:center">Xử Lý SQL 3</h2>
-
     <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
-
     @using (Html.BeginForm())
     {
-        @Html.ValidationSummary(true)
-
-        <tr style="height:40px">
-            <td> </td>
-            <td>
-                 <a href="#xuly" onclick="xoaValue('field')"><b>Nhập các fields - tách nhau bởi Enter (hoặc bỏ qua, có thể nhập dồn ở phần input chuỗi xử lý bên dưới) : <br>
-                    </b></a>
-                     <br>
-                    <textarea cols="50" rows="10" name="txtField" id="field">@ViewBag.Field</textarea>
-                <br>
-                 <a href="#xuly" onclick="xoaValue('dauhieu')"><b>[Nếu bạn đã nhập input trên thì bắt buộc phải điền thêm input này] Nhập giá trị dấu hiệu từng record để xuống hàng - tách nhau bởi Enter (thường là cột đầu hoặc ID / hoặc bỏ qua, có thể nhập dồn ở phần input chuỗi xử lý bên dưới) : <br>
-                    </b></a>
-                     <br>
-                    <textarea cols="50" rows="10" name="txtDauHieu" id="dauhieu">@ViewBag.DauHieu</textarea>
-                <br>
-                    <a href="#xuly" onclick="xoaValue('chuoi')"><b>Chuỗi xử lý (admin tự hiều :)) - mỗi thành phần tách nhau bởi \n#3275#\n, hoặc nếu bạn đã liệt kê giá trị cho hai input trên thì khỏi (cứ paste giá trị output SQL vô bình thường)) : <br>
-                    </b></a>
-                     <br>
-                    <textarea cols="100" rows="15" name="txtChuoi" id="chuoi">@ViewBag.Chuoi</textarea>
-            </td>
-        </tr>
-      
-        <tr style="height:40px">
-            <td></td>
-            <td><br>
-                <input type="Submit" value="Kết Quả" />
-            </td>
-        </tr>
+    @Html.ValidationSummary(true)
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <a href="#xuly" onclick="xoaValue('field')"><b>Nhập các fields - tách nhau bởi Enter (hoặc bỏ qua, có thể nhập dồn ở phần input chuỗi xử lý bên dưới) : <br>
+            </b></a>
+            <br>
+            <textarea cols="50" rows="10" name="txtField" id="field">@ViewBag.Field</textarea>
+            <br>
+            <a href="#xuly" onclick="xoaValue('dauhieu')"><b>[Nếu bạn đã nhập input trên thì bắt buộc phải điền thêm input này] Nhập giá trị dấu hiệu từng record để xuống hàng - tách nhau bởi Enter (thường là cột đầu hoặc ID / hoặc bỏ qua, có thể nhập dồn ở phần input chuỗi xử lý bên dưới) : <br>
+            </b></a>
+            <br>
+            <textarea cols="50" rows="10" name="txtDauHieu" id="dauhieu">@ViewBag.DauHieu</textarea>
+            <br>
+            <a href="#xuly" onclick="xoaValue('chuoi')"><b>Chuỗi xử lý (admin tự hiều :)) - mỗi thành phần tách nhau bởi \n#3275#\n, hoặc nếu bạn đã liệt kê giá trị cho hai input trên thì khỏi (cứ paste giá trị output SQL vô bình thường)) : <br>
+            </b></a>
+            <br>
+            <textarea cols="100" rows="15" name="txtChuoi" id="chuoi">@ViewBag.Chuoi</textarea>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td><br>
+            <input type="Submit" value="Kết Quả" />
+        </td>
+    </tr>
     }
 </table>
 <br /><br />
-
 ******************************************************************************************************************************************************************************
-
 <br />
 <br />
 <br />
-
 <div id="hihi">
-                @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
+    @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
 </div>

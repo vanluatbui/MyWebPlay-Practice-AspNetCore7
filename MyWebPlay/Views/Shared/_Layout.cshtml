@@ -574,7 +574,7 @@
         
             alert("Hệ thống sẽ bắt đầu kiểm tra các dữ liệu tương đương của bạn. Sau đó nếu thành công hay thất bại, bạn hãy tự kiểm chứng lại nhé!");
         
-           window.location.href = "/Home/KiemTraTinTuong?ip="+'@TempData["UserIP"]'+"&&url="+'@TempData["current"]';
+           window.location.href = "/Home/KiemTraTinTuong?ip="+'@TempData["userIP"]'+"&&url="+'@TempData["current"]';
         }
         
         function khoawebsite()
@@ -804,7 +804,7 @@
             {
             if (TempData["IPUser_UnVisible"] == "false")
             {
-            <span onclick="savebelive()" style="color:chartreuse">@TempData["UserIP"]</span>
+            <span onclick="savebelive()" style="color:chartreuse">@TempData["userIP"]</span>
             }
             else
             {

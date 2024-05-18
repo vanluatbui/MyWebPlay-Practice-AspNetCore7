@@ -1236,10 +1236,15 @@ namespace MyWebPlay.Controllers
             }
         }
 
-        public ActionResult ToPlayKaraoke()
+        public ActionResult ToPlayKaraoke(string? boquathongbao = "false")
         {
             try
             {
+                if (string.IsNullOrEmpty(boquathongbao))
+                    boquathongbao = "false";
+
+                HttpContext.Session.SetString("boquathongbao", boquathongbao);
+
                 if (HttpContext.Session.GetString("length-list-auto") != null || HttpContext.Session.GetString("length-list-auto") != "")
                     TempData["length-list-auto"] = HttpContext.Session.GetString("length-list-auto");
 
@@ -1474,6 +1479,8 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                TempData["boquathongbao"] = HttpContext.Session.GetString("boquathongbao");
+                HttpContext.Session.Remove("boquathongbao");
                 var fix = "";
                 foreach (var item in f.Keys)
                 {

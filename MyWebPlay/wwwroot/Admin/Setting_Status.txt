@@ -1,1 +1,1 @@
-Bật hoạt động website (cho phép tất cả mọi người, không get IP) # 18/05/2024 11:35:33 AM (lưu ý nên kiểm tra thêm các setting phụ)
+Đã tắt hết các item setting (kể cả các setting phụ) + Bật xác thực hai bước ADMIN # 18/05/2024 10:58:56 PM (lưu ý nên kiểm tra thêm các setting phụ)

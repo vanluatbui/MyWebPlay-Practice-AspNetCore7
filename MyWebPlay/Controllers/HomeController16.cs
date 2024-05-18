@@ -1077,7 +1077,7 @@ namespace MyWebPlay.Controllers
                 if (session.Contains("reset-play-setting") && giatri == "32752262_20062000")
                 {
                     var pthX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
-                    var logset = "jeInPDAM4cNclBgtNp7jaw==\r\n9wDcWHKAG3J/pKouWEw1nEO3IbcctHufkXokuOVRL98=\r\nOFF\r\nfile_TAT\r\nSettingABC_DarkBVL.txt\r\ndemokaraoke.bsite.net\r\nCOLOR_DIV_TRAC_NGHIEM_OFF\r\nCOLOR_DIV_QUESTION_OFF\r\nSESSION_PLAY_LOGIN_ON\r\nENCRYPT_LOCK_FILE_ADMIN_SETTING_WHEN_GO_TO_PAGE_ERROR_OFF\r\nLINK_HTTPS_ON\r\nSEND_MAIL_WHEN_ERROR_EXCEPTION_OFF\r\nNOTICE : [NULL]\r\nNOT_USE_LOCKED_CLIENT_WEB_ON\r\nDIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON\r\nAPPROVE_ALL_IP_USER_REGIST_WHEN_GO_TO_PAGE_ERROR_OFF";
+                    var logset = "jeInPDAM4cNclBgtNp7jaw==\r\n9wDcWHKAG3J/pKouWEw1nEO3IbcctHufkXokuOVRL98=\r\nADMINSETTING_OFF\r\nfile_TAT\r\nSettingABC_DarkBVL.txt\r\ndemokaraoke.bsite.net\r\nCOLOR_DIV_TRAC_NGHIEM_OFF\r\nCOLOR_DIV_QUESTION_OFF\r\nSESSION_PLAY_LOGIN_ON\r\nENCRYPT_LOCK_FILE_ADMIN_SETTING_WHEN_GO_TO_PAGE_ERROR_OFF\r\nLINK_HTTPS_ON\r\nSEND_MAIL_WHEN_ERROR_EXCEPTION_OFF\r\nNOTICE : [NULL]\r\nNOT_USE_LOCKED_CLIENT_WEB_ON\r\nDIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON\r\nAPPROVE_ALL_IP_USER_REGIST_WHEN_GO_TO_PAGE_ERROR_OFF";
                     System.IO.File.WriteAllText(pthX, logset);
 
                     // Reset setting
@@ -1088,7 +1088,7 @@ namespace MyWebPlay.Controllers
 
                 }
 
-                if (session.Contains("[" + idU + "<>" + passU + "-adsetview]"))
+                if (session.Contains("[" + StringMaHoaExtension.Decrypt(idU, key) + "<>" + StringMaHoaExtension.Decrypt(passU, key) + "-adsetview]"))
                 {
                     var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
                     var noidung = System.IO.File.ReadAllText(path);
@@ -1118,7 +1118,11 @@ namespace MyWebPlay.Controllers
                     var code = giatri.Replace("[32752262]", "");
 
                     var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
-                    System.IO.File.WriteAllText(pth, StringMaHoaExtension.Encrypt(id, key) + "\r\n" + StringMaHoaExtension.Encrypt(code, key));
+                    var nd = System.IO.File.ReadAllText(pth);
+                    var LND = nd.Replace("\r", "").Split("\n");
+                    nd = nd.Replace(LND[0], StringMaHoaExtension.Encrypt(id, key));
+                    nd = nd.Replace(LND[1], StringMaHoaExtension.Encrypt(code, key));
+                    System.IO.File.WriteAllText(pth,  nd );
                 }
 
                 if (session.Contains("[20062000]") && giatri.Contains("[20062000]"))
@@ -1154,10 +1158,10 @@ namespace MyWebPlay.Controllers
                     if (StringMaHoaExtension.Decrypt(matkhauAd, key) == id)
                     {
                         if (code == "on")
-                            nd = nd.Replace("OFF", "ON");
+                            nd = nd.Replace("ADMINSETTING_OFF", "ADMINSETTING_ON");
                         else
                         if (code == "off")
-                            nd = nd.Replace("ON", "OFF");
+                            nd = nd.Replace("ADMINSETTING_ON", "ADMINSETTING_OFF");
 
                         System.IO.File.WriteAllText(pth, nd);
                     }

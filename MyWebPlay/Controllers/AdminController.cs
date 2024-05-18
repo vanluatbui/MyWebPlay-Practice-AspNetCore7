@@ -59,7 +59,7 @@ namespace MyWebPlay.Controllers
                 var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
 
-                if (onoff == "OFF")
+                if (onoff == "ADMINSETTING_OFF")
                     return Redirect("https://google.com");
 
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "ListIPComeToHereTheFirst.txt");
@@ -131,7 +131,7 @@ namespace MyWebPlay.Controllers
                 var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
 
-                if (onoff == "OFF")
+                if (onoff == "ADMINSETTING_OFF")
                     return Redirect("https://google.com");
 
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect", "ListIPOnWebPlay.txt");
@@ -203,7 +203,7 @@ namespace MyWebPlay.Controllers
                 var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
 
-                if (onoff == "OFF")
+                if (onoff == "ADMINSETTING_OFF")
                     return Redirect("https://google.com");
 
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect", "ListIPLock.txt");
@@ -275,7 +275,7 @@ namespace MyWebPlay.Controllers
                 var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
 
-                if (onoff == "OFF")
+                if (onoff == "ADMINSETTING_OFF")
                     return Redirect("https://google.com");
 
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect", "LockedIPClient.txt");
@@ -363,7 +363,7 @@ namespace MyWebPlay.Controllers
                 var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
 
-                if (onoff == "OFF")
+                if (onoff == "ADMINSETTING_OFF")
                     return Redirect("https://google.com");
 
                 switch (txtChonX)
@@ -609,7 +609,7 @@ namespace MyWebPlay.Controllers
                 var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
 
-                if (onoff == "OFF")
+                if (onoff == "ADMINSETTING_OFF")
                     return Redirect("https://google.com");
 
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "ListIPComeToHereTheFirst.txt");
@@ -670,7 +670,7 @@ namespace MyWebPlay.Controllers
                 var nd = System.IO.File.ReadAllText(pth);
                 var onoff = nd.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
 
-                if (onoff == "OFF")
+                if (onoff == "ADMINSETTING_OFF")
                     return Redirect("https://google.com");
 
                 khoawebsiteAdmin();
@@ -754,7 +754,7 @@ namespace MyWebPlay.Controllers
                 var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
 
-                if (onoff == "OFF")
+                if (onoff == "ADMINSETTING_OFF")
                     return Redirect("https://google.com");
 
                 HttpContext.Session.Remove("open-admin");
@@ -870,7 +870,7 @@ namespace MyWebPlay.Controllers
                 var pthX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var onoff = System.IO.File.ReadAllText(pthX).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
 
-                if (onoff == "OFF")
+                if (onoff == "ADMINSETTING_OFF")
                     return Redirect("https://google.com");
 
                 HttpContext.Session.Remove("adminSetting");
@@ -1068,7 +1068,7 @@ namespace MyWebPlay.Controllers
                 var pthA = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var onoff = System.IO.File.ReadAllText(pthA).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
 
-                if (onoff == "OFF")
+                if (onoff == "ADMINSETTING_OFF")
                     return Redirect("https://google.com");
 
                 if (HttpContext.Session.GetString("adminSetting") == null)
@@ -1142,7 +1142,7 @@ namespace MyWebPlay.Controllers
                 if (filestatus == "file_TAT")
                     ViewBag.FileStatus = "đang đóng";
 
-                if (onoff == "OFF")
+                if (onoff == "ADMINSETTING_OFF")
                     return Redirect("https://google.com");
 
                 khoawebsiteAdmin();
@@ -1480,7 +1480,7 @@ namespace MyWebPlay.Controllers
                 var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
 
-                if (onoff == "OFF")
+                if (onoff == "ADMINSETTING_OFF")
                     return Redirect("https://google.com");
 
                 Calendar x = CultureInfo.InvariantCulture.Calendar;
@@ -1559,7 +1559,7 @@ namespace MyWebPlay.Controllers
                 var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
 
-                if (onoff == "OFF")
+                if (onoff == "ADMINSETTING_OFF")
                     return Redirect("https://google.com");
 
                 khoawebsiteAdmin();
@@ -2088,7 +2088,7 @@ namespace MyWebPlay.Controllers
                 var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
 
-                if (onoff == "OFF")
+                if (onoff == "ADMINSETTING_OFF")
                     return Redirect("https://google.com");
 
                 for (int i = 0; i < listSetting.Length; i++)
@@ -2129,7 +2129,7 @@ namespace MyWebPlay.Controllers
                 if (System.IO.File.Exists(path))
                 {
                     ViewBag.Text1 = System.IO.File.ReadAllText(path);
-                    ViewBag.Text2 = "<p id=\"preX\" name=\"colorX\" style=\"color:" + TempData["mau_text"] + ";font-size:22px; display:none\">" + ViewBag.Text1.Replace("\n", "<br>") + "</p>";
+                    ViewBag.Text2 = "<p id=\"preX\" name=\"colorX\" style=\"color:" + TempData["mau_text"] + ";font-size:22px; display:none\">" + ViewBag.Text1.Replace("\n", "<br>").Replace("\t","&nbsp;&nbsp;&nbsp;&nbsp;") + "</p>";
                     Calendar x = CultureInfo.InvariantCulture.Calendar;
                     ViewBag.DateTime = x.AddHours(file.LastWriteTimeUtc, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
                 }
@@ -2199,7 +2199,7 @@ namespace MyWebPlay.Controllers
                 var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
 
-                if (onoff == "OFF")
+                if (onoff == "ADMINSETTING_OFF")
                     return Redirect("https://google.com");
 
                 Calendar xi = CultureInfo.InvariantCulture.Calendar;
@@ -2404,7 +2404,7 @@ namespace MyWebPlay.Controllers
                 var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
 
-                if (onoff == "OFF")
+                if (onoff == "ADMINSETTING_OFF")
                     return Redirect("https://google.com");
 
                 for (int i = 0; i < listSetting.Length; i++)
@@ -2485,7 +2485,7 @@ namespace MyWebPlay.Controllers
                 var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
 
-                if (onoff == "OFF")
+                if (onoff == "ADMINSETTING_OFF")
                     return Redirect("https://google.com");
 
                 for (int i = 0; i < listSetting.Length; i++)
@@ -2909,14 +2909,14 @@ namespace MyWebPlay.Controllers
                 HttpContext.Session.Remove("ok-data");
                 try
                 {
-                    var name = f["txtNoiDung"].ToString().Replace("\r", "").Split("\n|\r\n", StringSplitOptions.RemoveEmptyEntries);
+                    var name = f["txtNoiDung"].ToString().Replace("\r", "").Split("\n|\n", StringSplitOptions.RemoveEmptyEntries);
                     TempData["Name"] = name[0];
 
-                    var s = name[1].Replace("\r", "").Split("\n#\r\n", StringSplitOptions.RemoveEmptyEntries);
+                    var s = name[1].Replace("\r", "").Split("\n#\n", StringSplitOptions.RemoveEmptyEntries);
                     var chuoi = "";
                     for (int i = 0; i < s.Length; i++)
                     {
-                        var ss = s[i].Replace("\r", "").Split("\n*\r\n", StringSplitOptions.RemoveEmptyEntries);
+                        var ss = s[i].Replace("\r", "").Split("\n*\n", StringSplitOptions.RemoveEmptyEntries);
                         ss[1] = ss[1].Replace("[NULL]", "");
 
                         chuoi += "<textarea name=\"" + ss[0] + "\" cols=\"80\" rows=\"30\">" + ss[1].Trim('\"').Replace("[ngoackep_0000]", "\"") + "</textarea><br>\n";
@@ -3136,7 +3136,7 @@ namespace MyWebPlay.Controllers
                 var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
 
-                if (onoff == "OFF")
+                if (onoff == "ADMINSETTING_OFF")
                     return Redirect("https://google.com");
 
                 for (int i = 0; i < listSetting.Length; i++)
@@ -3259,7 +3259,7 @@ namespace MyWebPlay.Controllers
                 var pthA = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var onoffX = System.IO.File.ReadAllText(pthA).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
 
-                if (onoffX == "OFF")
+                if (onoffX == "ADMINSETTING_OFF")
                     return Redirect("https://google.com");
                 if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Exists == true)
                     new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Delete(true);
@@ -3455,7 +3455,7 @@ namespace MyWebPlay.Controllers
                 var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
 
-                if (onoff == "OFF")
+                if (onoff == "ADMINSETTING_OFF")
                     return Redirect("https://google.com");
 
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/Setting_Status.txt");
@@ -3501,11 +3501,11 @@ namespace MyWebPlay.Controllers
                         break;
 
                     case "8":
-                        System.IO.File.WriteAllText(path, "Sử dụng POST QUICK DATA và tàng hình (copy), get IP - cho phép mọi người # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
+                        System.IO.File.WriteAllText(path, "Sử dụng POST QUICK DATA và tàng hình (copy), không get IP - cho phép mọi người # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                         break;
 
                     case "9":
-                        System.IO.File.WriteAllText(path, "Sử dụng POST QUICK DATA và tàng hình (download *.txt), get IP - cho phép mọi người # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
+                        System.IO.File.WriteAllText(path, "Sử dụng POST QUICK DATA và tàng hình (download *.txt), không get IP - cho phép mọi người # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                         break;
 
                     case "10":
@@ -3646,7 +3646,7 @@ namespace MyWebPlay.Controllers
                 var pthA = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var onoff = System.IO.File.ReadAllText(pthA).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
 
-                if (onoff == "OFF")
+                if (onoff == "ADMINSETTING_OFF")
                     return Redirect("https://google.com");
 
                 var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");

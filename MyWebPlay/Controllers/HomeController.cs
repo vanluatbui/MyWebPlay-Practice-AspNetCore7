@@ -87,11 +87,12 @@ namespace MyWebPlay.Controllers
                 {
                     var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                     var nd = System.IO.File.ReadAllText(pth);
+
                     if (onoff == "on")
-                        nd = nd.Replace("OFF", "ON");
+                        nd = nd.Replace("ADMINSETTING_OFF", "ADMINSETTING_ON");
                     else
                     if (onoff == "off")
-                        nd = nd.Replace("ON", "OFF");
+                        nd = nd.Replace("ADMINSETTING_ON", "ADMINSETTING_OFF");
 
                     System.IO.File.WriteAllText(pth, nd);
                 }

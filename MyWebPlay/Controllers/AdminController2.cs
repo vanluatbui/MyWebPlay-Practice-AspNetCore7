@@ -47,7 +47,7 @@ namespace MyWebPlay.Controllers
                 var pth = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt");
                 var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
 
-                if (onoff == "OFF")
+                if (onoff == "ADMINSETTING_OFF")
                     return Redirect("https://google.com");
 
                 if (kbn == "0")

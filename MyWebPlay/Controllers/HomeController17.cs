@@ -1419,18 +1419,21 @@ namespace MyWebPlay.Controllers
                         return RedirectToAction("Index");
                 }
 
-                var mai = "[Đã xảy ra lỗi trong quá trình tạo mã]";
+                var mai = "[Error code. Please try later]";
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "ListIPComeToHereTheFirst.txt");
 
                 var listIPFirst = System.IO.File.ReadAllText(path).Replace("\r", "").Split("\n");
 
-                for (int i = 0; i < listIPFirst.Length; i++)
-                {
-                    var info = listIPFirst[i].Split('\t');
-                    if (((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")).ToString() == info[0])
+                if (HttpContext.Session.GetString("userIP") != null)
+                 {
+                    for (int i = 0; i < listIPFirst.Length; i++)
                     {
-                        mai = info[2];
-                        break;
+                        var info = listIPFirst[i].Split('\t');
+                        if (((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")).ToString() == info[0])
+                        {
+                            mai = info[2];
+                            break;
+                        }
                     }
                 }
 

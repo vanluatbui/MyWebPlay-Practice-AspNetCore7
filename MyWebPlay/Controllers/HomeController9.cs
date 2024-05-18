@@ -2344,7 +2344,8 @@ namespace MyWebPlay.Controllers
                     TempData.Remove("UyTin");
                     HttpContext.Session.Remove("userIP");
                 }
-                return Redirect(TempData["urlCurrent"].ToString());
+                var cur = (TempData["urlCurrent"] != null) ? TempData["urlCurrent"].ToString() : "/Home/Index";
+                return Redirect(cur);
             }
             catch (Exception ex)
             {

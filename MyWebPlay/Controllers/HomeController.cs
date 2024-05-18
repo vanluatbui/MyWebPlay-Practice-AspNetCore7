@@ -1451,6 +1451,7 @@ namespace MyWebPlay.Controllers
                     return RedirectToAction("Index");
                 }
                 khoawebsiteClient(listIP);
+                TempData["checkText"] = "Hạnh phúc là gì?\r\n\r\n             là những điều TUYỆT\t\t vỜI NHẤT của chúng ta, NHƯng ta Lại qUÊn mất rằng bạn xứng đáng:được HẠNH PHÚC.cuộc sống là những : \"Niềm vui\"...\r\n\r\n\r\n\r\n\r\n    bên cạnh những người thân YÊU,CÙNG nhau cố gắng phát triển bản thân. hơn nữa, chúng ta hãy cười mỗi ngày.\r\n    hãy cười lên nhé!rồi một ngày nào đó,Nỗ lực của bạn sẽ được đền đáp XỨng đÁNg.";
             }
             catch (Exception ex)
             {
@@ -1675,6 +1676,8 @@ namespace MyWebPlay.Controllers
                 chuoi = chuoi.Replace("[R-PLAY]", "\r");
 
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
+
+                TempData["checkText"] = f["Chuoi"].ToString();
 
                 if (exter == false)
                 {

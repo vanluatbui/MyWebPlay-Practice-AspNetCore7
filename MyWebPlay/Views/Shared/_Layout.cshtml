@@ -344,12 +344,12 @@
         }
         
         
-        if (ok == 0 && '@TempData["AllConnect"]' == "false" && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true"  && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null)
+        if (ok == 0 && '@TempData["AllConnect"]' == "false" && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true"  && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null && window.localStorage.getItem("trusted-you") == null)
         {
              if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
             {
             ok = 1;
-            alert("Để tiếp tục sử dụng, vui lòng tìm cách để có lại được sự cấp phép. Nếu không, hãy tắt sử dụng trang web và yêu cầu bật sử dụng lại (nếu bạn đã được amin approve trước đó và đang chờ đợi, hệ thống sẽ cho phép bạn quay trở lại trang Index ngay)");
+            alert("Để tiếp tục sử dụng, vui lòng tìm cách để có lại được sự cấp phép. Nếu không, hãy tắt sử dụng trang web và yêu cầu bật sử dụng lại (nếu bạn đã được amin approve trước đó và đang chờ đợi, hệ thống sẽ cho phép bạn quay trở lại trang Index ngay).\nHãy liên hệ lại với admin nếu sau đó bạn cũng không được chuyển hướng và cho phép tiếp tục sử dụng dịch vụ web.");
             window.location.href = "/Home/Error";
             }
              else
@@ -396,7 +396,7 @@
             }
         }
         
-         if (xilip == 0 && ok == 0 && '@TempData["AllConnect"]' == "false" && ('@TempData["PlayOnWebInLocal-X"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null)) && '@TempData["skipIP"]' != "true" && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null)
+         if (xilip == 0 && ok == 0 && '@TempData["AllConnect"]' == "false" && ('@TempData["PlayOnWebInLocal-X"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null)) && '@TempData["skipIP"]' != "true" && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null && window.localStorage.getItem("trusted-you") == null)
         {
              if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
             {

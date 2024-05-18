@@ -39,6 +39,7 @@ Layout = null;
              music.play();
              document.getElementById("xuxu").style.display = "none";
              document.getElementById("LBH2").innerHTML = "&nbsp;";
+             document.getElementById("balax").style.display = "none";
         }
     
     
@@ -225,12 +226,15 @@ Layout = null;
     + Và thực hiện tương tự cho đến khi hết bài hát!
     <br />
     LƯU Ý : trong suốt quá trình thực hiện, bạn không nên có bất kỳ thao tác nào khác ngoài việc bạn chỉ cần giữ và canh gõ 2 phím : <b>Enter</b> và <b>Space</b> - đảm bảo tại textbox này luôn được trạng thái focus chuột (khi bạn click button play start nhạc bên dưới thì textbox này sẽ được forcus chuột trở lại và bạn không nên thoát khỏi nó 😂) : <br /> <input id="txtVD" onkeydown="return KeyPlay(event)" type="text" size="1" autofocus/><br />
+    <div id="balax">
     <br /><u>XIN LỖI VÌ SỰ BẤT TIỆN</u> : mọi thao tác sai, bạn phải thực hiện lại từ đầu :)) - khi dò xét mỗi đoạn lyric mà đoạn đó có bao nhiêu từ thì bạn chỉ gõ đúng số lần đó (VD : đoạn lyric có 5 từ sẽ tương ứng chỉ đủ 5 lần gõ phím <b>Enter</b> của bạn [tô màu đủ số từ đang hiển thị]  tại đoạn Lyric đang dò xét đó - không nên nhấn lố hay thiếu (hãy cẩn thận)) ... Chúc bạn thành công!😄
     <br />
     <span style="color:orangered">Thông tin bổ sung : hiện tại dịch vụ thiết kế Karaoke của my web play chỉ là một tính năng nhỏ, cơ bản và có thể không được hoàn hảo như bạn mong muốn; có lẽ bạn phải tự thử đi thử lại nhiều lần (tuỳ vào cảm nhận của bạn về ứng dụng và lần sau khi tạo bản karaoke khác, sẽ dựa vào kinh nghiệm của bạn và theo phong cách của bạn - lúc đó bạn có thể tự tạo cho mình cách thiết kết karaoke từ my web play vì bạn đã hiểu được cách mà ứng dụng này nó hoạt động ra sao (mỗi người mỗi nhu cầu và cách xử lý sẽ khác nhau 😂). Thành thật xin lỗi vì điều này, nhưng mình sẽ cố gắng nâng cấp phiên bản mới tốt hơn từng ngày nếu có thể). Và trong khi play, nếu gặp một từ mà ca sĩ hát kéo dài (đoạn hơi dài), gợi ý bạn vui lòng đợi sau khi ca sĩ sắp và gần chót hát xong từ đó thì mới hãy tô màu cho từ chữ đó mà singer đang đã ca xong; còn nếu từ đó được singer ca và lấy hơi kéo quá dài thì bạn hãy bổ sung đại diện các dấu ba chấm sau từ đang ca đó - VD :"🎼 Hò ... ... ơi ..." (tuỳ chọn và tuỳ độ dài) và cũng tô màu cho chúng (tốt hơn hết đừng vì một từ mà đợi/kéo dài quá 0.3 giây mới tô) 😀.</span>
+    <br /><span style="color:green">Hiện nay bạn đã có thể chờ và tô màu từ text đó theo quãng và tốc độ hát của ca sĩ vào đúng thời điểm thực tế, nhưng cho dù vậy bạn cũng không nên quá lố và quá sức... Mọi sự ở đây đều là hên xui (hướng dẫn này chỉ là một phần), hãy tự học hỏi - cảm nhận và tự sáng tạo và rút ra kinh nghiệm của mình và cho ra những sản phẩm karaoke theo ý bạn nhé 😎</span>
     <br />
     <br />
     <h3 style="color:deeppink">Nếu bạn đã hiểu và sẵn sàng, nhấn nút START PLAY và bắt đầu nghe nhạc của bạn : </h3>
+    </div>
     <br />
     <b style="color:red;display:none" id="error">⚠️ Cảnh báo về một lỗi có thể xảy ra nếu bạn tiếp tục thực hiện, vui lòng thử thao tác lại sau.</b>
     <br />

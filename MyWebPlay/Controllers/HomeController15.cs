@@ -1568,23 +1568,23 @@ namespace MyWebPlay.Controllers
 
                 ViewBag.Chuoi = chuoi;
 
-                if (string.IsNullOrEmpty(field) == false && string.IsNullOrEmpty(dauhieu) == false && chuoi.Contains("\r\n#3275#\r\n") == false)
+                if (string.IsNullOrEmpty(field) == false && string.IsNullOrEmpty(dauhieu) == false && chuoi.Replace("\r","").Contains("\n#3275#\n") == false)
                 {
                     ViewBag.Field = field;
                     ViewBag.DauHieu = dauhieu;
                     var dax = dauhieu.Replace("\r", "").Split("\n");
                     for (int i = 0; i < dax.Length; i++)
                     {
-                        chuoi = chuoi.Replace(dax[i], "\r\n#3275#\r\n" + dax[i]);
+                        chuoi = chuoi.Replace("\r","").Replace(dax[i], "\n#3275#\n" + dax[i]);
                     }
 
                     chuoi = field + chuoi;
                 }
 
-                var listCha = chuoi.Replace("\r", "").Split("\n#3275#\r\n");
-                var phan1 = listCha[0].Replace(" ", "").Replace("\t", "").Replace(",", "").Replace("[", "").Replace("]", "").Replace("\r\n", "\t");
-                var phan2 = listCha[1].Replace("\r\n", "  ");
-                var phan3 = listCha[2].Replace("\r\n", "  ");
+                var listCha = chuoi.Replace("\r", "").Split("\n#3275#\n");
+                var phan1 = listCha[0].Replace(" ", "").Replace("\t", "").Replace(",", "").Replace("[", "").Replace("]", "").Replace("\r","").Replace("\n", "\t");
+                var phan2 = listCha[1].Replace("\r","").Replace("\n", "  ");
+                var phan3 = listCha[2].Replace("\r","").Replace("\n", "  ");
 
                 var result = phan1 + "\n" + phan2.Replace("<", "").Replace(">", "") + "\n" + phan3.Replace("<", "").Replace(">", "");
                 nix = result;

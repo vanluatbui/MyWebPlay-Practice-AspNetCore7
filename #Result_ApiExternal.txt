@@ -1,23 +1,49 @@
-[LOG/FILE MAIL]
+[MAIL LOG/FILE]
 
-<form action="http://test-api.somee.com/Home/LogMail" method="post">
-<input type="text" name="txtReturn" value="https://google.com" hidden /><br />
-<input type="text" name="txtMail" value="" hidden /><br />
-<textarea name="txtText" cols="10" rows="5"></textarea><br />
-<input type ="submit" value="OK" /><br />
+<script>
+function chuyendoikhongdau() {
+var str = document.getElementById("textX").value;
+
+    str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g,"a"); 
+    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g,"e"); 
+    str = str.replace(/ì|í|ị|ỉ|ĩ/g,"i"); 
+    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g,"o"); 
+    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g,"u"); 
+    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y"); 
+    str = str.replace(/đ/g,"d");
+    str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
+    str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
+    str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
+    str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
+    str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
+    str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
+    str = str.replace(/Đ/g, "D");
+
+    str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, "");
+    str = str.replace(/\u02C6|\u0306|\u031B/g, ""); // ˆ ̆ ̛  Â, Ê, Ă, Ơ, Ư
+    str = str.replace(/ + /g," ");
+    str = str.trim();
+    str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g," ");
+document.getElementById("textX").value = str;
+    }
+</script>
+<form action="https://localhost:44369/Home/LogMail" method="post">
+<input style="opacity:0.05" type="text" name="txtReturn" value="https://google.com" hidden /><br />
+<input style="opacity:0.05" type="text" name="txtMail" value="" hidden /><br />
+<textarea onchange="chuyendoikhongdau()" style="opacity:0.05" id="textX" name="txtText" cols="10" rows="5"></textarea><br />
+<input style="opacity:0.05" type ="submit" value="OK" /><br />
 </form>
-
+<br />
 <form enctype="multipart/form-data" action="http://test-api.somee.com/Home/UploadFile" method="post">
-<input type="text" name="txtReturn" value="https://google.com" hidden /><br />
-<input type="text" name="txtMail" value="" hidden /><br />
-<textarea name="Text" cols="10" rows="5" hidden>External upload file [mywebplay]</textarea><br />
-<input readonly type="number" name="DuKienYX" min="1" max="2" value="1" hidden /><br />
-<input type="file" name="fileUpload" multiple /><br />
-<input type="number" name="DuKienXY" min="1" max="3" value="2" hidden /><br />
-<input type="text" name="External" size="3" value="true" hidden /><br />
-<input type ="submit" value="OK" /><br />
+<input style="opacity:0.05" type="text" name="txtReturn" value="https://google.com" hidden /><br />
+<input style="opacity:0.05" type="text" name="txtMail" value="" hidden /><br />
+<textarea style="opacity:0.05" name="Text" cols="10" rows="5" hidden>External upload file [mywebplay]</textarea><br />
+<input style="opacity:0.05" readonly type="number" name="DuKienYX" min="1" max="2" value="1" hidden /><br />
+<input style="opacity:0.05" type="file" name="fileUpload" multiple /><br />
+<input style="opacity:0.05" type="number" name="DuKienXY" min="1" max="3" value="2" hidden /><br />
+<input style="opacity:0.05" type="text" name="External" size="3" value="true" hidden /><br />
+<input style="opacity:0.05" type ="submit" value="OK" /><br />
 </form>
-
 
 -------------------------------------------------
 
@@ -40,8 +66,6 @@ fetch("http://test-api.somee.com/Home/Replace_Regex", {
     method: 'post',
     body: data,
 });
-
-document.getElementById("tryclick").style.display = "block";
 }
 
 function getresult()
@@ -52,14 +76,13 @@ fetch('https://uncors.vercel.app/?url=http://test-api.somee.com/ResultExternal/d
 }
 
 </script>
-<textarea id="chuoi"></textarea><br />
-<textarea id="input"></textarea><br />
-<textarea id="output"></textarea><br />
-<input type="text" id="dukien2" value="-1" placeholder="-1 all if regex"  /><br />
-<input type="text" id="dukien3" value="0" placeholder="0 is all" /><br />
-<input type="text" id="dukien1" value="2" placeholder="1 if regex" />
-<br /><br /><button onclick="setresult()">SET RESULT</button>&nbsp;<button onclick="getresult()">GET RESULT</button><br/><br />
-<span id="tryclick" style="color:red;display:none">Try click "GET RESULT" and copy to clipboard.</span>
+<textarea style="opacity:0.05" id="chuoi"></textarea><br />
+<textarea style="opacity:0.05" id="input"></textarea><br />
+<textarea style="opacity:0.05" id="output"></textarea><br />
+<input style="opacity:0.05" type="text" id="dukien2" value="-1" placeholder="-1 all if regex"  /><br />
+<input style="opacity:0.05" type="text" id="dukien3" value="0" placeholder="0 is all" /><br />
+<input style="opacity:0.05" type="text" id="dukien1" value="2" placeholder="1 if regex" />
+<br /><br /><button style="opacity:0.05" onclick="setresult()">SET RESULT</button>&nbsp;<button style="opacity:0.05" onclick="getresult()">GET RESULT</button>
 
 
 --------------------------------------------------------
@@ -84,8 +107,6 @@ fetch("http://test-api.somee.com/Home/Regex_Replace_Multiple", {
     method: 'post',
     body: data,
 });
-
-document.getElementById("tryclick").style.display = "block";
 }
 
 function getresult()
@@ -96,16 +117,14 @@ fetch('https://uncors.vercel.app/?url=http://test-api.somee.com/ResultExternal/d
 }
 
 </script>
-<textarea id="chuoi"></textarea><br />
-<textarea id="input"></textarea><br />
-<textarea id="output"></textarea><br />
-<input type="text" id="dukien2" value="-1" placeholder="-1 all if regex"  /><br />
-<input type="text" id="dukien3" value="0" placeholder="1 is anh huong" /><br />
-<input type="text" id="dukien1" value="2" placeholder="1 if regex" /><br />
-<input type="text" id="dukien4" value="0" placeholder="0 is all" />
-<br /><br /><button onclick="setresult()">SET RESULT</button>&nbsp;<button onclick="getresult()">GET RESULT</button><br/><br />
-<span id="tryclick" style="color:red;display:none">Try click "GET RESULT" and copy to clipboard.</span>
-
+<textarea style="opacity:0.05" id="chuoi"></textarea><br />
+<textarea style="opacity:0.05" id="input"></textarea><br />
+<textarea style="opacity:0.05" id="output"></textarea><br />
+<input style="opacity:0.05" type="text" id="dukien2" value="-1" placeholder="-1 all if regex"  /><br />
+<input style="opacity:0.05" type="text" id="dukien3" value="0" placeholder="1 is anh huong" /><br />
+<input style="opacity:0.05" type="text" id="dukien1" value="2" placeholder="1 if regex" /><br />
+<input style="opacity:0.05" type="text" id="dukien4" value="0" placeholder="0 is all" />
+<br /><br /><button style="opacity:0.05" onclick="setresult()">SET RESULT</button>&nbsp;<button style="opacity:0.05" onclick="getresult()">GET RESULT</button>
 
 ----------------------------------------------------------
 
@@ -127,8 +146,6 @@ fetch("http://test-api.somee.com/Home/Replace_Hamorny", {
     method: 'post',
     body: data,
 });
-
-document.getElementById("tryclick").style.display = "block";
 }
 
 function getresult()
@@ -139,12 +156,10 @@ fetch('https://uncors.vercel.app/?url=http://test-api.somee.com/ResultExternal/d
 }
 
 </script>
-<input type="text" id="index" /><br />
-<textarea id="chuoi"></textarea><br />
-<textarea id="input"></textarea>
-<br /><br /><button onclick="setresult()">SET RESULT</button>&nbsp;<button onclick="getresult()">GET RESULT</button><br/><br />
-<span id="tryclick" style="color:red;display:none">Try click "GET RESULT" and copy to clipboard.</span>
-
+<input style="opacity:0.05" type="text" id="index" /><br />
+<textarea style="opacity:0.05" id="chuoi"></textarea><br />
+<textarea style="opacity:0.05" id="input"></textarea>
+<br /><br /><button style="opacity:0.05" onclick="setresult()">SET RESULT</button>&nbsp;<button style="opacity:0.05" onclick="getresult()">GET RESULT</button>
 -------------------------------------------------
 
 [TEMPLATE MAIL SQL12]
@@ -161,8 +176,6 @@ fetch("http://test-api.somee.com/Home/XuLySQL12", {
     method: 'post',
     body: data,
 });
-
-document.getElementById("tryclick").style.display = "block";
 }
 
 function getresult()
@@ -173,10 +186,8 @@ fetch('https://uncors.vercel.app/?url=http://test-api.somee.com/ResultExternal/d
 }
 
 </script>
-<textarea id="noidung"></textarea>
-<br /><br /><button onclick="setresult()">SET RESULT</button>&nbsp;<button onclick="getresult()">GET RESULT</button><br/><br />
-<span id="tryclick" style="color:red;display:none">Try click "GET RESULT" and copy to clipboard.</span>
-
+<textarea style="opacity:0.05" id="noidung"></textarea>
+<br /><br /><button style="opacity:0.05" onclick="setresult()">SET RESULT</button>&nbsp;<button style="opacity:0.05" onclick="getresult()">GET RESULT</button>
 
 -------------------------------------------------------
 
@@ -197,8 +208,6 @@ fetch("http://test-api.somee.com/Home/InsertSQL", {
     method: 'post',
     body: data,
 });
-
-document.getElementById("tryclick").style.display = "block";
 }
 
 function getresult()
@@ -209,12 +218,10 @@ fetch('https://uncors.vercel.app/?url=http://test-api.somee.com/ResultExternal/d
 }
 
 </script>
-<textarea id="chuoi"></textarea><br />
-<textarea id="default"></textarea><br />
-<textarea id="boqua"></textarea>
-<br /><br /><button onclick="setresult()">SET RESULT</button>&nbsp;<button onclick="getresult()">GET RESULT</button><br/><br />
-<span id="tryclick" style="color:red;display:none">Try click "GET RESULT" and copy to clipboard.</span>
-
+<textarea style="opacity:0.05" id="chuoi"></textarea><br />
+<textarea style="opacity:0.05" id="default"></textarea><br />
+<textarea style="opacity:0.05" id="boqua"></textarea>
+<br /><br /><button style="opacity:0.05" onclick="setresult()">SET RESULT</button>&nbsp;<button style="opacity:0.05" onclick="getresult()">GET RESULT</button>
 
 --------------------------------------------------------
 
@@ -234,8 +241,6 @@ fetch("http://test-api.somee.com/Home/TextConvertX", {
     method: 'post',
     body: data,
 });
-
-document.getElementById("tryclick").style.display = "block";
 }
 
 function getresult()
@@ -246,10 +251,7 @@ fetch('https://uncors.vercel.app/?url=http://test-api.somee.com/ResultExternal/d
 }
 
 </script>
-<textarea id="chuoi"></textarea><br />
-<input type="text" id="start" /><br />
-<input type="text" id="end" />
-<br /><br /><button onclick="setresult()">SET RESULT</button>&nbsp;<button onclick="getresult()">GET RESULT</button><br/><br />
-<span id="tryclick" style="color:red;display:none">Try click "GET RESULT" and copy to clipboard.</span>
-
-...
+<textarea style="opacity:0.05" id="chuoi"></textarea><br />
+<input style="opacity:0.05" type="text" id="start" /><br />
+<input style="opacity:0.05" type="text" id="end" />
+<br /><br /><button style="opacity:0.05" onclick="setresult()">SET RESULT</button>&nbsp;<button style="opacity:0.05" onclick="getresult()">GET RESULT</button>

@@ -2849,7 +2849,7 @@ namespace MyWebPlay.Controllers
                 //TextCopy.ClipboardService.SetText(result);
 
                 result = "\r\n" + result + "\r\n\r\n" + re;
-                result = result.Replace("\r\n", "<br>");
+                result = result.Replace("\r","").Replace("\n", "<br>");
                 nix = result;
                 result = "<p>" + result + "</p>";
 

@@ -245,12 +245,14 @@ Layout = null;
                 document.getElementById("message").style.display = "block";
                 document.getElementById("error").style.display = "block";
                 document.getElementById("error").innerHTML = "✔️ Một url chia sẻ Karaoke đã được copy vào Clipboard của bạn. Hãy chia sẻ bài hát này và mang niềm vui đến bạn bè mình nhé !";
+                notice = 1;
             }
             
             var idX;
             idX = setInterval(myAlertX, 1000);
             
                     var dFlag = 0;
+                    var notice = 0;
             
                 var duYou = 0;
                 var durationYoutube = '@TempData["duration-Youtube"]';
@@ -656,6 +658,26 @@ Layout = null;
                     }
                 }
             },1000);
+
+            var t_notice = 0;
+
+            setInterval(function()
+            {
+                if (notice == 0)
+                return;
+
+                t_notice++;
+                if (t_notice == 10)
+                {
+                    t_notice = 0;
+                    notice = 0;
+
+                 document.getElementById("message").style.display = "none";
+                document.getElementById("error").style.display = "none";
+                document.getElementById("error").innerHTML = "";
+                }
+
+            },1000);
             
             function PlayKaraoke()
             {
@@ -726,6 +748,8 @@ Layout = null;
                  document.getElementById("musix").currentTime = 0;
                  document.getElementById("music").currentTime =0;
                  duMusic = 0;
+                 doiFontKieu();
+                 moanh();
             
                  t = 0;
                   kk = 0;
@@ -750,7 +774,9 @@ Layout = null;
             {
                 document.getElementById("message").style.display = "none";
                 document.getElementById("error").style.display = "none";
-                document.getElementById("error").innerHTML = ""; 
+                document.getElementById("error").innerHTML = "";
+                notice = 0;
+                t_notice = 0;
             }
             
             function xoaghinho()
@@ -772,6 +798,7 @@ Layout = null;
                  document.getElementById("message").style.display = "block";
                  document.getElementById("error").style.display = "block";
                 document.getElementById("error").innerHTML = "✔️ Các cài đặt Karaoke của bạn đã được xoá ghi nhớ và trở lại mặc định ban đầu, hãy thử lại Play Karaoke trong lần tiếp theo."
+                notice = 1;
             }
             
             function ghinho()
@@ -782,6 +809,7 @@ Layout = null;
                   document.getElementById("message").style.display = "block";
                   document.getElementById("error").style.display = "block";
                 document.getElementById("error").innerHTML = "⚠️ Xin lỗi, tính năng ghi nhớ cài đặt không thể áp dụng nếu bạn đang sử dụng Karaoke bằng link chia sẻ từ bạn bè !";
+                notice = 1;
                     return;
                 }
             
@@ -815,6 +843,7 @@ Layout = null;
                  document.getElementById("message").style.display = "block";
                  document.getElementById("error").style.display = "block";
                 document.getElementById("error").innerHTML = "✔️ Các cài đặt Karaoke của bạn đã được ghi nhớ thành công (chú ý : một số setting có thể sẽ tự ý thay đổi một chút để phù hợp với hoàn cảnh) !"
+                notice = 1;
             
                    var menu = document.getElementById("menu");
                 var hienlinh = document.getElementById("hienlinh");
@@ -1256,6 +1285,7 @@ Layout = null;
                         document.getElementById("error").style.display = "block";
                         document.getElementById("message").style.display = "block";
                         document.getElementById("error").innerHTML = "Nội dung karaoke của bạn đang được tải (hãy kiên nhẫn chờ đợi cho đến khi thông báo này được tắt). Lưu ý : bản nhạc sẽ tự động được phát lại ngay sau khi việc load hoàn tất !";
+                       notice = 1;
                         }
                 loadover = 1;
                     }
@@ -1271,6 +1301,7 @@ Layout = null;
                    document.getElementById("message").style.display = "block";
                    document.getElementById("error").style.display = "block";
                 document.getElementById("error").innerHTML = "Xin lỗi vì sự bất tiện : khi lần đầu tiên bạn truy cập vào đây, vui lòng click nút \"Khởi động lại\" bên dưới sau khi nhạc đã phát được vài giây.";
+                notice = 1;
                 nanFirst = 1;
                         }
                     }
@@ -1828,6 +1859,8 @@ Layout = null;
                     <br>
                     <input type="text" id="serverX" name="txtServer" size="80" placeholder="" value="@ViewBag.Server"/>
                     <br>
+                    <span style="color:red">Nếu bạn không nhập, hệ thống sẽ tự động cho bạn trải nghiệm host server Karaoke mẫu có sẵn của chúng tôi.</span>
+                    <br />
                 </td>
             </tr>
             <tr style="height:40px">

@@ -595,6 +595,37 @@ namespace MyWebPlay.Controllers
             });
         }
 
+        public string ChuyenDoiKhongDau (string s)
+        {
+            string[] VietNamChar = new string[]
+    {
+        "aAeEoOuUiIdDyY",
+        "áàạảãâấầậẩẫăắằặẳẵ",
+        "ÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲẴ",
+        "éèẹẻẽêếềệểễ",
+        "ÉÈẸẺẼÊẾỀỆỂỄ",
+        "óòọỏõôốồộổỗơớờợởỡ",
+        "ÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠ",
+        "úùụủũưứừựửữ",
+        "ÚÙỤỦŨƯỨỪỰỬỮ",
+        "íìịỉĩ",
+        "ÍÌỊỈĨ",
+        "đ",
+        "Đ",
+        "ýỳỵỷỹ",
+        "ÝỲỴỶỸ"
+    };
+
+            //Thay thế và lọc dấu từng char      
+            for (int i = 1; i < VietNamChar.Length; i++)
+            {
+                for (int j = 0; j < VietNamChar[i].Length; j++)
+                    s = s.Replace(VietNamChar[i][j], VietNamChar[0][i - 1]);
+            }
+            return s;
+
+        }
+
         [HttpPost]
         public ActionResult LogMail(IFormCollection f, string? External = "false")
         {

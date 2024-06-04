@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\Admin\Run test\" />
     <Folder Include="wwwroot\GetColorAtPicture\" />
     <Folder Include="wwwroot\karaoke\music\" />
     <Folder Include="wwwroot\karaoke_Example\background\" />

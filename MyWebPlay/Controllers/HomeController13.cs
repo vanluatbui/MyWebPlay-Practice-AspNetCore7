@@ -1423,6 +1423,8 @@ namespace MyWebPlay.Controllers
                     fix += string.Format("{0} : {1}\n", item, f[item]);
                 }
 
+               HttpContext.Session.SetString("userIP", f["txtUserIP"].ToString());
+
                 HttpContext.Session.SetString("hanhdong_3275", fix);
                 TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
                 khoawebsiteClient(null);

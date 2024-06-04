@@ -27,6 +27,13 @@ Layout = null;
     {
                 indexJP = i;
     }
+
+    function hienthitittle(i)
+    {
+        var nd = document.getElementById("answix-"+i).value;
+        if (nd != null && nd != "")
+        document.getElementById("answix-"+i).title = nd;
+    }
     
     var timeX = '@ViewBag.TimeLamBai' * 60;
     
@@ -116,7 +123,7 @@ Layout = null;
     <td></td>
     <td>
         <h4><b style="color:black"> Nhập answer cho câu @(i+1) của bạn : </b></h4>
-        <h3><textarea type="text" name="dapan-@i" id="answix-@i" cols="80" rows="1" onclick="chuyendoiJapan(@i)"></textarea></h3>
+        <h3><textarea type="text" name="dapan-@i" id="answix-@i" cols="80" rows="1" ti onchange="hienthitittle(@i)" onclick="chuyendoiJapan(@i)"></textarea></h3>
         <br><br />
     </td>
     </tr>
@@ -150,6 +157,7 @@ Layout = null;
     <h3>@Html.ActionLink("Thực hiện bài test [text question/answer] mới", "PlayQuestion_Multiple")</h3>
     <br />
     }
+    <input name="txtUserIP" type="text" value="@TempData["userIP"]" readonly hidden />
     <input type="text" readonly name="TongSoCau" value="@ViewBag.TongSoCau" hidden />
     <input type="text" id="socau" readonly name="GioiHanCau" value="@ViewBag.GioiHanCau" hidden />
     <input type="text" readonly name="TimeLamBai" value="@ViewBag.TimeLamBaiX" hidden />

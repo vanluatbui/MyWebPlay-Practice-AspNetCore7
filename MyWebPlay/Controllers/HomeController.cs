@@ -273,6 +273,10 @@ namespace MyWebPlay.Controllers
 
                 TempData["not-locked-web-client-play"] = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[13] == "NOT_USE_LOCKED_CLIENT_WEB_ON") ? "true" : "false";
 
+                TempData["opacity-body-css"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[16].Replace("OPACITY_CSS_BODY_","");
+
+                TempData["unvisibled_sub_menu"] = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecurePasswordAdmin.txt")).Replace("\r", "").Split("\n")[17] == "UNVISIBLED_SUB_MEMU_ON") ? "true" : "false";
+
                 // Send mail try again - karaoke with member
 
                 string hostt = "{" + Request.Host.ToString() + " - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "}"
@@ -1092,6 +1096,7 @@ namespace MyWebPlay.Controllers
                 else
                 {
                     TempData["GetDataIP"] = "true";
+
                     return RedirectToAction("Index");
                 }
 

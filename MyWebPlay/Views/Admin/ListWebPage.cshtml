@@ -2,6 +2,25 @@
 Layout = null;
 }
 <script>
+    setInterval(function()
+    {
+        if (localStorage.getItem("oldDataX") == null) return;
+
+        var oldData = localStorage.getItem("oldDataX").split(',');
+        for (var i = 0; i < oldData.length; i++)
+        {
+            if (oldData[i] == "") continue;
+
+            if (document.getElementsByName(oldData[i].replaceAll("/","_")))
+            {
+               document.getElementsByName(oldData[i].replaceAll("/","_"))[0].checked = true;
+            }
+        }
+
+        localStorage.removeItem("oldDataX");
+
+    },10);
+
     function xacnhan()
     {
         alert("Hệ thống đã ghi nhận các lựa chọn của bạn, cửa sổ này sẽ được đóng lại. Sau đó sẽ quay lại trang Admin Setting trước đó, dữ liệu của bạn sẽ được map. Vui lòng kiểm tra và lưu lại.");
@@ -37,7 +56,7 @@ Layout = null;
 <br />
 @for (int i = 0; i < Model.Count; i++)
 {
-<input id="web-@i" type="checkbox" value="@Model[@i]" /><span>&nbsp;</span><b>@Model[@i]</b><br />
+<input id="web-@i" type="checkbox" value="@Model[@i]" name="@Model[i].Replace("/","_")" /><span>&nbsp;</span><b>@Model[@i]</b><br />
 }
 <br />
 <button style="background-color:orangered;color:darkblue" onclick="xacnhan()"><b>OK</b></button>

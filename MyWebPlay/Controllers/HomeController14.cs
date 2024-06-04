@@ -1184,10 +1184,15 @@ namespace MyWebPlay.Controllers
             return ok;
         }
 
-        public ActionResult XoaKaraoke(string? id, bool? cancel, string? thutu)
+        public ActionResult XoaKaraoke(string? id, bool? cancel, string? thutu, string? ip)
         {
             try
             {
+                if (string.IsNullOrEmpty(ip) == false)
+                {
+                    HttpContext.Session.SetString("userIP", ip);
+                }
+
                 if (string.IsNullOrEmpty(thutu) == false)
                 {
                     HttpContext.Session.SetString("karaoke-goto-index", thutu);

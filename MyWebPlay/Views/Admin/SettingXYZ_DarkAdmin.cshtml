@@ -390,7 +390,19 @@ Layout = null;
            }
            else
            {
-                var n = new Number(document.getElementById("count").value) - 28;
+               //[SUB] setting
+                for (var i = 45; i < 62;i++)
+               {
+                   if (i == 50 || i == 51 || i == 52 || i == 55 || i == 56 || i == 58 || i == 60)
+                    continue;
+
+                   if (i == x)
+                   document.getElementById("save-"+i).style.display = "block";
+                   else
+                   document.getElementById("save-"+i).style.display = "none";
+               }
+
+               var n = new Number(document.getElementById("count").value) - 28;
                for (var i = 0; i < n;i++)
                {
                    if (i == x)
@@ -1052,6 +1064,17 @@ Layout = null;
         document.getElementById("checkAccept").checked = false;
         changeShow('txtAcceptUrl1','txtAcceptUrl2','checkAccept',',');
         window.open("/Admin/ListWebPage?kbn="+kbn,'MyWindow','width=500,height=500');
+
+            if (kbn == 0)
+           {
+               var oldData = document.getElementById("txtLock1").value;
+               localStorage.setItem("oldDataX", oldData);
+           }
+           else
+           {
+                var oldData = document.getElementById("txtAcceptUrl1").value;
+               localStorage.setItem("oldDataX", oldData);
+           }
         }
         
     </script>

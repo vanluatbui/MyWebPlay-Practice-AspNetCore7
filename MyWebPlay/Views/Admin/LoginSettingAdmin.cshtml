@@ -81,7 +81,7 @@ Layout = null;
         $("center").remove();
         $("div[style='height: 65px;']").remove();
     });
-        },1);
+        },1000);
     
         function rememberMe()
         {
@@ -116,6 +116,15 @@ Layout = null;
              }
              xongmau++;
          },10);
+
+         function showsetting()
+         {
+             var ok = prompt("Nhập mã PIN admin : ");
+             if (ok != null && ok != "")
+             {
+                 window.location.href = "/Admin/XemXetShowSetting?code="+ok;
+             }
+         }
     
          function nensangtoi()
          {
@@ -190,7 +199,7 @@ Layout = null;
         <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
         <link rel="icon" href="/images/imagex.png">
     </head>
-    <body name="backgroundX" style="background-color:@TempData["mau_background"]">
+    <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]">
     <meta charset="ISO-8859-1">
     <div style="background-color:aqua">
         <h1 style="color:red">ĐĂNG NHẬP ADMIN - SETTING WEB</h1>
@@ -217,32 +226,39 @@ Layout = null;
     <br/>
     <hr />
     <br />
-    <h1 style="color:deeppink">BẢN XEM TRƯỚC MỘT SỐ CÀI ĐẶT HIỆN TẠI (để chỉnh sửa vui lòng đăng nhập)</h1>
-    <br />
-    <select id="chonX" onchange="thaydoichon()">
-        <option>Hiển thị tất cả</option>
-        <option>Chỉ hiển thị các setting đang bật</option>
-    </select>
-    <br /><br />
-    @for (int i = 0; i < Model.Topics.Count; i++)
-    {
-    <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-@i">@Html.Raw(Model.Topics[i].NoiDung)</h3>
-    <label id="haha-@i" class="switch">
-    @if (Model.Topics[i].Option == false)
-    {
-    <input id="check-@i" disabled type="checkbox" />
-    }
-    else
-    {
-    <input id="check-@i" disabled type="checkbox" checked />
-    }
-    <span class="slider round"></span>
-    <br /><br />
-    </label>
-    }
-    <br /><br />
-    <h3 style="color:blue">...</h3>
-    <br />
+    @if (TempData["show-setting"] == "true")
+        {
+            <h1 style="color:deeppink">BẢN XEM TRƯỚC MỘT SỐ CÀI ĐẶT HIỆN TẠI (để chỉnh sửa vui lòng đăng nhập)</h1>
+            <br />
+            <select id="chonX" onchange="thaydoichon()">
+                <option>Hiển thị tất cả</option>
+                <option>Chỉ hiển thị các setting đang bật</option>
+            </select>
+            <br /><br />
+            @for (int i = 0; i < Model.Topics.Count; i++)
+            {
+                <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-@i">@Html.Raw(Model.Topics[i].NoiDung)</h3>
+                <label id="haha-@i" class="switch">
+                    @if (Model.Topics[i].Option == false)
+                    {
+                        <input id="check-@i" disabled type="checkbox" />
+                    }
+                    else
+                    {
+                        <input id="check-@i" disabled type="checkbox" checked />
+                    }
+                    <span class="slider round"></span>
+                    <br /><br />
+                </label>
+            }
+            <br /><br />
+            <h3 style="color:blue">...</h3>
+            <br />
+        }
+        else
+        {
+           <a href="#xuly" onclick="showsetting()" style="color:deeppink">Xem trước một số cài đặt admin</a>
+        }
     </body>
 </html>
 }

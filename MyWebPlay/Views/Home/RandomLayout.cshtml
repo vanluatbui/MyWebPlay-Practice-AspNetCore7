@@ -24,6 +24,7 @@ Layout = null;
         }
     }
 </script>
+<div style="opacity:@TempData["opacity-body-css"]">
 <button onclick="xoa()"><b style="color:red">XOÁ</b></button>
 <h3 style="color:pink"> @ViewBag.DateTime </h3>
 <br /><br />
@@ -58,3 +59,4 @@ Layout = null;
 </table>
 <br />
 <h3>@Html.ActionLink("Chỉnh sửa Text Note", "EditLayout")</h3>
+</div>

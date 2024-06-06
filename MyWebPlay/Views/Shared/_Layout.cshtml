@@ -139,10 +139,31 @@
             return;
         
             //Notice
+
+             if (localStorage.getItem("block-notice") != null && localStorage.getItem("block-notice") != '@TempData["code-notice"]')
+             {
+                 localStorage.removeItem("block-notice");
+             }
+
+
+            if (localStorage.getItem("block-notice") == null)
+            {
                 if ('@TempData["notice-play"]' != "[NULL]")
                 {
+                    if ('@TempData["code-notice"]' == "")
+                    {
                    alert("[XIN TRÂN TRỌNG THÔNG BÁO]\n\n"+document.getElementById("notice").value);
+                    }
+                    else
+                    {
+                         var con = confirm("[XIN TRÂN TRỌNG THÔNG BÁO]\n\n"+document.getElementById("notice").value + "\n\nNhấn [Cancel] nếu bạn đã hiểu và không muốn nhận lại thông báo tương tự này. Tuy nhiên nếu chúng tôi lại có thông báo khác, bạn vẫn sẽ nhận được và bạn cũng có thể tiếp tục từ chối nhận nó. Xin cảm ơn!");
+                         if (con == false)
+                         {
+                             localStorage.setItem("block-notice", '@TempData["code-notice"]');
+                         }
+                    }
                 }
+            }
         
                     notice = 1;
         },1000);
@@ -178,7 +199,7 @@
         ker = 1;
         }
         
-        },1);
+        },1000);
         
         if ('@TempData["UyTin"]' == "" && window.localStorage.getItem('@TempData["keytuyetdoi"]') != null && '@TempData["belix"]' == "false" && '@TempData["not-believe"]' == "false")
         {
@@ -625,9 +646,9 @@
              sang = 1;
          }
         
-         var xongmau = 0;
+        // var xongmau = 0;
          var iss = setInterval(function(){
-              if (xongmau == 1) return;
+             // if (xongmau == 1) return;
         
              if (localStorage.getItem("nensangtoi") != null)
              {
@@ -663,8 +684,8 @@
                  document.getElementsByName("mau-TN-2")[i].style.color = "blue";
              }
              }
-             xongmau++;
-         },10);
+           // xongmau++;
+         }, 1000);
         
          function xoaluunen()
          {
@@ -736,7 +757,7 @@
          {       
              setInterval(function()
              {
-                 if (demo == 1) return;
+               //  if (demo == 1) return;
         
                  var maubg = '@TempData["demo-bg"]';
                  var mautext = '@TempData["demo-text"]';
@@ -754,8 +775,8 @@
                  document.getElementsByName("colorX")[i].style.color = mautext;
              }
         
-                 demo = 1;
-             }, 10);
+               //  demo = 1;
+             }, 1000);
          }
         
          function toanmanhinh(){
@@ -777,7 +798,7 @@
         return;
         
         toanmanhinh();
-        },1);
+        },10);
         
     </script>
     @if (TempData["AdminControl"] == "false" && TempData["ClearWebsite"] == "false")

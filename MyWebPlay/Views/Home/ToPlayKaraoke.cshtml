@@ -185,7 +185,7 @@ Layout = null;
                 $("center").remove();
                 $("div[style='height: 65px;']").remove();
             });
-                },1);
+                },1000);
             
              function xong()
             {
@@ -999,7 +999,7 @@ Layout = null;
                 if ('@ViewBag.Share' != "YES - OK")
                 window.location.href="/Home/XoaKaraoke?id=" + thongtin + "&&thutu="+thutu;
                 else
-                window.location.href="/Home/XoaKaraoke" + "&&thutu="+thutu;
+                window.location.href="/Home/XoaKaraoke" + "?thutu="+thutu;
             }
             
             function StopKaraoke()
@@ -1012,7 +1012,7 @@ Layout = null;
                 if ('@ViewBag.Share' != "YES - OK")
                 window.location.href="/Home/XoaKaraoke?id=" + thongtin + "&&ip="+'@TempData["userIP"]';
                 else
-                window.location.href="/Home/XoaKaraoke" + "&&ip="+'@TempData["userIP"]';
+                window.location.href="/Home/XoaKaraoke" + "?ip="+'@TempData["userIP"]';
             }
             
             function DungKaraoke()
@@ -1025,7 +1025,7 @@ Layout = null;
                 if ('@ViewBag.Share' != "YES - OK")
                 window.location.href="/Home/XoaKaraoke?id=" + thongtin + "&&cancel=true";
                 else
-                window.location.href="/Home/XoaKaraoke&&cancel=true";
+                window.location.href="/Home/XoaKaraoke?cancel=true";
             }
             
                 var time_xuathien = [];

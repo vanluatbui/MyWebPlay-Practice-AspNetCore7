@@ -14,7 +14,7 @@ namespace MyWebPlay.Models
             var email = "mywebplay.savefile@gmail.com";
             var password = "vanluat12345#";
 
-            var path = Path.Combine(rootPth,"Admin", System.IO.File.ReadAllText(Path.Combine(rootPth, "Admin", "SecurePasswordAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+            var path = Path.Combine(rootPth,"Admin", System.IO.File.ReadAllText(Path.Combine(rootPth, "Admin", "SecureSettingAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
             var noidung = System.IO.File.ReadAllText(path);
 
             var listSetting = noidung.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);

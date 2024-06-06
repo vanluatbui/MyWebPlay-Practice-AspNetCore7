@@ -3,6 +3,7 @@
 /Admin/CapNhatStatusSetting
 /Admin/UnlockAllWeb
 /Admin/TracNghiemOnline_ViewMark
+/Admin/XemXetShowSetting
 /Admin/SettingXYZ_DarkAdmin
 /Admin/SettingStatusUpdate
 /Admin/ReportListIPComeHere

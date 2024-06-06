@@ -13,7 +13,7 @@ Layout = null;
         <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
         <link rel="icon" href="/images/imagex.png">
     </head>
-    <body name="backgroundX" style="background-color:@TempData["mau_background"]">
+    <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]">
     <meta charset="ISO-8859-1">
     <script>
         function okhihi()
@@ -81,7 +81,7 @@ Layout = null;
             $("center").remove();
             $("div[style='height: 65px;']").remove();
         });
-            },1);
+            },1000);
         
         function getlogerror()
         {

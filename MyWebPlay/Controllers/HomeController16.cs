@@ -894,6 +894,23 @@ namespace MyWebPlay.Controllers
                 if (HttpContext.Session.GetString("xacthuc2buoc-ADMIN") != null)
                     return RedirectToAction("Error");
 
+                var pathWW = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidungWW = System.IO.File.ReadAllText(pathWW);
+
+                var listSettingSWW = noidungWW.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoXWW[1] == "true")
+                {
+                    var pathS = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
+                    var noidungS = docfile(pathS);
+
+                    var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("userIP") + "\t" + DateTime.Now + "\t" + this.Request.Path + "\t[GET]";
+
+                    System.IO.File.WriteAllText(pathS, noidungZ.Trim('\n'));
+                }
+
                 Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
@@ -984,6 +1001,23 @@ namespace MyWebPlay.Controllers
                 foreach (var item in f.Keys)
                 {
                     fix += string.Format("{0} : {1}\n", item, f[item]);
+                }
+
+                var pathWW = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidungWW = System.IO.File.ReadAllText(pathWW);
+
+                var listSettingSWW = noidungWW.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoXWW[1] == "true")
+                {
+                    var pathS = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
+                    var noidungS = docfile(pathS);
+
+                    var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("userIP") + "\t" + DateTime.Now + "\t" + this.Request.Path + "\t[POST]";
+
+                    System.IO.File.WriteAllText(pathS, noidungZ.Trim('\n'));
                 }
 
                 HttpContext.Session.SetString("hanhdong_3275", fix);

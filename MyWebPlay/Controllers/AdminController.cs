@@ -760,6 +760,23 @@ namespace MyWebPlay.Controllers
                     TempData["show-setting"] = "true";
                 }
 
+                var pathWW = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidungWW = System.IO.File.ReadAllText(pathWW);
+
+                var listSettingSWW = noidungWW.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoXWW[1] == "true")
+                {
+                    var pathS = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
+                    var noidungS = docfile(pathS);
+
+                    var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("userIP") + "\t" + DateTime.Now + "\t" + this.Request.Path + "\t[GET]";
+
+                    System.IO.File.WriteAllText(pathS, noidungZ.Trim('\n'));
+                }
+
                 if (onoff == "ADMINSETTING_OFF")
                     return Redirect("https://google.com");
 
@@ -790,9 +807,9 @@ namespace MyWebPlay.Controllers
                     TempData["xacthuc"] = "false";
                 }
 
-                var pathS = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/Setting_Status.txt");
-                var noidungS = System.IO.File.ReadAllText(pathS);
-                ViewBag.SettingStatus = noidungS;
+                var pathSS = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/Setting_Status.txt");
+                var noidungSS = System.IO.File.ReadAllText(pathSS);
+                ViewBag.SettingStatus = noidungSS;
 
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
                 var noidung = System.IO.File.ReadAllText(path);
@@ -981,6 +998,24 @@ namespace MyWebPlay.Controllers
                     exception = "true"
                 });
             }
+
+            var pathWW = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+            var noidungWW = System.IO.File.ReadAllText(pathWW);
+
+            var listSettingSWW = noidungWW.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+            if (infoXWW[1] == "true")
+            {
+                var pathS = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
+                var noidungS = docfile(pathS);
+
+                var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("userIP") + "\t" + DateTime.Now + "\t" + this.Request.Path + "\t[POST]";
+
+                System.IO.File.WriteAllText(pathS, noidungZ.Trim('\n'));
+            }
+
             return RedirectToAction("SettingXYZ_DarkAdmin");
         }
 
@@ -1137,6 +1172,23 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                var pathWW = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidungWW = System.IO.File.ReadAllText(pathWW);
+
+                var listSettingSWW = noidungWW.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoXWW[1] == "true")
+                {
+                    var pathS = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
+                    var noidungS = docfile(pathS);
+
+                    var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("userIP") + "\t" + DateTime.Now + "\t" + this.Request.Path + "\t[GET]";
+
+                    System.IO.File.WriteAllText(pathS, noidungZ.Trim('\n'));
+                }
+
                 TempData["opacity-body-css"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[16].Replace("OPACITY_CSS_BODY_", "");
                 var pthX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecureSettingAdmin.txt");
                 var onoff = System.IO.File.ReadAllText(pthX).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
@@ -1234,9 +1286,9 @@ namespace MyWebPlay.Controllers
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
                 var noidung = System.IO.File.ReadAllText(path);
 
-                var pathS = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/Setting_Status.txt");
-                var noidungS = System.IO.File.ReadAllText(pathS);
-                ViewBag.SettingStatus = noidungS;
+                var pathSS = Path.Combine(_webHostEnvironment.WebRootPath, "Admin/Setting_Status.txt");
+                var noidungSS = System.IO.File.ReadAllText(pathSS);
+                ViewBag.SettingStatus = noidungSS;
 
                 var listSetting = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
                 SettingAdmin settingAdmin = new SettingAdmin();
@@ -2022,6 +2074,23 @@ namespace MyWebPlay.Controllers
                 System.IO.File.WriteAllText(path, noidung);
                 HttpContext.Session.SetString("index-setting", cometo);
 
+                var pathWW = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidungWW = System.IO.File.ReadAllText(pathWW);
+
+                var listSettingSWW = noidungWW.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoXWW[1] == "true")
+                {
+                    var pathS = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
+                    var noidungS = docfile(pathS);
+
+                    var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("userIP") + "\t" + DateTime.Now + "\t" + this.Request.Path + "\t[POST]";
+
+                    System.IO.File.WriteAllText(pathS, noidungZ.Trim('\n'));
+                }
+
                 return Redirect("/Admin/SettingXYZ_DarkAdmin" + cometo);
             }
             catch (Exception ex)
@@ -2081,6 +2150,23 @@ namespace MyWebPlay.Controllers
                     {
                         return RedirectToAction("Error", "Home");
                     }
+                }
+
+                var pathWW = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidungWW = System.IO.File.ReadAllText(pathWW);
+
+                var listSettingSWW = noidungWW.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoXWW[1] == "true")
+                {
+                    var pathS = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
+                    var noidungS = docfile(pathS);
+
+                    var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("userIP") + "\t" + DateTime.Now + "\t" + this.Request.Path + "\t[GET]";
+
+                    System.IO.File.WriteAllText(pathS, noidungZ.Trim('\n'));
                 }
 
                 if (HttpContext.Session.GetString("adminSetting") == null)
@@ -2179,6 +2265,23 @@ namespace MyWebPlay.Controllers
 
             try
             {
+                var pathWW = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidungWW = System.IO.File.ReadAllText(pathWW);
+
+                var listSettingSWW = noidungWW.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoXWW[1] == "true")
+                {
+                    var pathS = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
+                    var noidungS = docfile(pathS);
+
+                    var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("userIP") + "\t" + DateTime.Now + "\t" + this.Request.Path + "\t[GET]";
+
+                    System.IO.File.WriteAllText(pathS, noidungZ.Trim('\n'));
+                }
+
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
                 var noidungX = System.IO.File.ReadAllText(pathX);
                 var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
@@ -2272,6 +2375,23 @@ namespace MyWebPlay.Controllers
                 if (HttpContext.Session.GetString("adminSetting") == null)
                 {
                     return RedirectToAction("LoginSettingAdmin");
+                }
+
+                var pathWW = Path.Combine(_webHostEnvironment.WebRootPath, "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidungWW = System.IO.File.ReadAllText(pathWW);
+
+                var listSettingSWW = noidungWW.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoXWW[1] == "true")
+                {
+                    var pathS = Path.Combine(_webHostEnvironment.WebRootPath, "ClientConnect/ListIPComeHere.txt");
+                    var noidungS = docfile(pathS);
+
+                    var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("userIP") + "\t" + DateTime.Now + "\t" + this.Request.Path + "\t[POST]";
+
+                    System.IO.File.WriteAllText(pathS, noidungZ.Trim('\n'));
                 }
 
                 var fix = string.Format("txtText : {0}\n", txtText);

@@ -646,15 +646,17 @@
              sang = 1;
          }
         
-        // var xongmau = 0;
+        var xongmau = 0;
          var iss = setInterval(function(){
-             // if (xongmau == 1) return;
-        
+             if (xongmau == 0)
+            {
              if (localStorage.getItem("nensangtoi") != null)
              {
                  sang = localStorage.getItem("nensangtoi");
                  nensangtoi("null");
              }
+             xongmau = 1;
+         }
         
              if (sang == 0)
              {
@@ -684,7 +686,6 @@
                  document.getElementsByName("mau-TN-2")[i].style.color = "blue";
              }
              }
-           // xongmau++;
          }, 10);
         
          function xoaluunen()
@@ -752,7 +753,7 @@
              }
          }
         
-         var demo = 0;
+        //var demo = 0;
          if ('@TempData["demo-mau"]' == "true")
          {       
              setInterval(function()

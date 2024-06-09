@@ -16,6 +16,8 @@ Layout = null;
 
     window.onload = function()
      {
+         if (sansang == true) return;
+
          readyX = true;
      }
 
@@ -28,7 +30,7 @@ Layout = null;
             sansang = true;
             document.getElementById("waiting-loading").style.display = "block";
             document.getElementById("loading-TN").style.display = "none";
-            alert("Bài trắc nghiệm của bạn đã được tải hoàn tất.\nNhấn [OK] nếu bạn đã sẵn sàng!");
+            alert("Bài question của bạn đã được tải hoàn tất.\nNhấn [OK] nếu bạn đã sẵn sàng!");
             return;
         }
 

@@ -1,4 +1,4 @@
-﻿@if (TempData["HTML-visible"].ToString() != "2")
+﻿@if (TempData["HTML-visible"] != null && TempData["HTML-visible"].ToString() != "2")
 {
 Layout = null;
 <!DOCTYPE html>
@@ -2112,7 +2112,7 @@ Layout = null;
         @Html.ValidationSummary(true)
         <br />
         <tr style="height:40px">
-            <td><textarea cols="100" rows="10"  name="txtSetting">@TempData["setting-play"]</textarea></td>
+            <td><textarea cols="180" rows="10"  name="txtSetting">@TempData["setting-play"]</textarea></td>
             <br /><br />
             <td><input id="matma" size="30" type="password" name="txtPassword" /></td>
             <br /><br />

@@ -1,7 +1,7 @@
 ﻿@{
 Layout = null;
 }
-@if (TempData["HTML-visible"].ToString() != "2")
+@if (TempData["HTML-visible"] != null && TempData["HTML-visible"].ToString() != "2")
 {
 <html lang="vi">
     <head>

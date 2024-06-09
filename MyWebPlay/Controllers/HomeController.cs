@@ -283,6 +283,8 @@ namespace MyWebPlay.Controllers
 
                 TempData["unvisibled_sub_menu"] = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[17] == "UNVISIBLED_SUB_MENU_ON") ? "true" : "false";
 
+                TempData["background-body"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[19];
+
                 // Send mail try again - karaoke with member
 
                 string hostt = "{" + Request.Host.ToString() + " - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "}"

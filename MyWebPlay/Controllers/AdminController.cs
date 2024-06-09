@@ -943,7 +943,14 @@ namespace MyWebPlay.Controllers
                             var xt = HttpContext.Session.GetString("xacthuc2buoc-ADMIN");
                             var xs = f["txtXacMinh"].ToString();
 
-                            if (xs == xt)
+                            var backupCode = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[18].Replace("SKIP_TWOSTEP_SETTING_ADMIN_WITH_BACKUP_CODE-","");
+
+                            if (backupCode != "[NULL]")
+                            {
+                                backupCode = StringMaHoaExtension.Decrypt(backupCode, "32752262");
+                            }
+
+                            if (xs == xt || xs == backupCode)
                             {
 
                                 HttpContext.Session.SetString("adminSetting", "true");

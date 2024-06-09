@@ -5,7 +5,37 @@ Layout = null;
 }
 <script>
     setInterval(resetchange, 1);
-    
+
+    var ready = false;
+    var readyX = false;
+
+    var sansang = false;
+
+
+    window.onload = function()
+     {
+         readyX = true;
+     }
+
+    setInterval(function()
+    {
+        if (sansang == true) return;
+
+        if (ready == true && readyX == true) 
+        {
+            sansang = true;
+            document.getElementById("waiting-loading").style.display = "block";
+            document.getElementById("loading-TN").style.display = "none";
+            alert("Bài trắc nghiệm của bạn đã được tải hoàn tất.\nNhấn [OK] nếu bạn đã sẵn sàng!");
+            return;
+        }
+
+        if (document.readyState == "complete")
+        {       
+            ready = true;
+        }
+    },1000);
+
     function resetchange()
     {
         if (('@ViewBag.KetQuaDung' == null || '@ViewBag.KetQuaDung' == "") && ('@ViewBag.KetQua' == null || '@ViewBag.KetQua' == "") )
@@ -462,6 +492,8 @@ Layout = null;
     var id = setInterval(myAlert, 1000);
     
     function myAlert() {
+
+        if (sansang == false) return;
     
     if ('@ViewBag.TimeLamBai' != "")
     {
@@ -502,6 +534,10 @@ Layout = null;
     }
     
 </script>
+<div id="loading-TN">
+    <img src="/Image_Play/waiting.gif" />
+</div>
+<div id="waiting-loading" style="display:none">
 @if (ViewBag.ND_File != null)
 {
 <button onclick="loading()"><b style="color:dodgerblue">Click vào đây để cập nhật các answer/hình ảnh questions hiện có từ file của bạn</b></button><br><span style="color:saddlebrown">Khuyến nghị : Vui lòng ban đầu hãy click nút này để tải toàn bộ dữ liệu và đồng thời tránh lỗi/mất dữ liệu khi hoàn tất. Cảm ơn!</span><br /><br />
@@ -772,3 +808,4 @@ ViewBag.ND_File = ND_File;
     }
     }
 </table>
+</div>

@@ -1,4 +1,4 @@
-﻿@if (TempData["HTML-visible"].ToString() == "0")
+﻿@if (TempData["HTML-visible"] != null && TempData["HTML-visible"].ToString() == "0")
 {
 if (TempData["Layout_Random"] == "false")
 {

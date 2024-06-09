@@ -7,6 +7,36 @@ Layout = null;
     var indexJP = -1;
     
     setInterval(myJapan, 1);
+
+    var ready = false;
+    var readyX = false;
+
+    var sansang = false;
+
+
+    window.onload = function()
+     {
+         readyX = true;
+     }
+
+    setInterval(function()
+    {
+        if (sansang == true) return;
+
+        if (ready == true && readyX == true) 
+        {
+            sansang = true;
+            document.getElementById("waiting-loading").style.display = "block";
+            document.getElementById("loading-TN").style.display = "none";
+            alert("Bài trắc nghiệm của bạn đã được tải hoàn tất.\nNhấn [OK] nếu bạn đã sẵn sàng!");
+            return;
+        }
+
+        if (document.readyState == "complete")
+        {       
+            ready = true;
+        }
+    },1000);
     
     function myJapan()
     {
@@ -40,6 +70,8 @@ Layout = null;
     var id = setInterval(myAlert, 1000);
     
     function myAlert() {
+
+        if (sansang == false) return;
     
         if ('@ViewBag.TimeLamBai' != "")
         {
@@ -80,6 +112,10 @@ Layout = null;
     }
     
 </script>
+<div id="loading-TN">
+    <img src="/Image_Play/waiting.gif" />
+</div>
+<div id="waiting-loading" style="display:none">
 <table align="center">
     <h2 style="text-align:center;color:lightsalmon">Play Test Question Answer</h2>
     <h3 style="color:aqua">@ViewBag.KetQuaDung</h3>
@@ -171,3 +207,4 @@ Layout = null;
     <textarea readonly id="rpJP" hidden>@TempData["replaceJapan"]</textarea>
     }
 </table>
+</div>

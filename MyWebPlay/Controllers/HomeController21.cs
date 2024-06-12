@@ -268,80 +268,90 @@ namespace MyWebPlay.Controllers
                 var cuctac = "";
                 var chim = "";
 
-                var s = "INSERT INTO XXX VALUES (@replace)";
+                var s = "";
                 var repl = "";
 
                 var songDefault = new Hashtable();
-                var listDefault = txtDefault.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
-                for (int i = 0; i < listDefault.Length; i++)
+
+                var DefaultList = txtDefault.Replace("\r", "").Split("\n#3275#\n", StringSplitOptions.RemoveEmptyEntries);
+                for (int ii = 0; ii < DefaultList.Length; ii++)
                 {
-                    var t = listDefault[i].Split("=");
-                    songDefault.Add(t[0], t[1]);
+                    var listDefault = DefaultList[ii].Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+                    s += "INSERT INTO XXX VALUES (@replace)";
+                    repl = "";
+                    songDefault.Clear();
+                    for (int i = 0; i < listDefault.Length; i++)
+                    {
+                        var t = listDefault[i].Split("=");
+                        songDefault.Add(t[0], t[1]);
+                    }
+
+                    var listChuoi = chuoi.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+                    for (int i = 0; i < listChuoi.Length; i++)
+                    {
+                        var t = listChuoi[i].Split("\t");
+
+                        if (boqua.Contains(t[0])) continue;
+
+                        if (songDefault.ContainsKey(t[0]))
+                        {
+                            repl += "N'" + songDefault[t[0]] + "'";
+                        }
+                        else
+                        if (t[2] != "NULL")
+                        {
+                            if (t[2] == "(getdate())")
+                                repl += "getdate()";
+                            else
+                                repl += t[2].Replace("(", "").Replace(")", "");
+                        }
+                        else
+                        {
+                            if (t[1] == "datetime")
+                                repl += "getdate()";
+                            else
+                            if (t[1] == "int" || t[1] == "float" || t[1] == "decimal" || t[1] == "double" || t[1] == "long")
+                                repl += "0";
+                            else
+                                repl += "N'A'";
+                        }
+
+                        if (i < listChuoi.Length - 1)
+                            repl += ",";
+                    }
+
+                    s = s.Replace("@replace", repl);
+                    s += "\r\n\r\n";
                 }
 
-                var listChuoi = chuoi.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
-                for (int i = 0; i < listChuoi.Length; i++)
-                {
-                    var t = listChuoi[i].Split("\t");
+                    nix = s;
 
-                    if (boqua.Contains(t[0])) continue;
+                    s = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + s + "</textarea>";
+                    Calendar x = CultureInfo.InvariantCulture.Calendar;
 
-                    if (songDefault.ContainsKey(t[0]))
-                    {
-                        repl += "N'" + songDefault[t[0]] + "'";
-                    }
+                    cuctac = x.AddHours(DateTime.UtcNow, 7).ToString();
+                    chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
+                    if (string.IsNullOrEmpty(chim)) chim = "Default";
+
+                    sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_" + chim + "_dataresult.txt");
+                    TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_" + chim + "_dataresult.txt";
+                    new FileInfo(sox).Create().Dispose();
+                    System.IO.File.WriteAllText(sox, nix);
+                    ViewBag.Result = s;
+
+                    ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
+                    if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+
+                    if (exter == false)
+                        return View();
                     else
-                    if (t[2] != "NULL")
                     {
-                        if (t[2] == "(getdate())")
-                            repl += "getdate()";
-                        else
-                            repl += t[2].Replace("(", "").Replace(")", "");
+                        if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+                        return Ok(new
+                        {
+                            result = "http://" + Request.Host + "/POST_DataResult/" + TempData["fileResult"].ToString().Replace(" ", "%20")
+                        });
                     }
-                    else
-                    {
-                        if (t[1] == "datetime")
-                            repl += "getdate()";
-                        else
-                        if (t[1] == "int" || t[1] == "float" || t[1] == "decimal" || t[1] == "double" || t[1] == "long")
-                            repl += "0";
-                        else
-                            repl += "N'A'";
-                    }
-
-                    if (i < listChuoi.Length - 1)
-                        repl += ",";
-                }
-
-                s = s.Replace("@replace", repl);
-                nix = s;
-
-                s = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + s + "</textarea>";
-                Calendar x = CultureInfo.InvariantCulture.Calendar;
-
-                cuctac = x.AddHours(DateTime.UtcNow, 7).ToString();
-                chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
-                if (string.IsNullOrEmpty(chim)) chim = "Default";
-
-                sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_" + chim + "_dataresult.txt");
-                TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_" + chim + "_dataresult.txt";
-                new FileInfo(sox).Create().Dispose();
-                System.IO.File.WriteAllText(sox, nix);
-                ViewBag.Result = s;
-
-                ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
-                if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
-
-                if (exter == false)
-                    return View();
-                else
-                {
-                    if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]);
-                    return Ok(new
-                    {
-                        result = "http://" + Request.Host + "/POST_DataResult/" + TempData["fileResult"].ToString().Replace(" ", "%20")
-                    });
-                }
 
             }
             catch (Exception ex)

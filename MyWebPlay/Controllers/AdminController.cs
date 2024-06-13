@@ -938,19 +938,26 @@ namespace MyWebPlay.Controllers
                 {
                     if (StringMaHoaExtension.Decrypt(password, key) == f["txtPassword"].ToString() && StringMaHoaExtension.Decrypt(ID, key) == f["txtID"].ToString())
                     {
-                        if (HttpContext.Session.GetString("xacthuc2buoc-ADMIN") != null)
+                        var backupCode = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[18].Replace("SKIP_TWOSTEP_SETTING_ADMIN_WITH_BACKUP_CODE-", "");
+                        var useBackupAndNotSendMail = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[19] == "USE_BACKUPCODE_AND_NOT_SEND_MAIL_FOR_SETTING_ADMIN_TWO_STEP_ON");
+
+                        if (useBackupAndNotSendMail && backupCode != "[NULL]")
+                        {
+                            HttpContext.Session.SetString("xacthuc2buoc-ADMIN", "blocked-code");
+                        }
+                       
+                        
+                        if ((HttpContext.Session.GetString("xacthuc2buoc-ADMIN") != null && HttpContext.Session.GetString("xacthuc2buoc-ADMIN") != "blocked-code") || (useBackupAndNotSendMail && backupCode != "[NULL]"))
                         {
                             var xt = HttpContext.Session.GetString("xacthuc2buoc-ADMIN");
                             var xs = f["txtXacMinh"].ToString();
-
-                            var backupCode = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[18].Replace("SKIP_TWOSTEP_SETTING_ADMIN_WITH_BACKUP_CODE-","");
 
                             if (backupCode != "[NULL]")
                             {
                                 backupCode = StringMaHoaExtension.Decrypt(backupCode, "32752262");
                             }
 
-                            if (xs == xt || xs == backupCode)
+                            if ((xs == xt || xs == backupCode) && xs != "blocked-code")
                             {
 
                                 HttpContext.Session.SetString("adminSetting", "true");

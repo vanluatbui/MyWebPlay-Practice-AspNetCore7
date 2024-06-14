@@ -262,6 +262,9 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                var urlCurrent = TempData["urlCurrent"];
+                TempData["urlCurrent"] = urlCurrent;
+
                 System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "EXCEPTION_ERROR_LOG.txt"), "");
                 if (HttpContext.Session.GetString("mini-web") == "true")
                 {
@@ -1297,7 +1300,7 @@ namespace MyWebPlay.Controllers
 
                 //-------------------------------------------------------------INDEX---
 
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                //TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
                 khoawebsiteClient(null);
                 var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[14];
                 if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")

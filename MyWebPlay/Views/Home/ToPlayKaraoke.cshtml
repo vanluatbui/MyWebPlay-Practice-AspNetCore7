@@ -162,6 +162,26 @@ Layout = null;
             setInterval(function()
             {
                loadauto();
+
+                const detectDeviceType = () =>
+  // Use a regular expression to test the userAgent string for common mobile device identifiers.
+  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    ? 'Mobile' // If any of the identifiers are found, return 'Mobile'.
+    : 'Desktop'; // Otherwise, return 'Desktop'.
+
+    if ('@TempData["cangiua"]' == "false" && '@TempData["codinh"]' == "true")
+    {
+        if (detectDeviceType() == "Mobile")
+        {
+            document.getElementById("txtKaraoke1").style.bottom = "50px"
+            document.getElementById("number").style.bottom = "200px"
+        }
+        else
+        {
+            document.getElementById("txtKaraoke1").style.bottom = "200px"
+            document.getElementById("number").style.bottom = "500px"
+        }
+    }
             },10);
             
             function playAutoList()
@@ -675,6 +695,7 @@ Layout = null;
                  document.getElementById("message").style.display = "none";
                 document.getElementById("error").style.display = "none";
                 document.getElementById("error").innerHTML = "";
+                document.getElementById("loadingX").style.display = "none";
                 }
 
             },1000);
@@ -775,6 +796,7 @@ Layout = null;
                 document.getElementById("message").style.display = "none";
                 document.getElementById("error").style.display = "none";
                 document.getElementById("error").innerHTML = "";
+                document.getElementById("loadingX").style.display = "none";
                 notice = 0;
                 t_notice = 0;
             }
@@ -1249,8 +1271,8 @@ Layout = null;
                             flag = 1;
                                 }
             
-                                if (flix == 0)
-                                {
+                                //if (flix == 0)
+                                //{
                                 var height = screen.height;
                                 var width = screen.width;
             
@@ -1264,12 +1286,13 @@ Layout = null;
                                 }
             
                                 document.getElementById("kichthuoc").value = kichthuoc;
+                                doikichthuoc();
             
                                 if ('@TempData["codinh"]' == "false")
                                 document.getElementById("hang").value = vitri;
             
-                                flix = 1;
-                                }
+                                //flix = 1;
+                                //}
             
                                  if (you == false || youX == false)
                                 return;
@@ -1284,6 +1307,7 @@ Layout = null;
                         {
                         document.getElementById("error").style.display = "block";
                         document.getElementById("message").style.display = "block";
+                        document.getElementById("loadingX").style.display = "inline-block";
                         document.getElementById("error").innerHTML = "Nội dung karaoke của bạn đang được tải (hãy kiên nhẫn chờ đợi cho đến khi thông báo này được tắt). Lưu ý : bản nhạc sẽ tự động được phát lại ngay sau khi việc load hoàn tất !";
                        notice = 1;
                         }
@@ -1291,6 +1315,7 @@ Layout = null;
                     }
                     else
                     {
+                         document.getElementById("loadingX").style.display = "none";
                         if (loadover == 1)
                         {
                         loadover = 2;
@@ -1399,8 +1424,14 @@ Layout = null;
                                 document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - OFF</b>";
                                    var menu = document.getElementById("menu");
                 var hienlinh = document.getElementById("hienlinh");
+
+                const detectDeviceType = () =>
+  // Use a regular expression to test the userAgent string for common mobile device identifiers.
+  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    ? 'Mobile' // If any of the identifiers are found, return 'Mobile'.
+    : 'Desktop'; // Otherwise, return 'Desktop'.
                 
-                if (menu.style.display != "block")
+                if (detectDeviceType() == "Desktop" && menu.style.display != "block")
                 {
                     menu.style.display = "block";
                     hienlinh.style.display = "none";
@@ -2042,7 +2073,7 @@ Layout = null;
         {
         <div class="video-overlay" id="play">
             <table align="center" onended="loadsolar()">
-                <b id="error" style="color:red;display:none"><span is="error"></span></b>
+                <b id="error" style="color:red;display:none"><span is="error"></span></b><img style="width:50px;height:50px;display:none" id="loadingX" src="/Image_Play/waiting.gif" />
                 <br />
                 <b id="message" style="color:deeppink;display:none"><a href="#xuly" onclick="xoaerror()">Click để tắt thông báo</a></b>
                 <br>
@@ -2226,8 +2257,8 @@ Layout = null;
                 <div style="text-align:center">
                     <div id="background-X" style="display:block">
                         <p id="thietkeKara"></p>
-                        <p id="txtKaraoke1" style=";bottom:200px;position:fixed;left:0px"><b><span id="xanhX1" class="word"></span></b></p>
-                        <p id="txtKaraoke2" style=";bottom:0px;position:fixed;right:0px"><b><span id="xanhX2" class="work"></span></b></p>
+                        <p id="txtKaraoke1" style="bottom:200px;position:fixed;left:0px"><b><span id="xanhX1" class="word"></span></b></p>
+                        <p id="txtKaraoke2" style="bottom:0px;position:fixed;right:0px"><b><span id="xanhX2" class="work"></span></b></p>
                         <span id="xui"></span>
                     </div>
                 </div>

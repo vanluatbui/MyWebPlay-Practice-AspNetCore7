@@ -654,6 +654,32 @@ Layout = null;
                 if (document.getElementById("music").currentTime != document.getElementById("musix").currentTime)
                 document.getElementById("musix").currentTime = document.getElementById("music").currentTime;
             }
+
+
+            window.onresize = function(event) {
+             
+                                var height = screen.height;
+                                var width = screen.width;
+            
+                                var kichthuoc = new Number(width/19).toFixed();
+                                var vitri = new Number(height/170).toFixed();
+            
+                                if ('@TempData["TK-Kara"]' != "" || '@TempData["codinh"]' == "true")
+                                {
+                                    vitri = 0;
+                                    document.getElementById("hang").value = vitri;
+                                }
+                                
+                                if (localStorage.getItem("kichthuoc") == null)
+                                {
+                                document.getElementById("kichthuoc").value = kichthuoc;
+                                doikichthuoc();
+                                }
+            
+                                if ('@TempData["codinh"]' == "false" && localStorage.getItem("hang") == null)
+                                document.getElementById("hang").value = vitri;
+
+};
             
             var flix = 0;
             var sai = 0;
@@ -1271,8 +1297,8 @@ Layout = null;
                             flag = 1;
                                 }
             
-                                //if (flix == 0)
-                                //{
+                                if (flix == 0)
+                                {
                                 var height = screen.height;
                                 var width = screen.width;
             
@@ -1284,15 +1310,18 @@ Layout = null;
                                     vitri = 0;
                                     document.getElementById("hang").value = vitri;
                                 }
-            
+                                
+                                if (localStorage.getItem("kichthuoc") == null)
+                                {
                                 document.getElementById("kichthuoc").value = kichthuoc;
                                 doikichthuoc();
+                                }
             
-                                if ('@TempData["codinh"]' == "false")
+                                if ('@TempData["codinh"]' == "false" && localStorage.getItem("hang") == null)
                                 document.getElementById("hang").value = vitri;
             
-                                //flix = 1;
-                                //}
+                                flix = 1;
+                               }
             
                                  if (you == false || youX == false)
                                 return;
@@ -1340,17 +1369,17 @@ Layout = null;
             
                                 if (flg == 0 && '@TempData["R-fontkieu"]' != "" && '@TempData["R-fontKieu"]' != "")
                                 {
-                                    if ('@TempData["R-hang"]' != null && '@TempData["R-hang"]' != "")
-                                    {
-                                        var hangR = '@TempData["R-hang"]';
-                                        document.getElementById("hang").value = hangR;
+                                    //if ('@TempData["R-hang"]' != null && '@TempData["R-hang"]' != "")
+                                    //{
+                                    //    var hangR = '@TempData["R-hang"]';
+                                    //    document.getElementById("hang").value = hangR;
             
-                                                                 var hax = "";
-                                        for (var i  =0; i < hangR; i++)
-                                        hax += "<br>";
+                                    //                             var hax = "";
+                                    //    for (var i  =0; i < hangR; i++)
+                                    //    hax += "<br>";
             
-                                        document.getElementById("hienthi").innerHTML = hax;
-                                    }
+                                    //    document.getElementById("hienthi").innerHTML = hax;
+                                    //}
             
                                     if ('@TempData["R-mau"]' != null && '@TempData["R-mau"]' != "")
                                     {
@@ -1375,11 +1404,11 @@ Layout = null;
                     document.getElementById("number").style.color = "#"+'@TempData["R-mauY"]';
             
             
-                                    document.getElementById("kichthuoc").value = '@TempData["R-kichthuoc"]';
-                                    var kt = '@TempData["R-kichthuoc"]' + "px";
-                                   document.getElementById("txtKaraoke1").style.fontSize = kt; 
-                                 document.getElementById("txtKaraoke2").style.fontSize = kt; 
-                                 document.getElementById("number").style.fontSize = kt;
+                                 //   document.getElementById("kichthuoc").value = '@TempData["R-kichthuoc"]';
+                                 //   var kt = '@TempData["R-kichthuoc"]' + "px";
+                                 //  document.getElementById("txtKaraoke1").style.fontSize = kt; 
+                                 //document.getElementById("txtKaraoke2").style.fontSize = kt; 
+                                 //document.getElementById("number").style.fontSize = kt;
             
             
                                     document.getElementById("fontKieu").options.selectedIndex = new Number('@TempData["R-fontkieu"]');

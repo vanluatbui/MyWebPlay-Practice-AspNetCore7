@@ -804,8 +804,8 @@
         },10);
         
     </script>
-    @if (TempData["AdminControl"] == "false" && TempData["ClearWebsite"] == "false")
-    {
+   @if (TempData["AdminControl"] == "false" && TempData["ClearWebsite"] == "false")
+{
     <header>
         <nav id="nenta" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color:@TempData["mau_nen"]">
         <div class="container-fluid">
@@ -854,17 +854,17 @@
         </div>
         </nav>
     </header>
-    }
-    <div name="colorX" style="color:@TempData["mau_text"]">
-    @if (TempData["AdminControl"] == "false" && TempData["ClearWebsite"] == "false")
-    {
+}
+<div name="colorX" style="color:@TempData["mau_text"]">
+@if (TempData["AdminControl"] == "false" && TempData["ClearWebsite"] == "false")
+{
     <a href="#xuly" onclick="copyCurrent()">
         <h4 id="current" style="color:orangered">@TempData["current"]</h4>
     </a>
     <br />
-    }
-    @if(TempData["ClearWebsite"] == "false" || TempData["ClearWebsite"] == null)
-    {
+}
+@if(TempData["ClearWebsite"] == "false" || TempData["ClearWebsite"] == null)
+{
     @if (TempData["GetDataIP"] == "true")
     {
     <div hidden>@RenderBody()</div>
@@ -874,15 +874,15 @@
     { 
     @RenderBody()
     }
-    }
-    else
-    {
+}
+else
+{
     <div hidden>@RenderBody()</div>
     <img id="autoCP" onclick="autoCopy()" src="/Image_Play/Google.png" width="100%" height="100%" style="position:fixed;min-width:100%;min-height:100%">
-    }
-    </div>
-    @if (TempData["ClearWebsite"] == "false")
-    {
+}
+</div>
+@if (TempData["ClearWebsite"] == "false")
+{
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2023 - MyWebPlay - C# ~ Asp Net Core 7
@@ -891,7 +891,112 @@
             <source src="@TempData["nhacnendemo"]" type="audio/mpeg">
         </audio>
     </footer>
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
     }
+    .navbar {
+        background-color: #343a40;
+    }
+    .navbar-brand {
+        color: #fff;
+        cursor: pointer;
+    }
+    .navbar-brand:hover {
+        color: #ffc107;
+    }
+    .navbar-toggler {
+        border-color: #6c757d;
+    }
+    .navbar-toggler-icon {
+        color: #6c757d;
+    }
+    #current {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+    footer {
+        padding: 1em 0;
+        background-color: #343a40;
+        color: #fff;
+        text-align: center;
+        border-radius: 5px;
+    }
+    h2, p, span, a {
+        margin: 0.5em 0;
+    }
+    a {
+        color: crimson;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+    button, input[type="submit"] {
+        border: 2px solid #007bff;
+        color: #007bff;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        background: none;
+        transition: color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    button:hover, input[type="submit"]:hover {
+        color: #0056b3;
+        transform: scale(1.05);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    }
+    input[type="color"] {
+        border: 2px solid #007bff;
+        padding: 5px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    input[type="color"]:hover {
+        border-color: #0056b3;
+        transform: scale(1.05);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    }
+    input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="search"], input[type="file"], textarea, select {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0 10px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="number"]:focus, input[type="search"]:focus, input[type="file"]:focus, textarea:focus, select:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+    select {
+        height: 40px;
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+    }
+
+    audio {
+        display: block;
+        width: 100%;
+        margin-top: 10px;
+        border-radius: 8px; /* Rounded corners */
+        overflow: hidden; /* Ensure rounded corners are visible */
+    }
+</style>
+
     <br />
     <br />
     <br />

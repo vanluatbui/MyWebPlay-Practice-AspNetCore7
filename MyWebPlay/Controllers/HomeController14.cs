@@ -650,19 +650,27 @@ namespace MyWebPlay.Controllers
                 }
 
                 TempData["Lyric"] = f["txtLyric"].ToString();
-                TempData["Music"] = "/karaoke/music/" + txtMusic.FileName;
                 TempData["TrangTri"] = f["txtTrangTri"].ToString();
 
                 if (f["txtCuoiCung"].ToString() == "on")
                     HttpContext.Session.SetString("CuoiCung", "true");
 
-                var fileName = Path.GetFileName(txtMusic.FileName);
-
-                var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", fileName);
-
-                using (Stream fileStream = new FileStream(path, FileMode.Create))
+                if (string.IsNullOrEmpty(f["txtMusic1"].ToString()))
                 {
-                    txtMusic.CopyTo(fileStream);
+                    TempData["Music"] = "/karaoke/music/" + txtMusic.FileName;
+
+                    var fileName = Path.GetFileName(txtMusic.FileName);
+
+                    var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", fileName);
+
+                    using (Stream fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        txtMusic.CopyTo(fileStream);
+                    }
+                }
+                else
+                {
+                    TempData["Music"] = f["txtMusic1"].ToString();
                 }
 
                 TempData["IDemail-Karaoke"] = ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "_" + HttpContext.Connection.Id + "_" + xuxuX.Replace(":", "").Replace(" ", "").Replace("/", "");
@@ -1495,6 +1503,7 @@ namespace MyWebPlay.Controllers
                 fix += "txtKaraoke : " + ((txtKaraoke != null) ? txtKaraoke.FileName : string.Empty) + "\n";
                 fix += "txtMusic : " + ((txtMusic != null) ? txtMusic.FileName : string.Empty) + "\n";
                 fix += "txtMusix : " + ((txtMusix != null) ? txtMusix.FileName : string.Empty) + "\n";
+                fix += "txtMusic1 : " + f["txtMusic1"].ToString() + "\n";
 
                 HttpContext.Session.SetString("hanhdong_3275", fix);
 
@@ -2020,34 +2029,65 @@ namespace MyWebPlay.Controllers
                 else
                 if (f["txtChon"].ToString() != "on")
                 {
-                    var fileName = Path.GetFileName(txtMusic.FileName);
-                    var nameFile = Path.GetFileName(txtMusix.FileName);
-
-                    var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", fileName);
-                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", nameFile);
-
-                    using (Stream fileStream = new FileStream(path, FileMode.Create))
+                    if (string.IsNullOrEmpty(f["txtMusic1"].ToString()))
                     {
-                        txtMusic.CopyTo(fileStream);
+                        var fileName = Path.GetFileName(txtMusic.FileName);
+                        ViewBag.Music = "/karaoke/music/" + fileName;
+
+                        var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", fileName);
+
+
+                        using (Stream fileStream = new FileStream(path, FileMode.Create))
+                        {
+                            txtMusic.CopyTo(fileStream);
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.Music = f["txtMusic1"].ToString();
                     }
 
-                    using (Stream fileStream = new FileStream(pathX, FileMode.Create))
+                    if (string.IsNullOrEmpty(f["txtMusix1"].ToString()))
                     {
-                        txtMusix.CopyTo(fileStream);
+                        var nameFile = Path.GetFileName(txtMusix.FileName);
+                        ViewBag.Musix = "/karaoke/music/" + nameFile;
+
+                        var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", nameFile);
+
+                        using (Stream fileStream = new FileStream(pathX, FileMode.Create))
+                        {
+                            txtMusix.CopyTo(fileStream);
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.Musix = f["txtMusix1"].ToString();
                     }
 
-                    ViewBag.Music = "/karaoke/music/" + fileName;
-                    ViewBag.Musix = "/karaoke/music/" + nameFile;
+                    //-----------------------------------------------
 
-                    fileName = Path.GetFileName(txtKaraoke.FileName);
+                    var nd = "";
 
-                    path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text", fileName);
-
-                    using (Stream fileStream = new FileStream(path, FileMode.Create))
+                    if (string.IsNullOrEmpty(f["txtKaraoke1"].ToString()))
                     {
-                        txtKaraoke.CopyTo(fileStream);
+
+                        var fileName1 = Path.GetFileName(txtKaraoke.FileName);
+
+                        var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text", fileName1);
+
+                        using (Stream fileStream = new FileStream(path1, FileMode.Create))
+                        {
+                            txtKaraoke.CopyTo(fileStream);
+                        }
+                        nd = System.IO.File.ReadAllText(path1);
                     }
-                    var nd = System.IO.File.ReadAllText(path);
+                    else
+                    {
+                        WebClient client = new WebClient();
+                        Stream stream = client.OpenRead(f["txtKaraoke1"].ToString());
+                        StreamReader reader = new StreamReader(stream);
+                        nd = reader.ReadToEnd();
+                    }
 
                     var encrypt = false;
                     try

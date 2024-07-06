@@ -39,14 +39,17 @@ Layout = null;
     <textarea rows="30" cols="40" name="txtLyric">@ViewBag.LyricVD</textarea>
     <br />
     <span style="color:orangered">Tránh sử dụng các kí tự đặc biệt, encode trong phần text Karaoke</span>
+    <br />
+    <span style="color:orangered">Hãy cẩn thận và thật kỹ lại những chỗ có khoảng trắng dư thừa (do hệ thống sẽ xác định sự phân tách là [Space] cho mỗi từ trong lyric)</span>
     <br /><br />
     </td>
     </tr>
     <tr style="height:40px">
-        <td> <b> Tải file MP3 của bạn (nhằm giúp bạn nghe ca sĩ hát để xác định thời điểm của mỗi đoạn lyric) :  </b></td>
+        <td> <b> Tải file MP3 của bạn (nhằm giúp bạn nghe ca sĩ hát để xác định thời điểm của mỗi đoạn lyric) || hoặc nhập url *.mp3 online (khuyến khích) :  </b></td>
         <td>
-            <input type="file" name="txtMusic"/>
+            <input type="file" name="txtMusic"/>&nbsp;&nbsp;<input size="100" type="text" name="txtMusic1" />
             <br>
+            <br />
         </td>
     </tr>
     <tr style="height:40px">

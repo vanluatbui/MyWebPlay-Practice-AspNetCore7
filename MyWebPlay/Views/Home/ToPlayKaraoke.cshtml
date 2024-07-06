@@ -614,6 +614,12 @@ Layout = null;
             
                             xanh.innerHTML = "<b>FULL MÀN HÌNH - ON</b>";
                             dongmomenu();
+
+
+                             document.getElementById("message").style.display = "block";
+                document.getElementById("error").style.display = "block";
+                document.getElementById("error").innerHTML = "Lưu ý : Khi bật chế độ full màn hình, các option menu sẽ bị ẩn.";
+                notice = 1;
                         }
                         else 
                         {
@@ -636,6 +642,11 @@ Layout = null;
                 }
             
                             xanh.innerHTML = "<b>FULL MÀN HÌNH - OFF</b>";
+
+                               document.getElementById("message").style.display = "none";
+                document.getElementById("error").style.display = "none";
+                document.getElementById("error").innerHTML = "";
+                notice = 0;
                         }
                     }
                 }
@@ -2015,9 +2026,10 @@ Layout = null;
                 <td> </td>
                 <td id="phan1">
                     <br>
-                    <b> Tải file TXT karaoke (đã xử lý) : </b>
+                    <b> Tải file TXT karaoke (đã xử lý) || hoặc nhập url *.txt online (khuyến khích) : </b>
                     <br>
-                    <input type="file" name="txtKaraoke"/>  <b>@Html.ActionLink("Bạn chưa có file text karaoke?","CreateFile_Karaoke")</b><br />
+                    <input type="file" name="txtKaraoke"/> &nbsp;&nbsp;<input size="100" type="text" name="txtKaraoke1" /><br />
+                    <b>@Html.ActionLink("Bạn chưa có file text karaoke?","CreateFile_Karaoke")</b><br />
                     <b style="color:darkgreen">@Html.ActionLink("Phân đoạn hát cho các member? (sau khi bạn đã tạo file text Karaoke từ hệ thống)","PhanDoanMember_Karaoke")</b>
                     <br>
                 </td>
@@ -2026,9 +2038,9 @@ Layout = null;
                 <td> </td>
                 <td id="phan2">
                     <br>
-                    <b> Tải file MP3 karaoke - nhạc gốc có giọng ca sĩ (đã xử lý) : </b>
+                    <b> Tải file MP3 karaoke - nhạc gốc có giọng ca sĩ (đã xử lý) || hoặc nhập url *.mp3 online (khuyến khích) : </b>
                     <br>
-                    <input type="file" name="txtMusix"/>
+                    <input type="file" name="txtMusix"/>&nbsp;&nbsp;<input size="100" type="text" name="txtMusix1" />
                     <br>
                 </td>
             </tr>
@@ -2036,9 +2048,9 @@ Layout = null;
                 <td> </td>
                 <td id="phan3">
                     <br>
-                    <b> Tải file MP3 karaoke - nhạc beat tách giọng ca sĩ (karaoke - đã xử lý) : </b>
+                    <b> Tải file MP3 karaoke - nhạc beat tách giọng ca sĩ (karaoke - đã xử lý) || hoặc nhập url *.mp3 online (khuyến khích) : </b>
                     <br>
-                    <input type="file" name="txtMusic"/>
+                    <input type="file" name="txtMusic"/>&nbsp;&nbsp;<input size="100" type="text" name="txtMusic1" />
                     <br>
                 </td>
             </tr>
@@ -2473,9 +2485,9 @@ Layout = null;
                     <td> </td>
                     <td id="phan1">
                         <br>
-                        <b> Tải file TXT karaoke (đã xử lý) : </b>
+                        <b> Tải file TXT karaoke (đã xử lý) || hoặc nhập url *.txt online (khuyến khích) : </b>
                         <br>
-                        <input type="file" name="txtKaraoke"/>  
+                        <input type="file" name="txtKaraoke"/>&nbsp;&nbsp;<input size="100" type="text" name="txtKaraoke1" /><br />
                         <b>@Html.ActionLink("Bạn chưa có file text karaoke?","CreateFile_Karaoke")</b><br />
                         <b style="color:darkgreen">@Html.ActionLink("Phân đoạn hát cho các member? (sau khi bạn đã tạo file text Karaoke từ hệ thống)","PhanDoanMember_Karaoke")</b>
                         <br>
@@ -2485,9 +2497,9 @@ Layout = null;
                     <td> </td>
                     <td id="phan2">
                         <br>
-                        <b> Tải file MP3 karaoke - nhạc gốc có giọng ca sĩ (đã xử lý) : </b>
+                        <b> Tải file MP3 karaoke - nhạc gốc có giọng ca sĩ (đã xử lý) || hoặc nhập url *.mp3 online (khuyến khích) : </b>
                         <br>
-                        <input type="file" name="txtMusix"/>
+                        <input type="file" name="txtMusix"/>&nbsp;&nbsp;<input size="100" type="text" name="txtMusix1" />
                         <br>
                     </td>
                 </tr>
@@ -2495,9 +2507,9 @@ Layout = null;
                     <td> </td>
                     <td id="phan3">
                         <br>
-                        <b> Tải file MP3 karaoke - nhạc beat tách giọng ca sĩ (karaoke - đã xử lý) : </b>
+                        <b> Tải file MP3 karaoke - nhạc beat tách giọng ca sĩ (karaoke - đã xử lý) || hoặc nhập url *.mp3 online (khuyến khích) : </b>
                         <br>
-                        <input type="file" name="txtMusic"/>
+                        <input type="file" name="txtMusic"/>&nbsp;&nbsp;<input size="100" type="text" name="txtMusic1" />
                         <br>
                     </td>
                 </tr>

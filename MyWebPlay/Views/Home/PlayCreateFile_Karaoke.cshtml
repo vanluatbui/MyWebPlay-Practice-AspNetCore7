@@ -3,6 +3,22 @@
 Layout = null;
 }
 <script>
+
+    var not = 0;
+    setInterval(function()
+    {
+        if (not == 1) return;
+
+        var music = document.getElementById("music").readyState;
+
+        if (music == 4)
+        {
+            document.getElementById("xuxu").style.display = "inline-block";
+             document.getElementById("loading1").style.display = "none";
+             not = 1;
+        }
+    },10);
+
     var playmute = 0;
     
     function ketquaplay()
@@ -242,7 +258,8 @@ Layout = null;
         <source src="@TempData["Music"]" type="audio/mpeg">
     </audio>
     <br />
-    <button style="color:olive" id="xuxu" onclick="startplay()"><b>START PLAY</b></button>
+    <button style="color:olive;display:none" id="xuxu" onclick="startplay()"><b>START PLAY</b></button>
+    <img id="loading1" src="/Image_Play/waiting.gif" />
     <br />
     <b id="tgian" style="color:deeppink; font-size:20px"></b>
     <br /><br />

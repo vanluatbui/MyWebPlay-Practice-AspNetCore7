@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\Admin\SettingABC_DarkBVL.txt~RFa5e4be0.TMP" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Controllers\HomeController4.cs~RF196160.TMP" />
   </ItemGroup>
 

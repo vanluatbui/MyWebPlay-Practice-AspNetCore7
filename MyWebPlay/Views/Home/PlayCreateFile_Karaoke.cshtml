@@ -56,6 +56,8 @@ Layout = null;
              document.getElementById("xuxu").style.display = "none";
              document.getElementById("LBH2").innerHTML = "&nbsp;";
              document.getElementById("balax").style.display = "none";
+             phat = 1;
+             window.scrollTo(0, document.body.scrollHeight);
         }
     
     
@@ -68,7 +70,7 @@ Layout = null;
        var xong = document.getElementById("xong");
        xong.style.display = "block";
     
-       document.getElementById("txtVD").focus();
+      // document.getElementById("txtVD").focus();
     
        t = 0;
                
@@ -178,13 +180,17 @@ Layout = null;
             alert("Đã xử lý thành công nội dung text Karaoke cho mp3 của bạn đã phân tích. Cuối cùng, hãy đợi quá trình xử lý thêm một lúc và click nút Hoàn tất sau khi xuất hiện!");
             idSo = setInterval(myAlertSo, 1000);
     }
-    
-       function KeyPlay(event)
-       {
-           document.getElementById("txtVD").value = "";
-    
-           if (event.keyCode == 13)
-           {
+
+    var phat = 0;
+
+     document.addEventListener("DOMContentLoaded", (event) => {
+                    document.body.addEventListener("keydown", (e) => {
+                         //document.getElementById("txtVD").value = "";
+
+                         if (phat == 0) return;
+
+                 if (e.keyCode == 13)
+                 {
              var lbh = document.getElementById("BH2").value.split(' ');
                 nn += lbh[k].length + 1;
     
@@ -196,7 +202,7 @@ Layout = null;
                     time_LuuVet[n - 1] += ",";
                     k++;
            }
-           else if (event.keyCode == 32)
+           else if (e.keyCode == 32)
            {
                 k = 0;
                 nn = 0;
@@ -209,7 +215,8 @@ Layout = null;
                 time_XuatHien[n] = t;
                 n++;
            }
-       }
+                    });
+                });
     
     
 </script>
@@ -229,7 +236,7 @@ Layout = null;
     <h2 style="text-align:center">Create File Your Karaoke - Online</h2>
     <br />
     <h2 style="color:red">HƯỚNG DẪN THỰC HIỆN - VUI LÒNG ĐỌC KỸ TRƯỚC KHI THỰC HIỆN</h2>
-    - Sẵn sàng nghe nhạc mp3 của bạn cùng ca sĩ hát để xác định thời điểm của mỗi khúc lyric mà ca sĩ sẽ hát.
+    - Sẵn sàng nghe nhạc mp3 của bạn cùng ca sĩ hát để xác định thời điểm của mỗi khúc/đoạn và mỗi từ  có trong lyric mà ca sĩ sẽ hát.
     <br>
     - Nếu bạn đã chuẩn bị sẵn sàng, nhấn nút Start Play và nghe bản nhạc của bạn bên dưới. Trong khi đang nghe, bạn sẽ vừa thao tác để tiến hành tạo file Karaoke của bạn.
     <br>
@@ -241,7 +248,7 @@ Layout = null;
     <br>
     + Và thực hiện tương tự cho đến khi hết bài hát!
     <br />
-    LƯU Ý : trong suốt quá trình thực hiện, bạn không nên có bất kỳ thao tác nào khác ngoài việc bạn chỉ cần giữ và canh gõ 2 phím : <b>Enter</b> và <b>Space</b> - đảm bảo tại textbox này luôn được trạng thái focus chuột (khi bạn click button play start nhạc bên dưới thì textbox này sẽ được forcus chuột trở lại và bạn không nên thoát khỏi nó 😂) : <br /> <input id="txtVD" onkeydown="return KeyPlay(event)" type="text" size="1" autofocus/><br />
+    LƯU Ý : trong suốt quá trình thực hiện, bạn không nên có bất kỳ thao tác nào khác ngoài việc bạn chỉ cần giữ và canh gõ 2 phím : <b>Enter</b> và <b>Space</b>.
     <div id="balax">
     <br /><u>XIN LỖI VÌ SỰ BẤT TIỆN</u> : mọi thao tác sai, bạn phải thực hiện lại từ đầu :)) - khi dò xét mỗi đoạn lyric mà đoạn đó có bao nhiêu từ thì bạn chỉ gõ đúng số lần đó (VD : đoạn lyric có 5 từ sẽ tương ứng chỉ đủ 5 lần gõ phím <b>Enter</b> của bạn [tô màu đủ số từ đang hiển thị]  tại đoạn Lyric đang dò xét đó - không nên nhấn lố hay thiếu (hãy cẩn thận)) ... Chúc bạn thành công!😄
     <br />

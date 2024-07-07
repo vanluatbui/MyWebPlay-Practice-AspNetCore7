@@ -172,6 +172,38 @@
                         if (e.key === "M" || e.key === "m") {
                             dongmomenu();
                         }
+
+                        if ('@TempData["hassinger"]' != "true") {
+                            if (e.key === "c" || e.key === "C") {
+                                if (document.getElementById("chon").options.selectedIndex == 0) {
+                                    document.getElementById("chon").options.selectedIndex = 1;
+                                } else {
+                                    document.getElementById("chon").options.selectedIndex = 0;
+                                }
+                                changeKara();
+                            }
+                        }
+
+                        if (e.keyCode == 32)
+                        {
+                            loadsolar();
+                        }
+
+                        if (e.key == "o" || e.key == "O")
+                        {
+                            resetKaraoke();
+                        }
+
+                        if (notice == 1)
+                        {
+                            if (e.key == "x" || e.key == "X")
+                            {
+                                  document.getElementById("message").style.display = "none";
+                                 document.getElementById("error").style.display = "none";
+                                document.getElementById("error").innerHTML = "";
+                                notice = 0;
+                            }
+                        }
                     });
                 });
             }
@@ -1933,7 +1965,7 @@
                 <br />
                 <div id="menu" style="display: block;">
                     @if (ViewBag.Music != ViewBag.Musix) { if (TempData["hassinger"] != "true") {
-                    <select id="chon" onchange="changeKara()">
+                    <select id="chon" onchange="changeKara()" title="Có thể nhấn phím c/C để chuyển đổi chế độ">
                         <option>Chế độ Karaoke</option>
                         <option>Chế độ Ca sĩ hát</option>
                     </select>
@@ -1943,7 +1975,7 @@
                         <option>Chế độ Ca sĩ hát</option>
                     </select>
                     } } &nbsp; &nbsp; &nbsp
-                    <button style="color: brown;" onclick="loadsolar()" id="xanh"><b>FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp; @if(TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) {
+                    <button style="color: brown;" onclick="loadsolar()" id="xanh" title="Nhấn [Space] để mở/tắt toàn màn hình"><b>FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp; @if(TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) {
                     <b id="xemthumau" style="color: #2900f5;">Chọn màu tô điểm text</b><span> : </span><input type="color" onchange="doimau()" id="mau" value="#2900f5" />
                     } else {
                     <span style="display: none;"> <b id="xemthumau" style="color: #2900f5;">Chọn màu tô điểm text</b><span> : </span><input type="color" onchange="doimau()" id="mau" value="#2900f5" /></span>
@@ -1983,7 +2015,7 @@
                     }
                     <br />
                     <br />
-                    <button style="color: purple;" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI/PHÁT</b></button> &nbsp;&nbsp;&nbsp; <button onclick="ghinho()"><b style="color: lightcoral;">Ghi nhớ các cài đặt</b></button> &nbsp;&nbsp;&nbsp;
+                    <button style="color: purple;" onclick="resetKaraoke()" title="Nhấn o/O để khởi động lại"><b>KHỞI ĐỘNG LẠI/PHÁT</b></button> &nbsp;&nbsp;&nbsp; <button onclick="ghinho()"><b style="color: lightcoral;">Ghi nhớ các cài đặt</b></button> &nbsp;&nbsp;&nbsp;
                     <button onclick="xoaghinho()"><b style="color: lightcoral;">Xoá ghi nhớ các cài đặt</b></button>
                     &nbsp;&nbsp;&nbsp; @if (TempData["codinh"] == "false") {
                     <spam>&nbsp;&nbsp;&nbsp;&nbsp; </spam>
@@ -2341,7 +2373,7 @@
                     <br />
                     <div id="menu" style="display: block;">
                         @if (ViewBag.Music != ViewBag.Musix) { if (TempData["hassinger"] != "true") {
-                        <select id="chon" onchange="changeKara()">
+                        <select id="chon" onchange="changeKara()" title="Có thể nhấn phím c/C để chuyển đổi chế độ">
                             <option>Chế độ Karaoke</option>
                             <option>Chế độ Ca sĩ hát</option>
                         </select>
@@ -2351,7 +2383,7 @@
                             <option>Chế độ Ca sĩ hát</option>
                         </select>
                         } } &nbsp; &nbsp; &nbsp
-                        <button style="color: brown;" onclick="loadsolar()" id="xanh"><b>FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp; @if(TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) {
+                        <button style="color: brown;" onclick="loadsolar()" id="xanh" title="Nhấn [Space] để mở/tắt toàn màn hình"><b>FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp; @if(TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) {
                         <b id="xemthumau" style="color: #2900f5;">Chọn màu tô điểm text</b><span> : </span><input type="color" onchange="doimau()" id="mau" value="#2900f5" />
                         } else {
                         <span style="display: none;"> <b id="xemthumau" style="color: #2900f5;">Chọn màu tô điểm text</b><span> : </span><input type="color" onchange="doimau()" id="mau" value="#2900f5" /></span>
@@ -2382,7 +2414,7 @@
                         </span>
                         <br />
                         <br />
-                        <button style="color: purple;" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI/PHÁT</b></button> &nbsp;&nbsp;&nbsp;
+                        <button style="color: purple;" onclick="resetKaraoke()" title="Nhấn o/O để khởi động lại"><b>KHỞI ĐỘNG LẠI/PHÁT</b></button> &nbsp;&nbsp;&nbsp;
                         <button onclick="ghinho()"><b style="color: lightcoral;">Ghi nhớ các cài đặt</b></button> &nbsp;&nbsp;&nbsp; <button onclick="xoaghinho()"><b style="color: lightcoral;">Xoá ghi nhớ các cài đặt</b></button>
                         &nbsp;&nbsp;&nbsp; @if (TempData["codinh"] == "false") {
                         <spam>&nbsp;&nbsp;&nbsp;&nbsp; </spam>

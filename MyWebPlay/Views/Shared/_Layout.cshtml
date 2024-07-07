@@ -811,13 +811,13 @@
         <div class="container-fluid">
             @if (TempData["belix"] == "false" && TempData["not-locked-web-client-play"] != "true")
             {
-            <button style="color:deeppink" class="navbar-brand" asp-area="" onclick="khoawebsite()">Khoá WebSite bằng mật mã LockedClientID (<u>hãy cẩn thận đừng nhấn nhầm vào đây nếu bạn không có nhu cầu 😁</u>)</button>
+            <button style="color:yellow" class="navbar-brand" asp-area="" onclick="khoawebsite()">Khoá WebSite bằng mật mã LockedClientID (<u>hãy cẩn thận đừng nhấn nhầm vào đây nếu bạn không có nhu cầu 😁</u>)</button>
             <h2 onclick="toanmanhinh()" href="#xuly">⭐</h2>
             }
             else
             {
             {
-            <button style="color:deeppink" class="navbar-brand" asp-area="">Chào mừng bạn đến với website miễn phí với các tính năng cơ bản của MyWebPlay 👋👋👋</button>
+            <button style="color:yellow" class="navbar-brand" asp-area="">Chào mừng bạn đến với website miễn phí với các tính năng cơ bản của MyWebPlay 👋👋👋</button>
             <h2 onclick="toanmanhinh()" href="#xuly">⭐</h2>
             }
             }
@@ -967,7 +967,6 @@ else
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
     }
     input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="search"], input[type="file"], textarea, select {
-        width: 100%;
         padding: 10px;
         margin: 5px 0 10px 0;
         display: inline-block;
@@ -978,9 +977,6 @@ else
     input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="number"]:focus, input[type="search"]:focus, input[type="file"]:focus, textarea:focus, select:focus {
         border-color: #007bff;
         outline: none;
-    }
-    select {
-        height: 40px;
     }
     img {
         max-width: 100%;

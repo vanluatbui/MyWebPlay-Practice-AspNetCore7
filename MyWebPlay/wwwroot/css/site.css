@@ -65,13 +65,13 @@ body {
 .divOnTop {
     color: #FFFFFF;
     left: 0px;
-    height: 50px;
-    width: 100%;
+    height: 90px;
+    width: 50%;
     background-color: yellow;
     /* Text Always Center */
     line-height: 26px;
     /* position on bottom */
-    bottom:0px;
+    top:0px;
     /* Thay: bottom: 0px; = top: 0px; neu muon o tren dau trang */
     position: fixed;
     z-index: 100;

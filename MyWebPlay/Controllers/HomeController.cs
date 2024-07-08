@@ -1181,11 +1181,6 @@ namespace MyWebPlay.Controllers
 
                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "apiUpload")).Create();
 
-                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "PrivateAdmin")).Exists == true)
-                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "PrivateAdmin")).Delete(true);
-
-                new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "PrivateAdmin")).Create();
-
                 if (onoffY == "file_MO")
                 {
                     if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file")).Exists == false)

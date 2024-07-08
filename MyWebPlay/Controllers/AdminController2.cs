@@ -298,11 +298,12 @@ namespace MyWebPlay.Controllers
             return Redirect("SettingXYZ_DarkAdmin#changesetting");
         }
 
-        public ActionResult ReadAdminFileByStatic(string? file)
+        public ActionResult ReadAdminFileByStatic(string? file, bool? admin = false)
         {
             try
             {
-                if (string.IsNullOrEmpty(file)) return RedirectToAction("Error", "Home");
+                if (admin == false && string.IsNullOrEmpty(file)) return RedirectToAction("Error", "Home");
+
 
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
                 var noidungX = System.IO.File.ReadAllText(pathX);
@@ -359,22 +360,22 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
+                if (admin == true)
+                {
+                    var ndx = HttpContext.Session.GetString("nd-file-admin");
+                    if (ndx == null) return RedirectToAction("Error", "Home");
+                    HttpContext.Session.Remove("nd-file-admin");
+                    TempData["nd-file-admin"] = ndx;
+                    return View();
+                }
 
-                var path = Path.Combine(_webHostEnvironment.WebRootPath, "PrivateAdmin" + file);
 
-                var fileName = Path.GetFileName(path);
-
-                if (new System.IO.DirectoryInfo(path.Replace("/" + fileName, "")).Exists == false)
-                    new System.IO.DirectoryInfo(path.Replace("/" + fileName, "")).Create();
-
-                if (new System.IO.FileInfo(path).Exists == false)
-                    new System.IO.FileInfo(path).Create();
 
                 var nd = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin" + file));
 
-                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin" + file), nd);
+                HttpContext.Session.SetString("nd-file-admin",  nd);
 
-                return Redirect("/PrivateAdmin" + file);
+                return RedirectToAction("ReadAdminFileByStatic", "Admin", new { admin = true });
             }
             catch (Exception ex)
             {

@@ -47,12 +47,31 @@ Layout = null;
         localStorage.setItem(item, s);
         window.close();
     }
+
+    function chonall()
+    {
+        for (var i =0; i < '@Model.Count'; i++)
+        {
+            document.getElementById("web-"+i).checked = true;
+        }
+    }
+
+    function bochonall()
+    {
+        for (var i =0; i < '@Model.Count'; i++)
+        {
+            document.getElementById("web-"+i).checked = false;
+        }
+    }
     
 </script>
 <div style="opacity:@TempData["opacity-body-css"]">
-<b style="color:red">@TempData["KbnPage"]</b>
+<b style="color:crimson">@TempData["KbnPage"]</b>
 <br /><br />
 <button style="background-color:orangered;color:darkblue" onclick="xacnhan()"><b>OK</b></button>
+<br />
+<br />
+<a href="#xuly" onclick="chonall()" style="color:green">Chọn tất cả</a> || <a href="#xuly" onclick="bochonall()" style="color:red">Bỏ chọn tất cả</a>
 <br />
 <br />
 @for (int i = 0; i < Model.Count; i++)

@@ -882,7 +882,7 @@
 
             function restart_Youtube() {
                 if ("@ViewBag.SuDung" == "Youtube") {
-                    document.getElementById("phanphoi").innerHTML = '<iframe id="myVideo" src="' + "@ViewBag.Background" + '"></iframe>';
+                    document.getElementById("phanphoi").innerHTML = '<iframe id="myVideo" style="pointer-events: none;" src="' + "@ViewBag.Background" + '"></iframe>';
                     duYou = 0;
                 } else if ("@ViewBag.SuDung" == "Video") {
                     document.getElementById("myVideo").currentTime = 0;
@@ -893,7 +893,7 @@
                 duMusic = 0;
                 if ("@ViewBag.SuDung" == "Youtube") {
                     duYou = 0;
-                    document.getElementById("phanphoi").innerHTML = '<iframe id="myVideo" src="' + "@ViewBag.Background" + '"></iframe>';
+                    document.getElementById("phanphoi").innerHTML = '<iframe id="myVideo" style="pointer-events: none;" src="' + "@ViewBag.Background" + '"></iframe>';
                 } else if ("@ViewBag.SuDung" == "Video") {
                     document.getElementById("myVideo").currentTime = 0;
                 }
@@ -2117,7 +2117,7 @@
                 <source src="@ViewBag.Background" />
             </video>
             } else {
-            <iframe id="myVideo" src="@ViewBag.Background"> </iframe>
+            <iframe id="myVideo" style="pointer-events: none;" src="@ViewBag.Background"> </iframe>
             }
         </div>
         }
@@ -2516,7 +2516,7 @@
                     <source src="@ViewBag.Background" />
                 </video>
                 } else {
-                <iframe id="myVideo" src="@ViewBag.Background"> </iframe>
+                <iframe id="myVideo" style="pointer-events: none;" src="@ViewBag.Background"> </iframe>
                 }
             </div>
             }

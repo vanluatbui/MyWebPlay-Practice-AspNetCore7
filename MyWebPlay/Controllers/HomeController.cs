@@ -135,6 +135,13 @@ namespace MyWebPlay.Controllers
 
                 var listSetting = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
+                var infoXA = listSetting[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoXA[1] == "true")
+                {
+                    return Redirect("https://stackoverflow.com/questions/tagged/c%23");
+                }
+
                 var infoX = listSetting[30].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
                 if (infoX[1] == "true")

@@ -198,6 +198,72 @@ namespace MyWebPlay.Controllers
             }
         }
 
+        private void ghilogrequest(IFormCollection? f)
+        {
+            var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+            var noidung = System.IO.File.ReadAllText(path);
+
+            var listSettingS = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            var infoX1 = listSettingS[23].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+
+            var infoX2 = listSettingS[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+            Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+            var xuxu = x.AddHours(DateTime.UtcNow, 7);
+
+            var path0 = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
+            var noidung0 = docfile(path0);
+
+            var socox = noidung0.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+            if (socox.Length >= 100)
+            {
+                System.IO.File.WriteAllText(path0, "");
+
+                if (infoX1[1] == "true")
+                {
+
+                    string host = "{" + Request.Host.ToString() + "}"
+                      .Replace("http://", "")
+                      .Replace("https://", "")
+                      .Replace("/", "");
+
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
+                      "mywebplay.savefile@gmail.com", host + "[ADMIN] Báo cáo tự động danh sách các IP user đã ghé thăm và request từng chức năng của trang web (tất cả/có thể chưa đầy đủ) In " + xuxu, noidung0, "teinnkatajeqerfl");
+                }
+                noidung0 = "";
+            }
+
+            if (infoX2[1] == "true")
+            {
+                //Lưu trữ IP tất cả khách hàng từng ghé thăm trang web (dù bật hay chưa sử dụng)
+
+                var fi = "";
+
+                if (f != null)
+                {
+                    fi = "[";
+                    foreach (var key in f.Keys)
+                    {
+                        var s = "";
+                        if (f[key].ToString().Length > 100)
+                            s = f[key].ToString().Substring(0, 100);
+                        else
+                            s = f[key].ToString();
+
+                        fi += key + " : " + s.Replace("\r","").Replace("\n","") + "...\t---\t";
+                    }
+                    fi += "]";
+                }
+
+                var noidungZ = noidung0 + "\n" + DateTime.Now + "\t" + this.Request.GetDisplayUrl() + "\t" + fi;
+
+                System.IO.File.WriteAllText(path0, noidungZ.Trim('\n'));
+            }
+        }
+
         public ActionResult KiemTraMini(string? test, string? url)
         {
             try
@@ -860,6 +926,7 @@ namespace MyWebPlay.Controllers
                     TempData["mau_text"] = "black";
                     TempData["mau_nen"] = "dodgerblue";
                     TempData["winx"] = "❤";
+                    TempData["TMH"] = "🌞";
                 }
                 else
                 {
@@ -867,6 +934,7 @@ namespace MyWebPlay.Controllers
                     TempData["mau_text"] = "white";
                     TempData["mau_nen"] = "rebeccapurple";
                     TempData["winx"] = "❤";
+                    TempData["TMH"] = "🌛";
                 }
 
                 if (listIP == null)
@@ -1626,7 +1694,7 @@ namespace MyWebPlay.Controllers
                 var infoY = listSettingS[8].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
                 if (infoY[1] == "true") linkdown = true;
 
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                 {
                     TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
                     khoawebsiteClient(null);
@@ -1702,7 +1770,7 @@ namespace MyWebPlay.Controllers
 
                 TempData["checkText"] = f["Chuoi"].ToString();
 
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                 {
                     khoawebsiteClient(listIP);
                     HttpContext.Session.Remove("ok-data");
@@ -1854,7 +1922,7 @@ namespace MyWebPlay.Controllers
                     string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
                     SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
                 }
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                     return RedirectToAction("Error", new
                     {
                         exception = "true"
@@ -1865,7 +1933,7 @@ namespace MyWebPlay.Controllers
                 });
             }
 
-            if (exter == false)
+           ghilogrequest(f); if (exter == false)
                 return View();
             else
             {
@@ -1999,7 +2067,7 @@ namespace MyWebPlay.Controllers
                 var infoY = listSettingS[8].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
                 if (infoY[1] == "true") linkdown = true;
 
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                 {
                     TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
                     khoawebsiteClient(null);
@@ -2075,7 +2143,7 @@ namespace MyWebPlay.Controllers
 
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
 
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                 {
                     khoawebsiteClient(listIP);
                     HttpContext.Session.Remove("ok-data");
@@ -2210,7 +2278,7 @@ namespace MyWebPlay.Controllers
                     string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
                     SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
                 }
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                     return RedirectToAction("Error", new
                     {
                         exception = "true"
@@ -2220,7 +2288,7 @@ namespace MyWebPlay.Controllers
                     error = HttpContext.Session.GetObject<string>("error_exception_log")
                 });
             }
-            if (exter == false)
+           ghilogrequest(f); if (exter == false)
                 return View();
             else
             {
@@ -2355,7 +2423,7 @@ namespace MyWebPlay.Controllers
                 var infoY = listSettingS[8].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
                 if (infoY[1] == "true") linkdown = true;
 
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                 {
                     TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
                     khoawebsiteClient(null);
@@ -2430,7 +2498,7 @@ namespace MyWebPlay.Controllers
 
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
 
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                 {
                     khoawebsiteClient(listIP);
                     HttpContext.Session.Remove("ok-data");
@@ -2567,7 +2635,7 @@ namespace MyWebPlay.Controllers
                     string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
                     SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
                 }
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                     return RedirectToAction("Error", new
                     {
                         exception = "true"
@@ -2577,7 +2645,7 @@ namespace MyWebPlay.Controllers
                     error = HttpContext.Session.GetObject<string>("error_exception_log")
                 });
             }
-            if (exter == false)
+           ghilogrequest(f); if (exter == false)
                 return View();
             else
             {
@@ -2711,7 +2779,7 @@ namespace MyWebPlay.Controllers
                 var infoY = listSettingS[8].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
                 if (infoY[1] == "true") linkdown = true;
 
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                 {
                     TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
                     khoawebsiteClient(null);
@@ -2785,7 +2853,7 @@ namespace MyWebPlay.Controllers
 
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
 
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                 {
                     khoawebsiteClient(listIP);
                     HttpContext.Session.Remove("ok-data");
@@ -2907,7 +2975,7 @@ namespace MyWebPlay.Controllers
                     SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
                 }
 
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                     return RedirectToAction("Error", new
                     {
                         exception = "true"
@@ -2917,7 +2985,7 @@ namespace MyWebPlay.Controllers
                     error = HttpContext.Session.GetObject<string>("error_exception_log")
                 });
             }
-            if (exter == false)
+           ghilogrequest(f); if (exter == false)
                 return View();
             else
             {
@@ -3052,7 +3120,7 @@ namespace MyWebPlay.Controllers
                 var infoY = listSettingS[8].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
                 if (infoY[1] == "true") linkdown = true;
 
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                 {
                     TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
                     khoawebsiteClient(null);
@@ -3134,7 +3202,7 @@ namespace MyWebPlay.Controllers
 
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
 
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                 {
                     khoawebsiteClient(listIP);
                     HttpContext.Session.Remove("ok-data");
@@ -3239,7 +3307,7 @@ namespace MyWebPlay.Controllers
                     string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
                     SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
                 }
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                     return RedirectToAction("Error", new
                     {
                         exception = "true"
@@ -3249,7 +3317,7 @@ namespace MyWebPlay.Controllers
                     error = HttpContext.Session.GetObject<string>("error_exception_log")
                 });
             }
-            if (exter == false)
+           ghilogrequest(f); if (exter == false)
                 return View();
             else
             {
@@ -3768,7 +3836,7 @@ namespace MyWebPlay.Controllers
                 if (infoY[1] == "true") linkdown = true;
 
                 var listIP = new List<string>();
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                 {
                     TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
                     khoawebsiteClient(null);
@@ -3843,7 +3911,7 @@ namespace MyWebPlay.Controllers
 
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
 
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                 {
                     khoawebsiteClient(listIP);
                     HttpContext.Session.Remove("ok-data");
@@ -4019,7 +4087,7 @@ namespace MyWebPlay.Controllers
                     string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
                     SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
                 }
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                     return RedirectToAction("Error", new
                     {
                         exception = "true"
@@ -4029,7 +4097,7 @@ namespace MyWebPlay.Controllers
                     error = HttpContext.Session.GetObject<string>("error_exception_log")
                 });
             }
-            if (exter == false)
+           ghilogrequest(f); if (exter == false)
                 return View();
             else
             {

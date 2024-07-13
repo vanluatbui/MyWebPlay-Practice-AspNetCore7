@@ -805,13 +805,13 @@
             @if (TempData["belix"] == "false" && TempData["not-locked-web-client-play"] != "true")
             {
             <button style="color:yellow" class="navbar-brand" asp-area="" onclick="khoawebsite()">Khoá WebSite bằng mật mã LockedClientID (<u>hãy cẩn thận đừng nhấn nhầm vào đây nếu bạn không có nhu cầu 😁</u>)</button>
-            <h2 onclick="toanmanhinh()" href="#xuly">⭐</h2>
+            <h2 onclick="toanmanhinh()" id="tmh" href="#xuly">@TempData["TMH"]</h2>
             }
             else
             {
             {
             <button style="color:yellow" class="navbar-brand" asp-area="">Chào mừng bạn đến với website miễn phí với các tính năng cơ bản của MyWebPlay 👋👋👋</button>
-            <h2 onclick="toanmanhinh()" href="#xuly">⭐</h2>
+            <h2 onclick="toanmanhinh()" id="tmh" href="#xuly">@TempData["TMH"]</h2>
             }
             }
             <a href="/Home/Index">

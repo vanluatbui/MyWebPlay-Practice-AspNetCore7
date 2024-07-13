@@ -123,7 +123,7 @@ namespace MyWebPlay.Controllers
                 if (infoY[1] == "true") linkdown = true;
 
                 var listIP = new List<string>();
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                 {
                     TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
                     khoawebsiteClient(null);
@@ -212,7 +212,7 @@ namespace MyWebPlay.Controllers
 
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
 
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                 {
                     khoawebsiteClient(listIP);
                     HttpContext.Session.Remove("ok-data");
@@ -342,7 +342,7 @@ namespace MyWebPlay.Controllers
                     ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
                     if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
 
-                    if (exter == false)
+                   ghilogrequest(f); if (exter == false)
                         return View();
                     else
                     {
@@ -362,7 +362,7 @@ namespace MyWebPlay.Controllers
                     req = "/Home/Index";
 
                 HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                     return RedirectToAction("Error", new
                     {
                         exception = "true"
@@ -372,7 +372,7 @@ namespace MyWebPlay.Controllers
                     error = HttpContext.Session.GetObject<string>("error_exception_log")
                 });
             }
-            if (exter == false)
+           ghilogrequest(f); if (exter == false)
                 return View();
             else
             {

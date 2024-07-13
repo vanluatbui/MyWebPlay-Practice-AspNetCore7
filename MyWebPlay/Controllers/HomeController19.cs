@@ -135,7 +135,7 @@ namespace MyWebPlay.Controllers
                 var infoY = listSettingS[8].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
                 if (infoY[1] == "true") linkdown = true;
 
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                 {
                     TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
                     khoawebsiteClient(null);
@@ -209,7 +209,7 @@ namespace MyWebPlay.Controllers
 
                 TempData["dataPost"] = "[" + f["txtConstants"].ToString().Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
 
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                 {
                     khoawebsiteClient(listIP);
                     HttpContext.Session.Remove("ok-data");
@@ -364,7 +364,7 @@ namespace MyWebPlay.Controllers
                 ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
                 if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
 
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                     return View();
                 else
                 {
@@ -393,7 +393,7 @@ namespace MyWebPlay.Controllers
                     string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
                     SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
                 }
-                if (exter == false)
+               ghilogrequest(f); if (exter == false)
                     return RedirectToAction("Error", new
                     {
                         exception = "true"

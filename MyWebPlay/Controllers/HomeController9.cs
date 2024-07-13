@@ -410,7 +410,7 @@ namespace MyWebPlay.Controllers
                         error = "Dịch vụ đang tạm ngừng, mời bạn thử lại sau!"
                     });
                 }
-
+                ghilogrequest(f);
                 if (External == "false")
                 {
                     TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");

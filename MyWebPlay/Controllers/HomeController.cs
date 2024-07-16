@@ -359,6 +359,11 @@ namespace MyWebPlay.Controllers
 
                 TempData["unvisibled_sub_menu"] = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[17] == "UNVISIBLED_SUB_MENU_ON") ? "true" : "false";
 
+                var sao = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n");
+                var nhac = (sao.Length > 20 && string.IsNullOrEmpty(sao[20]) == false) ? sao[20] : "";
+
+                TempData["nhacnendemo"] = nhac;
+
                 // Send mail try again - karaoke with member
 
                 string hostt = "{" + Request.Host.ToString() + " - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "}"
@@ -1185,7 +1190,6 @@ namespace MyWebPlay.Controllers
                 }
 
                 khoawebsiteClient(listIP);
-
                 TempData["rule-JP"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin","ChangeJapan", "quy-tac-ki-tu-chuyen-doi.txt")).Replace("\n", "<br>").Replace("\t", " ➡ ");
             }
             catch (Exception ex)

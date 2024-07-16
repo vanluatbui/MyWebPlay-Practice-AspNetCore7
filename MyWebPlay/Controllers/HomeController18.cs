@@ -764,7 +764,7 @@ namespace MyWebPlay.Controllers
 
                     IP = HttpContext.Session.GetString("userIP");
 
-                    path = Path.Combine(_webHostEnvironment.WebRootPath, "TracNghiem_XOnline/DiemHocSinh.txt");
+                    path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "TracNghiem_XOnline", "DiemHocSinh.txt");
                     noidung = System.IO.File.ReadAllText(path);
                     if (noidung.Contains(mssv + "\t" + id))
                     {

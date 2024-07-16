@@ -951,7 +951,7 @@ namespace MyWebPlay.Controllers
                         var id = spi[2];
                         Calendar xix = CultureInfo.InvariantCulture.Calendar;
                         var xong = xix.AddHours(DateTime.UtcNow, 7);
-                        var path = Path.Combine(_webHostEnvironment.WebRootPath, "TracNghiem_XOnline/DiemHocSinh.txt");
+                        var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "TracNghiem_XOnline", "DiemHocSinh.txt");
                         var noidung = System.IO.File.ReadAllText(path);
                         if (noidung.Contains(mssv + "\t" + id))
                         {

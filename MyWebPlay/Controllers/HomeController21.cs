@@ -559,7 +559,18 @@ namespace MyWebPlay.Controllers
 
                     var text = f["txtText"].ToString();
 
-                    if (f["txtCheck"].ToString() == "on")
+                    var encrypt = false;
+                    try
+                    {
+                        StringMaHoaExtension.Decrypt(text);
+                        encrypt = true;
+                    }
+                    catch
+                    {
+                        encrypt = false;
+                    }
+
+                    if (encrypt == true)
                     {
                         text = StringMaHoaExtension.Decrypt(text);
                     }

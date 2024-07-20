@@ -685,10 +685,11 @@ namespace MyWebPlay.Controllers
                       .Replace("/", "");
 
                     MailRequest mail = new MailRequest();
-                    mail.Subject = host + "[ID email Karaoke : " + ID + "] Báo cáo bản mp3 tạo mới Karaoke của user (email bản text tương ứng sẽ được gửi sau khi user tạo xong - cũng tương ứng với ID email này, lưu ý : có thể user sẽ huỷ bỏ bản tạo Karaoke này và sau đó sẽ không nhận được email tương ứng nào; hãy tự chờ đợi và kiểm tra) lúc " + xuxuX;
+                    mail.Subject = host + "[ID email Karaoke : " + ID + "] Báo cáo bản mp3 tạo mới Karaoke của user";
                     mail.ToEmail = "mywebplay.savefile@gmail.com";
                     mail.Attachments = new List<IFormFile>();
                     mail.Attachments.Add(txtMusic);
+                    mail.Body = "(email bản text tương ứng sẽ được gửi sau khi user tạo xong - cũng tương ứng với ID email này, lưu ý : có thể user sẽ huỷ bỏ bản tạo Karaoke này và sau đó sẽ không nhận được email tương ứng nào; hãy tự chờ đợi và kiểm tra) lúc " + xuxuX;
 
                     await _mailService.SendEmailAsync(mail, _webHostEnvironment.WebRootPath);
                 }
@@ -1002,7 +1003,7 @@ namespace MyWebPlay.Controllers
                       .Replace("/", "");
 
                     SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
-                      "mywebplay.savefile@gmail.com", host + "[ID email Karaoke : " + ID + "] Báo cáo bản text tạo mới Karaoke của user (email bản mp3 tương ứng đã được gửi trước đó/hoặc cũng có thể bạn đã setting không nhận thông báo dữ liệu bản mp3 - vui lòng kiểm tra lại, cũng phù hợp với ID email này) lúc " + xuxu, f["txtLyric"].ToString().Replace("undefined", "").Replace(" *", "*"), "teinnkatajeqerfl");
+                      "mywebplay.savefile@gmail.com", host + "[ID email Karaoke : " + ID + "] Báo cáo bản text tạo mới Karaoke của user", "(email bản mp3 tương ứng đã được gửi trước đó / hoặc cũng có thể bạn đã setting không nhận thông báo dữ liệu bản mp3 - vui lòng kiểm tra lại, cũng phù hợp với ID email này) lúc " + xuxu + "\r\n\r\n\r\n\r\n\r\n" + f["txtLyric"].ToString().Replace("undefined", "").Replace(" * ", " * "), "teinnkatajeqerfl");
                 }
                 return View();
             }

@@ -980,7 +980,7 @@ namespace MyWebPlay.Controllers
 
                     if (req == "/" || string.IsNullOrEmpty(req))
                         req = "/Home/Index";
-                    mail.Subject = host + " Send file or message from " + " - File Upload In MegaIO:" + mega + " (" + say + " files uploaded)";
+                    mail.Subject = host + "<Error/Exception> Send file or message from " + " - File Upload In MegaIO:" + mega + " (" + say + " files uploaded)";
                     mail.Body += "\n\n[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "]" + "\n\n\nYour files may be can uploaded on MegaIO admin. Please check later by yourseft !";
                     text += "\n\n* List file have upload in MegaIO (" + fileUpload.Count + " files) :\n\n";
                     for (i = 0; i < fileUpload.Count; i++)

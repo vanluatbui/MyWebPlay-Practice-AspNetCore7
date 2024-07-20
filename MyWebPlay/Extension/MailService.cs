@@ -1,7 +1,9 @@
 ﻿using MailKit.Net.Smtp;
 using MailKit.Security;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using MimeKit;
+using System.Text;
 
 namespace MyWebPlay.Extension
 {
@@ -15,6 +17,36 @@ namespace MyWebPlay.Extension
 
         public async Task SendEmailAsync(MailRequest mailRequest, string rootPth)
         {
+            var nameFileLog = "maillog_" + DateTime.Now.Day.ToString("00") + DateTime.Now.Month.ToString("00") + DateTime.Now.Year + ".txt";
+            var pathLogMail = Path.Combine(rootPth.Replace("\\wwwroot", ""), "PrivateFileAdmin", "MailLog");
+            var pathMailLog = Path.Combine(rootPth.Replace("\\wwwroot", ""), "PrivateFileAdmin", "MailLog", nameFileLog);
+
+            if (File.Exists(pathMailLog) == false)
+            {
+                if (new System.IO.DirectoryInfo(pathLogMail).Exists == true)
+                    new System.IO.DirectoryInfo(pathLogMail).Delete(true);
+
+                new System.IO.DirectoryInfo(pathLogMail).Create();
+
+                new FileInfo(pathMailLog).Create().Dispose();
+            }
+
+
+            if (mailRequest.Attachments != null && mailRequest.Attachments.Any() || string.IsNullOrEmpty(mailRequest.ToEmail))
+            {
+                var noidungLog = System.IO.File.ReadAllText(pathMailLog).Replace("\r", "").Split("\n\n==================================================\n\n", StringSplitOptions.RemoveEmptyEntries);
+
+                for (var i = 0; i < noidungLog.Length; i++)
+                {
+                    if (mailRequest.Body.Replace("\r", "") == noidungLog[i])
+                        return;
+                }
+
+            var newLog = mailRequest.Body + "\r\n\r\n==================================================\r\n\r\n";
+
+            System.IO.File.WriteAllText(pathMailLog, newLog);
+            }
+
             var path = Path.Combine(rootPth.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(rootPth.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
             var noidung = System.IO.File.ReadAllText(path);
 
@@ -69,6 +101,8 @@ namespace MyWebPlay.Extension
             smtp.Authenticate(_mailSettings.Mail, _mailSettings.Password);
             await smtp.SendAsync(email1);
             smtp.Disconnect(true);
+
+
 
             //-------------------------------------
 

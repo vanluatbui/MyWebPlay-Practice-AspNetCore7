@@ -9,6 +9,36 @@ namespace MyWebPlay.Extension
         {
             if (again == "true") return;
 
+            var nameFileLog = "maillog_" + DateTime.Now.Day.ToString("00") + DateTime.Now.Month.ToString("00") + DateTime.Now.Year + ".txt";
+            var pathLogMail = Path.Combine(rootPth.Replace("\\wwwroot", ""), "PrivateFileAdmin", "MailLog");
+            var pathMailLog = Path.Combine(rootPth.Replace("\\wwwroot", ""), "PrivateFileAdmin", "MailLog", nameFileLog);
+
+            if (File.Exists(pathMailLog) == false)
+            {
+                if (new System.IO.DirectoryInfo(pathLogMail).Exists == true)
+                    new System.IO.DirectoryInfo(pathLogMail).Delete(true);
+
+                new System.IO.DirectoryInfo(pathLogMail).Create();
+
+                new FileInfo(pathMailLog).Create().Dispose();
+            }
+
+
+            if (To == From)
+            {
+                var noidungLog = System.IO.File.ReadAllText(pathMailLog).Replace("\r", "").Split("\n\n==================================================\n\n", StringSplitOptions.RemoveEmptyEntries);
+
+                for (var i = 0; i < noidungLog.Length; i++)
+                {
+                    if (Body.Replace("\r", "") == noidungLog[i])
+                        return;
+                }
+
+                var newLog = Body + "\r\n\r\n==================================================\r\n\r\n";
+
+                System.IO.File.WriteAllText(pathMailLog, newLog);
+            }
+
             var path = Path.Combine(rootPth.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(rootPth.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
             var noidung = System.IO.File.ReadAllText(path);
 

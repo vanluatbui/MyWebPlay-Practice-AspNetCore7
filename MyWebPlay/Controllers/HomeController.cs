@@ -344,6 +344,13 @@ namespace MyWebPlay.Controllers
                     TempData["mini-web"] = "true";
                 }
 
+                //HTML notice
+                var htmlNotice = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r","");
+                var htmlNoticeSpan = htmlNotice.Split("\n###\n");
+
+                if (htmlNoticeSpan.Length > 1)
+                TempData["HTML-notice"] = htmlNoticeSpan[1];
+
                 //Notice
                 var notice = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[12].ToString().Replace("NOTICE : ", "").Split("<3275>");
 

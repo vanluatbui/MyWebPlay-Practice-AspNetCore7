@@ -1184,7 +1184,7 @@ Layout = null;
                 <br />
                 <input type="checkbox" id="checkBelieve" onchange="changeShow('txtBelieve1','txtBelieve2','checkBelieve',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
                 <br />
-                <textarea readonly id="txtBelieve2" cols="30" rows="15" style="display:none">@ViewBag.Belive_Line</textarea>
+                <textarea readonly id="txtBelieve2" cols="50" rows="15" style="display:none">@ViewBag.Belive_Line</textarea>
                 }
                 else
                 if (Model.Topics[i].ID == "Code_LockedClient")
@@ -1232,7 +1232,7 @@ Layout = null;
                 <input type="checkbox" id="checkLock" onchange="changeShow('txtLock1','txtLock2','checkLock',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
                 <a style="color:red" href="#xuly" onClick="LuaChonDaDang('0')">Lựa chọn đa dạng</a><br />
                 <br />
-                <textarea readonly id="txtLock2" cols="30" rows="15" style="display:none">@ViewBag.LockedUseApp_Line</textarea>
+                <textarea readonly id="txtLock2" cols="50" rows="15" style="display:none">@ViewBag.LockedUseApp_Line</textarea>
                 }
                 else
                 if (Model.Topics[i].ID == "DownloadFile_ClearWeb")
@@ -1247,7 +1247,7 @@ Layout = null;
                 <input type="checkbox" id="checkAccept" onchange="changeShow('txtAcceptUrl1','txtAcceptUrl2','checkAccept',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
                 <a style="color:red" href="#xuly" onClick="LuaChonDaDang('1')">Lựa chọn đa dạng</a><br />
                 <br />
-                <textarea readonly id="txtAcceptUrl2" cols="30" rows="15" style="display:none">@ViewBag.AcceptListUrl_Line</textarea>
+                <textarea readonly id="txtAcceptUrl2" cols="50" rows="15" style="display:none">@ViewBag.AcceptListUrl_Line</textarea>
                 }
                 else
                 if (Model.Topics[i].ID == "TabTittle_NoiDung")

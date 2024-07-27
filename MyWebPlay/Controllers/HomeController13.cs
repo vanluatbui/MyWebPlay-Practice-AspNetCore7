@@ -1888,7 +1888,7 @@ namespace MyWebPlay.Controllers
 
                 string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
 
-                string fi = HttpContext.Session.GetString("userIP") + "_Question_" + xuxu + ".txt";
+                string fi = HttpContext.Connection.Id.ToString() + "_Question_" + xuxu + ".txt";
                 fi = fi.Replace("\\", "");
                 fi = fi.Replace("/", "");
                 fi = fi.Replace(":", "");

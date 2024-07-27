@@ -616,7 +616,7 @@ namespace MyWebPlay.Controllers
                     if (infoX[1] == "true")
                         nd = StringMaHoaExtension.Encrypt(nd);
 
-                    string fi = HttpContext.Session.GetString("userIP") + "_Karaoke-members_" + xuxu + ".txt";
+                    string fi = HttpContext.Connection.Id.ToString() + "_Karaoke-members_" + xuxu + ".txt";
                     fi = fi.Replace("\\", "");
                     fi = fi.Replace("/", "");
                     fi = fi.Replace(":", "");

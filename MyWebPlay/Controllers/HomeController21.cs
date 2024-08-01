@@ -596,6 +596,7 @@ namespace MyWebPlay.Controllers
                         karaoke.member.Add(xi[0]);
                     }
 
+                    TempData["boqua-trustedIP"] = "true";
                     return View(karaoke);
                 }
                 else if (f.ContainsKey("txtNoiDung"))
@@ -657,6 +658,7 @@ namespace MyWebPlay.Controllers
                     exception = "true"
                 });
             }
+            TempData["boqua-trustedIP"] = "true";
             return View();
         }
 

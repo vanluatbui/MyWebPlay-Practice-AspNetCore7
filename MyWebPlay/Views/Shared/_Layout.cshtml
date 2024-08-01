@@ -627,9 +627,13 @@
                window.location.href="/Home/BatSuTinTuong?url="+'@TempData["current"]' + "&&ip="+'@TempData["userIP"]';
              }
          
+
+             if ('@TempData["boqua-trustedIP"]' == null || '@TempData["boqua-trustedIP"]' != "true")
+             {
               if (window.localStorage.getItem('trusted-you') == null)
              {
                 window.location.href="/Home/TatSuTinTuong?url="+'@TempData["current"]';
+             }
              }
             }
          }

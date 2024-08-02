@@ -789,6 +789,21 @@ namespace MyWebPlay.Controllers
                 var noidung = f["txtNoiDung"].ToString();
                 var fix = string.Format("txtNoiDung : {0}\n", noidung);
                 HttpContext.Session.SetString("hanhdong_3275", fix);
+
+                bool check_var = false;
+                try
+                {
+                    StringMaHoaExtension.Decrypt(noidung);
+                    check_var = true;
+                }
+                catch
+                {
+                    check_var = false;
+                }
+
+                TempData["noidungTXT"] = "[Đã xảy ra lỗi. Vui lòng kiểm tra và thử lại sau]";
+
+                if (check_var == true)
                 TempData["noidungTXT"] = StringMaHoaExtension.Decrypt(noidung);
                 return View();
             }

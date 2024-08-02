@@ -1941,6 +1941,22 @@ namespace MyWebPlay.Controllers
                     {
                         if (info[1] == "true" && HttpContext.Session.GetString("trust-X-you") == null)
                         {
+                            var bool_copy = false;
+                            try
+                            {
+                                var sax = StringMaHoaExtension.Decrypt(s);
+                                bool_copy = true;
+                            }
+                            catch
+                            {
+                                bool_copy = false;
+                            }
+
+                            if (bool_copy)
+                            {
+                                s = StringMaHoaExtension.Decrypt(s);
+                            }
+
                             SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
                               "mywebplay.savefile@gmail.com", host + " Save Temp Create Question Answer File In " + name, s, "teinnkatajeqerfl");
                         }

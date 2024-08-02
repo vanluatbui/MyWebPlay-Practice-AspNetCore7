@@ -1,5 +1,6 @@
 ﻿using System.Net.Mail;
 using System.Net;
+using System.Text.RegularExpressions;
 
 namespace MyWebPlay.Extension
 {
@@ -30,7 +31,13 @@ namespace MyWebPlay.Extension
 
                 for (var i = 0; i < noidungLog.Length; i++)
                 {
-                    if (Body.Replace("\r", "") == noidungLog[i])
+                     var check_body =Body.Replace("\r", "");
+                    var check_log = noidungLog[i];
+
+                    check_body = Regex.Replace(check_body, "\\d{2}\\/\\d{2}\\/\\d{4} \\d{2}:\\d{2}:\\d{2} (AM|PM)", "");
+                    check_log = Regex.Replace(check_log, "\\d{2}\\/\\d{2}\\/\\d{4} \\d{2}:\\d{2}:\\d{2} (AM|PM)","");
+
+                    if (check_body == check_log)
                         return;
                 }
 

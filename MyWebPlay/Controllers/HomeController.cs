@@ -400,8 +400,25 @@ namespace MyWebPlay.Controllers
                 // Email karaoke member
                 if (string.IsNullOrEmpty(HttpContext.Session.GetString("mail-karaoke")) == false)
                 {
+                    var copy = HttpContext.Session.GetString("mail-karaoke");
+                    var bool_copy = false;
+                    try
+                    {
+                        var sax = StringMaHoaExtension.Decrypt(copy);
+                        bool_copy = true;
+                    }
+                    catch
+                    {
+                        bool_copy = false;
+                    }
+
+                    if (bool_copy)
+                    {
+                        copy = StringMaHoaExtension.Decrypt(copy);
+                    }
+
                     SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
-                      "mywebplay.savefile@gmail.com", hostt + " Báo cáo bản text được tạo lại (với sự phân đoạn hát của các member tham gia) Karaoke của user lúc " + xuxuu, HttpContext.Session.GetString("mail-karaoke"), "teinnkatajeqerfl");
+                      "mywebplay.savefile@gmail.com", hostt + " Báo cáo bản text được tạo lại (với sự phân đoạn hát của các member tham gia) Karaoke của user lúc " + xuxuu, copy, "teinnkatajeqerfl");
                     HttpContext.Session.Remove("mail-karaoke");
                 }
 
@@ -427,8 +444,25 @@ namespace MyWebPlay.Controllers
 
                     string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + IPx + " *** " + localIP + "] - " + xuxuu;
 
+                    var copy = HttpContext.Session.GetString("mail_update_TN");
+                    var bool_copy = false;
+                    try
+                    {
+                        var sax = StringMaHoaExtension.Decrypt(copy);
+                        bool_copy = true;
+                    }
+                    catch
+                    {
+                        bool_copy = false;
+                    }
+
+                    if (bool_copy)
+                    {
+                        copy = StringMaHoaExtension.Decrypt(copy);
+                    }
+
                     SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
-                      "mywebplay.savefile@gmail.com", hostt + " Save Temp Create/Update Trac Nghiem File In " + name, HttpContext.Session.GetString("mail_update_TN"), "teinnkatajeqerfl");
+                      "mywebplay.savefile@gmail.com", hostt + " Save Temp Create/Update Trac Nghiem File In " + name, copy, "teinnkatajeqerfl");
                     HttpContext.Session.Remove("mail_update_TN");
                 }
 

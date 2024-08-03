@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="PrivateFileAdmin\MailLog\" />
     <Folder Include="wwwroot\GetColorAtPicture\" />
     <Folder Include="wwwroot\karaoke\music\" />
     <Folder Include="wwwroot\karaoke_Example\background\" />

@@ -98,13 +98,13 @@ namespace MyWebPlay.Controllers
 
                 if (kbn == "0")
                 {
-                    TempData["KbnPage"] = "* Vui lòng tick chọn các page web không cho phép sử dụng ở bên dưới vả nhấn nút OK để áp dụng : ";
+                    TempData["KbnPage"] = "* Vui lòng tick chọn các page web không cho phép sử dụng ở bên dưới và nhấn nút OK để áp dụng : ";
                     ViewBag.PageKbn = "0";
                 }
                 else
                 if (kbn == "1")
                 {
-                    TempData["KbnPage"] = "* Vui lòng tick chọn các page web cho phép sử dụng ở bên dưới vả nhấn nút OK để áp dụng : ";
+                    TempData["KbnPage"] = "* Vui lòng tick chọn các page web cho phép sử dụng ở bên dưới và nhấn nút OK để áp dụng : ";
                     ViewBag.PageKbn = "1";
                 }
 

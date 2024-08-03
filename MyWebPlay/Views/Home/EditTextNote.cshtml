@@ -1,35 +1,157 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
-{
-Layout = null;
+﻿@{
+    Layout = null;
 }
-<script></script>
-<table align="center">
-    @using(Html.BeginForm())
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     @if (TempData["OffRandomTab"] == "true")
+        {
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@TempData["TabTittleView"]</title>
+        <link rel="icon" href="/images/imagex.png">
+        }
+        else
+        {
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@TempData["Tab_Tittle"]</title>
+        <link rel="icon" href="@TempData["Tab_Image"]">
+        }
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            padding: 10px;
+            background-color: #f0f0f0;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+            flex: 1;
+            position: relative;
+        }
+        .line-numbers {
+            width: 50px;
+            background-color: #f0f0f0;
+            color: #555;
+            text-align: right;
+            padding: 5px;
+            border-right: 1px solid #ddd;
+            white-space: pre;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .editor-container {
+            position: relative;
+            flex: 1;
+        }
+        .editor {
+            width: 100%;
+            height: 100%;
+            padding: 5px;
+            border: none;
+            resize: none;
+            outline: none;
+            font-size: 14px;
+            line-height: 1.5;
+            font-family: 'Courier New', Courier, monospace;
+            background: transparent;
+            color: transparent;
+            caret-color: black;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .highlight {
+            width: 100%;
+            height: 100%;
+            padding: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 14px;
+            line-height: 1.5;
+            font-family: 'Courier New', Courier, monospace;
+            color: black;
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        .space {
+            background-color: #e0e0e0;
+        }
+        .tab {
+            background-color: #d0d0d0;
+        }
+        .footer {
+            padding: 10px;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+        .footer button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body style="opacity:@TempData["opacity-body-css"]">
+     @using(Html.BeginForm())
     {
-    <h2 style="text-align:center">Edit Text Note File</h2>
-    <tr style="height:40px">
-        <td></td>
-        <td>
-            <input type="Submit" value="LƯU" />
-            <br>
-            <h4>@Html.ActionLink("Trở về", "ViewNoteFile")</h4>
-        </td>
-    </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
-            <br>
-            <br>
-            <textarea rows="500" cols="150" name="txtText" autofocus>@ViewBag.Text</textarea>
-        </td>
-    </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
-            <input type="Submit" value="LƯU" />
-            <br>
-            <h4>@Html.ActionLink("Trở về", "ViewNoteFile")</h4>
-        </td>
-    </tr>
+    <div class="header">Edit Text Note (soạn thảo bản nháp ghi chú)</div>
+    <div class="container">
+        <div class="line-numbers" id="lineNumbers">1</div>
+        <div class="editor-container">
+            <div class="highlight" id="highlight"></div>
+            <textarea class="editor" id="editor" name="txtText">@ViewBag.Text</textarea>
+        </div>
+    </div>
+    <div class="footer">
+         <button style="color:red">LƯU LẠI</button>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          @Html.ActionLink("Trở về", "ViewNoteFile")
+    </div>
     }
-</table>
+
+    <script>
+        const editor = document.getElementById('editor');
+        const highlight = document.getElementById('highlight');
+        const lineNumbers = document.getElementById('lineNumbers');
+
+        editor.addEventListener('input', updateContent);
+        editor.addEventListener('scroll', syncScroll);
+
+        function updateContent() {
+            const lines = editor.value.split('\n');
+            const formattedLines = lines.map(line => {
+                return line.replace(/^(\t+| +)/, match => 
+                    match.replace(/\t/g, '<span class="tab">→</span>').replace(/ /g, '<span class="space">·</span>'));
+            });
+            highlight.innerHTML = formattedLines.join('\n');
+            updateLineNumbers();
+        }
+
+        function updateLineNumbers() {
+            const lines = editor.value.split('\n').length;
+            lineNumbers.textContent = Array.from({ length: lines }, (_, i) => i + 1).join('\n');
+        }
+
+        function syncScroll() {
+            highlight.scrollTop = editor.scrollTop;
+            lineNumbers.scrollTop = editor.scrollTop;
+        }
+
+        updateContent();
+    </script>
+</body>
+</html>

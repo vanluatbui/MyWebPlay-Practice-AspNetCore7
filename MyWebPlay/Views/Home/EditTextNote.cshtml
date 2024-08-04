@@ -66,8 +66,8 @@
             font-size: 14px;
             line-height: 1.5;
             font-family: 'Courier New', Courier, monospace;
-            background: transparent;
-            color: transparent;
+            background: pink;
+            color: black;
             caret-color: black;
             position: absolute;
             top: 0;
@@ -105,18 +105,18 @@
         }
     </style>
 </head>
-<body style="opacity:@TempData["opacity-body-css"]">
+<body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]">
      @using(Html.BeginForm())
     {
-    <div class="header">Edit Text Note (soạn thảo bản nháp ghi chú)</div>
+    <div class="header" style="color:orangered" name="backgroundX">Edit Text Note (soạn thảo bản nháp ghi chú)</div>
     <div class="container">
-        <div class="line-numbers" id="lineNumbers">1</div>
+        <div name="backgroundX" class="line-numbers" id="lineNumbers">1</div>
         <div class="editor-container">
             <div class="highlight" id="highlight"></div>
-            <textarea class="editor" id="editor" name="txtText">@ViewBag.Text</textarea>
+            <textarea autofocus class="editor" id="editor" name="txtText">@ViewBag.Text</textarea>
         </div>
     </div>
-    <div class="footer">
+    <div class="footer" name="backgroundX">
          <button style="color:red">LƯU LẠI</button>
           &nbsp;&nbsp;&nbsp;&nbsp;
           @Html.ActionLink("Trở về", "ViewNoteFile")
@@ -124,6 +124,7 @@
     }
 
     <script>
+
         const editor = document.getElementById('editor');
         const highlight = document.getElementById('highlight');
         const lineNumbers = document.getElementById('lineNumbers');
@@ -152,6 +153,349 @@
         }
 
         updateContent();
+
+        //-----------------------------------------------
+
+         // Delete div somee
+        
+           if ('@TempData["mini-web"]' == "" || '@TempData["mini-web"]' == null || '@TempData["mini-web"]' == "false")
+        {
+           if ('@TempData["mini-web"]' == "false")
+           {
+               localStorage.removeItem("mini-Web");
+           }
+        
+            if ('@TempData["tathetweb"]' == "true")
+           {
+               window.location.href="/Home/Error";
+           }
+        
+           setInterval(function()
+           {
+                $(document).ready(function () {
+           $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
+           $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
+           $("div[onmouseover='S_ssac();']").remove();
+           $("center").remove();
+           $("div[style='height: 65px;']").remove();
+        });
+           },10);
+           if ('@TempData["UyTin"]' == "" && window.localStorage.getItem('@TempData["keytuyetdoi"]') != null && '@TempData["belix"]' == "false" && '@TempData["not-believe"]' == "false")
+        {
+            window.location.href = "/Home/MatDoTuyetDoi?mdtd="+localStorage.getItem('@TempData["keytuyetdoi"]');
+        }
+        
+         if ('@TempData["TestTuyetDoi"]' == "false" && window.localStorage.getItem('@TempData["keytuyetdoi"]') != null)
+        {
+           window.localStorage.removeItem('@TempData["keytuyetdoi"]');
+        }
+        
+        var ok = 0;
+        var xilip = 0;
+         if (ok == 0 && '@TempData["NotAlertQuickData"]' == "true" && '@TempData["BabyData"]' == "false")
+         {
+             ok = 1;
+              var x = Math.floor(Math.random() * 2 + 1);
+                if (x == 1)
+                 window.location.href = "http://learn.microsoft.com/en-us/aspnet/core/?view=aspnetcore-7.0";
+                 else
+                   window.location.href = "https://stackoverflow.com/questions";
+         }
+        
+         if ('@TempData["NotAlertQuickData"]' == "true")
+         xilip = 1;
+        
+        if (ok == 0 && localStorage.getItem("trusted-you") != "true" && (('@TempData["NotAlertQuickData"]' == "false" && '@TempData["UsingWebsite"]' == "false" && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null) || (window.localStorage.getItem('@TempData["keytuyetdoi"]') != null && '@TempData["not-believe"]' == "true")))
+        {
+            if ('@TempData["AlertUsingWebsite"]' == "true")
+            {
+            alert("⚠ Website hiện đang không hoạt động nên bây giờ bạn sẽ không thể sử dụng. Vui lòng quay lại sau, hoặc liên hệ tại email : mywebplay.website@gmail.com. Xin cảm ơn !");
+            ok = 1;
+            window.location.href = "/Home/LockedWeb";
+            }
+            else
+            {
+                ok = 1;
+        
+                var x = Math.floor(Math.random() * 2 + 1);
+                if (x == 1)
+                {
+                     if (('@TempData["mini-web"]' == "" || '@TempData["mini-web"]' == null ) && localStorage.getItem("mini-Web") != null)
+                    {
+                        var xd = localStorage.getItem("mini-Web");
+                        //localStorage.removeItem("mini-Web");
+                    window.location.href = "/Home/KiemTraMini?test="+xd+"&&url="+'@TempData["urlCurrent"]';
+                     }
+                     else
+                 window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
+                }
+                 else
+                 {
+                     if (('@TempData["mini-web"]' == "" || '@TempData["mini-web"]' == null ) && localStorage.getItem("mini-Web") != null)
+                    {
+                        var xd = localStorage.getItem("mini-Web");
+                        //localStorage.removeItem("mini-Web");
+                     window.location.href = "/Home/KiemTraMini?test="+xd+"&&url="+'@TempData["urlCurrent"]';
+                     }
+                     else
+                   window.location.href = "https://stackoverflow.com/questions";
+                 }
+            }
+        }
+
+        
+        // Get user IP
+        if (ok == 0 && '@TempData["GetDataIP"]' == "true")
+        {
+            var s = '@TempData["urlCurrent"]';
+            if (s == null || s == "" || s == "SessionPlay_DarkAdmin" || s == "/")
+            s = "Index";
+        
+        fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => window.location.href ="/Home/GetUserIP?ip="+data.ip+"&currentUrl="+s);
+        }
+        
+        if (ok == 0 && '@TempData["lockedClient"]' == "true" && '@TempData["data-result"]' == "false")
+        {
+            ok = 1;
+            window.location.href = "/Home/LockedWebClient";
+        }
+        
+        if (ok != 100 && '@TempData["Lock_Message"]' != null && '@TempData["Lock_Message"]' == "true")
+        {
+            @{
+            TempData["Lock_Message"] = "";
+        }
+            ok = 1;
+            alert("❤ [ADMIN] Đã [KHOÁ] kết nối trang web theo ID bạn yêu cầu !");
+            var win = window.open("about:blank", "_self");
+             win.close();
+             window.close();
+        }
+        
+         if (ok != 100 && '@TempData["Unlock_Message"]' != null && '@TempData["Unlock_Message"]' == "true")
+        {
+            @{
+            TempData["Unlock_Message"] = "";
+        }
+            ok = 100;
+             alert("❤ [ADMIN] Đã [MỞ KHOÁ] kết nối trang web theo ID bạn yêu cầu !");
+             var win = window.open("about:blank", "_self");
+             win.close();
+             window.close();
+        }
+        
+         if (ok != 100 && '@TempData["Logout_Message"]' != null && '@TempData["Logout_Message"]' == "true" )
+        {
+            @{
+            TempData["Logout_Message"] = "";
+        }
+            ok = 100;
+            alert("❤ [ADMIN] Đã đăng xuất tất cả kết nối theo ID bạn yêu cầu, họ sẽ phải bật lại trang web !");
+             var win = window.open("about:blank", "_self");
+             win.close();
+             window.close();
+        }
+        
+         if (ok == 0 && '@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true" )
+        {
+            if ('@TempData["AlertUsingWebsite"]' == "true")
+            {
+            ok = 10;
+            localStorage.setItem("keyX_PlayOnWeb", "true");
+            alert("Bạn đã bật trang web MyWebPlay thành công, bạn có thể sử dụng các tính năng tại trang web 😊!");
+            window.location.href = "/Home/RemoveTempData";
+            }
+            else
+            {
+                 var x = Math.floor(Math.random() * 2 + 1);
+                if (x == 1)
+                 window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
+                 else
+                   window.location.href = "https://stackoverflow.com/questions";
+                   ok = 10;
+            }
+        }
+        
+        
+        if (ok == 0 && '@TempData["continue"]' == "OK" && localStorage.getItem("keyX_PlayOnWeb") != "true" )
+        {
+            ok = 2;
+            window.location.href="/Home/AcceptContinueUseWeb";
+        }
+        
+         if (ok == 0 && '@TempData["ok-continue"]' == "yes" && localStorage.getItem("keyX_PlayOnWeb") != "true")
+        {
+             if ('@TempData["AlertUsingWebsite"]' == "true")
+            {
+            ok = 10;
+            alert("Đã cấp phép thành công, bạn có thể tiếp tục sử dụng các tính năng tại trang web trên IDs mới này 😎 !");
+            localStorage.setItem("keyX_PlayOnWeb", "true");
+             window.location.href = "/Home/RemoveTempData";
+            }
+             else
+            {
+                 var x = Math.floor(Math.random() * 2 + 1);
+                if (x == 1)
+                 window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
+                 else
+                   window.location.href = "https://stackoverflow.com/questions";
+                   ok = 10;
+            }
+        }
+        
+        
+        if (ok == 0 && '@TempData["AllConnect"]' == "false" && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true"  && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null && window.localStorage.getItem("trusted-you") == null)
+        {
+             if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
+            {
+            ok = 1;
+            alert("Để tiếp tục sử dụng, vui lòng tìm cách để có lại được sự cấp phép. Nếu không, hãy tắt sử dụng trang web và yêu cầu bật sử dụng lại (nếu bạn đã được admin approve trước đó và đang chờ đợi, hệ thống sẽ cho phép bạn quay trở lại trang Index ngay).\nHãy liên hệ lại với admin nếu sau đó bạn cũng không được chuyển hướng và cho phép tiếp tục sử dụng dịch vụ web.");
+            window.location.href = "/Home/Error";
+            }
+             else
+            {
+                 var x = Math.floor(Math.random() * 2 + 1);
+                if (x == 1)
+                 window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
+                 else
+                   window.location.href = "https://stackoverflow.com/questions";
+                   ok = 1;
+            }
+        }
+        
+        if (ok == 0 && '@TempData["continue-X"]' == "NO" && localStorage.getItem("keyX_PlayOnWeb") == "true")
+        {
+            ok = 3;
+            localStorage.removeItem("keyX_PlayOnWeb");
+             window.location.href = "/Home/RemoveTempData";
+        }
+        
+        if (ok == 0  && '@TempData["ok-continue-X"]' == "no")
+        {
+            ok = 10;
+            localStorage.removeItem("keyX_PlayOnWeb");
+             window.location.href = "/Home/RemoveTempData";
+        }
+        
+        if (ok == 0 && '@TempData["lock"]' == "true" )
+        {
+             if ('@TempData["AlertUsingWebsite"]' == "true")
+            {
+            ok = 4;
+            alert("⚠ Trang web hiện đang bị khoá bởi người đảm quyền, không thể kết nối đối với một số trường hợp. Vì vậy, vui lòng chờ đợi sau khi admin duyệt và mở khoá để có thể tiếp tục. Nếu bạn muốn gửi email xin phép, liên hệ tại : mywebplay.website@gmail.com");
+            window.location.href = "/Home/LockedWeb";
+            }
+             else
+            {
+                 var x = Math.floor(Math.random() * 2 + 1);
+                if (x == 1)
+                 window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
+                 else
+                   window.location.href = "https://stackoverflow.com/questions";
+                   ok = 4;
+            }
+        }
+        
+         if (xilip == 0 && ok == 0 && '@TempData["AllConnect"]' == "false" && ('@TempData["PlayOnWebInLocal-X"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null)) && '@TempData["skipIP"]' != "true" && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null && window.localStorage.getItem("trusted-you") == null)
+        {
+             if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
+            {
+            ok = 1;
+            localStorage.removeItem("keyX_PlayOnWeb");
+            if ('@TempData["InError"]' == null)
+            alert("Bạn đã tắt trang web MyWebPlay thành công, để sử dụng lại hãy thực hiện các bước để bật 😎 !");
+            else
+            alert("⚠ Tất cả kết nối phiên bản của bạn hiện đã hết hạn sử dụng hoặc chưa được bật, vui lòng bật lại trang web để sử dụng !");
+            window.location.href="/Home/LockedWeb";
+            }
+             else
+            {
+                 var x = Math.floor(Math.random() * 2 + 1);
+                if (x == 1)
+                 window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
+                 else
+                   window.location.href = "https://stackoverflow.com/questions";
+                   ok = 1;
+            }
+         }
+        
+            if ('@TempData["ok-tin-IP"]' == "true")
+            {
+                window.localStorage.setItem('trusted-you', "true");
+            }
+        
+            if ('@TempData["trust-about"]' == "false")
+            {
+                 window.localStorage.removeItem('trusted-you');
+            }
+        
+            if ((window.localStorage.getItem('@TempData["keytuyetdoi"]') == null) || (window.localStorage.getItem('@TempData["keytuyetdoi"]') != null && '@TempData["not-believe"]' == "true"))
+            {
+            if ('@TempData["skipIP"]' != "true")
+            {
+               if ('@TempData["alert-trust"]' == "false" && '@TempData["data-result"]' == "false" && '@TempData["directURL"]' == "false")
+               {
+                if (window.localStorage.getItem('trusted-you') != null && window.localStorage.getItem('trusted-you') == "true")
+                {
+                    window.location.href="/Home/BatSuTinTuong?url="+'@TempData["current"]' + "&&ip="+'@TempData["userIP"]';
+                }
+            
+                 if (window.localStorage.getItem('trusted-you') == null)
+                {
+                    window.location.href="/Home/TatSuTinTuong?url="+'@TempData["current"]';
+                }
+               }
+            }
+            }
+        
+             //-----------------------------------------------
+        
+        var sang = 0;
+            if ('@TempData["mau_background"]' == "white")
+            {
+                sang = 1;
+            }
+        
+            var xongmau = 0;
+            var iss = setInterval(function(){
+                 if (xongmau == 1) return;
+        
+                if (localStorage.getItem("nensangtoi") != null)
+                {
+                    sang = localStorage.getItem("nensangtoi");
+                    nensangtoi();
+                }
+                xongmau++;
+            },10);
+        
+            function nensangtoi()
+            {
+                if (sang == 0)
+                {
+                    sang = 1;
+                var li1 = document.getElementsByName("backgroundX").length;
+                for (var i = 0 ; i<li1; i++)
+                {
+                    document.getElementsByName("backgroundX")[i].style.backgroundColor = "white";
+                }
+               }
+               else
+               {
+                   sang = 0;
+                var li1 = document.getElementsByName("backgroundX").length;
+                for (var i = 0 ; i<li1; i++)
+                {
+                    document.getElementsByName("backgroundX")[i].style.backgroundColor = "black";
+                }
+               }
+            }
+            }
+
     </script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
 </html>

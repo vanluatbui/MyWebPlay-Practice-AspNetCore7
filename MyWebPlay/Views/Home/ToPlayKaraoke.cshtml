@@ -612,7 +612,7 @@
 
                         document.getElementById("message").style.display = "block";
                         document.getElementById("error").style.display = "block";
-                        document.getElementById("error").innerHTML = "Lưu ý : Khi bật chế độ full màn hình, các option menu sẽ bị ẩn (nhằm mở rộng không gian). Bạn cũng có thể nhấn phím M hoặc m để hiện/ẩn khung menu.";
+                        document.getElementById("error").innerHTML = "Lưu ý : Khi bật chế độ full màn hình, các option menu sẽ bị ẩn (nhằm mở rộng không gian). Bạn cũng có thể nhấn phím M hoặc m để hiện/ẩn khung menu.<br />MẸO BỔ SUNG : hãy rê chuột vào các nút và các element đang có ở khung menu để hiện hướng dẫn sử dụng cũng như các phím tắt cần thiết nhé.";
                         notice = 1;
                     } else {
                         if (document.exitFullscreen) {
@@ -1950,9 +1950,9 @@
         } else {
         <div class="video-overlay" id="play">
             <table align="center" onended="loadsolar()">
-                <b id="error" style="color: red; display: none;"><span is="error"></span></b>
+                <b id="error" style="color: red; display: none;background-color:yellow"></b>
                 <img style="width: 50px; height: 50px; display: none;" id="loadingX" src="/Image_Play/waiting.gif" />
-                <b id="message" style="color: deeppink; display: none;"><a href="#xuly" onclick="xoaerror()">Click để tắt thông báo</a></b>
+                <b id="message" style="color: deeppink; display: none;background-color:aqua"><a href="#xuly" onclick="xoaerror()">Click để tắt thông báo</a></b>
                 <br />
                 <br />
                 <div id="hienlinh" style="display: none;">

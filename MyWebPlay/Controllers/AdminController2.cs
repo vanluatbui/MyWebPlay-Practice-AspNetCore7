@@ -365,7 +365,7 @@ namespace MyWebPlay.Controllers
                     var ndx = HttpContext.Session.GetString("nd-file-admin");
                     if (ndx == null) return RedirectToAction("Error", "Home");
                     HttpContext.Session.Remove("nd-file-admin");
-                    TempData["nd-file-admin"] = ndx.Replace("\r","").Replace("\n", "<br />");
+                    TempData["nd-file-admin"] = ndx.Replace("\r","").Replace("\n", "<br />").Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
                     return View();
                 }
 

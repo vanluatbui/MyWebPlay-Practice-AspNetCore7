@@ -79,7 +79,7 @@ namespace MyWebPlay.Controllers
             return 1;
         }
 
-        public ActionResult Error(string? onoff)
+        public ActionResult Error(string? onoff, string? encrypt)
         {
             try
             {
@@ -103,7 +103,7 @@ namespace MyWebPlay.Controllers
                 var onEncryptSetting = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[9];
                 if (onEncryptSetting == "ENCRYPT_LOCK_FILE_ADMIN_SETTING_WHEN_GO_TO_PAGE_ERROR_ON")
                 {
-                    if (noidung.Contains("[ENCRYPT]") == false)
+                    if (noidung.Contains("[ENCRYPT]") == false || encrypt == "true")
                     {
                         noidung = StringMaHoaExtension.Encrypt(noidung, "32752262");
                         System.IO.File.WriteAllText(path, "[ENCRYPT]" + noidung);
@@ -111,7 +111,7 @@ namespace MyWebPlay.Controllers
                     TempData["HTML-visible"] = "0";
                     return View();
                 }
-                else
+                else if (onEncryptSetting == "ENCRYPT_LOCK_FILE_ADMIN_SETTING_WHEN_GO_TO_PAGE_ERROR_OFF" || encrypt == "false")
                 {
                     if (noidung.Contains("[ENCRYPT]"))
                     {

@@ -65,8 +65,16 @@ Layout = null;
     <tr style="height:40px">
         <td> <b> Tải file MP3 của bạn (nhằm giúp bạn nghe ca sĩ hát để xác định thời điểm của mỗi đoạn lyric) || hoặc nhập url *.mp3 online (khuyến khích) :  </b></td>
         <td>
-            <input type="file" name="txtMusic"/>&nbsp;&nbsp;<input size="100" type="text" name="txtMusic1" />
-            <br>
+            @if(TempData["fileSuDung"] == "true")
+            {
+                        <input type="file" name="txtMusic"/>
+                    }
+                    else
+                    {
+                        <input disabled type="file" name="txtMusic"/>
+                    }
+                    &nbsp;&nbsp;<input size="100" type="text" name="txtMusic1" />
+                    <br>
             <br />
         </td>
     </tr>

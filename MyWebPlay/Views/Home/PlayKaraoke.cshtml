@@ -654,7 +654,15 @@ Layout = null;
                     <br>
                     <b> Tải file TXT karaoke (đã xử lý) : </b>
                     <br>
-                    <input type="file" name="txtKaraoke"/>  <b>@Html.ActionLink("Bạn chưa có file text karaoke?","CreateFile_Karaoke")</b>
+                     @if(TempData["fileSuDung"] == "true")
+                     {
+                            <input type="file" name="txtKaraoke"/>
+                        }
+                        else
+                        {
+                             <input disabled type="file" name="txtKaraoke"/>
+                        }
+                        <b>@Html.ActionLink("Bạn chưa có file text karaoke?","CreateFile_Karaoke")</b>
                     <br>
                 </td>
             </tr>
@@ -664,8 +672,15 @@ Layout = null;
                     <br>
                     <b> Tải file MP3 karaoke - nhạc gốc có giọng ca sĩ (đã xử lý) : </b>
                     <br>
-                    <input type="file" name="txtMusix"/>
-                    <br>
+                     @if(TempData["fileSuDung"] == "true")
+                     {
+                            <input type="file" name="txtMusix"/>
+                        }
+                        else
+                        {
+                             <input disabled type="file" name="txtMusix"/>
+                        }
+                        <br>
                 </td>
             </tr>
             <tr style="height:40px">
@@ -674,8 +689,15 @@ Layout = null;
                     <br>
                     <b> Tải file MP3 karaoke - nhạc beat tách giọng ca sĩ (karaoke - đã xử lý) : </b>
                     <br>
-                    <input type="file" name="txtMusic"/>
-                    <br>
+                     @if(TempData["fileSuDung"] == "true")
+                     {
+                            <input type="file" name="txtMusic"/>
+                        }
+                        else
+                        {
+                             <input disabled type="file" name="txtMusic"/>
+                        }
+                        <br>
                 </td>
             </tr>
             <tr style="height:40px">

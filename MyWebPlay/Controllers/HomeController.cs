@@ -348,7 +348,20 @@ namespace MyWebPlay.Controllers
                 var htmlNotice = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r","");
                 var htmlNoticeSpan = htmlNotice.Split("\n###\n");
 
-                if (htmlNoticeSpan.Length > 1)
+                var pthY = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
+                var ndY = System.IO.File.ReadAllText(pthY);
+                var onoffY = ndY.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[3];
+
+                if (onoffY == "file_TAT")
+                {
+                    TempData["fileSuDung"] = "false";
+                }
+                else
+                {
+                    TempData["fileSuDung"] = "true";
+                }
+
+                    if (htmlNoticeSpan.Length > 1)
                 TempData["HTML-notice"] = htmlNoticeSpan[1];
 
                 //Notice

@@ -700,7 +700,7 @@
                 if (notice == 0) return;
 
                 t_notice++;
-                if (t_notice == 10) {
+                if (t_notice == 20) {
                     t_notice = 0;
                     notice = 0;
 
@@ -1845,7 +1845,15 @@
                     <br />
                     <b> Tải file TXT karaoke (đã xử lý) || hoặc nhập url *.txt online (khuyến khích) : </b>
                     <br />
-                    <input type="file" name="txtKaraoke" /> &nbsp;&nbsp;<input size="100" type="text" name="txtKaraoke1" /><br />
+                     @if(TempData["fileSuDung"] == "true")
+                     {
+                    <input type="file" name="txtKaraoke" />
+                     }
+                     else
+                     {
+                          <input disabled type="file" name="txtKaraoke" />
+                     }
+                    &nbsp;&nbsp;<input size="100" type="text" name="txtKaraoke1" /><br />
                     <b>@Html.ActionLink("Bạn chưa có file text karaoke?","CreateFile_Karaoke")</b><br />
                     <b style="color: darkgreen;">@Html.ActionLink("Phân đoạn hát cho các member? (sau khi bạn đã tạo file text Karaoke từ hệ thống)","PhanDoanMember_Karaoke")</b>
                     <br />
@@ -1857,7 +1865,15 @@
                     <br />
                     <b> Tải file MP3 karaoke - nhạc gốc có giọng ca sĩ (đã xử lý) || hoặc nhập url *.mp3 online (khuyến khích) : </b>
                     <br />
-                    <input type="file" name="txtMusix" />&nbsp;&nbsp;<input size="100" type="text" name="txtMusix1" />
+                     @if(TempData["fileSuDung"] == "true")
+                     {
+                    <input type="file" name="txtMusix" />
+                     }
+                     else
+                     {
+                          <input disabled type="file" name="txtMusix" />
+                     }
+                    &nbsp;&nbsp;<input size="100" type="text" name="txtMusix1" />
                     <br />
                 </td>
             </tr>
@@ -1867,7 +1883,15 @@
                     <br />
                     <b> Tải file MP3 karaoke - nhạc beat tách giọng ca sĩ (karaoke - đã xử lý) || hoặc nhập url *.mp3 online (khuyến khích) : </b>
                     <br />
-                    <input type="file" name="txtMusic" />&nbsp;&nbsp;<input size="100" type="text" name="txtMusic1" />
+                     @if(TempData["fileSuDung"] == "true")
+                     {
+                    <input type="file" name="txtMusic" />
+                     }
+                     else
+                     {
+                          <input disabled type="file" name="txtMusic" />
+                     }
+                    &nbsp;&nbsp;<input size="100" type="text" name="txtMusic1" />
                     <br />
                 </td>
             </tr>
@@ -2272,7 +2296,15 @@
                         <br />
                         <b> Tải file TXT karaoke (đã xử lý) || hoặc nhập url *.txt online (khuyến khích) : </b>
                         <br />
-                        <input type="file" name="txtKaraoke" />&nbsp;&nbsp;<input size="100" type="text" name="txtKaraoke1" /><br />
+                         @if(TempData["fileSuDung"] == "true")
+                         {
+                        <input type="file" name="txtKaraoke" />
+                         }
+                         else
+                         {
+                             <input disabled type="file" name="txtKaraoke" />
+                         }
+                        &nbsp;&nbsp;<input size="100" type="text" name="txtKaraoke1" /><br />
                         <b>@Html.ActionLink("Bạn chưa có file text karaoke?","CreateFile_Karaoke")</b><br />
                         <b style="color: darkgreen;">@Html.ActionLink("Phân đoạn hát cho các member? (sau khi bạn đã tạo file text Karaoke từ hệ thống)","PhanDoanMember_Karaoke")</b>
                         <br />
@@ -2284,7 +2316,15 @@
                         <br />
                         <b> Tải file MP3 karaoke - nhạc gốc có giọng ca sĩ (đã xử lý) || hoặc nhập url *.mp3 online (khuyến khích) : </b>
                         <br />
-                        <input type="file" name="txtMusix" />&nbsp;&nbsp;<input size="100" type="text" name="txtMusix1" />
+                         @if(TempData["fileSuDung"] == "true")
+                         {
+                                        <input type="file" name="txtMusix" />
+                                    }
+                                    else
+                                    {
+                                        <input type="file" name="txtMusix" disabled />
+                                    }
+                                    &nbsp;&nbsp;<input size="100" type="text" name="txtMusix1" />
                         <br />
                     </td>
                 </tr>
@@ -2294,7 +2334,15 @@
                         <br />
                         <b> Tải file MP3 karaoke - nhạc beat tách giọng ca sĩ (karaoke - đã xử lý) || hoặc nhập url *.mp3 online (khuyến khích) : </b>
                         <br />
-                        <input type="file" name="txtMusic" />&nbsp;&nbsp;<input size="100" type="text" name="txtMusic1" />
+                         @if(TempData["fileSuDung"] == "true")
+                         {
+                        <input type="file" name="txtMusic" />
+                         }
+                         else
+                         {
+                              <input disabled type="file" name="txtMusic" />
+                         }
+                         &nbsp;&nbsp;<input size="100" type="text" name="txtMusic1" />
                         <br />
                     </td>
                 </tr>
@@ -2526,7 +2574,7 @@
         </div>
         } else if (ViewBag.Share == "ERROR") {
         <br />
-        <h3 style="color: red;">⚠️ Dữ liệu bạn đang cố gắng truy cập hiện không tồn tại hoặc không hợp lệ, vui lòng thử lại sau!</h3>
+        <h3 style="color: red;">⚠️ Dữ liệu bạn đang cố gắng truy cập hiện không tồn tại/không hợp lệ hoặc đang gặp sự cố, vui lòng thử lại sau!</h3>
         <br />
         <a href="/Home/ToPlayKaraoke">Back Karaoke</a>
         }

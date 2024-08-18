@@ -12,8 +12,15 @@ Layout = null;
 @using (Html.BeginForm("GetColorAtPicture", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
 @Html.ValidationSummary(true)
-<input type="file" name="txtFile" />
-<br /><br />
+ @if(TempData["fileSuDung"] == "true")
+ {
+        <input type="file" name="txtFile" />
+    }
+    else
+    {
+        <input type="file" name="txtFile" disabled />
+    }
+    <br /><br />
 <input type="Submit" value="Kết Quả" />
 }
 <br />

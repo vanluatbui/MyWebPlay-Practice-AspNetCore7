@@ -2070,6 +2070,164 @@ Layout = null;
             <span style="color:red">Mẹo : để thay đổi link hosting (server ngoài) karaoke demo của hệ thống, vào trang SessionPlay và thiết lập giá trị session C# có key là "kara-demox-3275" là link mới bạn muốn thay đổi, sau đó load lại trang Home bất kỳ để được cập nhật tương ứng...</span><br />
         </span>
         <br />
+        <br/>
+        <div id="changesetting"></div>
+        @using (Html.BeginForm("ThayDoiSetting", "Admin"))
+        {
+        @Html.ValidationSummary(true)
+        <br />
+        <tr style="height:40px">
+            <td><textarea cols="180" rows="10"  name="txtSetting">@TempData["setting-play"]</textarea></td>
+            <br /><br />
+            <td><input id="matma" size="30" type="password" name="txtPassword" /></td>
+            <br /><br />
+            <td><button type="submit" style="color:mediumblue">THAY ĐỔI</button></td>
+            <br /><br />
+            <span style="color:red">Để reset lại nội dung mặc định, tại trang play session C# sử dụng key "reset-play-setting" với giá trị là 32752262_20062000 (tốt nhất nên thực hiện thêm bước API để khôi phục setting admin).</span>
+            <br />
+            <span style="color:orangered">Phần &#34;Notice : [NULL]&#34; khi không có thông báo (nếu có thì sẽ luôn luôn xuất hiện). Để cho phép user tắt nhận thông báo ấy, phía sau thêm "&lt;3275&gt;<span style="color:crimson">mã số bất kỳ</span>".<br />Lưu ý : khi bạn đổi mã số khác thì user lại nhận thông báo đó 1 lần nữa và cũng có thể chọn huỷ một lần nữa và cứ như thế...</span>
+            <br />
+            <span style="color:orangered">Phía cuối setting &#34;Không nhận email mã xác minh 2 bước admin setting - sử dụng backup code&#34;, có thể thêm link mp3 online để làm nhạc nền trang web.</span>
+             <br />
+            <span style="color:orangered">Phía cuối cùng nhất sau khi các setting được liệt kê, bổ sung &#34;###&#34; sau đó là đoạn HTML để hiển thị/thiết kế tạm thời trên trang Index.</span>
+            <br />
+            <br />
+            <span style="color:darkslategrey">
+                [Lưu ý : thiết đặt mật khẩu mới (Admin) nên tránh 1 số các kí tự đặc biệt, bị nhầm lẫn với URL và mã hoá với HTML...]<br />
+<br />
+Play : http://localhost:5000/<br />
+<br />
+1. Setting : http://localhost:5000/Admin/SettingXYZ_DarkAdmin<br />
+<br />
+ID : myadmin<br />
+Value : admin_3275 (trừ khi đã thay đổi ở mục 2 bên dưới)<br />
+<br />
+2. Session : http://localhost:5000/Home/SessionPlay_DarkAdmin<br />
+<br />
+Thay đổi mật khẩu vào setting admin (nếu quên) -&gt; trang SessionPlay :<br />
+<br />
++ ID : [32752262]&lt;ID key của bạn&gt;<br />
+<br />
++ Value : [32752262]&lt;Mật mã value của bạn&gt;<br />
+<br />
+=&gt; Sau đó nhấn button add save session C#.<br />
+<br />
+3. Nếu bạn lỡ cài đặt khoá trang web vĩnh viễn, vào trang error bất kỳ của web :<br />
+<br />
+[Đảm bảo hãy thực hiện điều 1 ở trên trước]<br />
+<br />
+Nhấn F12 để mở giao diện Dev Tool của trình duyệt, tại console gõ :<br />
+<br />
+window.localStorage.setItem(&quot;mokhoa-web&quot;,&quot;&lt;mật khẩu admin&gt;&quot;);<br />
+<br />
+=&gt; Sau đó thử truy cập trang admin setting...<br />
+<br />
+Khi bạn đã truy cập được trang setting admin này (chỉ là tạm thời)<br />
+<br />
+Hãy thật là nhanh chóng dùng hết sức công lực vuốt thẳng tuốt phía cuối trang sẽ có<br />
+cái item setting [Khoá all web site page - kể cả admin] đang bật thì mau mau tắt nó đi trong vòng 3 giây 🤣 =&gt; không kịp 3 giây thì làm lại đi nhé!!!<br />
+<br />
+4. Hiện tại, mỗi khi văng lỗi hay exception =&gt; sẽ đều chuyển hướng đến trang page Error. Để xem nội dung log lỗi/exception vừa gặp, có thể vào trang SessionPlay và đọc data của session C# &quot;error_exception_log&quot;... (dấu hiệu để nhận biết đã có một data log về error hay exception vừa được lưu vào session là trang error page - URL có truyền param : exception = true) [và hãy tự kiểm tra ngay và nhanh chóng]<br />
+<br />
+5. Ngoài ra, trong setting admin có thể liệt kê các tiện ích/page của web (/Controller/ActionName) bị cấm truy cập và sử dụng. Nhưng nếu gặp sự cố hay muốn huỷ bỏ có thể chỉnh sửa gián tiếp của cài đặt này thông qua trang SessionPlay :<br />
+<br />
++ ID : [20062000]&lt;Mật khẩu admin hiện tại (ở mục 2)&gt;<br />
+<br />
++ Value : [20062000]&lt;/Controller/ActionName mà bạn muốn huỷ bỏ sự chặn từ setting&gt;<br />
+<br />
+=&gt; Sau đó nhấn button add save session C#.<br />
+<br />
+6. Nếu lúc đầu bạn vào trang Index mà thấy có hình ảnh gif một bánh răng xoay tròn liên tục (tức là nó đang get IP). Nhưng nếu cảm thấy get lâu quá, có thể vào trang SessionPlay và thêm tạm &quot;0.0.0.0&quot; vào session C# của &quot;userIP&quot;.<br />
+<br />
+//Các hướng dẫn và web page còn lại cũng có ghi (tạm) trên trang setting hoặc bạn tự tìm hiểu thêm nhé. Thanks you!❤🤩😁...<br />
+<br />
+- Ngoài ra bí mật bạn có thể thay đổi setting admin gián tiếp bằng cách Play trang Session và add session C# như sau :<br />
+<br />
+	+ Key :[ID admin&lt;&gt;Password admin-adsetdata]<br />
+	+ Value : ID setting (bạn tự tìm ở project local)###true/false hoặc giá trị cần thay đổi của setting đó (bạn tự đảm bảo)<br />
+<br />
+Còn nếu bạn muốn xem tình trạng hiện tại của setting nào đó gián tiếp, cũng có thể get value session Play C# như sau :<br />
+<br />
++ Key :[ID admin&lt;&gt;Password admin-adsetview]<br />
++ Value : ID setting bạn muốn xem (bạn tự tìm ở project local)<br />
+<br />
+------------------------------------------------------------------------<br />
+<br />
+- Hiện tại, nếu bạn tắt hết tất cả các item setting admin thì khi truy cập bất cứ trang nào cũng sẽ chuyển hướng đến page error/page mạo khác (cho dù có là IP tin tưởng hay mật độ tuyệt đối,...) =&gt; Vì vậy, để không bị ảnh hưởng bởi điều trên và cho phép các IP tin tưởng hay mật độ tuyệt đối có thể truy cập khi website đang tắt hoạt động hay các user chưa đăng kí sử dụng thì phải bật setting &quot;Hoạt động web site&quot; hoặc &quot;Thông báo khi website tắt hoạt động - tạm thời chỉ có cách này :(( 💜 ...<br />
+<br />
+- Lời khuyên khi cảm thấy không an toàn đối với web (ví dụ có kẻ xâm nhập hoặc sợ bị phát hiện); hãy tắt hết tất cả item setting. Sau đó tiêu diệt web site (ở mục 3)...<br />
+<br />
+- Hiện nay vì lý do bảo mật : trang login setting admin hay trang admin setting muốn truy cập trước hết vào trang SessionPlay và add session C# :<br />
+<br />
+	[20063275]&lt;Pass admin&gt; : [20063275]&lt;on&gt; (còn nếu muốn tắt thì : [20063275]&lt;Pass admin&gt; : [20063275]&lt;off&gt;) - hoặc : /Error?onoff=off ...<br />
+Ngoài ra page Error còn có thể sử dụng param URL là encrypt (với 2 giá trị tuỳ chọn : true hoặc false) để bật/tắt encrypt secure admin setting...
+<br />
+========================================<br />
+<br />
+Mẫu form external (mạo diện HTML) để upload file - chỉ dành cho admin :<br />
+<br />
+&lt;form enctype=&quot;multipart/form-data&quot; action=&quot;/Home/UploadFile&quot; method=&quot;post&quot;&gt;<br />
+&lt;input type=&quot;text&quot; name=&quot;txtMail&quot; /&gt;<br />
+&lt;textarea name=&quot;Text&quot; cols=&quot;10&quot; rows=&quot;5&quot; hidden&gt;External upload file [mywebplay]&lt;/textarea&gt;<br />
+&lt;input readonly type=&quot;number&quot; name=&quot;DuKienYX&quot; min=&quot;1&quot; max=&quot;2&quot; value=&quot;1&quot;/&gt;<br />
+&lt;input type=&quot;file&quot; name=&quot;fileUpload&quot; multiple /&gt;<br />
+&lt;input type=&quot;number&quot; name=&quot;DuKienXY&quot; min=&quot;1&quot; max=&quot;3&quot; value=&quot;2&quot; /&gt;<br />
+&lt;input type=&quot;text&quot; name=&quot;txtExternal&quot; size=&quot;3&quot; value=&quot;true&quot; hidden /&gt;<br />
+&lt;input type =&quot;submit&quot; value=&quot;OK&quot; /&gt;<br />
+&lt;/form&gt;<br />
+<br />
+Tại chỗ txtExternal có thể đổi thành External (API).<br />
+<br />
+[API upload file] thư mục /apiUpload (cũng là Home/ApiUpload - nhưng không cần name External)<br />
+<br />
+===========================<br />
+<br />
+Mẫu form external (mạo diện HTML) để gửi nội dung qua mail admin :<br />
+<br />
+&lt;form action=&quot;/Home/LogMail&quot; method=&quot;post&quot;&gt;<br />
+&lt;input type=&quot;text&quot; name=&quot;txtMail&quot; /&gt;<br />
+&lt;textarea name=&quot;txtText&quot; cols=&quot;10&quot; rows=&quot;5&quot;&gt;&lt;/textarea&gt;<br />
+&lt;input type =&quot;submit&quot; value=&quot;OK&quot; /&gt;<br />
+&lt;/form&gt;<br />
+<br />
+[Thêm name External - API]<br />
+<br />
+=======================<br />
+<br />
+Mẫu form external (mạo diện HTML) để ứng luồng DATA POST QUICK ADMIN (nên setting lấy kết quả post data bằng file download *.txt và chuyển hướng đến file đó)<br />
+<br />
+&lt;form action=&quot;/Admin/QuickDataInWeb&quot; method=&quot;post&quot;&gt;<br />
+&lt;textarea name=&quot;txtNoiDung&quot; cols=&quot;10&quot; rows=&quot;5&quot;&gt;&lt;/textarea&gt;<br />
+&lt;input type =&quot;submit&quot; value=&quot;OK&quot; /&gt;<br />
+&lt;/form&gt;<br />
+<br />
+=&gt; Và với các dịch vụ mạo diện External/API, bạn có thể thêm input text &quot;txtReturn&quot; để sau khi xử lý xong sẽ reload lại ngay chính trang mạo diện tạm đó...<br />
+---------------------------<br />
+<br />
+<br />
+/Admin/KhoiPhucSetting_Admin (sử dụng gửi bằng API - postman)<br />
+<br />
+ID : ID admin<br />
+Key : mật khẩu admin<br />
+<br />
+<br />
+========================================<br />
+<br />
+<br />
+Khi xử lý DeleteBin, sẽ xoá hết các file hết hạn/cũ/rác...<br />
+Tuy nhiên, với các file được upload qua API sẽ được bỏ qua<br />
+Nếu bạn muốn xoá hết/refresh toàn bộ (không chừa cái gì) - DeleteBin truyền thêm param apidel = true (mặc định là false)<br />
+<br />
+P/s : Lưu ý; chỉ với khi thực hiện DeleteBin (API) và chỉ với các file được upload lên server ở thư mục qua API, nếu xảy ra hành động load trang Home/Index hoặc admin tự click link refresh dữ liệu thì toàn bộ dữ liệu vẫn sẽ bị xoá/refresh bình thường.<br />
+<br />
+<br />
+==========================================<br />
+<br />
+<br />
+Good bye, MyWebPlay 2023 !
+            </span>
+              <br />
+              <br />
         <br />
         <br />
         <div style="background-color:blueviolet">
@@ -2104,28 +2262,6 @@ Layout = null;
             </tr>
             }
         </div>
-        <br />
-        <br/>
-        <div id="changesetting"></div>
-        @using (Html.BeginForm("ThayDoiSetting", "Admin"))
-        {
-        @Html.ValidationSummary(true)
-        <br />
-        <tr style="height:40px">
-            <td><textarea cols="180" rows="10"  name="txtSetting">@TempData["setting-play"]</textarea></td>
-            <br /><br />
-            <td><input id="matma" size="30" type="password" name="txtPassword" /></td>
-            <br /><br />
-            <td><button type="submit" style="color:mediumblue">THAY ĐỔI</button></td>
-            <br /><br />
-            <span style="color:red">Để reset lại nội dung mặc định, tại trang play session C# sử dụng key "reset-play-setting" với giá trị là 32752262_20062000 (tốt nhất nên thực hiện thêm bước API để khôi phục setting admin).</span>
-            <br />
-            <span style="color:orangered">Phần &#34;Notice : [NULL]&#34; khi không có thông báo (nếu có thì sẽ luôn luôn xuất hiện). Để cho phép user tắt nhận thông báo ấy, phía sau thêm "&lt;3275&gt;<span style="color:crimson">mã số bất kỳ</span>".<br />Lưu ý : khi bạn đổi mã số khác thì user lại nhận thông báo đó 1 lần nữa và cũng có thể chọn huỷ một lần nữa và cứ như thế...</span>
-            <br />
-            <span style="color:orangered">Phía cuối setting &#34;Không nhận email mã xác minh 2 bước admin setting - sử dụng backup code&#34;, có thể thêm link mp3 online để làm nhạc nền trang web.</span>
-             <br />
-            <span style="color:orangered">Phía cuối cùng nhất sau khi các setting được liệt kê, bổ sung &#34;###&#34; sau đó là đoạn HTML để hiển thị/thiết kế tạm thời trên trang Index.</span>
-            <br />
         </tr>
         }
     </div>

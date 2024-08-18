@@ -1,4 +1,5 @@
-﻿using MyWebPlay.Extension;
+﻿using Microsoft.AspNetCore.Hosting;
+using MyWebPlay.Extension;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,12 +30,19 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseSession();
-
-
 app.UseAuthorization();
+
+var sao = System.IO.File.ReadAllText(Path.Combine(app.Environment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n");
+var port = sao[21].Split("-");
+
+builder.WebHost.UseUrls(port);
+
+var phan = sao[20].Split("--");
+
+var con = string.Format("@leftcontroller={0}@right/@leftaction={1}@right/@leftid?@right", phan[0], phan[1]);
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: con.Replace("@left","{").Replace("@right", "}"));
 
 app.Run();

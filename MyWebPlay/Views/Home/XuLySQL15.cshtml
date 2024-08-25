@@ -1,0 +1,43 @@
+﻿@if (TempData["ViewSiteBasic"] == "true")
+{
+Layout = null;
+}
+<script>
+    function xoaValue(ele)
+    {
+          document.getElementById(ele).value = "";
+          document.getElementById(ele).focus();
+    }
+</script>
+<table align="center">
+    <h2 style="text-align:center">Xử lý SQL 15</h2>
+    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
+    @using (Html.BeginForm())
+    {
+    @Html.ValidationSummary(true)
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <br>
+            <a href="#xuly" onclick="xoaValue('datatext')"> <b>Nhập dữ liệu theo format sau (tên bảng[Tab]tên field[Tab]kiểu dữ liệu[Tab]kích thước[Tab]text tiếng Nhật/comment) - mỗi thành phần tách nhau bởi Enter : </b></a><br>
+            <br>
+            <textarea name="txtDataText" id="datatext" cols="100" rows="10">@ViewBag.DataText</textarea>
+            <br>
+        </td>
+    </tr>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <input type="Submit" value="Kết Quả" />
+        </td>
+    </tr>
+    }
+</table>
+<br /><br />
+******************************************************************************************************************************************************************************
+<br />
+<br />
+<br />
+<div id="hihi">
+    @Html.Raw(ViewBag.Result) <br><br>@if(TempData["fileResult"] != null) {<a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>}
+</div>

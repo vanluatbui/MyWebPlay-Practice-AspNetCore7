@@ -1,0 +1,118 @@
+﻿/*
+=========================================================================================================
+  Module      : {1} respoistory ({1}Repository.cs)
+ ･･･････････････････････････････････････････････････････････････････････････････････････････････････････
+  Copyright   : Copyright W2 Co.,Ltd. {0} All Rights Reserved.
+=========================================================================================================
+*/
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using w2.Common.Extensions;
+using w2.Common.Sql;
+using w2.Common.Util;
+
+namespace w2.Domain.{1}
+{
+	/// <summary>
+	/// {1} respository
+	/// </summary>
+	public class {1}Repository : RepositoryBase
+	{
+		/// <summary>{1} SQL XMK Key</summary>
+		private const string XML_KEY_NAME = "{1}";
+
+		#region コンストラクタ
+		/// <summary>
+		/// デフォルトコンストラクタ
+		/// </summary>
+		public {1}Repository()
+		{
+		}
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
+		/// <param name="accessor">SQLアクセサ</param>
+		public {1}Repository(SqlAccessor accessor)
+			: base(accessor)
+		{
+		}
+		#endregion
+
+		#region ~GetAll{1}
+		/// <summary>
+		/// Get all {2}
+		/// </summary>
+		/// <returns>{1} models</returns>
+		internal {1}Model[] GetAll{1}()
+		{
+			var dv = Get(XML_KEY_NAME, "GetAll{1}");
+			var {2}s = dv.Cast<DataRowView>().Select(drv => new {1}Model(drv)).ToArray();
+			return {2}s;
+		}
+		#endregion
+
+		#region ~Get{1}ById
+		/// <summary>
+		/// Get {2} by id
+		/// </summary>
+		/// <param name="Id">ID</param>
+		/// <returns>{1} model</returns>
+		internal {1}Model Get{1}ById(string Id)
+		{
+			var input = new Hashtable
+			{
+				{Constants.FIELD_USER_USER_ID, Id},
+			};
+
+			var dv = Get(XML_KEY_NAME, "Get{1}ById", input);
+			var {2} = new {1}Model(dv[0]);
+			return {2};
+		}
+		#endregion
+
+		#region ~Insert
+		/// <summary>
+		/// Insert
+		/// </summary>
+		/// <param name="{2}">{1} model</param>
+		internal void Insert({1}Model {2})
+		{
+			Exec(XML_KEY_NAME, "Insert", {2}.DataSource);
+		}
+		#endregion
+
+		#region ~Update
+		/// <summary>
+		/// Update
+		/// </summary>
+		/// <param name="{2}">{1} model</param>
+		/// <returns>Result</returns>
+		internal int Update({1}Model {2})
+		{
+			var result = Exec(XML_KEY_NAME, "Update", {2}.DataSource);
+			return result;
+		}
+		#endregion
+
+		#region ~Delete
+		/// <summary>
+		/// Delete
+		/// </summary>
+		/// <param name="Id">ID</param>
+		/// <returns>Result</returns>
+		internal int Delete(string Id)
+		{
+			var input = new Hashtable
+			{
+				{Constants.FIELD_USER_USER_ID, Id},
+			};
+			var result = Exec(XML_KEY_NAME, "Delete", input);
+			return result;
+		}
+		#endregion
+	}
+}

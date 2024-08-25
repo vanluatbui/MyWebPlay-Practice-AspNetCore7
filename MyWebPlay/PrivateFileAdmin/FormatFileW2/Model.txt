@@ -1,0 +1,53 @@
+﻿/*
+=========================================================================================================
+  Module      : {1} model ({1}Model.cs)
+ ･･･････････････････････････････････････････････････････････････････････････････････････････････････････
+  Copyright   : Copyright W2 Co.,Ltd. {0} All Rights Reserved.
+=========================================================================================================
+*/
+using System;
+using System.Collections;
+using System.Data;
+using w2.Common.Extensions;
+
+namespace w2.Domain.{1}
+{
+	/// <summary>
+	/// {1} model
+	/// </summary>
+	[Serializable]
+	public partial class {1}Model : ModelBase<{1}Model>
+	{
+		#region コンストラクタ
+		/// <summary>
+		/// デフォルトコンストラクタ
+		/// </summary>
+		public {1}Model()
+		{
+			// TODO:定数を利用するよう書き換えてください。
+			@@ input_data_1 @@
+		}
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
+		/// <param name="source">ソース</param>
+		public {1}Model(DataRowView source)
+			: this(source.ToHashtable())
+		{
+		}
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
+		/// <param name="source">ソース</param>
+		public {1}Model(Hashtable source)
+			: this()
+		{
+			this.DataSource = source;
+		}
+		#endregion
+
+		#region プロパティ
+		@@ input_data_2 @@
+		#endregion
+	}
+}

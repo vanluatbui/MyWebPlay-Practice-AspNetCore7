@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+=========================================================================================================
+  Module      : {0} XML({0}.xml)
+ ･･･････････････････････････････････････････････････････････････････････････････････････････････････････
+  Copyright   : Copyright W2 Co.,Ltd. {1} All Rights Reserved.
+=========================================================================================================
+-->
+<{0}>
+  
+  <!-- Get all {2} -->
+  <GetAll{0}>
+    <Statement>
+      <![CDATA[
+              SELECT  {3}.*
+                FROM  {3}
+      ]]>
+    </Statement>
+  </GetAll{0}>
+
+  <!-- Get {2} by id -->
+  <GetUserById>
+    <Statement>
+      <![CDATA[
+              SELECT  {3}.*
+                FROM  {3}
+               WHERE  {3}.id = @id
+      ]]>
+    </Statement>
+    <Parameter>
+      <Input Name="id" Type="nvarchar" Size="30" />
+    </Parameter>
+  </Get{0}ById>
+
+  <!-- Insert-->
+  <Insert>
+    <Statement>
+      <![CDATA[
+        INSERT  {3}
+                (
+                  @@ input_insert_1 @@
+                )
+        VALUES  (
+                  @@ input_insert_2 @@
+                )
+      ]]>
+    </Statement>
+    <Parameter>
+      @@ input_data @@
+    </Parameter>
+  </Insert>
+
+  <!-- Update -->
+  <Update>
+    <Statement>
+      <![CDATA[
+              UPDATE  {3}
+                 SET  @@ input_update @@
+               WHERE  {3}.id = @id
+      ]]>
+    </Statement>
+    <Parameter>
+      @@ input_data @@
+    </Parameter>
+  </Update>
+
+  <!-- Delete -->
+  <Delete>
+    <Statement>
+      <![CDATA[
+              DELETE  {3}
+               WHERE  {3}.id = @id
+      ]]>
+    </Statement>
+    <Parameter>
+      <Input Name="id" Type="nvarchar" Size="30" />
+    </Parameter>
+  </Delete>
+
+</{0}>
+

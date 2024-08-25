@@ -1,0 +1,103 @@
+﻿/*
+=========================================================================================================
+  Module      : {1} ({1}Service.cs)
+ ･･･････････････････････････････････････････････････････････････････････････････････････････････････････
+  Copyright   : Copyright W2 Co.,Ltd. {0} All Rights Reserved.
+=========================================================================================================
+*/
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using w2.Common.Logger;
+using w2.Common.Sql;
+
+namespace w2.Domain.{1}
+{
+	/// <summary>
+	/// {1} service
+	/// </summary>
+	public class {1}Service : ServiceBase
+	{
+		#region +GetAll{1}
+		/// <summary>
+		/// Get all {2}
+		/// </summary>
+		/// <returns>{1} models</returns>
+		public {1}Model[] GetAll()
+		{
+			using (var repository = new {1}Repository())
+			{
+				var {2}s = repository.GetAll{1}();
+				return {2}s;
+			}
+		}
+		#endregion
+
+		#region +Get{1}ById
+		/// <summary>
+		/// Get {2} by id
+		/// </summary>
+		/// <param name="Id">ID</param>
+		/// <returns>{1} model</returns>
+		public {1}Model Get(string Id)
+		{
+			using (var repository = new {1}Repository())
+			{
+				var {2} = repository.Get{1}ById(Id);
+				return {2};
+			}
+		}
+		#endregion
+
+		#region +Insert
+		/// <summary>
+		/// Insert
+		/// </summary>
+		/// <param name="{2}">{1} model</param>
+		/// <param name="accessor">Sql accessor</param>
+		public void Insert({1}Model {2}, SqlAccessor accessor = null)
+		{
+			using (var repository = new {1}Repository(accessor))
+			{
+				repository.Insert({2});
+			}
+		}
+		#endregion
+
+		#region +Update
+		/// <summary>
+		/// Update
+		/// </summary>
+		/// <param name="{2}">{1} model</param>
+		/// <param name="accessor">SQL accessor</param>
+		/// <returns>Result</returns>
+		public int Update({1}Model {2}, SqlAccessor accessor = null)
+		{
+			using (var repository = new {1}Repository(accessor))
+			{
+				var result = repository.Update(model);
+				return result;
+			}
+		}
+		#endregion
+
+		#region +Delete
+		/// <summary>
+		/// Delete
+		/// </summary>
+		/// <param name="Id">ID</param>
+		/// <param name="accessor">SQL accessor</param>
+		/// <returns>Result</returns>
+		public void Delete(string Id, SqlAccessor accessor = null)
+		{
+			using (var repository = new {1}Repository(accessor))
+			{
+				var result = repository.Delete(Id);
+				return result;
+			}
+		}
+		#endregion
+	}
+}

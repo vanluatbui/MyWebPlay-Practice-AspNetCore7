@@ -799,6 +799,25 @@
         
         toanmanhinh();
         },10);
+
+        if ('@TempData["AdminControl"]' == "true")
+        {
+            if (localStorage.getItem("nensangtoi") != null)
+            {
+                var nenst = localStorage.getItem("nensangtoi");
+                localStorage.setItem("nensangtoi_temp", nenst);
+                localStorage.removeItem("nensangtoi");
+            }
+        }
+        else
+        {
+;            if (localStorage.getItem("nensangtoi_temp") != null)
+            {
+                var nenst = localStorage.getItem("nensangtoi_temp");
+                localStorage.setItem("nensangtoi", nenst);
+                localStorage.removeItem("nensangtoi_temp");
+            }
+        }
         
     </script>
    @if (TempData["AdminControl"] == "false" && TempData["ClearWebsite"] == "false")

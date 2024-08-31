@@ -1,4 +1,5 @@
 /Admin/XoaViewMark
+/Admin/BackupDataAdmin
 /Admin/ReadAdminFileByStatic
 /Admin/ThayDoiSetting
 /Admin/CapNhatStatusSetting

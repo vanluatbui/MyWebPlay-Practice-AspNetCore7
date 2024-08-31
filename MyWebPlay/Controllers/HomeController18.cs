@@ -23,7 +23,7 @@ namespace MyWebPlay.Controllers
                 noidung = noidung.Replace(ip + "##", "");
                 System.IO.File.WriteAllText(path, noidung);
 
-                TempData["Logout_Message"] = "true";
+                TempData["Logout_Message"] = "true"; HttpContext.Session.SetString("accept_notice", "32752262");
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -101,7 +101,7 @@ namespace MyWebPlay.Controllers
                     noidung += ip + "##";
                     System.IO.File.WriteAllText(path, noidung);
                 }
-                TempData["Lock_Message"] = "true";
+                TempData["Lock_Message"] = "true"; HttpContext.Session.SetString("accept_notice", "32752262");
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -250,7 +250,7 @@ namespace MyWebPlay.Controllers
 
                 noidung = noidung.Replace(ip + "##", "");
                 System.IO.File.WriteAllText(path, noidung);
-                TempData["Unlock_Message"] = "true";
+                TempData["Unlock_Message"] = "true"; HttpContext.Session.SetString("accept_notice", "32752262");
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -460,7 +460,7 @@ namespace MyWebPlay.Controllers
 
                 if (id.ToString("0000") == minute + hour)
                 {
-                    TempData["ok-continue"] = "yes";
+                    TempData["ok-continue"] = "yes"; HttpContext.Session.SetString("accept_notice", "32752262");
                     string ID = "";
                     var IPx = "";
 

@@ -1,0 +1,44 @@
+﻿@{
+    Layout = null;
+}
+@if (TempData["alert_admin"] != null && TempData["alert_admin"] != "")
+{
+    <style>
+        /* Kiểu dáng cho hộp thoại */
+        .custom-dialog {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        z-index: 1000;
+        border-radius: 10px;
+        }
+
+        /* Kiểu dáng cho nội dung hộp thoại */
+        .custom-dialog-content h3 {
+        margin-top: 0;
+        font-size: 20px;
+        color: #333;
+        }
+
+        .custom-dialog-content p {
+        margin: 10px 0;
+        font-size: 20px;
+        color: black;
+        }
+
+    </style>
+
+    <div id="custom-alert" class="custom-dialog">
+        <div class="custom-dialog-content">
+            <h3 style="color:red">MyWebPlay xin thông báo</h3>
+            <p>@TempData["alert_admin"]</p>
+            <br />
+            <span style="color:blue">Nội dung này sẽ hiển thị và tự động đóng lại sau 15 giây (và có thể còn có thông báo khác sau đó).</span>
+            <br />
+        </div>
+    </div>
+}

@@ -449,5 +449,66 @@ namespace MyWebPlay.Controllers
 
             return RedirectToAction("LoginSettingAdmin");
         }
+
+        public ActionResult FrameNoticeAdmin(int? notice)
+        {
+            if (notice == null || HttpContext.Session.GetString("accept_notice") == null || HttpContext.Session.GetString("accept_notice") != "32752262")
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            HttpContext.Session.Remove("accept_notice");
+
+            switch (notice)
+            {
+                case 0:
+                    TempData["alert_admin"] = "⚠ Website hiện đang không hoạt động nên bây giờ bạn sẽ không thể sử dụng. Vui lòng quay lại sau, hoặc liên hệ tại email : mywebplay.website@gmail.com. Xin cảm ơn !";
+                    break;
+
+                case 1:
+                    TempData["alert_admin"] = "❤ [ADMIN] Đã [KHOÁ] kết nối trang web theo ID bạn yêu cầu !";
+                    break;
+
+                case 2:
+                    TempData["alert_admin"] = "❤ [ADMIN] Đã [MỞ KHOÁ] kết nối trang web theo ID bạn yêu cầu !";
+                    break;
+
+                case 3:
+                    TempData["alert_admin"] = "❤ [ADMIN] Đã đăng xuất tất cả kết nối theo ID bạn yêu cầu, họ sẽ phải bật lại trang web !";
+                    break;
+
+                case 4:
+                    TempData["alert_admin"] = "Bạn đã bật trang web MyWebPlay thành công, bạn có thể sử dụng các tính năng tại trang web 😊!";
+                    break;
+
+                case 5:
+                    TempData["alert_admin"] = "Đã cấp phép thành công, bạn có thể tiếp tục sử dụng các tính năng tại trang web trên IDs mới này 😎 !";
+                    break;
+
+                case 6:
+                    TempData["alert_admin"] = "Để tiếp tục sử dụng, vui lòng tìm cách để có lại được sự cấp phép. Nếu không, hãy tắt sử dụng trang web và yêu cầu bật sử dụng lại (nếu bạn đã được admin approve trước đó và đang chờ đợi, hệ thống sẽ cho phép bạn quay trở lại trang Index ngay).\nHãy liên hệ lại với admin nếu sau đó bạn cũng không được chuyển hướng và cho phép tiếp tục sử dụng dịch vụ web.";
+                    break;
+
+                case 7:
+                    TempData["alert_admin"] = "⚠ Trang web hiện đang bị khoá bởi người đảm quyền, không thể kết nối đối với một số trường hợp. Vì vậy, vui lòng chờ đợi sau khi admin duyệt và mở khoá để có thể tiếp tục. Nếu bạn muốn gửi email xin phép, liên hệ tại : mywebplay.website@gmail.com";
+                    break;
+
+                case 8:
+                    TempData["alert_admin"] = "Bạn đã tắt trang web MyWebPlay thành công, để sử dụng lại hãy thực hiện các bước để bật 😎 !";
+                    break;
+
+                case 9:
+                    TempData["alert_admin"] = "⚠ Tất cả kết nối phiên bản của bạn hiện đã hết hạn sử dụng hoặc chưa được bật, vui lòng bật lại trang web để sử dụng !";
+                    break;
+
+
+                default:
+                    TempData["alert_admin"] = "";
+                    break;
+            } 
+
+
+            return View();
+        }
     }
 }

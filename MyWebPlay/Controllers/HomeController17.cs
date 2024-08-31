@@ -154,7 +154,7 @@ namespace MyWebPlay.Controllers
 
                 if (key == "true")
                 {
-                    TempData["PlayOnWebInLocal"] = "true";
+                    TempData["PlayOnWebInLocal"] = "true"; HttpContext.Session.SetString("accept_notice", "32752262");
                     noidung += IP + "##";
                     System.IO.File.WriteAllText(path, noidung);
                 }

@@ -335,6 +335,7 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                HttpContext.Session.Remove("accept_notice");
                 var urlCurrent = TempData["urlCurrent"];
                 TempData["urlCurrent"] = urlCurrent;
 
@@ -703,13 +704,13 @@ namespace MyWebPlay.Controllers
                     }
 
                     if (flox == 0)
-                        TempData["NotAlertQuickData"] = "false";
+                        TempData["NotAlertQuickData"] = "false"; HttpContext.Session.SetString("accept_notice", "32752262");
 
                     if (flix == 1 && flx == 1 && info[0] == "NotAlert_QuickData")
                     {
                         if (info[1] == "false")
                         {
-                            TempData["NotAlertQuickData"] = "false";
+                            TempData["NotAlertQuickData"] = "false"; HttpContext.Session.SetString("accept_notice", "32752262");
                         }
                         else
                         {
@@ -837,7 +838,10 @@ namespace MyWebPlay.Controllers
                     if (info[0] == "All_People")
                     {
                         if (info[1] == "false")
+                        {
                             TempData["AllConnect"] = "false";
+                            HttpContext.Session.SetString("accept_notice", "32752262");
+                        }
                         else
                             TempData["AllConnect"] = "true";
                     }
@@ -1135,7 +1139,7 @@ namespace MyWebPlay.Controllers
                 {
                     if (noidung2.Contains(listIP[i]))
                     {
-                        TempData["lock"] = "true";
+                        TempData["lock"] = "true"; HttpContext.Session.SetString("accept_notice", "32752262");
                         TempData["data-result"] = "true";
                         break;
                     }

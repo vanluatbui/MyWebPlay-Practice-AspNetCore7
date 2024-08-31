@@ -223,9 +223,25 @@
         {
             if ('@TempData["AlertUsingWebsite"]' == "true")
             {
-            alert("⚠ Website hiện đang không hoạt động nên bây giờ bạn sẽ không thể sử dụng. Vui lòng quay lại sau, hoặc liên hệ tại email : mywebplay.website@gmail.com. Xin cảm ơn !");
+                var nai = 0;
+                setInterval(function()
+                {
+                    var bodyIndex = document.getElementById("bodyIndex");
+                    bodyIndex.style.display = "none";
+                    if (nai == 15)
+                    {
+                        window.location.href = "/Home/LockedWeb";
+                    }
+
+                if (nai == 0)
+                {
+                var noticeFrame = document.getElementById("noticeFrame");
+                noticeFrame.style.display = "block";
+                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=0";
+                }
+                nai++;
+                },1000);
             ok = 1;
-            window.location.href = "/Home/LockedWeb";
             }
             else
             {
@@ -282,10 +298,26 @@
             TempData["Lock_Message"] = "";
         }
             ok = 1;
-            alert("❤ [ADMIN] Đã [KHOÁ] kết nối trang web theo ID bạn yêu cầu !");
-            var win = window.open("about:blank", "_self");
-             win.close();
-             window.close();
+            var nai = 0;
+                setInterval(function()
+                {
+                    var bodyIndex = document.getElementById("bodyIndex");
+                    bodyIndex.style.display = "none";
+                    if (nai == 15)
+                    {
+                                    var win = window.open("about:blank", "_self");
+                                    win.close();
+                                    window.close();
+                    }
+
+                if (nai == 0)
+                {
+                var noticeFrame = document.getElementById("noticeFrame");
+                noticeFrame.style.display = "block";
+                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=1";
+                }
+                nai++;
+                },1000);
         }
         
          if (ok != 100 && '@TempData["Unlock_Message"]' != null && '@TempData["Unlock_Message"]' == "true")
@@ -294,10 +326,26 @@
             TempData["Unlock_Message"] = "";
         }
             ok = 100;
-             alert("❤ [ADMIN] Đã [MỞ KHOÁ] kết nối trang web theo ID bạn yêu cầu !");
-             var win = window.open("about:blank", "_self");
+             var nai = 0;
+                setInterval(function()
+                {
+                    var bodyIndex = document.getElementById("bodyIndex");
+                    bodyIndex.style.display = "none";
+                    if (nai == 15)
+                    {
+                                    var win = window.open("about:blank", "_self");
              win.close();
              window.close();
+                    }
+
+                if (nai == 0)
+                {
+                var noticeFrame = document.getElementById("noticeFrame");
+                noticeFrame.style.display = "block";
+                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=2";
+                }
+                nai++;
+                },1000);
         }
         
          if (ok != 100 && '@TempData["Logout_Message"]' != null && '@TempData["Logout_Message"]' == "true" )
@@ -306,10 +354,26 @@
             TempData["Logout_Message"] = "";
         }
             ok = 100;
-            alert("❤ [ADMIN] Đã đăng xuất tất cả kết nối theo ID bạn yêu cầu, họ sẽ phải bật lại trang web !");
-             var win = window.open("about:blank", "_self");
+             var nai = 0;
+                setInterval(function()
+                {
+                    var bodyIndex = document.getElementById("bodyIndex");
+                    bodyIndex.style.display = "none";
+                    if (nai == 15)
+                    {
+                                   var win = window.open("about:blank", "_self");
              win.close();
              window.close();
+                    }
+
+                if (nai == 0)
+                {
+                var noticeFrame = document.getElementById("noticeFrame");
+                noticeFrame.style.display = "block";
+                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=3";
+                }
+                nai++;
+                },1000);
         }
         
          if (ok == 0 && '@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true" )
@@ -318,8 +382,24 @@
             {
             ok = 10;
             localStorage.setItem("keyX_PlayOnWeb", "true");
-            alert("Bạn đã bật trang web MyWebPlay thành công, bạn có thể sử dụng các tính năng tại trang web 😊!");
-            window.location.href = "/Home/RemoveTempData";
+             var nai = 0;
+                setInterval(function()
+                {
+                    var bodyIndex = document.getElementById("bodyIndex");
+                    bodyIndex.style.display = "none";
+                    if (nai == 15)
+                    {
+                       window.location.href = "/Home/RemoveTempData";
+                    }
+
+                if (nai == 0)
+                {
+                var noticeFrame = document.getElementById("noticeFrame");
+                noticeFrame.style.display = "block";
+                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=4";
+                }
+                nai++;
+                },1000);
             }
             else
             {
@@ -344,9 +424,25 @@
              if ('@TempData["AlertUsingWebsite"]' == "true")
             {
             ok = 10;
-            alert("Đã cấp phép thành công, bạn có thể tiếp tục sử dụng các tính năng tại trang web trên IDs mới này 😎 !");
             localStorage.setItem("keyX_PlayOnWeb", "true");
-             window.location.href = "/Home/RemoveTempData";
+             var nai = 0;
+                setInterval(function()
+                {
+                    var bodyIndex = document.getElementById("bodyIndex");
+                    bodyIndex.style.display = "none";
+                    if (nai == 15)
+                    {
+                        window.location.href = "/Home/RemoveTempData";
+                    }
+
+                if (nai == 0)
+                {
+                var noticeFrame = document.getElementById("noticeFrame");
+                noticeFrame.style.display = "block";
+                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=5";
+                }
+                nai++;
+                },1000);
             }
              else
             {
@@ -365,8 +461,24 @@
              if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
             {
             ok = 1;
-            alert("Để tiếp tục sử dụng, vui lòng tìm cách để có lại được sự cấp phép. Nếu không, hãy tắt sử dụng trang web và yêu cầu bật sử dụng lại (nếu bạn đã được admin approve trước đó và đang chờ đợi, hệ thống sẽ cho phép bạn quay trở lại trang Index ngay).\nHãy liên hệ lại với admin nếu sau đó bạn cũng không được chuyển hướng và cho phép tiếp tục sử dụng dịch vụ web.");
-            window.location.href = "/Home/Error";
+             var nai = 0;
+                setInterval(function()
+                {
+                    var bodyIndex = document.getElementById("bodyIndex");
+                    bodyIndex.style.display = "none";
+                    if (nai == 15)
+                    {
+                        window.location.href = "/Home/Error";
+                    }
+
+                if (nai == 0)
+                {
+                var noticeFrame = document.getElementById("noticeFrame");
+                noticeFrame.style.display = "block";
+                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=6";
+                }
+                nai++;
+                },1000);
             }
              else
             {
@@ -393,13 +505,29 @@
              window.location.href = "/Home/RemoveTempData";
         }
         
-        if (ok == 0 && '@TempData["lock"]' == "true" )
+        if (ok == 0 && '@TempData["lock"]' == "true")
         {
              if ('@TempData["AlertUsingWebsite"]' == "true")
             {
             ok = 4;
-            alert("⚠ Trang web hiện đang bị khoá bởi người đảm quyền, không thể kết nối đối với một số trường hợp. Vì vậy, vui lòng chờ đợi sau khi admin duyệt và mở khoá để có thể tiếp tục. Nếu bạn muốn gửi email xin phép, liên hệ tại : mywebplay.website@gmail.com");
-            window.location.href = "/Home/LockedWeb";
+             var nai = 0;
+                setInterval(function()
+                {
+                    var bodyIndex = document.getElementById("bodyIndex");
+                    bodyIndex.style.display = "none";
+                    if (nai == 15)
+                    {
+                        window.location.href = "/Home/LockedWeb";
+                    }
+
+                if (nai == 0)
+                {
+                var noticeFrame = document.getElementById("noticeFrame");
+                noticeFrame.style.display = "block";
+                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=7";
+                }
+                nai++;
+                },1000);
             }
              else
             {
@@ -419,11 +547,48 @@
             ok = 1;
             localStorage.removeItem("keyX_PlayOnWeb");
             if ('@TempData["InError"]' == null)
-            alert("Bạn đã tắt trang web MyWebPlay thành công, để sử dụng lại hãy thực hiện các bước để bật 😎 !");
-            else
-            alert("⚠ Tất cả kết nối phiên bản của bạn hiện đã hết hạn sử dụng hoặc chưa được bật, vui lòng bật lại trang web để sử dụng !");
-            window.location.href="/Home/LockedWeb";
+            {
+            var nai = 0;
+                setInterval(function()
+                {
+                    var bodyIndex = document.getElementById("bodyIndex");
+                    bodyIndex.style.display = "none";
+                    if (nai == 15)
+                    {
+                        window.location.href = "/Home/LockedWeb";
+                    }
+
+                if (nai == 0)
+                {
+                var noticeFrame = document.getElementById("noticeFrame");
+                noticeFrame.style.display = "block";
+                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=8";
+                }
+                nai++;
+                },1000);
             }
+            else
+            {
+            var nai = 0;
+                setInterval(function()
+                {
+                    var bodyIndex = document.getElementById("bodyIndex");
+                    bodyIndex.style.display = "none";
+                    if (nai == 15)
+                    {
+                        window.location.href = "/Home/LockedWeb";
+                    }
+
+                if (nai == 0)
+                {
+                var noticeFrame = document.getElementById("noticeFrame");
+                noticeFrame.style.display = "block";
+                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=9";
+                }
+                nai++;
+                },1000);
+            }
+          }
              else
             {
                  var x = Math.floor(Math.random() * 2 + 1);
@@ -820,6 +985,8 @@
         }
         
     </script>
+    <iframe id="noticeFrame" style="display:none;margin:0 auto;width:100%;height:100%"></iframe>
+    <div id="bodyIndex">
    @if (TempData["AdminControl"] == "false" && TempData["ClearWebsite"] == "false")
 {
     <header>
@@ -908,6 +1075,7 @@ else
         </audio>
     </footer>
 }
+</div>
 
 <style>
     body {

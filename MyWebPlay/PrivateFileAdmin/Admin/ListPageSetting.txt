@@ -1,4 +1,5 @@
 /Admin/XoaViewMark
+/Admin/FrameNoticeAdmin
 /Admin/BackupDataAdmin
 /Admin/ReadAdminFileByStatic
 /Admin/ThayDoiSetting

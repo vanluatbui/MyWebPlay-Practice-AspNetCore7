@@ -505,8 +505,7 @@ namespace MyWebPlay.Controllers
                 default:
                     TempData["alert_admin"] = "";
                     break;
-            } 
-
+            }
 
             return View();
         }

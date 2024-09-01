@@ -1,7 +1,65 @@
 ﻿@model MyWebPlay.Model.TracNghiem
 @if (TempData["ViewSiteBasic"] == "true")
 {
-Layout = null;
+    Layout = null;
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+         var tim1 = 30;
+        var idX1 = setInterval(myFay1, 1000);
+        
+        function myFay1()
+        {
+           if ($('#thoigian1').length)
+           {
+            var va = document.getElementById("thoigian1");
+            va.innerHTML = tim1;
+            tim1--;
+            if (va.innerText == 0)
+            {
+                clearInterval(idX1);
+                window.location.href="/Home/XoaAllFile_X1";
+            }
+           }
+        }
+        
+         var tim2 = 30;
+        var idX2 = setInterval(myFay2, 1000);
+        
+        function myFay2()
+        {
+           if ($('#thoigian2').length)
+           {
+            var va = document.getElementById("thoigian2");
+            va.innerHTML = tim2;
+            tim2--;
+            if (va.innerText == 0)
+            {
+                clearInterval(idX2);
+                window.location.href="/Home/XoaAllFile_X2";
+            }
+           }
+        }
+        
+         var tim3 = 30;
+        var idX3 = setInterval(myFay3, 1000);
+        
+        function myFay3()
+        {
+             if ($('#thoigian3').length)
+           {
+            var va = document.getElementById("thoigian3");
+            va.innerHTML = tim3;
+            tim3--;
+            if (va.innerText == 0)
+            {
+                clearInterval(idX3);
+                window.location.href="/Home/XoaKaraoke";
+            }
+           }
+        }
+    </script>
 }
 <script>
     setInterval(resetchange, 1);
@@ -28,7 +86,10 @@ Layout = null;
             sansang = true;
             document.getElementById("waiting-loading").style.display = "block";
             document.getElementById("loading-TN").style.display = "none";
+             if ('@TempData["ketquaXYZ"]' != "true")
+             {
             alert("Bài trắc nghiệm của bạn đã được tải hoàn tất.\nNhấn [OK] nếu bạn đã sẵn sàng!");
+             }
             return;
         }
 
@@ -58,6 +119,11 @@ Layout = null;
      if('@TempData["demo-mau"]' == "true")
     {
         mau = '@TempData["demo-text"]';
+    }
+
+        if ('@TempData["ViewSiteBasic"]' == "true")
+    {
+        mau = "black";
     }
     
     var tomau = '@TempData["mau-TN"]';
@@ -251,6 +317,8 @@ Layout = null;
     document.getElementById("kt-"+i).selectedIndex = 0;
      document.getElementById("hinhanh-"+i).value = "";
     }
+
+    var sang = 0;
     
     function chondapan(i,s)
     {
@@ -264,10 +332,15 @@ Layout = null;
     var mau = "white";
     if (sang == 1)
     mau = "black";
-    
-    if('@TempData["demo-mau"]' == "true")
+
+        if('@TempData["demo-mau"]' == "true")
     {
         mau = '@TempData["demo-text"]';
+    }
+
+        if ('@TempData["ViewSiteBasic"]' == "true")
+    {
+        mau = "black";
     }
     
     var tomau = '@TempData["mau-TN"]';
@@ -397,10 +470,15 @@ Layout = null;
      var mau = "white";
     if (sang == 1)
     mau = "black";
-    
-     if('@TempData["demo-mau"]' == "true")
+
+        if('@TempData["demo-mau"]' == "true")
     {
         mau = '@TempData["demo-text"]';
+    }
+
+     if ('@TempData["ViewSiteBasic"]' == "true")
+    {
+        mau = "black";
     }
     
     var tomau = '@TempData["mau-TN"]';
@@ -450,6 +528,11 @@ Layout = null;
      if('@TempData["demo-mau"]' == "true")
     {
         mau = '@TempData["demo-text"]';
+    }
+
+        if ('@TempData["ViewSiteBasic"]' == "true")
+    {
+        mau = "black";
     }
     
     if (check == true)
@@ -599,8 +682,15 @@ ViewBag.ND_File = ND_File;
     <tr style="height:40px; background-color: @TempData["mau-trac-nghiem-"+i]">
     <td></td>
     <td>
-        <h3><b name="mau-TN-1">Câu số @(i + 1)</b>. <span name="mau-TN-2" id="causo-@i"> <b>@Html.Raw(Model.ch[@i])</b></span></h3>
-        <br />
+          @if (TempData["ViewSiteBasic"] == "false")
+        {
+                                    <h3><b name="mau-TN-1">Câu số @(i + 1)</b>. <span name="mau-TN-2" id="causo-@i"> <b>@Html.Raw(Model.ch[@i])</b></span></h3>
+                                }
+                                else
+                                {
+                                    <h3 style="color:blue"><b name="mau-TN-1">Câu số @(i + 1)</b>. <span name="mau-TN-2" id="causo-@i"> <b>@Html.Raw(Model.ch[@i])</b></span></h3>
+                                }
+                                <br />
     </td>
     </tr>
     @if (ViewBag.ND_File != null)
@@ -639,15 +729,30 @@ ViewBag.ND_File = ND_File;
     @if(ViewData["KetQua-"+@i] ==  null)
     {
     <td>
-        <h4><b> <a href="#@(i+1)" onclick="chondapan(@i,1)"><span id="dapanA-@i" name="colorX" style="color:@TempData["mau_text"]">A. <span id="DAA-@i">@Html.Raw(Model.a[@i])</span></span></a></b></h4>
+         @if (TempData["ViewSiteBasic"] == "false")
+        {
+                                        <h4><b> <a href="#@(i+1)" onclick="chondapan(@i,1)"><span id="dapanA-@i" name="colorX" style="color:@TempData["mau_text"]">A. <span id="DAA-@i">@Html.Raw(Model.a[@i])</span></span></a></b></h4>
+                                    }
+                                    else
+                                    {
+                                        <h4 style="color:black"><b> <a href="#@(i+1)" onclick="chondapan(@i,1)"><span id="dapanA-@i">A. <span id="DAA-@i">@Html.Raw(Model.a[@i])</span></span></a></b></h4>
+                                    }
+
         <br>
     </td>
     }
     else
     {
     <td>
-        <h4><b>A. @Html.Raw(Model.a[@i])</b></h4>
-        <br> 
+         @if (TempData["ViewSiteBasic"] == "false")
+        {
+                                        <h4><b>A. @Html.Raw(Model.a[@i])</b></h4>
+                                    }
+                                    else
+                                    {
+                                        <h4 style="color:black"><b>A. @Html.Raw(Model.a[@i])</b></h4>
+                                    }
+                                    <br> 
     </td>
     }
     </tr>
@@ -656,15 +761,29 @@ ViewBag.ND_File = ND_File;
     @if(ViewData["KetQua-"+@i] ==  null)
     {
     <td>
-        <h4><b> <a href="#@(i+1)" onclick="chondapan(@i,2)"><span id="dapanB-@i" name="colorX" style="color:@TempData["mau_text"]">B. <span id="DAB-@i">@Html.Raw(Model.b[@i])</span></span></a></b></h4>
-        <br />
+         @if (TempData["ViewSiteBasic"] == "false")
+        {
+                                        <h4><b> <a href="#@(i+1)" onclick="chondapan(@i,2)"><span id="dapanB-@i" name="colorX" style="color:@TempData["mau_text"]">B. <span id="DAB-@i">@Html.Raw(Model.b[@i])</span></span></a></b></h4>
+                                    }
+                                    else
+                                    {
+                                        <h4 style="color:black"><b> <a href="#@(i+1)" onclick="chondapan(@i,2)"><span id="dapanB-@i">B. <span id="DAB-@i">@Html.Raw(Model.b[@i])</span></span></a></b></h4>
+                                    }
+                                    <br />
     </td>
     }
     else
     {
     <td>
-        <h4><b>B. @Html.Raw(Model.b[@i])</b></h4>
-        <br />
+         @if (TempData["ViewSiteBasic"] == "false")
+                                        {
+                                        <h4><b>B. @Html.Raw(Model.b[@i])</b></h4>
+                                    }
+                                    else
+                                    {
+                                         <h4 style="color:black"><b>B. @Html.Raw(Model.b[@i])</b></h4>
+                                    }
+                                    <br />
     </td>
     }
     </tr>
@@ -673,15 +792,29 @@ ViewBag.ND_File = ND_File;
     @if(ViewData["KetQua-"+@i] ==  null)
     {
     <td>
-        <h4><b> <a href="#@(i+1)" onclick="chondapan(@i,3)"><span id="dapanC-@i" name="colorX" style="color:@TempData["mau_text"]">C. <span id="DAC-@i">@Html.Raw(Model.c[@i])</span></span></a></b></h4>
-        <br> 
+         @if (TempData["ViewSiteBasic"] == "false")
+                                        {
+                                        <h4><b> <a href="#@(i+1)" onclick="chondapan(@i,3)"><span id="dapanC-@i" name="colorX" style="color:@TempData["mau_text"]">C. <span id="DAC-@i">@Html.Raw(Model.c[@i])</span></span></a></b></h4>
+                                    }
+                                    else
+                                    {
+                                         <h4 style="color:black"><b> <a href="#@(i+1)" onclick="chondapan(@i,3)"><span id="dapanC-@i">C. <span id="DAC-@i">@Html.Raw(Model.c[@i])</span></span></a></b></h4>
+                                    }
+                                    <br> 
     </td>
     }
     else
     {
     <td>
-        <h4><b>C. @Html.Raw(Model.c[@i])</b></h4>
-        <br> 
+         @if (TempData["ViewSiteBasic"] == "false")
+                                        {
+                                        <h4><b>C. @Html.Raw(Model.c[@i])</b></h4>
+                                    }
+                                    else
+                                    {
+                                        <h4 style="color:black"><b>C. @Html.Raw(Model.c[@i])</b></h4>
+                                    }
+                                    <br> 
     </td>
     }
     </tr>
@@ -690,34 +823,48 @@ ViewBag.ND_File = ND_File;
     @if(ViewData["KetQua-"+@i] ==  null)
     {
     <td>
-        <h4><b> <a href="#@(i+1)" onclick="chondapan(@i,4)"><span id="dapanD-@i" name="colorX" style="color:@TempData["mau_text"]">D. <span id="DAD-@i">@Html.Raw(Model.d[@i])</span></span></a></b></h4>
-        <br> 
+         @if (TempData["ViewSiteBasic"] == "false")
+                                        {
+                                        <h4><b> <a href="#@(i+1)" onclick="chondapan(@i,4)"><span id="dapanD-@i" name="colorX" style="color:@TempData["mau_text"]">D. <span id="DAD-@i">@Html.Raw(Model.d[@i])</span></span></a></b></h4>
+                                    }
+                                    else
+                                    {
+                                         <h4 style="color:black"><b> <a href="#@(i+1)" onclick="chondapan(@i,4)"><span id="dapanD-@i">D. <span id="DAD-@i">@Html.Raw(Model.d[@i])</span></span></a></b></h4>
+                                    }
+                                    <br> 
     </td>
     }
     else
     {
     <td>
-        <h4><b>D. @Html.Raw(Model.d[@i])</b></h4>
-        <br />
+         @if (TempData["ViewSiteBasic"] == "false")
+                                        {
+                                        <h4><b>D. @Html.Raw(Model.d[@i])</b></h4>
+                                    }
+                                    else
+                                    {
+                                        <h4 style="color:black"><b>D. @Html.Raw(Model.d[@i])</b></h4>
+                                    }
+                                    <br />
     </td>
     }
     </tr>
     @if(ViewData["KetQua-"+@i] ==  null)
     {
-    <tr style="height:40px">
-        <td></td>
-        <td>
-            <h3>
-                <select name="dapan-@i" class="dapanX" id="ans-@i" style="display:none">
-                    <b>
+                            <tr style="height:40px">
+                                <td></td>
+                                <td>
+                                    <h3>
+                                            <select name="dapan-@i" class="dapanX" id="ans-@i" style="display:none">
+                                                <b>
                         <option></option>
                         <option>A</option>
                         <option>B</option>
                         <option>C</option>
                         <option>D</option>
                     </b>
-                </select>
-            </h3>
+                                            </select>
+                                    </h3>
             <br>
         </td>
     </tr>

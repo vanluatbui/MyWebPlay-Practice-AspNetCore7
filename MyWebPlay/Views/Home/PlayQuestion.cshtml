@@ -30,7 +30,10 @@ Layout = null;
             sansang = true;
             document.getElementById("waiting-loading").style.display = "block";
             document.getElementById("loading-TN").style.display = "none";
+             if ('@TempData["ketquaXYZ"]' != "true")
+             {
             alert("Bài question của bạn đã được tải hoàn tất.\nNhấn [OK] nếu bạn đã sẵn sàng!");
+             }
             return;
         }
 
@@ -152,8 +155,15 @@ Layout = null;
     <tr style="height:40px; background-color: @TempData["mau-question-"+i]">
     <td></td>
     <td>
-        <h3><b name="mau-TN-1">Câu số @(i + 1)</b>.<span  name="mau-TN-2"> @Html.Raw(Model.ch[@i])</span></h3>
-    </td>
+          @if (TempData["ViewSiteBasic"] == "false")
+        {
+                            <h3><b name="mau-TN-1">Câu số @(i + 1)</b>.<span  name="mau-TN-2"> @Html.Raw(Model.ch[@i])</span></h3>
+                        }
+                        else
+                        {
+                            <h3 style="color:blue"><b name="mau-TN-1">Câu số @(i + 1)</b>.<span  name="mau-TN-2"> @Html.Raw(Model.ch[@i])</span></h3>
+                        }
+                    </td>
     </tr>
     @if(ViewData["KetQua-"+@i] ==  null)
     {

@@ -1,6 +1,64 @@
 ﻿@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
+ <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+<script>
+         var tim1 = 30;
+        var idX1 = setInterval(myFay1, 1000);
+        
+        function myFay1()
+        {
+           if ($('#thoigian1').length)
+           {
+            var va = document.getElementById("thoigian1");
+            va.innerHTML = tim1;
+            tim1--;
+            if (va.innerText == 0)
+            {
+                clearInterval(idX1);
+                window.location.href="/Home/XoaAllFile_X1";
+            }
+           }
+        }
+        
+         var tim2 = 30;
+        var idX2 = setInterval(myFay2, 1000);
+        
+        function myFay2()
+        {
+           if ($('#thoigian2').length)
+           {
+            var va = document.getElementById("thoigian2");
+            va.innerHTML = tim2;
+            tim2--;
+            if (va.innerText == 0)
+            {
+                clearInterval(idX2);
+                window.location.href="/Home/XoaAllFile_X2";
+            }
+           }
+        }
+        
+         var tim3 = 30;
+        var idX3 = setInterval(myFay3, 1000);
+        
+        function myFay3()
+        {
+             if ($('#thoigian3').length)
+           {
+            var va = document.getElementById("thoigian3");
+            va.innerHTML = tim3;
+            tim3--;
+            if (va.innerText == 0)
+            {
+                clearInterval(idX3);
+                window.location.href="/Home/XoaKaraoke";
+            }
+           }
+        }
+    </script>
 }
 <script>
 

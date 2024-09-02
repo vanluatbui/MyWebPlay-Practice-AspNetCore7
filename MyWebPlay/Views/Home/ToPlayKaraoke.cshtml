@@ -1038,6 +1038,74 @@
                 else window.location.href = "/Home/XoaKaraoke" + "?thutu=" + thutu;
             }
 
+              var loadxong = 0;
+
+            function chonsongtulist()
+            {
+                if (loadxong == 0) return;
+
+                var thutu = new Number(document.getElementById("listSongKara").options.selectedIndex) + 1;
+                 var maxthutu = new Number(document.getElementById("thutu").max);
+                var url = "@ViewBag.LoginServer";
+
+                  var formData = new FormData();
+                        formData.append("url", url);
+                        formData.append("index", thutu);
+
+         $.ajax({
+            url: "/Admin/Karaoke_Ajax_Call",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+
+                if (data.error == "true")
+                {
+                    alert("Đã xảy ra lỗi. Vui lòng thử lại sau!");
+                    DungKaraoke();
+                    return;
+                }
+
+               document.getElementById("musix").src = data.mp3_goc;
+               document.getElementById("music").src = data.mp3_kara;
+               document.getElementById("txtKara").value = data.text_kara;
+               document.getElementById("thutu").value = thutu;
+               document.getElementById("thutuXYZ").innerHTML = "Huỷ trình phát Karaoke tự động (đã phát : "+ thutu + "/" + maxthutu + ")";
+               document.getElementById("baihatXYZ").innerHTML = data.tenbaihat;
+               resetKaraoke();
+            }});
+            }
+
+            function loadlistSong()
+            {
+                if (loadxong == 1) return;
+
+                var url = "@ViewBag.LoginServer";
+                  var formData = new FormData();
+                        formData.append("url", url);
+
+         $.ajax({
+            url: "/Admin/ListSongKaraoke_Call",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+
+               var content = data.content;
+
+               var listSong = content.split('\n');
+
+               document.getElementById("listSongKara").innerHTML = "";
+               for (var i  = 0; i < listSong.length; i++)
+               {
+                   document.getElementById("listSongKara").innerHTML += "<option>"+ listSong[i] + "</option>";
+               }
+               loadxong = 1;
+            }});
+            }
+
             function StopKaraoke() {
                 var url = "@ViewBag.LoginServer";
                 var baihat = "@ViewBag.BHServer";
@@ -2124,6 +2192,7 @@
                         else
                         {
                             <button style="display:none" onclick="StopKaraoke()"><b style="color: darkgreen;">Đi đến bài hát tiếp theo</b></button>
+                             <select onchange="chonsongtulist()" onclick="loadlistSong()" id="listSongKara"></select>
                         }
                     } else {
                     <button style="display: none;" onclick="StopKaraoke()"><b style="color: darkgreen; display: none;">Đi đến bài hát tiếp theo</b></button>
@@ -2559,6 +2628,7 @@
                          else
                          {
                              <button style="display:none" onclick="StopKaraoke()"><b style="color: darkgreen;">Đi đến bài hát tiếp theo</b></button>
+                               <select  onchange="chonsongtulist()" onclick="loadlistSong()" id="listSongKara"></select>
                          }
                         } else {
                         <button style="display: none;" onclick="StopKaraoke()"><b style="color: darkgreen; display: none;">Đi đến bài hát tiếp theo</b></button>

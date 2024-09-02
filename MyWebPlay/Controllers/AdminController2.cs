@@ -611,5 +611,22 @@ namespace MyWebPlay.Controllers
                 error = "false",
             });
         }
+
+        [HttpPost]
+        public ActionResult ListSongKaraoke_Call(string url)
+        {
+            if (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[22] == "AJAX_JAVASCRIPT_OFF")
+            {
+                return Ok(new { error = "true" });
+            }
+
+            WebClient client = new WebClient();
+            var https = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[10] == "LINK_HTTPS_ON") ? "https" : "http";
+            Stream stream = client.OpenRead(https + "://" + url + "/MyListSong.txt");
+            StreamReader reader = new StreamReader(stream);
+            string content = reader.ReadToEnd();
+
+            return Ok(new { content =  content, error = "false" });
+        }
     }
 }

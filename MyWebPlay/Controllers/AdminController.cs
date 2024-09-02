@@ -11,6 +11,7 @@ using MailKit.Security;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
+using System.Text.RegularExpressions;
 
 namespace MyWebPlay.Controllers
 {
@@ -850,6 +851,20 @@ namespace MyWebPlay.Controllers
                 TempData["count-setting"] = dem;
 
                 HttpContext.Session.Remove("adminSetting");
+                var sam = settingAdmin.Topics[23].NoiDung;
+                var span = "";
+                Regex regExp = new Regex("<@@.*@>");
+                foreach (Match match in regExp.Matches(sam))
+                {
+                    span += match.Value;
+                    break;
+                }
+
+                if (span != "")
+                {
+                    var so_span = span.Replace("<@@", "").Replace("@@>", "");
+                    settingAdmin.Topics[23].NoiDung = settingAdmin.Topics[23].NoiDung.Replace(span, "<input required min=\"0\" type=\"number\" readonly style=\"width: 5em\" name=\"txtDataThan\" value=\"" + so_span + "\" />");
+                }
                 return View(settingAdmin);
             }
             catch (Exception ex)
@@ -1478,6 +1493,22 @@ namespace MyWebPlay.Controllers
                 var noidung4 = docfile(path4);
                 TempData["ListIPLockClient"] = noidung4;
 
+                var sam = settingAdmin.Topics[23].NoiDung;
+                var span = "";
+                Regex regExp = new Regex("<@@.*@>");
+                foreach (Match match in regExp.Matches(sam))
+                {
+                    span += match.Value;
+                    break;
+                }
+
+                if (span != "")
+                {
+                    var so_span = span.Replace("<@@", "").Replace("@@>", "");
+                    settingAdmin.Topics[23].NoiDung = settingAdmin.Topics[23].NoiDung.Replace(span, "<input required min=\"0\"  type=\"number\" style=\"width: 5em\" name=\"txtDataThan\" value=\"" + so_span + "\" />");
+                }
+
+
                 return View(settingAdmin);
             }
             catch (Exception ex)
@@ -1727,6 +1758,26 @@ namespace MyWebPlay.Controllers
 
                     if (info[0] == "LockedAll_Web")
                         continue;
+
+                    if (info[0] == "Mail_ReportUrl")
+                    {
+                        if (string.IsNullOrEmpty(f["txtDataThan"].ToString()) == false)
+                        {
+                            var sam = info[2];
+                            var span = "";
+                            Regex regExp = new Regex("<@@.*@>");
+                            foreach (Match match in regExp.Matches(sam))
+                            {
+                                span += match.Value;
+                                break;
+                            }
+
+                            if (span != "")
+                            {
+                                noidung = noidung.Replace(span, "<@@" + f["txtDataThan"] +"@@>");
+                            }
+                        }
+                    }
 
                     var baby1 = false;
                     var baby2 = false;

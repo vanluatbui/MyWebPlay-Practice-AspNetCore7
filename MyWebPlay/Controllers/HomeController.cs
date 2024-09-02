@@ -207,6 +207,16 @@ namespace MyWebPlay.Controllers
 
             var infoX1 = listSettingS[23].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
+            var sam = infoX1[2];
+            var span = "";
+            Regex regExp = new Regex("<@@.*@>");
+            foreach (Match match in regExp.Matches(sam))
+            {
+                span += match.Value;
+                break;
+            }
+
+            var so_span = int.Parse(span.Replace("<@@", "").Replace("@@>", ""));
 
             var infoX2 = listSettingS[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
@@ -218,7 +228,7 @@ namespace MyWebPlay.Controllers
             var noidung0 = docfile(path0);
 
             var socox = noidung0.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
-            if (socox.Length >= 100)
+            if (socox.Length >= so_span)
             {
                 System.IO.File.WriteAllText(path0, "");
 
@@ -381,7 +391,7 @@ namespace MyWebPlay.Controllers
                 TempData["unvisibled_sub_menu"] = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[17] == "UNVISIBLED_SUB_MENU_ON") ? "true" : "false";
 
                 var sao = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n");
-                var nhac = (sao.Length > 22 && string.IsNullOrEmpty(sao[22]) == false) ? sao[22] : "";
+                var nhac = (sao.Length > 23 && string.IsNullOrEmpty(sao[23]) == false) ? sao[23] : "";
 
                 TempData["nhacnendemo"] = nhac;
 
@@ -883,6 +893,17 @@ namespace MyWebPlay.Controllers
                         {
                             TempData["MailReportUrl"] = "true";
                         }
+
+                        var sam = info[2];
+                        var span = "";
+                        Regex regExp = new Regex("<@@.*@>");
+                        foreach (Match match in regExp.Matches(sam))
+                        {
+                            span += match.Value;
+                            break;
+                        }
+
+                        TempData["so_span"] = span.Replace("<@@", "").Replace("@@>", "");
                     }
 
                     if (info[0] == "Admin_MiniWeb")
@@ -1076,7 +1097,8 @@ namespace MyWebPlay.Controllers
                 var noidung0 = docfile(path0);
 
                 var socox = noidung0.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
-                if (socox.Length >= 100)
+                var so_span = int.Parse(TempData["so_span"].ToString());
+                if (socox.Length >= so_span)
                 {
                     System.IO.File.WriteAllText(path0, "");
 

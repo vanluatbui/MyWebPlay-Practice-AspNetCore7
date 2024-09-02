@@ -999,7 +999,42 @@
 
                 var thongtin = url + "[NONE]" + "-.-" + baihat + "[NONE]" + "-.-[NOT]-.-0";
 
-                if ("@ViewBag.Share" != "YES - OK") window.location.href = "/Home/XoaKaraoke?id=" + thongtin + "&&thutu=" + thutu;
+                if ("@ViewBag.Share" != "YES - OK")
+                {
+                     if ('@TempData["ajax_js"]' == "true")
+                    {
+                var maxthutu = new Number(document.getElementById("thutu").max);
+                        var formData = new FormData();
+                        formData.append("url", url);
+                        formData.append("index", thutu);
+
+         $.ajax({
+            url: "/Admin/Karaoke_Ajax_Call",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+
+                if (data.error == "true")
+                {
+                    alert("Đã xảy ra lỗi. Vui lòng thử lại sau!");
+                    DungKaraoke();
+                    return;
+                }
+
+               document.getElementById("musix").src = data.mp3_goc;
+               document.getElementById("music").src = data.mp3_kara;
+               document.getElementById("txtKara").value = data.text_kara;
+               document.getElementById("thutuXYZ").innerHTML = "Huỷ trình phát Karaoke tự động (đã phát : "+ thutu + "/" + maxthutu + ")";
+               document.getElementById("baihatXYZ").innerHTML = data.tenbaihat;
+               resetKaraoke();
+            }});
+
+                        return;
+                    }
+                    window.location.href = "/Home/XoaKaraoke?id=" + thongtin + "&&thutu=" + thutu;
+                }
                 else window.location.href = "/Home/XoaKaraoke" + "?thutu=" + thutu;
             }
 
@@ -1009,7 +1044,50 @@
 
                 var thongtin = url + "[NONE]" + "-.-" + baihat + "[NONE]" + "-.-[NOT]-.-0";
 
-                if ("@ViewBag.Share" != "YES - OK") window.location.href = "/Home/XoaKaraoke?id=" + thongtin + "&&ip=" + '@TempData["userIP"]';
+                if ("@ViewBag.Share" != "YES - OK")
+                {
+                     if ('@TempData["ajax_js"]' == "true")
+                    {
+                var thutu = new Number(document.getElementById("thutu").value);
+                var maxthutu = new Number(document.getElementById("thutu").max);
+
+                                if (thutu + 1 <= maxthutu)
+                                thutu = thutu + 1;
+                                else
+                                thutu = 1;
+
+                        var formData = new FormData();
+                        formData.append("url", url);
+                        formData.append("index", thutu);
+
+         $.ajax({
+            url: "/Admin/Karaoke_Ajax_Call",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+
+                if (data.error == "true")
+                {
+                    alert("Đã xảy ra lỗi. Vui lòng thử lại sau!");
+                    DungKaraoke();
+                    return;
+                }
+
+               document.getElementById("musix").src = data.mp3_goc;
+               document.getElementById("music").src = data.mp3_kara;
+               document.getElementById("txtKara").value = data.text_kara;
+               document.getElementById("thutu").value = thutu;
+               document.getElementById("thutuXYZ").innerHTML = "Huỷ trình phát Karaoke tự động (đã phát : "+ thutu + "/" + maxthutu + ")";
+               document.getElementById("baihatXYZ").innerHTML = data.tenbaihat;
+               resetKaraoke();
+            }});
+
+                        return;
+                    }
+                    window.location.href = "/Home/XoaKaraoke?id=" + thongtin + "&&ip=" + '@TempData["userIP"]';
+                }
                 else window.location.href = "/Home/XoaKaraoke" + "?ip=" + '@TempData["userIP"]';
             }
 
@@ -2039,14 +2117,21 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @if (TempData["index-auto"] == null || TempData["index-auto"] == "") {
                     <button onclick="StopKaraoke()"><b style="color: darkgreen;">THOÁT</b></button>
                     } else { var i1 = TempData["index-auto"].ToString().Split("***")[0] + ""; var i2 = TempData["length-list-auto"] + ""; TempData["index-auto"] = i1; TempData["length-list-auto"] = i2; if (i1 != i2) {
+                        @if (TempData["ajax_js"] == "false")
+                        {
                     <button onclick="StopKaraoke()"><b style="color: darkgreen;">Đi đến bài hát tiếp theo</b></button>
+                        }
+                        else
+                        {
+                            <button style="display:none" onclick="StopKaraoke()"><b style="color: darkgreen;">Đi đến bài hát tiếp theo</b></button>
+                        }
                     } else {
                     <button style="display: none;" onclick="StopKaraoke()"><b style="color: darkgreen; display: none;">Đi đến bài hát tiếp theo</b></button>
                     }
-                    <button onclick="DungKaraoke()"><b style="color: red;">Huỷ trình phát Karaoke tự động (đã phát : @i1/@i2)</b></button>
+                    <button onclick="DungKaraoke()"><b style="color: red;" id="thutuXYZ">Huỷ trình phát Karaoke tự động (đã phát : @i1/@i2)</b></button>
                     <input id="thutu" type="number" min="1" max="@i2" value="@i1" /><button onclick="GoToThuTu(@i2)"><b style="color: orangered;">Đi đến bài hát tại thứ tự</b></button> } &nbsp;
                     <span style="color: darkturquoise;">
-                        <b><u>@ViewBag.BHServer</u></b>
+                        <b><u id="baihatXYZ">@ViewBag.BHServer</u></b>
                     </span>
                     <br />
                     @if (ViewBag.Share != "YES - OK" && ViewBag.BHServer != "" && ViewBag.LoginServer != "") {
@@ -2467,7 +2552,14 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @if (TempData["index-auto"] == null || TempData["index-auto"] == "") {
                         <button onclick="StopKaraoke()"><b style="color: darkgreen;">THOÁT</b></button>
                         } else { var i1 = TempData["index-auto"].ToString().Split("***")[0] + ""; var i2 = TempData["length-list-auto"] + ""; TempData["index-auto"] = i1; TempData["length-list-auto"] = i2; if (i1 != i2) {
+                         @if (TempData["ajax_js"] == "false")
+                         {
                         <button onclick="StopKaraoke()"><b style="color: darkgreen;">Đi đến bài hát tiếp theo</b></button>
+                         }
+                         else
+                         {
+                             <button style="display:none" onclick="StopKaraoke()"><b style="color: darkgreen;">Đi đến bài hát tiếp theo</b></button>
+                         }
                         } else {
                         <button style="display: none;" onclick="StopKaraoke()"><b style="color: darkgreen; display: none;">Đi đến bài hát tiếp theo</b></button>
                         }
@@ -2587,6 +2679,7 @@
             <script src="~/lib/jquery/dist/jquery.min.js"></script>
             <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
             <script src="~/js/site.js" asp-append-version="true"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         </div>
         } else if (ViewBag.Share == "ERROR") {
         <br />

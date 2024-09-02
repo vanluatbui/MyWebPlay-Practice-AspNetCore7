@@ -2,6 +2,7 @@
 using MyWebPlay.Extension;
 using MyWebPlay.Model;
 using System.Globalization;
+using System.Net;
 
 namespace MyWebPlay.Controllers
 {
@@ -508,6 +509,107 @@ namespace MyWebPlay.Controllers
             }
 
             return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult Karaoke_Ajax_Call (string url, int index)
+        {
+            if (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[22] == "AJAX_JAVASCRIPT_OFF")
+            {
+                return Ok(new { error = "true" });
+            }
+
+            var baihat = "";
+
+            WebClient client = new WebClient();
+            var https = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[10] == "LINK_HTTPS_ON") ? "https" : "http";
+            Stream stream = client.OpenRead(https + "://" + url + "/MyListSong.txt");
+            StreamReader reader = new StreamReader(stream);
+            string content = reader.ReadToEnd();
+
+            var listSong = content.Replace("\r", "").Split("\n");
+            baihat = listSong[index - 1];
+
+            var server = url;
+            var song = baihat;
+
+            var url_txt = server + "/" + song + "/" + song + ".txt";
+            var url_goc = server + "/" + song + "/" + song + "_Goc.mp3";
+            var url_kara = server + "/" + song + "/" + song + ".mp3";
+
+            https = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[10] == "LINK_HTTPS_ON") ? "https" : "http";
+            stream = client.OpenRead(https + "://" + url_txt);
+            reader = new StreamReader(stream);
+            content = reader.ReadToEnd();
+
+            var encrypt = false;
+            try
+            {
+                StringMaHoaExtension.Decrypt(content);
+                encrypt = true;
+            }
+            catch
+            {
+                encrypt = false;
+            }
+
+            if (encrypt == true)
+            {
+                content = StringMaHoaExtension.Decrypt(content);
+            }
+
+            var httpx = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[10] == "LINK_HTTPS_ON") ? "https" : "http";
+
+            ViewBag.Music = httpx + "://" + url_kara;
+            ViewBag.Musix = httpx + "://" + url_goc;
+
+            if (content.Contains("<>") == false)
+            {
+                //ViewBag.Karaoke = content;
+                //TempData["TK-KARA"] = "";
+                //if (TempData["hassinger"] != "true")
+                //    TempData["hassinger"] = "false";
+            }
+            else
+            {
+                var xa = content.Replace("\r", "").Split("\n");
+                var noidung = "";
+                for (int i = 0; i < xa.Length; i++)
+                {
+                    if (xa[i].Contains("<>"))
+                    {
+                        var xb = xa[i].Split("<>");
+                        var xc = xb[1].Split("#");
+                        var xd = xb[0].Split("-");
+                        noidung += xc[0] + "=" + xd[0] + "=" + xd[1];
+
+                        if (xd[0] == "[SINGER]")
+                        {
+                           // TempData["hassinger"] = "true";
+                        }
+                        else
+                        {
+                            //if (TempData["hassinger"] != "true")
+                            //    TempData["hassinger"] = "false";
+                        }
+
+                        content = content.Replace(xb[0] + "<>", "");
+
+                        if (i < xa.Length - 1)
+                            noidung += "\n";
+                    }
+                }
+            }
+
+            return Ok(new
+            {
+                mp3_goc = https + "://" + url_goc,
+                mp3_kara = https + "://" + url_kara,
+                text_kara = content,
+                tenbaihat = baihat,
+                error = "false",
+            });
         }
     }
 }

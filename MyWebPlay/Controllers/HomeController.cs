@@ -395,6 +395,8 @@ namespace MyWebPlay.Controllers
 
                 TempData["nhacnendemo"] = nhac;
 
+                TempData["ajax_js"] = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[22] == "AJAX_JAVASCRIPT_ON") ? "true" : "false";
+
                 // Send mail try again - karaoke with member
 
                 string hostt = "{" + Request.Host.ToString() + " - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "}"

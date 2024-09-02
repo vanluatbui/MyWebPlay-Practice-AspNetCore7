@@ -312,7 +312,13 @@ namespace MyWebPlay.Controllers
                     return RedirectToAction("Error", "Home");
                 }
 
-                    if (admin == false && string.IsNullOrEmpty(file)) return RedirectToAction("Error", "Home");
+                var settingFile = System.IO.File.ReadAllText(pathXY).Replace("\r", "").Split("\n")[4];
+                if (file.Contains(settingFile) || file.Contains("SecureSettingAdmin"))
+                {
+                    return RedirectToAction("Error", "Home");
+                }
+
+                if (admin == false && string.IsNullOrEmpty(file)) return RedirectToAction("Error", "Home");
 
 
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);

@@ -299,11 +299,20 @@ namespace MyWebPlay.Controllers
             return Redirect("SettingXYZ_DarkAdmin#changesetting");
         }
 
-        public ActionResult ReadAdminFileByStatic(string? file, bool? admin = false)
+        public ActionResult ReadAdminFileByStatic(string? file, string? keyX, bool? admin = false)
         {
             try
             {
-                if (admin == false && string.IsNullOrEmpty(file)) return RedirectToAction("Error", "Home");
+                var pathXY = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin/SecureSettingAdmin.txt");
+                var matpassAd = System.IO.File.ReadAllText(pathXY).Replace("\r", "").Split("\n")[1];
+
+
+                if (admin == false && keyX != matpassAd)
+                {
+                    return RedirectToAction("Error", "Home");
+                }
+
+                    if (admin == false && string.IsNullOrEmpty(file)) return RedirectToAction("Error", "Home");
 
 
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
@@ -627,6 +636,23 @@ namespace MyWebPlay.Controllers
             string content = reader.ReadToEnd();
 
             return Ok(new { content =  content, error = "false" });
+        }
+
+        [HttpPost]
+        public ActionResult EncryptPasswordByKey_Call(string password)
+        {
+            var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+            var noidung = System.IO.File.ReadAllText(path);
+
+            var listSetting = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            var infoX = listSetting[39].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+            var key = listSetting[60].Split("<3275>")[3];
+
+            var newPassword = StringMaHoaExtension.Encrypt(password, key);
+
+            return Ok(new { password = newPassword});
         }
     }
 }

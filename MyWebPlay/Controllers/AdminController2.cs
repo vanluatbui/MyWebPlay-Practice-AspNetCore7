@@ -313,7 +313,7 @@ namespace MyWebPlay.Controllers
                 }
 
                 var settingFile = System.IO.File.ReadAllText(pathXY).Replace("\r", "").Split("\n")[4];
-                if (file.Contains(settingFile) || file.Contains("SecureSettingAdmin"))
+                if (admin == false && (file.Contains(settingFile) || file.Contains("SecureSettingAdmin")))
                 {
                     return RedirectToAction("Error", "Home");
                 }
@@ -659,6 +659,23 @@ namespace MyWebPlay.Controllers
             var newPassword = StringMaHoaExtension.Encrypt(password, key);
 
             return Ok(new { password = newPassword});
+        }
+
+        [HttpPost]
+        public ActionResult DecryptPasswordByKey_Call(string password)
+        {
+            var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+            var noidung = System.IO.File.ReadAllText(path);
+
+            var listSetting = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            var infoX = listSetting[39].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+            var key = listSetting[60].Split("<3275>")[3];
+
+            var newPassword = StringMaHoaExtension.Decrypt(password, key);
+
+            return Ok(new { password = newPassword });
         }
     }
 }

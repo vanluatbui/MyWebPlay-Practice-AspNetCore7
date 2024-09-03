@@ -2,6 +2,7 @@
 /Admin/Karaoke_Ajax_Call
 /Admin/ListSongKaraoke_Call
 /Admin/EncryptPasswordByKey_Call
+/Admin/DecryptPasswordByKey_Call
 /Admin/FrameNoticeAdmin
 /Admin/BackupDataAdmin
 /Admin/ReadAdminFileByStatic

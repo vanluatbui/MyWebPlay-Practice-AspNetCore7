@@ -1304,6 +1304,15 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (mini == "true" && HttpContext.Session.GetString("mini-mini") != "true")
+                {
+                    TempData.Remove("check-me");
+                    HttpContext.Session.Remove("mini-mini");
+                    return RedirectToAction("Error", "Home");
+                }
+
+                HttpContext.Session.Remove("mini-mini");
+
                 var pay = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
                 var noidungPay = System.IO.File.ReadAllText(pay);
 
@@ -1318,6 +1327,7 @@ namespace MyWebPlay.Controllers
                     TempData["errorXY"] = "false";
                     HttpContext.Session.SetString("mini-error", "true");
                 }
+
                 //BanNhap();
                 // Change JAPAN (question)
                 var jp = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin","ChangeJapan", "quy-tac-ki-tu-chuyen-doi.txt"));

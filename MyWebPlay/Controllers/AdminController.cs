@@ -3858,6 +3858,7 @@ namespace MyWebPlay.Controllers
                 if (StringMaHoaExtension.Decrypt(pass, key) == code)
                 {
                     TempData["check-me"] = "true";
+                    HttpContext.Session.SetString("mini-mini", "true");
                 }
                 else
                 {

@@ -1044,6 +1044,10 @@
             {
                 if (loadxong == 0) return;
 
+                document.getElementById("baihatXYZ").innerHTML = "<img style=\"width: 50px; height: 50px;\" id=\"loadingX\" src=\"/Image_Play/waiting.gif\" />";
+
+                var baihatcu = document.getElementById("baihatXYZ").innerHTML;
+
                 var thutu = new Number(document.getElementById("listSongKara").options.selectedIndex) + 1;
                  var maxthutu = new Number(document.getElementById("thutu").max);
                 var url = "@ViewBag.LoginServer";
@@ -1063,6 +1067,7 @@
                 if (data.error == "true")
                 {
                     alert("Đã xảy ra lỗi. Vui lòng thử lại sau!");
+                    document.getElementById("baihatXYZ").innerHTML = baihatcu;
                     DungKaraoke();
                     return;
                 }
@@ -2198,7 +2203,17 @@
                     <button style="display: none;" onclick="StopKaraoke()"><b style="color: darkgreen; display: none;">Đi đến bài hát tiếp theo</b></button>
                     }
                     <button onclick="DungKaraoke()"><b style="color: red;" id="thutuXYZ">Huỷ trình phát Karaoke tự động (đã phát : @i1/@i2)</b></button>
-                    <input id="thutu" type="number" min="1" max="@i2" value="@i1" /><button onclick="GoToThuTu(@i2)"><b style="color: orangered;">Đi đến bài hát tại thứ tự</b></button> } &nbsp;
+                            @if (TempData["ajax_js"] == "false")
+                            {
+                                <input id="thutu" type="number" min="1" max="@i2" value="@i1" /><button onclick="GoToThuTu(@i2)"><b style="color: orangered;">Đi đến bài hát tại thứ tự</b></button>
+                            }
+                            else
+                            {
+                                <input style="display:none" id="thutu" type="number" min="1" max="@i2" value="@i1" /><button style="display:none" onclick="GoToThuTu(@i2)"><b style="color: orangered;">Đi đến bài hát tại thứ tự</b></button>
+                            }
+
+                        }
+                 &nbsp;
                     <span style="color: darkturquoise;">
                         <b><u id="baihatXYZ">@ViewBag.BHServer</u></b>
                     </span>
@@ -2634,7 +2649,15 @@
                         <button style="display: none;" onclick="StopKaraoke()"><b style="color: darkgreen; display: none;">Đi đến bài hát tiếp theo</b></button>
                         }
                         <button onclick="DungKaraoke()"><b style="color: red;">Huỷ trình phát Karaoke tự động (đã phát : @i1/@i2)</b></button>
-                        <input id="thutu" type="number" min="1" max="@i2" value="@i1" /><button onclick="GoToThuTu(@i2)"><b style="color: orangered;">Đi đến bài hát tại thứ tự</b></button> } &nbsp;
+                        @if (TempData["ajax_js"] == "false")
+                        {
+                                    <input id="thutu" type="number" min="1" max="@i2" value="@i1" /><button onclick="GoToThuTu(@i2)"><b style="color: orangered;">Đi đến bài hát tại thứ tự</b></button>
+                                }
+                                else
+                                {
+                                    <input style="display:none" id="thutu" type="number" min="1" max="@i2" value="@i1" /><button style="display:none" onclick="GoToThuTu(@i2)"><b style="color: orangered;">Đi đến bài hát tại thứ tự</b></button>
+                                }
+                        } &nbsp;
                         <span style="color: darkturquoise;">
                             <b><u>@ViewBag.BHServer</u></b>
                         </span>

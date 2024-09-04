@@ -187,6 +187,15 @@ Layout = null;
                  }
              }
          }
+
+         function backupdataAdmin()
+         {
+             var con = prompt('Are you sure? Please enter admin PIN code : ');
+             if (con != null && con != "")
+             {
+                 window.location.href = "/Admin/BackupDataAdmin?admincode="+con;
+             }
+         }
     
 </script>
 <html lang="vi">
@@ -203,7 +212,7 @@ Layout = null;
     <meta charset="ISO-8859-1">
     <div style="background-color:aqua">
         <h1 style="color:red">ĐĂNG NHẬP ADMIN - SETTING WEB</h1>
-        <a href="/Admin/BackupDataAdmin" style="color:purple">Backup data for admin in mail</a>
+        <a href="#xuly" onclick="backupdataAdmin()" style="color:purple">Backup data for admin in mail</a>
         <br />
         <br />
         <h2 style="color:goldenrod">Trạng thái lần cuối : @ViewBag.SettingStatus</h2>

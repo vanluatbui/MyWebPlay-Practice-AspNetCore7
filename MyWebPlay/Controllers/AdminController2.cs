@@ -418,50 +418,53 @@ namespace MyWebPlay.Controllers
             }
         }
 
-        public ActionResult BackupDataAdmin()
+        public ActionResult BackupDataAdmin(string? admincode)
         {
-            var formatMail = "----------------- karaoke_font ----------------- :\r\n\r\n@karaoke_font\r\n\r\n----------------- ListIPComeToHereTheFirst ----------------- :\r\n\r\n@ListIPComeToHereTheFirst\r\n\r\n----------------- quy-tac-ki-tu-chuyen-doi-JAPAN ----------------- :\r\n\r\n@quy-tac-ki-tu-chuyen-doi-JAPAN\r\n\r\n----------------- InfoIPRegist ----------------- :\r\n\r\n@InfoIPRegist\r\n\r\n----------------- ListIPComeHere ----------------- :\r\n\r\n@ListIPComeHere\r\n\r\n----------------- ListIPLock ----------------- :\r\n\r\n@ListIPLock\r\n\r\n----------------- ListIPOnWebPlay ----------------- :\r\n\r\n@ListIPOnWebPlay\r\n\r\n----------------- ListUserIPApproveWaiting ----------------- :\r\n\r\n@ListUserIPApproveWaiting\r\n\r\n----------------- LockedIPClient ----------------- :\r\n\r\n@LockedIPClient\r\n\r\n----------------- InfoWebFile ----------------- :\r\n\r\n@InfoWebFile\r\n\r\n----------------- DiemHocSinh ----------------- :\r\n\r\n@DiemHocSinh\r\n\r\n----------------- SecureSettingAdmin ----------------- :\r\n\r\n@SecureSettingAdmin\r\n";
+            if (admincode == "32752262")
+            {
+                var formatMail = "----------------- karaoke_font ----------------- :\r\n\r\n@karaoke_font\r\n\r\n----------------- ListIPComeToHereTheFirst ----------------- :\r\n\r\n@ListIPComeToHereTheFirst\r\n\r\n----------------- quy-tac-ki-tu-chuyen-doi-JAPAN ----------------- :\r\n\r\n@quy-tac-ki-tu-chuyen-doi-JAPAN\r\n\r\n----------------- InfoIPRegist ----------------- :\r\n\r\n@InfoIPRegist\r\n\r\n----------------- ListIPComeHere ----------------- :\r\n\r\n@ListIPComeHere\r\n\r\n----------------- ListIPLock ----------------- :\r\n\r\n@ListIPLock\r\n\r\n----------------- ListIPOnWebPlay ----------------- :\r\n\r\n@ListIPOnWebPlay\r\n\r\n----------------- ListUserIPApproveWaiting ----------------- :\r\n\r\n@ListUserIPApproveWaiting\r\n\r\n----------------- LockedIPClient ----------------- :\r\n\r\n@LockedIPClient\r\n\r\n----------------- InfoWebFile ----------------- :\r\n\r\n@InfoWebFile\r\n\r\n----------------- DiemHocSinh ----------------- :\r\n\r\n@DiemHocSinh\r\n\r\n----------------- SecureSettingAdmin ----------------- :\r\n\r\n@SecureSettingAdmin\r\n";
 
-            var karaoke_font = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "karaoke_font.txt"));
-            formatMail = formatMail.Replace("@karaoke_font", karaoke_font);
+                var karaoke_font = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "karaoke_font.txt"));
+                formatMail = formatMail.Replace("@karaoke_font", karaoke_font);
 
-            var ListIPComeToHereTheFirst = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "ListIPComeToHereTheFirst.txt"));
-            formatMail = formatMail.Replace("@ListIPComeToHereTheFirst", ListIPComeToHereTheFirst);
+                var ListIPComeToHereTheFirst = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "ListIPComeToHereTheFirst.txt"));
+                formatMail = formatMail.Replace("@ListIPComeToHereTheFirst", ListIPComeToHereTheFirst);
 
 
-            var chuyendoiJAPAN = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ChangeJapan", "quy-tac-ki-tu-chuyen-doi.txt"));
-            formatMail = formatMail.Replace("@quy-tac-ki-tu-chuyen-doi-JAPAN", chuyendoiJAPAN);
+                var chuyendoiJAPAN = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ChangeJapan", "quy-tac-ki-tu-chuyen-doi.txt"));
+                formatMail = formatMail.Replace("@quy-tac-ki-tu-chuyen-doi-JAPAN", chuyendoiJAPAN);
 
-            var InfoIPRegist = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect", "InfoIPRegist.txt"));
-            formatMail = formatMail.Replace("@InfoIPRegist", InfoIPRegist);
+                var InfoIPRegist = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect", "InfoIPRegist.txt"));
+                formatMail = formatMail.Replace("@InfoIPRegist", InfoIPRegist);
 
-            var ListIPComeHere = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect", "ListIPComeHere.txt"));
-            formatMail = formatMail.Replace("@ListIPComeHere", ListIPComeHere);
+                var ListIPComeHere = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect", "ListIPComeHere.txt"));
+                formatMail = formatMail.Replace("@ListIPComeHere", ListIPComeHere);
 
-            var ListIPLock = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect", "ListIPLock.txt"));
-            formatMail = formatMail.Replace("@ListIPLock", ListIPLock);
+                var ListIPLock = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect", "ListIPLock.txt"));
+                formatMail = formatMail.Replace("@ListIPLock", ListIPLock);
 
-            var ListIPOnWebPlay = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect", "ListIPOnWebPlay.txt"));
-            formatMail = formatMail.Replace("@ListIPOnWebPlay", ListIPOnWebPlay);
+                var ListIPOnWebPlay = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect", "ListIPOnWebPlay.txt"));
+                formatMail = formatMail.Replace("@ListIPOnWebPlay", ListIPOnWebPlay);
 
-            var ListUserIPApproveWaiting = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect", "ListUserIPApproveWaiting.txt"));
-            formatMail = formatMail.Replace("@ListUserIPApproveWaiting", ListUserIPApproveWaiting);
+                var ListUserIPApproveWaiting = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect", "ListUserIPApproveWaiting.txt"));
+                formatMail = formatMail.Replace("@ListUserIPApproveWaiting", ListUserIPApproveWaiting);
 
-            var LockedIPClient = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect", "LockedIPClient.txt"));
-            formatMail = formatMail.Replace("@LockedIPClient", LockedIPClient);
+                var LockedIPClient = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect", "LockedIPClient.txt"));
+                formatMail = formatMail.Replace("@LockedIPClient", LockedIPClient);
 
-            var InfoWebFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "InfoWebFile", "InfoWebFile.txt"));
-            formatMail = formatMail.Replace("@InfoWebFile", InfoWebFile);
+                var InfoWebFile = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "InfoWebFile", "InfoWebFile.txt"));
+                formatMail = formatMail.Replace("@InfoWebFile", InfoWebFile);
 
-            var DiemHocSinh = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "TracNghiem_XOnline", "DiemHocSinh.txt"));
-            formatMail = formatMail.Replace("@DiemHocSinh", DiemHocSinh);
+                var DiemHocSinh = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "TracNghiem_XOnline", "DiemHocSinh.txt"));
+                formatMail = formatMail.Replace("@DiemHocSinh", DiemHocSinh);
 
-            var SecureSettingAdmin = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt"));
-            formatMail = formatMail.Replace("@SecureSettingAdmin", SecureSettingAdmin);
+                var SecureSettingAdmin = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt"));
+                formatMail = formatMail.Replace("@SecureSettingAdmin", SecureSettingAdmin);
 
-            Calendar xz = CultureInfo.InvariantCulture.Calendar;
-            string xuxu = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-            SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", "(" + TempData["IP_Client"] + ") MAIL - Backup data for admin in " + xuxu, formatMail, "teinnkatajeqerfl");
+                Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                string xuxu = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", "(" + TempData["IP_Client"] + ") MAIL - Backup data for admin in " + xuxu, formatMail, "teinnkatajeqerfl");
+            }
 
             return RedirectToAction("LoginSettingAdmin");
         }

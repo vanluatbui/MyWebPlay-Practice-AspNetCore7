@@ -391,7 +391,7 @@ namespace MyWebPlay.Controllers
                 TempData["unvisibled_sub_menu"] = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[17] == "UNVISIBLED_SUB_MENU_ON") ? "true" : "false";
 
                 var sao = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n");
-                var nhac = (sao.Length > 23 && string.IsNullOrEmpty(sao[23]) == false) ? sao[23] : "";
+                var nhac = (sao.Length > 24 && string.IsNullOrEmpty(sao[24]) == false) ? sao[24] : "";
 
                 TempData["nhacnendemo"] = nhac;
 

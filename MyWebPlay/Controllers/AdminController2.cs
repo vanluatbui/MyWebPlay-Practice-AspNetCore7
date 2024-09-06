@@ -533,7 +533,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult Karaoke_Ajax_Call (string url, int index)
         {
-            if (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[22] == "AJAX_JAVASCRIPT_OFF")
+            if (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23] == "AJAX_JAVASCRIPT_OFF")
             {
                 return Ok(new { error = "true" });
             }
@@ -633,7 +633,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult ListSongKaraoke_Call(string url)
         {
-            if (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[22] == "AJAX_JAVASCRIPT_OFF")
+            if (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23] == "AJAX_JAVASCRIPT_OFF")
             {
                 return Ok(new { error = "true" });
             }

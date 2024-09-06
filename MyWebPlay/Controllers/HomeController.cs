@@ -395,7 +395,9 @@ namespace MyWebPlay.Controllers
 
                 TempData["nhacnendemo"] = nhac;
 
-                TempData["ajax_js"] = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[22] == "AJAX_JAVASCRIPT_ON") ? "true" : "false";
+                TempData["user_ip_form_regist"] = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[22] == "FORM_IP_USER_REGIST_ON") ? "true" : "false";
+
+                TempData["ajax_js"] = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23] == "AJAX_JAVASCRIPT_ON") ? "true" : "false";
 
                 // Send mail try again - karaoke with member
 

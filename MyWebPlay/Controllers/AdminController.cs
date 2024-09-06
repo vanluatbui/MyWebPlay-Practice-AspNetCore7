@@ -1772,7 +1772,7 @@ namespace MyWebPlay.Controllers
                                 break;
                             }
 
-                            if (span != "")
+                            if (span != "" && f["txtDataThan"].ToString() != span.Replace("<@@","").Replace("@@>",""))
                             {
                                 noidung = noidung.Replace(span, "<@@" + f["txtDataThan"] +"@@>");
                                 cometo = "#come-" + i;

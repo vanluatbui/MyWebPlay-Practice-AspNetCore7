@@ -81,6 +81,21 @@ Layout = null;
                          else
                            window.location.href = "https://stackoverflow.com/questions";
             }
+
+            function registUser()
+            {
+                var infoUser = document.getElementById("txtUserInfo").value;
+
+
+                if ('@TempData["IP_Client"]' == "0.0.0.0" || infoUser == "" || '@TempData["BlockRegistUsing"]' == "true")
+                {
+                    alert("Đã xảy ra lỗi. Vui lòng thao tác lại sau.");
+                    return;
+                }
+
+                window.location.href = "/Home/PlayOnWebInLocalX?key=true&&info="+infoUser;
+
+            }
             
         </script>
     <body>
@@ -88,6 +103,18 @@ Layout = null;
         <img src="/Image_Play/waiting.gif" name="myVideo" class="sqs-html5-video" />
         <br />
         <h1 style="color:red">WEBSITE HIỆN ĐANG BỊ KHOÁ, XIN VUI LÒNG QUAY LẠI SAU!</h1>
+        @if (TempData["user_ip_form_regist"] == "true")
+            {
+                <br />
+                <hr />
+                <br />
+                <span style="color:blue">Nhập info user (của bạn) muốn đăng kí tham gia : </span>
+                <input type="text" id="txtUserInfo" />
+                <button onclick="registUser()"><b style="color:purple">ĐĂNG KÍ THAM GIA</b></button>
+                <br />
+                <hr />
+                <br />
+            }
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>

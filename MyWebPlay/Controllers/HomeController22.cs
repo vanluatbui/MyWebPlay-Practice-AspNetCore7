@@ -439,7 +439,7 @@ namespace MyWebPlay.Controllers
                 }
                 khoawebsiteClient(listIP);
 
-                ViewBag.DataText = "w2_User\tuser_id\tnvarchar\t100\tuser id\r\nw2_User\tuser_age\tint\t0\tuser age\r\nw2_User\tuser_title\tdecimal\t23,3\tuser title";
+                ViewBag.DataText = "w2_User\tuser_id\tnvarchar\t100\tuser id\r\nw2_User\tuser_age\tint\t0\tuser age\r\nw2_User\tuser_title\tdecimal\t23,3\tuser title\r\nw2_User\tuser_birth\tdatetime\t0\tuser_birth";
 
             }
             catch (Exception ex)
@@ -736,7 +736,7 @@ namespace MyWebPlay.Controllers
                     .Replace("@@ input_update @@", inputUpdate)
                    .Replace("@@ input_insert_1 @@", inputInsert1)
                    .Replace("@@ input_insert_2 @@", inputInsert2)
-                   .Replace("@@ input_data @@", inputData);
+                   .Replace("@@ input_data @@", inputData.Replace(" Size=\"0\"", ""));
 
 
                 s += "\r\n==================== RESPOSITORY :\r\n\r\n";
@@ -785,7 +785,7 @@ namespace MyWebPlay.Controllers
                     else
                     if (kieu.Contains("datetime"))
                     {
-                        kieuX = "DateTine.Now";
+                        kieuX = "DateTime.Now";
                     }
                     else
                     if (kieu.Contains("int") || kieu.Contains("decimal") || kieu.Contains("double") || kieu.Contains("float"))
@@ -804,7 +804,7 @@ namespace MyWebPlay.Controllers
                     else
                     if (kieu.Contains("datetime"))
                     {
-                        kieuXX = "DateTine";
+                        kieuXX = "DateTime";
                     }
                     else
                      kieuXX = kieu;
@@ -851,6 +851,35 @@ namespace MyWebPlay.Controllers
                     .Replace("{1}", table.Replace("w2_", ""))
                     .Replace("@@ input_data_1 @@", inputDT1)
                      .Replace("@@ input_data_2 @@", inputDT2);
+
+                s += "\r\n\r\n==================== SQL :\r\n\r\n";
+
+                var sql = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "FormatFileW2", "SQL.txt"));
+
+                var sql_input1 = "";
+                var sql_input2 = "";
+
+                for (var i = 0; i < data.Length; i++)
+                {
+                    var delta = data[i].Split("\t");
+                    var field = delta[1];
+                    var kieu = delta[2];
+                    var lengthmax = delta[3];
+
+                    sql_input1 += "\t[" + field + "] [" + kieu + "] (" + lengthmax + ")";
+                    sql_input2 += "ALTER TABLE ["+ table + "] ADD [" + field + "] [" + kieu + "] (" + lengthmax + ");";
+
+                    if (i != data.Length - 1)
+                    {
+                        sql_input1 += ",\r\n";
+                        sql_input2 += "\r\n";
+                    }
+                }
+
+                s += sql.Replace("{1}", DateTime.Now.Year.ToString())
+                   .Replace("{0}", table)
+                   .Replace("@@ input_data_1 @@", sql_input1.Replace(" (0)", ""))
+                    .Replace("@@ input_data_2 @@", sql_input2.Replace(" (0)", ""));
 
                 nix = s;
 

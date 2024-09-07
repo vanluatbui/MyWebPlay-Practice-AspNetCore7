@@ -1,0 +1,29 @@
+﻿if exists (select * from dbo.sysobjects where id = OBJECT_ID(N'[dbo].[{0}]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[{0}]
+GO
+/*
+=========================================================================================================
+  Module      : {0} ({0}.sql)
+ ･･･････････････････････････････････････････････････････････････････････････････････････････････････････
+  Copyright   : Copyright W2 Co.,Ltd. {1} All Rights Reserved.
+=========================================================================================================
+/*
+
+CREATE TABLE [dbo].[{0}] (
+@@ input_data_1 @@
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[{0}] WITH NOCHECK ADD
+	CONSTRAINT [PK_{0}] PRIMARY KEY  CLUSTERED
+	(
+		[id]
+	) ON [PRIMARY]
+GO
+
+CREATE INDEX [IX_{0}_1] ON [dbo].[{0}]([id]) ON [PRIMARY]
+GO
+
+/*
+@@ input_data_2 @@
+*/

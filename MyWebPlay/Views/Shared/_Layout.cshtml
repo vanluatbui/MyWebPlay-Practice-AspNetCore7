@@ -97,6 +97,7 @@
 
 
 
+
 @if (TempData["HTML-visible"] != null && TempData["HTML-visible"].ToString() == "0")
 {
 <!DOCTYPE html>
@@ -139,13 +140,13 @@
             return;
         
             //Notice
-
+        
              if (localStorage.getItem("block-notice") != null && localStorage.getItem("block-notice") != '@TempData["code-notice"]')
              {
                  localStorage.removeItem("block-notice");
              }
-
-
+        
+        
             if (localStorage.getItem("block-notice") == null)
             {
                 if ('@TempData["notice-play"]' != "[NULL]")
@@ -232,7 +233,7 @@
                     {
                         window.location.href = "/Home/LockedWeb";
                     }
-
+        
                 if (nai == 0)
                 {
                 var noticeFrame = document.getElementById("noticeFrame");
@@ -272,7 +273,7 @@
                  }
             }
         }
-
+        
         
         // Get user IP
         if (ok == 0 && '@TempData["GetDataIP"]' == "true")
@@ -309,7 +310,7 @@
                                     win.close();
                                     window.close();
                     }
-
+        
                 if (nai == 0)
                 {
                 var noticeFrame = document.getElementById("noticeFrame");
@@ -337,7 +338,7 @@
              win.close();
              window.close();
                     }
-
+        
                 if (nai == 0)
                 {
                 var noticeFrame = document.getElementById("noticeFrame");
@@ -365,7 +366,7 @@
              win.close();
              window.close();
                     }
-
+        
                 if (nai == 0)
                 {
                 var noticeFrame = document.getElementById("noticeFrame");
@@ -391,7 +392,7 @@
                     {
                        window.location.href = "/Home/RemoveTempData";
                     }
-
+        
                 if (nai == 0)
                 {
                 var noticeFrame = document.getElementById("noticeFrame");
@@ -434,7 +435,7 @@
                     {
                         window.location.href = "/Home/RemoveTempData";
                     }
-
+        
                 if (nai == 0)
                 {
                 var noticeFrame = document.getElementById("noticeFrame");
@@ -470,7 +471,7 @@
                     {
                         window.location.href = "/Home/Error";
                     }
-
+        
                 if (nai == 0)
                 {
                 var noticeFrame = document.getElementById("noticeFrame");
@@ -519,7 +520,7 @@
                     {
                         window.location.href = "/Home/LockedWeb";
                     }
-
+        
                 if (nai == 0)
                 {
                 var noticeFrame = document.getElementById("noticeFrame");
@@ -557,7 +558,7 @@
                     {
                         window.location.href = "/Home/LockedWeb";
                     }
-
+        
                 if (nai == 0)
                 {
                 var noticeFrame = document.getElementById("noticeFrame");
@@ -578,7 +579,7 @@
                     {
                         window.location.href = "/Home/LockedWeb";
                     }
-
+        
                 if (nai == 0)
                 {
                 var noticeFrame = document.getElementById("noticeFrame");
@@ -792,7 +793,7 @@
                window.location.href="/Home/BatSuTinTuong?url="+'@TempData["current"]' + "&&ip="+'@TempData["userIP"]';
              }
          
-
+        
              if ('@TempData["boqua-trustedIP"]' == null || '@TempData["boqua-trustedIP"]' != "true")
              {
               if (window.localStorage.getItem('trusted-you') == null)
@@ -964,7 +965,7 @@
         
         toanmanhinh();
         },10);
-
+        
         if ('@TempData["AdminControl"]' == "true")
         {
             if (localStorage.getItem("nensangtoi") != null)
@@ -976,7 +977,7 @@
         }
         else
         {
-;            if (localStorage.getItem("nensangtoi_temp") != null)
+        ;            if (localStorage.getItem("nensangtoi_temp") != null)
             {
                 var nenst = localStorage.getItem("nensangtoi_temp");
                 localStorage.setItem("nensangtoi", nenst);
@@ -987,85 +988,85 @@
     </script>
     <iframe id="noticeFrame" style="display:none;margin:0 auto;width:100%;height:100%"></iframe>
     <div id="bodyIndex">
-   @if (TempData["AdminControl"] == "false" && TempData["ClearWebsite"] == "false")
-{
-    <header>
-        <nav id="nenta" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color:@TempData["mau_nen"]">
-        <div class="container-fluid">
-            @if (TempData["belix"] == "false" && TempData["not-locked-web-client-play"] != "true")
-            {
-            <button style="color:yellow" class="navbar-brand" asp-area="" onclick="khoawebsite()">Khoá WebSite bằng mật mã LockedClientID (<u>hãy cẩn thận đừng nhấn nhầm vào đây nếu bạn không có nhu cầu 😁</u>)</button>
-            <h2 onclick="toanmanhinh()" id="tmh" href="#xuly">@TempData["TMH"]</h2>
-            }
-            else
-            {
-            {
-            <button style="color:yellow" class="navbar-brand" asp-area="">Chào mừng bạn đến với website miễn phí với các tính năng cơ bản của MyWebPlay 👋👋👋</button>
-            <h2 onclick="toanmanhinh()" id="tmh" href="#xuly">@TempData["TMH"]</h2>
-            }
-            }
-            <a href="/Home/Index">
-                <p style="color:orangered">BACK HOME MENU</p>
-            </a>
-            @if (TempData["belix"] == "false")
-            {
-            if (TempData["IPUser_UnVisible"] == "false")
-            {
-            <span onclick="savebelive()" style="color:chartreuse">@TempData["userIP"]</span>
-            }
-            else
-            {
-            <span onclick="savebelive()" style="color:chartreuse">###</span>
-            }
-            }
-            <h2 style="color:@TempData["mau_winx"]" onclick="xoaluunen()">@TempData["winx"]</h2>
-            @if (TempData["demo-mau"] == "false")
-            {
-            @if(TempData["mau_background"] == "white")
-            {
-            <a style="color:crimson" id="chuyenlightdark" href="#xuly" onclick="nensangtoi('xuly')">Đổi nền tối</a>
-            }
-            else
-            {
-            <a id="chuyenlightdark" style="color:crimson" href="#xuly" onclick="nensangtoi('xuly')">Đổi nền sáng</a>
-            }
-            }
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-        </nav>
-    </header>
-}
-<div name="colorX" style="color:@TempData["mau_text"]">
-@if (TempData["AdminControl"] == "false" && TempData["ClearWebsite"] == "false")
-{
-    <a href="#xuly" onclick="copyCurrent()">
-        <h4 id="current" style="color:orangered">@TempData["current"]</h4>
-    </a>
-    <br />
-}
-@if(TempData["ClearWebsite"] == "false" || TempData["ClearWebsite"] == null)
-{
-    @if (TempData["GetDataIP"] == "true")
+        @if (TempData["AdminControl"] == "false" && TempData["ClearWebsite"] == "false")
+        {
+        <header>
+            <nav id="nenta" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color:@TempData["mau_nen"]">
+            <div class="container-fluid">
+                @if (TempData["belix"] == "false" && TempData["not-locked-web-client-play"] != "true")
+                {
+                <button style="color:yellow" class="navbar-brand" asp-area="" onclick="khoawebsite()">Khoá WebSite bằng mật mã LockedClientID (<u>hãy cẩn thận đừng nhấn nhầm vào đây nếu bạn không có nhu cầu 😁</u>)</button>
+                <h2 onclick="toanmanhinh()" id="tmh" href="#xuly">@TempData["TMH"]</h2>
+                }
+                else
+                {
+                {
+                <button style="color:yellow" class="navbar-brand" asp-area="">Chào mừng bạn đến với website miễn phí với các tính năng cơ bản của MyWebPlay 👋👋👋</button>
+                <h2 onclick="toanmanhinh()" id="tmh" href="#xuly">@TempData["TMH"]</h2>
+                }
+                }
+                <a href="/Home/Index">
+                    <p style="color:orangered">BACK HOME MENU</p>
+                </a>
+                @if (TempData["belix"] == "false")
+                {
+                if (TempData["IPUser_UnVisible"] == "false")
+                {
+                <span onclick="savebelive()" style="color:chartreuse">@TempData["userIP"]</span>
+                }
+                else
+                {
+                <span onclick="savebelive()" style="color:chartreuse">###</span>
+                }
+                }
+                <h2 style="color:@TempData["mau_winx"]" onclick="xoaluunen()">@TempData["winx"]</h2>
+                @if (TempData["demo-mau"] == "false")
+                {
+                @if(TempData["mau_background"] == "white")
+                {
+                <a style="color:crimson" id="chuyenlightdark" href="#xuly" onclick="nensangtoi('xuly')">Đổi nền tối</a>
+                }
+                else
+                {
+                <a id="chuyenlightdark" style="color:crimson" href="#xuly" onclick="nensangtoi('xuly')">Đổi nền sáng</a>
+                }
+                }
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            </nav>
+        </header>
+        }
+        <div name="colorX" style="color:@TempData["mau_text"]">
+        @if (TempData["AdminControl"] == "false" && TempData["ClearWebsite"] == "false")
+        {
+        <a href="#xuly" onclick="copyCurrent()">
+            <h4 id="current" style="color:orangered">@TempData["current"]</h4>
+        </a>
+        <br />
+        }
+        @if(TempData["ClearWebsite"] == "false" || TempData["ClearWebsite"] == null)
+        {
+        @if (TempData["GetDataIP"] == "true")
+        {
+        <div hidden>@RenderBody()</div>
+        <img src="/Image_Play/waiting.gif" />
+        }
+        else
+        { 
+        @RenderBody()
+        }
+        }
+        else
+        {
+        <div hidden>@RenderBody()</div>
+        <img id="autoCP" onclick="autoCopy()" src="/Image_Play/Google.png" width="100%" height="100%" style="position:fixed;min-width:100%;min-height:100%">
+        }
+    </div>
+    @if (TempData["ClearWebsite"] == "false")
     {
-    <div hidden>@RenderBody()</div>
-    <img src="/Image_Play/waiting.gif" />
-    }
-    else
-    { 
-    @RenderBody()
-    }
-}
-else
-{
-    <div hidden>@RenderBody()</div>
-    <img id="autoCP" onclick="autoCopy()" src="/Image_Play/Google.png" width="100%" height="100%" style="position:fixed;min-width:100%;min-height:100%">
-}
-</div>
-@if (TempData["ClearWebsite"] == "false")
-{
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2023 - MyWebPlay - C# ~ Asp Net Core 7
@@ -1074,55 +1075,54 @@ else
             <source src="@TempData["nhacnendemo"]" type="audio/mpeg">
         </audio>
     </footer>
-}
-</div>
-
-<style>
-    body {
+    }
+    </div>
+    <style>
+        body {
         font-family: Arial, sans-serif;
         background-color: #f8f9fa;
         margin: 0;
         padding: 0;
-    }
-    .navbar {
+        }
+        .navbar {
         background-color: #343a40;
-    }
-    .navbar-brand {
+        }
+        .navbar-brand {
         color: #fff;
         cursor: pointer;
-    }
-    .navbar-brand:hover {
+        }
+        .navbar-brand:hover {
         color: #ffc107;
-    }
-    .navbar-toggler {
+        }
+        .navbar-toggler {
         border-color: #6c757d;
-    }
-    .navbar-toggler-icon {
+        }
+        .navbar-toggler-icon {
         color: #6c757d;
-    }
-    #current {
+        }
+        #current {
         font-size: 1.5em;
         font-weight: bold;
-    }
-    footer {
+        }
+        footer {
         padding: 1em 0;
         background-color: #343a40;
         color: #fff;
         text-align: center;
         border-radius: 5px;
-    }
-    h2, p, span, a {
+        }
+        h2, p, span, a {
         margin: 0.5em 0;
-    }
-    a {
+        }
+        a {
         color: crimson;
         text-decoration: none;
         border-radius: 5px;
-    }
-    a:hover {
+        }
+        a:hover {
         text-decoration: underline;
-    }
-    button, input[type="submit"] {
+        }
+        button, input[type="submit"] {
         border: 2px solid #007bff;
         color: #007bff;
         padding: 10px 20px;
@@ -1132,51 +1132,49 @@ else
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         background: none;
         transition: color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    button:hover, input[type="submit"]:hover {
+        }
+        button:hover, input[type="submit"]:hover {
         color: #0056b3;
         transform: scale(1.05);
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-    }
-    input[type="color"] {
+        }
+        input[type="color"] {
         border: 2px solid #007bff;
         padding: 5px;
         cursor: pointer;
         border-radius: 5px;
         transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    input[type="color"]:hover {
+        }
+        input[type="color"]:hover {
         border-color: #0056b3;
         transform: scale(1.05);
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-    }
-    input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="search"], input[type="file"], textarea, select {
+        }
+        input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="search"], input[type="file"], textarea, select {
         padding: 10px;
         margin: 5px 0 10px 0;
         display: inline-block;
         border: 1px solid #ccc;
         border-radius: 5px;
         box-sizing: border-box;
-    }
-    input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="number"]:focus, input[type="search"]:focus, input[type="file"]:focus, textarea:focus, select:focus {
+        }
+        input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="number"]:focus, input[type="search"]:focus, input[type="file"]:focus, textarea:focus, select:focus {
         border-color: #007bff;
         outline: none;
-    }
-    img {
+        }
+        img {
         max-width: 100%;
         height: auto;
         border-radius: 5px;
-    }
-
-    audio {
+        }
+        audio {
         display: block;
         width: 100%;
         margin-top: 10px;
         border-radius: 8px; /* Rounded corners */
         overflow: hidden; /* Ensure rounded corners are visible */
-    }
-</style>
-
+        }
+    </style>
     <br />
     <br />
     <br />

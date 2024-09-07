@@ -1,48 +1,45 @@
 ﻿@{
-    Layout = null;
+Layout = null;
 }
 @if (TempData["alert_admin"] != null && TempData["alert_admin"] != "")
 {
-    <style>
-        /* Kiểu dáng cho hộp thoại */
-        .custom-dialog {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: grey;
-        padding: 30px;
-        box-shadow: 0 0 15px rgba(0,0,0,0.3);
-        z-index: 1000;
-        border-radius: 10px;
-        height: 500px;
-        display: flex;
-         flex-direction: column;
-         justify-content: center;
-            align-items: center;
-            box-sizing: border-box;
-        }
-
-        /* Kiểu dáng cho nội dung hộp thoại */
-        .custom-dialog-content h3 {
-        margin-top: 0;
-        font-size: 18px;
-        color: #333;
-        }
-
-        .custom-dialog-content p {
-        margin: 10px 0;
-        font-size: 18px;
-        color: black;
-        }
-
-    </style>
-    <div id="custom-alert" class="custom-dialog">
-        <div class="custom-dialog-content">
-            <h3 style="color:yellow">MyWebPlay xin thông báo</h3>
-            <p style="color:white">@Html.Raw(TempData["alert_admin"])</p>
-            <span style="color:aqua">Nội dung này sẽ hiển thị và tự động đóng lại sau 15 giây (hãy chờ đợi vì có thể còn có thông báo khác sau đó).</span>
-            <br />
-        </div>
+<style>
+    /* Kiểu dáng cho hộp thoại */
+    .custom-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: grey;
+    padding: 30px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    z-index: 1000;
+    border-radius: 10px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    }
+    /* Kiểu dáng cho nội dung hộp thoại */
+    .custom-dialog-content h3 {
+    margin-top: 0;
+    font-size: 18px;
+    color: #333;
+    }
+    .custom-dialog-content p {
+    margin: 10px 0;
+    font-size: 18px;
+    color: black;
+    }
+</style>
+<div id="custom-alert" class="custom-dialog">
+    <div class="custom-dialog-content">
+        <h3 style="color:yellow">MyWebPlay xin thông báo</h3>
+        <p style="color:white">@Html.Raw(TempData["alert_admin"])</p>
+        <span style="color:aqua">Nội dung này sẽ hiển thị và tự động đóng lại sau 15 giây (hãy chờ đợi vì có thể còn có thông báo khác sau đó).</span>
+        <br />
     </div>
+</div>
 }

@@ -23,16 +23,15 @@ Layout = null;
             <br>
             <b> Tải file TXT trắc nghiệm của bạn (đã xử lý) : </b>
             <br>
-             @if(TempData["fileSuDung"] == "true")
-             {
-                    <input type="file" name="txtFile"/>
-                }
-                else
-                {
-                    <input disabled type="file" name="txtFile"/>
-                }
-
-             <b>@Html.ActionLink("Bạn chưa có file trắc nghiệm?","CreateFile_TracNghiem")</b>
+            @if(TempData["fileSuDung"] == "true")
+            {
+            <input type="file" name="txtFile"/>
+            }
+            else
+            {
+            <input disabled type="file" name="txtFile"/>
+            }
+            <b>@Html.ActionLink("Bạn chưa có file trắc nghiệm?","CreateFile_TracNghiem")</b>
             <br>
             <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
         </td>

@@ -1,517 +1,516 @@
 ﻿@{
-    Layout = null;
+Layout = null;
 }
-
 <script>
-     //-----------------------------------------------
-
-           // Delete div somee
-        
-        if ('@TempData["mini-web"]' == "" || '@TempData["mini-web"]' == null || '@TempData["mini-web"]' == "false")
-        {
-        if ('@TempData["mini-web"]' == "false")
-        {
-            localStorage.removeItem("mini-Web");
-        }
-        
-         if ('@TempData["tathetweb"]' == "true")
-        {
-            window.location.href="/Home/Error";
-        }
-        
-        var ker = 0;
-        setInterval(function()
-                {
-                     $(document).ready(function () {
-                $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
-                $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
-                $("div[onmouseover='S_ssac();']").remove();
-                $("center").remove();
-                $("div[style='height: 65px;']").remove();
-            }); 
-        },10);
-        
-        if ('@TempData["UyTin"]' == "" && window.localStorage.getItem('@TempData["keytuyetdoi"]') != null && '@TempData["belix"]' == "false" && '@TempData["not-believe"]' == "false")
-        {
-            window.location.href = "/Home/MatDoTuyetDoi?mdtd="+localStorage.getItem('@TempData["keytuyetdoi"]');
-        }
-        
-         if ('@TempData["TestTuyetDoi"]' == "false" && window.localStorage.getItem('@TempData["keytuyetdoi"]') != null)
-        {
-           window.localStorage.removeItem('@TempData["keytuyetdoi"]');
-        }
-        
-        var ok = 0;
-        var xilip = 0;
-         if (ok == 0 && '@TempData["NotAlertQuickData"]' == "true" && '@TempData["BabyData"]' == "false")
-         {
-             ok = 1;
-              var x = Math.floor(Math.random() * 2 + 1);
-                if (x == 1)
-                 window.location.href = "http://learn.microsoft.com/en-us/aspnet/core/?view=aspnetcore-7.0";
-                 else
-                   window.location.href = "https://stackoverflow.com/questions";
-         }
-        
-         if ('@TempData["NotAlertQuickData"]' == "true")
-         xilip = 1;
-        
-        if (ok == 0 && localStorage.getItem("trusted-you") != "true" && (('@TempData["NotAlertQuickData"]' == "false" && '@TempData["UsingWebsite"]' == "false" && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null) || (window.localStorage.getItem('@TempData["keytuyetdoi"]') != null && '@TempData["not-believe"]' == "true")))
-        {
-            if ('@TempData["AlertUsingWebsite"]' == "true")
-            {
-                var nai = 0;
-                setInterval(function()
-                {
-                    var bodyIndex = document.getElementById("bodyIndex");
-                    bodyIndex.style.display = "none";
-                    if (nai == 15)
-                    {
-                        window.location.href = "/Home/LockedWeb";
-                    }
-
-                if (nai == 0)
-                {
-                var noticeFrame = document.getElementById("noticeFrame");
-                noticeFrame.style.display = "block";
-                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=0";
-                }
-                nai++;
-                },1000);
-            ok = 1;
-            }
-            else
-            {
-                ok = 1;
-        
-                var x = Math.floor(Math.random() * 2 + 1);
-                if (x == 1)
-                {
-                     if (('@TempData["mini-web"]' == "" || '@TempData["mini-web"]' == null ) && localStorage.getItem("mini-Web") != null)
-                    {
-                        var xd = localStorage.getItem("mini-Web");
-                        //localStorage.removeItem("mini-Web");
-                    window.location.href = "/Home/KiemTraMini?test="+xd+"&&url="+'@TempData["urlCurrent"]';
-                     }
-                     else
-                 window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
-                }
-                 else
-                 {
-                     if (('@TempData["mini-web"]' == "" || '@TempData["mini-web"]' == null ) && localStorage.getItem("mini-Web") != null)
-                    {
-                        var xd = localStorage.getItem("mini-Web");
-                        //localStorage.removeItem("mini-Web");
-                     window.location.href = "/Home/KiemTraMini?test="+xd+"&&url="+'@TempData["urlCurrent"]';
-                     }
-                     else
-                   window.location.href = "https://stackoverflow.com/questions";
-                 }
-            }
-        }
-
-        
-        // Get user IP
-        if (ok == 0 && '@TempData["GetDataIP"]' == "true")
-        {
-            var s = '@TempData["urlCurrent"]';
-            if (s == null || s == "" || s == "SessionPlay_DarkAdmin" || s == "/")
-            s = "Index";
-        
-        fetch('https://api.ipify.org?format=json')
-        .then(response => response.json())
-        .then(data => window.location.href ="/Home/GetUserIP?ip="+data.ip+"&currentUrl="+s);
-        }
-        
-        if (ok == 0 && '@TempData["lockedClient"]' == "true" && '@TempData["data-result"]' == "false")
-        {
-            ok = 1;
-            window.location.href = "/Home/LockedWebClient";
-        }
-        
-        if (ok != 100 && '@TempData["Lock_Message"]' != null && '@TempData["Lock_Message"]' == "true")
-        {
-            @{
-            TempData["Lock_Message"] = "";
-        }
-            ok = 1;
-            var nai = 0;
-                setInterval(function()
-                {
-                    var bodyIndex = document.getElementById("bodyIndex");
-                    bodyIndex.style.display = "none";
-                    if (nai == 15)
-                    {
-                                    var win = window.open("about:blank", "_self");
-                                    win.close();
-                                    window.close();
-                    }
-
-                if (nai == 0)
-                {
-                var noticeFrame = document.getElementById("noticeFrame");
-                noticeFrame.style.display = "block";
-                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=1";
-                }
-                nai++;
-                },1000);
-        }
-        
-         if (ok != 100 && '@TempData["Unlock_Message"]' != null && '@TempData["Unlock_Message"]' == "true")
-        {
-            @{
-            TempData["Unlock_Message"] = "";
-        }
-            ok = 100;
-             var nai = 0;
-                setInterval(function()
-                {
-                    var bodyIndex = document.getElementById("bodyIndex");
-                    bodyIndex.style.display = "none";
-                    if (nai == 15)
-                    {
-                                    var win = window.open("about:blank", "_self");
-             win.close();
-             window.close();
-                    }
-
-                if (nai == 0)
-                {
-                var noticeFrame = document.getElementById("noticeFrame");
-                noticeFrame.style.display = "block";
-                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=2";
-                }
-                nai++;
-                },1000);
-        }
-        
-         if (ok != 100 && '@TempData["Logout_Message"]' != null && '@TempData["Logout_Message"]' == "true" )
-        {
-            @{
-            TempData["Logout_Message"] = "";
-        }
-            ok = 100;
-             var nai = 0;
-                setInterval(function()
-                {
-                    var bodyIndex = document.getElementById("bodyIndex");
-                    bodyIndex.style.display = "none";
-                    if (nai == 15)
-                    {
-                                   var win = window.open("about:blank", "_self");
-             win.close();
-             window.close();
-                    }
-
-                if (nai == 0)
-                {
-                var noticeFrame = document.getElementById("noticeFrame");
-                noticeFrame.style.display = "block";
-                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=3";
-                }
-                nai++;
-                },1000);
-        }
-        
-         if (ok == 0 && '@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true" )
-        {
-            if ('@TempData["AlertUsingWebsite"]' == "true")
-            {
-            ok = 10;
-            localStorage.setItem("keyX_PlayOnWeb", "true");
-             var nai = 0;
-                setInterval(function()
-                {
-                    var bodyIndex = document.getElementById("bodyIndex");
-                    bodyIndex.style.display = "none";
-                    if (nai == 15)
-                    {
-                       window.location.href = "/Home/RemoveTempData";
-                    }
-
-                if (nai == 0)
-                {
-                var noticeFrame = document.getElementById("noticeFrame");
-                noticeFrame.style.display = "block";
-                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=4";
-                }
-                nai++;
-                },1000);
-            }
-            else
-            {
-                 var x = Math.floor(Math.random() * 2 + 1);
-                if (x == 1)
-                 window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
-                 else
-                   window.location.href = "https://stackoverflow.com/questions";
-                   ok = 10;
-            }
-        }
-        
-        
-        if (ok == 0 && '@TempData["continue"]' == "OK" && localStorage.getItem("keyX_PlayOnWeb") != "true" )
-        {
-            ok = 2;
-            window.location.href="/Home/AcceptContinueUseWeb";
-        }
-        
-         if (ok == 0 && '@TempData["ok-continue"]' == "yes" && localStorage.getItem("keyX_PlayOnWeb") != "true")
-        {
-             if ('@TempData["AlertUsingWebsite"]' == "true")
-            {
-            ok = 10;
-            localStorage.setItem("keyX_PlayOnWeb", "true");
-             var nai = 0;
-                setInterval(function()
-                {
-                    var bodyIndex = document.getElementById("bodyIndex");
-                    bodyIndex.style.display = "none";
-                    if (nai == 15)
-                    {
-                        window.location.href = "/Home/RemoveTempData";
-                    }
-
-                if (nai == 0)
-                {
-                var noticeFrame = document.getElementById("noticeFrame");
-                noticeFrame.style.display = "block";
-                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=5";
-                }
-                nai++;
-                },1000);
-            }
-             else
-            {
-                 var x = Math.floor(Math.random() * 2 + 1);
-                if (x == 1)
-                 window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
-                 else
-                   window.location.href = "https://stackoverflow.com/questions";
-                   ok = 10;
-            }
-        }
-        
-        
-        if (ok == 0 && '@TempData["AllConnect"]' == "false" && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true"  && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null && window.localStorage.getItem("trusted-you") == null)
-        {
-             if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
-            {
-            ok = 1;
-             var nai = 0;
-                setInterval(function()
-                {
-                    var bodyIndex = document.getElementById("bodyIndex");
-                    bodyIndex.style.display = "none";
-                    if (nai == 15)
-                    {
-                        window.location.href = "/Home/Error";
-                    }
-
-                if (nai == 0)
-                {
-                var noticeFrame = document.getElementById("noticeFrame");
-                noticeFrame.style.display = "block";
-                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=6";
-                }
-                nai++;
-                },1000);
-            }
-             else
-            {
-                 var x = Math.floor(Math.random() * 2 + 1);
-                if (x == 1)
-                 window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
-                 else
-                   window.location.href = "https://stackoverflow.com/questions";
-                   ok = 1;
-            }
-        }
-        
-        if (ok == 0 && '@TempData["continue-X"]' == "NO" && localStorage.getItem("keyX_PlayOnWeb") == "true")
-        {
-            ok = 3;
-            localStorage.removeItem("keyX_PlayOnWeb");
-             window.location.href = "/Home/RemoveTempData";
-        }
-        
-        if (ok == 0  && '@TempData["ok-continue-X"]' == "no")
-        {
-            ok = 10;
-            localStorage.removeItem("keyX_PlayOnWeb");
-             window.location.href = "/Home/RemoveTempData";
-        }
-        
-        if (ok == 0 && '@TempData["lock"]' == "true")
-        {
-             if ('@TempData["AlertUsingWebsite"]' == "true")
-            {
-            ok = 4;
-             var nai = 0;
-                setInterval(function()
-                {
-                    var bodyIndex = document.getElementById("bodyIndex");
-                    bodyIndex.style.display = "none";
-                    if (nai == 15)
-                    {
-                        window.location.href = "/Home/LockedWeb";
-                    }
-
-                if (nai == 0)
-                {
-                var noticeFrame = document.getElementById("noticeFrame");
-                noticeFrame.style.display = "block";
-                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=7";
-                }
-                nai++;
-                },1000);
-            }
-             else
-            {
-                 var x = Math.floor(Math.random() * 2 + 1);
-                if (x == 1)
-                 window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
-                 else
-                   window.location.href = "https://stackoverflow.com/questions";
-                   ok = 4;
-            }
-        }
-        
-         if (xilip == 0 && ok == 0 && '@TempData["AllConnect"]' == "false" && ('@TempData["PlayOnWebInLocal-X"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null)) && '@TempData["skipIP"]' != "true" && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null && window.localStorage.getItem("trusted-you") == null)
-        {
-             if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
-            {
-            ok = 1;
-            localStorage.removeItem("keyX_PlayOnWeb");
-            if ('@TempData["InError"]' == null)
-            {
-            var nai = 0;
-                setInterval(function()
-                {
-                    var bodyIndex = document.getElementById("bodyIndex");
-                    bodyIndex.style.display = "none";
-                    if (nai == 15)
-                    {
-                        window.location.href = "/Home/LockedWeb";
-                    }
-
-                if (nai == 0)
-                {
-                var noticeFrame = document.getElementById("noticeFrame");
-                noticeFrame.style.display = "block";
-                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=8";
-                }
-                nai++;
-                },1000);
-            }
-            else
-            {
-            var nai = 0;
-                setInterval(function()
-                {
-                    var bodyIndex = document.getElementById("bodyIndex");
-                    bodyIndex.style.display = "none";
-                    if (nai == 15)
-                    {
-                        window.location.href = "/Home/LockedWeb";
-                    }
-
-                if (nai == 0)
-                {
-                var noticeFrame = document.getElementById("noticeFrame");
-                noticeFrame.style.display = "block";
-                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=9";
-                }
-                nai++;
-                },1000);
-            }
-          }
-             else
-            {
-                 var x = Math.floor(Math.random() * 2 + 1);
-                if (x == 1)
-                 window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
-                 else
-                   window.location.href = "https://stackoverflow.com/questions";
-                   ok = 1;
-            }
-         }
-        }
-        
-         if ('@TempData["ok-tin-IP"]' == "true")
-         {
-             window.localStorage.setItem('trusted-you', "true");
-         }
-        
-         if ('@TempData["trust-about"]' == "false")
-         {
-              window.localStorage.removeItem('trusted-you');
-         }
-        
-         if ((window.localStorage.getItem('@TempData["keytuyetdoi"]') == null) || (window.localStorage.getItem('@TempData["keytuyetdoi"]') != null && '@TempData["not-believe"]' == "true"))
-         {
-         if ('@TempData["skipIP"]' != "true")
-         {
-            if ('@TempData["alert-trust"]' == "false" && '@TempData["data-result"]' == "false" && '@TempData["directURL"]' == "false")
-            {
-             if (window.localStorage.getItem('trusted-you') != null && window.localStorage.getItem('trusted-you') == "true")
-             {
-               window.location.href="/Home/BatSuTinTuong?url="+'@TempData["current"]' + "&&ip="+'@TempData["userIP"]';
-             }
-         
-
-             if ('@TempData["boqua-trustedIP"]' == null || '@TempData["boqua-trustedIP"]' != "true")
-             {
-              if (window.localStorage.getItem('trusted-you') == null)
-             {
-                window.location.href="/Home/TatSuTinTuong?url="+'@TempData["current"]';
-             }
-             }
-            }
-         }
-         }
-        
-             //-----------------------------------------------
-        
-        var sang = 0;
-            if ('@TempData["mau_background"]' == "white")
-            {
-                sang = 1;
-            }
-        
-            var xongmau = 0;
-            var iss = setInterval(function(){
-                 if (xongmau == 1) return;
-        
-                if (localStorage.getItem("nensangtoi") != null)
-                {
-                    sang = localStorage.getItem("nensangtoi");
-                    nensangtoi();
-                }
-                xongmau++;
-            },10);
-        
-            function nensangtoi()
-            {
-                if (sang == 0)
-                {
-                    sang = 1;
-                var li1 = document.getElementsByName("backgroundX").length;
-                for (var i = 0 ; i<li1; i++)
-                {
-                    document.getElementsByName("backgroundX")[i].style.backgroundColor = "white";
-                }
-               }
-               else
+    //-----------------------------------------------
+    
+          // Delete div somee
+       
+       if ('@TempData["mini-web"]' == "" || '@TempData["mini-web"]' == null || '@TempData["mini-web"]' == "false")
+       {
+       if ('@TempData["mini-web"]' == "false")
+       {
+           localStorage.removeItem("mini-Web");
+       }
+       
+        if ('@TempData["tathetweb"]' == "true")
+       {
+           window.location.href="/Home/Error";
+       }
+       
+       var ker = 0;
+       setInterval(function()
                {
-                   sang = 0;
-                var li1 = document.getElementsByName("backgroundX").length;
-                for (var i = 0 ; i<li1; i++)
-                {
-                    document.getElementsByName("backgroundX")[i].style.backgroundColor = "black";
-                }
+                    $(document).ready(function () {
+               $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
+               $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
+               $("div[onmouseover='S_ssac();']").remove();
+               $("center").remove();
+               $("div[style='height: 65px;']").remove();
+           }); 
+       },10);
+       
+       if ('@TempData["UyTin"]' == "" && window.localStorage.getItem('@TempData["keytuyetdoi"]') != null && '@TempData["belix"]' == "false" && '@TempData["not-believe"]' == "false")
+       {
+           window.location.href = "/Home/MatDoTuyetDoi?mdtd="+localStorage.getItem('@TempData["keytuyetdoi"]');
+       }
+       
+        if ('@TempData["TestTuyetDoi"]' == "false" && window.localStorage.getItem('@TempData["keytuyetdoi"]') != null)
+       {
+          window.localStorage.removeItem('@TempData["keytuyetdoi"]');
+       }
+       
+       var ok = 0;
+       var xilip = 0;
+        if (ok == 0 && '@TempData["NotAlertQuickData"]' == "true" && '@TempData["BabyData"]' == "false")
+        {
+            ok = 1;
+             var x = Math.floor(Math.random() * 2 + 1);
+               if (x == 1)
+                window.location.href = "http://learn.microsoft.com/en-us/aspnet/core/?view=aspnetcore-7.0";
+                else
+                  window.location.href = "https://stackoverflow.com/questions";
+        }
+       
+        if ('@TempData["NotAlertQuickData"]' == "true")
+        xilip = 1;
+       
+       if (ok == 0 && localStorage.getItem("trusted-you") != "true" && (('@TempData["NotAlertQuickData"]' == "false" && '@TempData["UsingWebsite"]' == "false" && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null) || (window.localStorage.getItem('@TempData["keytuyetdoi"]') != null && '@TempData["not-believe"]' == "true")))
+       {
+           if ('@TempData["AlertUsingWebsite"]' == "true")
+           {
+               var nai = 0;
+               setInterval(function()
+               {
+                   var bodyIndex = document.getElementById("bodyIndex");
+                   bodyIndex.style.display = "none";
+                   if (nai == 15)
+                   {
+                       window.location.href = "/Home/LockedWeb";
+                   }
+    
+               if (nai == 0)
+               {
+               var noticeFrame = document.getElementById("noticeFrame");
+               noticeFrame.style.display = "block";
+               noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=0";
                }
+               nai++;
+               },1000);
+           ok = 1;
+           }
+           else
+           {
+               ok = 1;
+       
+               var x = Math.floor(Math.random() * 2 + 1);
+               if (x == 1)
+               {
+                    if (('@TempData["mini-web"]' == "" || '@TempData["mini-web"]' == null ) && localStorage.getItem("mini-Web") != null)
+                   {
+                       var xd = localStorage.getItem("mini-Web");
+                       //localStorage.removeItem("mini-Web");
+                   window.location.href = "/Home/KiemTraMini?test="+xd+"&&url="+'@TempData["urlCurrent"]';
+                    }
+                    else
+                window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
+               }
+                else
+                {
+                    if (('@TempData["mini-web"]' == "" || '@TempData["mini-web"]' == null ) && localStorage.getItem("mini-Web") != null)
+                   {
+                       var xd = localStorage.getItem("mini-Web");
+                       //localStorage.removeItem("mini-Web");
+                    window.location.href = "/Home/KiemTraMini?test="+xd+"&&url="+'@TempData["urlCurrent"]';
+                    }
+                    else
+                  window.location.href = "https://stackoverflow.com/questions";
+                }
+           }
+       }
+    
+       
+       // Get user IP
+       if (ok == 0 && '@TempData["GetDataIP"]' == "true")
+       {
+           var s = '@TempData["urlCurrent"]';
+           if (s == null || s == "" || s == "SessionPlay_DarkAdmin" || s == "/")
+           s = "Index";
+       
+       fetch('https://api.ipify.org?format=json')
+       .then(response => response.json())
+       .then(data => window.location.href ="/Home/GetUserIP?ip="+data.ip+"&currentUrl="+s);
+       }
+       
+       if (ok == 0 && '@TempData["lockedClient"]' == "true" && '@TempData["data-result"]' == "false")
+       {
+           ok = 1;
+           window.location.href = "/Home/LockedWebClient";
+       }
+       
+       if (ok != 100 && '@TempData["Lock_Message"]' != null && '@TempData["Lock_Message"]' == "true")
+       {
+           @{
+           TempData["Lock_Message"] = "";
+       }
+           ok = 1;
+           var nai = 0;
+               setInterval(function()
+               {
+                   var bodyIndex = document.getElementById("bodyIndex");
+                   bodyIndex.style.display = "none";
+                   if (nai == 15)
+                   {
+                                   var win = window.open("about:blank", "_self");
+                                   win.close();
+                                   window.close();
+                   }
+    
+               if (nai == 0)
+               {
+               var noticeFrame = document.getElementById("noticeFrame");
+               noticeFrame.style.display = "block";
+               noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=1";
+               }
+               nai++;
+               },1000);
+       }
+       
+        if (ok != 100 && '@TempData["Unlock_Message"]' != null && '@TempData["Unlock_Message"]' == "true")
+       {
+           @{
+           TempData["Unlock_Message"] = "";
+       }
+           ok = 100;
+            var nai = 0;
+               setInterval(function()
+               {
+                   var bodyIndex = document.getElementById("bodyIndex");
+                   bodyIndex.style.display = "none";
+                   if (nai == 15)
+                   {
+                                   var win = window.open("about:blank", "_self");
+            win.close();
+            window.close();
+                   }
+    
+               if (nai == 0)
+               {
+               var noticeFrame = document.getElementById("noticeFrame");
+               noticeFrame.style.display = "block";
+               noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=2";
+               }
+               nai++;
+               },1000);
+       }
+       
+        if (ok != 100 && '@TempData["Logout_Message"]' != null && '@TempData["Logout_Message"]' == "true" )
+       {
+           @{
+           TempData["Logout_Message"] = "";
+       }
+           ok = 100;
+            var nai = 0;
+               setInterval(function()
+               {
+                   var bodyIndex = document.getElementById("bodyIndex");
+                   bodyIndex.style.display = "none";
+                   if (nai == 15)
+                   {
+                                  var win = window.open("about:blank", "_self");
+            win.close();
+            window.close();
+                   }
+    
+               if (nai == 0)
+               {
+               var noticeFrame = document.getElementById("noticeFrame");
+               noticeFrame.style.display = "block";
+               noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=3";
+               }
+               nai++;
+               },1000);
+       }
+       
+        if (ok == 0 && '@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true" )
+       {
+           if ('@TempData["AlertUsingWebsite"]' == "true")
+           {
+           ok = 10;
+           localStorage.setItem("keyX_PlayOnWeb", "true");
+            var nai = 0;
+               setInterval(function()
+               {
+                   var bodyIndex = document.getElementById("bodyIndex");
+                   bodyIndex.style.display = "none";
+                   if (nai == 15)
+                   {
+                      window.location.href = "/Home/RemoveTempData";
+                   }
+    
+               if (nai == 0)
+               {
+               var noticeFrame = document.getElementById("noticeFrame");
+               noticeFrame.style.display = "block";
+               noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=4";
+               }
+               nai++;
+               },1000);
+           }
+           else
+           {
+                var x = Math.floor(Math.random() * 2 + 1);
+               if (x == 1)
+                window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
+                else
+                  window.location.href = "https://stackoverflow.com/questions";
+                  ok = 10;
+           }
+       }
+       
+       
+       if (ok == 0 && '@TempData["continue"]' == "OK" && localStorage.getItem("keyX_PlayOnWeb") != "true" )
+       {
+           ok = 2;
+           window.location.href="/Home/AcceptContinueUseWeb";
+       }
+       
+        if (ok == 0 && '@TempData["ok-continue"]' == "yes" && localStorage.getItem("keyX_PlayOnWeb") != "true")
+       {
+            if ('@TempData["AlertUsingWebsite"]' == "true")
+           {
+           ok = 10;
+           localStorage.setItem("keyX_PlayOnWeb", "true");
+            var nai = 0;
+               setInterval(function()
+               {
+                   var bodyIndex = document.getElementById("bodyIndex");
+                   bodyIndex.style.display = "none";
+                   if (nai == 15)
+                   {
+                       window.location.href = "/Home/RemoveTempData";
+                   }
+    
+               if (nai == 0)
+               {
+               var noticeFrame = document.getElementById("noticeFrame");
+               noticeFrame.style.display = "block";
+               noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=5";
+               }
+               nai++;
+               },1000);
+           }
+            else
+           {
+                var x = Math.floor(Math.random() * 2 + 1);
+               if (x == 1)
+                window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
+                else
+                  window.location.href = "https://stackoverflow.com/questions";
+                  ok = 10;
+           }
+       }
+       
+       
+       if (ok == 0 && '@TempData["AllConnect"]' == "false" && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true"  && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null && window.localStorage.getItem("trusted-you") == null)
+       {
+            if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
+           {
+           ok = 1;
+            var nai = 0;
+               setInterval(function()
+               {
+                   var bodyIndex = document.getElementById("bodyIndex");
+                   bodyIndex.style.display = "none";
+                   if (nai == 15)
+                   {
+                       window.location.href = "/Home/Error";
+                   }
+    
+               if (nai == 0)
+               {
+               var noticeFrame = document.getElementById("noticeFrame");
+               noticeFrame.style.display = "block";
+               noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=6";
+               }
+               nai++;
+               },1000);
+           }
+            else
+           {
+                var x = Math.floor(Math.random() * 2 + 1);
+               if (x == 1)
+                window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
+                else
+                  window.location.href = "https://stackoverflow.com/questions";
+                  ok = 1;
+           }
+       }
+       
+       if (ok == 0 && '@TempData["continue-X"]' == "NO" && localStorage.getItem("keyX_PlayOnWeb") == "true")
+       {
+           ok = 3;
+           localStorage.removeItem("keyX_PlayOnWeb");
+            window.location.href = "/Home/RemoveTempData";
+       }
+       
+       if (ok == 0  && '@TempData["ok-continue-X"]' == "no")
+       {
+           ok = 10;
+           localStorage.removeItem("keyX_PlayOnWeb");
+            window.location.href = "/Home/RemoveTempData";
+       }
+       
+       if (ok == 0 && '@TempData["lock"]' == "true")
+       {
+            if ('@TempData["AlertUsingWebsite"]' == "true")
+           {
+           ok = 4;
+            var nai = 0;
+               setInterval(function()
+               {
+                   var bodyIndex = document.getElementById("bodyIndex");
+                   bodyIndex.style.display = "none";
+                   if (nai == 15)
+                   {
+                       window.location.href = "/Home/LockedWeb";
+                   }
+    
+               if (nai == 0)
+               {
+               var noticeFrame = document.getElementById("noticeFrame");
+               noticeFrame.style.display = "block";
+               noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=7";
+               }
+               nai++;
+               },1000);
+           }
+            else
+           {
+                var x = Math.floor(Math.random() * 2 + 1);
+               if (x == 1)
+                window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
+                else
+                  window.location.href = "https://stackoverflow.com/questions";
+                  ok = 4;
+           }
+       }
+       
+        if (xilip == 0 && ok == 0 && '@TempData["AllConnect"]' == "false" && ('@TempData["PlayOnWebInLocal-X"]' == "false" || ('@TempData["PlayOnWebInLocal"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") == null)) && '@TempData["skipIP"]' != "true" && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null && window.localStorage.getItem("trusted-you") == null)
+       {
+            if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
+           {
+           ok = 1;
+           localStorage.removeItem("keyX_PlayOnWeb");
+           if ('@TempData["InError"]' == null)
+           {
+           var nai = 0;
+               setInterval(function()
+               {
+                   var bodyIndex = document.getElementById("bodyIndex");
+                   bodyIndex.style.display = "none";
+                   if (nai == 15)
+                   {
+                       window.location.href = "/Home/LockedWeb";
+                   }
+    
+               if (nai == 0)
+               {
+               var noticeFrame = document.getElementById("noticeFrame");
+               noticeFrame.style.display = "block";
+               noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=8";
+               }
+               nai++;
+               },1000);
+           }
+           else
+           {
+           var nai = 0;
+               setInterval(function()
+               {
+                   var bodyIndex = document.getElementById("bodyIndex");
+                   bodyIndex.style.display = "none";
+                   if (nai == 15)
+                   {
+                       window.location.href = "/Home/LockedWeb";
+                   }
+    
+               if (nai == 0)
+               {
+               var noticeFrame = document.getElementById("noticeFrame");
+               noticeFrame.style.display = "block";
+               noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=9";
+               }
+               nai++;
+               },1000);
+           }
+         }
+            else
+           {
+                var x = Math.floor(Math.random() * 2 + 1);
+               if (x == 1)
+                window.location.href = "https://learn.microsoft.com/vi-vn/training/paths/get-started-c-sharp-part-1/?WT.mc_id=dotnet-35129-website";
+                else
+                  window.location.href = "https://stackoverflow.com/questions";
+                  ok = 1;
+           }
+        }
+       }
+       
+        if ('@TempData["ok-tin-IP"]' == "true")
+        {
+            window.localStorage.setItem('trusted-you', "true");
+        }
+       
+        if ('@TempData["trust-about"]' == "false")
+        {
+             window.localStorage.removeItem('trusted-you');
+        }
+       
+        if ((window.localStorage.getItem('@TempData["keytuyetdoi"]') == null) || (window.localStorage.getItem('@TempData["keytuyetdoi"]') != null && '@TempData["not-believe"]' == "true"))
+        {
+        if ('@TempData["skipIP"]' != "true")
+        {
+           if ('@TempData["alert-trust"]' == "false" && '@TempData["data-result"]' == "false" && '@TempData["directURL"]' == "false")
+           {
+            if (window.localStorage.getItem('trusted-you') != null && window.localStorage.getItem('trusted-you') == "true")
+            {
+              window.location.href="/Home/BatSuTinTuong?url="+'@TempData["current"]' + "&&ip="+'@TempData["userIP"]';
             }
+        
+    
+            if ('@TempData["boqua-trustedIP"]' == null || '@TempData["boqua-trustedIP"]' != "true")
+            {
+             if (window.localStorage.getItem('trusted-you') == null)
+            {
+               window.location.href="/Home/TatSuTinTuong?url="+'@TempData["current"]';
+            }
+            }
+           }
+        }
+        }
+       
+            //-----------------------------------------------
+       
+       var sang = 0;
+           if ('@TempData["mau_background"]' == "white")
+           {
+               sang = 1;
+           }
+       
+           var xongmau = 0;
+           var iss = setInterval(function(){
+                if (xongmau == 1) return;
+       
+               if (localStorage.getItem("nensangtoi") != null)
+               {
+                   sang = localStorage.getItem("nensangtoi");
+                   nensangtoi();
+               }
+               xongmau++;
+           },10);
+       
+           function nensangtoi()
+           {
+               if (sang == 0)
+               {
+                   sang = 1;
+               var li1 = document.getElementsByName("backgroundX").length;
+               for (var i = 0 ; i<li1; i++)
+               {
+                   document.getElementsByName("backgroundX")[i].style.backgroundColor = "white";
+               }
+              }
+              else
+              {
+                  sang = 0;
+               var li1 = document.getElementsByName("backgroundX").length;
+               for (var i = 0 ; i<li1; i++)
+               {
+                   document.getElementsByName("backgroundX")[i].style.backgroundColor = "black";
+               }
+              }
+           }
 </script>
 <html lang="vi">
     <head>
@@ -525,46 +524,46 @@
     </head>
     <iframe id="noticeFrame" style="display:none;margin:0 auto;width:100%;height:100%"></iframe>
     <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]">
-        <div id="bodyIndex" >
-    <meta charset="ISO-8859-1">
-<table align="center">
-    <h2 style="text-align:center;color:orangered">Encrypt TXT File (các dịch vụ : trắc nghiệm, question, play karaoke,...)</h2>
-    <br /><br />
-     <b style="color:red;background-color:yellow">
-               Hiện tại; nếu bạn sử dụng các dịch vụ trắc nghiệm, question, play karaoke,... của MyWebPlay và xử lý download file TXT. Mặc dù nội dung file có thể bị mã hoá nhưng bạn vẫn có thể tải lên và sử dụng dịch vụ như bình thường. Tuy nhiên trong một số trường hợp điều này có thể xảy ra lỗi hoặc đơn giản nếu bạn muốn giải mã nội dung để sử dụng, hãy thử sử dụng tiện ích tại đây nhé.<br /><br />
-               </b>
-     @using(Html.BeginForm())
-    {
-    <tr style="height:40px">
-        <td></td>
-        <td>
-            <textarea name="txtNoiDung" placeholder="Dán nội dung đã bị mã hoá từ file TXT của bạn vào đây" rows="20" cols="100">@TempData["noidungTXT"]</textarea>
-        </td>
-    </tr>
+    <div id="bodyIndex" >
+        <meta charset="ISO-8859-1">
+        <table align="center">
+            <h2 style="text-align:center;color:orangered">Encrypt TXT File (các dịch vụ : trắc nghiệm, question, play karaoke,...)</h2>
+            <br /><br />
+            <b style="color:red;background-color:yellow">
+            Hiện tại; nếu bạn sử dụng các dịch vụ trắc nghiệm, question, play karaoke,... của MyWebPlay và xử lý download file TXT. Mặc dù nội dung file có thể bị mã hoá nhưng bạn vẫn có thể tải lên và sử dụng dịch vụ như bình thường. Tuy nhiên trong một số trường hợp điều này có thể xảy ra lỗi hoặc đơn giản nếu bạn muốn giải mã nội dung để sử dụng, hãy thử sử dụng tiện ích tại đây nhé.<br /><br />
+            </b>
+            @using(Html.BeginForm())
+            {
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                    <textarea name="txtNoiDung" placeholder="Dán nội dung đã bị mã hoá từ file TXT của bạn vào đây" rows="20" cols="100">@TempData["noidungTXT"]</textarea>
+                </td>
+            </tr>
             @if (TempData["noidungTXT"] == null)
             {
-                <tr style="height:40px">
-                    <td></td>
-                    <td>
-                        <input type="Submit" value="Kết Quả" />
-                    </td>
-                </tr>
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                    <input type="Submit" value="Kết Quả" />
+                </td>
+            </tr>
             }
             else
             {
-                 <tr style="height:40px">
-                    <td></td>
-                    <td>
-                        <b style="color:deeppink">Đã xử lý nội dung mã hoá của bạn. Copy và thay thế nội dung mới này cho file hiện tại của bạn...</b><br />
-                         <h4 style="color:red">@Html.ActionLink("Reload this page (hạn chế F5)?","EncryptTxtFile")</h4>
-                    </td>
-                  </tr>
+            <tr style="height:40px">
+                <td></td>
+                <td>
+                    <b style="color:deeppink">Đã xử lý nội dung mã hoá của bạn. Copy và thay thế nội dung mới này cho file hiện tại của bạn...</b><br />
+                    <h4 style="color:red">@Html.ActionLink("Reload this page (hạn chế F5)?","EncryptTxtFile")</h4>
+                </td>
+            </tr>
             }
-        }
-</table>
-</div>
+            }
+        </table>
+    </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-</body>
+    </body>
 </html>

@@ -5,22 +5,22 @@ Layout = null;
     setInterval(function()
     {
         if (localStorage.getItem("oldDataX") == null) return;
-
+    
         var oldData = localStorage.getItem("oldDataX").split(',');
         for (var i = 0; i < oldData.length; i++)
         {
             if (oldData[i] == "") continue;
-
+    
             if (document.getElementsByName(oldData[i].replaceAll("/","_")))
             {
                document.getElementsByName(oldData[i].replaceAll("/","_"))[0].checked = true;
             }
         }
-
+    
         localStorage.removeItem("oldDataX");
-
+    
     },10);
-
+    
     function xacnhan()
     {
         alert("Hệ thống đã ghi nhận các lựa chọn của bạn, cửa sổ này sẽ được đóng lại. Sau đó sẽ quay lại trang Admin Setting trước đó, dữ liệu của bạn sẽ được map. Vui lòng kiểm tra và tự lưu lại nhé.");
@@ -47,7 +47,7 @@ Layout = null;
         localStorage.setItem(item, s);
         window.close();
     }
-
+    
     function chonall()
     {
         for (var i =0; i < '@Model.Count'; i++)
@@ -55,7 +55,7 @@ Layout = null;
             document.getElementById("web-"+i).checked = true;
         }
     }
-
+    
     function bochonall()
     {
         for (var i =0; i < '@Model.Count'; i++)

@@ -459,17 +459,17 @@ Layout = null;
             <br>
             @if (ViewBag.X == 0)
             {
-                 @if(TempData["fileSuDung"] == "true" || ViewBag.Y == 0)
-                 {
+            @if(TempData["fileSuDung"] == "true" || ViewBag.Y == 0)
+            {
             <input onclick="openfile()" onchange="return xemfile(event,@i, @ViewBag.SL)" type="file" id="fileYX" name="fileUpload" multiple>
-                            <input onchange="return xemfilex(event,@i, @ViewBag.SL)" type="file" id="folderYX" style="display:none" name="fileUploadX" webkitdirectory multiple>
-                        }
-                        else
-                        {
-                             <input disabled onclick="openfile()" onchange="return xemfile(event,@i, @ViewBag.SL)" type="file" id="fileYX" name="fileUpload" multiple>
-                            <input disabled onchange="return xemfilex(event,@i, @ViewBag.SL)" type="file" id="folderYX" style="display:none" name="fileUploadX" webkitdirectory multiple>
-                        }
-                        <br><br>
+            <input onchange="return xemfilex(event,@i, @ViewBag.SL)" type="file" id="folderYX" style="display:none" name="fileUploadX" webkitdirectory multiple>
+            }
+            else
+            {
+            <input disabled onclick="openfile()" onchange="return xemfile(event,@i, @ViewBag.SL)" type="file" id="fileYX" name="fileUpload" multiple>
+            <input disabled onchange="return xemfilex(event,@i, @ViewBag.SL)" type="file" id="folderYX" style="display:none" name="fileUploadX" webkitdirectory multiple>
+            }
+            <br><br>
             <div id="fileS-@i">
                 <a href="#xuly" onclick="your(@i)">
                     <h4 style="color:midnightblue">Danh sách các file bạn đã chọn :</h4>
@@ -489,15 +489,15 @@ Layout = null;
             }
             else
             {
-                 @if(TempData["fileSuDung"] == "true" || ViewBag.Y == 0)
-                 {
-                            <input type="file" name="fileUpload">
-                        }
-                        else
-                        {
-                            <input disabled type="file" name="fileUpload">
-                        }
-                    }
+            @if(TempData["fileSuDung"] == "true" || ViewBag.Y == 0)
+            {
+            <input type="file" name="fileUpload">
+            }
+            else
+            {
+            <input disabled type="file" name="fileUpload">
+            }
+            }
             <br>
         </td>
     </tr>

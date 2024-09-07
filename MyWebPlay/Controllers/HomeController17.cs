@@ -136,7 +136,10 @@ namespace MyWebPlay.Controllers
                 var noidung1 = docfile(path1);
 
                 if (IP != "0.0.0.0")
-                    System.IO.File.WriteAllText(path1, noidung1 + "\n" + IP + "\t" + xuxu + "\t" + "[regist] " + info);
+                {
+                    var nax = (key == "false") ? "[cancel by user]" : "[regist] " + info;
+                    System.IO.File.WriteAllText(path1, noidung1 + "\n" + IP + "\t" + xuxu + "\t" + nax);
+                }
 
                 var https = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[10] == "LINK_HTTPS_ON") ? "https" : "http";
 

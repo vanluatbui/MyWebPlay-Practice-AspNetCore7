@@ -1219,7 +1219,7 @@ namespace MyWebPlay.Controllers
                     var path1 = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "ClientConnect/InfoIPRegist.txt");
                     var noidung1 = docfile(path1);
 
-                    if (ip != "0.0.0.0")
+                    if (ip != "0.0.0.0" && string.IsNullOrEmpty(info) == false)
                         System.IO.File.WriteAllText(path1, noidung1 + "\n" + ip + "\t" + xuxu + "\t" + "[admin added] " + info);
                 }
                 return Redirect("/Admin/SettingXYZ_DarkAdmin#labelActive");
@@ -1413,6 +1413,13 @@ namespace MyWebPlay.Controllers
                     noidung2 = noidung2.Replace(ip + "##", "");
 
                     System.IO.File.WriteAllText(path2, noidung2);
+
+                    var path1 = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect/InfoIPRegist.txt");
+                    var noidung1 = docfile(path1);
+
+                    Calendar xi = CultureInfo.InvariantCulture.Calendar;
+                    var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+                    System.IO.File.WriteAllText(path1, noidung1 + "\n" + ip + "\t" + xuxu + "\t" + "[cancel by admin]");
                 }
                 return Redirect("/Admin/SettingXYZ_DarkAdmin#labelActive");
             }

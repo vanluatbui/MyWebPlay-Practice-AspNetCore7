@@ -10,7 +10,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background-color: white;
+        background-color: grey;
         padding: 30px;
         box-shadow: 0 0 15px rgba(0,0,0,0.3);
         z-index: 1000;
@@ -39,9 +39,9 @@
     </style>
     <div id="custom-alert" class="custom-dialog">
         <div class="custom-dialog-content">
-            <h3 style="color:red">MyWebPlay xin thông báo</h3>
-            <p>@TempData["alert_admin"]</p>
-            <span style="color:blue">Nội dung này sẽ hiển thị và tự động đóng lại sau 15 giây (hãy chờ đợi vì có thể còn có thông báo khác sau đó).</span>
+            <h3 style="color:yellow">MyWebPlay xin thông báo</h3>
+            <p style="color:white">@Html.Raw(TempData["alert_admin"])</p>
+            <span style="color:aqua">Nội dung này sẽ hiển thị và tự động đóng lại sau 15 giây (hãy chờ đợi vì có thể còn có thông báo khác sau đó).</span>
             <br />
         </div>
     </div>

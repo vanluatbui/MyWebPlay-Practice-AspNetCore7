@@ -505,7 +505,7 @@ namespace MyWebPlay.Controllers
                     break;
 
                 case 6:
-                    TempData["alert_admin"] = "Để tiếp tục sử dụng, vui lòng tìm cách để có lại được sự cấp phép. Nếu không, hãy tắt sử dụng trang web và yêu cầu bật sử dụng lại (nếu bạn đã được admin approve trước đó và đang chờ đợi, hệ thống sẽ cho phép bạn quay trở lại trang Index ngay).\nHãy liên hệ lại với admin nếu sau đó bạn cũng không được chuyển hướng và cho phép tiếp tục sử dụng dịch vụ web.";
+                    TempData["alert_admin"] = "Để tiếp tục sử dụng, vui lòng tìm cách để có lại được sự cấp phép. Nếu không, hãy <a href=\"/Home/PlayOnWebInLocalX?key=false\">tắt sử dụng trang web</a> và yêu cầu bật sử dụng lại (nếu bạn đã được admin approve trước đó và đang chờ đợi, hệ thống sẽ cho phép bạn quay trở lại trang Index ngay).\nHãy liên hệ lại với admin nếu sau đó bạn cũng không được chuyển hướng và cho phép tiếp tục sử dụng dịch vụ web.";
                     break;
 
                 case 7:

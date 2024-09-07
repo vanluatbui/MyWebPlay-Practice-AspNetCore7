@@ -988,56 +988,6 @@
                 }
             }
 
-            function GoToThuTu(max) {
-                var thutu = new Number(document.getElementById("thutu").value);
-                var mix = new Number(max);
-                if (thutu < 1) thutu = 1;
-                if (thutu > mix) thutu = mix;
-
-                var url = "@ViewBag.LoginServer";
-                var baihat = "@ViewBag.BHServer";
-
-                var thongtin = url + "[NONE]" + "-.-" + baihat + "[NONE]" + "-.-[NOT]-.-0";
-
-                if ("@ViewBag.Share" != "YES - OK")
-                {
-                     if ('@TempData["ajax_js"]' == "true")
-                    {
-                var maxthutu = new Number(document.getElementById("thutu").max);
-                        var formData = new FormData();
-                        formData.append("url", url);
-                        formData.append("index", thutu);
-
-         $.ajax({
-            url: "/Admin/Karaoke_Ajax_Call",
-            type: "POST",
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function(data) {
-
-                if (data.error == "true")
-                {
-                    alert("Đã xảy ra lỗi. Vui lòng thử lại sau!");
-                    DungKaraoke();
-                    return;
-                }
-
-               document.getElementById("musix").src = data.mp3_goc;
-               document.getElementById("music").src = data.mp3_kara;
-               document.getElementById("txtKara").value = data.text_kara;
-               document.getElementById("thutuXYZ").innerHTML = "Huỷ trình phát Karaoke tự động (đã phát : "+ thutu + "/" + maxthutu + ")";
-               document.getElementById("baihatXYZ").innerHTML = data.tenbaihat;
-               resetKaraoke();
-            }});
-
-                        return;
-                    }
-                    window.location.href = "/Home/XoaKaraoke?id=" + thongtin + "&&thutu=" + thutu;
-                }
-                else window.location.href = "/Home/XoaKaraoke" + "?thutu=" + thutu;
-            }
-
               var loadxong = 0;
 
             function chonsongtulist()
@@ -1076,7 +1026,12 @@
                document.getElementById("music").src = data.mp3_kara;
                document.getElementById("txtKara").value = data.text_kara;
                document.getElementById("thutu").value = thutu;
-               document.getElementById("thutuXYZ").innerHTML = "Huỷ trình phát Karaoke tự động (đã phát : "+ thutu + "/" + maxthutu + ")";
+               document.getElementById("thutuXYZ").innerHTML = "Huỷ trình phát Karaoke tự động";
+               if ('@TempData["ajax_js"]' == "false")
+               {
+                   document.getElementById("thutuXYZ").innerHTML += " (đã phát : "+ thutu + "/" + maxthutu + ")"
+               }
+
                document.getElementById("baihatXYZ").innerHTML = data.tenbaihat;
                resetKaraoke();
             }});
@@ -1119,7 +1074,7 @@
 
                 if ("@ViewBag.Share" != "YES - OK")
                 {
-                     if ('@TempData["ajax_js"]' == "true")
+                    if ('@TempData["ajax_js"]' == "true" && '@TempData["index-auto"]' != null && '@TempData["index-auto"]' != "")
                     {
                 var thutu = new Number(document.getElementById("thutu").value);
                 var maxthutu = new Number(document.getElementById("thutu").max);
@@ -1152,7 +1107,11 @@
                document.getElementById("music").src = data.mp3_kara;
                document.getElementById("txtKara").value = data.text_kara;
                document.getElementById("thutu").value = thutu;
-               document.getElementById("thutuXYZ").innerHTML = "Huỷ trình phát Karaoke tự động (đã phát : "+ thutu + "/" + maxthutu + ")";
+               document.getElementById("thutuXYZ").innerHTML = "Huỷ trình phát Karaoke tự động";
+               if ('@TempData["ajax_js"]' == "false")
+               {
+                   document.getElementById("thutuXYZ").innerHTML += " (đã phát : "+ thutu + "/" + maxthutu + ")"
+               }
                document.getElementById("baihatXYZ").innerHTML = data.tenbaihat;
                resetKaraoke();
             }});
@@ -1161,7 +1120,10 @@
                     }
                     window.location.href = "/Home/XoaKaraoke?id=" + thongtin + "&&ip=" + '@TempData["userIP"]';
                 }
-                else window.location.href = "/Home/XoaKaraoke" + "?ip=" + '@TempData["userIP"]';
+                else 
+                {
+                      window.location.href = "/Home/XoaKaraoke" + "?ip=" + '@TempData["userIP"]';
+                }
             }
 
             function DungKaraoke() {
@@ -1280,6 +1242,14 @@
                 if (localStorage.getItem("kieuchu") == null) return;
 
                 kieuchu = localStorage.getItem("kieuchu");
+
+                var kieuchuLength =  document.getElementById("fontKieu").options.length;
+
+                if (kieuchu >= kieuchuLength)
+                {
+                    kieuchu = 0;
+                    localStorage.setItem("kieuchu", 0);
+                }
 
                 document.getElementById("fontKieu").options.selectedIndex = kieuchu;
             }
@@ -2202,17 +2172,17 @@
                     } else {
                     <button style="display: none;" onclick="StopKaraoke()"><b style="color: darkgreen; display: none;">Đi đến bài hát tiếp theo</b></button>
                     }
-                    <button onclick="DungKaraoke()"><b style="color: red;" id="thutuXYZ">Huỷ trình phát Karaoke tự động (đã phát : @i1/@i2)</b></button>
-                            @if (TempData["ajax_js"] == "false")
-                            {
-                                <input id="thutu" type="number" min="1" max="@i2" value="@i1" /><button onclick="GoToThuTu(@i2)"><b style="color: orangered;">Đi đến bài hát tại thứ tự</b></button>
+
+                    @if (TempData["ajax_js"] == "false")
+                    {
+                                <button onclick="DungKaraoke()"><b style="color: red;" id="thutuXYZ">Huỷ trình phát Karaoke tự động (đã phát : @i1/@i2)</b></button>
                             }
                             else
                             {
-                                <input style="display:none" id="thutu" type="number" min="1" max="@i2" value="@i1" /><button style="display:none" onclick="GoToThuTu(@i2)"><b style="color: orangered;">Đi đến bài hát tại thứ tự</b></button>
+                                <button onclick="DungKaraoke()"><b style="color: red;" id="thutuXYZ">Huỷ trình phát Karaoke tự động</b></button>
                             }
-
-                        }
+                            <input style="display:none" id="thutu" type="number" min="1" max="@i2" value="@i1" />
+                }
                  &nbsp;
                     <span style="color: darkturquoise;">
                         <b><u id="baihatXYZ">@ViewBag.BHServer</u></b>
@@ -2648,15 +2618,15 @@
                         } else {
                         <button style="display: none;" onclick="StopKaraoke()"><b style="color: darkgreen; display: none;">Đi đến bài hát tiếp theo</b></button>
                         }
-                        <button onclick="DungKaraoke()"><b style="color: red;">Huỷ trình phát Karaoke tự động (đã phát : @i1/@i2)</b></button>
-                        @if (TempData["ajax_js"] == "false")
-                        {
-                                    <input id="thutu" type="number" min="1" max="@i2" value="@i1" /><button onclick="GoToThuTu(@i2)"><b style="color: orangered;">Đi đến bài hát tại thứ tự</b></button>
-                                }
-                                else
-                                {
-                                    <input style="display:none" id="thutu" type="number" min="1" max="@i2" value="@i1" /><button style="display:none" onclick="GoToThuTu(@i2)"><b style="color: orangered;">Đi đến bài hát tại thứ tự</b></button>
-                                }
+                         @if (TempData["ajax_js"] == "false")
+                    {
+                                <button onclick="DungKaraoke()"><b style="color: red;" id="thutuXYZ">Huỷ trình phát Karaoke tự động (đã phát : @i1/@i2)</b></button>
+                            }
+                            else
+                            {
+                                <button onclick="DungKaraoke()"><b style="color: red;" id="thutuXYZ">Huỷ trình phát Karaoke tự động</b></button>
+                            }
+                            <input style="display:none" id="thutu" type="number" min="1" max="@i2" value="@i1" />
                         } &nbsp;
                         <span style="color: darkturquoise;">
                             <b><u>@ViewBag.BHServer</u></b>

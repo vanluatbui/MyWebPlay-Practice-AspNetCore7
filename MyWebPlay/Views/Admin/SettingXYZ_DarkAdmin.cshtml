@@ -88,6 +88,7 @@ Layout = null;
             processData: false,
             success: function(data) {
                 var keyX = data.password;
+                document.getElementById("linkread0").href += "&&keyX="+keyX;
                 document.getElementById("linkread1").href += "&&keyX="+keyX;
                 document.getElementById("linkread2").href += "&&keyX="+keyX;
                 document.getElementById("linkread3").href += "&&keyX="+keyX;
@@ -1335,7 +1336,8 @@ Layout = null;
             <select onclick="loadActive()" onchange="setActive()" id="ip_active">
             </select><span>&nbsp;</span><input type="text" id="txtIPActive" />&nbsp;&nbsp;<span><a id="linkread1" style="color:violet" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/ListUserIPApproveWaiting.txt" target="_blank">Xem list IP user đang chờ approve</a><span>&nbsp;&nbsp;<span><a style="color:violet" href="#xuly" onclick="DeleteAllListApprove()">Delete all list IP user (đang chờ approve)</a><span><br />
             <input type="text" size="100" placeholder="Nhập thông tin user hoặc ghi chú (nếu có)" id="ghichu" /><br />
-            <button onclick="addActive()" style="color:green">THÊM (HOẠT ĐỘNG NHƯNG CHƯA XÁC NHẬN THIẾT BỊ)</button><span>&nbsp;</span><button onclick="removeActive()" style="color:red">XOÁ (HẾT HẠN)</button><span>&nbsp;</span>(<a id="linkread2" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/InfoIPRegist.txt" target="_blank" style="color:yellow">Xem Chi Tiết (có thể chưa đủ thông tin)</a><b> <span>&nbsp;</span> </b><a style="color:yellow" href="/ClientConnect/InfoIPRegist.txt" @*onclick="xoachitiet()"*@ download="">Tải xuống</a> <span>&nbsp;</span> <a style="color:yellow" href="#xuly" onclick="deletechitiet()">Delete detail</a> <span>&nbsp;</span> <a style="color:yellow" href="#xuly" onclick="deleteX()">Delete all this</a>&nbsp;&nbsp;<a style="color:orangered" href="#xuly" onclick="addApprove()">Add IP approve to list</a>&nbsp;&nbsp;<a style="color:orangered" href="#xuly" onclick="removeApprove()">Remove IP approve to list</a><span>)</span>
+            <button onclick="addActive()" style="color:green">THÊM (HOẠT ĐỘNG NHƯNG CHƯA XÁC NHẬN THIẾT BỊ)</button><span>&nbsp;</span><button onclick="removeActive()" style="color:red">XOÁ (HẾT HẠN)</button><span>&nbsp;</span>
+            <br />(<a id="linkread0" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/ListIPOnWebPlay.txt" target="_blank" style="color:yellow">List IP đang đăng kí (hoạt động)</a><b> <span>&nbsp;</span> </b><a id="linkread2" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/InfoIPRegist.txt" target="_blank" style="color:yellow">Xem Chi Tiết - list IP đã từng/đang đăng kí (có thể chưa đủ thông tin)</a><b> <span>&nbsp;</span> </b><a style="color:yellow" href="/ClientConnect/InfoIPRegist.txt" @*onclick="xoachitiet()"*@ download="">Tải xuống</a> <span>&nbsp;</span> <a style="color:yellow" href="#xuly" onclick="deletechitiet()">Delete detail</a> <span>&nbsp;</span> <a style="color:yellow" href="#xuly" onclick="deleteX()">Delete all this</a>&nbsp;&nbsp;<a style="color:orangered" href="#xuly" onclick="addApprove()">Add IP approve to list</a>&nbsp;&nbsp;<a style="color:orangered" href="#xuly" onclick="removeApprove()">Remove IP approve to list</a><span>)</span>
             <br />
             <br />
             <b name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG BỊ KHOÁ (ADMIN)</b>

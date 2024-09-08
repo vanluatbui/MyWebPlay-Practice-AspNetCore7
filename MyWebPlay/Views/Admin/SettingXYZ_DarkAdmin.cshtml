@@ -1266,7 +1266,11 @@ Layout = null;
                 else
                 if (Model.Topics[i].ID == "DownloadFile_ClearWeb")
                 {
-                <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.DownloadFileQuick" />
+                <input id="txtDownload1" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.DownloadFileQuick" />
+                 <br />
+                <input type="checkbox" id="checkDownload" onchange="changeShow('txtDownload1','txtDownload2','checkDownload',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
+                <br />
+                <textarea readonly id="txtDownload2" cols="50" rows="15" style="display:none">@ViewBag.DownloadFile_Line</textarea>
                 }
                 else
                 if (Model.Topics[i].ID == "Accept_ListUrl")

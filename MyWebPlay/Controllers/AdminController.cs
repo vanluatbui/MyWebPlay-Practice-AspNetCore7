@@ -1394,7 +1394,10 @@ namespace MyWebPlay.Controllers
                         if (info[3] == "[NULL]")
                             ViewBag.DownloadFileQuick = "";
                         else
+                        {
                             ViewBag.DownloadFileQuick = info[3];
+                            ViewBag.DownloadFile_Line = info[3].Replace(",", "\r\n");
+                        }
                     }
 
                     if (info[0] == "Accept_ListUrl")

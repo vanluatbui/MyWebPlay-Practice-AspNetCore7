@@ -517,7 +517,7 @@ namespace MyWebPlay.Controllers
                     break;
 
                 case 9:
-                    TempData["alert_admin"] = "⚠ Tất cả kết nối phiên bản của bạn hiện đã hết hạn sử dụng hoặc chưa được bật, vui lòng bật lại trang web để sử dụng !";
+                    TempData["alert_admin"] = "⚠ Tất cả kết nối phiên bản của bạn hiện đã hết hạn sử dụng hoặc chưa được bật, vui lòng bật lại trang web để sử dụng. Còn nếu bạn đã bật, vui lòng kiên nhẫn chờ đợi...";
                     break;
 
 

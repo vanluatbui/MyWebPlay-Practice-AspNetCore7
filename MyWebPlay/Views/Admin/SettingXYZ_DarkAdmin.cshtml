@@ -115,6 +115,11 @@ Layout = null;
         {
            checkme = 1;
         }
+
+        function setDataInExtend(x1, x2, x3)
+        {
+            document.getElementById(x2).value = document.getElementById(x1).value.replaceAll(x3, "\n");
+        }
         
         function changeShow(x1, x2, x3, x4)
         {
@@ -1209,7 +1214,7 @@ Layout = null;
                 else
                 if (Model.Topics[i].ID == "Believe_IP")
                 {
-                <input id="txtBelieve1" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.Believe" />
+                <input onchange="setDataInExtend('txtBelieve1','txtBelieve2',',')" id="txtBelieve1" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.Believe" />
                 <br />
                 <input type="checkbox" id="checkBelieve" onchange="changeShow('txtBelieve1','txtBelieve2','checkBelieve',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
                 <br />
@@ -1228,7 +1233,7 @@ Layout = null;
                 else
                 if (Model.Topics[i].ID == "Encode_Url")
                 {
-                <input id="txtEncode1" placeholder="Ví dụ bạn chỉ cần nhập Home/Index là được (không cần kèm theo https://)" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.EncodeUrl" />
+                <input onchange="setDataInExtend('txtEncode1','txtEncode2','***')" id="txtEncode1" placeholder="Ví dụ bạn chỉ cần nhập Home/Index là được (không cần kèm theo https://)" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.EncodeUrl" />
                 <br />
                 <input type="checkbox" id="checkEncode" onchange="changeShow('txtEncode1','txtEncode2','checkEncode','***')" /><b style="color:deeppink">Xem chế độ mở rộng</b><br />
                 <textarea readonly id="txtEncode2" cols="100" rows="15" style="display:none">@ViewBag.EncodeUrl_Line</textarea>
@@ -1256,7 +1261,7 @@ Layout = null;
                 else
                 if (Model.Topics[i].ID == "AppWeb_LockedUse")
                 {
-                <input size="180" id="txtLock1" name="@Model.Topics[i].ID" type="text" value="@ViewBag.LockedUseApp" />
+                <input onchange="setDataInExtend('txtLock1','txtLock2',',')" size="180" id="txtLock1" name="@Model.Topics[i].ID" type="text" value="@ViewBag.LockedUseApp" />
                 <br />
                 <input type="checkbox" id="checkLock" onchange="changeShow('txtLock1','txtLock2','checkLock',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
                 <a style="color:red" href="#xuly" onClick="LuaChonDaDang('0')">Lựa chọn đa dạng</a><br />
@@ -1266,7 +1271,7 @@ Layout = null;
                 else
                 if (Model.Topics[i].ID == "DownloadFile_ClearWeb")
                 {
-                <input id="txtDownload1" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.DownloadFileQuick" />
+                <input onchange="setDataInExtend('txtDownload1','txtDownload2',',')" id="txtDownload1" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.DownloadFileQuick" />
                  <br />
                 <input type="checkbox" id="checkDownload" onchange="changeShow('txtDownload1','txtDownload2','checkDownload',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
                 <br />
@@ -1275,7 +1280,7 @@ Layout = null;
                 else
                 if (Model.Topics[i].ID == "Accept_ListUrl")
                 {
-                <input id="txtAcceptUrl1" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.AcceptListUrl" />
+                <input onchange="setDataInExtend('txtAcceptUrl1','txtAcceptUrl2',',')" id="txtAcceptUrl1" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.AcceptListUrl" />
                 <br />
                 <input type="checkbox" id="checkAccept" onchange="changeShow('txtAcceptUrl1','txtAcceptUrl2','checkAccept',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
                 <a style="color:red" href="#xuly" onClick="LuaChonDaDang('1')">Lựa chọn đa dạng</a><br />

@@ -1077,12 +1077,14 @@ Layout = null;
            if (no != null && no != undefined && no != "")
            {
                document.getElementById("txtLock1").value = no;
+               document.getElementById("txtLock2").value = document.getElementById("txtLock1").value.replaceAll(",","\n");
                window.location.href = "#come-43";
            }
            else
             if (yes != null && yes != undefined && yes != "")
            {
                document.getElementById("txtAcceptUrl1").value = yes;
+               document.getElementById("txtAcceptUrl2").value = document.getElementById("txtAcceptUrl1").value.replaceAll(",","\n");
                window.location.href = "#come-50";
            }
         

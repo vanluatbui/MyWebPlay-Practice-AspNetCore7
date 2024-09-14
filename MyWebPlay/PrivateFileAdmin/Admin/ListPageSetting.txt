@@ -176,3 +176,6 @@
 /Home/EncryptTxtFile
 /Home/XuLySQL14
 /Home/XuLySQL15
+/Home/XuLySQL11
+/Home/XuLySQL12
+/Home/FindCompareValueInSQL

@@ -2,7 +2,9 @@
 using MyWebPlay.Extension;
 using MyWebPlay.Model;
 using System.Globalization;
+using System.IO;
 using System.Net;
+using System.Text;
 
 namespace MyWebPlay.Controllers
 {
@@ -679,6 +681,271 @@ namespace MyWebPlay.Controllers
             var newPassword = StringMaHoaExtension.Decrypt(password, key);
 
             return Ok(new { password = newPassword });
+        }
+
+        public ActionResult APIPageSetting()
+        {
+            try
+            {
+                TempData["opacity-body-css"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[16].Replace("OPACITY_CSS_BODY_", "");
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
+
+                khoawebsiteAdmin();
+                var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[14];
+                if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
+                {
+                    if (this.HttpContext.Request.Method == "GET")
+                    {
+                        if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", 1);
+                            return Redirect("https://google.com");
+                        }
+                        else
+                        {
+                            var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                            if (lan != 10)
+                            {
+                                HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                return Redirect("https://google.com");
+                            }
+                        }
+                    }
+                }
+                if (TempData["locked-app"] == "true")
+                    return RedirectToAction("Error", "Home", "Home");
+
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
+                var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
+
+                if (onoff == "ADMINSETTING_OFF")
+                    return Redirect("https://google.com");
+
+                var listPage = new List<string>();
+
+                var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "API_WebPage", "API-Menu.txt");
+                var apiMenu = System.IO.File.ReadAllText(path).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < apiMenu.Length; i++)
+                {
+                    var partApi = apiMenu[i].Split("#", StringSplitOptions.RemoveEmptyEntries);
+                    listPage.Add(partApi[0]);
+                }
+
+                return View(listPage);
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty;
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[11];
+                if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")
+                {
+                    Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
+                }
+                return RedirectToAction("Error", "Home", new
+                {
+                    exception = "true"
+                });
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult APIPageSetting(IFormCollection f)
+        {
+            try
+            {
+                TempData["opacity-body-css"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[16].Replace("OPACITY_CSS_BODY_", "");
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
+                khoawebsiteAdmin();
+                var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[14];
+                if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
+                {
+                    if (this.HttpContext.Request.Method == "GET")
+                    {
+                        if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", 1);
+                            return Redirect("https://google.com");
+                        }
+                        else
+                        {
+                            var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                            if (lan != 10)
+                            {
+                                HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                return Redirect("https://google.com");
+                            }
+                        }
+                    }
+                }
+                if (TempData["locked-app"] == "true")
+                    return RedirectToAction("Error", "Home", "Home");
+
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
+                var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
+
+                if (onoff == "ADMINSETTING_OFF")
+                    return Redirect("https://google.com");
+
+                var pathAPI = Path.Combine(_webHostEnvironment.WebRootPath, "API");
+
+                DirectoryInfo dir = new DirectoryInfo(pathAPI);
+
+                // Kiểm tra xem thư mục có tồn tại không
+                if (dir.Exists)
+                {
+                    // Lấy danh sách tất cả các file và thư mục con
+                    foreach (FileInfo file in dir.GetFiles())
+                    {
+                        file.Delete(); // Xoá từng file
+                    }
+
+                    foreach (DirectoryInfo subdir in dir.GetDirectories())
+                    {
+                        subdir.Delete(true); // Xoá từng thư mục con (bao gồm cả nội dung bên trong)
+                    }
+                }
+
+
+                var data = f["txtData"].ToString();
+
+                if (data.Length > 0)
+                {
+                    var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "API_WebPage", "API-Menu.txt");
+                    var apiMenu = System.IO.File.ReadAllText(path).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+
+                    var htmlFormat = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "API_WebPage", "API-Format.txt"));
+
+                    var https = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[10] == "LINK_HTTPS_ON") ? "https" : "http";
+
+                    var host = https + "://" + Request.Host;
+                    var menuDivTab = string.Empty;
+                    var divTabPlay = string.Empty;
+                    var jsSetResult = string.Empty;
+
+
+                    for (int i = 0; i < apiMenu.Length; i++)
+                    {
+                        var partApi = apiMenu[i].Split("#", StringSplitOptions.RemoveEmptyEntries);
+                        if (data.Contains(partApi[0]) == false) continue;
+
+                        menuDivTab += string.Format("<button class=\"tablinks\" onclick=\"openTab(event, '{0}')\">{0}</button>", partApi[0].Replace("/Home/", "")) + "\r\n";
+
+                        var phan2 = partApi[1].Split("<>");
+                        var partTabPlay = string.Empty;
+                        var jsAppend = string.Empty;
+
+                        for (var j = 0; j < phan2.Length; j++)
+                        {
+                            var name = phan2[j].Split("-")[0];
+                            var type = phan2[j].Split("-")[1];
+                            var title = phan2[j].Split("-")[2];
+
+                            if (type == "textarea")
+                            {
+                                partTabPlay += string.Format("<textarea rows=\"10\" id=\"{0}\" title=\"{1}\"></textarea><br />", name, title) + "\r\n";
+                            }
+                            else if (type == "file")
+                            {
+                                partTabPlay += string.Format("<input type=\"file\" multiple id=\"{0}\" title=\"{1}\" /><br />\r\n", name, title);
+                            }
+                            else
+                            {
+                                partTabPlay += string.Format("<input type=\"{2}\" id=\"{0}\" title=\"{1}\" /><br />\r\n", name, title, type);
+                            }
+
+                            // JS Append
+                            if (type == "file")
+                            {
+                                jsAppend += string.Format("const fileInput = document.getElementById('{0}'); \r\nconst files = fileInput.files; for (let i = 0; i < files.length; i++) \r\n&lt;\r\n data.append('{0}', files[i]);\r\n &gt;\r\n", name)
+                                    .Replace("&lt;", "{").Replace("&gt;", "}");
+                            }
+                            else
+                            {
+                                jsAppend += string.Format("data.append(\"{0}\", document.getElementById(\"{0}\").value);\r\n", name);
+                            }
+                        }
+
+                        divTabPlay += string.Format(
+                            "<div id=\"{0}\" class=\"tabcontent\">\r\n    <h3>{0}</h3>\r\n{1}\r\n<div class=\"button-group\">\r\n        <button onclick=\"setresult{0}()\">SET RESULT</button>\r\n        <button onclick=\"getresult()\">GET RESULT</button>\r\n    </div>\r\n</div>",
+                            partApi[0].Replace("/Home/",""),
+                            partTabPlay) + "\r\n\r\n";
+
+
+                        jsSetResult += string.Format(
+                            "function setresult{0}() &lt;\r\n    const data = new URLSearchParams();\r\n{1}\r\ndata.append(\"resultX\", \"true\");\r\n    \r\n    fetch(\"{2}{3}\", &lt;\r\n        method: 'post',\r\n        body: data,\r\n    &gt;);\r\n&gt;",
+                            partApi[0].Replace("/Home/", ""),
+                            jsAppend,
+                            https + "://" + Request.Host,
+                            partApi[0]).Replace("&lt;", "{").Replace("&gt;", "}");
+                    }
+
+                    htmlFormat = htmlFormat
+                        .Replace("@@ Web_Host @@", host)
+                        .Replace("@@ MENU_DIV_TAB @@", menuDivTab)
+                        .Replace("@@ DIV_TAB_PLAY @@", divTabPlay)
+                        .Replace("@@ JS_SetResult @@", jsSetResult);
+
+                    //Create file HTML
+
+                    var txtAPI = Path.Combine(_webHostEnvironment.WebRootPath, "API", "API.txt");
+
+                    var htmlAPI = Path.Combine(_webHostEnvironment.WebRootPath, "API", "API.html");
+
+                    using (FileStream fs = System.IO.File.Create(txtAPI))
+                    {
+                        // Ghi dữ liệu vào file (nếu cần)
+                        byte[] info = new UTF8Encoding(true).GetBytes(htmlFormat);
+                        fs.Write(info, 0, info.Length);
+                    }
+
+                    System.IO.File.Move(txtAPI, htmlAPI);
+                }
+
+                return Ok(new { result = true });
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty;
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[11];
+                if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")
+                {
+                    Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
+                }
+                return RedirectToAction("Error", "Home", new
+                {
+                    exception = "true"
+                });
+            }
+
         }
     }
 }

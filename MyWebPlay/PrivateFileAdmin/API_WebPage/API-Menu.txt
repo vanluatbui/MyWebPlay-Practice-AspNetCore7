@@ -1,0 +1,3 @@
+﻿/Home/CSDL_MainKey#Chuoi1-text-AB>C,C>BD,BE>A,A>C<>Chuoi2-textarea-Nhập kí tự<>Chuoi3-file-[NULL]<>Chuoi4-check-[NULL]
+/Home/ABC#Chuoi1-text-AB>C,C>BD,BE>A,A>C<>Chuoi2-textarea-Nhập kí tự<>Chuoi3-file-[NULL]<>Chuoi4-color-[NULL]
+/Home/XYZ#Chuoi1-text-AB>C,C>BD,BE>A,A>C<>Chuoi2-textarea-Nhập kí tự<>Chuoi3-file-[NULL]<>Chuoi4-radio-[NULL]

@@ -730,11 +730,19 @@ namespace MyWebPlay.Controllers
 
                 var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "API_WebPage", "API-Menu.txt");
                 var apiMenu = System.IO.File.ReadAllText(path).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+
+                var selectedAPI = string.Empty;
                 for (int i = 0; i < apiMenu.Length; i++)
                 {
-                    var partApi = apiMenu[i].Split("#", StringSplitOptions.RemoveEmptyEntries);
-                    listPage.Add(partApi[0]);
+                    var partApi = apiMenu[i].Split("***", StringSplitOptions.RemoveEmptyEntries);
+                    listPage.Add(partApi[0].Replace("[","").Replace("]","").Replace("<Selected>",""));
+                   if (partApi[0].Contains("<Selected>"))
+                    {
+                        selectedAPI += partApi[0].Replace("<Selected>", "") + "\r\n";
+                    }
                 }
+
+                TempData["selected_api_list"] = selectedAPI;
 
                 return View(listPage);
             }
@@ -843,12 +851,21 @@ namespace MyWebPlay.Controllers
                     var jsSetResult = string.Empty;
 
 
+                    var selectedAPI = new List<string>();
+                    var unselectedAPI = new List<string>();
+
                     for (int i = 0; i < apiMenu.Length; i++)
                     {
-                        var partApi = apiMenu[i].Split("#", StringSplitOptions.RemoveEmptyEntries);
-                        if (data.Contains(partApi[0]) == false) continue;
+                        var partApi = apiMenu[i].Split("***", StringSplitOptions.RemoveEmptyEntries);
+                        if (data.Contains(partApi[0].Replace("[","").Replace("]","").Replace("<Selected>", "")) == false)
+                        {
+                            unselectedAPI.Add(partApi[0]);
+                            continue;
+                        }
 
-                        menuDivTab += string.Format("<button class=\"tablinks\" onclick=\"openTab(event, '{0}')\">{0}</button>", partApi[0].Replace("/Home/", "")) + "\r\n";
+                        selectedAPI.Add(partApi[0].Replace("<Selected>", ""));
+
+                        menuDivTab += string.Format("<button class=\"tablinks\" onclick=\"openTab(event, '{0}')\">{0}</button>", partApi[0].Replace("[","").Replace("]","").Replace("/Home/", "").Replace("<Selected>", "")) + "\r\n";
 
                         var phan2 = partApi[1].Split("<>");
                         var partTabPlay = string.Empty;
@@ -887,16 +904,16 @@ namespace MyWebPlay.Controllers
 
                         divTabPlay += string.Format(
                             "<div id=\"{0}\" class=\"tabcontent\">\r\n    <h3>{0}</h3>\r\n{1}\r\n<div class=\"button-group\">\r\n        <button onclick=\"setresult{0}()\">SET RESULT</button>\r\n        <button onclick=\"getresult()\">GET RESULT</button>\r\n    </div>\r\n</div>",
-                            partApi[0].Replace("/Home/",""),
+                            partApi[0].Replace("[","").Replace("]","").Replace("/Home/","").Replace("<Selected>", ""),
                             partTabPlay) + "\r\n\r\n";
 
 
                         jsSetResult += string.Format(
                             "\r\n\r\nfunction setresult{0}() &lt;\r\n    const data = new URLSearchParams();\r\n{1}\r\ndata.append(\"resultX\", \"true\");\r\n    \r\n    fetch(\"{2}{3}\", &lt;\r\n        method: 'post',\r\n        body: data,\r\n    &gt;);\r\n&gt;",
-                            partApi[0].Replace("/Home/", ""),
+                            partApi[0].Replace("[","").Replace("]","").Replace("/Home/", "").Replace("<Selected>", ""),
                             jsAppend,
                             https + "://" + Request.Host,
-                            partApi[0]).Replace("&lt;", "{").Replace("&gt;", "}");
+                            partApi[0].Replace("[","").Replace("]","").Replace("<Selected>", "")).Replace("&lt;", "{").Replace("&gt;", "}");
                     }
 
                     htmlFormat = htmlFormat
@@ -904,6 +921,21 @@ namespace MyWebPlay.Controllers
                         .Replace("@@ MENU_DIV_TAB @@", menuDivTab)
                         .Replace("@@ DIV_TAB_PLAY @@", divTabPlay)
                         .Replace("@@ JS_SetResult @@", jsSetResult);
+
+                    //Save selected
+                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "API_WebPage", "API-Menu.txt");
+                    var format = System.IO.File.ReadAllText(pathX);
+                    for(int i = 0; i < selectedAPI.Count; i++)
+                    {
+                        format = format.Replace(selectedAPI[i], "<Selected>" + selectedAPI[i]);
+                    }
+
+                    for (int i = 0; i < unselectedAPI.Count; i++)
+                    {
+                        format = format.Replace(unselectedAPI[i], unselectedAPI[i].Replace("<Selected>", ""));
+                    }
+
+                    System.IO.File.WriteAllText(pathX, format);
 
                     //Create file HTML
 
@@ -919,6 +951,13 @@ namespace MyWebPlay.Controllers
                     }
 
                     System.IO.File.Move(txtAPI, htmlAPI);
+                }
+                else
+                {
+                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "API_WebPage", "API-Menu.txt");
+                    var format = System.IO.File.ReadAllText(pathX);
+
+                    System.IO.File.WriteAllText(pathX, format.Replace("<Selected>", ""));
                 }
 
                 return Ok(new { result = true });

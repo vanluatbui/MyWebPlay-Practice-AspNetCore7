@@ -71,6 +71,22 @@ Layout = null;
             }});
         }
     }
+
+    var xong = 0;
+
+    setInterval(function()
+    {
+        if (xong == 1) return;
+        for (var i =0; i < '@Model.Count'; i++)
+        {
+            if ('@TempData["selected_api_list"]'.includes("[" + document.getElementById("web-"+i).value + "]"))
+            {
+             document.getElementById("web-"+i).checked = true;
+            }
+        }
+
+        xong = 1;
+    }, 10);
     
 </script>
 <div style="opacity:@TempData["opacity-body-css"]">

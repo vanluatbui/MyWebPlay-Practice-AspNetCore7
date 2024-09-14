@@ -855,9 +855,9 @@ namespace MyWebPlay.Controllers
 
                         for (var j = 0; j < phan2.Length; j++)
                         {
-                            var name = phan2[j].Split("-")[0];
-                            var type = phan2[j].Split("-")[1];
-                            var title = phan2[j].Split("-")[2];
+                            var name = phan2[j].Split("><")[0];
+                            var type = phan2[j].Split("><")[1];
+                            var title = phan2[j].Split("><")[2];
 
                             if (type == "textarea")
                             {

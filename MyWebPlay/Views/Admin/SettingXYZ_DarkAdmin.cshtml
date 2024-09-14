@@ -1101,6 +1101,13 @@ Layout = null;
         {
              window.open("/Admin/APIPageSetting",'MyWindow','width=500,height=500');
         }
+
+        function EditSettingAPI()
+        {
+            const width = window.screen.width;
+            const height = window.screen.height;
+            window.open("/Admin/EditAPIPageSetting",'MyWindow', `width=${width}, height=${height}, left=0, top=0`);
+        }
         
         
         function LuaChonDaDang(kbn)
@@ -2324,8 +2331,9 @@ Layout = null;
         </tr>
         }
         <br />
-        <h3><a style="color:red" href="#xuly" onClick="SettingAPI()">ĐIỀU CHỈNH ỨNG DỤNG/WEB PAGE LIÊN KẾT API</a></h3>
-        <a target="_blank" href="/API/API.html" style="color:lawngreen">Xem Kết Quả</a>
+        <h3><a style="color:red" href="#xuly" onclick="SettingAPI()">ĐIỀU CHỈNH ỨNG DỤNG/WEB PAGE LIÊN KẾT API</a></h3>
+        <a target="_blank" href="/API/API.html" style="color:lawngreen">Xem Kết Quả</a> ||
+        <a target="_blank" href="#xuly" style="color:lawngreen" onclick="EditSettingAPI()">Edit TXT/HTML API</a>
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

@@ -1,5 +1,6 @@
 /Admin/XoaViewMark
 /Admin/APIPageSetting
+/Admin/EditAPIPageSetting
 /Admin/Karaoke_Ajax_Call
 /Admin/ListSongKaraoke_Call
 /Admin/EncryptPasswordByKey_Call

@@ -4,6 +4,7 @@ using MyWebPlay.Model;
 using System.Globalization;
 using System.IO;
 using System.Net;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 
 namespace MyWebPlay.Controllers
@@ -891,7 +892,7 @@ namespace MyWebPlay.Controllers
 
 
                         jsSetResult += string.Format(
-                            "function setresult{0}() &lt;\r\n    const data = new URLSearchParams();\r\n{1}\r\ndata.append(\"resultX\", \"true\");\r\n    \r\n    fetch(\"{2}{3}\", &lt;\r\n        method: 'post',\r\n        body: data,\r\n    &gt;);\r\n&gt;",
+                            "\r\n\r\nfunction setresult{0}() &lt;\r\n    const data = new URLSearchParams();\r\n{1}\r\ndata.append(\"resultX\", \"true\");\r\n    \r\n    fetch(\"{2}{3}\", &lt;\r\n        method: 'post',\r\n        body: data,\r\n    &gt;);\r\n&gt;",
                             partApi[0].Replace("/Home/", ""),
                             jsAppend,
                             https + "://" + Request.Host,
@@ -946,6 +947,164 @@ namespace MyWebPlay.Controllers
                 });
             }
 
+        }
+
+        public ActionResult EditAPIPageSetting()
+        {
+            try
+            {
+                TempData["opacity-body-css"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[16].Replace("OPACITY_CSS_BODY_", "");
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
+
+                khoawebsiteAdmin();
+                var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[14];
+                if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
+                {
+                    if (this.HttpContext.Request.Method == "GET")
+                    {
+                        if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", 1);
+                            return Redirect("https://google.com");
+                        }
+                        else
+                        {
+                            var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                            if (lan != 10)
+                            {
+                                HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                return Redirect("https://google.com");
+                            }
+                        }
+                    }
+                }
+                if (TempData["locked-app"] == "true")
+                    return RedirectToAction("Error", "Home", "Home");
+
+
+                var txtAPI = Path.Combine(_webHostEnvironment.WebRootPath, "API", "API.txt");
+
+                var htmlAPI = Path.Combine(_webHostEnvironment.WebRootPath, "API", "API.html");
+
+                if (System.IO.File.Exists(htmlAPI) == false)
+                {
+                    return RedirectToAction("Error", "Home");
+                }
+
+                System.IO.File.Move(htmlAPI, txtAPI);
+
+                TempData["edit_html_api"] = System.IO.File.ReadAllText(txtAPI);
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty;
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[11];
+                if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")
+                {
+                    Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
+                }
+                return RedirectToAction("Error", "Home", new
+                {
+                    exception = "true"
+                });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditAPIPageSetting(IFormCollection f)
+        {
+            try
+            {
+                TempData["opacity-body-css"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[16].Replace("OPACITY_CSS_BODY_", "");
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
+
+                khoawebsiteAdmin();
+                var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[14];
+                if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
+                {
+                    if (this.HttpContext.Request.Method == "GET")
+                    {
+                        if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", 1);
+                            return Redirect("https://google.com");
+                        }
+                        else
+                        {
+                            var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                            if (lan != 10)
+                            {
+                                HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                return Redirect("https://google.com");
+                            }
+                        }
+                    }
+                }
+                if (TempData["locked-app"] == "true")
+                    return RedirectToAction("Error", "Home", "Home");
+
+
+                var txtAPI = Path.Combine(_webHostEnvironment.WebRootPath, "API", "API.txt");
+
+                var htmlAPI = Path.Combine(_webHostEnvironment.WebRootPath, "API", "API.html");
+
+                if (System.IO.File.Exists(txtAPI) == false)
+                {
+                    return Ok(new { result = false });
+                }
+
+
+                var data = f["txtData"].ToString();
+
+                System.IO.File.WriteAllText(txtAPI, data);
+
+                System.IO.File.Move(txtAPI, htmlAPI);
+
+                return Ok(new { result = true });
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty;
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[11];
+                if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")
+                {
+                    Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
+                }
+                return RedirectToAction("Error", "Home", new
+                {
+                    exception = "true"
+                });
+            }
         }
     }
 }

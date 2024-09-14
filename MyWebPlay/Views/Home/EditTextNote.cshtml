@@ -125,6 +125,11 @@ Layout = null;
         }
     </div>
     <script>
+         if('@TempData["auto_close_window"]' == "true")
+        {
+            window.close();
+        }
+
         const editor = document.getElementById('editor');
         const highlight = document.getElementById('highlight');
         const lineNumbers = document.getElementById('lineNumbers');

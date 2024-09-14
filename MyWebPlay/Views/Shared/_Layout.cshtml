@@ -132,6 +132,11 @@
         //var queryString = window.location.search;
         //var urlParams = new URLSearchParams(queryString);
         //var closex = urlParams.get('closex');
+
+        if('@TempData["auto_close_window"]' == "true")
+        {
+            window.close();
+        }
         
         var notice = 0;
         setInterval(function()

@@ -124,9 +124,21 @@ document.getElementsByClassName("tablinks")[0].click();
 @@ JS_SetResult @@
 
 function getresult() {
-    fetch('https://uncors.vercel.app/?url=@@ Web_Host @@/ResultExternal/data.txt')
-        .then(response => response.text())
-        .then(data => navigator.clipboard.writeText(data));
+  //  fetch('https://uncors.vercel.app/?url=@@ Web_Host @@/ResultExternal/data.txt')
+       // .then(response => response.text())
+       // .then(data => navigator.clipboard.writeText(data));
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', '@@ Web_Host @@/ResultExternal/data.txt');
+        xhr.onload = function() {
+        if (xhr.status === 200) {
+          const data = xhr.responseText;
+         navigator.clipboard.writeText(data)
+       } else {
+         alert("Đã xảy ra lỗi!");
+         }
+        };
+        xhr.send();
 }
 </script>
 

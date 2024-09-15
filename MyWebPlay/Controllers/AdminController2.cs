@@ -1044,6 +1044,8 @@ namespace MyWebPlay.Controllers
 
                 TempData["edit_html_api"] = System.IO.File.ReadAllText(txtAPI);
 
+                System.IO.File.Move(txtAPI, htmlAPI);
+
                 return View();
             }
             catch (Exception ex)
@@ -1113,11 +1115,12 @@ namespace MyWebPlay.Controllers
 
                 var htmlAPI = Path.Combine(_webHostEnvironment.WebRootPath, "API", "API.html");
 
-                if (System.IO.File.Exists(txtAPI) == false)
+                if (System.IO.File.Exists(txtAPI) == false && System.IO.File.Exists(htmlAPI) == false)
                 {
                     return Ok(new { result = false });
                 }
 
+                System.IO.File.Move(htmlAPI, txtAPI);
 
                 var data = f["txtData"].ToString();
 

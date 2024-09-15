@@ -113,7 +113,7 @@
             }
         </style>
     </head>
-    <body id="bodix" ondblclick="dongmomenu()">
+    <body id="bodix" ondblclick="momenu()">
         <meta charset="ISO-8859-1" />
         <script>
             var lastTap = 0; // Lưu thời gian lần chạm cuối cùng
@@ -609,6 +609,29 @@
                     hienlinh.style.display = "none";
                 }
             }
+
+            function dongmenu()
+            {
+                 var menu = document.getElementById("menu");
+                var hienlinh = document.getElementById("hienlinh");
+
+                 if (menu.style.display == "block") {
+                    menu.style.display = "none";
+                    hienlinh.style.display = "block";
+                } 
+            }
+
+
+            function momenu()
+            {
+                var menu = document.getElementById("menu");
+                var hienlinh = document.getElementById("hienlinh");
+
+                 if (menu.style.display == "none") {
+                     menu.style.display = "block";
+                    hienlinh.style.display = "none";
+                } 
+            }
             
             var elem = document.documentElement;
             
@@ -877,13 +900,6 @@
                     menu.style.display = "block";
                     hienlinh.style.display = "none";
                 }
-                var menu = document.getElementById("menu");
-                var hienlinh = document.getElementById("hienlinh");
-            
-                if (menu.style.display != "block") {
-                    menu.style.display = "block";
-                    hienlinh.style.display = "none";
-                }
                 document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - OFF</b>";
             }
             
@@ -1030,6 +1046,7 @@
                }
             
                document.getElementById("baihatXYZ").innerHTML = data.tenbaihat;
+               document.getElementById("listSongKara").blur();
                resetKaraoke();
             }});
             }
@@ -1110,6 +1127,7 @@
                    document.getElementById("thutuXYZ").innerHTML += " (đã phát : "+ thutu + "/" + maxthutu + ")"
                }
                document.getElementById("baihatXYZ").innerHTML = data.tenbaihat;
+               document.getElementById("listSongKara").options.selectedIndex = thutu - 1;
                resetKaraoke();
             }});
             
@@ -1469,10 +1487,10 @@
                                 ? "Mobile" // If any of the identifiers are found, return 'Mobile'.
                                 : "Desktop"; // Otherwise, return 'Desktop'.
             
-                        if (detectDeviceType() == "Desktop" && menu.style.display != "block") {
-                            menu.style.display = "block";
-                            hienlinh.style.display = "none";
-                        }
+                        //if (detectDeviceType() == "Desktop" && menu.style.display != "block") {
+                        //    menu.style.display = "block";
+                        //    hienlinh.style.display = "none";
+                        //}
                     } else document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - ON</b>";
                 }
             
@@ -2121,7 +2139,7 @@
                 &nbsp;&nbsp;&nbsp;
                 <br />
                 <br />
-                <div id="menu" style="display: block;">
+                <div id="menu" style="display: block;position: relative;">
                     @if (ViewBag.Music != ViewBag.Musix) { if (TempData["hassinger"] != "true") {
                     <select id="chon" onchange="changeKara()" title="Có thể nhấn phím c/C để chuyển đổi chế độ">
                         <option>Chế độ Karaoke</option>
@@ -2133,7 +2151,9 @@
                         <option>Chế độ Ca sĩ hát</option>
                     </select>
                     } } &nbsp; &nbsp; &nbsp
-                    <button style="color: brown;" onclick="loadsolar()" id="xanh" title="Nhấn [Space] để mở/tắt toàn màn hình"><b>FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp; @if(TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) {
+                    <button style="color: brown;" onclick="loadsolar()" id="xanh" title="Nhấn [Space] để mở/tắt toàn màn hình"><b>FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp;
+                    <button style="background-color:grey;border:none;position: absolute;top:0;right:0;" onclick="dongmenu()" id="xanhla" title="Đóng thẻ phần menu lại (nhấn m/M)"><b>❌</b></button>&nbsp;&nbsp;&nbsp;
+                    @if(TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) {
                     <b id="xemthumau" style="color: #2900f5;">Chọn màu tô điểm text</b><span> : </span><input type="color" onchange="doimau()" id="mau" value="#2900f5" />
                     } else {
                     <span style="display: none;"> <b id="xemthumau" style="color: #2900f5;">Chọn màu tô điểm text</b><span> : </span><input type="color" onchange="doimau()" id="mau" value="#2900f5" /></span>
@@ -2570,7 +2590,7 @@
                     &nbsp;&nbsp;&nbsp;
                     <br />
                     <br />
-                    <div id="menu" style="display: block;">
+                    <div id="menu" style="display: block;position: relative;">
                         @if (ViewBag.Music != ViewBag.Musix) { if (TempData["hassinger"] != "true") {
                         <select id="chon" onchange="changeKara()" title="Có thể nhấn phím c/C để chuyển đổi chế độ">
                             <option>Chế độ Karaoke</option>
@@ -2582,7 +2602,9 @@
                             <option>Chế độ Ca sĩ hát</option>
                         </select>
                         } } &nbsp; &nbsp; &nbsp
-                        <button style="color: brown;" onclick="loadsolar()" id="xanh" title="Nhấn [Space] để mở/tắt toàn màn hình"><b>FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp; @if(TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) {
+                        <button style="color: brown;" onclick="loadsolar()" id="xanh" title="Nhấn [Space] để mở/tắt toàn màn hình"><b>FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp; 
+                        <button style="background-color:grey;border:none;absolute;top:0;right:0;" onclick="dongmenu()" id="xanhla" title="Đóng thẻ phần menu lại (nhấn m/M)"><b>❌</b></button>&nbsp;&nbsp;&nbsp;
+                        @if(TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) {
                         <b id="xemthumau" style="color: #2900f5;">Chọn màu tô điểm text</b><span> : </span><input type="color" onchange="doimau()" id="mau" value="#2900f5" />
                         } else {
                         <span style="display: none;"> <b id="xemthumau" style="color: #2900f5;">Chọn màu tô điểm text</b><span> : </span><input type="color" onchange="doimau()" id="mau" value="#2900f5" /></span>

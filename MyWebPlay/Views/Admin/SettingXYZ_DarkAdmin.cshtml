@@ -115,7 +115,7 @@ Layout = null;
         {
            checkme = 1;
         }
-
+        
         function setDataInExtend(x1, x2, x3)
         {
             document.getElementById(x2).value = document.getElementById(x1).value.replaceAll(x3, "\n");
@@ -374,7 +374,7 @@ Layout = null;
         
         if ('@TempData["SaveComeHere"]' == "true" && window.location.search == "?key=code")
         window.location.href = "#listIPcomehere";
-
+        
         function ClearAll(x1, x2)
         {
             document.getElementById(x1).value = "";
@@ -1101,7 +1101,7 @@ Layout = null;
         {
              window.open("/Admin/APIPageSetting",'MyWindow','width=500,height=500');
         }
-
+        
         function EditSettingAPI()
         {
             const width = window.screen.width;
@@ -1256,7 +1256,7 @@ Layout = null;
                 <input onchange="setDataInExtend('txtEncode1','txtEncode2','***')" id="txtEncode1" placeholder="Ví dụ bạn chỉ cần nhập Home/Index là được (không cần kèm theo https://)" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.EncodeUrl" />
                 <br />
                 <input type="checkbox" id="checkEncode" onchange="changeShow('txtEncode1','txtEncode2','checkEncode','***')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
-                    <a style="color:orangered" href="#xuly" onClick="ClearAll('txtEncode1', 'txtEncode2')">Clear all</a>
+                <a style="color:orangered" href="#xuly" onClick="ClearAll('txtEncode1', 'txtEncode2')">Clear all</a>
                 <br />
                 <textarea readonly id="txtEncode2" cols="100" rows="15" style="display:none">@ViewBag.EncodeUrl_Line</textarea>
                 }
@@ -1287,7 +1287,7 @@ Layout = null;
                 <br />
                 <input type="checkbox" id="checkLock" onchange="changeShow('txtLock1','txtLock2','checkLock',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
                 <a style="color:red" href="#xuly" onClick="LuaChonDaDang('0')">Lựa chọn đa dạng</a>
-                 <a style="color:orangered" href="#xuly" onClick="ClearAll('txtLock1', 'txtLock2')">Clear all</a>
+                <a style="color:orangered" href="#xuly" onClick="ClearAll('txtLock1', 'txtLock2')">Clear all</a>
                 <br />
                 <br />
                 <textarea readonly id="txtLock2" cols="50" rows="15" style="display:none">@ViewBag.LockedUseApp_Line</textarea>
@@ -1296,7 +1296,7 @@ Layout = null;
                 if (Model.Topics[i].ID == "DownloadFile_ClearWeb")
                 {
                 <input onchange="setDataInExtend('txtDownload1','txtDownload2',',')" id="txtDownload1" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.DownloadFileQuick" />
-                 <br />
+                <br />
                 <input type="checkbox" id="checkDownload" onchange="changeShow('txtDownload1','txtDownload2','checkDownload',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
                 <a style="color:orangered" href="#xuly" onClick="ClearAll('txtDownload1', 'txtDownload2')">Clear all</a>
                 <br />
@@ -1309,7 +1309,7 @@ Layout = null;
                 <br />
                 <input type="checkbox" id="checkAccept" onchange="changeShow('txtAcceptUrl1','txtAcceptUrl2','checkAccept',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
                 <a style="color:red" href="#xuly" onClick="LuaChonDaDang('1')">Lựa chọn đa dạng</a>
-                 <a style="color:orangered" href="#xuly" onClick="ClearAll('txtAcceptUrl1', 'txtAcceptUrl2')">Clear all</a>
+                <a style="color:orangered" href="#xuly" onClick="ClearAll('txtAcceptUrl1', 'txtAcceptUrl2')">Clear all</a>
                 <br />
                 <br />
                 <textarea readonly id="txtAcceptUrl2" cols="50" rows="15" style="display:none">@ViewBag.AcceptListUrl_Line</textarea>
@@ -2296,40 +2296,40 @@ Layout = null;
             <span style="color:orangered">Phía cuối cùng nhất sau khi các setting được liệt kê, bổ sung &#34;###&#34; sau đó là đoạn HTML để hiển thị/thiết kế tạm thời trên trang Index (có thể là phần banner).</span>
             <br />
             <br />
-            <div style="background-color:blueviolet">
-                @using (Html.BeginForm("UnlockAllWeb","Admin"))
-                {
-                @Html.ValidationSummary(true)
-                <br />
-        <tr style="height:40px">
-        <td> </td>
-        <td>
-        <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-33">@Html.Raw(Model.Topics[33].NoiDung)</h3>
-        <label class="switch">
-        @if (Model.Topics[33].Option == false)
-        {
-        <input id="check-33" onchange="saveXY()" name="@Model.Topics[33].ID" type="checkbox" />
-        }
-        else
-        {
-        <input id="check-33" onchange="saveXY()" name="@Model.Topics[33].ID" type="checkbox" checked />
-        }
-        <span class="slider round"></span>
-        </label>
-        </td>
-        </tr>
-        <br /><br />
-        <b style="color:yellow">[Cẩn thận] Chỉ cần vô tình một cái gạt bật item setting này lên, toàn bộ website giống như bị tiêu diệt (tệ hơn nếu sau đó bạn đã mất đi dữ liệu quyền admin)...</b>
-        <tr style="height:40px">
-        <td></td>
-        <td><br>
-        <input id="ok-X" type="submit" hidden value="LƯU CÀI ĐẶT" />
-        </td>
         </tr>
         }
+        <div style="background-color:blueviolet">
+            @using (Html.BeginForm("UnlockAllWeb","Admin"))
+            {
+            @Html.ValidationSummary(true)
+            <br />
+            <tr style="height:40px">
+                <td> </td>
+                <td>
+                    <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-33">@Html.Raw(Model.Topics[33].NoiDung)</h3>
+                    <label class="switch">
+                    @if (Model.Topics[33].Option == false)
+                    {
+                    <input id="check-33" onchange="saveXY()" name="@Model.Topics[33].ID" type="checkbox" />
+                    }
+                    else
+                    {
+                    <input id="check-33" onchange="saveXY()" name="@Model.Topics[33].ID" type="checkbox" checked />
+                    }
+                    <span class="slider round"></span>
+                    </label>
+                </td>
+            </tr>
+            <br /><br />
+            <b style="color:yellow">[Cẩn thận] Chỉ cần vô tình một cái gạt bật item setting này lên, toàn bộ website giống như bị tiêu diệt (tệ hơn nếu sau đó bạn đã mất đi dữ liệu quyền admin)...</b>
+            <tr style="height:40px">
+                <td></td>
+                <td><br>
+                    <input id="ok-X" type="submit" hidden value="LƯU CÀI ĐẶT" />
+                </td>
+            </tr>
+            }
         </div>
-        </tr>
-        }
         <br />
         <h3><a style="color:red" href="#xuly" onclick="SettingAPI()">ĐIỀU CHỈNH ỨNG DỤNG/WEB PAGE LIÊN KẾT API</a></h3>
         <a target="_blank" href="/Admin/RedirectToAPIPage" style="color:lawngreen">Xem Kết Quả</a> ||

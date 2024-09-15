@@ -797,7 +797,7 @@
                 if (chiase == 0 && "@ViewBag.Share" == "YES - OK") {
                     document.getElementById("message").style.display = "block";
                     document.getElementById("error").style.display = "block";
-                    document.getElementById("error").innerHTML = "Nếu bạn play karaoke bằng link chia sẻ của bạn bè, ban đầu vui lóng nhấn nút [Khởi động lại] hoặc nhấn phím o/O để phát trình nhạc...";
+                    document.getElementById("error").innerHTML = "Nếu bạn play karaoke bằng link chia sẻ của bạn bè, ban đầu vui lòng nhấn nút [Khởi động lại] hoặc nhấn phím o/O để phát trình nhạc...";
                     notice = 1;
                     chiase = 1;
                     return;
@@ -2207,7 +2207,7 @@
                     }
                     <input style="display:none" id="thutu" type="number" min="1" max="@i2" value="@i1" />
                     }
-                    <span style="color: darkturquoise;">
+                    <span style="color: springgreen;">
                     <b><u title="Bài hát đang được phát" id="baihatXYZ">@ViewBag.BHServer</u></b>
                     </span>
                     @if (ViewBag.Share != "YES - OK" && ViewBag.BHServer != "" && ViewBag.LoginServer != "") {

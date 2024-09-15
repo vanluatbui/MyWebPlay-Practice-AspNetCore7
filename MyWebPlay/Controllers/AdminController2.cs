@@ -1029,12 +1029,15 @@ namespace MyWebPlay.Controllers
 
                 var htmlAPI = Path.Combine(_webHostEnvironment.WebRootPath, "API", "API.html");
 
-                if (System.IO.File.Exists(htmlAPI) == false)
+                if (System.IO.File.Exists(htmlAPI) == false && System.IO.File.Exists(txtAPI) == false)
                 {
                     return RedirectToAction("Error", "Home");
                 }
 
-                System.IO.File.Move(htmlAPI, txtAPI);
+                if (System.IO.File.Exists(htmlAPI))
+                {
+                    System.IO.File.Move(htmlAPI, txtAPI);
+                }
 
                 TempData["edit_html_api"] = System.IO.File.ReadAllText(txtAPI);
 
@@ -1144,6 +1147,25 @@ namespace MyWebPlay.Controllers
                     exception = "true"
                 });
             }
+        }
+
+        public ActionResult RedirectToAPIPage()
+        {
+            var txtAPI = Path.Combine(_webHostEnvironment.WebRootPath, "API", "API.txt");
+
+            var htmlAPI = Path.Combine(_webHostEnvironment.WebRootPath, "API", "API.html");
+
+            if (System.IO.File.Exists(htmlAPI) == false && System.IO.File.Exists(txtAPI) == false)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            if (System.IO.File.Exists(txtAPI))
+            {
+                System.IO.File.Move(txtAPI, htmlAPI);
+            }
+
+            return Redirect("/API/API.html");
         }
     }
 }

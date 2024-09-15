@@ -1,4 +1,5 @@
 /Admin/XoaViewMark
+/Admin/RedirectToAPIPage
 /Admin/APIPageSetting
 /Admin/EditAPIPageSetting
 /Admin/Karaoke_Ajax_Call

@@ -2,11 +2,10 @@
 Layout = null;
 }
 <script>
-
     function xacnhan()
     {
         var con = confirm("Bạn có chắc chắn không?");
-
+    
         if (con == true)
         {
             var data = document.getElementById("data").value;
@@ -32,10 +31,9 @@ Layout = null;
             }});
         }
      }
-
+    
 </script>
-<style>
-</style>
+<style></style>
 <h3 style="color:blue">EDIT TXT/HTML OF API PAGE SETTING</h3>
 <span style="color:red"><u>Lưu ý</u> : dù bạn có muốn cập nhật hay không, bạn cũng phải nhấn nút [OK] để đảm bảo về dữ liệu nhé. Nếu không, admin có thể tự khôi phục lại...</span>
 <br /><br />
@@ -44,6 +42,6 @@ Layout = null;
 <textarea name="txtData" id="data" cols="200" rows="40">@TempData["edit_html_api"]</textarea>
 <br /><br />
 <button style="background-color:aqua; color:deeppink" onclick="xacnhan()"><b>OK</b></button>
- <script src="~/lib/jquery/dist/jquery.min.js"></script>
- <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>

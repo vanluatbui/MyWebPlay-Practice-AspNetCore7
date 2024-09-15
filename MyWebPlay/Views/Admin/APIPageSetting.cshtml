@@ -2,90 +2,89 @@
 Layout = null;
 }
 <script>
-
-     function chonall()
+    function chonall()
     {
-        for (var i =0; i < '@Model.Count'; i++)
-        {
-            document.getElementById("web-"+i).checked = true;
-        }
+       for (var i =0; i < '@Model.Count'; i++)
+       {
+           document.getElementById("web-"+i).checked = true;
+       }
     }
     
     function bochonall()
     {
-        for (var i =0; i < '@Model.Count'; i++)
-        {
-            document.getElementById("web-"+i).checked = false;
-        }
+       for (var i =0; i < '@Model.Count'; i++)
+       {
+           document.getElementById("web-"+i).checked = false;
+       }
     }
-
-
+    
+    
     function xacnhan()
     {
-        var con = confirm("Bạn có chắc chắn không?");
-
-        if (con == true)
-        {
-        document.getElementById("first").style.display = "none";
-        document.getElementById("last").style.display = "block";
-
-         var s = "";
+       var con = confirm("Bạn có chắc chắn không?");
     
-        var n = new Number('@Model.Count');
+       if (con == true)
+       {
+       document.getElementById("first").style.display = "none";
+       document.getElementById("last").style.display = "block";
     
-        for (var i = 0; i < n; i++)
-        {
-            if (document.getElementById("web-"+i).checked == true)
-            {
-                s += document.getElementById("web-"+i).value;
-
-                if (i != n - 1)
-                {
-                    s+= "\n";
-                }
-            }
-        }
-
-       var formData = new FormData();
-       formData.append("txtData", s);
-            
-            $.ajax({
-            url: "/Admin/APIPageSetting",
-            type: "POST",
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function(data) {
-            
-                if (data.result != true)
-                {
-                    alert("Đã xảy ra lỗi. Vui lòng thử lại sau!");
-                    document.getElementById("first").style.display = "block";
-                    document.getElementById("last").style.display = "none";
-                    bochonall();
-                    return;
-                }
-            
-               alert("Hệ thống đã xử lý/cập nhật thành công !");
-               window.close();
-            }});
-        }
+        var s = "";
+    
+       var n = new Number('@Model.Count');
+    
+       for (var i = 0; i < n; i++)
+       {
+           if (document.getElementById("web-"+i).checked == true)
+           {
+               s += document.getElementById("web-"+i).value;
+    
+               if (i != n - 1)
+               {
+                   s+= "\n";
+               }
+           }
+       }
+    
+      var formData = new FormData();
+      formData.append("txtData", s);
+           
+           $.ajax({
+           url: "/Admin/APIPageSetting",
+           type: "POST",
+           data: formData,
+           contentType: false,
+           processData: false,
+           success: function(data) {
+           
+               if (data.result != true)
+               {
+                   alert("Đã xảy ra lỗi. Vui lòng thử lại sau!");
+                   document.getElementById("first").style.display = "block";
+                   document.getElementById("last").style.display = "none";
+                   bochonall();
+                   return;
+               }
+           
+              alert("Hệ thống đã xử lý/cập nhật thành công !");
+              window.close();
+           }});
+       }
     }
-
+    
     var xong = 0;
-
+    
     setInterval(function()
     {
-        if (xong == 1) return;
-        for (var i =0; i < '@Model.Count'; i++)
-        {
-            if ('@TempData["selected_api_list"]'.includes("[" + document.getElementById("web-"+i).value + "]"))
-            {
-             document.getElementById("web-"+i).checked = true;
-            }
-        }
-
-        xong = 1;
+       if (xong == 1) return;
+       for (var i =0; i < '@Model.Count'; i++)
+       {
+           if ('@TempData["selected_api_list"]'.includes("[" + document.getElementById("web-"+i).value + "]"))
+           {
+            document.getElementById("web-"+i).checked = true;
+           }
+       }
+    
+       xong = 1;
     }, 10);
     
 </script>
@@ -93,23 +92,23 @@ Layout = null;
 <b style="color:crimson">Cập nhật web page hệ thống và sử dụng liên kết API</b>
 <br /><br />
 <div id="first">
-<button style="background-color:orangered;color:darkblue" onclick="xacnhan()"><b>OK</b></button>
-<br />
-<br />
-<a href="#xuly" onclick="chonall()" style="color:green">Chọn tất cả</a> || <a href="#xuly" onclick="bochonall()" style="color:red">Bỏ chọn tất cả</a>
-<br />
-<br />
-@for (int i = 0; i < Model.Count; i++)
-{
-<input id="web-@i" type="checkbox" value="@Model[@i]" name="@Model[i].Replace("/","_")" /><span>&nbsp;</span><b>@Model[@i]</b><br />
-}
-<br />
-<button style="background-color:orangered;color:darkblue" onclick="xacnhan()"><b>OK</b></button>
+    <button style="background-color:orangered;color:darkblue" onclick="xacnhan()"><b>OK</b></button>
+    <br />
+    <br />
+    <a href="#xuly" onclick="chonall()" style="color:green">Chọn tất cả</a> || <a href="#xuly" onclick="bochonall()" style="color:red">Bỏ chọn tất cả</a>
+    <br />
+    <br />
+    @for (int i = 0; i < Model.Count; i++)
+    {
+    <input id="web-@i" type="checkbox" value="@Model[@i]" name="@Model[i].Replace("/","_")" /><span>&nbsp;</span><b>@Model[@i]</b><br />
+    }
+    <br />
+    <button style="background-color:orangered;color:darkblue" onclick="xacnhan()"><b>OK</b></button>
 </div>
 <div id="last" style="display:none">
     <img id="loading" src="/Image_Play/waiting.gif" />
 </div>
 </div>
- <script src="~/lib/jquery/dist/jquery.min.js"></script>
- <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>

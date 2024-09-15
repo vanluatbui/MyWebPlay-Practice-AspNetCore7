@@ -123,7 +123,9 @@ function openTab(evt, tabName) {
         element.disabled = false;
         });
     evt.currentTarget.className += " active";
-    window.location.href = "#" + tabName;
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
 }
 
 document.getElementsByClassName("tablinks")[0].click();

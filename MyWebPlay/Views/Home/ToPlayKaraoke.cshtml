@@ -609,24 +609,24 @@
                     hienlinh.style.display = "none";
                 }
             }
-
+            
             function dongmenu()
             {
                  var menu = document.getElementById("menu");
                 var hienlinh = document.getElementById("hienlinh");
-
+            
                  if (menu.style.display == "block") {
                     menu.style.display = "none";
                     hienlinh.style.display = "block";
                 } 
             }
-
-
+            
+            
             function momenu()
             {
                 var menu = document.getElementById("menu");
                 var hienlinh = document.getElementById("hienlinh");
-
+            
                  if (menu.style.display == "none") {
                      menu.style.display = "block";
                     hienlinh.style.display = "none";
@@ -784,6 +784,7 @@
             }
             
             var mi = 0;
+            var chiase  = 0;
             setInterval(function () {
                 if (mi == 1) return;
             
@@ -792,6 +793,15 @@
                 for (var i = 0; i < fontKara.length; i++) document.getElementById("fontKieu").innerHTML += '<option style="font-family:' + fontKara[i] + '">' + fontKara[i] + "</option>";
             
                 mi = 1;
+            
+                if (chiase == 0 && "@ViewBag.Share" == "YES - OK") {
+                    document.getElementById("message").style.display = "block";
+                    document.getElementById("error").style.display = "block";
+                    document.getElementById("error").innerHTML = "Nếu bạn play karaoke bằng link chia sẻ của bạn bè, ban đầu vui lóng nhấn nút [Khởi động lại] hoặc nhấn phím o/O để phát trình nhạc...";
+                    notice = 1;
+                    chiase = 1;
+                    return;
+                }
             }, 10);
             
             var t = 0;
@@ -2150,31 +2160,29 @@
                         <option>Chế độ Karaoke</option>
                         <option>Chế độ Ca sĩ hát</option>
                     </select>
-                    } } &nbsp; &nbsp; &nbsp
-                    <button style="color: brown;" onclick="loadsolar()" id="xanh" title="Nhấn [Space] để mở/tắt toàn màn hình"><b>FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp;
-                    <button style="background-color:grey;border:none;position: absolute;top:0;right:0;" onclick="dongmenu()" id="xanhla" title="Đóng thẻ phần menu lại (nhấn m/M)"><b>❌</b></button>&nbsp;&nbsp;&nbsp;
+                    } }   &nbsp
+                    <button style="color: brown;" onclick="loadsolar()" id="xanh" title="Nhấn [Space] để mở/tắt toàn màn hình"><b>FULL MÀN HÌNH - OFF</b></button>
+                    <button style="background-color:grey;border:none;position: absolute;bottom:0;right:0;" onclick="dongmenu()" id="xanhla" title="Đóng thẻ phần menu lại (nhấn m/M)"><b>❌</b></button>
                     @if(TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) {
                     <b id="xemthumau" style="color: #2900f5;">Chọn màu tô điểm text</b><span> : </span><input type="color" onchange="doimau()" id="mau" value="#2900f5" />
                     } else {
                     <span style="display: none;"> <b id="xemthumau" style="color: #2900f5;">Chọn màu tô điểm text</b><span> : </span><input type="color" onchange="doimau()" id="mau" value="#2900f5" /></span>
-                    } &nbsp;&nbsp;&nbsp;<b id="xemmauthu" style="color: #efe6e6;">Chọn màu đoạn text ban đầu</b> : <input type="color" onchange="doimauX()" id="mauX" value="#efe6e6" /> &nbsp;&nbsp;&nbsp;
+                    } <b id="xemmauthu" style="color: #efe6e6;">Chọn màu đoạn text ban đầu</b> : <input type="color" onchange="doimauX()" id="mauX" value="#efe6e6" /> 
                     <b id="xemmaudi" style="color: #e3f207;">Chọn màu cho time đếm ngược bắt đầu karaoke</b> : <input type="color" onchange="doimauY()" id="mauY" value="#e3f207" />
-                    &nbsp;&nbsp;&nbsp;
                     <select id="fontKieu" onchange="doiFontKieu()" title="Chọn kiểu chữ cho text hiển thị karaoke"> </select>
-                    <br />
                     <span style="color: deeppink;"><b>Kích thước chữ : </b></span><input id="kichthuoc" type="number" style="width: 5em;" min="0" value="80" onchange="doikichthuoc()" />
-                    &nbsp;&nbsp;&nbsp; @if((TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) && TempData["codinh"] == "false") {
+                    @if((TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) && TempData["codinh"] == "false") {
                     <span style="color: deeppink;"><b>Vị trí xuất hiện : </b></span> <input id="hang" type="number" style="width: 5em;" min="0" value="0" onchange="doihang()" />
                     } else {
-                    <span style="display: none; color: deeppink;"><b>Vị trí xuất hiện : </b></span> <input style="display: none; width: 5em;" id="hang" type="number" min="0" value="0" onchange="doihang()" /> } &nbsp;&nbsp;&nbsp;
+                    <span style="display: none; color: deeppink;"><b>Vị trí xuất hiện : </b></span> <input style="display: none; width: 5em;" id="hang" type="number" min="0" value="0" onchange="doihang()" /> } 
                     <input id="kieudemnguoc" maxlength="2" title="Nhập icon đếm ngược để bắt đầu karaoke (nếu bạn nhập N thì mặc định sẽ đếm ngược cơ bản theo : 3 - 2 - 1)" onchange="doikieudemnguoc()" value="N" size="3" />
-                    &nbsp;&nbsp;&nbsp; @if (ViewBag.SuDung == "Video") {
+                    @if (ViewBag.SuDung == "Video") {
                     <input type="checkbox" onchange="videovua()" id="vuavideo" />
                     <b style="color: red;">Tuỳ chỉnh video (option)</b>
                     }
                     <input type="text" onchange="moanh()" title="Nhập độ mờ background (giá trị hợp lệ từ 0 - 1, có thể sử dụng định dạng thập phân)" id="anhmo" size="3" value="0.8" />
                     <input type="color" id="maunex" onchange="moanh()" title="Chọn màu sắc phông nền cho background (có thể kèm theo độ mờ)" />
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @if (TempData["index-auto"] == null || TempData["index-auto"] == "") {
+                    @if (TempData["index-auto"] == null || TempData["index-auto"] == "") {
                     <button onclick="StopKaraoke()"><b style="color: darkgreen;">THOÁT</b></button>
                     } else { var i1 = TempData["index-auto"].ToString().Split("***")[0] + ""; var i2 = TempData["length-list-auto"] + ""; TempData["index-auto"] = i1; TempData["length-list-auto"] = i2; if (i1 != i2) {
                     @if (TempData["ajax_js"] == "false")
@@ -2199,35 +2207,31 @@
                     }
                     <input style="display:none" id="thutu" type="number" min="1" max="@i2" value="@i1" />
                     }
-                    &nbsp;
                     <span style="color: darkturquoise;">
-                    <b><u id="baihatXYZ">@ViewBag.BHServer</u></b>
+                    <b><u title="Bài hát đang được phát" id="baihatXYZ">@ViewBag.BHServer</u></b>
                     </span>
-                    <br />
                     @if (ViewBag.Share != "YES - OK" && ViewBag.BHServer != "" && ViewBag.LoginServer != "") {
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><b style="color: red;"><a onclick="copyshare()" href="#xuly">Share Karaoke</a></b><input type="checkbox" id="saveshare" />
-                    <b style="color: lawngreen;">Bao gồm luôn các setting hiện tại của bạn (khi chia sẻ)</b>
+                    <span></span><b style="color: red;"><a onclick="copyshare()" href="#xuly">Share Karaoke</a></b><input type="checkbox" id="saveshare" />
+                    <b style="color: lawngreen;">Bao gồm luôn các setting hiện tại của bạn</b>
                     }
-                    <br />
-                    <br />
-                    <button style="color: purple;" onclick="resetKaraoke()" title="Nhấn o/O để khởi động lại"><b>KHỞI ĐỘNG LẠI/PHÁT</b></button> &nbsp;&nbsp;&nbsp; <button onclick="ghinho()"><b style="color: lightcoral;">Ghi nhớ các cài đặt</b></button> &nbsp;&nbsp;&nbsp;
+                    <button onclick="ghinho()"><b style="color: lightcoral;">Ghi nhớ các cài đặt</b></button> 
                     <button onclick="xoaghinho()"><b style="color: lightcoral;">Xoá ghi nhớ các cài đặt</b></button>
-                    &nbsp;&nbsp;&nbsp; @if (TempData["codinh"] == "false") {
-                    <spam>&nbsp;&nbsp;&nbsp;&nbsp; </spam>
+                    @if (TempData["codinh"] == "false") {
+                    <spam> </spam>
                     <b id="demo_nen" style="color: #ffffff;">Sử dụng màu nền cho phần text : </b><input type="color" onchange="doimaunenX()" id="maunenX" value="#FFFFFF" />
-                    <span>&nbsp;</span>
+                    <span></span>
                     <a href="#xuly" onclick="xoamaunen()"><b>Làm mờ nền/Xoá màu nền</b></a>
-                    <span>&nbsp;</span>
+                    <span></span>
                     } @if (TempData["auto-play"] == "false") {
                     <b id="xplay1" style="color: aqua;"><a onclick="xemplayX()" href="#xuly">Play</a></b>
-                    } &nbsp; @if (TempData["auto-play"] == "false") {
+                    }  @if (TempData["auto-play"] == "false") {
                     <b id="xplay2" style="color: aqua;"><a onclick="xemplay()" href="#xuly">Play & full screen</a></b>
-                    } &nbsp; @if (ViewBag.SuDung == "Youtube") {
+                    }  @if (ViewBag.SuDung == "Youtube") {
                     <b style="color: aqua;"><a id="re-You" onclick="restart_Youtube()" href="#xuly">Restart video Youtube</a></b>
-                    } &nbsp; @if (ViewBag.SuDung == "Youtube") {
+                    }  @if (ViewBag.SuDung == "Youtube") {
                     <b style="color: aqua;"><a onclick="replay_Youtube()" href="#xuly">Restart video Youtube and karaoke</a></b>
                     }
-                    <br />
+                    <button style="color: purple;" onclick="resetKaraoke()" title="Nhấn o/O để khởi động lại"><b>KHỞI ĐỘNG LẠI/PHÁT</b></button>  
                 </div>
                 <div id="hienthi">
                     <br />
@@ -2601,27 +2605,27 @@
                             <option>Chế độ Karaoke</option>
                             <option>Chế độ Ca sĩ hát</option>
                         </select>
-                        } } &nbsp; &nbsp; &nbsp
-                        <button style="color: brown;" onclick="loadsolar()" id="xanh" title="Nhấn [Space] để mở/tắt toàn màn hình"><b>FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp; 
-                        <button style="background-color:grey;border:none;absolute;top:0;right:0;" onclick="dongmenu()" id="xanhla" title="Đóng thẻ phần menu lại (nhấn m/M)"><b>❌</b></button>&nbsp;&nbsp;&nbsp;
+                        } }   &nbsp
+                        <button style="color: brown;" onclick="loadsolar()" id="xanh" title="Nhấn [Space] để mở/tắt toàn màn hình"><b>FULL MÀN HÌNH - OFF</b></button> 
+                        <button style="background-color:grey;border:none;absolute;bottom:0;right:0;" onclick="dongmenu()" id="xanhla" title="Đóng thẻ phần menu lại (nhấn m/M)"><b>❌</b></button>
                         @if(TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) {
                         <b id="xemthumau" style="color: #2900f5;">Chọn màu tô điểm text</b><span> : </span><input type="color" onchange="doimau()" id="mau" value="#2900f5" />
                         } else {
                         <span style="display: none;"> <b id="xemthumau" style="color: #2900f5;">Chọn màu tô điểm text</b><span> : </span><input type="color" onchange="doimau()" id="mau" value="#2900f5" /></span>
-                        } &nbsp;&nbsp;&nbsp;<b id="xemmauthu" style="color: #efe6e6;">Chọn màu đoạn text ban đầu</b> : <input type="color" onchange="doimauX()" id="mauX" value="#efe6e6" /> &nbsp;&nbsp;&nbsp;
-                        <b id="xemmaudi" style="color: #e3f207;">Chọn màu cho time đếm ngược bắt đầu karaoke</b> : <input type="color" onchange="doimauY()" id="mauY" value="#e3f207" /> &nbsp;&nbsp;&nbsp; <br />
+                        } <b id="xemmauthu" style="color: #efe6e6;">Chọn màu đoạn text ban đầu</b> : <input type="color" onchange="doimauX()" id="mauX" value="#efe6e6" /> 
+                        <b id="xemmaudi" style="color: #e3f207;">Chọn màu cho time đếm ngược bắt đầu karaoke</b> : <input type="color" onchange="doimauY()" id="mauY" value="#e3f207" />  
                         <span style="color: red;">Kích thước chữ : </span><input id="kichthuoc" type="number" style="width: 5em;" min="0" value="90" onchange="doikichthuoc()" />
-                        &nbsp;&nbsp;&nbsp; @if((TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) && TempData["codinh"] == "false") {
+                        @if((TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) && TempData["codinh"] == "false") {
                         <span style="color: deeppink;"><b>Vị trí xuất hiện : </b></span> <input id="hang" type="number" style="width: 5em;" min="0" value="0" onchange="doihang()" />
                         } else {
                         <span style="display: none; color: deeppink;"><b>Vị trí xuất hiện : </b></span> <input style="display: none; width: 5em;" id="hang" type="number" min="0" value="0" onchange="doihang()" />
-                        } &nbsp;&nbsp;&nbsp; @if (ViewBag.SuDung == "Video") {
+                        }  @if (ViewBag.SuDung == "Video") {
                         <input type="checkbox" onchange="videovua()" id="vuavideo" />
                         <b style="color: red;">Tuỳ chỉnh video (option)</b>
                         }
                         <input type="text" onchange="moanh()" title="Nhập độ mờ background (giá trị hợp lệ từ 0 - 1, có thể sử dụng định dạng thập phân)" id="anhmo" size="3" value="0.8" />
                         <input type="color" id="maunex" title="Chọn màu sắc phông nền cho background (có thể kèm theo độ mờ)" onchange="moanh()" />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @if (TempData["index-auto"] == null || TempData["index-auto"] == "") {
+                        @if (TempData["index-auto"] == null || TempData["index-auto"] == "") {
                         <button onclick="StopKaraoke()"><b style="color: darkgreen;">THOÁT</b></button>
                         } else { var i1 = TempData["index-auto"].ToString().Split("***")[0] + ""; var i2 = TempData["length-list-auto"] + ""; TempData["index-auto"] = i1; TempData["length-list-auto"] = i2; if (i1 != i2) {
                         @if (TempData["ajax_js"] == "false")
@@ -2645,30 +2649,27 @@
                         <button onclick="DungKaraoke()"><b style="color: red;" id="thutuXYZ">Huỷ trình phát Karaoke tự động</b></button>
                         }
                         <input style="display:none" id="thutu" type="number" min="1" max="@i2" value="@i1" />
-                        } &nbsp;
+                        } 
                         <span style="color: darkturquoise;">
                         <b><u>@ViewBag.BHServer</u></b>
                         </span>
-                        <br />
-                        <br />
-                        <button style="color: purple;" onclick="resetKaraoke()" title="Nhấn o/O để khởi động lại"><b>KHỞI ĐỘNG LẠI/PHÁT</b></button> &nbsp;&nbsp;&nbsp;
-                        <button onclick="ghinho()"><b style="color: lightcoral;">Ghi nhớ các cài đặt</b></button> &nbsp;&nbsp;&nbsp; <button onclick="xoaghinho()"><b style="color: lightcoral;">Xoá ghi nhớ các cài đặt</b></button>
-                        &nbsp;&nbsp;&nbsp; @if (TempData["codinh"] == "false") {
-                        <spam>&nbsp;&nbsp;&nbsp;&nbsp; </spam>
+                        <button onclick="ghinho()"><b style="color: lightcoral;">Ghi nhớ các cài đặt</b></button>  <button onclick="xoaghinho()"><b style="color: lightcoral;">Xoá ghi nhớ các cài đặt</b></button>
+                        @if (TempData["codinh"] == "false") {
+                        <spam> </spam>
                         <b id="demo_nen" style="color: #ffffff;">Sử dụng màu nền cho phần text : </b><input type="color" onchange="doimaunenX()" id="maunenX" value="#FFFFFF" />
-                        <span>&nbsp;</span>
+                        <span></span>
                         <a href="#xuly" onclick="xoamaunen()"><b>Làm mờ nền/Xoá màu nền</b></a>
-                        <span>&nbsp;</span>
-                        } &nbsp;&nbsp;&nbsp; @if (TempData["auto-play"] == "false") {
+                        <span></span>
+                        }  @if (TempData["auto-play"] == "false") {
                         <b id="xplay1" style="color: aqua;"><a onclick="xemplayX()" href="#xuly">Play</a></b>
-                        } &nbsp; @if (TempData["auto-play"] == "false") {
+                        }  @if (TempData["auto-play"] == "false") {
                         <b id="xplay2" style="color: aqua;"><a onclick="xemplay()" href="#xuly">Play & full screen</a></b>
-                        } &nbsp; @if (ViewBag.SuDung == "Youtube") {
+                        }  @if (ViewBag.SuDung == "Youtube") {
                         <b style="color: aqua;"><a id="re-You" onclick="restart_Youtube()" href="#xuly">Restart video Youtube</a></b>
-                        } &nbsp; @if (ViewBag.SuDung == "Youtube") {
+                        }  @if (ViewBag.SuDung == "Youtube") {
                         <b style="color: aqua;"><a onclick="replay_Youtube()" href="#xuly">Restart video Youtube and karaoke</a></b>
                         }
-                        <br />
+                        <button style="color: purple;" onclick="resetKaraoke()" title="Nhấn o/O để khởi động lại"><b>KHỞI ĐỘNG LẠI/PHÁT</b></button> 
                     </div>
                     <div id="hienthi">
                         <br />

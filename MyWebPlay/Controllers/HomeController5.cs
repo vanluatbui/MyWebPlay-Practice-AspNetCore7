@@ -402,7 +402,7 @@ namespace MyWebPlay.Controllers
 
                 var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
                 if (string.IsNullOrEmpty(chim)) chim = "Default";
-                var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", xuxu.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_" + chim + "_dataresult.txt");
+                var sox = (f.ContainsKey("resultX") == false || f["resultX"] == "false") ?  Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", xuxu.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_" + chim + "_dataresult.txt") : Path.Combine(_webHostEnvironment.WebRootPath, "ResultExternal", "data.txt"); ;
                 TempData["fileResult"] = xuxu.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_" + chim + "_dataresult.txt";
                 new FileInfo(sox).Create().Dispose();
                 System.IO.File.WriteAllText(sox, nix);
@@ -728,7 +728,17 @@ namespace MyWebPlay.Controllers
 
                 ViewBag.KetQua = "Chuỗi : " + chuoi.Replace(" ", "[Space]").Replace("\t", "[Tab]") + " |-| Pattern : " + pattern.Replace(" ", "[Space]").Replace("\t", "[Tab]") + " |-| ==> KẾT QUẢ :  " + result;
                 nix = ViewBag.KetQua;
-               ghilogrequest(f); if (exter == false)
+
+                Calendar soi = CultureInfo.InvariantCulture.Calendar;
+                var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
+                if (string.IsNullOrEmpty(chim)) chim = "Default";
+                var cuctac = soi.AddHours(DateTime.UtcNow, 7) + "_" + chim;
+                var sox = (f.ContainsKey("resultX") == false || f["resultX"] == "false") ? Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt") : Path.Combine(_webHostEnvironment.WebRootPath, "ResultExternal", "data.txt");
+                TempData["fileResult"] = cuctac.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_dataresult.txt";
+                new FileInfo(sox).Create().Dispose();
+                System.IO.File.WriteAllText(sox, nix);
+
+                ghilogrequest(f); if (exter == false)
                     return View();
                 else
                 {

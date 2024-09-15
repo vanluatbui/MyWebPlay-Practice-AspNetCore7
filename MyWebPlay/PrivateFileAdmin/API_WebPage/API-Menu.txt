@@ -3,7 +3,7 @@
 [/Home/TextConvertX]***chuoi><textarea><Chuoi<>Start><text><start<>End><text><end
 [/Home/ReadNumber]***Chuoi><textarea><Chuỗi các số
 [/Home/CSDL_MainKey]***Chuoi><text><AB>C,C>BD,BE>A,A>C
-[/Home/CheckText]***Chuoi><text><Chuỗi cần kiểm tra
+[/Home/CheckText]***Chuoi><textarea><Chuỗi cần kiểm tra
 [/Home/Regex_Replace_Multiple]***Chuoi><textarea><Chuỗi<>Input><textarea><Input<>DuKien3><number><Bạn có cho phép các phần tử pattern - input liền trước khi thay thế tại mỗi thời điểm sẽ ảnh hưởng đến các phần tử input liền sau không? (Với 0 : NO, 1 : YES)<>Output><textarea><Output<>DuKien1><number><Mời bạn lựa chọn áp dụng Regex (Với 1 : Áp dụng Regex, 2 : Không áp dụng Regex)<>DuKien2><number><Nhập số lượng thay thế kết quả áp dụng - Chú ý nếu đã chọn không áp dụng Regex thì nó sẽ áp dụng tất cả... (ưu tiên các kết quả đầu tiên) # Có thể nhập -1 để áp dụng tất cả...<>DuKien4><number><Nhập số lượng lần lặp cần thay thế (với 0 là tất cả mãi mãi)
 [/Home/XuLySQL4]***txtTable><text><Table<>txtDayDu><textarea><Nhập nội dung được cho là đầy đủ (liệt kê tách bởi Enter và Tab)<>txtThieu><textarea><Nhập tách bởi Enter các fields nghi là thiếu phải tồn tại column như input trên, nếu không type mặc định sẽ là nvarchar(max)
 [/Home/XuLySQL3]***txtField><textarea><Nhập các fields - tách nhau bởi Enter (hoặc bỏ qua, có thể nhập dồn ở phần input chuỗi xử lý bên dưới) <>txtDauHieu><textarea><Nếu bạn đã nhập input trên thì bắt buộc phải điền thêm input này Nhập giá trị dấu hiệu từng record để xuống hàng - tách nhau bởi Enter (thường là cột đầu hoặc ID / hoặc bỏ qua, có thể nhập dồn ở phần input chuỗi xử lý bên dưới)<>txtChuoi><textarea><Chuỗi

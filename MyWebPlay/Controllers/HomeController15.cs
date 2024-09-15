@@ -464,6 +464,18 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                var exter = false;
+                var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidung = System.IO.File.ReadAllText(path);
+
+                var listSettingS = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoX[1] == "true")
+                    exter = true;
+                var listIP = new List<string>();
+
                 var fix = "";
                 foreach (var item in f.Keys)
                 {
@@ -472,68 +484,71 @@ namespace MyWebPlay.Controllers
 
                 HttpContext.Session.SetString("hanhdong_3275", fix);
                 TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-                khoawebsiteClient(null);
-                var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[14];
-                if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
+
+                if (exter == false)
                 {
-                    if (this.HttpContext.Request.Method == "GET")
+                    khoawebsiteClient(null);
+                    var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[14];
+                    if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
                     {
-                        if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                        if (this.HttpContext.Request.Method == "GET")
                         {
-                            HttpContext.Session.SetObject("google-trick-web", 1);
-                            return Redirect("https://google.com");
-                        }
-                        else
-                        {
-                            var lan = HttpContext.Session.GetObject<int>("google-trick-web");
-                            if (lan != 10)
+                            if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
                             {
-                                HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                HttpContext.Session.SetObject("google-trick-web", 1);
                                 return Redirect("https://google.com");
+                            }
+                            else
+                            {
+                                var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                                if (lan != 10)
+                                {
+                                    HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                    return Redirect("https://google.com");
+                                }
                             }
                         }
                     }
-                }
-                if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
-                if (TempData["errorXY"] == "true") return Redirect("https://google.com");
-                if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
-                if (HttpContext.Session.GetString("TuyetDoi") != null)
-                {
-                    TempData["UyTin"] = "true";
-                    var td = HttpContext.Session.GetString("TuyetDoi");
-                    if (td == "true")
+                    if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+                    if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+                    if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+                    if (HttpContext.Session.GetString("TuyetDoi") != null)
                     {
-                        TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                        TempData["UyTin"] = "true";
+                        var td = HttpContext.Session.GetString("TuyetDoi");
+                        if (td == "true")
+                        {
+                            TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                        }
+                        else
+                        {
+                            TempData["TestTuyetDoi"] = "false";
+                        }
                     }
+                    if (TempData["tathoatdong"] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                    if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                    if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                    if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+                    {
+                        HttpContext.Session.Remove("userIP");
+                        HttpContext.Session.SetString("userIP", "0.0.0.0");
+                        TempData["skipIP"] = "true";
+                    }
+                    /*HttpContext.Session.Remove("ok-data");*/
+                    TempData["dataPost"] = "[POST]";
+                    HttpContext.Session.SetString("data-result", "true");
+                    TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+
+                    if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                        listIP.Add(HttpContext.Session.GetString("userIP"));
                     else
                     {
-                        TempData["TestTuyetDoi"] = "false";
+                        TempData["GetDataIP"] = "true";
+                        return RedirectToAction("Index");
                     }
-                }
-                if (TempData["tathoatdong"] == "true")
-                {
-                    return RedirectToAction("Error");
-                }
-                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-                if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
-                {
-                    HttpContext.Session.Remove("userIP");
-                    HttpContext.Session.SetString("userIP", "0.0.0.0");
-                    TempData["skipIP"] = "true";
-                }
-                /*HttpContext.Session.Remove("ok-data");*/
-                TempData["dataPost"] = "[POST]";
-                HttpContext.Session.SetString("data-result", "true");
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-                var listIP = new List<string>();
-
-                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                    listIP.Add(HttpContext.Session.GetString("userIP"));
-                else
-                {
-                    TempData["GetDataIP"] = "true";
-                    return RedirectToAction("Index");
                 }
                 string txtFields = f["txtFields"].ToString().ToLower();
                 txtFields = txtFields.Replace("[T-PLAY]", "\t");
@@ -547,51 +562,55 @@ namespace MyWebPlay.Controllers
                 txtFields = txtFields.Replace("]", "");
 
                 TempData["dataPost"] = "[" + txtFields.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
-                khoawebsiteClient(listIP);
-                HttpContext.Session.Remove("ok-data");
-                Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
-                var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+                if (exter == false)
+                {
+                    khoawebsiteClient(listIP);
+                    HttpContext.Session.Remove("ok-data");
+                    Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
-                if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
-                {
-                    TempData["mau_background"] = "white";
-                    TempData["mau_text"] = "black";
-                    TempData["mau_nen"] = "dodgerblue";
-                    TempData["winx"] = "❤";
-                }
-                else
-                {
-                    TempData["mau_background"] = "black";
-                    TempData["mau_text"] = "white";
-                    TempData["mau_nen"] = "rebeccapurple";
-                    TempData["winx"] = "❤";
-                }
-                var pathX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
-                var noidungX = System.IO.File.ReadAllText(pathX);
-                var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
-                var flax = 0;
-                for (int i = 0; i < listSetting.Length; i++)
-                {
-                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                    var xuxu = xi.AddHours(DateTime.UtcNow, 7);
 
-                    if (flax == 0 && (info[0] == "Email_Upload_User" ||
-                        info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create" ||
-                        info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question" ||
-                        info[0] == "Email_User_Website" || info[0] == "Email_User_Continue" ||
-                        info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                    if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
                     {
-                        if (info[1] == "false")
-                        {
+                        TempData["mau_background"] = "white";
+                        TempData["mau_text"] = "black";
+                        TempData["mau_nen"] = "dodgerblue";
+                        TempData["winx"] = "❤";
+                    }
+                    else
+                    {
+                        TempData["mau_background"] = "black";
+                        TempData["mau_text"] = "white";
+                        TempData["mau_nen"] = "rebeccapurple";
+                        TempData["winx"] = "❤";
+                    }
+                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                    var noidungX = System.IO.File.ReadAllText(pathX);
+                    var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    var flax = 0;
+                    for (int i = 0; i < listSetting.Length; i++)
+                    {
+                        var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                            TempData["mau_winx"] = "red";
-                            flax = 1;
-                        }
-                        else
+                        if (flax == 0 && (info[0] == "Email_Upload_User" ||
+                            info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create" ||
+                            info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question" ||
+                            info[0] == "Email_User_Website" || info[0] == "Email_User_Continue" ||
+                            info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
                         {
+                            if (info[1] == "false")
+                            {
 
-                            TempData["mau_winx"] = "deeppink";
-                            flax = 0;
+                                TempData["mau_winx"] = "red";
+                                flax = 1;
+                            }
+                            else
+                            {
+
+                                TempData["mau_winx"] = "deeppink";
+                                flax = 0;
+                            }
                         }
                     }
                 }
@@ -804,6 +823,7 @@ namespace MyWebPlay.Controllers
             try
             {
                 var fix = "";
+
                 foreach (var item in f.Keys)
                 {
                     fix += string.Format("{0} : {1}\n", item, f[item]);
@@ -811,120 +831,140 @@ namespace MyWebPlay.Controllers
 
                 HttpContext.Session.SetString("hanhdong_3275", fix);
                 TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-                khoawebsiteClient(null);
-                var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[14];
-                if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
+
+                var exter = false;
+                var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidung = System.IO.File.ReadAllText(path);
+
+                var listSettingS = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoX[1] == "true")
+                    exter = true;
+
+                var listIP = new List<string>();
+
+                if (exter == false)
                 {
-                    if (this.HttpContext.Request.Method == "GET")
+                    khoawebsiteClient(null);
+                    var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[14];
+                    if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
                     {
-                        if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                        if (this.HttpContext.Request.Method == "GET")
                         {
-                            HttpContext.Session.SetObject("google-trick-web", 1);
-                            return Redirect("https://google.com");
-                        }
-                        else
-                        {
-                            var lan = HttpContext.Session.GetObject<int>("google-trick-web");
-                            if (lan != 10)
+                            if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
                             {
-                                HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                HttpContext.Session.SetObject("google-trick-web", 1);
                                 return Redirect("https://google.com");
+                            }
+                            else
+                            {
+                                var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                                if (lan != 10)
+                                {
+                                    HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                    return Redirect("https://google.com");
+                                }
                             }
                         }
                     }
-                }
-                if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
-                if (TempData["errorXY"] == "true") return Redirect("https://google.com");
-                if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
-                if (HttpContext.Session.GetString("TuyetDoi") != null)
-                {
-                    TempData["UyTin"] = "true";
-                    var td = HttpContext.Session.GetString("TuyetDoi");
-                    if (td == "true")
+                    if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+                    if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+                    if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+                    if (HttpContext.Session.GetString("TuyetDoi") != null)
                     {
-                        TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                        TempData["UyTin"] = "true";
+                        var td = HttpContext.Session.GetString("TuyetDoi");
+                        if (td == "true")
+                        {
+                            TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                        }
+                        else
+                        {
+                            TempData["TestTuyetDoi"] = "false";
+                        }
                     }
+                    if (TempData["tathoatdong"] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                    if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                    if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                    if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+                    {
+                        HttpContext.Session.Remove("userIP");
+                        HttpContext.Session.SetString("userIP", "0.0.0.0");
+                        TempData["skipIP"] = "true";
+                    }
+                    /*HttpContext.Session.Remove("ok-data");*/
+                    TempData["dataPost"] = "[POST]";
+                    HttpContext.Session.SetString("data-result", "true");
+                    TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+
+                    if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                        listIP.Add(HttpContext.Session.GetString("userIP"));
                     else
                     {
-                        TempData["TestTuyetDoi"] = "false";
+                        TempData["GetDataIP"] = "true";
+                        return RedirectToAction("Index");
                     }
                 }
-                if (TempData["tathoatdong"] == "true")
-                {
-                    return RedirectToAction("Error");
-                }
-                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-                if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
-                {
-                    HttpContext.Session.Remove("userIP");
-                    HttpContext.Session.SetString("userIP", "0.0.0.0");
-                    TempData["skipIP"] = "true";
-                }
-                /*HttpContext.Session.Remove("ok-data");*/
-                TempData["dataPost"] = "[POST]";
-                HttpContext.Session.SetString("data-result", "true");
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-                var listIP = new List<string>();
 
-                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                    listIP.Add(HttpContext.Session.GetString("userIP"));
-                else
-                {
-                    TempData["GetDataIP"] = "true";
-                    return RedirectToAction("Index");
-                }
                 string txtTable = f["txtTables"].ToString();
                 txtTable = txtTable.Replace("[T-PLAY]", "\t");
                 txtTable = txtTable.Replace("[N-PLAY]", "\n");
                 txtTable = txtTable.Replace("[R-PLAY]", "\r");
 
                 TempData["dataPost"] = "[" + txtTable.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
-                khoawebsiteClient(listIP);
-                HttpContext.Session.Remove("ok-data");
-                Calendar xi = CultureInfo.InvariantCulture.Calendar;
-
-                var xuxu = xi.AddHours(DateTime.UtcNow, 7);
-
-                if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
+                if (exter == false)
                 {
-                    TempData["mau_background"] = "white";
-                    TempData["mau_text"] = "black";
-                    TempData["mau_nen"] = "dodgerblue";
-                    TempData["winx"] = "❤";
-                }
-                else
-                {
-                    TempData["mau_background"] = "black";
-                    TempData["mau_text"] = "white";
-                    TempData["mau_nen"] = "rebeccapurple";
-                    TempData["winx"] = "❤";
-                }
-                var pathX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
-                var noidungX = System.IO.File.ReadAllText(pathX);
-                var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
-                var flag = 0;
-                for (int i = 0; i < listSetting.Length; i++)
-                {
-                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                    khoawebsiteClient(listIP);
+                    HttpContext.Session.Remove("ok-data");
+                    Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
-                    if (flag == 0 && (info[0] == "Email_Upload_User" ||
-                        info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create" ||
-                        info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question" ||
-                        info[0] == "Email_User_Website" || info[0] == "Email_User_Continue" ||
-                        info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                    var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+
+                    if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
                     {
-                        if (info[1] == "false")
-                        {
+                        TempData["mau_background"] = "white";
+                        TempData["mau_text"] = "black";
+                        TempData["mau_nen"] = "dodgerblue";
+                        TempData["winx"] = "❤";
+                    }
+                    else
+                    {
+                        TempData["mau_background"] = "black";
+                        TempData["mau_text"] = "white";
+                        TempData["mau_nen"] = "rebeccapurple";
+                        TempData["winx"] = "❤";
+                    }
+                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                    var noidungX = System.IO.File.ReadAllText(pathX);
+                    var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    var flag = 0;
+                    for (int i = 0; i < listSetting.Length; i++)
+                    {
+                        var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                            TempData["mau_winx"] = "red";
-                            flag = 1;
-                        }
-                        else
+                        if (flag == 0 && (info[0] == "Email_Upload_User" ||
+                            info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create" ||
+                            info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question" ||
+                            info[0] == "Email_User_Website" || info[0] == "Email_User_Continue" ||
+                            info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
                         {
+                            if (info[1] == "false")
+                            {
 
-                            TempData["mau_winx"] = "deeppink";
-                            flag = 0;
+                                TempData["mau_winx"] = "red";
+                                flag = 1;
+                            }
+                            else
+                            {
+
+                                TempData["mau_winx"] = "deeppink";
+                                flag = 0;
+                            }
                         }
                     }
                 }
@@ -1085,6 +1125,7 @@ namespace MyWebPlay.Controllers
             try
             {
                 var fix = "";
+                var exter = false;
                 foreach (var item in f.Keys)
                 {
                     fix += string.Format("{0} : {1}\n", item, f[item]);
@@ -1092,69 +1133,85 @@ namespace MyWebPlay.Controllers
 
                 HttpContext.Session.SetString("hanhdong_3275", fix);
                 TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-                khoawebsiteClient(null);
-                var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[14];
-                if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
+
+                var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidung = System.IO.File.ReadAllText(path);
+
+                var listSettingS = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var infoX = listSettingS[48].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoX[1] == "true")
+                    exter = true;
+
+                var listIP = new List<string>();
+
+                if (exter == false)
                 {
-                    if (this.HttpContext.Request.Method == "GET")
+                    khoawebsiteClient(null);
+                    var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[14];
+                    if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
                     {
-                        if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                        if (this.HttpContext.Request.Method == "GET")
                         {
-                            HttpContext.Session.SetObject("google-trick-web", 1);
-                            return Redirect("https://google.com");
-                        }
-                        else
-                        {
-                            var lan = HttpContext.Session.GetObject<int>("google-trick-web");
-                            if (lan != 10)
+                            if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
                             {
-                                HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                HttpContext.Session.SetObject("google-trick-web", 1);
                                 return Redirect("https://google.com");
+                            }
+                            else
+                            {
+                                var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                                if (lan != 10)
+                                {
+                                    HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                    return Redirect("https://google.com");
+                                }
                             }
                         }
                     }
-                }
-                if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
-                if (TempData["errorXY"] == "true") return Redirect("https://google.com");
-                if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
-                if (HttpContext.Session.GetString("TuyetDoi") != null)
-                {
-                    TempData["UyTin"] = "true";
-                    var td = HttpContext.Session.GetString("TuyetDoi");
-                    if (td == "true")
+                    if (TempData["locked-app"] == "true") return RedirectToAction("Error", "Home");
+                    if (TempData["errorXY"] == "true") return Redirect("https://google.com");
+                    if (TempData["TestTuyetDoi"] == "true") TempData["TestTuyetDoi"] = "true";
+                    if (HttpContext.Session.GetString("TuyetDoi") != null)
                     {
-                        TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                        TempData["UyTin"] = "true";
+                        var td = HttpContext.Session.GetString("TuyetDoi");
+                        if (td == "true")
+                        {
+                            TempData["TestTuyetDoi"] = "true"; /*return View();*/
+                        }
+                        else
+                        {
+                            TempData["TestTuyetDoi"] = "false";
+                        }
                     }
+                    if (TempData["tathoatdong"] == "true")
+                    {
+                        return RedirectToAction("Error");
+                    }
+                    if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                    if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
+                    if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
+                    {
+                        HttpContext.Session.Remove("userIP");
+                        HttpContext.Session.SetString("userIP", "0.0.0.0");
+                        TempData["skipIP"] = "true";
+                    }
+                    /*HttpContext.Session.Remove("ok-data");*/
+                    TempData["dataPost"] = "[POST]";
+                    HttpContext.Session.SetString("data-result", "true");
+                    TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+
+                    if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                        listIP.Add(HttpContext.Session.GetString("userIP"));
                     else
                     {
-                        TempData["TestTuyetDoi"] = "false";
+                        TempData["GetDataIP"] = "true";
+                        return RedirectToAction("Index");
                     }
                 }
-                if (TempData["tathoatdong"] == "true")
-                {
-                    return RedirectToAction("Error");
-                }
-                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-                if (HttpContext.Session.GetString("userIP") == "0.0.0.0" && TempData["skipOK"] == "false") HttpContext.Session.Remove("userIP");
-                if (TempData["ClearWebsite"] == "true" /*|| TempData["UsingWebsite"] == "false" */ )
-                {
-                    HttpContext.Session.Remove("userIP");
-                    HttpContext.Session.SetString("userIP", "0.0.0.0");
-                    TempData["skipIP"] = "true";
-                }
-                /*HttpContext.Session.Remove("ok-data");*/
-                TempData["dataPost"] = "[POST]";
-                HttpContext.Session.SetString("data-result", "true");
-                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
-                var listIP = new List<string>();
 
-                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
-                    listIP.Add(HttpContext.Session.GetString("userIP"));
-                else
-                {
-                    TempData["GetDataIP"] = "true";
-                    return RedirectToAction("Index");
-                }
                 string txtTable = f["txtTable"].ToString();
 
                 txtTable = txtTable.Replace("[T-PLAY]", "\t");
@@ -1163,51 +1220,55 @@ namespace MyWebPlay.Controllers
                 ViewBag.Table = txtTable;
 
                 TempData["dataPost"] = "[" + txtTable.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
-                khoawebsiteClient(listIP);
-                HttpContext.Session.Remove("ok-data");
-                Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
-                var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+                if (exter == false)
+                {
+                    khoawebsiteClient(listIP);
+                    HttpContext.Session.Remove("ok-data");
+                    Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
-                if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
-                {
-                    TempData["mau_background"] = "white";
-                    TempData["mau_text"] = "black";
-                    TempData["mau_nen"] = "dodgerblue";
-                    TempData["winx"] = "❤";
-                }
-                else
-                {
-                    TempData["mau_background"] = "black";
-                    TempData["mau_text"] = "white";
-                    TempData["mau_nen"] = "rebeccapurple";
-                    TempData["winx"] = "❤";
-                }
-                var pathX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
-                var noidungX = System.IO.File.ReadAllText(pathX);
-                var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
-                var flag = 0;
-                for (int i = 0; i < listSetting.Length; i++)
-                {
-                    var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                    var xuxu = xi.AddHours(DateTime.UtcNow, 7);
 
-                    if (flag == 0 && (info[0] == "Email_Upload_User" ||
-                        info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create" ||
-                        info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question" ||
-                        info[0] == "Email_User_Website" || info[0] == "Email_User_Continue" ||
-                        info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
+                    if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
                     {
-                        if (info[1] == "false")
-                        {
+                        TempData["mau_background"] = "white";
+                        TempData["mau_text"] = "black";
+                        TempData["mau_nen"] = "dodgerblue";
+                        TempData["winx"] = "❤";
+                    }
+                    else
+                    {
+                        TempData["mau_background"] = "black";
+                        TempData["mau_text"] = "white";
+                        TempData["mau_nen"] = "rebeccapurple";
+                        TempData["winx"] = "❤";
+                    }
+                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                    var noidungX = System.IO.File.ReadAllText(pathX);
+                    var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    var flag = 0;
+                    for (int i = 0; i < listSetting.Length; i++)
+                    {
+                        var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                            TempData["mau_winx"] = "red";
-                            flag = 1;
-                        }
-                        else
+                        if (flag == 0 && (info[0] == "Email_Upload_User" ||
+                            info[0] == "MegaIo_Upload_User" || info[0] == "Email_TracNghiem_Create" ||
+                            info[0] == "Email_TracNghiem_Update" || info[0] == "Email_Question" ||
+                            info[0] == "Email_User_Website" || info[0] == "Email_User_Continue" ||
+                            info[0] == "Email_Note" || info[0] == "Email_Karaoke"))
                         {
+                            if (info[1] == "false")
+                            {
 
-                            TempData["mau_winx"] = "deeppink";
-                            flag = 0;
+                                TempData["mau_winx"] = "red";
+                                flag = 1;
+                            }
+                            else
+                            {
+
+                                TempData["mau_winx"] = "deeppink";
+                                flag = 0;
+                            }
                         }
                     }
                 }

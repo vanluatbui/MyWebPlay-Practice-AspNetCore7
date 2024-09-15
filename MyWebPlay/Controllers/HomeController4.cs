@@ -285,7 +285,7 @@ namespace MyWebPlay.Controllers
 
                 var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
                 if (string.IsNullOrEmpty(chim)) chim = "Default";
-                var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", xuxu.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_" + chim + "_dataresult.txt");
+                var sox = (f.ContainsKey("resultX") == false || f["resultX"] == "false") ? Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", xuxu.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_" + chim + "_dataresult.txt") : Path.Combine(_webHostEnvironment.WebRootPath, "ResultExternal", "data.txt"); ;
                 TempData["fileResult"] = xuxu.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_" + chim + "_dataresult.txt";
                 new FileInfo(sox).Create().Dispose();
                 System.IO.File.WriteAllText(sox, nix);
@@ -611,7 +611,7 @@ namespace MyWebPlay.Controllers
 
                 var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
                 if (string.IsNullOrEmpty(chim)) chim = "Default";
-                var sox = Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", xuxu.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_" + chim + "_dataresult.txt");
+                var sox = (f.ContainsKey("resultX") == false || f["resultX"] == "false") ? Path.Combine(_webHostEnvironment.WebRootPath, "POST_DataResult", xuxu.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_" + chim + "_dataresult.txt") : Path.Combine(_webHostEnvironment.WebRootPath, "ResultExternal", "data.txt"); ;
                 TempData["fileResult"] = xuxu.ToString().Replace("\\", "").Replace("/", "").Replace(":", "") + "_" + chim + "_dataresult.txt";
                 new FileInfo(sox).Create().Dispose();
                 System.IO.File.WriteAllText(sox, nix);

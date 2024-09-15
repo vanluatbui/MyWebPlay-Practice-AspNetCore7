@@ -6,6 +6,7 @@ using System.IO;
 using System.Net;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
+using System.Xml.Linq;
 
 namespace MyWebPlay.Controllers
 {
@@ -882,7 +883,7 @@ namespace MyWebPlay.Controllers
 
                             if (type == "textarea")
                             {
-                                partTabPlay += string.Format("<textarea rows=\"10\" id=\"{0}\" title=\"{1}\"></textarea><br />", name, title) + "\r\n";
+                                partTabPlay += string.Format("<textarea rows=\"10\" name=\"{0}\" title=\"{1}\"></textarea><br />", name, title) + "\r\n";
                             }
                             else if (type == "file")
                             {
@@ -890,7 +891,7 @@ namespace MyWebPlay.Controllers
                             }
                             else
                             {
-                                partTabPlay += string.Format("<input type=\"{2}\" id=\"{0}\" title=\"{1}\" /><br />\r\n", name, title, type);
+                                partTabPlay += string.Format("<input type=\"{2}\" name=\"{0}\" title=\"{1}\" /><br />\r\n", name, title, type);
                             }
 
                             // JS Append
@@ -901,7 +902,8 @@ namespace MyWebPlay.Controllers
                             }
                             else
                             {
-                                jsAppend += string.Format("data.append(\"{0}\", document.getElementById(\"{0}\").value);\r\n", name);
+                                jsAppend += string.Format("var value =\"\";\r\nvar listName = document.getElementsByName('{0}');\r\nfor(var i = 0; i < listName.length; i++)\r\n&lt;\r\nif (listName[i].value != \"\")\r\n&lt;\r\nvalue = listName[i].value;\r\nbreak;\r\n&gt;\r\n&gt;\r\ndata.append(\"{0}\", value);\r\n", name)
+                                    .Replace("&lt;", "{").Replace("&gt;", "}");
                             }
                         }
 
@@ -912,7 +914,7 @@ namespace MyWebPlay.Controllers
 
 
                         jsSetResult += string.Format(
-                            "\r\n\r\nfunction setresult{0}() &lt;\r\n    const data = new URLSearchParams();\r\n{1}\r\ndata.append(\"resultX\", \"true\");\r\n    \r\n    fetch(\"{2}{3}\", &lt;\r\n        method: 'post',\r\n        body: data,\r\n    &gt;);\r\n&gt;",
+                            "\r\n\r\nfunction setresult{0}() &lt;\r\n    const data = new URLSearchParams();\r\n{1}data.append(\"resultX\", \"true\");\r\n    \r\n    fetch(\"{2}{3}\", &lt;\r\n        method: 'post',\r\n        body: data,\r\n    &gt;);\r\n&gt;",
                             partApi[0].Replace("[","").Replace("]","").Replace("/Home/", "").Replace("<Selected>", ""),
                             jsAppend,
                             https + "://" + Request.Host,

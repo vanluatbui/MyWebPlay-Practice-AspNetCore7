@@ -726,6 +726,9 @@ namespace MyWebPlay.Controllers
                 if (onoff == "ADMINSETTING_OFF")
                     return Redirect("https://google.com");
 
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "API")).Exists == false)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "API")).Create();
+
                 var listPage = new List<string>();
 
                 var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "API_WebPage", "API-Menu.txt");

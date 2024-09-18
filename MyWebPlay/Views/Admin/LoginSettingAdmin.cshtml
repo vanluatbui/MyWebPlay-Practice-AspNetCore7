@@ -58,6 +58,16 @@ Layout = null;
     }
 </style>
 <script>
+    if('@TempData["WantToGetUserIP"]' == "true")
+    {
+         fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => window.location.href ="/Admin/SetIPForAdmin?ip="+data.ip);
+    }
+    
+    //----------------------------------------
+    
+    
     var t = 0;
     setInterval(function(){
     
@@ -198,6 +208,8 @@ Layout = null;
          }
     
 </script>
+@if(TempData["WantToGetUserIP"] == "false")
+{
 <html lang="vi">
     <head>
         <meta charset="utf-8" />
@@ -275,4 +287,22 @@ Layout = null;
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 </html>
+}
+else
+{
+<html lang="vi">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Đăng nhập Admin - Setting</title>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
+        <link rel="icon" href="/images/imagex.png">
+    </head>
+    <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]">
+    <img src="/Image_Play/waiting.gif" />
+    </body>
+</html>
+}
 }

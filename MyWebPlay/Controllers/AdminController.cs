@@ -766,8 +766,8 @@ namespace MyWebPlay.Controllers
                 if (locked == true)
                 {
                     var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
-                    var valuePam = System.IO.File.ReadAllText(pam);
                     System.IO.File.WriteAllText(pam, string.Empty);
+                    return RedirectToAction("LoginSettingAdmin", "Admin");
                 }
 
                 TempData["opacity-body-css"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[16].Replace("OPACITY_CSS_BODY_", "");

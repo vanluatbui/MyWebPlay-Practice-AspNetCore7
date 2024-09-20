@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using System.Text.RegularExpressions;
+using Org.BouncyCastle.Asn1;
 
 namespace MyWebPlay.Controllers
 {
@@ -748,7 +749,7 @@ namespace MyWebPlay.Controllers
             }
         }
 
-        public ActionResult LoginSettingAdmin()
+        public ActionResult LoginSettingAdmin(bool? locked)
         {
             try
             {
@@ -759,6 +760,14 @@ namespace MyWebPlay.Controllers
                 else
                 {
                     TempData["WantToGetUserIP"] = "false";
+                }
+
+
+                if (locked == true)
+                {
+                    var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                    var valuePam = System.IO.File.ReadAllText(pam);
+                    System.IO.File.WriteAllText(pam, string.Empty);
                 }
 
                 TempData["opacity-body-css"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[16].Replace("OPACITY_CSS_BODY_", "");
@@ -917,6 +926,14 @@ namespace MyWebPlay.Controllers
                     TempData["WantToGetUserIP"] = "false";
                 }
 
+                var pamX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                var valuePamX = System.IO.File.ReadAllText(pamX);
+
+                if (string.IsNullOrEmpty(valuePamX) == false)
+                {
+                    return RedirectToAction("LoginSettingAdmin", "Admin");
+                }
+
                 TempData["opacity-body-css"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[16].Replace("OPACITY_CSS_BODY_", "");
                 var fix = "";
                 foreach (var item in f.Keys)
@@ -1062,6 +1079,22 @@ namespace MyWebPlay.Controllers
 
                 System.IO.File.WriteAllText(pathS, noidungZ.Trim('\n'));
             }
+
+             var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                    var valuePam = System.IO.File.ReadAllText(pam);
+
+                    var userIP = HttpContext.Session.GetString("admin-userIP");
+                    if (userIP != null && userIP != "")
+                    {
+                        Calendar xi = CultureInfo.InvariantCulture.Calendar;
+                        var xuxuz = xi.AddHours(DateTime.UtcNow, 7);
+                        var text = StringMaHoaExtension.Encode(userIP + " - " + xuxuz.ToString());
+                        System.IO.File.WriteAllText(pam, text);
+                    }
+                    else
+                    {
+                        return RedirectToAction("LoginSettingAdmin", "Admin");
+                    }
 
             return RedirectToAction("SettingXYZ_DarkAdmin");
         }
@@ -1223,6 +1256,14 @@ namespace MyWebPlay.Controllers
                 if (HttpContext.Session.GetString("admin-userIP") == null)
                 {
                     TempData["WantToGetUserIP"] = "true";
+                    return RedirectToAction("LoginSettingAdmin", "Admin");
+                }
+
+                var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                var valuePam = System.IO.File.ReadAllText(pam);
+
+                if (string.IsNullOrEmpty(valuePam))
+                {
                     return RedirectToAction("LoginSettingAdmin", "Admin");
                 }
 
@@ -1685,6 +1726,20 @@ namespace MyWebPlay.Controllers
                 if (HttpContext.Session.GetString("admin-userIP") == null)
                 {
                     TempData["WantToGetUserIP"] = "true";
+                    return RedirectToAction("LoginSettingAdmin", "Admin");
+                }
+
+                var testUser = HttpContext.Session.GetString("open-admin-yes");
+                if (testUser == null || testUser != "true")
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
+                var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                var valuePam = System.IO.File.ReadAllText(pam);
+
+                if (string.IsNullOrEmpty(valuePam))
+                {
                     return RedirectToAction("LoginSettingAdmin", "Admin");
                 }
 
@@ -3945,6 +4000,7 @@ namespace MyWebPlay.Controllers
             if (code == StringMaHoaExtension.Decrypt(nd[1], key))
             {
                 HttpContext.Session.SetString("open-admin", "true");
+                HttpContext.Session.SetString("open-admin-yes", "true");
                 TempData["admin-open"] = "true";
             }
             else

@@ -1012,6 +1012,8 @@ namespace MyWebPlay.Controllers
 
                                 HttpContext.Session.SetString("adminSetting", "true");
                                 HttpContext.Session.Remove("xacthuc2buoc-ADMIN");
+                                var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                                System.IO.File.WriteAllText(pam, string.Empty);
                             }
                         }
                         else

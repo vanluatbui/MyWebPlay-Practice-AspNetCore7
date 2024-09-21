@@ -901,7 +901,7 @@ namespace MyWebPlay.Controllers
                         type = "HALFWIDTH_NUMBER";
                     else if (field.Contains("hira"))
                         type = "FULLWIDTH_HIRAGANA";
-                    else if (field.Contains("kata"))
+                    else if (field.Contains("kata") || field.Contains("kana"))
                         type = "FULLWIDTH_KATAKANA";
                     else if (kieu.Contains("date"))
                         type = "HALFWIDTH_DATE";

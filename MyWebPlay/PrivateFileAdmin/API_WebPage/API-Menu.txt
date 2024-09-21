@@ -8,7 +8,7 @@
 [/Home/XuLySQL4]***txtTable><text><Table<>txtDayDu><textarea><Nhập nội dung được cho là đầy đủ (liệt kê tách bởi Enter và Tab)<>txtThieu><textarea><Nhập tách bởi Enter các fields nghi là thiếu phải tồn tại column như input trên, nếu không type mặc định sẽ là nvarchar(max)
 [/Home/XuLySQL3]***txtField><textarea><Nhập các fields - tách nhau bởi Enter (hoặc bỏ qua, có thể nhập dồn ở phần input chuỗi xử lý bên dưới) <>txtDauHieu><textarea><Nếu bạn đã nhập input trên thì bắt buộc phải điền thêm input này Nhập giá trị dấu hiệu từng record để xuống hàng - tách nhau bởi Enter (thường là cột đầu hoặc ID / hoặc bỏ qua, có thể nhập dồn ở phần input chuỗi xử lý bên dưới)<>txtChuoi><textarea><Chuỗi
 [/Home/XuLySQL2]***txtTable><textarea><List table<>txtChon><checkbox><uncheck nếu muốn tạo hàm xoá trigger
-[/Home/XuLySQL1]***txtTables><textarea><tables
+<Selected>[/Home/XuLySQL1]***txtTables><textarea><tables
 [/Home/XuLyCode9]***txtChuoi><textarea><Chuỗi
 [/Home/XuLySQL7]***txtTable><text><Table<>txtDayDu><textarea><Nhập nội dung được cho là đầy đủ (fileds - type) (liệt kê tách bởi Enter/sử dụng file SQL)<>txtHienTai><textarea><Các fiels hiện có cu3s table
 [/Home/XuLySQL8]***txtTable><text><Table<>txtLoai><number><Với 1 : trình bày theo name + type (từ file script) hoặc 2 : nguyên như sự ở Constants.cs (nhưng các type đều sẽ mặc định tất cả là nvarchar(max)?<>txtFields><textarea><Nhập toàn bộ fields + type hiện có (lấy từ script sql file - tách nhau bởi Enter) hoặc liệt kê trong sự Constants
@@ -34,4 +34,5 @@
 [/Home/XuLySQL15]***txtDataText><textarea><Nhập dữ liệu theo format sau (tên bảngTabtên fieldTabkiểu dữ liệuTabkích thướcTabtext tiếng Nhật/comment) - mỗi thành phần tách nhau bởi Enter
 [/Home/XuLySQL11]***txtTable><text><Table<>txtConstants><textarea><Constants.cs<>txtScript><textarea><script.sql<>txtChon><checkbox><Chỉ muốn tìm và liệt kê (không cần tạo - dành cho bổ sung ở Views)
 [/Home/XuLySQL12]***txtNoiDung><textarea><Mail template SQL
+<Selected>[/Home/XuLySQL16]***txtTable><text><Table
 [/Home/FindCompareValueInSQL]***txtFields><textarea><Chuỗi các fields của bạn (chú ý index - cách nhau bởi Enter) <>txtOld><textarea><Chuỗi các giá trị cũ của dữ liệu (chú ý phải theo index - tách nhau bởi Enter và Tab) <>txtNew><textarea><Chuỗi các giá trị mới của dữ liệu (chú ý phải theo index - tách nhau bởi Enter và Tab)<>txtWhere><text><Nhập các fields làm dữ kiện nhận dạng (cách nhau bởi dấu phẩy) 

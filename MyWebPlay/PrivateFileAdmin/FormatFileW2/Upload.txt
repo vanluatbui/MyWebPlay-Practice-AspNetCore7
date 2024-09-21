@@ -1,0 +1,134 @@
+﻿/*
+=========================================================================================================
+  Module      : Import setting {0}(ImportSetting{0}.cs)
+ ･･･････････････････････････････････････････････････････････････････････････････････････････････････････
+  Copyright   : Copyright W2 Co.,Ltd. {1} All Rights Reserved.
+=========================================================================================================
+*/
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using w2.App.Common;
+using w2.Common.Sql;
+using w2.Common.Util;
+
+namespace w2.Commerce.Batch.MasterFileImport.ImportSettings
+{
+        public class ImportSetting{0} : ImportSettingBase
+        {
+                // 更新キーフィールド
+                private static List<string> FIELDS_UPDKEY = new List<string> { id };
+                // 更新禁止フィールド（SQL自動作成除外フィールド）
+                private static List<string> FIELDS_EXCEPT = new List<string> { date_changed, last_changed };
+                // 差分更新フィールド（「"add_" + 実フィールド名」がヘッダとして送られる）
+                private static List<string> FIELDS_INCREASED_UPDATE = new List<string>{ };
+                // 必須フィールド（Insert/Update用）
+                private static List<string> FIELDS_NECESSARY_FOR_INSERTUPDATE = new List<string> { id };
+                // 必須フィールド（Delete用）
+                private static List<string> FIELDS_NECESSARY_FOR_DELETE = new List<string> { id };
+
+                /// <summary>
+                /// コンストラクタ
+                /// </summary>
+                /// <param name="shopId">店舗ID</param>
+                public ImportSetting{0}()
+                        : base(
+                        Constants.CONST_DEFAULT_SHOP_ID,
+                        Constants.TABLE_{0},
+                        Constants.TABLE_WORK{0},
+                        FIELDS_UPDKEY,
+                        FIELDS_EXCEPT,
+                        FIELDS_INCREASED_UPDATE,
+                        FIELDS_NECESSARY_FOR_INSERTUPDATE,
+                        FIELDS_NECESSARY_FOR_DELETE)
+                {
+
+                }
+
+                /// <summary>
+                /// データ変換（各種変換、フィールド結合、固定値設定など）
+                /// </summary>
+                protected override void ConvertData()
+                {
+                        foreach (string strFieldName in this.HeadersCsv)
+                        {
+                                // Trim処理
+                                this.Data[strFieldName] = this.Data[strFieldName].ToString().Trim();
+                        }
+                }
+
+                /// <summary>
+                /// 整合性チェック
+                /// </summary>
+                /// <returns>エラーメッセージ</returns>
+                public override string CheckDataConsistency()
+                {
+                        return string.Empty;
+                }
+
+                /// <summary>
+                /// 入力チェック
+                /// </summary>
+                protected override void CheckData()
+                {
+                        string strCheckKbn = null;
+                        List<string> lNecessaryFields = new List<string>();
+                        switch (this.Data[Constants.IMPORT_KBN].ToString())
+                        {
+                                // Insert/Update
+                                case Constants.IMPORT_KBN_INSERT_UPDATE:
+                                        strCheckKbn = "{0}InsertUpdate";
+                                        lNecessaryFields = this.InsertUpdateNecessaryFields;
+                                        break;
+
+                                // Delete
+                                case Constants.IMPORT_KBN_DELETE:
+                                        strCheckKbn = "{0}Delete";
+                                        lNecessaryFields = this.DeleteNecessaryFields;
+                                        break;
+                        }
+
+                        // 必須フィールドチェック
+                        StringBuilder sbErrorMessages = new StringBuilder();
+                        StringBuilder sbNecessaryFields = new StringBuilder();
+                        foreach (string strKeyField in lNecessaryFields)
+                        {
+                                if (this.HeadersCsv.Contains(strKeyField) == false)
+                                {
+                                        sbNecessaryFields.Append((sbNecessaryFields.Length != 0) ? "," : string.Empty);
+                                        sbNecessaryFields.Append(strKeyField);
+                                }
+                        }
+                        if (sbNecessaryFields.Length != 0)
+                        {
+                                sbErrorMessages.Append((sbErrorMessages.Length != 0) ? Enviroment.NewLine : string.Empty);
+                                sbErrorMessages.Append("該当テーブルの更新にはフィールド「").Append(sbNecessaryFields.ToString()).Append("」が必須です。");
+                        }
+
+                        // 入力チェック
+                        string errorMessage = Validator.Validate(strCheckKbn, this.Data);
+                        this.ErrorOccurredIdInfo = string.Empty;
+                        if (errorMessage != string.Empty)
+                        {
+                                sbErrorMessages.Append((sbErrorMessages.Length != 0) ? Enviroment.NewLine : string.Empty).Append(errorMessage);
+                                this.ErrorOccurredIdInfo += CreateIdString(id);
+                        }
+
+                        // エラーメッセージ格納
+                        if (sbErrorMessages.Length != 0)
+                        {
+                                this.ErrorMessages = sbErrorMessages.ToString();
+                        }
+                }
+
+                /// <summary>
+                /// SQL文作成
+                /// </summary>
+                public override void CreateSql()
+                {
+                        base.CreateSql();
+                }
+        }
+}

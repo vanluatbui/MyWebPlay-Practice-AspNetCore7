@@ -1088,7 +1088,7 @@ namespace MyWebPlay.Controllers
                     {
                         Calendar xi = CultureInfo.InvariantCulture.Calendar;
                         var xuxuz = xi.AddHours(DateTime.UtcNow, 7);
-                        var text = StringMaHoaExtension.Encode(userIP + " - " + xuxuz.ToString());
+                        var text = MD5.CreateMD5(userIP + " - " + xuxuz.ToString());
                         System.IO.File.WriteAllText(pam, text);
                     }
                     else
@@ -1258,6 +1258,8 @@ namespace MyWebPlay.Controllers
                     TempData["WantToGetUserIP"] = "true";
                     return RedirectToAction("LoginSettingAdmin", "Admin");
                 }
+
+                TempData["root_path_web"] = _webHostEnvironment.ContentRootPath.ToString();
 
                 var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
                 var valuePam = System.IO.File.ReadAllText(pam);

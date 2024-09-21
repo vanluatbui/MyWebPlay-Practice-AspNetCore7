@@ -861,7 +861,7 @@ namespace MyWebPlay.Controllers
                     for (int i = 0; i < apiMenu.Length; i++)
                     {
                         var partApi = apiMenu[i].Split("***", StringSplitOptions.RemoveEmptyEntries);
-                        if (data.Contains(partApi[0].Replace("[","").Replace("]","").Replace("<Selected>", "")) == false)
+                        if (data.Contains(partApi[0].Replace("<Selected>", "")) == false)
                         {
                             unselectedAPI.Add(partApi[0]);
                             continue;

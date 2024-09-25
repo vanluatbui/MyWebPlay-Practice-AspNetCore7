@@ -279,19 +279,6 @@
             }
         }
         
-        
-        // Get user IP
-        if (ok == 0 && '@TempData["GetDataIP"]' == "true")
-        {
-            var s = '@TempData["urlCurrent"]';
-            if (s == null || s == "" || s == "SessionPlay_DarkAdmin" || s == "/")
-            s = "Index";
-        
-        fetch('https://api.ipify.org?format=json')
-        .then(response => response.json())
-        .then(data => window.location.href ="/Home/GetUserIP?ip="+data.ip+"&currentUrl="+s);
-        }
-        
         if (ok == 0 && '@TempData["lockedClient"]' == "true" && '@TempData["data-result"]' == "false")
         {
             ok = 1;
@@ -1058,6 +1045,19 @@
         {
         <div hidden>@RenderBody()</div>
         <img src="/Image_Play/waiting.gif" />
+        <script>
+             // Get user IP
+        if (ok == 0 && '@TempData["GetDataIP"]' == "true")
+        {
+            var s = '@TempData["urlCurrent"]';
+            if (s == null || s == "" || s == "SessionPlay_DarkAdmin" || s == "/")
+            s = "Index";
+        
+        fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => window.location.href ="/Home/GetUserIP?ip="+data.ip+"&currentUrl="+s);
+        }
+        </script>
         }
         else
         { 

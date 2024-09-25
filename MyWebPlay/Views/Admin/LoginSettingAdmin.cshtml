@@ -58,20 +58,14 @@ Layout = null;
     }
 </style>
 <script>
-    if('@TempData["WantToGetUserIP"]' == "true")
-    {
-         fetch('https://api.ipify.org?format=json')
-        .then(response => response.json())
-        .then(data => window.location.href ="/Admin/SetIPForAdmin?ip="+data.ip);
-    }
-
 
     //----------------------------------------------------------
 
     var st = 0;
     setInterval(function()
     {
-        if (st == 1) return;
+        if (st == 1 || localStorage.getItem("log-out-prcoessed") != null) return;
+
 
         var formData = new FormData();
         formData.append("ID", document.getElementById("IDadmin").value);
@@ -233,6 +227,11 @@ Layout = null;
                  window.location.href = "/Admin/BackupDataAdmin?admincode="+con;
              }
          }
+
+         function kiemtralogintudong()
+         {
+             localStorage.removeItem("log-out-prcoessed");
+         }
     
 </script>
 @if(TempData["WantToGetUserIP"] == "false")
@@ -269,7 +268,7 @@ Layout = null;
         <b style="color:darkblue">Nhập mã xác thực (hai bước) : </b><input name="txtXacMinh" type="password" size="100" /><span>&nbsp;</span>
         <br /><br />
         }
-        <input style="font-weight:bolder" type="submit" value="Đăng nhập" />
+        <input style="font-weight:bolder" type="submit" value="Đăng nhập" onclick="kiemtralogintudong()" />
         <br />
         }
     </div>
@@ -329,7 +328,18 @@ else
     </head>
     <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]">
     <img src="/Image_Play/waiting.gif" />
+    <script>
+         if('@TempData["WantToGetUserIP"]' == "true")
+    {
+         fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => window.location.href ="/Admin/SetIPForAdmin?ip="+data.ip);
+    }
+    </script>
     </body>
 </html>
 }
 }
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>

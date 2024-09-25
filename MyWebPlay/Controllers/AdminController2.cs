@@ -1186,5 +1186,38 @@ namespace MyWebPlay.Controllers
 
             return RedirectToAction("LoginSettingAdmin", "Admin");
         }
+
+        [HttpPost]
+        public ActionResult CheckingAutoLoginAdmin(string ID, string Password)
+        {
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            var pth = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
+            var password = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[1];
+            var Id = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[0];
+
+            var key = listSetting[60].Split("<3275>")[3];
+
+            if (StringMaHoaExtension.Decrypt(password, key) == Password && StringMaHoaExtension.Decrypt(Id, key) == ID)
+            {
+                var adminIP = HttpContext.Session.GetString("admin-userIP");
+                var pamX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                var valuePamX = System.IO.File.ReadAllText(pamX);
+
+                if (adminIP != null)
+                {
+                    if (valuePamX == MD5.CreateMD5(adminIP))
+                    {
+                        HttpContext.Session.SetString("adminSetting", "true");
+                        HttpContext.Session.Remove("xacthuc2buoc-ADMIN");
+                        return Ok(new { result = true });
+                    }
+                }
+            }
+
+            return Ok(new { result = false });
+        }
     }
 }

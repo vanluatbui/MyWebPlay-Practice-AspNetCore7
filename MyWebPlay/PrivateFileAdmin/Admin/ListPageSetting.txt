@@ -1,5 +1,6 @@
 /Admin/XoaViewMark
 /Admin/SetIPForAdmin
+/Admin/CheckingAutoLoginAdmin
 /Admin/RedirectToAPIPage
 /Admin/APIPageSetting
 /Admin/EditAPIPageSetting

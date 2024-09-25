@@ -926,8 +926,20 @@ namespace MyWebPlay.Controllers
                     TempData["WantToGetUserIP"] = "false";
                 }
 
+
                 var pamX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
                 var valuePamX = System.IO.File.ReadAllText(pamX);
+
+                //var adminIP = HttpContext.Session.GetString("admin-userIP");
+                //if (adminIP != null)
+                //{
+                //    if (valuePamX == MD5.CreateMD5(adminIP))
+                //    {
+                //        HttpContext.Session.SetString("adminSetting", "true");
+                //        HttpContext.Session.Remove("xacthuc2buoc-ADMIN");
+                //        return RedirectToAction("SettingXYZ_DarkAdmin", "Admin");
+                //    }
+                //}
 
                 if (string.IsNullOrEmpty(valuePamX) == false)
                 {
@@ -982,6 +994,21 @@ namespace MyWebPlay.Controllers
                     if (StringMaHoaExtension.Decrypt(password, key) == f["txtPassword"].ToString() && StringMaHoaExtension.Decrypt(ID, key) == f["txtID"].ToString())
                     {
                         HttpContext.Session.SetString("adminSetting", "true");
+                        var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                        var valuePam = System.IO.File.ReadAllText(pam);
+
+                        var userIP = HttpContext.Session.GetString("admin-userIP");
+                        if (userIP != null && userIP != "")
+                        {
+                            Calendar xi = CultureInfo.InvariantCulture.Calendar;
+                            var xuxuz = xi.AddHours(DateTime.UtcNow, 7);
+                            var text = MD5.CreateMD5(userIP);
+                            System.IO.File.WriteAllText(pam, text);
+                        }
+                        else
+                        {
+                            return RedirectToAction("LoginSettingAdmin", "Admin");
+                        }
                     }
                 }
                 else
@@ -1011,6 +1038,21 @@ namespace MyWebPlay.Controllers
                             {
 
                                 HttpContext.Session.SetString("adminSetting", "true");
+                                var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                                var valuePam = System.IO.File.ReadAllText(pam);
+
+                                var userIP = HttpContext.Session.GetString("admin-userIP");
+                                if (userIP != null && userIP != "")
+                                {
+                                    Calendar xi = CultureInfo.InvariantCulture.Calendar;
+                                    var xuxuz = xi.AddHours(DateTime.UtcNow, 7);
+                                    var text = MD5.CreateMD5(userIP);
+                                    System.IO.File.WriteAllText(pam, text);
+                                }
+                                else
+                                {
+                                    return RedirectToAction("LoginSettingAdmin", "Admin");
+                                }
                                 HttpContext.Session.Remove("xacthuc2buoc-ADMIN");
                             }
                         }
@@ -1079,22 +1121,6 @@ namespace MyWebPlay.Controllers
 
                 System.IO.File.WriteAllText(pathS, noidungZ.Trim('\n'));
             }
-
-             var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
-                    var valuePam = System.IO.File.ReadAllText(pam);
-
-                    var userIP = HttpContext.Session.GetString("admin-userIP");
-                    if (userIP != null && userIP != "")
-                    {
-                        Calendar xi = CultureInfo.InvariantCulture.Calendar;
-                        var xuxuz = xi.AddHours(DateTime.UtcNow, 7);
-                        var text = MD5.CreateMD5(userIP + " - " + xuxuz.ToString());
-                        System.IO.File.WriteAllText(pam, text);
-                    }
-                    else
-                    {
-                        return RedirectToAction("LoginSettingAdmin", "Admin");
-                    }
 
             return RedirectToAction("SettingXYZ_DarkAdmin");
         }

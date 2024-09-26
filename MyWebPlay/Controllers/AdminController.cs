@@ -1129,6 +1129,12 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                var addHtml = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "");
+                var addHtmlSpan = addHtml.Split("\n:::\n");
+
+                if (addHtmlSpan.Length > 1)
+                    TempData["HTML-added"] = addHtmlSpan[1];
+
                 HttpContext.Session.Remove("accept_notice");
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
                 var noidungX = System.IO.File.ReadAllText(pathX);

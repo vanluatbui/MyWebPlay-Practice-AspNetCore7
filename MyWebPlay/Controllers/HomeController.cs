@@ -375,6 +375,12 @@ namespace MyWebPlay.Controllers
                     if (htmlNoticeSpan.Length > 1)
                 TempData["HTML-notice"] = htmlNoticeSpan[1];
 
+                var addHtml = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "");
+                var addHtmlSpan = addHtml.Split("\n:::\n");
+
+                if (addHtmlSpan.Length > 1)
+                    TempData["HTML-added"] = addHtmlSpan[1];
+
                 //Notice
                 var notice = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[12].ToString().Replace("NOTICE : ", "").Split("<3275>");
 

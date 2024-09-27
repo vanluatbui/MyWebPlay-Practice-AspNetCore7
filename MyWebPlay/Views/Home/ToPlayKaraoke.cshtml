@@ -116,6 +116,7 @@
     <body id="bodix" ondblclick="momenu()">
         <meta charset="ISO-8859-1" />
         <script>
+
             var lastTap = 0; // Lưu thời gian lần chạm cuối cùng
             
             function xemdoubleclick()
@@ -1056,6 +1057,24 @@
                }
             
                document.getElementById("baihatXYZ").innerHTML = data.tenbaihat;
+
+
+               var formData = new FormData();
+                    formData.append("url", "@ViewBag.LoginServer");
+                    formData.append("baihat", data.tenbaihat);
+                    formData.append("option", "5");
+
+                     $.ajax({
+                        url: "/Admin/GetInfoKaraokeServerForShare",
+                        type: "POST",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function(data) {
+            
+                        document.getElementById("linkKara").value = data.result;
+                        }});
+
                document.getElementById("listSongKara").blur();
                resetKaraoke();
             }});
@@ -1137,6 +1156,26 @@
                    document.getElementById("thutuXYZ").innerHTML += " (đã phát : "+ thutu + "/" + maxthutu + ")"
                }
                document.getElementById("baihatXYZ").innerHTML = data.tenbaihat;
+
+               if ('@TempData["ajax_js"]' == "false")
+               {
+                var formData = new FormData();
+                    formData.append("url", "@ViewBag.LoginServer");
+                    formData.append("baihat", data.tenbaihat);
+                    formData.append("option", "5");
+
+                     $.ajax({
+                        url: "/Admin/GetInfoKaraokeServerForShare",
+                        type: "POST",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function(data) {
+            
+                        document.getElementById("linkKara").value = data.result;
+                        }});
+                }
+
                document.getElementById("listSongKara").options.selectedIndex = thutu - 1;
                resetKaraoke();
             }});

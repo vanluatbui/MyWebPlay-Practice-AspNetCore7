@@ -1219,5 +1219,31 @@ namespace MyWebPlay.Controllers
 
             return Ok(new { result = false });
         }
+
+        [HttpPost]
+        public ActionResult GetInfoKaraokeServerForShare(string url, string baihat, string option)
+        {
+            var listYoutube = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "Video_Youtube", "randomlink.txt")).Replace("\r", "").Split("\n");
+
+            var rand = new Random();
+            var link = listYoutube[rand.Next(0, listYoutube.Length)];
+
+            link = link.Replace("&", "");
+            link = link.Replace("loop", "");
+            link = link.Replace("autoplay", "");
+            link = link.Replace("controls", "");
+            link = link.Replace("mute", "");
+            link = link.Replace("youtu.be/", "youtube.com/embed/");
+            link = link.Replace("youtube.com/watch?v=", "youtube.com/embed/");
+
+            var n1 = StringMaHoaExtension.Encrypt(url);
+            var n2 = StringMaHoaExtension.Encrypt(baihat);
+            var n3 = StringMaHoaExtension.Encrypt(link);
+
+
+            var share = n1 + "-.-" + n2 + "-.-" + n3 + "-.-" + option;
+
+            return Ok(new { result = share });
+        }
     }
 }

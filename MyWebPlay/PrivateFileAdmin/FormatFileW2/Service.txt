@@ -72,7 +72,7 @@ namespace w2.Domain.{1}
 		/// </summary>
 		/// <param name="{2}">{1} model</param>
 		/// <param name="accessor">SQL accessor</param>
-		/// <returns>Result</returns>
+		/// <returns>Number of cases affected</returns>
 		public int Update({1}Model {2}, SqlAccessor accessor = null)
 		{
 			using (var repository = new {1}Repository(accessor))
@@ -89,7 +89,7 @@ namespace w2.Domain.{1}
 		/// </summary>
 		/// <param name="Id">ID</param>
 		/// <param name="accessor">SQL accessor</param>
-		/// <returns>Result</returns>
+		/// <returns>Number of cases affected</returns>
 		public void Delete(string Id, SqlAccessor accessor = null)
 		{
 			using (var repository = new {1}Repository(accessor))

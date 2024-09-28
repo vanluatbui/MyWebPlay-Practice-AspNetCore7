@@ -22,7 +22,7 @@ namespace w2.Domain.{1}
 	/// </summary>
 	public class {1}Repository : RepositoryBase
 	{
-		/// <summary>{1} SQL XMK Key</summary>
+		/// <summary>{1} SQL XML Key</summary>
 		private const string XML_KEY_NAME = "{1}";
 
 		#region コンストラクタ
@@ -65,7 +65,7 @@ namespace w2.Domain.{1}
 		{
 			var input = new Hashtable
 			{
-				{Constants.FIELD_USER_USER_ID, Id},
+				{ Constants.FIELD_USER_USER_ID, Id },
 			};
 
 			var dv = Get(XML_KEY_NAME, "Get{1}ById", input);
@@ -90,7 +90,7 @@ namespace w2.Domain.{1}
 		/// Update
 		/// </summary>
 		/// <param name="{2}">{1} model</param>
-		/// <returns>Result</returns>
+		/// <returns>Number of cases affected</returns>
 		internal int Update({1}Model {2})
 		{
 			var result = Exec(XML_KEY_NAME, "Update", {2}.DataSource);
@@ -103,12 +103,12 @@ namespace w2.Domain.{1}
 		/// Delete
 		/// </summary>
 		/// <param name="Id">ID</param>
-		/// <returns>Result</returns>
+		/// <returns>Number of cases affected</returns>
 		internal int Delete(string Id)
 		{
 			var input = new Hashtable
 			{
-				{Constants.FIELD_USER_USER_ID, Id},
+				{ Constants.FIELD_USER_USER_ID, Id },
 			};
 			var result = Exec(XML_KEY_NAME, "Delete", input);
 			return result;

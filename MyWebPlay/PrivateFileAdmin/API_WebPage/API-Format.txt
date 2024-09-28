@@ -105,6 +105,7 @@
 
 <script>
 function openTab(evt, tabName) {
+    fetch('@@ Web_Host @@/Home/DeleteBin');
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {

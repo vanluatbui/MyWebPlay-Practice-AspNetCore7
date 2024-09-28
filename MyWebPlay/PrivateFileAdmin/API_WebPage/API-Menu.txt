@@ -31,8 +31,8 @@
 [/Home/Replace_Hamorny]***txtIndex><number><Nhập số lượng index thay thế<>txtChuoi><textarea><Nhập mẫu chuỗi gốc (chỗ cần replace phải đúng như với số lượng index trên - ví dụ nhập dấu hiệu tại đó là i)<>txtInput><textarea><Nhập input (mỗi thành phần cách nhau bởi Enter, mỗi index cách nhau bởi Tab)
 [/Home/InsertSQL]***Chuoi><textarea><Chuỗi (tên fieldTABkiểu dữ liệuTABgiá trị default nếu có)<>Default><textarea><Giá trị gán có sẵn bắt buộc, nếu không sẽ bỏ qua và gán mặc định (tên field=giá trị) Nếu muốn thêm nhiều record có thể tách nhau bởi \n#3275#\n<>BoQua><textarea><Các cột bị bỏ qua (cách nhau bởi Enter)  - ví dụ do field có kiểu identity tự tăng ...
 [/Home/XuLySQL14]***txtNameCu><textarea><Các fields của DB cũ<>txtRecordCu><text><Record tại DB cũ<>txtNameMoi><textarea><Các fields của DB mới<>txtRecordCu><text><Record tại DB mới
-[/Home/XuLySQL15]***txtDataText><textarea><Nhập dữ liệu theo format sau (tên bảngTabtên fieldTabkiểu dữ liệuTabkích thướcTabtext tiếng Nhật/comment) - mỗi thành phần tách nhau bởi Enter
+<Selected>[/Home/XuLySQL15]***txtDataText><textarea><Nhập dữ liệu theo format sau (tên bảngTabtên fieldTabkiểu dữ liệuTabkích thướcTabtext tiếng Nhật/comment) - mỗi thành phần tách nhau bởi Enter
 [/Home/XuLySQL11]***txtTable><text><Table<>txtConstants><textarea><Constants.cs<>txtScript><textarea><script.sql<>txtChon><checkbox><Chỉ muốn tìm và liệt kê (không cần tạo - dành cho bổ sung ở Views)
-[/Home/XuLySQL12]***txtNoiDung><textarea><Mail template SQL
+<Selected>[/Home/XuLySQL12]***txtNoiDung><textarea><Mail template SQL
 [/Home/XuLySQL16]***txtTable><text><Table
 [/Home/FindCompareValueInSQL]***txtFields><textarea><Chuỗi các fields của bạn (chú ý index - cách nhau bởi Enter) <>txtOld><textarea><Chuỗi các giá trị cũ của dữ liệu (chú ý phải theo index - tách nhau bởi Enter và Tab) <>txtNew><textarea><Chuỗi các giá trị mới của dữ liệu (chú ý phải theo index - tách nhau bởi Enter và Tab)<>txtWhere><text><Nhập các fields làm dữ kiện nhận dạng (cách nhau bởi dấu phẩy) 

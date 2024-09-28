@@ -39,6 +39,7 @@ Layout = null;
         <h3 style="color:yellow">MyWebPlay xin thông báo</h3>
         <p style="color:white">@Html.Raw(TempData["alert_admin"])</p>
         <span style="color:aqua">Nội dung này sẽ hiển thị và tự động đóng lại sau 15 giây (hãy chờ đợi vì có thể còn có thông báo khác sau đó).</span>
+        <button style="color:red;float:right;font-size:20px" onclick="dongthongbao()"><b>ĐÓNG</b></button>
         <br />
     </div>
 </div>
@@ -46,7 +47,7 @@ Layout = null;
      // Delete div somee
      setInterval(function()
                 {
-                     $(document).ready(function () {
+                $(document).ready(function () {
                 $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
                 $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
                 $("div[onmouseover='S_ssac();']").remove();
@@ -54,6 +55,11 @@ Layout = null;
                 $("div[style='height: 65px;']").remove();
             }); 
         },10);
+
+        function dongthongbao()
+        {
+            window.parent.postMessage('dongTB_mywebplay', '*');
+        }
 </script>
 }
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

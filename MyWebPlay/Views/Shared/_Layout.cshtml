@@ -133,6 +133,24 @@
         //var urlParams = new URLSearchParams(queryString);
         //var closex = urlParams.get('closex');
 
+    var urlExternal = "";
+
+    window.addEventListener('message', (event) => {
+        if (event.data === 'dongTB_mywebplay') {
+            if (urlExternal == "_blank")
+            {
+                var win = window.open("about:blank", "_self");
+                win.close();
+               window.close();
+            }
+            else{
+                window.location.href = urlExternal;
+            }
+        }
+  });
+
+        //-----------------------------------------------
+
         if('@TempData["auto_close_window"]' == "true")
         {
             window.close();
@@ -243,7 +261,7 @@
                 {
                 var noticeFrame = document.getElementById("noticeFrame");
                 noticeFrame.style.display = "block";
-                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=0";
+                rlExternal = "/Home/LockedWeb"; noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=0";
                 }
                 nai++;
                 },1000);
@@ -307,7 +325,7 @@
                 {
                 var noticeFrame = document.getElementById("noticeFrame");
                 noticeFrame.style.display = "block";
-                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=1";
+                urlExternal = "_blank"; noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=1";
                 }
                 nai++;
                 },1000);
@@ -335,7 +353,7 @@
                 {
                 var noticeFrame = document.getElementById("noticeFrame");
                 noticeFrame.style.display = "block";
-                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=2";
+                urlExternal = "_blank"; noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=2";
                 }
                 nai++;
                 },1000);
@@ -363,7 +381,7 @@
                 {
                 var noticeFrame = document.getElementById("noticeFrame");
                 noticeFrame.style.display = "block";
-                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=3";
+                urlExternal = "_blank"; noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=3";
                 }
                 nai++;
                 },1000);
@@ -389,7 +407,7 @@
                 {
                 var noticeFrame = document.getElementById("noticeFrame");
                 noticeFrame.style.display = "block";
-                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=4";
+                urlExternal = "/Home/RemoveTempData"; noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=4";
                 }
                 nai++;
                 },1000);
@@ -432,7 +450,7 @@
                 {
                 var noticeFrame = document.getElementById("noticeFrame");
                 noticeFrame.style.display = "block";
-                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=5";
+                 urlExternal = "/Home/RemoveTempData"; noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=5";
                 }
                 nai++;
                 },1000);
@@ -468,7 +486,7 @@
                 {
                 var noticeFrame = document.getElementById("noticeFrame");
                 noticeFrame.style.display = "block";
-                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=6";
+                urlExternal = "/Home/Error"; noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=6";
                 }
                 nai++;
                 },1000);
@@ -517,7 +535,7 @@
                 {
                 var noticeFrame = document.getElementById("noticeFrame");
                 noticeFrame.style.display = "block";
-                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=7";
+                urlExternal = "/Home/LockedWeb"; noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=7";
                 }
                 nai++;
                 },1000);
@@ -555,7 +573,7 @@
                 {
                 var noticeFrame = document.getElementById("noticeFrame");
                 noticeFrame.style.display = "block";
-                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=8";
+                urlExternal = "/Home/LockedWeb"; noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=8";
                 }
                 nai++;
                 },1000);
@@ -576,6 +594,7 @@
                 {
                 var noticeFrame = document.getElementById("noticeFrame");
                 noticeFrame.style.display = "block";
+                 urlExternal = "/Home/LockedWeb";
                 noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=9";
                 }
                 nai++;

@@ -621,6 +621,14 @@ namespace MyWebPlay.Controllers
 
                 var listNew = f["txtNew"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r", "").Split("\n");
 
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    listFields = apiValue[0].Replace("\r", "").Split("\n");
+                    listOld = apiValue[1].Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r", "").Split("\n");
+                    listNew = apiValue[2].Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r", "").Split("\n");
+                }
+
                 int dem = 1;
                 var listChangeOld = new List<string>();
                 var listChangeNew = new List<string>();
@@ -915,6 +923,12 @@ namespace MyWebPlay.Controllers
                 txtTable = txtTable.Replace("[T-PLAY]", "\t");
                 txtTable = txtTable.Replace("[N-PLAY]", "\n");
                 txtTable = txtTable.Replace("[R-PLAY]", "\r");
+
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    txtTable = apiValue[0];
+                }
 
                 TempData["dataPost"] = "[" + txtTable.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
                 if (exter == false)
@@ -1276,6 +1290,15 @@ namespace MyWebPlay.Controllers
                 string chon = f["txtChon"].ToString();
                 chon = chon.Replace("[T-PLAY]", "\t");
                 chon = chon.Replace("[N-PLAY]", "\n");
+
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    txtTable = apiValue[0];
+                    chon = apiValue[1];
+                }
+
+
                 chon = chon.Replace("[R-PLAY]", "\r");
 
                 var listTable = txtTable.Replace("\r", "").Split("\n");
@@ -1572,6 +1595,14 @@ namespace MyWebPlay.Controllers
                 dauhieu = dauhieu.Replace("[T-PLAY]", "\t");
                 dauhieu = dauhieu.Replace("[N-PLAY]", "\n");
                 dauhieu = dauhieu.Replace("[R-PLAY]", "\r");
+
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    field = apiValue[0];
+                    dauhieu = apiValue[1];
+                    chuoi = apiValue[2];
+                }
 
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
 
@@ -1873,6 +1904,12 @@ namespace MyWebPlay.Controllers
                 txtTable = txtTable.Replace("[T-PLAY]", "\t");
                 txtTable = txtTable.Replace("[N-PLAY]", "\n");
                 txtTable = txtTable.Replace("[R-PLAY]", "\r");
+
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    txtTable = apiValue[0];
+                }
 
                 TempData["dataPost"] = "[" + txtTable.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
                 khoawebsiteClient(listIP);
@@ -2198,6 +2235,15 @@ namespace MyWebPlay.Controllers
                 var txtTable = f["txtTable"].ToString();
                 var thieus = f["txtThieu"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r", "").Split("\n");
                 var daydus = f["txtDayDu"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r", "").Split("\n");
+
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    txtTable = apiValue[0];
+                    daydus = apiValue[1].Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r", "").Split("\n");
+                    thieus = apiValue[2].Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r", "").Split("\n");
+                }
+
                 txtTable = txtTable.Replace("[T-PLAY]", "\t");
                 txtTable = txtTable.Replace("[N-PLAY]", "\n");
                 txtTable = txtTable.Replace("[R-PLAY]", "\r");

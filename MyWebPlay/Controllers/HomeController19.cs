@@ -207,6 +207,15 @@ namespace MyWebPlay.Controllers
                 var constants = f["txtConstants"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Trim('\t').Trim(' ').Replace("\r", "").Split("\n");
                 var modelCs = f["txtModelCs"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n");
 
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    table = apiValue[0];
+                    constants = apiValue[1].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Trim('\t').Trim(' ').Replace("\r", "").Split("\n");
+                    modelCs = apiValue[2];
+                }
+
+
                 TempData["dataPost"] = "[" + f["txtConstants"].ToString().Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
 
                ghilogrequest(f); if (exter == false)

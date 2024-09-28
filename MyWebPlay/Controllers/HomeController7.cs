@@ -355,6 +355,14 @@ namespace MyWebPlay.Controllers
                 bandau = bandau.Replace("[T-PLAY]", "\t");
                 bandau = bandau.Replace("[N-PLAY]", "\n");
                 bandau = bandau.Replace("[R-PLAY]", "\r");
+
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    bandau = apiValue[0];
+                    chuoi = apiValue[1];
+                }
+
                 if (string.IsNullOrEmpty(bandau))
                 {
                     ViewData["Loi1"] = "Trường này không được để trống!";

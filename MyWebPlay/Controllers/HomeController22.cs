@@ -215,6 +215,15 @@ namespace MyWebPlay.Controllers
                 recordmoi = recordmoi.Replace("[N-PLAY]", "\n");
                 recordmoi = recordmoi.Replace("[R-PLAY]", "\r");
 
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    namecu = apiValue[0];
+                    recordcu = apiValue[1];
+                    namemoi = apiValue[2];
+                    recordmoi = apiValue[3];
+                }
+
 
                 ViewBag.NameCu = f["txtNameCu"].ToString();
                 ViewBag.RecordCu = f["txtRecordCu"].ToString();
@@ -558,6 +567,12 @@ namespace MyWebPlay.Controllers
                 dataText = dataText.Replace("[T-PLAY]", "\t");
                 dataText = dataText.Replace("[N-PLAY]", "\n");
                 dataText = dataText.Replace("[R-PLAY]", "\r");
+
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    dataText = apiValue[0];
+                }
 
 
                 ViewBag.DataText = f["txtDataText"].ToString();
@@ -1162,6 +1177,12 @@ namespace MyWebPlay.Controllers
                     }
                 }
                 var table = f["txtTable"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n");
+
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    table = apiValue[0];
+                }
 
                 TempData["dataPost"] = "[" + f["txtTable"].ToString().Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
 

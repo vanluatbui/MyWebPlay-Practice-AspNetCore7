@@ -1872,6 +1872,12 @@ namespace MyWebPlay.Controllers
                 chuoi = chuoi.Replace("[N-PLAY]", "\n");
                 chuoi = chuoi.Replace("[R-PLAY]", "\r");
 
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    chuoi = apiValue[0];
+                }
+
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
 
                 TempData["checkText"] = f["Chuoi"].ToString();
@@ -2247,6 +2253,13 @@ namespace MyWebPlay.Controllers
                 chuoi = chuoi.Replace("[R-PLAY]", "\r");
                 int n = int.Parse(f["Number"].ToString());
 
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    chuoi = apiValue[0];
+                    n = int.Parse(apiValue[1]);
+                }
+
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
 
                ghilogrequest(f); if (exter == false)
@@ -2601,6 +2614,13 @@ namespace MyWebPlay.Controllers
                 chuoi = chuoi.Replace("[N-PLAY]", "\n");
                 chuoi = chuoi.Replace("[R-PLAY]", "\r");
                 int n = int.Parse(f["Number"].ToString());
+
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    chuoi = apiValue[0];
+                    n = int.Parse(apiValue[1]);
+                }
 
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
 
@@ -2957,6 +2977,12 @@ namespace MyWebPlay.Controllers
                 chuoi = chuoi.Replace("[N-PLAY]", "\n");
                 chuoi = chuoi.Replace("[R-PLAY]", "\r");
 
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    chuoi = apiValue[0];
+                }
+
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
 
                ghilogrequest(f); if (exter == false)
@@ -3305,6 +3331,14 @@ namespace MyWebPlay.Controllers
                 end = end.Replace("[T-PLAY]", "\t");
                 end = end.Replace("[N-PLAY]", "\n");
                 end = end.Replace("[R-PLAY]", "\r");
+
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    chuoi = apiValue[0];
+                    start = apiValue[1];
+                    end = apiValue[2];
+                }
 
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
 
@@ -4014,6 +4048,12 @@ namespace MyWebPlay.Controllers
                 chuoi = chuoi.Replace("[T-PLAY]", "\t");
                 chuoi = chuoi.Replace("[N-PLAY]", "\n");
                 chuoi = chuoi.Replace("[R-PLAY]", "\r");
+
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    chuoi = apiValue[0];
+                }
 
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
 

@@ -291,6 +291,15 @@ namespace MyWebPlay.Controllers
                     return this.Special_OrderBy();
                 }
 
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    sapxep = apiValue[0];
+                    chuoi = apiValue[1];
+                    tanggiam = apiValue[2];
+                    codinh = apiValue[3];
+                }
+
                 string[] DS = Regex.Split(chuoi, "\r\n");
 
                 string[] so = sapxep.Split('=');

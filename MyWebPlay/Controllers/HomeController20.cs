@@ -449,6 +449,14 @@ namespace MyWebPlay.Controllers
                 input = input.Replace("[N-PLAY]", "\n");
                 input = input.Replace("[R-PLAY]", "\r");
 
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    n = int.Parse(apiValue[0]);
+                    chuoi = apiValue[1];
+                    input = apiValue[2];
+                }
+
                 var xj = input.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
 
                 for (int i = 0; i < xj.Length; i++)

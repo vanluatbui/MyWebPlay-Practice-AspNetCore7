@@ -206,6 +206,14 @@ namespace MyWebPlay.Controllers
                 boqua = boqua.Replace("[N-PLAY]", "\n");
                 boqua = boqua.Replace("[R-PLAY]", "\r");
 
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    chuoi = apiValue[0];
+                    txtDefault = apiValue[1];
+                    boqua = apiValue[2];
+                }
+
                 ViewBag.Chuoi = f["Chuoi"].ToString();
                 ViewBag.Default = f["Default"].ToString();
                 ViewBag.BoQua = f["BoQua"].ToString();

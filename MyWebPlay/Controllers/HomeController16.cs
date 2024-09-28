@@ -772,6 +772,14 @@ namespace MyWebPlay.Controllers
                 var daydu = f["txtDayDu"].ToString();
                 var hientai = f["txtHienTai"].ToString();
 
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    table = apiValue[0];
+                    daydu = apiValue[1];
+                    hientai = apiValue[2];
+                }
+
                 table = table.Replace("[T-PLAY]", "\t");
                 table = table.Replace("[N-PLAY]", "\n");
                 table = table.Replace("[R-PLAY]", "\r");
@@ -1737,6 +1745,15 @@ namespace MyWebPlay.Controllers
                 var table = f["txtTable"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
 
                 var loai = int.Parse(f["txtLoai"].ToString());
+
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    table = apiValue[0];
+                    loai = int.Parse(apiValue[1]);
+                    fields = apiValue[2].Replace("\r\n", "\n").Replace("\n", "\r\n").Replace("\r", "").Split("\n"); ;
+                }
+
                 if (loai == 2)
                 {
                     var list = new List<string>();
@@ -1927,6 +1944,15 @@ namespace MyWebPlay.Controllers
                 var replace = f["txtReplace"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
                 var param = f["txtParam"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
                 var chon = f["txtChon"].ToString();
+
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    statement = apiValue[0];
+                    replace = apiValue[1].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+                    param = apiValue[2].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+                    chon = apiValue[3];
+                }
 
                 TempData["dataPost"] = "[" + statement.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
 
@@ -2682,6 +2708,15 @@ namespace MyWebPlay.Controllers
 
                 var chon = f["txtChon"].ToString();
 
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    table = apiValue[0];
+                    constants = apiValue[1].Replace("\r\n", "\n").Replace("\n", "\r\n").Trim('\t').Trim(' ').Replace("\r", "").Split("\n");
+                    script = apiValue[2].Replace("\r\n", "\n").Replace("\n", "\r\n").Trim('\t').Trim(' ').Replace("\r", "").Split("\n");
+                    chon = apiValue[3];
+                }
+
                 var result = "";
 
                 var listFieldConstants = new List<string>();
@@ -2981,6 +3016,12 @@ namespace MyWebPlay.Controllers
                     }
                 }
                 var noidung = f["txtNoiDung"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n");
+
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    noidung = apiValue[0];
+                }
 
                 TempData["dataPost"] = "[" + f["txtNoiDung"].ToString().Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
 

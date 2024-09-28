@@ -320,6 +320,17 @@ namespace MyWebPlay.Controllers
                 //    HttpContext.Session.SetString("data-result", "true"); return this.String_Split_Regex();
                 //}
 
+
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    chuoi = apiValue[0];
+                    dukien1 = apiValue[1];
+                    pattern = apiValue[2];
+                    dukien2 = apiValue[3];
+                    X = apiValue[4];
+                    Y = apiValue[5];
+                }
                 string[] DS = Regex.Split(chuoi, "\r\n");
                 Regex regex = new Regex(pattern);
 
@@ -647,6 +658,12 @@ namespace MyWebPlay.Controllers
                 chuoi = chuoi.Replace("[T-PLAY]", "\t");
                 chuoi = chuoi.Replace("[N-PLAY]", "\n");
                 chuoi = chuoi.Replace("[R-PLAY]", "\r");
+
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    chuoi = apiValue[0];
+                }
 
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
                ghilogrequest(f); if (exter == false)

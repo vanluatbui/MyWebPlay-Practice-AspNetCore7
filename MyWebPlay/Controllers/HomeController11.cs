@@ -326,6 +326,18 @@ namespace MyWebPlay.Controllers
                 //    HttpContext.Session.SetString("data-result", "true"); return this.Regex_Replace_Multiple();
                 //}
 
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    chuoi = apiValue[0];
+                    input = apiValue[1];
+                    yes = apiValue[2];
+                    output = apiValue[3];
+                    dukien1 = apiValue[4];
+                    dukien2 = apiValue[5];
+                    dukien4 = apiValue[6];
+                }
+
                 var listInput = Regex.Split(input, "\r\n");
                 var listOutput = Regex.Split(output, "\r\n");
 

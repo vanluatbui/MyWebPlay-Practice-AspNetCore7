@@ -257,6 +257,14 @@ namespace MyWebPlay.Controllers
                 string tableX = f["Table"].ToString();
                 string key = f["Key"].ToString();
 
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    tableX = apiValue[0];
+                    key = apiValue[1];
+                    dulieu = apiValue[2];
+                }
+
                 if (string.IsNullOrEmpty(tableX))
                 {
                     ViewData["Loi1"] = "Trường này không được để trống!";
@@ -712,6 +720,13 @@ namespace MyWebPlay.Controllers
 
                 string tenclass = f["TenClass"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
 
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    tenclass = apiValue[0];
+                    dulieu = apiValue[1];
+                }
+
                 if (string.IsNullOrEmpty(tenclass))
                 {
                     ViewData["Loi2"] = "Trường này không được để trống!";
@@ -1117,6 +1132,17 @@ namespace MyWebPlay.Controllers
 
                 string dukien1 = f["DuKien1"].ToString();
                 string dukien2 = f["DuKien2"].ToString();
+
+
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    tenclass = apiValue[0];
+                    dukien1 = apiValue[1];
+                    dukien2 = apiValue[2];
+                    dulieu = apiValue[3];
+
+                }
 
                 if (string.IsNullOrEmpty(tenclass))
                 {

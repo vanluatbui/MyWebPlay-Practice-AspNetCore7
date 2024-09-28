@@ -295,6 +295,14 @@ namespace MyWebPlay.Controllers
                 dulieu = dulieu.Replace("[N-PLAY]", "\n");
                 dulieu = dulieu.Replace("[R-PLAY]", "\r");
 
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    table = apiValue[0];
+                    trangthai = apiValue[1];
+                    dulieu = apiValue[2];
+                }
+
                 string[] ds_trangthai = trangthai.Split('-');
                 for (int i = 0; i < ds_trangthai.Length; i++)
                     listType[nx++] = int.Parse(ds_trangthai[i]);
@@ -667,6 +675,14 @@ namespace MyWebPlay.Controllers
                 trangthai = trangthai.Replace("[T-PLAY]", "\t");
                 trangthai = trangthai.Replace("[N-PLAY]", "\n");
                 trangthai = trangthai.Replace("[R-PLAY]", "\r");
+
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    trangthai = apiValue[0];
+                    dulieu = apiValue[1];
+                }
+
 
                 string[] ds_trangthai = trangthai.Split(",");
 

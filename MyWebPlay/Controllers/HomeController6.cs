@@ -283,6 +283,15 @@ namespace MyWebPlay.Controllers
                 dukien2 = dukien2.Replace("[T-PLAY]", "\t");
                 dukien2 = dukien2.Replace("[N-PLAY]", "\n");
                 dukien2 = dukien2.Replace("[R-PLAY]", "\r");
+
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    chuoi = apiValue[0];
+                    pattern = apiValue[1];
+                    dukien2 = apiValue[2];
+                }
+
                 if (string.IsNullOrEmpty(dukien2))
                 {
                     ViewData["Loi4"] = "Trường này không được để trống!";
@@ -679,6 +688,17 @@ namespace MyWebPlay.Controllers
                 //    ViewData["Loi3"] = "Trường này không được để trống!";
                 //    HttpContext.Session.SetString("data-result", "true"); return this.Replace_Regex();
                 //}
+
+                if (f.ContainsKey("txtAPI"))
+                {
+                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    chuoi = apiValue[0];
+                    input = apiValue[1];
+                    output = apiValue[2];
+                    dukien1 = apiValue[3];
+                    dukien2 = apiValue[4];
+                    dukien3 = apiValue[5];
+                }
 
                 Regex regex = new Regex(input);
                 string result = "\r\n";

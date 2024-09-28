@@ -789,6 +789,15 @@ namespace MyWebPlay.Controllers
                 var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
                 var valuePam = System.IO.File.ReadAllText(pam);
 
+                if (string.IsNullOrEmpty(valuePam))
+                {
+                    TempData["giu_dang_nhap"] = "NO";
+                }
+                else
+                {
+                    TempData["giu_dang_nhap"] = "YES";
+                }
+
                 var yes_log = true;
 
                 if (HttpContext.Session.GetString("admin-userIP") != null)

@@ -93,6 +93,7 @@ Layout = null;
                 document.getElementById("linkread3").href += "&&keyX="+keyX;
                 document.getElementById("linkread4").href += "&&keyX="+keyX;
                 document.getElementById("linkread5").href += "&&keyX="+keyX;
+                document.getElementById("linkread6").href += "&&keyX="+keyX;
                 loadlinkread = 1;
             }});
         
@@ -1147,6 +1148,9 @@ Layout = null;
     <br />
     <br />
     <hr />
+    <br />
+    <a id="linkread6" href="/Admin/ReadAdminFileByStatic?file=/Admin/EXCEPTION_ERROR_LOG.txt" target="_blank" style="color:lime">Xem nội dung log error/exception (hiện tại)</a>
+    <br />
     <br />
     <div id="caidatchung">
         @using (Html.BeginForm())

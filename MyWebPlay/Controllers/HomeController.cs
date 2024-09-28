@@ -200,6 +200,19 @@ namespace MyWebPlay.Controllers
 
         private void ghilogrequest(IFormCollection? f)
         {
+            var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+            var valuePam = System.IO.File.ReadAllText(pam);
+
+            if (HttpContext.Session.GetString("admin-userIP") != null)
+            {
+                if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("admin-userIP"))) return;
+            }
+
+            if (HttpContext.Session.GetString("userIP") != null)
+            {
+                if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) return;
+            }
+
             var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
             var noidung = System.IO.File.ReadAllText(path);
 

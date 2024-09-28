@@ -233,7 +233,22 @@ namespace MyWebPlay.Controllers
 
                 var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                if (infoXWW[1] == "true")
+                var yes_log = true;
+
+                var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                var valuePam = System.IO.File.ReadAllText(pam);
+
+                if (HttpContext.Session.GetString("admin-userIP") != null)
+                {
+                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("admin-userIP"))) yes_log = false;
+                }
+
+                if (HttpContext.Session.GetString("userIP") != null)
+                {
+                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = false;
+                }
+
+                if (infoXWW[1] == "true" && yes_log)
                 {
                     var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
                     var noidungS = docfile(pathS);

@@ -765,8 +765,8 @@ namespace MyWebPlay.Controllers
 
                 if (locked == true)
                 {
-                    var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
-                    System.IO.File.WriteAllText(pam, string.Empty);
+                    var pamX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                    System.IO.File.WriteAllText(pamX, string.Empty);
                     return RedirectToAction("LoginSettingAdmin", "Admin");
                 }
 
@@ -786,7 +786,22 @@ namespace MyWebPlay.Controllers
 
                 var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                if (infoXWW[1] == "true")
+                var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                var valuePam = System.IO.File.ReadAllText(pam);
+
+                var yes_log = true;
+
+                if (HttpContext.Session.GetString("admin-userIP") != null)
+                {
+                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("admin-userIP"))) yes_log = false;
+                }
+
+                if (HttpContext.Session.GetString("userIP") != null)
+                {
+                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = false;
+                }
+
+                if (infoXWW[1] == "true" && yes_log)
                 {
                     var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
                     var noidungS = docfile(pathS);
@@ -994,8 +1009,6 @@ namespace MyWebPlay.Controllers
                     if (StringMaHoaExtension.Decrypt(password, key) == f["txtPassword"].ToString() && StringMaHoaExtension.Decrypt(ID, key) == f["txtID"].ToString())
                     {
                         HttpContext.Session.SetString("adminSetting", "true");
-                        var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
-                        var valuePam = System.IO.File.ReadAllText(pam);
 
                         var userIP = HttpContext.Session.GetString("admin-userIP");
                         if (userIP != null && userIP != "")
@@ -1003,7 +1016,8 @@ namespace MyWebPlay.Controllers
                             Calendar xi = CultureInfo.InvariantCulture.Calendar;
                             var xuxuz = xi.AddHours(DateTime.UtcNow, 7);
                             var text = MD5.CreateMD5(userIP);
-                            System.IO.File.WriteAllText(pam, text);
+                            var pamXD = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                            System.IO.File.WriteAllText(pamXD, text);
                         }
                         else
                         {
@@ -1036,10 +1050,7 @@ namespace MyWebPlay.Controllers
 
                             if ((xs == xt || xs == backupCode) && xs != "blocked-code")
                             {
-
                                 HttpContext.Session.SetString("adminSetting", "true");
-                                var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
-                                var valuePam = System.IO.File.ReadAllText(pam);
 
                                 var userIP = HttpContext.Session.GetString("admin-userIP");
                                 if (userIP != null && userIP != "")
@@ -1047,7 +1058,8 @@ namespace MyWebPlay.Controllers
                                     Calendar xi = CultureInfo.InvariantCulture.Calendar;
                                     var xuxuz = xi.AddHours(DateTime.UtcNow, 7);
                                     var text = MD5.CreateMD5(userIP);
-                                    System.IO.File.WriteAllText(pam, text);
+                                    var pamXD = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                                    System.IO.File.WriteAllText(pamXD, text);
                                 }
                                 else
                                 {
@@ -1112,7 +1124,22 @@ namespace MyWebPlay.Controllers
 
             var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-            if (infoXWW[1] == "true")
+            var yes_log = true;
+
+            var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+            var valuePam = System.IO.File.ReadAllText(pam);
+
+            if (HttpContext.Session.GetString("admin-userIP") != null)
+            {
+                if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("admin-userIP"))) yes_log = false;
+            }
+
+            if (HttpContext.Session.GetString("userIP") != null)
+            {
+                if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = false;
+            }
+
+            if (infoXWW[1] == "true" && yes_log)
             {
                 var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
                 var noidungS = docfile(pathS);
@@ -1308,7 +1335,19 @@ namespace MyWebPlay.Controllers
 
                 var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                if (infoXWW[1] == "true")
+                var yes_log = true;
+
+                if (HttpContext.Session.GetString("admin-userIP") != null)
+                {
+                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("admin-userIP"))) yes_log = false;
+                }
+
+                if (HttpContext.Session.GetString("userIP") != null)
+                {
+                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = false;
+                }
+
+                if (infoXWW[1] == "true" && yes_log)
                 {
                     var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
                     var noidungS = docfile(pathS);
@@ -2270,7 +2309,19 @@ namespace MyWebPlay.Controllers
 
                 var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                if (infoXWW[1] == "true")
+                var yes_log = true;
+
+                if (HttpContext.Session.GetString("admin-userIP") != null)
+                {
+                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("admin-userIP"))) yes_log = false;
+                }
+
+                if (HttpContext.Session.GetString("userIP") != null)
+                {
+                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = false;
+                }
+
+                if (infoXWW[1] == "true" && yes_log)
                 {
                     var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
                     var noidungS = docfile(pathS);
@@ -2348,7 +2399,22 @@ namespace MyWebPlay.Controllers
 
                 var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                if (infoXWW[1] == "true")
+                var yes_log = true;
+
+                var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                var valuePam = System.IO.File.ReadAllText(pam);
+
+                if (HttpContext.Session.GetString("admin-userIP") != null)
+                {
+                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("admin-userIP"))) yes_log = false;
+                }
+
+                if (HttpContext.Session.GetString("userIP") != null)
+                {
+                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = false;
+                }
+
+                if (infoXWW[1] == "true" && yes_log)
                 {
                     var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
                     var noidungS = docfile(pathS);
@@ -2461,7 +2527,22 @@ namespace MyWebPlay.Controllers
 
                 var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                if (infoXWW[1] == "true")
+                var yes_log = true;
+
+                var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                var valuePam = System.IO.File.ReadAllText(pam);
+
+                if (HttpContext.Session.GetString("admin-userIP") != null)
+                {
+                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("admin-userIP"))) yes_log = false;
+                }
+
+                if (HttpContext.Session.GetString("userIP") != null)
+                {
+                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = false;
+                }
+
+                if (infoXWW[1] == "true" && yes_log)
                 {
                     var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
                     var noidungS = docfile(pathS);
@@ -2573,7 +2654,22 @@ namespace MyWebPlay.Controllers
 
                 var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                if (infoXWW[1] == "true")
+                var yes_log = true;
+
+                var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                var valuePam = System.IO.File.ReadAllText(pam);
+
+                if (HttpContext.Session.GetString("admin-userIP") != null)
+                {
+                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("admin-userIP"))) yes_log = false;
+                }
+
+                if (HttpContext.Session.GetString("userIP") != null)
+                {
+                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = false;
+                }
+
+                if (infoXWW[1] == "true" && yes_log)
                 {
                     var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
                     var noidungS = docfile(pathS);

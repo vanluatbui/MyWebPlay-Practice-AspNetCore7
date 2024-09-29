@@ -52,6 +52,9 @@ Layout = null;
                if (data.result == true)
                {
                     alert("Thành công, tác vụ hiện đã được xử lý.\nCòn file này ở đây cũng đã bị xoá 😁.");
+                     const urlParams = new URLSearchParams(window.location.search);
+                    var folder = urlParams.get("folder").split("<split>")[0];
+                    document.getElementById("Folder").value = folder;
                     downall();
                }
                else

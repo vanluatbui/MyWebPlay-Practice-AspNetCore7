@@ -42,8 +42,8 @@ var phan = sao[20].Split("--");
 var con = string.Format("@leftcontroller={0}@right/@leftaction={1}@right/@leftid?@right", phan[0], phan[1]);
 
 //Unlock login admin
-var pam = Path.Combine(app.Environment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
-System.IO.File.WriteAllText(pam, string.Empty);
+//var pam = Path.Combine(app.Environment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+//System.IO.File.WriteAllText(pam, string.Empty);
 
 app.MapControllerRoute(
     name: "default",

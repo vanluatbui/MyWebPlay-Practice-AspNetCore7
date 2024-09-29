@@ -281,9 +281,24 @@ namespace MyWebPlay.Controllers
                     fi += "]";
                 }
 
-                var noidungZ = noidung0 + "\n" + DateTime.Now + "\t" + this.Request.GetDisplayUrl() + "\t" + fi;
+                var yes_log = true;
 
-                System.IO.File.WriteAllText(path0, noidungZ.Trim('\n'));
+                if (HttpContext.Session.GetString("admin-userIP") != null)
+                {
+                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("admin-userIP"))) yes_log = false;
+                }
+
+                if (HttpContext.Session.GetString("userIP") != null)
+                {
+                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = false;
+                }
+
+                if (yes_log)
+                {
+                    var noidungZ = noidung0 + "\n" + DateTime.Now + "\t" + this.Request.GetDisplayUrl() + "\t" + fi;
+
+                    System.IO.File.WriteAllText(path0, noidungZ.Trim('\n'));
+                }
             }
         }
 
@@ -1156,10 +1171,28 @@ namespace MyWebPlay.Controllers
                     if (sa.Length > 200)
                         TempData["dataPost"] = "[POST - " + sa.Substring(0, 200) + "...]";
 
-                    var noidungZ = noidung0 + "\n" + listIP[0] + "\t" + DateTime.Now + "\t" + TempData["current"] + "\t" + TempData["dataPost"];
                     TempData.Remove("dataPost");
 
-                    System.IO.File.WriteAllText(path0, noidungZ.Trim('\n'));
+                    var yes_log = true;
+
+                    var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                    var valuePam = System.IO.File.ReadAllText(pam);
+
+                    if (HttpContext.Session.GetString("admin-userIP") != null)
+                    {
+                        if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("admin-userIP"))) yes_log = false;
+                    }
+
+                    if (HttpContext.Session.GetString("userIP") != null)
+                    {
+                        if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = false;
+                    }
+
+                    if (yes_log)
+                    {
+                        var noidungZ = noidung0 + "\n" + listIP[0] + "\t" + DateTime.Now + "\t" + TempData["current"] + "\t" + TempData["dataPost"];
+                        System.IO.File.WriteAllText(path0, noidungZ.Trim('\n'));
+                    }
                 }
 
                 TempData["IP_Client"] = listIP[0];

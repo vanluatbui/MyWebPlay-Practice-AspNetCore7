@@ -991,7 +991,12 @@ Layout = null;
         
         function refreshHetHan()
         {
-            window.location.href = "/Admin/RefreshFileHetHan";
+             var con = confirm("Bạn có chắc chắn không?");
+             if (con == true)
+             {
+                var check = document.getElementById("chkFileExternal").checked;
+                window.location.href = "/Admin/RefreshFileHetHan?chk="+check;
+             }
         }
         
         function addJPReplace()
@@ -1174,7 +1179,7 @@ Layout = null;
                 <br />
                 <h2 style="color:goldenrod">Trạng thái lần cuối : @ViewBag.SettingStatus</h2>
                 <a href="#xuly" style="color:orangered" onclick="updatetrangthai()">Thay đổi trạng thái</a><br /><br />
-                <h4><a href="#xuly" onclick="refreshHetHan()" style="color:purple">Refresh hoặc xoá tất cả thư mục và các file hết hạn</a></h4>
+                <h4><a href="#xuly" onclick="refreshHetHan()" style="color:purple">Refresh hoặc xoá tất cả thư mục và các file hết hạn</a>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:15px; color:lime"><input type="checkbox" id="chkFileExternal" />&nbsp;&nbsp;<b>Xoá luôn các file tại root - FileExternal (ngoại trừ các file nằm bên ngoài và không nằm trong thư mục con)</b></span></h4>
                 <br>
                 <h4>
                     <a href="#xuly" id="#welcome" onclick="chonall()" style="color:green">CHỌN TẤT CẢ</a> | <a href="#xuly" onclick="boall()" style="color:red">BỎ CHỌN TẤT CẢ</a> <br><span>&nbsp;</span><span style="color:coral">(ngoại trừ các setting phụ)<span>&nbsp;</span><span>&nbsp;</span><a href="/Admin/DongMoFileStatus" style="color:maroon">Đóng/mở sử dụng thư mục file upload Server (trạng thái : @ViewBag.FileStatus)</a>
@@ -1523,7 +1528,7 @@ Layout = null;
         </h3>
         <hr />
         <h3 style="color:firebrick">
-            * Đối với giáo viên :<br><br>- Sử dụng chức năng Upload File - khuyên nên tạm bật setting chế độ View site pattern cho đẹp :)) (bsite hoặc somee) và tạo thư mục trong wwroot là file/TracNghiemOnline_32752262 và tạo tiếp thư mục là một chuỗi mã (TNID) tuỳ ý (VD : qwerty). Nên upload file bằng user vì nó có giới hạn sử dụng và tự xoá sau khi.<br><br>- Mỗi thư mục mã (TNID) là một loại trắc nghiệm dành riêng/phân biệt cho một môn học theo mỗi đợt. Bên trong thư mục này, hãy gán tất cả các file txt trắc nghiệm có liên quan đến môn học đó.<br><br>- Để xem điểm học sinh : /Admin/TracNghiemOnline_ViewMark (không tiết lộ cho HS)<br><br>* Đối với học sinh (mỗi bạn tự biết MSSV của mình) :<br><br>- ID liên kết thực hiện trắc nghiệm : A_B_C_D<br><br>#Trong đó :<br><br>A : tên thư mục mã TNID chứa các file txt cần thực hiện<br>B : tổng số câu phải làm<br>C : thời gian làm bài<br>D : tên môn học (để phân biệt và hiển thị)<br /><br />- Link dành cho HS làm bài : <span style="color:red">Home/PlayTracNghiem_Online</span><br />
+            * Đối với giáo viên :<br><br>- Sử dụng chức năng Upload File - khuyên nên tạm bật setting chế độ View site pattern cho đẹp :)) (bsite hoặc somee) và tạo thư mục trong wwroot là TracNghiemOnline_32752262 - trong thư mục FileExternal (cái này bạn phải tự copy file để chuyển sang thủ công) và tạo tiếp thư mục là một chuỗi mã (TNID) tuỳ ý (VD : qwerty).<br><br>- Mỗi thư mục mã (TNID) là một loại trắc nghiệm dành riêng/phân biệt cho một môn học theo mỗi đợt. Bên trong thư mục này, hãy gán tất cả các file txt trắc nghiệm có liên quan đến môn học đó.<br><br>- Để xem điểm học sinh : /Admin/TracNghiemOnline_ViewMark (không tiết lộ cho HS)<br><br>* Đối với học sinh (mỗi bạn tự biết MSSV của mình) :<br><br>- ID liên kết thực hiện trắc nghiệm : A_B_C_D<br><br>#Trong đó :<br><br>A : tên thư mục mã TNID chứa các file txt cần thực hiện<br>B : tổng số câu phải làm<br>C : thời gian làm bài<br>D : tên môn học (để phân biệt và hiển thị)<br /><br />- Link dành cho HS làm bài : <span style="color:red">Home/PlayTracNghiem_Online</span><br />
         </h3>
         <br />
         <hr />

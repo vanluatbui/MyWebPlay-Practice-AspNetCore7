@@ -1260,5 +1260,51 @@ namespace MyWebPlay.Controllers
 
             return Ok(new { result = share });
         }
+
+        [HttpPost]
+        public ActionResult DiChuyenFileExternal(string file, string pass)
+        {
+            var passAd = "";
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+            var noidungX = System.IO.File.ReadAllText(pathX);
+
+            var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                if (info[0] == "Password_Admin")
+                {
+                    passAd = info[3];
+                }
+            }
+
+            if (string.Compare(pass, passAd, false) == 0)
+            {
+                var fileSplit = file.Replace("\\", "/").Replace("/file","").Trim('/').Split("/", StringSplitOptions.RemoveEmptyEntries);
+
+                var filePath = "";
+                for (var i = 0; i < fileSplit.Length - 1; i++)
+                {
+                    filePath += fileSplit[i];
+
+                    if (i < fileSplit.Length - 2)
+                    {
+                        filePath += "/";
+                    }
+                }
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "FileExternal", filePath)).Exists == false)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "FileExternal", filePath)).Create();
+
+                var goc = Path.Combine(_webHostEnvironment.WebRootPath, "file", filePath, fileSplit[fileSplit.Length - 1]);
+                var ngon = Path.Combine(_webHostEnvironment.WebRootPath, "FileExternal", filePath, fileSplit[fileSplit.Length - 1]);
+                System.IO.File.Move(goc, ngon);
+
+
+                return Ok(new { result = true });
+            }
+
+            return Ok(new { result = false });
+        }
     }
 }

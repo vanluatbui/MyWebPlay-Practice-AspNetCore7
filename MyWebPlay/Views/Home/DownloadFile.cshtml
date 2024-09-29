@@ -30,6 +30,38 @@ Layout = null;
              window.location.href="/Home/XoaFile?file="+file;
          }
      }
+
+     function dichuyenExternal(file)
+     {
+         var con = confirm('Bạn có chắc chắn muốn di chuyển file đến thư mục root (FileExternal) không? - '+file+ "\nLưu ý : hãy cẩn thận với các file bạn tải lên vì có thể sẽ bị ghi đè với file cũ đã có trước đó.\nVà cũng lưu ý thêm : nếu bạn tải các file này ngay chính thư mục bên ngoài FileExternal mà không chứa trong thư mục con của nó; thì sau này nếu bạn muốn xoá thì phải vào tận server hosting website này (admin) và tự xoá nó thủ công...");
+         if (con == true)
+         {
+              var check = document.getElementById("matkhauadmin").value;
+
+              var formData = new FormData();
+              formData.append("file", file);
+              formData.append("pass", check);
+        
+         $.ajax({
+            url: "/Admin/DiChuyenFileExternal",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+               if (data.result == true)
+               {
+                    alert("Thành công, tác vụ hiện đã được xử lý.\nCòn file này ở đây cũng đã bị xoá 😁.");
+                    downall();
+               }
+               else
+               {
+                   alert("Đã xảy ra lỗi. Vui lòng kiểm tra và thử lại sau.");
+               }
+            }});
+             
+         }
+     }
     
      function uploadfile()
      {
@@ -92,7 +124,7 @@ Layout = null;
     <button style="color:blueviolet" onclick="uploadfile()">Bạn chưa đăng tải file trên hệ thống trước đó?</button>
     <br />
     <br />
-    <a href="#xuly" onclick="xoaValue('Folder')"><b>Nhập chính xác path folder để truy xuất các file (không bao gồm các folder con) để download - nếu để trống mặc định là ROOT : </b></a><input id="Folder" type="text" size="50" value="/Folder1/Folder2" />
+    <a href="#xuly" onclick="xoaValue('Folder')"><b>Nhập chính xác path folder để truy xuất các file (không bao gồm các folder con) để download - nếu để / mặc định là ROOT : </b></a><input id="Folder" type="text" size="50" value="/Folder1/Folder2" />
     <button style="color:blue;font-weight:bold" onclick="downall()">ALL DOWNLOAD SERVER IN THIS FOLDER</button>
     <button style="color:blue;font-weight:bold" onclick="downall1()">ALL DOWNLOAD SERVER IN THIS FOLDER (NÉN ALL ZIP)</button>
     <br />

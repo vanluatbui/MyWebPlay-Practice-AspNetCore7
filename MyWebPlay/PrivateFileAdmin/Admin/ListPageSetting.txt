@@ -1,6 +1,7 @@
 /Admin/XoaViewMark
 /Admin/SetIPForAdmin
 /Admin/GetInfoKaraokeServerForShare
+/Admin/DiChuyenFileExternal
 /Admin/CheckingAutoLoginAdmin
 /Admin/RedirectToAPIPage
 /Admin/APIPageSetting

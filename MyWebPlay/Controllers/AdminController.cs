@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using System.Text.RegularExpressions;
 using Org.BouncyCastle.Asn1;
+using System.IO;
 
 namespace MyWebPlay.Controllers
 {
@@ -3628,10 +3629,22 @@ namespace MyWebPlay.Controllers
             return 1;
         }
 
-        public ActionResult RefreshFileHetHan()
+        public ActionResult RefreshFileHetHan(bool chk)
         {
             try
             {
+
+                if (chk)
+                {
+                    var pathE = Path.Combine(_webHostEnvironment.WebRootPath, "FileExternal");
+                    var directories = Directory.GetDirectories(pathE);
+
+                    foreach (string directory in directories)
+                    {
+                        Directory.Delete(Path.Combine(_webHostEnvironment.WebRootPath, "FileExternal", directory), true);
+                    }
+                }
+
                 var pathX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
                 var noidungX = System.IO.File.ReadAllText(pathX);
                 var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
@@ -3682,6 +3695,9 @@ namespace MyWebPlay.Controllers
 
                 if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "apiUpload")).Exists == true)
                     new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "apiUpload")).Delete(true);
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "FileExternal")).Exists == false)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "FileExternal")).Create();
 
                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "apiUpload")).Create();
                 if (onoff == "file_MO")

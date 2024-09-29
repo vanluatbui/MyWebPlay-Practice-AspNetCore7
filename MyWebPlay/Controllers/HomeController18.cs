@@ -783,7 +783,7 @@ namespace MyWebPlay.Controllers
                     var split = id.Split("_");
                     var timelambai = int.Parse(split[2]);
                     var socau = int.Parse(split[1]);
-                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "file/TracNghiemOnline_32752262", split[0]);
+                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "FileExternal/TracNghiemOnline_32752262", split[0]);
                     var listTN = new DirectoryInfo(pathX).GetFiles().ToArray();
                     TracNghiem[] tn = new TracNghiem[socau];
                     var ssl = "";
@@ -801,7 +801,7 @@ namespace MyWebPlay.Controllers
                         try
                         {
                             WebClient client = new WebClient();
-                            Stream stream = client.OpenRead(ssl + Request.Host + "/file/TracNghiemOnline_32752262/" + split[0] + "/" + listTN[h].Name);
+                            Stream stream = client.OpenRead(ssl + Request.Host + "/FileExternal/TracNghiemOnline_32752262/" + split[0] + "/" + listTN[h].Name);
                             StreamReader reader = new StreamReader(stream);
                             ND_file = reader.ReadToEnd();
 

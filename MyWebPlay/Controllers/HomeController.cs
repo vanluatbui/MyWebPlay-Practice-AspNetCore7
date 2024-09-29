@@ -1366,6 +1366,9 @@ namespace MyWebPlay.Controllers
                 if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Exists == true)
                     new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Delete(true);
 
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "FileExternal")).Exists == false)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "FileExternal")).Create();
+
                 var pthY = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
                 var ndY = System.IO.File.ReadAllText(pthY);
                 var onoffY = ndY.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[3];

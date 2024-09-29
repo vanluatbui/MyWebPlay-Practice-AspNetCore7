@@ -1666,7 +1666,7 @@ namespace MyWebPlay.Controllers
 
                             ketqua += "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/file" + folder + "/" + item.Name + "\" download> tại đây</a> <span style=\"color:seagreen\">(" + x.AddHours(item.LastWriteTimeUtc, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture) + ")</span> <br> Link xem trực tiếp (nếu có thể) : <a target=\"_blank\" style=\"color:green\"" +
                               "href=\"/file" + folder + "/" + item.Name + "\">/file" + folder + "/" + item.Name + "</a><br><br>" +
-                              "<button style=\"color:blue\" onclick=\"xacnhan('" + file + "')\">Click để xoá thủ công file này?</button><br>";
+                              "<button style=\"color:blue\" onclick=\"xacnhan('" + file + "')\">Click để xoá thủ công file này?</button>&nbsp;&nbsp;&nbsp;&nbsp;<button style=\"color:red\" onclick=\"dichuyenExternal('" + file + "')\">Di chuyển sang thư mục root FileExternal (Admin)</button><br>";
                             ketqua += "<br><br>";
                             ViewBag.XL = listFile.Count();
                             ViewData["KetQua" + k] = ketqua;

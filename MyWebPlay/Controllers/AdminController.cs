@@ -906,7 +906,7 @@ namespace MyWebPlay.Controllers
                 if (span != "")
                 {
                     var so_span = span.Replace("<@@", "").Replace("@@>", "");
-                    settingAdmin.Topics[23].NoiDung = settingAdmin.Topics[23].NoiDung.Replace(span, "<input required min=\"0\" type=\"number\" readonly style=\"width: 5em\" name=\"txtDataThan\" value=\"" + so_span + "\" />");
+                    settingAdmin.Topics[23].NoiDung = settingAdmin.Topics[23].NoiDung.Replace(span, "<input required min=\"0\" type=\"number\" readonly style=\"width: 5em\" name=\"txtDataThan\" id=\"dataThan\" value=\"" + so_span + "\" />");
                 }
                 return View(settingAdmin);
             }
@@ -1641,7 +1641,7 @@ namespace MyWebPlay.Controllers
                 if (span != "")
                 {
                     var so_span = span.Replace("<@@", "").Replace("@@>", "");
-                    settingAdmin.Topics[23].NoiDung = settingAdmin.Topics[23].NoiDung.Replace(span, "<input required min=\"0\"  type=\"number\" style=\"width: 5em\" name=\"txtDataThan\" value=\"" + so_span + "\" />");
+                    settingAdmin.Topics[23].NoiDung = settingAdmin.Topics[23].NoiDung.Replace(span, "<input required min=\"0\"  type=\"number\" style=\"width: 5em\" name=\"txtDataThan\" id=\"dataThan\" value=\"" + so_span + "\" />");
                 }
 
 
@@ -3985,6 +3985,15 @@ namespace MyWebPlay.Controllers
                     case "21":
                         var nd6 = noidung.Split(" # ");
                         System.IO.File.WriteAllText(path, nd6[0] + " + Bật xác thực hai bước ADMIN # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
+                        break;
+
+                    case "22":
+                        System.IO.File.WriteAllText(path, "API công khai (*) # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
+                        break;
+
+
+                    case "23":
+                        System.IO.File.WriteAllText(path, "Sử dụng web công khai (*) # " + xuxu + " (lưu ý nên kiểm tra thêm các setting phụ)");
                         break;
 
                     case "ON-ALL":

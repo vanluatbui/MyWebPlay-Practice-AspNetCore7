@@ -780,6 +780,68 @@ Layout = null;
                 document.getElementById("check-61").checked = true;
                  document.getElementById("ok").click();
            }
+
+           if (ch == 23)
+           {
+               localStorage.setItem("setting-status","22");
+
+                var n = new Number(document.getElementById("count").value) - 28;
+                 for (var i = 0; i < n;i++)
+                {
+                    document.getElementById("check-"+i).checked = false;
+                }
+
+               document.getElementById("check-1").checked = true;
+               document.getElementById("check-2").checked = true;
+               document.getElementById("check-22").checked = true;
+               document.getElementById("check-23").checked = true;
+               document.getElementById("check-25").checked = true;
+               document.getElementById("check-48").checked = true;
+               document.getElementById("check-57").checked = true;
+               document.getElementById("check-61").checked = true;
+              document.getElementById("dataThan").value = "500";
+              document.getElementsByName("UploadFile_MaxSize")[0].value = "2000000";
+               document.getElementById("ok").click();
+           }
+
+           if (ch == 24)
+           {
+               localStorage.setItem("setting-status","23");
+
+                var n = new Number(document.getElementById("count").value) - 28;
+                 for (var i = 0; i < n;i++)
+                {
+                    document.getElementById("check-"+i).checked = false;
+                }
+
+                document.getElementById("check-1").checked = true;
+                document.getElementById("check-2").checked = true;
+                document.getElementById("check-9").checked = true;
+                document.getElementById("check-13").checked = true;
+                document.getElementById("check-14").checked = true;
+                document.getElementById("check-15").checked = true;
+                document.getElementById("check-16").checked = true;
+                document.getElementById("check-17").checked = true;
+                document.getElementById("check-20").checked = true;
+                document.getElementById("check-21").checked = true;
+                document.getElementById("check-22").checked = true;
+                document.getElementById("check-23").checked = true;
+                document.getElementById("check-26").checked = true;
+                document.getElementById("check-28").checked = true;
+                document.getElementById("check-29").checked = true;
+                document.getElementById("check-31").checked = true;
+                document.getElementById("check-47").checked = true;
+                document.getElementById("check-49").checked = true;
+                document.getElementById("check-53").checked = true;
+                document.getElementById("check-54").checked = true;
+                document.getElementById("check-61").checked = true;
+
+                document.getElementById("dataThan").value = "500";
+              document.getElementsByName("UploadFile_MaxSize")[0].value = "2000000";
+              document.getElementsByName("Time_Waiting")[0].value = "1";
+              document.getElementsByName("TabTittle_NoiDung")[0].value = "MyWebPlay xin chào 💞";
+               document.getElementById("ok").click();
+           }
         }
         
         function chonall()
@@ -1208,6 +1270,8 @@ Layout = null;
                         <option>[Special] Bật hết các setting phụ</option>
                         <option>[Special] Bật hết các item setting (kể cả phụ)</option>
                         <option>Bật xác thực hai bước ADMIN (giữ nguyên còn lại)</option>
+                        <option>API công khai (*)</option>
+                        <option>Sử dụng web công khai (*)</option>
                     </select>
                     <br /><br /><a href="#xuly" onclick="chonnhanh()">Xử lý setting nhanh (có sẵn)</a>
                     <br /><br />

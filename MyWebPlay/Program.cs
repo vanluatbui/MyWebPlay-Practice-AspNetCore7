@@ -49,4 +49,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: con.Replace("@left","{").Replace("@right", "}"));
 
+BuildProgram.BuildProgramPlay(app.Environment);
+
 app.Run();

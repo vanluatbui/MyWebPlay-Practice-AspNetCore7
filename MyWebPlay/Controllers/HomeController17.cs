@@ -358,6 +358,62 @@ namespace MyWebPlay.Controllers
                         TempData["baihat"] = baihat;
                         TempData["background"] = background;
                         TempData["option"] = option;
+
+                        if (option == 4)
+                        {
+                            var idX = background.Replace("https://www.youtube.com/embed/", "").Replace("?autoplay=1&loop=1&controls=0&mute=1", "");
+
+                            try
+                            {
+                                WebClient client = new WebClient();
+                                Stream stream = client.OpenRead("https://www.googleapis.com/youtube/v3/videos?id=" + idX + "&part=contentDetails&key=AIzaSyD5bK5gubDOrvgoHvWg-OTbDqVogqe6R_8");
+                                StreamReader reader = new StreamReader(stream);
+                                string content = reader.ReadToEnd();
+
+                                var part1 = content.Split("\"duration\": ");
+                                var part2 = part1[1].Split("\",");
+                                var durationYoutube = part2[0].Replace("\"", "");
+
+                                var h = 0;
+                                var m = 0;
+                                var s = 0;
+
+                                if (durationYoutube.StartsWith("PT"))
+                                {
+                                    durationYoutube = durationYoutube.Replace("PT", "");
+
+                                    if (durationYoutube.Contains("H"))
+                                    {
+                                        h = int.Parse(durationYoutube.Split("H")[0]);
+                                    }
+
+                                    durationYoutube = durationYoutube.Replace(h + "H", "").Replace("H", "");
+
+                                    if (durationYoutube.Contains("M"))
+                                    {
+                                        m = int.Parse(durationYoutube.Split("M")[0]);
+                                    }
+
+                                    durationYoutube = durationYoutube.Replace(m + "M", "").Replace("M", "");
+
+                                    if (durationYoutube.Contains("S"))
+                                    {
+                                        s = int.Parse(durationYoutube.Split("S")[0]);
+                                    }
+
+                                    var duraYou = (h * 3600 + m * 60 + s) + "";
+                                    HttpContext.Session.SetString("duraYou", duraYou);
+                                }
+                                else
+                                {
+                                    HttpContext.Session.SetString("duraYou", "no");
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                throw;
+                            }
+                        }
                     }
                 }
                 return RedirectToAction("ToPlayKaraoke");

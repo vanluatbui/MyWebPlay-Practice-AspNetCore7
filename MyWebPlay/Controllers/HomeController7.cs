@@ -358,7 +358,8 @@ namespace MyWebPlay.Controllers
 
                 if (f.ContainsKey("txtAPI"))
                 {
-                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
                     bandau = apiValue[0];
                     chuoi = apiValue[1];
                 }

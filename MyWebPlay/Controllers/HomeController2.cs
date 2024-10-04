@@ -297,7 +297,8 @@ namespace MyWebPlay.Controllers
 
                 if (f.ContainsKey("txtAPI"))
                 {
-                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
                     table = apiValue[0];
                     trangthai = apiValue[1];
                     dulieu = apiValue[2];
@@ -678,7 +679,8 @@ namespace MyWebPlay.Controllers
 
                 if (f.ContainsKey("txtAPI"))
                 {
-                    var apiValue = f["txtAPI"].ToString().Replace("\r", "").Split("\n||\n");
+                    var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
                     trangthai = apiValue[0];
                     dulieu = apiValue[1];
                 }

@@ -1,4 +1,5 @@
 /Admin/XoaViewMark
+/Admin/PublicSecureAdmin
 /Admin/SetIPForAdmin
 /Admin/GetInfoKaraokeServerForShare
 /Admin/DiChuyenFileExternal

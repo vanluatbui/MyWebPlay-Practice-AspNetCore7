@@ -1306,5 +1306,80 @@ namespace MyWebPlay.Controllers
 
             return Ok(new { result = false });
         }
+
+        public ActionResult PublicSecureAdmin()
+        {
+            try
+            {
+                TempData["opacity-body-css"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[16].Replace("OPACITY_CSS_BODY_", "");
+                if (HttpContext.Session.GetString("adminSetting") == null)
+                {
+                    return RedirectToAction("LoginSettingAdmin");
+                }
+
+                khoawebsiteAdmin();
+                var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[14];
+                if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
+                {
+                    if (this.HttpContext.Request.Method == "GET")
+                    {
+                        if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", 1);
+                            return Redirect("https://google.com");
+                        }
+                        else
+                        {
+                            var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                            if (lan != 10)
+                            {
+                                HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                                return Redirect("https://google.com");
+                            }
+                        }
+                    }
+                }
+                if (TempData["locked-app"] == "true")
+                    return RedirectToAction("Error", "Home", "Home");
+
+                var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
+                var pamCu = System.IO.File.ReadAllText(pam).Replace("\r","").Split("\n");
+
+                var pam1 = "";
+                for (int i = 0; i < 2; i++)
+                {
+                    pam1 += pamCu[i] + "\r\n";
+                }
+
+                var pam2 = "ADMINSETTING_ON\r\nfile_MO\r\nSettingABC_DarkBVL.txt\r\ndemokaraoke.bsite.net\r\nCOLOR_DIV_TRAC_NGHIEM_OFF\r\nCOLOR_DIV_QUESTION_OFF\r\nSESSION_PLAY_LOGIN_ON\r\nENCRYPT_LOCK_FILE_ADMIN_SETTING_WHEN_GO_TO_PAGE_ERROR_OFF\r\nLINK_HTTPS_ON\r\nSEND_MAIL_WHEN_ERROR_EXCEPTION_ON\r\nNOTICE : [NULL]\r\nNOT_USE_LOCKED_CLIENT_WEB_ON\r\nDIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_OFF\r\nAPPROVE_ALL_IP_USER_REGIST_WHEN_GO_TO_PAGE_ERROR_OFF\r\nOPACITY_CSS_BODY_1\r\nUNVISIBLED_SUB_MENU_ON\r\nSKIP_TWOSTEP_SETTING_ADMIN_WITH_BACKUP_CODE-c6RKu+0Vt8AdZItlxsj7jU3sevdl6hgf6TDH7AsK3f4=\r\nUSE_BACKUPCODE_AND_NOT_SEND_MAIL_FOR_SETTING_ADMIN_TWO_STEP_OFF\r\nHome--Index\r\nhttp://localhost:5000-http://localhost:5001\r\nFORM_IP_USER_REGIST_OFF\r\nJS_AUTO_CLOSE_WINDOW_OFF\r\nAJAX_JAVASCRIPT_ON";
+                System.IO.File.WriteAllText(pam, pam1 + pam2);
+
+                return Redirect("/Admin/SettingXYZ_DarkAdmin#changesetting");
+
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/Home/Index";
+
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty;
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                var mailError = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[11];
+                if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON")
+                {
+                    Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + ((HttpContext.Session.GetString("admin-userIP") != null) ? HttpContext.Session.GetString("admin-userIP") : HttpContext.Session.GetString("admin-userIP")) + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
+                }
+                return RedirectToAction("Error", "Home", new
+                {
+                    exception = "true"
+                });
+            }
+        }
     }
 }

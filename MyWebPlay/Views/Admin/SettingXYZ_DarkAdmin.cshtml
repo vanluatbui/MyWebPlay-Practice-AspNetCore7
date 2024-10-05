@@ -98,6 +98,15 @@ Layout = null;
             }});
         
         },10);
+
+        function publicsecureadmin()
+        {
+            var con = confirm("Bạn có chắc chắn không?");
+            if (con == true)
+            {
+                window.location.href = "/Admin/PublicSecureAdmin";
+            }
+        }
         
         function updatetrangthai()
         {
@@ -2366,7 +2375,7 @@ Layout = null;
             <br /><br />
             <td><input id="matma" size="30" type="password" name="txtPassword" /></td>
             <br /><br />
-            <td><button type="submit" style="color:mediumblue">THAY ĐỔI</button></td>
+            <td><button type="submit" style="color:mediumblue">THAY ĐỔI</button></td>&nbsp;&nbsp;<a href="#xuly" onclick="publicsecureadmin()" style="color:lime"><b>Public secure setting (admin)</b></a>
             <br /><br />
             <span style="color:red">Để reset lại nội dung mặc định, tại trang play session C# sử dụng key "reset-play-setting" với giá trị là 32752262_20062000 (tốt nhất nên thực hiện thêm bước API để khôi phục setting admin).</span>
             <br />

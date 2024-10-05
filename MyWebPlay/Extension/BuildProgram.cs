@@ -138,6 +138,29 @@ namespace MyWebPlay.Extension
             {
                 
             }
+
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "note", "textnote.txt");
+            if (File.Exists(path))
+            {
+                var file = new FileInfo(path);
+                Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                var dateFile = xz.AddHours(file.LastWriteTimeUtc, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture).Split("/");
+                var nowDate = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture).Split("/");
+
+                int d1 = int.Parse(dateFile[0]);
+                int m1 = int.Parse(dateFile[1]);
+                int y1 = int.Parse(dateFile[2]);
+
+
+                int d2 = int.Parse(nowDate[0]);
+                int m2 = int.Parse(nowDate[1]);
+                int y2 = int.Parse(nowDate[2]);
+
+                if (SoSanh2Ngay(d1, m1, y1, d2, m2, y2) == -1)
+                {
+                    System.IO.File.Delete(path);
+                }
+            }
         }
 
         private static void XoaDirectoryNull(string path, IWebHostEnvironment _webHostEnvironment)

@@ -117,6 +117,34 @@
         <meta charset="ISO-8859-1" />
         <script>
 
+            //window.onload = function() {
+            //    var muteplayPause = document.getElementById('muteplay');
+            //    //if (muteplayPause.paused)
+            //    //{
+            //        muteplayPause.addEventListener('pause', () => {
+            //            document.getElementById('muteplay').play();
+            //        });
+            //    //}
+
+            //    var musicPause = document.getElementById('music');
+            //    //if (musicPause.paused)
+            //    //{
+            //        musicPause.addEventListener('pause', () => {
+            //            document.getElementById('music').play();
+            //        });
+            //    //}
+
+            //    var musixPause = document.getElementById('musix');
+            //    //if (musixPause.paused)
+            //    //{
+            //        musixPause.addEventListener('pause', () => {
+            //            document.getElementById('musix').play();
+            //        });
+            //    //}
+            //};
+            
+            //---------------------------
+
             var lastTap = 0; // Lưu thời gian lần chạm cuối cùng
             
             function xemdoubleclick()
@@ -264,6 +292,22 @@
                         document.getElementById("number").style.bottom = "500px";
                     }
                 }
+
+                //--------------------------------
+
+                if ('@TempData["post-kara"]' == "true") {
+                    var musixPause = document.getElementById('musix');
+                    var musicPause = document.getElementById('music');
+
+                    if (musixPause.paused || musicPause.paused)
+                    {
+                        resetKaraoke();
+                        musicPause.play();
+                        musixPause.play();
+                        replay_Youtube();
+                    }
+                }
+
             }, 10);
             
             function playAutoList() {

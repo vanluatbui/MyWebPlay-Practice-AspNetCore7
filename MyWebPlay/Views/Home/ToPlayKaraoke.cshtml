@@ -575,7 +575,8 @@
             }
             
             function doikichthuoc_Save() {
-                if (localStorage.getItem("kichthuoc") == null) return;
+                if (localStorage.getItem("kichthuoc") == null
+                 || document.getElementById("kichthuoc") == null || document.getElementById("txtKaraoke1") == null || document.getElementById("txtKaraoke2") == null  || document.getElementById("number") == null) return;
             
                 var kichthuoc = localStorage.getItem("kichthuoc");
                 var kt = kichthuoc + "px";
@@ -594,7 +595,8 @@
             }
             
             function doihang_Save() {
-                if (localStorage.getItem("hang") == null) return;
+                if (localStorage.getItem("hang") == null
+                ||  document.getElementById("hang") == null) return;
             
                 var hang = new Number(localStorage.getItem("hang"));
             
@@ -1265,19 +1267,22 @@
             }
             
             function doimaunex_Save() {
-                if (localStorage.getItem("maunex") == null) return;
+                if (localStorage.getItem("maunex") == null
+                ||  document.getElementById("maunex") == null) return;
             
                 document.getElementById("maunex").value = localStorage.getItem("maunex");
             }
             
             function doianhmo_Save() {
-                if (localStorage.getItem("anhmo") == null) return;
+                if (localStorage.getItem("anhmo") == null
+                ||  document.getElementById("anhmo") == null) return;
             
                 document.getElementById("anhmo").value = localStorage.getItem("anhmo");
             }
             
             function doimaunen_Save() {
-                if (localStorage.getItem("maunen") == null || '@TempData["codinh"]' == "true") return;
+                if (localStorage.getItem("maunen") == null || '@TempData["codinh"]' == "true"
+                ||  document.getElementById("maunenX") == null) return;
             
                 if (localStorage.getItem("maunen") != "none" && localStorage.getItem("maunen") != "blue") {
                     var maunen = localStorage.getItem("maunen");
@@ -1293,7 +1298,8 @@
             }
             
             function doimau_Save() {
-                if (localStorage.getItem("mau") == null) return;
+                if (localStorage.getItem("mau") == null
+                 || document.getElementById("mau") == null || document.getElementById("xanhX1") == null || document.getElementById("xanhX2") == null ||  document.getElementById("xemthumau") == null) return;
             
                 mau = localStorage.getItem("mau");
                 document.getElementById("mau").value = mau;
@@ -1313,8 +1319,9 @@
             }
             
             function doimauX_Save() {
-                if (localStorage.getItem("mauX") == null) return;
-            
+                if (localStorage.getItem("mauX") == null
+                || document.getElementById("mauX") == null || document.getElementById("xanhX1") == null || document.getElementById("xanhX2") == null ||  document.getElementById("xemmauthu") == null) return;
+  
                 mauX = localStorage.getItem("mauX");
                 document.getElementById("mauX").value = mauX;
                 document.getElementById("xemmauthu").style.color = mauX;
@@ -1325,7 +1332,8 @@
             }
             
             function doimauY_Save() {
-                if (localStorage.getItem("mauY") == null) return;
+                if (localStorage.getItem("mauY") == null
+                || document.getElementById("mauY") == null || document.getElementById("xemmaudi") == null || document.getElementById("number") == null) return;
             
                 document.getElementById("mauY").value = localStorage.getItem("mauY");
                 document.getElementById("xemmaudi").style.color = localStorage.getItem("mauY");
@@ -1347,7 +1355,8 @@
             //}
             
             function doikieuchu_Save() {
-                if (localStorage.getItem("kieuchu") == null) return;
+                if (localStorage.getItem("kieuchu") == null
+                ||  document.getElementById("fontKieu") == null) return;
             
                 kieuchu = localStorage.getItem("kieuchu");
             
@@ -1393,7 +1402,8 @@
             }
             
             function doikieudemnguoc_Save() {
-                if (localStorage.getItem("kieudemnguoc") == null) return;
+                if (localStorage.getItem("kieudemnguoc") == null
+                ||  document.getElementById("kieudemnguoc") == null) return;
             
                 kieudemnguoc = localStorage.getItem("kieudemnguoc");
                 document.getElementById("kieudemnguoc").value = kieudemnguoc;

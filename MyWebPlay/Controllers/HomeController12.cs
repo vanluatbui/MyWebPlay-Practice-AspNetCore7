@@ -407,7 +407,7 @@ namespace MyWebPlay.Controllers
                     }
 
                     var xu = docfile(path);
-                    xu = xu.Replace("<script>", "").Replace("</script>", "");
+                    xu = xu.Replace("<script>", "&lt;script&gt;").Replace("</script>", "&lt;/script&gt;");
                     var encrypt = false;
                     try
                     {
@@ -970,7 +970,7 @@ namespace MyWebPlay.Controllers
                     }
 
                     var xu = docfile(path);
-                    xu = xu.Replace("<script>", "").Replace("</script>", "");
+                    xu = xu.Replace("<script>", "&lt;script&gt;").Replace("</script>", "&lt;/script&gt;");
                     var encrypt = false;
                     try
                     {

@@ -674,10 +674,11 @@ namespace MyWebPlay.Controllers
                     return RedirectToAction("Error");
 
                 var text = "";
-                if (string.IsNullOrEmpty(f["Text"]))
+                if (txtExternal == "true" || External == "true")
                     text = "External upload file [mywebplay] - admin";
                 else
                     text = xanh + " - " + f["Text"].ToString() + "\n\n#############################################################################\n\n";
+
 
                 int flax = 0;
                 if (folder.Length > 0 && new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file\\" + folder)).Exists == false)

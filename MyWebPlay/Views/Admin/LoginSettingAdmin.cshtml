@@ -70,6 +70,7 @@ Layout = null;
         var formData = new FormData();
         formData.append("ID", document.getElementById("IDadmin").value);
         formData.append("Password", document.getElementById("PASSadmin").value);
+        formData.append("ip", localStorage.getItem("ip_admin"));
 
          $.ajax({
             url: "/Admin/CheckingAutoLoginAdmin",

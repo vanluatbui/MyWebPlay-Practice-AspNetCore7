@@ -1203,7 +1203,7 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult CheckingAutoLoginAdmin(string ID, string Password)
+        public ActionResult CheckingAutoLoginAdmin(string? ip, string ID, string Password)
         {
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
             var noidungX = System.IO.File.ReadAllText(pathX);
@@ -1220,6 +1220,12 @@ namespace MyWebPlay.Controllers
                 var adminIP = HttpContext.Session.GetString("admin-userIP");
                 var pamX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
                 var valuePamX = System.IO.File.ReadAllText(pamX);
+
+                if (ip != null && valuePamX == MD5.CreateMD5(ip))
+                {
+                    HttpContext.Session.SetString("admin-userIP", ip);
+                    adminIP = ip;
+                }
 
                 if (adminIP != null)
                 {

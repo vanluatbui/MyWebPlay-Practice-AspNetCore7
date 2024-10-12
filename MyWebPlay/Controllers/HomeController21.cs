@@ -78,6 +78,7 @@ namespace MyWebPlay.Controllers
 
                 ViewBag.Chuoi = "user_id\tnvarchar\tNULL\r\nuser_age\tint\t((1))\r\nbirth_date\tdatetime\tNULL\r\nschool_date\tdatetime\tNULL\r\nweight\tdouble\tNULL\r\nheight\tdecimal\tNULL\r\nuser_name\tntext\tNULL\r\nuser_demo\tnvarchar\t(N'ON')\r\nfly_date\tdatetime\t(getdate())";
                 ViewBag.Default = "birth_date=12/10/2024\r\nweight=50.8\r\nuser_name=Trần Văn A";
+                ViewBag.Record = "US001\t10\t12/10/2000\t05/09/2024\t100\t50\tMyWebPlay Test\t\tNULL";
             }
             catch (Exception ex)
             {
@@ -206,6 +207,11 @@ namespace MyWebPlay.Controllers
                 boqua = boqua.Replace("[N-PLAY]", "\n");
                 boqua = boqua.Replace("[R-PLAY]", "\r");
 
+                string record = f["Record"].ToString();
+                record = record.Replace("[T-PLAY]", "\t");
+                record = record.Replace("[N-PLAY]", "\n");
+                record = record.Replace("[R-PLAY]", "\r");
+
                 if (f.ContainsKey("txtAPI"))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
@@ -213,11 +219,13 @@ namespace MyWebPlay.Controllers
                     chuoi = apiValue[0];
                     txtDefault = apiValue[1];
                     boqua = apiValue[2];
+                    record = apiValue[3];
                 }
 
                 ViewBag.Chuoi = f["Chuoi"].ToString();
                 ViewBag.Default = f["Default"].ToString();
                 ViewBag.BoQua = f["BoQua"].ToString();
+                ViewBag.Record = f["Record"].ToString();
 
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
 
@@ -283,6 +291,7 @@ namespace MyWebPlay.Controllers
                 var songDefault = new Hashtable();
 
                 var DefaultList = txtDefault.Replace("\r", "").Split("\n#3275#\n", StringSplitOptions.RemoveEmptyEntries);
+                var txtRecord = record.Split("\t");
                 for (int ii = 0; ii < DefaultList.Length; ii++)
                 {
                     var listDefault = DefaultList[ii].Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
@@ -307,22 +316,16 @@ namespace MyWebPlay.Controllers
                             repl += "N'" + songDefault[t[0]] + "'";
                         }
                         else
-                        if (t[2] != "NULL")
-                        {
-                            if (t[2] == "(getdate())")
-                                repl += "getdate()";
-                            else
-                                repl += t[2].Replace("(", "").Replace(")", "");
-                        }
-                        else
                         {
                             if (t[1] == "datetime")
-                                repl += "getdate()";
+                                repl += "'" + txtRecord[i] + "'";
                             else
                             if (t[1] == "int" || t[1] == "float" || t[1] == "decimal" || t[1] == "double" || t[1] == "long")
-                                repl += "0";
+                                repl += txtRecord[i];
                             else
-                                repl += "N'A'";
+                                repl += "N'" + txtRecord[i] + "'";
+
+                            repl = repl.Replace("'NULL'", "NULL").Replace("N'NULL'", "NULL");
                         }
 
                         if (i < listChuoi.Length - 1)

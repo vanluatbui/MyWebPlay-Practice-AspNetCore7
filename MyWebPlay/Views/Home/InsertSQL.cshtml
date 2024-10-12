@@ -31,6 +31,10 @@ Layout = null;
             <br>
             <textarea name="BoQua" id="boqua" cols="100" rows="5">@ViewBag.BoQua</textarea>
             <br>
+             <a href="#xuly" onclick="xoaValue('record')"> <b>Hãy cho vào đây một record từ kết quả SQL excute bất kỳ bạn muốn (nhằm để set các cột còn lại chưa có giá trị cụ thể) : </b></a><br>
+            <br>
+            <input type="text" id="record" name="Record" size="100" value="@ViewBag.Record" />
+            <br>
         </td>
     </tr>
     <tr style="height:40px">

@@ -188,3 +188,5 @@
 /Home/XuLySQL12
 /Home/XuLySQL16
 /Home/FindCompareValueInSQL
+/Home/WriteNoteLog
+/Home/ExportCalculatorSTForMe

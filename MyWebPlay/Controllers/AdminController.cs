@@ -3700,6 +3700,13 @@ namespace MyWebPlay.Controllers
                     new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "FileExternal")).Create();
 
                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "apiUpload")).Create();
+
+                var noteLog = Path.Combine(_webHostEnvironment.WebRootPath, "note", "notelog.txt");
+                if (System.IO.File.Exists(noteLog) == false)
+                {
+                    System.IO.File.Create(noteLog);
+                }
+
                 if (onoff == "file_MO")
                 {
                     if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file")).Exists == false)

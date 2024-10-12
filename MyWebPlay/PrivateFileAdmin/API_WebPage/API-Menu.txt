@@ -35,4 +35,5 @@
 [/Home/XuLySQL11]***txtTable><text><Table<>txtConstants><textarea><Constants.cs<>txtScript><textarea><script.sql<>txtChon><checkbox><Chỉ muốn tìm và liệt kê (không cần tạo - dành cho bổ sung ở Views)
 [/Home/XuLySQL12]***txtNoiDung><textarea><Mail template SQL
 [/Home/XuLySQL16]***txtTable><text><Table
-[/Home/FindCompareValueInSQL]***txtFields><textarea><Chuỗi các fields của bạn (chú ý index - cách nhau bởi Enter) <>txtOld><textarea><Chuỗi các giá trị cũ của dữ liệu (chú ý phải theo index - tách nhau bởi Enter và Tab) <>txtNew><textarea><Chuỗi các giá trị mới của dữ liệu (chú ý phải theo index - tách nhau bởi Enter và Tab)<>txtWhere><text><Nhập các fields làm dữ kiện nhận dạng (cách nhau bởi dấu phẩy) 
+[/Home/FindCompareValueInSQL]***txtFields><textarea><Chuỗi các fields của bạn (chú ý index - cách nhau bởi Enter) <>txtOld><textarea><Chuỗi các giá trị cũ của dữ liệu (chú ý phải theo index - tách nhau bởi Enter và Tab) <>txtNew><textarea><Chuỗi các giá trị mới của dữ liệu (chú ý phải theo index - tách nhau bởi Enter và Tab)<>txtWhere><text><Nhập các fields làm dữ kiện nhận dạng (cách nhau bởi dấu phẩy)
+[/Home/ExportCalculatorSTForMe]***Chuoi><textarea><Nhập chuỗi trong ST (hãy tự lọc các PC trước khi dán vào đây) 

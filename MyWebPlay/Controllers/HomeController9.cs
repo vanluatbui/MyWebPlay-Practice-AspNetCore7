@@ -2032,6 +2032,7 @@ namespace MyWebPlay.Controllers
                     return RedirectToAction("Index");
                 }
                 khoawebsiteClient(listIP);
+
                 if (chon == "1")
                 {
                     if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).Exists)

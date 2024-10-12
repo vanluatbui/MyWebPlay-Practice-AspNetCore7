@@ -1162,7 +1162,22 @@ namespace MyWebPlay.Controllers
                     noidung0 = "";
                 }
 
-                if (TempData["SaveComeHere"] == "true" && HttpContext.Session.GetString("trust-X-you") == null)
+                var pamUU = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                var valuePamUU = System.IO.File.ReadAllText(pamUU);
+
+                if (HttpContext.Session.GetString("userIP") != null)
+                {
+                    if (valuePamUU == MD5.CreateMD5(HttpContext.Session.GetString("userIP")))
+                    {
+                        TempData["logo-admin"] = "🌴";
+                    }
+                    else
+                    {
+                        TempData["logo-admin"] = "🍁";
+                    }
+                }
+
+                 if (TempData["SaveComeHere"] == "true" && HttpContext.Session.GetString("trust-X-you") == null)
                 {
                     //Lưu trữ IP tất cả khách hàng từng ghé thăm trang web (dù bật hay chưa sử dụng)
 
@@ -1423,6 +1438,12 @@ namespace MyWebPlay.Controllers
                     new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "apiUpload")).Delete(true);
 
                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "apiUpload")).Create();
+
+                var noteLog = Path.Combine(_webHostEnvironment.WebRootPath, "note", "notelog.txt");
+                if (System.IO.File.Exists(noteLog) == false)
+                {
+                    System.IO.File.Create(noteLog);
+                }
 
                 if (onoffY == "file_MO")
                 {

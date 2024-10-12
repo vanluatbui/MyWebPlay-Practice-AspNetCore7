@@ -917,8 +917,19 @@ namespace MyWebPlay.Controllers
                             }
                             else
                             {
-                                jsAppend += string.Format("var value =\"\";\r\nvar listName = document.getElementsByName('{0}');\r\nfor(var i = 0; i < listName.length; i++)\r\n&lt;\r\nif (listName[i].value != \"\")\r\n&lt;\r\nvalue = listName[i].value;\r\nbreak;\r\n&gt;\r\n&gt;\r\ndata.append(\"{0}\", value);\r\n", name)
+                                jsAppend += string.Format("var chonCheck = false;\r\nvar value =\"\";\r\nvar listName = document.getElementsByName('{0}');\r\nfor(var i = 0; i < listName.length; i++)\r\n&lt;\r\n@@ set_check_prepare @@\r\nif (listName[i].value != \"\")\r\n&lt;\r\nvalue = listName[i].value;\r\nbreak;\r\n&gt;\r\n&gt;\r\n@@ replace_value_checkbox @@\r\ndata.append(\"{0}\", value);\r\n", name)
                                     .Replace("&lt;", "{").Replace("&gt;", "}");
+
+                                if (type == "checkbox")
+                                {
+                                    jsAppend = jsAppend.Replace("@@ replace_value_checkbox @@", "if (chonCheck == true)\r\n{\r\nvalue = \"on\";\r\n}");
+                                    jsAppend = jsAppend.Replace("@@ set_check_prepare @@", "if (chonCheck == false && listName[i].checked == true)\r\n{\r\nchonCheck = true;\r\n}");
+                                }
+                                else
+                                {
+                                    jsAppend = jsAppend.Replace("@@ replace_value_checkbox @@", "");
+                                    jsAppend = jsAppend.Replace("@@ set_check_prepare @@", "");
+                                }
                             }
                         }
 

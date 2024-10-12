@@ -23,7 +23,7 @@ Layout = null;
             <br>
             <textarea name="Chuoi" id="chuoi" cols="100" rows="10">@ViewBag.Chuoi</textarea>
             <br>
-            <a href="#xuly" onclick="xoaValue('default')"> <b>Giá trị gán có sẵn bắt buộc, nếu không sẽ bỏ qua và gán mặc định (tên field[=]giá trị) [Nếu muốn thêm nhiều record có thể tách nhau bởi \n#3275#\n] : </b></a><br>
+            <a href="#xuly" onclick="xoaValue('default')"> <b>[Textarea thứ hai] Giá trị gán có sẵn bắt buộc, nếu không sẽ bỏ qua và gán mặc định (tên field[=]giá trị) [Nếu muốn thêm nhiều record có thể tách nhau bởi \n#3275#\n] - hoặc tích chọn checkbox bên dưới và thử lại khác : </b></a><br>
             <br>
             <textarea name="Default" id="default" cols="100" rows="5">@ViewBag.Default</textarea>
             <br>
@@ -35,6 +35,9 @@ Layout = null;
             <br>
             <input type="text" id="record" name="Record" size="100" value="@ViewBag.Record" />
             <br>
+            <br>
+            <input type="checkbox" name="checkDefault" /><b>Phân tách các giá trị mặc định gán cho các field (ở textarea thứ hai trên) bằng sự liệt kê như file csv/Excel</b>
+            <br />
         </td>
     </tr>
     <tr style="height:40px">

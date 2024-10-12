@@ -212,6 +212,8 @@ namespace MyWebPlay.Controllers
                 record = record.Replace("[N-PLAY]", "\n");
                 record = record.Replace("[R-PLAY]", "\r");
 
+                var checkDefault = f["checkDefault"].ToString();
+
                 if (f.ContainsKey("txtAPI"))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
@@ -220,6 +222,7 @@ namespace MyWebPlay.Controllers
                     txtDefault = apiValue[1];
                     boqua = apiValue[2];
                     record = apiValue[3];
+                    checkDefault = apiValue[4];
                 }
 
                 ViewBag.Chuoi = f["Chuoi"].ToString();
@@ -290,20 +293,52 @@ namespace MyWebPlay.Controllers
 
                 var songDefault = new Hashtable();
 
-                var DefaultList = txtDefault.Replace("\r", "").Split("\n#3275#\n", StringSplitOptions.RemoveEmptyEntries);
-                var txtRecord = record.Split("\t");
-                for (int ii = 0; ii < DefaultList.Length; ii++)
+
+                var splitX = "";
+                var indexX = 0;
+                if (checkDefault == "on")
                 {
-                    var listDefault = DefaultList[ii].Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
-                    s += "INSERT INTO XXX VALUES (@replace)";
-                    repl = "";
-                    songDefault.Clear();
-                    for (int i = 0; i < listDefault.Length; i++)
+                    splitX = "\n";
+                    indexX = 1;
+                }
+                else
+                {
+                    splitX = "\n#3275#\n";
+                    indexX = 0;
+                }
+
+                var DefaultList = txtDefault.Replace("\r", "").Split(splitX, StringSplitOptions.RemoveEmptyEntries);
+                var txtRecord = record.Split("\t");
+
+                var fieldX = DefaultList[0].Split("\t");
+
+                for (int ii = indexX; ii < DefaultList.Length; ii++)
+                {
+                    string[] listDefault = null;
+
+                    if (checkDefault == "on")
                     {
-                        var t = listDefault[i].Split("=");
-                        songDefault.Add(t[0], t[1]);
+                        listDefault = DefaultList[ii].Split("\t");
+                        songDefault.Clear();
+                        for (int i = 0; i < listDefault.Length; i++)
+                        {
+                            var t = listDefault[i];
+                            songDefault.Add(fieldX[i], t);
+                        }
+                    }
+                    else
+                    {
+                        listDefault = DefaultList[ii].Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+                        songDefault.Clear();
+                        for (int i = 0; i < listDefault.Length; i++)
+                        {
+                            var t = listDefault[i].Split("=");
+                            songDefault.Add(t[0], t[1]);
+                        }
                     }
 
+                    s += "INSERT INTO XXX VALUES (@replace)";
+                    repl = "";
                     var listChuoi = chuoi.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
                     for (int i = 0; i < listChuoi.Length; i++)
                     {

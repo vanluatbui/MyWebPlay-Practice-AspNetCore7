@@ -94,5 +94,24 @@ namespace MyWebPlay.Controllers
             }
             return View();
         }
+
+        public ActionResult OnOffAPIHtml(string? isEnabled)
+        {
+            var htmlAPI = Path.Combine(_webHostEnvironment.WebRootPath, "API", "API.html");
+
+            if (System.IO.File.Exists(htmlAPI))
+            {
+                if (isEnabled == "32752262")
+                {
+                    System.IO.File.SetAttributes(htmlAPI, FileAttributes.Normal);
+                }
+                else
+                {
+                    System.IO.File.SetAttributes(htmlAPI, FileAttributes.Hidden);
+                }
+            }
+
+            return Ok(new { result = "Đã xử lý theo yêu cầu." });
+        }
     }
 }

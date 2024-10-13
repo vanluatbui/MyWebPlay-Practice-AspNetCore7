@@ -7,6 +7,8 @@ using System.Diagnostics.Metrics;
 using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace MyWebPlay.Controllers
 {
@@ -414,6 +416,17 @@ namespace MyWebPlay.Controllers
             return Ok(new { result = "Đã xử lý thành công." });
         }
 
+        [HttpPost]
+        public ActionResult EncodeUrlData(string url)
+        {
+            return Ok(new { url = StringMaHoaExtension.Encrypt(url) });
+        }
+
+        public ActionResult RedirectUrlEncode(string? id, string code)
+        {
+            return Redirect(StringMaHoaExtension.Decrypt(code));
+        }
+   
         public class STData
         {
             public string PJ { get; set; }

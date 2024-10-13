@@ -370,20 +370,31 @@
                     var kichthuocR = document.getElementById("kichthuoc").value;
                     var fontKieuR = document.getElementById("fontKieu").options.selectedIndex;
                     // var kieudemnguocR = document.getElementById("kieudemnguoc").value;
-                    var kieudemnguocR = "N";
+                    var kieudemnguocR = document.getElementById("kieudemnguoc").value;
                     var maunexR = document.getElementById("maunex").value.replace("#", "");
                     var anhmoR = document.getElementById("anhmo").value;
             
                     luutru = "&&setting=" + hangR + "<>" + mauR + "<>" + mauXR + "<>" + mauYR + "<>" + kichthuocR + "<>" + fontKieuR + "<>" + kieudemnguocR + "<>" + maunexR + "<>" + anhmoR;
                 }
             
-                var url = "http://" + "@ViewBag.Host" + "/Home/Share_Karaoke?id=" + document.getElementById("linkKara").value + mi + luutru;
-                navigator.clipboard.writeText(url);
+                var url = '@TempData["https_url"]' + "://" + "@ViewBag.Host" + "/Home/Share_Karaoke?id=" + document.getElementById("linkKara").value + mi + luutru;
+
+                var formData = new FormData();
+                formData.append("url", url);
+                $.ajax({
+                    url: "/Home/EncodeUrlData",
+                    type: "POST",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
             
+                  navigator.clipboard.writeText('@TempData["https_url"]' + "://" + "@ViewBag.Host" + "/Home/RedirectUrlEncode?id=share_karaoke&&code=" + data.url);
                 document.getElementById("message").style.display = "block";
                 document.getElementById("error").style.display = "block";
                 document.getElementById("error").innerHTML = "✔️ Một url chia sẻ Karaoke đã được copy vào Clipboard của bạn. Hãy chia sẻ bài hát này và mang niềm vui đến bạn bè mình nhé !";
                 notice = 1;
+            }});
             }
             
             var idX;
@@ -1547,7 +1558,8 @@
                     document.getElementById("fontKieu").options.selectedIndex = new Number('@TempData["R-fontkieu"]');
                     doiFontKieu();
             
-                    document.getElementById("kieudemnguoc").value = '@TempData["R-kieudemnguoc"]';
+                    document.getElementById("demnguockieu").innerHTML = '@TempData["R-kieudemnguoc"]';
+                    document.getElementById("kieudemnguoc").value = document.getElementById("demnguockieu").innerHTML;
                     kieudemnguoc = '@TempData["R-kieudemnguoc"]';
                     doikieudemnguoc();
             
@@ -2268,6 +2280,7 @@
                     <span style="color: deeppink;"><b>Vị trí xuất hiện : </b></span> <input id="hang" type="number" style="width: 5em;" min="0" value="0" onchange="doihang()" />
                     } else {
                     <span style="display: none; color: deeppink;"><b>Vị trí xuất hiện : </b></span> <input style="display: none; width: 5em;" id="hang" type="number" min="0" value="0" onchange="doihang()" /> } 
+                    <span id="demnguockieu" style="display:none"></span>
                     <input id="kieudemnguoc" maxlength="2" title="Nhập icon đếm ngược để bắt đầu karaoke (nếu bạn nhập N thì mặc định sẽ đếm ngược cơ bản theo : 3 - 2 - 1)" onchange="doikieudemnguoc()" value="N" size="3" />
                     @if (ViewBag.SuDung == "Video") {
                     <input type="checkbox" onchange="videovua()" id="vuavideo" />

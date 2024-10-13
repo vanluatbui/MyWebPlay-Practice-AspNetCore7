@@ -190,3 +190,5 @@
 /Home/FindCompareValueInSQL
 /Home/WriteNoteLog
 /Home/ExportCalculatorSTForMe
+/Home/EncodeUrlData
+/Home/RedirectUrlEncode

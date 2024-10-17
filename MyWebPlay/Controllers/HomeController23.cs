@@ -435,5 +435,34 @@ namespace MyWebPlay.Controllers
             public double ES { get; set; }
             public double AL { get; set; }
         }
+
+        [HttpPost]
+        public ActionResult AddNewReplace(IFormFile file, string replace="false")
+        {
+            var noteLog = Path.Combine(_webHostEnvironment.WebRootPath, "note", "notelog.txt");
+            Calendar xz = CultureInfo.InvariantCulture.Calendar;
+            string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+
+            if (file != null && file.FileName.EndsWith(".txt"))
+            {
+                using (var reader = new StreamReader(file.OpenReadStream()))
+                {
+                    string content = reader.ReadToEnd();
+                    var pathReplace = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Others", "ReplaceManager.txt");
+
+                    if (replace == "false")
+                    {
+                        var readReplace = System.IO.File.ReadAllText(pathReplace);
+                        System.IO.File.WriteAllText(pathReplace, readReplace + "\r\n" + content);
+                    }
+                    else
+                    {
+                        System.IO.File.WriteAllText(pathReplace, content);
+                    }
+                }
+            }
+
+            return Ok(new { result = "Đã xử lý thành công.", datetime = CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7) });
+        }
     }
 }

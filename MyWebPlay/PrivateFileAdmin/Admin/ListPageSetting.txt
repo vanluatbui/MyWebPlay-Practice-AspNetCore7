@@ -192,3 +192,4 @@
 /Home/ExportCalculatorSTForMe
 /Home/EncodeUrlData
 /Home/RedirectUrlEncode
+/Hone/AddNewReplace

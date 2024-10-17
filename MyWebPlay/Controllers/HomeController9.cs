@@ -407,7 +407,8 @@ namespace MyWebPlay.Controllers
                         return RedirectToAction("UploadFile");
                     return Ok(new
                     {
-                        error = "Dịch vụ đang tạm ngừng, mời bạn thử lại sau!"
+                        error = "Dịch vụ đang tạm ngừng, mời bạn thử lại sau!",
+                        datetime = CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7)
                     });
                 }
                 ghilogrequest(f);
@@ -538,7 +539,8 @@ namespace MyWebPlay.Controllers
                         if (External == "true" && info[1] == "false")
                             return Ok(new
                             {
-                                error = "Bạn không được phép liên lạc tính năng này!"
+                                error = "Bạn không được phép liên lạc tính năng này!",
+                                datetime = CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7)
                             });
                     }
                 }
@@ -1224,7 +1226,8 @@ namespace MyWebPlay.Controllers
                         return Redirect("https://google.com");
                     return Ok(new
                     {
-                        success = "Đã xử lý thành công !"
+                        success = "Đã xử lý thành công !",
+                        datetime = CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7)
                     });
                 }
             }

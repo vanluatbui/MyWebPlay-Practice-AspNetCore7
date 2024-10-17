@@ -385,7 +385,7 @@ namespace MyWebPlay.Controllers
                 }
             }
 
-            return Ok(new { result = "Đã xử lý theo yêu cầu." });
+            return Ok(new { result = "Đã xử lý theo yêu cầu.", datetime = CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7) });
         }
 
         [HttpPost]
@@ -413,7 +413,7 @@ namespace MyWebPlay.Controllers
             var read = System.IO.File.ReadAllText(noteLog);
             System.IO.File.WriteAllText(noteLog, read + "\r\n" + noidung);
 
-            return Ok(new { result = "Đã xử lý thành công." });
+            return Ok(new { result = "Đã xử lý thành công.", datetime = CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7) });
         }
 
         [HttpPost]

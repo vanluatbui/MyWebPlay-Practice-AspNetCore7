@@ -148,13 +148,15 @@ namespace MyWebPlay.Controllers
                     ViewBag.Loi = "";
                     return Ok(new
                     {
-                        error = "Đã xảy ra lỗi trong quá trình thực hiện (hoặc thành công được chút ít)"
+                        error = "Đã xảy ra lỗi trong quá trình thực hiện (hoặc thành công được chút ít)",
+                        datetime = CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7)
                     });
                 }
 
                 return Ok(new
                 {
-                    result = "Đã xử lý thành công !"
+                    result = "Đã xử lý thành công !",
+                    datetime = CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7)
                 });
             }
             catch (Exception ex)
@@ -282,14 +284,16 @@ namespace MyWebPlay.Controllers
                 {
                     return Ok(new
                     {
-                        alert = "File không tồn tại!"
+                        alert = "File không tồn tại!",
+                        datetime = CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7)
                     });
                 }
 
                 return Ok(new
                 {
                     url = "http://" + Request.Host + "/apiUpload/" + name,
-                    html = "<a href=\"/apiUpload/" + name + "\">Click here</a>"
+                    html = "<a href=\"/apiUpload/" + name + "\">Click here</a>",
+                    datetime = CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7)
                 });
             }
             catch (Exception ex)
@@ -565,7 +569,8 @@ namespace MyWebPlay.Controllers
                 if (infoX[1] == "false")
                     return Ok(new
                     {
-                        error = "Dịch vụ đang bị tạm ngừng, mời quay lại sau !"
+                        error = "Dịch vụ đang bị tạm ngừng, mời quay lại sau !",
+                        datetime = CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7)
                     });
 
                 var formFile = new List<IFormFile>(fileUpload);
@@ -606,7 +611,8 @@ namespace MyWebPlay.Controllers
             }
             return Ok(new
             {
-                message = "Đã xử lý thành công !"
+                message = "Đã xử lý thành công !",
+                datetime = CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7)
             });
         }
 
@@ -680,7 +686,8 @@ namespace MyWebPlay.Controllers
                             if (info[1] == "false")
                                 return Ok(new
                                 {
-                                    error = "Bạn không được phép liên lạc tính năng này!"
+                                    error = "Bạn không được phép liên lạc tính năng này!",
+                                    datetime = CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7)
                                 });
                         }
                     }
@@ -707,7 +714,8 @@ namespace MyWebPlay.Controllers
                 }
                 return Ok(new
                 {
-                    error = "Đã xử lý thành công!"
+                    error = "Đã xử lý thành công!",
+                    datetime = CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7)
                 });
             }
             catch (Exception ex)

@@ -181,8 +181,9 @@ namespace MyWebPlay.Controllers
                 {
                     return Ok(new
                     {
-                        error = "Đã xảy ra lỗi, vui lòng thử lại sau !"
-                    });
+                        error = "Đã xảy ra lỗi, vui lòng thử lại sau !",
+                        datetime = CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7)
+                });
                 }
 
                 var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
@@ -200,7 +201,8 @@ namespace MyWebPlay.Controllers
 
                 return Ok(new
                 {
-                    result = "Thành công, dữ liệu đã được khôi phục !"
+                    result = "Thành công, dữ liệu đã được khôi phục !",
+                    datetime = CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7)
                 });
             }
             catch (Exception ex)

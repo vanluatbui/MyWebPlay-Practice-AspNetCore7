@@ -203,10 +203,11 @@ namespace MyWebPlay.Controllers
                 txtDefault = txtDefault.Replace("[R-PLAY]", "\r");
 
                 var pathReplace = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Others", "ReplaceManager.txt");
-                var readReplace = System.IO.File.ReadAllText(pathReplace).Replace("\r","").Split("\n");
+                var readReplace = System.IO.File.ReadAllText(pathReplace).Replace("\r","").Split("\n", StringSplitOptions.RemoveEmptyEntries);
                 foreach(var item in readReplace)
                 {
                     var span = item.Split("->");
+                    if (span.Length < 2) continue;
                     txtDefault = txtDefault.Replace(span[0], span[1]);
                 }
 

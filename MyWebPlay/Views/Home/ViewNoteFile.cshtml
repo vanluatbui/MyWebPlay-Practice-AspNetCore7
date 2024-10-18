@@ -28,7 +28,8 @@ Layout = null;
     <option>Xem note dưới dạng lable</option>
 </select>
 <button onclick="xoa()"><b style="color:red">XOÁ</b></button>
-<h3 style="color:purple"> @ViewBag.DateTime</h3>
+<h3 style="color:purple"> @ViewBag.DateTime<br />
+    <span style="color:orangered">(nội dung note có thể sẽ tự động xoá sau 7 ngày kể từ ngày ghi chú này được cập nhật lần cuối)</span></h3>
 <br /><br />
 <h3>@Html.ActionLink("Chỉnh sửa Text Note", "EditTextNote")</h3>
 <br />

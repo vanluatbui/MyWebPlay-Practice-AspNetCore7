@@ -154,7 +154,7 @@ namespace MyWebPlay.Extension
                 var dateFile = xz.AddHours(file.LastWriteTimeUtc, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture).Split("/");
                 var nowDate = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture).Split("/");
 
-                int d1 = int.Parse(dateFile[0]);
+                int d1 = int.Parse(dateFile[0]) + 6;
                 int m1 = int.Parse(dateFile[1]);
                 int y1 = int.Parse(dateFile[2]);
 

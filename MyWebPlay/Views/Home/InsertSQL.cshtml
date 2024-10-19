@@ -34,7 +34,10 @@ Layout = null;
              <a href="#xuly" onclick="xoaValue('record')"> <b>Hãy cho vào đây một record từ kết quả SQL excute bất kỳ bạn muốn (nhằm để set các cột còn lại chưa có giá trị cụ thể) : </b></a><br>
             <br>
             <input type="text" id="record" name="Record" size="100" value="@ViewBag.Record" />
+            <br />
+             <a href="#xuly" onclick="xoaValue('dateform')"> <b>Với giá trị cột có kiểu datetime, nhập format ngày đang ghi ứng với giá trị hiện tại của bạn : </b></a><br>
             <br>
+            <input type="text" id="dateform" name="DateForm" size="10" value="@ViewBag.DateForm" />
             <br>
             <input type="checkbox" name="checkDefault" /><b>Phân tách các giá trị mặc định gán cho các field (ở textarea thứ hai trên) bằng sự liệt kê như file csv/Excel</b>
             <br />

@@ -801,6 +801,8 @@ namespace MyWebPlay.Controllers
 
                 var yes_log = true;
 
+                TempData["admin_IP"] = HttpContext.Session.GetString("admin-userIP");
+
                 if (HttpContext.Session.GetString("admin-userIP") != null)
                 {
                     if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("admin-userIP"))) yes_log = false;
@@ -1322,6 +1324,8 @@ namespace MyWebPlay.Controllers
                 {
                     return RedirectToAction("LoginSettingAdmin", "Admin");
                 }
+
+                TempData["admin_IP"] = HttpContext.Session.GetString("admin-userIP");
 
                 var pathWW = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
                 var noidungWW = System.IO.File.ReadAllText(pathWW);

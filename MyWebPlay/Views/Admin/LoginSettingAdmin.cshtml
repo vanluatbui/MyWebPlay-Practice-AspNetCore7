@@ -282,6 +282,8 @@ Layout = null;
     @if (TempData["show-setting"] == "true")
     {
     <h1 style="color:deeppink">BẢN XEM TRƯỚC MỘT SỐ CÀI ĐẶT HIỆN TẠI (để chỉnh sửa vui lòng đăng nhập)</h1>
+    <span style="color:orangered">(@TempData["admin_IP"])</span>
+    <br />
     <br />
     <select id="chonX" onchange="thaydoichon()">
         <option>Hiển thị tất cả</option>

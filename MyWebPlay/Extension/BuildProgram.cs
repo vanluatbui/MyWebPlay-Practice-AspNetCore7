@@ -9,9 +9,11 @@ namespace MyWebPlay.Extension
             DeleteBin((IWebHostEnvironment)environment);
         }
 
-
         private static void DeleteBin(IWebHostEnvironment _webHostEnvironment)
         {
+            var errorPath = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "EXCEPTION_ERROR_LOG.txt");
+            System.IO.File.WriteAllText(errorPath, "");
+
             if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Exists == true)
                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Delete(true);
 

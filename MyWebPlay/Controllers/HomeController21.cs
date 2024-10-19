@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using MyWebPlay.Extension;
 using MyWebPlay.Model;
 using System.Collections;
 using System.Diagnostics;
 using System.Globalization;
+using static Org.BouncyCastle.Bcpg.Attr.ImageAttrib;
 
 namespace MyWebPlay.Controllers
 {
@@ -79,6 +81,7 @@ namespace MyWebPlay.Controllers
                 ViewBag.Chuoi = "user_id\tnvarchar\tNULL\r\nuser_age\tint\t((1))\r\nbirth_date\tdatetime\tNULL\r\nschool_date\tdatetime\tNULL\r\nweight\tdouble\tNULL\r\nheight\tdecimal\tNULL\r\nuser_name\tntext\tNULL\r\nuser_demo\tnvarchar\t(N'ON')\r\nfly_date\tdatetime\t(getdate())";
                 ViewBag.Default = "birth_date=12/10/2024\r\nweight=50.8\r\nuser_name=Trần Văn A";
                 ViewBag.Record = "US001\t10\t12/10/2000\t05/09/2024\t100\t50\tMyWebPlay Test\t\tNULL";
+                ViewBag.DateForm = "dd/MM/yyyy";
             }
             catch (Exception ex)
             {
@@ -88,6 +91,7 @@ namespace MyWebPlay.Controllers
                     req = "/Home/Index";
 
                 HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + "");
                 return RedirectToAction("Error", new
                 {
                     exception = "true"
@@ -224,6 +228,8 @@ namespace MyWebPlay.Controllers
 
                 var checkDefault = f["checkDefault"].ToString();
 
+                var dateForm = f["DateForm"].ToString();
+
                 if (f.ContainsKey("txtAPI"))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
@@ -233,12 +239,14 @@ namespace MyWebPlay.Controllers
                     boqua = apiValue[2];
                     record = apiValue[3];
                     checkDefault = apiValue[4];
+                    dateForm = apiValue[5];
                 }
 
                 ViewBag.Chuoi = f["Chuoi"].ToString();
                 ViewBag.Default = f["Default"].ToString();
                 ViewBag.BoQua = f["BoQua"].ToString();
                 ViewBag.Record = f["Record"].ToString();
+                ViewBag.DateForm = f["DateForm"].ToString();
 
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
 
@@ -358,12 +366,37 @@ namespace MyWebPlay.Controllers
 
                         if (songDefault.ContainsKey(t[0]))
                         {
-                            repl += "N'" + songDefault[t[0]] + "'";
+                            if (t[1] == "datetime")
+                            {
+                                var check = DateTime.TryParse(songDefault[t[0]].ToString(), out var newDateConvert);
+                                if (check)
+                                {
+                                    DateTime dateTime = DateTime.ParseExact(songDefault[t[0]].ToString(), dateForm, CultureInfo.InvariantCulture);
+
+                                    // Chuyển đổi về dạng yyyy-mm-dd
+                                    string formattedDate = dateTime.ToString("yyyy-MM-dd");
+                                    repl += "'" + formattedDate + "'";
+                                }
+                            }
+                            else
+                                repl += "N'" + songDefault[t[0]] + "'";
                         }
                         else
                         {
                             if (t[1] == "datetime")
-                                repl += "'" + txtRecord[i] + "'";
+                            {
+                                var check = DateTime.TryParse(txtRecord[i], out var newDateConvert);
+                                if (check)
+                                {
+                                    DateTime dateTime = DateTime.ParseExact(txtRecord[i], dateForm, CultureInfo.InvariantCulture);
+
+                                    // Chuyển đổi về dạng yyyy-mm-dd
+                                    string formattedDate = dateTime.ToString("yyyy-MM-dd");
+                                    repl += "'" + formattedDate + "'";
+                                }
+                                else
+                                    repl += "'" + txtRecord[i] + "'";
+                            }
                             else
                             if (t[1] == "int" || t[1] == "float" || t[1] == "decimal" || t[1] == "double" || t[1] == "long")
                                 repl += txtRecord[i];
@@ -419,7 +452,8 @@ namespace MyWebPlay.Controllers
                     req = "/Home/Index";
 
                 HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
-               ghilogrequest(f); if (exter == false)
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + "");
+                ghilogrequest(f); if (exter == false)
                     return RedirectToAction("Error", new
                     {
                         exception = "true"
@@ -519,6 +553,7 @@ namespace MyWebPlay.Controllers
                     req = "/Home/Index";
 
                 HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + "");
                 return RedirectToAction("Error", new
                 {
                     exception = "true"
@@ -710,6 +745,7 @@ namespace MyWebPlay.Controllers
                     req = "/Home/Index";
 
                 HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace);
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + "");
                 return RedirectToAction("Error", new
                 {
                     exception = "true"

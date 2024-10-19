@@ -460,7 +460,7 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult FindCompareValueInSQL(IFormCollection f)
+        public ActionResult FindCompareValueInSQL(IFormCollection f, IFormFile fileData)
         {
             try
             {
@@ -621,9 +621,20 @@ namespace MyWebPlay.Controllers
 
                 var listNew = f["txtNew"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r", "").Split("\n");
 
-                if (f.ContainsKey("txtAPI"))
+                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    {
+                        if (fileData.FileName.EndsWith(".txt"))
+                        {
+                            using (var reader = new StreamReader(fileData.OpenReadStream()))
+                            {
+                                string content = reader.ReadToEnd();
+                                txtAPI = content;
+                            }
+                        }
+                    }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
                     listFields = apiValue[0].Replace("\r", "").Split("\n");
                     listOld = apiValue[1].Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r", "").Split("\n");
@@ -827,7 +838,7 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult XuLySQL1(IFormCollection f)
+        public ActionResult XuLySQL1(IFormCollection f, IFormFile fileData)
         {
             try
             {
@@ -925,9 +936,20 @@ namespace MyWebPlay.Controllers
                 txtTable = txtTable.Replace("[N-PLAY]", "\n");
                 txtTable = txtTable.Replace("[R-PLAY]", "\r");
 
-                if (f.ContainsKey("txtAPI"))
+                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    {
+                        if (fileData.FileName.EndsWith(".txt"))
+                        {
+                            using (var reader = new StreamReader(fileData.OpenReadStream()))
+                            {
+                                string content = reader.ReadToEnd();
+                                txtAPI = content;
+                            }
+                        }
+                    }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
                     txtTable = apiValue[0];
                 }
@@ -1136,7 +1158,7 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult XuLySQL2(IFormCollection f)
+        public ActionResult XuLySQL2(IFormCollection f, IFormFile fileData)
         {
             try
             {
@@ -1293,9 +1315,20 @@ namespace MyWebPlay.Controllers
                 chon = chon.Replace("[T-PLAY]", "\t");
                 chon = chon.Replace("[N-PLAY]", "\n");
 
-                if (f.ContainsKey("txtAPI"))
+                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    {
+                        if (fileData.FileName.EndsWith(".txt"))
+                        {
+                            using (var reader = new StreamReader(fileData.OpenReadStream()))
+                            {
+                                string content = reader.ReadToEnd();
+                                txtAPI = content;
+                            }
+                        }
+                    }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
                     txtTable = apiValue[0];
                     chon = apiValue[1];
@@ -1490,7 +1523,7 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult XuLySQL3(IFormCollection f)
+        public ActionResult XuLySQL3(IFormCollection f, IFormFile fileData)
         {
             var nix = "";
             var exter = false;
@@ -1599,9 +1632,20 @@ namespace MyWebPlay.Controllers
                 dauhieu = dauhieu.Replace("[N-PLAY]", "\n");
                 dauhieu = dauhieu.Replace("[R-PLAY]", "\r");
 
-                if (f.ContainsKey("txtAPI"))
+                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    {
+                        if (fileData.FileName.EndsWith(".txt"))
+                        {
+                            using (var reader = new StreamReader(fileData.OpenReadStream()))
+                            {
+                                string content = reader.ReadToEnd();
+                                txtAPI = content;
+                            }
+                        }
+                    }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
                     field = apiValue[0];
                     dauhieu = apiValue[1];
@@ -1829,7 +1873,7 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult XuLyCode9(IFormCollection f)
+        public ActionResult XuLyCode9(IFormCollection f, IFormFile fileData)
         {
             try
             {
@@ -1909,9 +1953,20 @@ namespace MyWebPlay.Controllers
                 txtTable = txtTable.Replace("[N-PLAY]", "\n");
                 txtTable = txtTable.Replace("[R-PLAY]", "\r");
 
-                if (f.ContainsKey("txtAPI"))
+                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    {
+                        if (fileData.FileName.EndsWith(".txt"))
+                        {
+                            using (var reader = new StreamReader(fileData.OpenReadStream()))
+                            {
+                                string content = reader.ReadToEnd();
+                                txtAPI = content;
+                            }
+                        }
+                    }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
                     txtTable = apiValue[0];
                 }
@@ -2162,7 +2217,7 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult XuLySQL4(IFormCollection f)
+        public ActionResult XuLySQL4(IFormCollection f, IFormFile fileData)
         {
             try
             {
@@ -2241,9 +2296,20 @@ namespace MyWebPlay.Controllers
                 var thieus = f["txtThieu"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r", "").Split("\n");
                 var daydus = f["txtDayDu"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r", "").Split("\n");
 
-                if (f.ContainsKey("txtAPI"))
+                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    {
+                        if (fileData.FileName.EndsWith(".txt"))
+                        {
+                            using (var reader = new StreamReader(fileData.OpenReadStream()))
+                            {
+                                string content = reader.ReadToEnd();
+                                txtAPI = content;
+                            }
+                        }
+                    }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
                     txtTable = apiValue[0];
                     daydus = apiValue[1].Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r", "").Split("\n");

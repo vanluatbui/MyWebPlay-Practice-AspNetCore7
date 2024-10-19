@@ -104,7 +104,7 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult SQL_CreateTable(IFormCollection f)
+        public ActionResult SQL_CreateTable(IFormCollection f, IFormFile fileData)
         {
             var nix = "";
             var exter = false;
@@ -257,9 +257,20 @@ namespace MyWebPlay.Controllers
                 string tableX = f["Table"].ToString();
                 string key = f["Key"].ToString();
 
-                if (f.ContainsKey("txtAPI"))
+                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    {
+                        if (fileData.FileName.EndsWith(".txt"))
+                        {
+                            using (var reader = new StreamReader(fileData.OpenReadStream()))
+                            {
+                                string content = reader.ReadToEnd();
+                                txtAPI = content;
+                            }
+                        }
+                    }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
                     tableX = apiValue[0];
                     key = apiValue[1];
@@ -569,7 +580,7 @@ namespace MyWebPlay.Controllers
         List<string> DS_thuoctinh = new List<string>();
 
         [HttpPost]
-        public ActionResult Cxap_CreateClass(IFormCollection f)
+        public ActionResult Cxap_CreateClass(IFormCollection f, IFormFile fileData)
         {
             var nix = "";
             var exter = false;
@@ -721,9 +732,20 @@ namespace MyWebPlay.Controllers
 
                 string tenclass = f["TenClass"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
 
-                if (f.ContainsKey("txtAPI"))
+                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    {
+                        if (fileData.FileName.EndsWith(".txt"))
+                        {
+                            using (var reader = new StreamReader(fileData.OpenReadStream()))
+                            {
+                                string content = reader.ReadToEnd();
+                                txtAPI = content;
+                            }
+                        }
+                    }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
                     tenclass = apiValue[0];
                     dulieu = apiValue[1];
@@ -980,7 +1002,7 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult Cxap_InsertValueClass(IFormCollection f)
+        public ActionResult Cxap_InsertValueClass(IFormCollection f, IFormFile fileData)
         {
             var nix = "";
             var exter = false;
@@ -1136,9 +1158,20 @@ namespace MyWebPlay.Controllers
                 string dukien2 = f["DuKien2"].ToString();
 
 
-                if (f.ContainsKey("txtAPI"))
+                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    {
+                        if (fileData.FileName.EndsWith(".txt"))
+                        {
+                            using (var reader = new StreamReader(fileData.OpenReadStream()))
+                            {
+                                string content = reader.ReadToEnd();
+                                txtAPI = content;
+                            }
+                        }
+                    }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
                     tenclass = apiValue[0];
                     dukien1 = apiValue[1];

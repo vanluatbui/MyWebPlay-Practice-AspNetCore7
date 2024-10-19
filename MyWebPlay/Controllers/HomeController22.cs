@@ -101,7 +101,7 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult XuLySQL14(IFormCollection f)
+        public ActionResult XuLySQL14(IFormCollection f, IFormFile fileData)
         {
             var nix = "";
             var exter = false;
@@ -216,9 +216,20 @@ namespace MyWebPlay.Controllers
                 recordmoi = recordmoi.Replace("[N-PLAY]", "\n");
                 recordmoi = recordmoi.Replace("[R-PLAY]", "\r");
 
-                if (f.ContainsKey("txtAPI"))
+                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    {
+                        if (fileData.FileName.EndsWith(".txt"))
+                        {
+                            using (var reader = new StreamReader(fileData.OpenReadStream()))
+                            {
+                                string content = reader.ReadToEnd();
+                                txtAPI = content;
+                            }
+                        }
+                    }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
                     namecu = apiValue[0];
                     recordcu = apiValue[1];
@@ -472,7 +483,7 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult XuLySQL15(IFormCollection f)
+        public ActionResult XuLySQL15(IFormCollection f, IFormFile fileData)
         {
             var nix = "";
             var exter = false;
@@ -572,9 +583,20 @@ namespace MyWebPlay.Controllers
                 dataText = dataText.Replace("[N-PLAY]", "\n");
                 dataText = dataText.Replace("[R-PLAY]", "\r");
 
-                if (f.ContainsKey("txtAPI"))
+                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    {
+                        if (fileData.FileName.EndsWith(".txt"))
+                        {
+                            using (var reader = new StreamReader(fileData.OpenReadStream()))
+                            {
+                                string content = reader.ReadToEnd();
+                                txtAPI = content;
+                            }
+                        }
+                    }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
                     dataText = apiValue[0];
                 }
@@ -1089,7 +1111,7 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult XuLySQL16(IFormCollection f)
+        public ActionResult XuLySQL16(IFormCollection f, IFormFile fileData)
         {
             var nix = "";
             var exter = false;
@@ -1185,9 +1207,20 @@ namespace MyWebPlay.Controllers
                 }
                 var table = f["txtTable"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n");
 
-                if (f.ContainsKey("txtAPI"))
+                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    {
+                        if (fileData.FileName.EndsWith(".txt"))
+                        {
+                            using (var reader = new StreamReader(fileData.OpenReadStream()))
+                            {
+                                string content = reader.ReadToEnd();
+                                txtAPI = content;
+                            }
+                        }
+                    }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
                     table = apiValue[0];
                 }

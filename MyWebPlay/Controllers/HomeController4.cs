@@ -105,7 +105,7 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult String_Reverse(IFormCollection f)
+        public ActionResult String_Reverse(IFormCollection f, IFormFile fileData)
         {
             var nix = "";
             var exter = false;
@@ -204,9 +204,20 @@ namespace MyWebPlay.Controllers
                 chuoi = chuoi.Replace("[N-PLAY]", "\n");
                 chuoi = chuoi.Replace("[R-PLAY]", "\r");
 
-                if (f.ContainsKey("txtAPI"))
+                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    {
+                        if (fileData.FileName.EndsWith(".txt"))
+                        {
+                            using (var reader = new StreamReader(fileData.OpenReadStream()))
+                            {
+                                string content = reader.ReadToEnd();
+                                txtAPI = content;
+                            }
+                        }
+                    }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
                     chuoi = apiValue[0];
                 }
@@ -436,7 +447,7 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult String_Reverse2(IFormCollection f)
+        public ActionResult String_Reverse2(IFormCollection f, IFormFile fileData)
         {
             var nix = "";
             var exter = false;
@@ -537,9 +548,20 @@ namespace MyWebPlay.Controllers
                 chuoi = chuoi.Replace("[N-PLAY]", "\n");
                 chuoi = chuoi.Replace("[R-PLAY]", "\r");
 
-                if (f.ContainsKey("txtAPI"))
+                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    {
+                        if (fileData.FileName.EndsWith(".txt"))
+                        {
+                            using (var reader = new StreamReader(fileData.OpenReadStream()))
+                            {
+                                string content = reader.ReadToEnd();
+                                txtAPI = content;
+                            }
+                        }
+                    }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
                     chuoi = apiValue[0];
                 }
@@ -769,7 +791,7 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult Special_OrderBy(IFormCollection f)
+        public ActionResult Special_OrderBy(IFormCollection f, IFormFile fileData)
         {
             var nix = "";
             var exter = false;
@@ -869,9 +891,20 @@ namespace MyWebPlay.Controllers
                 chuoi = chuoi.Replace("[N-PLAY]", "\n");
                 chuoi = chuoi.Replace("[R-PLAY]", "\r");
 
-                if (f.ContainsKey("txtAPI"))
+                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    {
+                        if (fileData.FileName.EndsWith(".txt"))
+                        {
+                            using (var reader = new StreamReader(fileData.OpenReadStream()))
+                            {
+                                string content = reader.ReadToEnd();
+                                txtAPI = content;
+                            }
+                        }
+                    }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
                     chuoi = apiValue[0];
                 }

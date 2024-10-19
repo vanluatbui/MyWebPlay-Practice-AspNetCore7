@@ -107,7 +107,7 @@ namespace MyWebPlay.Controllers
         int nx = 0;
 
         [HttpPost]
-        public ActionResult SQL_InsertDoc(IFormCollection f)
+        public ActionResult SQL_InsertDoc(IFormCollection f, IFormFile fileData)
         {
             var nix = "";
             var exter = false;
@@ -295,9 +295,20 @@ namespace MyWebPlay.Controllers
                 dulieu = dulieu.Replace("[N-PLAY]", "\n");
                 dulieu = dulieu.Replace("[R-PLAY]", "\r");
 
-                if (f.ContainsKey("txtAPI"))
+                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    {
+                        if (fileData.FileName.EndsWith(".txt"))
+                        {
+                            using (var reader = new StreamReader(fileData.OpenReadStream()))
+                            {
+                                string content = reader.ReadToEnd();
+                                txtAPI = content;
+                            }
+                        }
+                    }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
                     table = apiValue[0];
                     trangthai = apiValue[1];
@@ -502,7 +513,7 @@ namespace MyWebPlay.Controllers
         int nY = 0;
 
         [HttpPost]
-        public ActionResult JSON_InsertDoc(IFormCollection f)
+        public ActionResult JSON_InsertDoc(IFormCollection f, IFormFile fileData)
         {
             var nix = "";
             var exter = false;
@@ -677,9 +688,20 @@ namespace MyWebPlay.Controllers
                 trangthai = trangthai.Replace("[N-PLAY]", "\n");
                 trangthai = trangthai.Replace("[R-PLAY]", "\r");
 
-                if (f.ContainsKey("txtAPI"))
+                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    {
+                        if (fileData.FileName.EndsWith(".txt"))
+                        {
+                            using (var reader = new StreamReader(fileData.OpenReadStream()))
+                            {
+                                string content = reader.ReadToEnd();
+                                txtAPI = content;
+                            }
+                        }
+                    }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
                     trangthai = apiValue[0];
                     dulieu = apiValue[1];

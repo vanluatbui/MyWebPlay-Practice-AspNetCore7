@@ -323,7 +323,7 @@ namespace MyWebPlay.Controllers
         // Check link url exist and respone OK?
 
         [HttpPost]
-        public ActionResult Replace_Hamorny(IFormCollection f)
+        public ActionResult Replace_Hamorny(IFormCollection f, IFormFile fileData)
         {
             var nix = "";
             var exter = false;
@@ -459,9 +459,20 @@ namespace MyWebPlay.Controllers
                 input = input.Replace("[N-PLAY]", "\n");
                 input = input.Replace("[R-PLAY]", "\r");
 
-                if (f.ContainsKey("txtAPI"))
+                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    {
+                        if (fileData.FileName.EndsWith(".txt"))
+                        {
+                            using (var reader = new StreamReader(fileData.OpenReadStream()))
+                            {
+                                string content = reader.ReadToEnd();
+                                txtAPI = content;
+                            }
+                        }
+                    }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
                     n = int.Parse(apiValue[0]);
                     chuoi = apiValue[1];

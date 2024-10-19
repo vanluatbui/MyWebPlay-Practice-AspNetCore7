@@ -198,7 +198,7 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult BangChanTri(IFormCollection f)
+        public ActionResult BangChanTri(IFormCollection f, IFormFile fileData)
         {
             try
             {
@@ -356,9 +356,20 @@ namespace MyWebPlay.Controllers
                 bandau = bandau.Replace("[N-PLAY]", "\n");
                 bandau = bandau.Replace("[R-PLAY]", "\r");
 
-                if (f.ContainsKey("txtAPI"))
+                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    {
+                        if (fileData.FileName.EndsWith(".txt"))
+                        {
+                            using (var reader = new StreamReader(fileData.OpenReadStream()))
+                            {
+                                string content = reader.ReadToEnd();
+                                txtAPI = content;
+                            }
+                        }
+                    }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
                     bandau = apiValue[0];
                     chuoi = apiValue[1];

@@ -272,9 +272,9 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    tableX = apiValue[0];
-                    key = apiValue[1];
-                    dulieu = apiValue[2];
+                    tableX = apiValue[0].Replace("[Empty]", "");
+                    key = apiValue[1].Replace("[Empty]", "");
+                    dulieu = apiValue[2].Replace("[Empty]", "");
                 }
 
                 if (string.IsNullOrEmpty(tableX))
@@ -747,8 +747,8 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    tenclass = apiValue[0];
-                    dulieu = apiValue[1];
+                    tenclass = apiValue[0].Replace("[Empty]", "");
+                    dulieu = apiValue[1].Replace("[Empty]", "");
                 }
 
                 if (string.IsNullOrEmpty(tenclass))
@@ -1173,10 +1173,10 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    tenclass = apiValue[0];
-                    dukien1 = apiValue[1];
-                    dukien2 = apiValue[2];
-                    dulieu = apiValue[3];
+                    tenclass = apiValue[0].Replace("[Empty]", "");
+                    dukien1 = apiValue[1].Replace("[Empty]", "");
+                    dukien2 = apiValue[2].Replace("[Empty]", "");
+                    dulieu = apiValue[3].Replace("[Empty]", "");
 
                 }
 

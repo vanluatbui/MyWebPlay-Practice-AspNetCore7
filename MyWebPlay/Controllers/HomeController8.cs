@@ -306,10 +306,10 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    sapxep = apiValue[0];
-                    chuoi = apiValue[1];
-                    tanggiam = apiValue[2];
-                    codinh = apiValue[3];
+                    sapxep = apiValue[0].Replace("[Empty]", "");
+                    chuoi = apiValue[1].Replace("[Empty]", "");
+                    tanggiam = apiValue[2].Replace("[Empty]", "");
+                    codinh = apiValue[3].Replace("[Empty]", "");
                 }
 
                 string[] DS = Regex.Split(chuoi, "\r\n");

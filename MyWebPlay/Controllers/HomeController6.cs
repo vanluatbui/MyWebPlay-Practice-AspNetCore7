@@ -299,9 +299,9 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    chuoi = apiValue[0];
-                    pattern = apiValue[1];
-                    dukien2 = apiValue[2];
+                    chuoi = apiValue[0].Replace("[Empty]", "");
+                    pattern = apiValue[1].Replace("[Empty]", "");
+                    dukien2 = apiValue[2].Replace("[Empty]", "");
                 }
 
                 if (string.IsNullOrEmpty(dukien2))
@@ -716,12 +716,12 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    chuoi = apiValue[0];
-                    input = apiValue[1];
-                    output = apiValue[2];
-                    dukien1 = apiValue[3];
-                    dukien2 = apiValue[4];
-                    dukien3 = apiValue[5];
+                    chuoi = apiValue[0].Replace("[Empty]", "");
+                    input = apiValue[1].Replace("[Empty]", "");
+                    output = apiValue[2].Replace("[Empty]", "");
+                    dukien1 = apiValue[3].Replace("[Empty]", "");
+                    dukien2 = apiValue[4].Replace("[Empty]", "");
+                    dukien3 = apiValue[5].Replace("[Empty]", "");
                 }
 
                 Regex regex = new Regex(input);

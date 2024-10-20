@@ -474,9 +474,9 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    n = int.Parse(apiValue[0]);
-                    chuoi = apiValue[1];
-                    input = apiValue[2];
+                    n = int.Parse(apiValue[0].Replace("[Empty]", ""));
+                    chuoi = apiValue[1].Replace("[Empty]", "");
+                    input = apiValue[2].Replace("[Empty]", "");
                 }
 
                 var xj = input.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);

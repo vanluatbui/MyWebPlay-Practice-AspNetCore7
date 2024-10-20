@@ -245,12 +245,12 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    chuoi = apiValue[0];
-                    txtDefault = apiValue[1];
-                    boqua = apiValue[2];
-                    record = apiValue[3];
-                    checkDefault = apiValue[4];
-                    dateForm = apiValue[5];
+                    chuoi = apiValue[0].Replace("[Empty]", "");
+                    txtDefault = apiValue[1].Replace("[Empty]", "");
+                    boqua = apiValue[2].Replace("[Empty]", "");
+                    record = apiValue[3].Replace("[Empty]", "");
+                    dateForm = apiValue[4].Replace("[Empty]", "");
+                    checkDefault = apiValue[5].Replace("[Empty]", "");
                 }
 
                 ViewBag.Chuoi = f["Chuoi"].ToString();

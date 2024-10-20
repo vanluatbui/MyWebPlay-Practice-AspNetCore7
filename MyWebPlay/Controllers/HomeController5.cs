@@ -336,12 +336,12 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    chuoi = apiValue[0];
-                    dukien1 = apiValue[1];
-                    pattern = apiValue[2];
-                    dukien2 = apiValue[3];
-                    X = apiValue[4];
-                    Y = apiValue[5];
+                    chuoi = apiValue[0].Replace("[Empty]", "");
+                    dukien1 = apiValue[1].Replace("[Empty]", "");
+                    pattern = apiValue[2].Replace("[Empty]", "");
+                    dukien2 = apiValue[3].Replace("[Empty]", "");
+                    X = apiValue[4].Replace("[Empty]", "");
+                    Y = apiValue[5].Replace("[Empty]", "");
                 }
                 string[] DS = Regex.Split(chuoi, "\r\n");
                 Regex regex = new Regex(pattern);
@@ -686,7 +686,7 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    chuoi = apiValue[0];
+                    chuoi = apiValue[0].Replace("[Empty]", "");
                 }
 
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";

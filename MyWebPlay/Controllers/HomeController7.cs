@@ -371,8 +371,8 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    bandau = apiValue[0];
-                    chuoi = apiValue[1];
+                    bandau = apiValue[0].Replace("[Empty]", "");
+                    chuoi = apiValue[1].Replace("[Empty]", "");
                 }
 
                 if (string.IsNullOrEmpty(bandau))

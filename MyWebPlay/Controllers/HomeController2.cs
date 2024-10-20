@@ -310,9 +310,9 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    table = apiValue[0];
-                    trangthai = apiValue[1];
-                    dulieu = apiValue[2];
+                    table = apiValue[0].Replace("[Empty]", "");
+                    trangthai = apiValue[1].Replace("[Empty]", "");
+                    dulieu = apiValue[2].Replace("[Empty]", "");
                 }
 
                 string[] ds_trangthai = trangthai.Split('-');
@@ -703,8 +703,8 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    trangthai = apiValue[0];
-                    dulieu = apiValue[1];
+                    trangthai = apiValue[0].Replace("[Empty]", "");
+                    dulieu = apiValue[1].Replace("[Empty]", "");
                 }
 
 

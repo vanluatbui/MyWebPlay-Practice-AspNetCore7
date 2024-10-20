@@ -231,10 +231,10 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    namecu = apiValue[0];
-                    recordcu = apiValue[1];
-                    namemoi = apiValue[2];
-                    recordmoi = apiValue[3];
+                    namecu = apiValue[0].Replace("[Empty]", "");
+                    recordcu = apiValue[1].Replace("[Empty]", "");
+                    namemoi = apiValue[2].Replace("[Empty]", "");
+                    recordmoi = apiValue[3].Replace("[Empty]", "");
                 }
 
 
@@ -598,7 +598,7 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    dataText = apiValue[0];
+                    dataText = apiValue[0].Replace("[Empty]", "");
                 }
 
 
@@ -1222,7 +1222,7 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    table = apiValue[0];
+                    table = apiValue[0].Replace("[Empty]", "");
                 }
 
                 TempData["dataPost"] = "[" + f["txtTable"].ToString().Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";

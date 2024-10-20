@@ -1971,7 +1971,7 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    chuoi = apiValue[0];
+                    chuoi = apiValue[0].Replace("[Empty]", "");
                 }
 
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
@@ -2364,8 +2364,8 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    chuoi = apiValue[0];
-                    n = int.Parse(apiValue[1]);
+                    chuoi = apiValue[0].Replace("[Empty]", "");
+                    n = int.Parse(apiValue[1].Replace("[Empty]", ""));
                 }
 
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
@@ -2738,8 +2738,8 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    chuoi = apiValue[0];
-                    n = int.Parse(apiValue[1]);
+                    chuoi = apiValue[0].Replace("[Empty]", "");
+                    n = int.Parse(apiValue[1].Replace("[Empty]", ""));
                 }
 
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
@@ -3112,7 +3112,7 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    chuoi = apiValue[0];
+                    chuoi = apiValue[0].Replace("[Empty]", "");
                 }
 
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
@@ -3479,9 +3479,9 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    chuoi = apiValue[0];
-                    start = apiValue[1];
-                    end = apiValue[2];
+                    chuoi = apiValue[0].Replace("[Empty]", "");
+                    start = apiValue[1].Replace("[Empty]", "");
+                    end = apiValue[2].Replace("[Empty]", "");
                 }
 
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
@@ -4208,7 +4208,7 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    chuoi = apiValue[0];
+                    chuoi = apiValue[0].Replace("[Empty]", "");
                 }
 
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";

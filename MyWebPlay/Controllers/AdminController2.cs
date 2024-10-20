@@ -443,7 +443,7 @@ namespace MyWebPlay.Controllers
         {
             if (admincode == "32752262")
             {
-                var formatMail = "----------------- karaoke_font ----------------- :\r\n\r\n@karaoke_font\r\n\r\n----------------- ListIPComeToHereTheFirst ----------------- :\r\n\r\n@ListIPComeToHereTheFirst\r\n\r\n----------------- quy-tac-ki-tu-chuyen-doi-JAPAN ----------------- :\r\n\r\n@quy-tac-ki-tu-chuyen-doi-JAPAN\r\n\r\n----------------- InfoIPRegist ----------------- :\r\n\r\n@InfoIPRegist\r\n\r\n----------------- ListIPComeHere ----------------- :\r\n\r\n@ListIPComeHere\r\n\r\n----------------- ListIPLock ----------------- :\r\n\r\n@ListIPLock\r\n\r\n----------------- ListIPOnWebPlay ----------------- :\r\n\r\n@ListIPOnWebPlay\r\n\r\n----------------- ListUserIPApproveWaiting ----------------- :\r\n\r\n@ListUserIPApproveWaiting\r\n\r\n----------------- LockedIPClient ----------------- :\r\n\r\n@LockedIPClient\r\n\r\n----------------- InfoWebFile ----------------- :\r\n\r\n@InfoWebFile\r\n\r\n----------------- DiemHocSinh ----------------- :\r\n\r\n@DiemHocSinh\r\n\r\n----------------- SecureSettingAdmin ----------------- :\r\n\r\n@SecureSettingAdmin\r\n";
+                var formatMail = "----------------- karaoke_font ----------------- :\r\n\r\n@karaoke_font\r\n\r\n----------------- ListIPComeToHereTheFirst ----------------- :\r\n\r\n@ListIPComeToHereTheFirst\r\n\r\n----------------- quy-tac-ki-tu-chuyen-doi-JAPAN ----------------- :\r\n\r\n@quy-tac-ki-tu-chuyen-doi-JAPAN\r\n\r\n----------------- InfoIPRegist ----------------- :\r\n\r\n@InfoIPRegist\r\n\r\n----------------- ListIPComeHere ----------------- :\r\n\r\n@ListIPComeHere\r\n\r\n----------------- ListIPLock ----------------- :\r\n\r\n@ListIPLock\r\n\r\n----------------- ListIPOnWebPlay ----------------- :\r\n\r\n@ListIPOnWebPlay\r\n\r\n----------------- ListUserIPApproveWaiting ----------------- :\r\n\r\n@ListUserIPApproveWaiting\r\n\r\n----------------- LockedIPClient ----------------- :\r\n\r\n@LockedIPClient\r\n\r\n----------------- InfoWebFile ----------------- :\r\n\r\n@InfoWebFile\r\n\r\n----------------- DiemHocSinh ----------------- :\r\n\r\n@DiemHocSinh\r\n\r\n----------------- SecureSettingAdmin ----------------- :\r\n\r\n@SecureSettingAdmin\r\n\r\n----------------- NoteLog ----------------- :\r\n\r\n@NoteLog\r\n\r\n----------------- ReplaceManager ----------------- :\r\n\r\n@ReplaceManager\r\n";
 
                 var karaoke_font = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "karaoke_font.txt"));
                 formatMail = formatMail.Replace("@karaoke_font", karaoke_font);
@@ -481,6 +481,12 @@ namespace MyWebPlay.Controllers
 
                 var SecureSettingAdmin = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt"));
                 formatMail = formatMail.Replace("@SecureSettingAdmin", SecureSettingAdmin);
+
+                var NoteLog = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "note", "notelog.txt"));
+                formatMail = formatMail.Replace("@NoteLog", NoteLog);
+
+                var ReplaceManager = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Others", "ReplaceManager.txt"));
+                formatMail = formatMail.Replace("@ReplaceManger", ReplaceManager);
 
                 Calendar xz = CultureInfo.InvariantCulture.Calendar;
                 string xuxu = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);

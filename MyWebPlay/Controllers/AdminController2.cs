@@ -490,7 +490,7 @@ namespace MyWebPlay.Controllers
 
                 Calendar xz = CultureInfo.InvariantCulture.Calendar;
                 string xuxu = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", "(" +  HttpContext.Session.GetString("admin-userIP") + ") MAIL - Backup data for admin in " + xuxu, formatMail, "teinnkatajeqerfl");
+                SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", "(" +  HttpContext.Session.GetString("admin-userIP") + " --- " + Request.Host) MAIL - Backup data for admin in " + xuxu, formatMail, "teinnkatajeqerfl");
             }
 
             return RedirectToAction("LoginSettingAdmin");

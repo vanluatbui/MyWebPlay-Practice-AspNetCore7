@@ -284,10 +284,10 @@ namespace MyWebPlay.Controllers
                 dukien2 = dukien2.Replace("[N-PLAY]", "\n");
                 dukien2 = dukien2.Replace("[R-PLAY]", "\r");
 
-                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
+                if (f.ContainsKey("txtAPI") || (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
-                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    if (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false)
                     {
                         if (fileData.FileName.EndsWith(".txt"))
                         {
@@ -701,10 +701,10 @@ namespace MyWebPlay.Controllers
                 //    HttpContext.Session.SetString("data-result", "true"); return this.Replace_Regex();
                 //}
 
-                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
+                if (f.ContainsKey("txtAPI") || (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
-                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    if (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false)
                     {
                         if (fileData.FileName.EndsWith(".txt"))
                         {

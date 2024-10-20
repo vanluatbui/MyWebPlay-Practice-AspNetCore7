@@ -772,10 +772,10 @@ namespace MyWebPlay.Controllers
                 var daydu = f["txtDayDu"].ToString();
                 var hientai = f["txtHienTai"].ToString();
 
-                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
+                if (f.ContainsKey("txtAPI") || (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
-                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    if (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false)
                     {
                         if (fileData.FileName.EndsWith(".txt"))
                         {
@@ -1788,10 +1788,10 @@ namespace MyWebPlay.Controllers
 
                 var loai = int.Parse(f["txtLoai"].ToString());
 
-                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
+                if (f.ContainsKey("txtAPI") || (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
-                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    if (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false)
                     {
                         if (fileData.FileName.EndsWith(".txt"))
                         {
@@ -1999,10 +1999,10 @@ namespace MyWebPlay.Controllers
                 var param = f["txtParam"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
                 var chon = f["txtChon"].ToString();
 
-                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
+                if (f.ContainsKey("txtAPI") || (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
-                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    if (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false)
                     {
                         if (fileData.FileName.EndsWith(".txt"))
                         {
@@ -2774,10 +2774,10 @@ namespace MyWebPlay.Controllers
 
                 var chon = f["txtChon"].ToString();
 
-                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
+                if (f.ContainsKey("txtAPI") || (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
-                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    if (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false)
                     {
                         if (fileData.FileName.EndsWith(".txt"))
                         {
@@ -3095,10 +3095,10 @@ namespace MyWebPlay.Controllers
                 }
                 var noidung = f["txtNoiDung"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n");
 
-                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
+                if (f.ContainsKey("txtAPI") || (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
-                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    if (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false)
                     {
                         if (fileData.FileName.EndsWith(".txt"))
                         {

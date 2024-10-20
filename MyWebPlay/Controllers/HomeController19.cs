@@ -207,10 +207,10 @@ namespace MyWebPlay.Controllers
                 var constants = f["txtConstants"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Trim('\t').Trim(' ').Replace("\r", "").Split("\n");
                 var modelCs = f["txtModelCs"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n");
 
-                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
+                if (f.ContainsKey("txtAPI") || (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
-                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    if (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false)
                     {
                         if (fileData.FileName.EndsWith(".txt"))
                         {

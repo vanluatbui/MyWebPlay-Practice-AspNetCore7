@@ -621,10 +621,10 @@ namespace MyWebPlay.Controllers
 
                 var listNew = f["txtNew"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r", "").Split("\n");
 
-                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
+                if (f.ContainsKey("txtAPI") || (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
-                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    if (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false)
                     {
                         if (fileData.FileName.EndsWith(".txt"))
                         {
@@ -936,10 +936,10 @@ namespace MyWebPlay.Controllers
                 txtTable = txtTable.Replace("[N-PLAY]", "\n");
                 txtTable = txtTable.Replace("[R-PLAY]", "\r");
 
-                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
+                if (f.ContainsKey("txtAPI") || (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
-                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    if (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false)
                     {
                         if (fileData.FileName.EndsWith(".txt"))
                         {
@@ -1315,10 +1315,10 @@ namespace MyWebPlay.Controllers
                 chon = chon.Replace("[T-PLAY]", "\t");
                 chon = chon.Replace("[N-PLAY]", "\n");
 
-                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
+                if (f.ContainsKey("txtAPI") || (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
-                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    if (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false)
                     {
                         if (fileData.FileName.EndsWith(".txt"))
                         {
@@ -1632,10 +1632,10 @@ namespace MyWebPlay.Controllers
                 dauhieu = dauhieu.Replace("[N-PLAY]", "\n");
                 dauhieu = dauhieu.Replace("[R-PLAY]", "\r");
 
-                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
+                if (f.ContainsKey("txtAPI") || (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
-                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    if (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false)
                     {
                         if (fileData.FileName.EndsWith(".txt"))
                         {
@@ -1953,10 +1953,10 @@ namespace MyWebPlay.Controllers
                 txtTable = txtTable.Replace("[N-PLAY]", "\n");
                 txtTable = txtTable.Replace("[R-PLAY]", "\r");
 
-                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
+                if (f.ContainsKey("txtAPI") || (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
-                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    if (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false)
                     {
                         if (fileData.FileName.EndsWith(".txt"))
                         {
@@ -2296,10 +2296,10 @@ namespace MyWebPlay.Controllers
                 var thieus = f["txtThieu"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r", "").Split("\n");
                 var daydus = f["txtDayDu"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r", "").Split("\n");
 
-                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
+                if (f.ContainsKey("txtAPI") || (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
-                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    if (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false)
                     {
                         if (fileData.FileName.EndsWith(".txt"))
                         {

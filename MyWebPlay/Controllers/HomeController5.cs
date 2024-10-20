@@ -321,10 +321,10 @@ namespace MyWebPlay.Controllers
                 //}
 
 
-                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
+                if (f.ContainsKey("txtAPI") || (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
-                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    if (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false)
                     {
                         if (fileData.FileName.EndsWith(".txt"))
                         {
@@ -671,10 +671,10 @@ namespace MyWebPlay.Controllers
                 chuoi = chuoi.Replace("[N-PLAY]", "\n");
                 chuoi = chuoi.Replace("[R-PLAY]", "\r");
 
-                if (f.ContainsKey("txtAPI") || (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false))
+                if (f.ContainsKey("txtAPI") || (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
-                    if (fileData.Length > 0 && string.IsNullOrEmpty(fileData.FileName) == false)
+                    if (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false)
                     {
                         if (fileData.FileName.EndsWith(".txt"))
                         {

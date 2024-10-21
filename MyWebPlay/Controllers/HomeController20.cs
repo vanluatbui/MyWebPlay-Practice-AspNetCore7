@@ -659,7 +659,7 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult LogMail(IFormCollection f, string? External = "false")
+        public ActionResult LogMail(IFormCollection f, IFormFile file, string? External = "false")
         {
             try
             {
@@ -672,7 +672,16 @@ namespace MyWebPlay.Controllers
                 fix += "External : " + External + "\n";
 
                 HttpContext.Session.SetString("hanhdong_3275", fix);
-                var txtText = f["txtText"].ToString();
+                var txtText = (string.IsNullOrEmpty(f["txtText"].ToString()) == false) ? f["txtText"].ToString() : string.Empty;
+
+                if (file != null && file.FileName.EndsWith(".txt"))
+                {
+                    using (var reader = new StreamReader(file.OpenReadStream()))
+                    {
+                        string content = reader.ReadToEnd();
+                        txtText += "\r\n\r\n" + content;
+                    }
+                }
 
                 var email = f["txtMail"].ToString();
 

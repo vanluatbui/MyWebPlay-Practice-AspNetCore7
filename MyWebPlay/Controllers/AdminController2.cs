@@ -486,7 +486,7 @@ namespace MyWebPlay.Controllers
                 formatMail = formatMail.Replace("@NoteLog", NoteLog);
 
                 var ReplaceManager = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Others", "ReplaceManager.txt"));
-                formatMail = formatMail.Replace("@ReplaceManger", ReplaceManager);
+                formatMail = formatMail.Replace("@ReplaceManager", ReplaceManager);
 
                 Calendar xz = CultureInfo.InvariantCulture.Calendar;
                 string xuxu = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);

@@ -906,9 +906,16 @@ namespace MyWebPlay.Controllers
                 string txtTime = f["txtTime"].ToString();
                 string txtMon = f["txtMon"].ToString();
 
-                if (tick != "on" && string.IsNullOrWhiteSpace(txtMon))
+                if (f["cbCoSan"].ToString() != "on")
                 {
-                    txtMon = txtFile[0].FileName;
+                    if (tick != "on" && string.IsNullOrWhiteSpace(txtMon))
+                    {
+                        txtMon = txtFile[0].FileName;
+                    }
+                }
+                else
+                {
+                    txtMon = "Mẫu trắc nghiệm của hệ thống";
                 }
 
                 if (tick != "on" && string.IsNullOrEmpty(txtSoCau))
@@ -937,36 +944,58 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-                if (tick != "on" && txtFile.Count() <= 0)
+                if (f["cbCoSan"].ToString() != "on")
                 {
-                    ViewData["Loi1"] = "Mời bạn chọn file TXT trắc nghiệm (có thể chọn nhiều file thể hiện một môn học trắc nghiệm có nhiều chương/mục/phần/bài)...";
-                    HttpContext.Session.SetString("data-result", "true");
-                    return this.TracNghiemX_Multiple();
+                    if (tick != "on" && txtFile.Count() <= 0)
+                    {
+                        ViewData["Loi1"] = "Mời bạn chọn file TXT trắc nghiệm (có thể chọn nhiều file thể hiện một môn học trắc nghiệm có nhiều chương/mục/phần/bài)...";
+                        HttpContext.Session.SetString("data-result", "true");
+                        return this.TracNghiemX_Multiple();
+                    }
                 }
 
-                if (tick == "on" && txtFile.Count() != 1)
+                if (f["cbCoSan"].ToString() != "on")
                 {
-                    ViewData["Loi1"] = "Xin lỗi nếu bạn sử dụng tính năng này để setting lại answer cho file trắc nghiệm của bạn, bạn chỉ có thể tải lên tương đương 1 file - vui lòng tải lên 1 file trắc nghiệm của bạn!";
-                    HttpContext.Session.SetString("data-result", "true");
-                    return this.TracNghiemX_Multiple();
+                    if (tick == "on" && txtFile.Count() != 1)
+                    {
+                        ViewData["Loi1"] = "Xin lỗi nếu bạn sử dụng tính năng này để setting lại answer cho file trắc nghiệm của bạn, bạn chỉ có thể tải lên tương đương 1 file - vui lòng tải lên 1 file trắc nghiệm của bạn!";
+                        HttpContext.Session.SetString("data-result", "true");
+                        return this.TracNghiemX_Multiple();
+                    }
                 }
 
                 int n9_S = 0;
 
                 //------
 
+                if (f["cbCoSan"].ToString() == "on")
+                {
+                    sl = 1;
+                }
+
                 TracNghiem[] tn = new TracNghiem[sl];
 
-                for (int h = 0; h < txtFile.Count(); h++)
+                var solug = 1;
+                if (f["cbCoSan"].ToString() != "on")
+                {
+                    solug = txtFile.Count();
+                }
+
+                for (int h = 0; h < solug; h++)
                 {
                     tn[h] = new TracNghiem();
 
-                    var path = Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", Path.GetFileName(txtFile[h].FileName));
+                    var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Others", "FormatTracNghiem.txt");
 
-                    using (Stream fileStream = new FileStream(path, FileMode.Create))
+                    if (f["cbCoSan"].ToString() != "on")
                     {
-                        txtFile[h].CopyTo(fileStream);
+                       path = Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", Path.GetFileName(txtFile[h].FileName));
 
+                        using (Stream fileStream = new FileStream(path, FileMode.Create))
+                        {
+                            txtFile[h].CopyTo(fileStream);
+
+                        }
                     }
 
                     var xu = docfile(path);
@@ -990,8 +1019,11 @@ namespace MyWebPlay.Controllers
                     String ND_file = xu;
                     cFile = ND_file;
 
-                    FileInfo fx = new FileInfo(path);
-                    fx.Delete();
+                    if (f["cbCoSan"].ToString() != "on")
+                    {
+                        FileInfo fx = new FileInfo(path);
+                        fx.Delete();
+                    }
 
                     if (ND_file.Length == 0)
                     {

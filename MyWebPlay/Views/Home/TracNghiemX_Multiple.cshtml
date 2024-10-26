@@ -19,6 +19,7 @@ Layout = null;
             document.getElementById("phan2").style.display = "block";
             document.getElementById("phan3").style.display = "block";
             document.getElementById("ok").value = "Bắt đầu làm bài";
+            document.getElementById("noupfile").style.display = "block";
         }
         else
         {
@@ -26,6 +27,9 @@ Layout = null;
             document.getElementById("phan2").style.display = "none";
             document.getElementById("phan3").style.display = "none";
             document.getElementById("ok").value = "Chỉnh sửa nội dung trắc nghiệm";
+            document.getElementById("noupfile").style.display = "none";
+            document.getElementById("cosan").checked = false;
+            xulycosan();
         }
     }
     
@@ -41,6 +45,20 @@ Layout = null;
             var item = document.createElement("li");
             item.innerHTML = files[i].name;
             ulx.appendChild(item);
+        }
+    }
+
+    function xulycosan()
+    {
+        if (document.getElementById("cosan").checked == true)
+        {
+            document.getElementById("upfile").style.display = "none";
+            document.getElementById("ticky").checked = false;
+             document.getElementById("listfile").style.display = "none";
+        }
+        else{
+            document.getElementById("upfile").style.display = "inline-block";
+             document.getElementById("listfile").style.display = "inline-block";
         }
     }
 </script>
@@ -93,6 +111,7 @@ Layout = null;
         <td> </td>
         <td>
             <br>
+            <div id="upfile">
             <b> Đưa tất cả các file trắc nghiệm (chương bài học) của bạn vào cùng 1 thư mục sau đó sẽ dễ dàng kéo tất cả các file vào đây...</b>
             <br>
             @if(TempData["fileSuDung"] == "true")
@@ -103,12 +122,19 @@ Layout = null;
             {
             <input disabled type="file" onchange="return xemfile(event)" name="txtFile" multiple/>
             }
+            </div>
+            <div id="noupfile">
+                <input type="checkbox" name="cbCoSan" id="cosan" onchange="xulycosan()" /><b style="color:orangered">Sử dụng mẫu trắc nghiệm có sẵn của hệ thống</b>
+                <br />
+            </div>
             <b>@Html.ActionLink("Bạn chưa có file trắc nghiệm?","CreateFile_TracNghiem")</b>
             <br>
             <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
             <br><br>
+            <div id="listfile">
             <h4 style="color:midnightblue">Danh sách các file bạn đã chọn :</h4>
             <ul id="ulx"></ul>
+            </div>
         </td>
     </tr>
     <tr style="height:40px">

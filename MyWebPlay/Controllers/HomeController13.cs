@@ -743,14 +743,24 @@ namespace MyWebPlay.Controllers
                         }
                     }
                 }
+
+                var cbCoSan = (f["cbCoSan"].ToString() == "on");
                 int sl = txtFile.Count();
+                if (cbCoSan) sl = 1;
                 string txtSoCau = f["txtSoCau"].ToString();
                 string txtTime = f["txtTime"].ToString();
                 string txtMon = f["txtMon"].ToString();
 
-                if (string.IsNullOrWhiteSpace(txtMon))
+                if (cbCoSan == false)
                 {
-                    txtMon = txtFile[0].FileName;
+                    if (string.IsNullOrWhiteSpace(txtMon))
+                    {
+                        txtMon = txtFile[0].FileName;
+                    }
+                }
+                else
+                {
+                    txtMon = "Mẫu question của hệ thống";
                 }
 
                 if (string.IsNullOrEmpty(txtSoCau))
@@ -776,7 +786,7 @@ namespace MyWebPlay.Controllers
                     return this.PlayQuestion_Multiple();
                 }
 
-                if (txtFile.Count() <= 0)
+                if (txtFile.Count() <= 0 && cbCoSan == false)
                 {
                     ViewData["Loi1"] = "Mời bạn chọn file TXT trắc nghiệm (có thể chọn nhiều file thể hiện một môn học trắc nghiệm có nhiều chương/mục/phần/bài)...";
                     HttpContext.Session.SetString("data-result", "true");
@@ -790,20 +800,31 @@ namespace MyWebPlay.Controllers
 
                 int n9_S = 0;
 
+                var solug = 1;
+                if (cbCoSan == false)
+                {
+                    solug = txtFile.Count();
+                }
+
                 //------
 
                 TracNghiem[] tn = new TracNghiem[sl];
 
-                for (int h = 0; h < txtFile.Count(); h++)
+                for (int h = 0; h < solug; h++)
                 {
                     tn[h] = new TracNghiem();
 
-                    var path = Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", Path.GetFileName(txtFile[h].FileName));
+                    var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Others", "FormatQuestion.txt");
 
-                    using (Stream fileStream = new FileStream(path, FileMode.Create))
+                    if (cbCoSan == false)
                     {
-                        txtFile[h].CopyTo(fileStream);
+                        path = Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", Path.GetFileName(txtFile[h].FileName));
 
+                        using (Stream fileStream = new FileStream(path, FileMode.Create))
+                        {
+                            txtFile[h].CopyTo(fileStream);
+
+                        }
                     }
 
                     var xu = docfile(path);
@@ -826,8 +847,11 @@ namespace MyWebPlay.Controllers
 
                     String ND_file = xu;
 
-                    FileInfo fx = new FileInfo(path);
-                    fx.Delete();
+                    if (cbCoSan == false)
+                    {
+                        FileInfo fx = new FileInfo(path);
+                        fx.Delete();
+                    }
 
                     if (ND_file.Length == 0)
                     {

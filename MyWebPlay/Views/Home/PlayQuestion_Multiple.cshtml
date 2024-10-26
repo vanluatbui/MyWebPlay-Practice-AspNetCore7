@@ -23,6 +23,17 @@ Layout = null;
         document.getElementById("ok").style.display = "none";
         document.getElementById("loading").style.display = "inline-block";
     }
+
+     function xulycosan()
+    {
+        if (document.getElementById("cosan").checked == true)
+        {
+            document.getElementById("upfile").style.display = "none";
+        }
+        else{
+            document.getElementById("upfile").style.display = "block";
+        }
+    }
     
 </script>
 <table align="center">
@@ -71,6 +82,7 @@ Layout = null;
         <td> </td>
         <td>
             <br>
+            <div id="upfile">
             <b> Đưa tất cả các file text [question/answer] (chương bài học) của bạn vào cùng 1 thư mục sau đó sẽ dễ dàng kéo tất cả các file vào đây...</b>
             <br>
             @if(TempData["fileSuDung"] == "true")
@@ -81,11 +93,13 @@ Layout = null;
             {
             <input disabled onchange="return xemfile(event)" type="file" name="txtFile" multiple/>
             }
-            <b>@Html.ActionLink("Bạn chưa có file question answer?","CreateFile_Question")</b><br />
             <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
             <br><br>
             <h4 style="color:midnightblue">Danh sách các file bạn đã chọn :</h4>
             <ul id="ulx"></ul>
+            </div>
+            <input type="checkbox" name="cbCoSan" id="cosan" onchange="xulycosan()" /><b style="color:orangered">Sử dụng mẫu question có sẵn của hệ thống</b>
+            <b>@Html.ActionLink("Bạn chưa có file question answer?","CreateFile_Question")</b><br />
         </td>
     </tr>
     <tr style="height:40px">

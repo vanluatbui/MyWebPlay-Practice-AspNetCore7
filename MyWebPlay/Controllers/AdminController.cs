@@ -547,6 +547,48 @@ namespace MyWebPlay.Controllers
                             }
                         }
                         break;
+
+                    case 8:
+                        var path8 = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Others");
+                        for (int i = 0; i < txtFile.Count; i++)
+                        {
+                            if (txtFile[i].FileName.EndsWith(".txt") == false)
+                                continue;
+
+                            var filename = "FormatTracNghiem.txt";
+
+                            if (new FileInfo(path8 + "/" + filename).Exists)
+                                new FileInfo(path8 + "/" + filename).Delete();
+
+                            using (Stream fileStream = new FileStream(path8 + "/" + filename, FileMode.Create))
+                            {
+                                txtFile[i].CopyTo(fileStream);
+                            }
+
+                            break;
+                        }
+                        break;
+
+                    case 9:
+                        var path9 = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Others");
+                        for (int i = 0; i < txtFile.Count; i++)
+                        {
+                            if (txtFile[i].FileName.EndsWith(".txt") == false)
+                                continue;
+
+                            var filename = "FormatQuestion.txt";
+
+                            if (new FileInfo(path9 + "/" + filename).Exists)
+                                new FileInfo(path9 + "/" + filename).Delete();
+
+                            using (Stream fileStream = new FileStream(path9 + "/" + filename, FileMode.Create))
+                            {
+                                txtFile[i].CopyTo(fileStream);
+                            }
+
+                            break;
+                        }
+                        break;
                 }
             }
             catch (Exception ex)

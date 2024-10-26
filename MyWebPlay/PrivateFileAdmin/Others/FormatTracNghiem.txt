@@ -1,0 +1,41 @@
+﻿Lan có 3 quả cam, Hà cho Lan thêm 2 quả nữa. Hỏi Lan có mấy quả?
+5
+6
+7
+8
+[5]
+#
+Tìm câu nghi vấn trong các câu sau :
+Bài kiểm tra khó quá!
+Cô ấy là ai vậy?
+Lan là học sinh lớp năm.
+Vì nhà xa nên em phải đi xe buýt đến trường.
+[Cô ấy là ai vậy?]
+#
+$Một hình vuông có cạnh là 5 cm. Tính chu vi hình vuông?
+20 cm
+200 mm
+2 dm
+Tất cả đáp án đều đúng
+[Tất cả đáp án đều đúng]
+#
+Tìm x biết : x - 2 = 5?
+x = 0
+x = 1
+x = 2
+x = 3
+[x = 3]
+#
+Điền vào chỗ trống thích hợp : "Có công mài sắt, có ngày nên ...".
+kim
+vàng
+kim cương
+bạc
+[kim]
+#
+Chọn câu trả lời phù hợp với câu sau : "How old are you?"
+I'm fine. Thanks
+Not good
+I'm 12 years old
+Good bye!
+[I'm 12 years old]

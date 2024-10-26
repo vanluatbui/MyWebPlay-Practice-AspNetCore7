@@ -1,0 +1,20 @@
+﻿1 cộng 1 bằng mấy? (chỉ cần đưa ra con số)
+2
+
+
+
+[2]
+#
+Số liền trước của số 99 là? (chỉ cần đưa ra con số)
+98
+
+
+
+[98]
+#
+Trong phim hoạt hình Doraemon (Nhật Bản), nhân vật Nobita sinh ngày tháng mấy? (chỉ trả lời với dạng : dd/mm)
+07/08
+
+
+
+[07/08]

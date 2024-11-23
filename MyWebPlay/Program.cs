@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using MyWebPlay.Extension;
+using MyWebPlay.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,5 +51,7 @@ app.MapControllerRoute(
     pattern: con.Replace("@left","{").Replace("@right", "}"));
 
 BuildProgram.BuildProgramPlay(app.Environment);
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.Run();

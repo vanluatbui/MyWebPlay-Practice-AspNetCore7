@@ -1333,7 +1333,7 @@ namespace MyWebPlay.Controllers
             return Ok(new { result = false });
         }
 
-        public ActionResult PublicSecureAdmin()
+        public ActionResult PublicSecureAdmin(string? pass)
         {
             try
             {
@@ -1365,10 +1365,22 @@ namespace MyWebPlay.Controllers
                         }
                     }
                 }
-                if (TempData["locked-app"] == "true")
-                    return RedirectToAction("Error", "Home", "Home");
 
                 var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
+                var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidung = System.IO.File.ReadAllText(path);
+                var matpassAd = System.IO.File.ReadAllText(pam).Replace("\r", "").Split("\n")[1];
+                var listSetting = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                var key = listSetting[60].Split("<3275>")[3];
+
+                if (TempData["locked-app"] == "true")
+                    return RedirectToAction("Error", "Home");
+
+                if (pass != StringMaHoaExtension.Decrypt(matpassAd, key))
+                {
+                    return Redirect("/Admin/SettingXYZ_DarkAdmin#da-xay-ra-loi");
+                }
+
                 var pamCu = System.IO.File.ReadAllText(pam).Replace("\r","").Split("\n");
 
                 var pam1 = "";

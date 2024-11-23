@@ -194,3 +194,4 @@
 /Home/RedirectUrlEncode
 /Hone/AddNewReplace
 /Home/ShowErrorLog
+/Home/Multiple_API

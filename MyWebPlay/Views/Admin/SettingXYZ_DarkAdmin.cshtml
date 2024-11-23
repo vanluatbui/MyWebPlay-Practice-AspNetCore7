@@ -104,7 +104,7 @@ Layout = null;
             var con = confirm("Bạn có chắc chắn không?");
             if (con == true)
             {
-                window.location.href = "/Admin/PublicSecureAdmin";
+                window.location.href = "/Admin/PublicSecureAdmin?pass="+document.getElementById("matma").value;
             }
         }
         
@@ -2427,7 +2427,13 @@ Layout = null;
             }
         </div>
         <br />
-        <h4><button style="color:red" onclick="SettingAPI()">ĐIỀU CHỈNH ỨNG DỤNG/WEB PAGE LIÊN KẾT API</button>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:20px;color:lightseagreen">(txtAPI : tách biệt các input bởi \n||\n) - (/Home/OnOffAPIHtml?isEnabled=32752262 : ẩn/hiện HTML API)</span></h4>
+        <h4><button style="color:red" onclick="SettingAPI()">ĐIỀU CHỈNH ỨNG DỤNG/WEB PAGE LIÊN KẾT API</button>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:20px;color:lightseagreen">(txtAPI : tách biệt các input bởi \n||\n) - (/Home/OnOffAPIHtml?isEnabled=32752262 : ẩn/hiện HTML API || [hoặc fileData])</span>
+            <br />
+            <br />
+            <span style="color:darkgoldenrod">
+                * Format API Multiple :<br /><br />Home/Multiple_API (fileData)<br /><br />url<br /><**><br />body<br /><||><br />url<br /><**><br />body<br /><||><br />url<br /><**><br />body<br />....<br /><br /><br />[Chú ý : body chỉ liên quan đến txtAPI như hướng dẫn trên và chỉ API nội bộ của MyWebplay - một số có thể không thuộc diện tác dụng]
+            </span>
+        </h4>
         <a target="_blank" href="/Admin/RedirectToAPIPage" style="color:lawngreen">Xem Kết Quả</a> ||
         <a target="_blank" href="#xuly" style="color:lawngreen" onclick="EditSettingAPI()">Edit TXT/HTML API</a>
     </div>

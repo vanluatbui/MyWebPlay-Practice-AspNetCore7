@@ -547,6 +547,10 @@ namespace MyWebPlay.Controllers
                     TempData["alert_admin"] = "⚠ Tất cả kết nối phiên bản của bạn hiện đã hết hạn sử dụng hoặc chưa được bật, vui lòng bật lại trang web để sử dụng. Còn nếu bạn đã bật, vui lòng kiên nhẫn chờ đợi...";
                     break;
 
+                case 10:
+                    TempData["alert_admin"] = "⚠ Khách hàng có mật độ tin tưởng cũng không được phép vào website khi không hoạt động, bị khoá hoặc chưa đăng ký (hoặc cũng có thể website vẫn đang hoạt động bình thường, nhưng có điều hãy xoá khoá ghi nhớ mật độ trên máy tính của bạn). Vui lòng thông cảm và thử lại sau...";
+                    break;
+
 
                 default:
                     TempData["alert_admin"] = "";

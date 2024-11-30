@@ -228,8 +228,10 @@ Layout = null;
          if ('@TempData["NotAlertQuickData"]' == "true")
          xilip = 1;
         
-        if (ok == 0 && localStorage.getItem("trusted-you") != "true" && (('@TempData["NotAlertQuickData"]' == "false" && '@TempData["UsingWebsite"]' == "false" && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null) || (window.localStorage.getItem('@TempData["keytuyetdoi"]') != null && '@TempData["not-believe"]' == "true")))
+         
+        if (ok == 0 && localStorage.getItem("trusted-you") != "true" && (('@TempData["NotAlertQuickData"]' == "false" && '@TempData["UsingWebsite"]' == "false") && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null))
         {
+           
             if ('@TempData["AlertUsingWebsite"]' == "true")
             {
                 var nai = 0;
@@ -454,6 +456,7 @@ Layout = null;
         
         if (ok == 0 && '@TempData["AllConnect"]' == "false" && '@TempData["VisibleX"]' == "true" && localStorage.getItem("keyX_PlayOnWeb") != "true"  && window.localStorage.getItem('@TempData["keytuyetdoi"]') == null && window.localStorage.getItem("trusted-you") == null)
         {
+           
              if ('@TempData["AlertUsingWebsite"]' == "true" && '@TempData["NotAlertQuickData"]' == "false")
             {
             ok = 1;
@@ -503,6 +506,7 @@ Layout = null;
         
         if (ok == 0 && '@TempData["lock"]' == "true")
         {
+           
              if ('@TempData["AlertUsingWebsite"]' == "true")
             {
             ok = 4;
@@ -565,6 +569,7 @@ Layout = null;
             }
             else
             {
+               
             var nai = 0;
                 setInterval(function()
                 {
@@ -596,6 +601,29 @@ Layout = null;
             }
          }
         }
+
+         if ((window.localStorage.getItem('@TempData["keytuyetdoi"]') != null && '@TempData["not-believe"]' == "true"))
+        {
+                 var nai = 0;
+                setInterval(function()
+                {
+                    var bodyIndex = document.getElementById("bodyIndex");
+                    bodyIndex.style.display = "none";
+                    if (nai == 15)
+                    {
+                        window.location.href = "/Home/LockedWeb";
+                    }
+        
+                if (nai == 0)
+                {
+                var noticeFrame = document.getElementById("noticeFrame");
+                noticeFrame.style.display = "block";
+                rlExternal = "/Home/LockedWeb";
+                noticeFrame.src = "/Admin/FrameNoticeAdmin?notice=10";
+                }
+                nai++;
+                },1000);
+        }
         
          if ('@TempData["ok-tin-IP"]' == "true")
          {
@@ -607,7 +635,7 @@ Layout = null;
               window.localStorage.removeItem('trusted-you');
          }
         
-         if ((window.localStorage.getItem('@TempData["keytuyetdoi"]') == null) || (window.localStorage.getItem('@TempData["keytuyetdoi"]') != null && '@TempData["not-believe"]' == "true"))
+         if ((window.localStorage.getItem('@TempData["keytuyetdoi"]') == null) )
          {
          if ('@TempData["skipIP"]' != "true")
          {

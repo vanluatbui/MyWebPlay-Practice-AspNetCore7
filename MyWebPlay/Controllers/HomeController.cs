@@ -848,10 +848,12 @@ namespace MyWebPlay.Controllers
                     {
                         if (info[1] == "false")
                         {
+                            HttpContext.Session.Remove("userIP");
                             TempData["ViewSiteBasic"] = "false";
                         }
                         else
                         {
+                            HttpContext.Session.SetString("userIP", "0.0.0.0");
                             TempData["ViewSiteBasic"] = "true";
                         }
                     }

@@ -894,7 +894,7 @@ namespace MyWebPlay.Controllers
                     var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
                     var noidungS = docfile(pathS);
 
-                    var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("admin-userIP") + "\t" + DateTime.Now + "\t" + this.Request.Path + "\t[GET]";
+                    var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("admin-userIP") + "\t" + DateTime.Now.SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")) + "\t" + this.Request.Path + "\t[GET]";
 
                     System.IO.File.WriteAllText(pathS, noidungZ.Trim('\n'));
                 }
@@ -1315,7 +1315,7 @@ namespace MyWebPlay.Controllers
                 var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
                 var noidungS = docfile(pathS);
 
-                var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("admin-userIP") + "\t" + DateTime.Now + "\t" + this.Request.Path + "\t[POST]";
+                var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("admin-userIP") + "\t" + DateTime.Now.SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")) + "\t" + this.Request.Path + "\t[POST]";
 
                 System.IO.File.WriteAllText(pathS, noidungZ.Trim('\n'));
             }
@@ -1525,7 +1525,7 @@ namespace MyWebPlay.Controllers
                     var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
                     var noidungS = docfile(pathS);
 
-                    var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("admin-userIP") + "\t" + DateTime.Now + "\t" + this.Request.Path + "\t[GET]";
+                    var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("admin-userIP") + "\t" + DateTime.Now.SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")) + "\t" + this.Request.Path + "\t[GET]";
 
                     System.IO.File.WriteAllText(pathS, noidungZ.Trim('\n'));
                 }
@@ -2598,7 +2598,7 @@ namespace MyWebPlay.Controllers
                     var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
                     var noidungS = docfile(pathS);
 
-                    var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("admin-userIP") + "\t" + DateTime.Now + "\t" + this.Request.Path + "\t[POST]";
+                    var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("admin-userIP") + "\t" + DateTime.Now.SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")) + "\t" + this.Request.Path + "\t[POST]";
 
                     System.IO.File.WriteAllText(pathS, noidungZ.Trim('\n'));
                 }
@@ -2691,7 +2691,7 @@ namespace MyWebPlay.Controllers
                     var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
                     var noidungS = docfile(pathS);
 
-                    var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("admin-userIP") + "\t" + DateTime.Now + "\t" + this.Request.Path + "\t[GET]";
+                    var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("admin-userIP") + "\t" + DateTime.Now.SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")) + "\t" + this.Request.Path + "\t[GET]";
 
                     System.IO.File.WriteAllText(pathS, noidungZ.Trim('\n'));
                 }
@@ -2852,7 +2852,7 @@ namespace MyWebPlay.Controllers
                     var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
                     var noidungS = docfile(pathS);
 
-                    var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("admin-userIP") + "\t" + DateTime.Now + "\t" + this.Request.Path + "\t[GET]";
+                    var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("admin-userIP") + "\t" + DateTime.Now.SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")) + "\t" + this.Request.Path + "\t[GET]";
 
                     System.IO.File.WriteAllText(pathS, noidungZ.Trim('\n'));
                 }
@@ -3012,7 +3012,7 @@ namespace MyWebPlay.Controllers
                     var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
                     var noidungS = docfile(pathS);
 
-                    var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("admin-userIP") + "\t" + DateTime.Now + "\t" + this.Request.Path + "\t[POST]";
+                    var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("admin-userIP") + "\t" + DateTime.Now.SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")) + "\t" + this.Request.Path + "\t[POST]";
 
                     System.IO.File.WriteAllText(pathS, noidungZ.Trim('\n'));
                 }

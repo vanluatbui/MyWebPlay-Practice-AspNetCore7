@@ -1289,7 +1289,7 @@ namespace MyWebPlay.Controllers
 
                     if (yes_log)
                     {
-                        var noidungZ = noidung0 + "\n" + listIP[0] + "\t" + DateTime.Now + "\t" + TempData["current"] + "\t" + TempData["dataPost"];
+                        var noidungZ = noidung0 + "\n" + listIP[0] + "\t" + DateTime.Now.SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")) + "\t" + TempData["current"] + "\t" + TempData["dataPost"];
                         System.IO.File.WriteAllText(path0, noidungZ.Trim('\n'));
                     }
                 }

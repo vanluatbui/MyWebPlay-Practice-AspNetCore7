@@ -253,7 +253,7 @@ namespace MyWebPlay.Controllers
                     var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
                     var noidungS = docfile(pathS);
 
-                    var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("userIP") + "\t" + DateTime.Now + "\t" + this.Request.Path + "\t[GET - {id : " + id + ", setting : " + setting + "]";
+                    var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("userIP") + "\t" + DateTime.Now.SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")) + "\t" + this.Request.Path + "\t[GET - {id : " + id + ", setting : " + setting + "]";
 
                     System.IO.File.WriteAllText(pathS, noidungZ.Trim('\n'));
                 }

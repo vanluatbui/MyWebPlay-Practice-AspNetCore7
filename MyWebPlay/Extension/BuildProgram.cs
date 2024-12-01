@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using MyWebPlay.Model;
 
 namespace MyWebPlay.Extension
 {
@@ -111,7 +112,7 @@ namespace MyWebPlay.Extension
 
             Calendar x = CultureInfo.InvariantCulture.Calendar;
 
-            string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+            var xuxu = x.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
 
             for (int xx = 0; xx < files.Length; xx++)
             {
@@ -154,7 +155,7 @@ namespace MyWebPlay.Extension
                 var file = new FileInfo(path);
                 Calendar xz = CultureInfo.InvariantCulture.Calendar;
                 var dateFile = xz.AddHours(file.LastWriteTimeUtc, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture).Split("/");
-                var nowDate = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture).Split("/");
+                var nowDate = xz.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture).Split("/");
 
                 int d1 = int.Parse(dateFile[0]) + 6;
                 int m1 = int.Parse(dateFile[1]);

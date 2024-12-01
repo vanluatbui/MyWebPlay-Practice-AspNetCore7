@@ -1,4 +1,5 @@
 ﻿@using System.Globalization;
+@using MyWebPlay.Model;
 @if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
@@ -415,7 +416,7 @@ Layout = null;
         <td>
             <br />
             <b>Việc tải file của bạn lên hệ thống chỉ là tạm thời, vui lòng chọn ngày hết hạn mong muốn của các file này (nếu bạn là admin hay có mã ưu đãi user thì các file được phép tồn tại không giới hạn) : </b>
-            <input type="date" name="txtHetHan" value="@CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)"/><br>
+            <input type="date" name="txtHetHan" value="@CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(@TempData["say-hi-delay-path"].ToString()).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)"/><br>
             <span style="color:seagreen">Nếu đến ngày hết hạn bạn đã cài đặt, các file của bạn sẽ tự động xoá khỏi hệ thống (có thể sớm/trễ hơn dự kiến nhưng sẽ phạm vi trong ngày này).<br />
             Ngoài ra bạn cũng có thể tự xoá file thủ công trước khi đến ngày hết hạn...<br />
             <u>Lưu ý</u> : vui lòng tự ghi nhớ ngày hết hạn các file bạn sẽ cài đặt này, hệ thống sẽ tự động xoá các file mà không cần thông báo!</span>

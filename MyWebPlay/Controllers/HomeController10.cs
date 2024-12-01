@@ -11,6 +11,7 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
+using MyWebPlay.Model;
 
 namespace MyWebPlay.Controllers
 {
@@ -108,7 +109,7 @@ namespace MyWebPlay.Controllers
                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON" && HttpContext.Session.GetString("IsAdminUsing") != "true")
                 {
                     Calendar xz = CultureInfo.InvariantCulture.Calendar;
-                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    var xuxuz = xz.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""));
                     string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
                     SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
                 }
@@ -215,7 +216,40 @@ namespace MyWebPlay.Controllers
                 HttpContext.Session.Remove("ok-data");
                 Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
+                var delayTime = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "");
+                var partDelayTime = delayTime.Split("#");
+                var hourDL = partDelayTime[0].Replace("H", "");
+                var minDL = partDelayTime[1].Replace("M", "");
+                var secDL = partDelayTime[2].Replace("S", "");
+
                 var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+
+                if (hourDL.Contains("-"))
+                {
+                    xuxu.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
+                }
+                else
+                {
+                    xuxu.AddHours(int.Parse(hourDL));
+                }
+
+                if (minDL.Contains("-"))
+                {
+                    xuxu.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
+                }
+                else
+                {
+                    xuxu.AddHours(int.Parse(minDL));
+                }
+
+                if (secDL.Contains("-"))
+                {
+                    xuxu.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
+                }
+                else
+                {
+                    xuxu.AddSeconds(int.Parse(secDL));
+                }
 
                 if (xuxu.Hour >= 6 && xuxu.Hour <= 17)
                 {
@@ -536,7 +570,7 @@ namespace MyWebPlay.Controllers
                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON" && HttpContext.Session.GetString("IsAdminUsing") != "true")
                 {
                     Calendar xz = CultureInfo.InvariantCulture.Calendar;
-                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    var xuxuz = xz.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""));
                     string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
                     SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
                 }
@@ -655,7 +689,7 @@ namespace MyWebPlay.Controllers
                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON" && HttpContext.Session.GetString("IsAdminUsing") != "true")
                 {
                     Calendar xz = CultureInfo.InvariantCulture.Calendar;
-                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    var xuxuz = xz.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""));
                     string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
                     SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
                 }
@@ -739,7 +773,40 @@ namespace MyWebPlay.Controllers
 
                 Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
+                var delayTime = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "");
+                var partDelayTime = delayTime.Split("#");
+                var hourDL = partDelayTime[0].Replace("H", "");
+                var minDL = partDelayTime[1].Replace("M", "");
+                var secDL = partDelayTime[2].Replace("S", "");
+
                 var xuxu1 = xi.AddHours(DateTime.UtcNow, 7);
+
+                if(hourDL.Contains("-"))
+                {
+                    xuxu1.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
+                }
+                else
+                {
+                    xuxu1.AddHours(int.Parse(hourDL));
+                }
+
+                if (minDL.Contains("-"))
+                {
+                    xuxu1.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
+                }
+                else
+                {
+                    xuxu1.AddHours(int.Parse(minDL));
+                }
+
+                if (secDL.Contains("-"))
+                {
+                    xuxu1.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
+                }
+                else
+                {
+                    xuxu1.AddSeconds(int.Parse(secDL));
+                }
 
                 if (xuxu1.Hour >= 6 && xuxu1.Hour <= 17)
                 {
@@ -959,7 +1026,34 @@ namespace MyWebPlay.Controllers
                         var mssv = spi[1];
                         var id = spi[2];
                         Calendar xix = CultureInfo.InvariantCulture.Calendar;
+                       
                         var xong = xix.AddHours(DateTime.UtcNow, 7);
+                        if (hourDL.Contains("-"))
+                        {
+                            xong.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
+                        }
+                        else
+                        {
+                            xong.AddHours(int.Parse(hourDL));
+                        }
+
+                        if (minDL.Contains("-"))
+                        {
+                            xong.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
+                        }
+                        else
+                        {
+                            xong.AddHours(int.Parse(minDL));
+                        }
+
+                        if (secDL.Contains("-"))
+                        {
+                            xong.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
+                        }
+                        else
+                        {
+                            xong.AddSeconds(int.Parse(secDL));
+                        }
                         var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "TracNghiem_XOnline", "DiemHocSinh.txt");
                         var noidung = System.IO.File.ReadAllText(path);
                         if (noidung.Contains(mssv + "\t" + id))
@@ -1063,7 +1157,7 @@ namespace MyWebPlay.Controllers
 
                     Calendar x = CultureInfo.InvariantCulture.Calendar;
 
-                    string xuxu = x.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    var xuxu = x.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""));
 
                     string fi = HttpContext.Connection.Id.ToString() + "_TracNghiem_" + xuxu + ".txt";
                     fi = fi.Replace("\\", "");
@@ -1103,7 +1197,7 @@ namespace MyWebPlay.Controllers
                     else
                         localIP = HttpContext.Session.GetString("userIP");
 
-                    //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
                     string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + IPx + " *** " + localIP + "] - " + xuxu;
 
                     if (flag == 0)
@@ -1149,7 +1243,7 @@ namespace MyWebPlay.Controllers
                 if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON" && HttpContext.Session.GetString("IsAdminUsing") != "true")
                 {
                     Calendar xz = CultureInfo.InvariantCulture.Calendar;
-                    string xuxuz = xz.AddHours(DateTime.UtcNow, 7).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                    var xuxuz = xz.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""));
                     string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
                     SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
                 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace MyWebPlay.Controllers
 {
@@ -24,7 +25,7 @@ namespace MyWebPlay.Controllers
             txtAPI = txtAPI.Replace("\r", "");
             var listAPI = txtAPI.Split("\n<||>\n");
 
-            var text = string.Empty;
+            var text = new StringBuilder();
             for (var i = 0; i < listAPI.Length; i++)
             {
                 var api = listAPI[i].Split("\n<**>\n");
@@ -52,16 +53,16 @@ namespace MyWebPlay.Controllers
                         var pay = jsonData.result.ToString().Replace("http://" + Request.Host + "/", "").Replace("%20", " ");
                         var path = Path.Combine(_webHostEnvironment.WebRootPath, pay);
                         var noidung = System.IO.File.ReadAllText(path);
-                        text += noidung;
+                        text.Append(noidung);
 
                         if (i < listAPI.Length - 1)
-                            text += "\r\n\r\n------------------------------------------------------------------------------\r\n\r\n";
+                            text.Append("\r\n\r\n---------------------------------[THE END]---------------------------------------------\r\n\r\n");
                     }
                 }
             }
 
             var pax = Path.Combine(_webHostEnvironment.WebRootPath, "ResultExternal", "data.txt");
-            System.IO.File.WriteAllText(pax, text);
+            System.IO.File.WriteAllText(pax, text.ToString());
 
             return Ok(new
             {

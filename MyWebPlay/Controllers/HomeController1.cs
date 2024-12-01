@@ -234,7 +234,7 @@ namespace MyWebPlay.Controllers
 
                 if(hourDL.Contains("-"))
                 {
-                    xuxu1.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
+                    xuxu1= xuxu1.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
                 }
                 else
                 {
@@ -243,20 +243,20 @@ namespace MyWebPlay.Controllers
 
                 if (minDL.Contains("-"))
                 {
-                    xuxu1.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
+                    xuxu1 = xuxu1 = xuxu1.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
                 }
                 else
                 {
-                    xuxu1.AddHours(int.Parse(minDL));
+                    xuxu1 = xuxu1.AddHours(int.Parse(minDL));
                 }
 
                 if (secDL.Contains("-"))
                 {
-                    xuxu1.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
+                    xuxu1 = xuxu1.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
                 }
                 else
                 {
-                    xuxu1.AddSeconds(int.Parse(secDL));
+                    xuxu1 = xuxu1.AddSeconds(int.Parse(secDL));
                 }
 
                 if (xuxu1.Hour >= 6 && xuxu1.Hour <= 17)
@@ -958,29 +958,29 @@ namespace MyWebPlay.Controllers
                     var xuxuz = xz.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""));
                     if (hourDL.Contains("-"))
                     {
-                        xuxuz.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
+                        xuxuz = xuxuz.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
                     }
                     else
                     {
-                        xuxuz.AddHours(int.Parse(hourDL));
+                        xuxuz = xuxuz.AddHours(int.Parse(hourDL));
                     }
 
                     if (minDL.Contains("-"))
                     {
-                        xuxuz.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
+                        xuxuz = xuxuz.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
                     }
                     else
                     {
-                        xuxuz.AddHours(int.Parse(minDL));
+                        xuxuz = xuxuz.AddHours(int.Parse(minDL));
                     }
 
                     if (secDL.Contains("-"))
                     {
-                        xuxuz.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
+                        xuxuz = xuxuz.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
                     }
                     else
                     {
-                        xuxuz.AddSeconds(int.Parse(secDL));
+                        xuxuz = xuxuz.AddSeconds(int.Parse(secDL));
                     }
                     string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
                     SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + DateTime.Now + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl");
@@ -1008,25 +1008,25 @@ namespace MyWebPlay.Controllers
 
                 if (hourDL.Contains("-"))
                 {
-                    xuxu.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
+                   xuxu = xuxu.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
                 }
                 else
                 {
-                    xuxu.AddHours(int.Parse(hourDL));
+                    xuxu = xuxu.AddHours(int.Parse(hourDL));
                 }
 
                 if (minDL.Contains("-"))
                 {
-                    xuxu.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
+                    xuxu = xuxu.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
                 }
                 else
                 {
-                    xuxu.AddHours(int.Parse(minDL));
+                    xuxu = xuxu.AddHours(int.Parse(minDL));
                 }
 
                 if (secDL.Contains("-"))
                 {
-                    xuxu.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
+                    xuxu = xuxu.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
                 }
                 else
                 {

@@ -196,25 +196,25 @@ namespace MyWebPlay.Controllers
 
                 if (hourDL.Contains("-"))
                 {
-                    xuxu.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
+                   xuxu = xuxu.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
                 }
                 else
                 {
-                    xuxu.AddHours(int.Parse(hourDL));
+                    xuxu = xuxu.AddHours(int.Parse(hourDL));
                 }
 
                 if (minDL.Contains("-"))
                 {
-                    xuxu.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
+                    xuxu = xuxu.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
                 }
                 else
                 {
-                    xuxu.AddHours(int.Parse(minDL));
+                    xuxu = xuxu.AddHours(int.Parse(minDL));
                 }
 
                 if (secDL.Contains("-"))
                 {
-                    xuxu.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
+                    xuxu = xuxu.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
                 }
                 else
                 {
@@ -526,25 +526,25 @@ namespace MyWebPlay.Controllers
 
                     if (hourDL.Contains("-"))
                     {
-                        xuxu.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
+                       xuxu = xuxu.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
                     }
                     else
                     {
-                        xuxu.AddHours(int.Parse(hourDL));
+                        xuxu = xuxu.AddHours(int.Parse(hourDL));
                     }
 
                     if (minDL.Contains("-"))
                     {
-                        xuxu.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
+                        xuxu = xuxu.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
                     }
                     else
                     {
-                        xuxu.AddHours(int.Parse(minDL));
+                        xuxu = xuxu.AddHours(int.Parse(minDL));
                     }
 
                     if (secDL.Contains("-"))
                     {
-                        xuxu.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
+                        xuxu = xuxu.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
                     }
                     else
                     {
@@ -880,25 +880,25 @@ namespace MyWebPlay.Controllers
 
                 if (hourDL.Contains("-"))
                 {
-                    xuxu.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
+                   xuxu = xuxu.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
                 }
                 else
                 {
-                    xuxu.AddHours(int.Parse(hourDL));
+                    xuxu = xuxu.AddHours(int.Parse(hourDL));
                 }
 
                 if (minDL.Contains("-"))
                 {
-                    xuxu.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
+                    xuxu = xuxu.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
                 }
                 else
                 {
-                    xuxu.AddHours(int.Parse(minDL));
+                    xuxu = xuxu.AddHours(int.Parse(minDL));
                 }
 
                 if (secDL.Contains("-"))
                 {
-                    xuxu.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
+                    xuxu = xuxu.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
                 }
                 else
                 {
@@ -1079,7 +1079,7 @@ namespace MyWebPlay.Controllers
 
                 if(hourDL.Contains("-"))
                 {
-                    xuxu1.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
+                    xuxu1= xuxu1.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
                 }
                 else
                 {
@@ -1088,20 +1088,20 @@ namespace MyWebPlay.Controllers
 
                 if (minDL.Contains("-"))
                 {
-                    xuxu1.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
+                    xuxu1 = xuxu1 = xuxu1.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
                 }
                 else
                 {
-                    xuxu1.AddHours(int.Parse(minDL));
+                    xuxu1 = xuxu1.AddHours(int.Parse(minDL));
                 }
 
                 if (secDL.Contains("-"))
                 {
-                    xuxu1.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
+                    xuxu1 = xuxu1.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
                 }
                 else
                 {
-                    xuxu1.AddSeconds(int.Parse(secDL));
+                    xuxu1 = xuxu1.AddSeconds(int.Parse(secDL));
                 }
 
                 if (xuxu1.Hour >= 6 && xuxu1.Hour <= 17)
@@ -1240,7 +1240,7 @@ namespace MyWebPlay.Controllers
 
                 if(hourDL.Contains("-"))
                 {
-                    xuxu1.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
+                    xuxu1= xuxu1.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
                 }
                 else
                 {
@@ -1249,20 +1249,20 @@ namespace MyWebPlay.Controllers
 
                 if (minDL.Contains("-"))
                 {
-                    xuxu1.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
+                    xuxu1 = xuxu1 = xuxu1.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
                 }
                 else
                 {
-                    xuxu1.AddHours(int.Parse(minDL));
+                    xuxu1 = xuxu1.AddHours(int.Parse(minDL));
                 }
 
                 if (secDL.Contains("-"))
                 {
-                    xuxu1.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
+                    xuxu1 = xuxu1.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
                 }
                 else
                 {
-                    xuxu1.AddSeconds(int.Parse(secDL));
+                    xuxu1 = xuxu1.AddSeconds(int.Parse(secDL));
                 }
 
                 if (xuxu1.Hour >= 6 && xuxu1.Hour <= 17)
@@ -1913,25 +1913,25 @@ namespace MyWebPlay.Controllers
 
                     if (hourDL.Contains("-"))
                     {
-                        xuxu.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
+                       xuxu = xuxu.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
                     }
                     else
                     {
-                        xuxu.AddHours(int.Parse(hourDL));
+                        xuxu = xuxu.AddHours(int.Parse(hourDL));
                     }
 
                     if (minDL.Contains("-"))
                     {
-                        xuxu.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
+                        xuxu = xuxu.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
                     }
                     else
                     {
-                        xuxu.AddHours(int.Parse(minDL));
+                        xuxu = xuxu.AddHours(int.Parse(minDL));
                     }
 
                     if (secDL.Contains("-"))
                     {
-                        xuxu.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
+                        xuxu = xuxu.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
                     }
                     else
                     {
@@ -2236,25 +2236,25 @@ namespace MyWebPlay.Controllers
 
                     if (hourDL.Contains("-"))
                     {
-                        xuxu.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
+                       xuxu = xuxu.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
                     }
                     else
                     {
-                        xuxu.AddHours(int.Parse(hourDL));
+                        xuxu = xuxu.AddHours(int.Parse(hourDL));
                     }
 
                     if (minDL.Contains("-"))
                     {
-                        xuxu.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
+                        xuxu = xuxu.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
                     }
                     else
                     {
-                        xuxu.AddHours(int.Parse(minDL));
+                        xuxu = xuxu.AddHours(int.Parse(minDL));
                     }
 
                     if (secDL.Contains("-"))
                     {
-                        xuxu.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
+                        xuxu = xuxu.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
                     }
                     else
                     {
@@ -2967,25 +2967,25 @@ namespace MyWebPlay.Controllers
 
                     if (hourDL.Contains("-"))
                     {
-                        xuxu.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
+                       xuxu = xuxu.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
                     }
                     else
                     {
-                        xuxu.AddHours(int.Parse(hourDL));
+                        xuxu = xuxu.AddHours(int.Parse(hourDL));
                     }
 
                     if (minDL.Contains("-"))
                     {
-                        xuxu.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
+                        xuxu = xuxu.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
                     }
                     else
                     {
-                        xuxu.AddHours(int.Parse(minDL));
+                        xuxu = xuxu.AddHours(int.Parse(minDL));
                     }
 
                     if (secDL.Contains("-"))
                     {
-                        xuxu.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
+                        xuxu = xuxu.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
                     }
                     else
                     {
@@ -3395,25 +3395,25 @@ namespace MyWebPlay.Controllers
 
                     if (hourDL.Contains("-"))
                     {
-                        xuxu.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
+                       xuxu = xuxu.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
                     }
                     else
                     {
-                        xuxu.AddHours(int.Parse(hourDL));
+                        xuxu = xuxu.AddHours(int.Parse(hourDL));
                     }
 
                     if (minDL.Contains("-"))
                     {
-                        xuxu.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
+                        xuxu = xuxu.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
                     }
                     else
                     {
-                        xuxu.AddHours(int.Parse(minDL));
+                        xuxu = xuxu.AddHours(int.Parse(minDL));
                     }
 
                     if (secDL.Contains("-"))
                     {
-                        xuxu.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
+                        xuxu = xuxu.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
                     }
                     else
                     {

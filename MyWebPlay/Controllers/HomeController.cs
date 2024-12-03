@@ -403,7 +403,31 @@ namespace MyWebPlay.Controllers
             return false;
         }
 
-        public void khoawebsiteClient(List<string> listIP)
+        public async Task GetUserIPClient()
+        {
+            string ipAddress = string.Empty;
+
+            using (var client = new HttpClient())
+            {
+                var response = await client.GetAsync("https://api.ipify.org?format=json");
+                ipAddress = await response.Content.ReadAsStringAsync();
+            }
+
+            if (string.IsNullOrEmpty(ipAddress))
+            {
+                ipAddress = Request.Headers["X-Forwarded-For"];
+            }
+
+            if (string.IsNullOrEmpty(ipAddress))
+            {
+                ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+            }
+
+            HttpContext.Session.SetString("uerIP", ipAddress);
+            TempData["userIP"] = ipAddress;
+        }
+
+         public void khoawebsiteClient(List<string> listIP)
         {
             try
             {
@@ -642,7 +666,12 @@ namespace MyWebPlay.Controllers
                     {
                         if (info[1] == "true")
                         {
+                            TempData["GetBlocked"] = true;
                             TempData["errorXY"] = "true";
+                        }
+                        else
+                        {
+                            TempData["GetBlocked"] = false;
                         }
                     }
 
@@ -670,6 +699,18 @@ namespace MyWebPlay.Controllers
                         else
                         {
                             TempData["tathetweb"] = "false";
+                        }
+                    }
+
+                    if (info[0] == "External_Post")
+                    {
+                        if (info[1] == "true")
+                        {
+                            TempData["ExternalPost"] = "true";
+                        }
+                        else
+                        {
+                            TempData["ExternalPost"] = "false";
                         }
                     }
 
@@ -883,7 +924,6 @@ namespace MyWebPlay.Controllers
                     {
                         if (info[1] == "false")
                         {
-                            HttpContext.Session.Remove("userIP");
                             TempData["ViewSiteBasic"] = "false";
                         }
                         else
@@ -1045,6 +1085,14 @@ namespace MyWebPlay.Controllers
                             TempData["mau_winx"] = "deeppink";
                             flag = 0;
                         }
+                    }
+                }
+
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) && string.IsNullOrEmpty(TempData["userIP"].ToString()))
+                {
+                    if (TempData["AllConnect"] == "true" && TempData["ExternalPost"] == "true" && TempData["GetBlocked"] == "true")
+                    {
+                        GetUserIPClient();
                     }
                 }
 

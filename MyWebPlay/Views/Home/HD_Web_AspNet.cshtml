@@ -172,7 +172,7 @@ CultureInfo.CurrentCulture,<br>
 DateTimeStyle.None,<br>
 out DateTime);<br>
 <br>
-return (isValid && datetime &gt; DateTime.Now);<br>
+return (isValid && datetime &gt; CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")));<br>
 }<br>
 <br>
 <br>
@@ -346,7 +346,7 @@ public ActionResult Mine()<br>
 ApplicationUser currentUser =<br>
 System.Web.HttpContext.Current.GetOwinContext().GetUserManager&lt;ApplicationUserManager&gt;().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());<br>
 BigSchoolContext context = new BigSchoolContext();<br>
-var courses = context.Course.Where(c =&gt; c.LecturerId == currentUser.Id && c.Date_Time &gt; DateTime.Now).ToList();<br>
+var courses = context.Course.Where(c =&gt; c.LecturerId == currentUser.Id && c.Date_Time &gt; CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""))).ToList();<br>
 foreach (Course i in courses)<br>
 {<br>
 i.LectureName = currentUser.Name; //Name la cot da them vao Aspnetuser  } <br>

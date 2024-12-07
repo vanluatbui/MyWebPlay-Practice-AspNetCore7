@@ -9,6 +9,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
          public async Task<ActionResult> Multiple_API(IFormFile fileData)
         {
+            ghilogrequest(null);
             var txtAPI = string.Empty;
             if (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false)
             {

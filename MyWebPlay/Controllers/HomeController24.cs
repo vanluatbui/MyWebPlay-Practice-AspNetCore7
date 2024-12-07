@@ -56,7 +56,7 @@ namespace MyWebPlay.Controllers
                         text.Append(noidung);
 
                         if (i < listAPI.Length - 1)
-                            text.Append("\r\n\r\n---------------------------------[THE END]---------------------------------------------\r\n\r\n");
+                            text.Append("\r\n\r\n---------------------------------[THE END]---------------------------------------\r\n\r\n");
                     }
                 }
             }

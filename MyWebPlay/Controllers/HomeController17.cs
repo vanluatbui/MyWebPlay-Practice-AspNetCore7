@@ -253,10 +253,16 @@ namespace MyWebPlay.Controllers
                     var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
                     var noidungS = docfile(pathS);
 
-                    var noidungZ = noidungS + "\n" + HttpContext.Session.GetString("userIP") + "\t" + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""))
+                    var ipAddress = SetUserIPClientWhenAPI();
+                    if (string.IsNullOrEmpty(ipAddress))
+                    {
+                        ipAddress = HttpContext.Session.GetString("userIP");
+                    }
+
+                    var noidungZ = noidungS + "\n" + ipAddress + "\t" + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""))
                         + "\t" + this.Request.Path + "\t[GET - {id : " + id + ", setting : " + setting + "]";
 
-                    System.IO.File.WriteAllText(pathS, noidungZ.Trim('\n'));
+                   System.IO.File.WriteAllText(pathS, noidungZ.Trim('\n'));
                 }
 
                 TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");

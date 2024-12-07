@@ -329,9 +329,15 @@ namespace MyWebPlay.Controllers
 
                 if (yes_log)
                 {
-                    var noidungZ = noidung0 + "\n" + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")) + "\t" + this.Request.GetDisplayUrl() + "\t" + fi;
+                    var ipAddress = SetUserIPClientWhenAPI();
+                    if (string.IsNullOrEmpty(ipAddress))
+                    {
+                        ipAddress = HttpContext.Session.GetString("userIP");
+                    }
+                 
+                    var noidungZ = noidung0 + "\n" + ipAddress + " -- " + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")) + "\t" + this.Request.GetDisplayUrl() + "\t" + fi;
 
-                    System.IO.File.WriteAllText(path0, noidungZ.Trim('\n'));
+                   System.IO.File.WriteAllText(path0, noidungZ.Trim('\n'));
                 }
             }
         }
@@ -403,31 +409,46 @@ namespace MyWebPlay.Controllers
             return false;
         }
 
-        public async Task GetUserIPClient()
+        public string SetUserIPClientWhenAPI()
         {
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            var check = 0;
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "All_People" && info[1] == "true") check++;
+                if (info[0] == "External_Post" && info[1] == "true") check++;
+                if (info[0] == "Get_Blocked" && info[1] == "true") check++;
+            }
+
             string ipAddress = string.Empty;
-
-            using (var client = new HttpClient())
+            if (check == 3)
             {
-                var response = await client.GetAsync("https://api.ipify.org?format=json");
-                ipAddress = await response.Content.ReadAsStringAsync();
+                //using (var client = new HttpClient())
+                //{
+                //    var response = await client.GetAsync("https://api.ipify.org?format=text");
+                //    ipAddress = await response.Content.ReadAsStringAsync();
+                //}
+
+                if (string.IsNullOrEmpty(ipAddress))
+                {
+                    ipAddress = Request.Headers["X-Forwarded-For"];
+                }
+
+                if (string.IsNullOrEmpty(ipAddress))
+                {
+                    ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+                }
             }
 
-            if (string.IsNullOrEmpty(ipAddress))
-            {
-                ipAddress = Request.Headers["X-Forwarded-For"];
-            }
-
-            if (string.IsNullOrEmpty(ipAddress))
-            {
-                ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-            }
-
-            HttpContext.Session.SetString("uerIP", ipAddress);
-            TempData["userIP"] = ipAddress;
+            return ipAddress;
         }
 
-         public void khoawebsiteClient(List<string> listIP)
+        public void khoawebsiteClient(List<string> listIP)
         {
             try
             {
@@ -1088,14 +1109,6 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) && string.IsNullOrEmpty(TempData["userIP"].ToString()))
-                {
-                    if (TempData["AllConnect"] == "true" && TempData["ExternalPost"] == "true" && TempData["GetBlocked"] == "true")
-                    {
-                        GetUserIPClient();
-                    }
-                }
-
                 if (TempData["errorXY"] != "true")
                 {
                     if (yes == false)
@@ -1337,9 +1350,14 @@ namespace MyWebPlay.Controllers
 
                     if (yes_log)
                     {
-                        var noidungZ = noidung0 + "\n" + listIP[0] + "\t" + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""))
+                        var ipAddress = SetUserIPClientWhenAPI();
+                        if (string.IsNullOrEmpty(ipAddress))
+                        {
+                            ipAddress = HttpContext.Session.GetString("userIP");
+                        }
+                        var noidungZ = noidung0 + "\n" + ipAddress + "\t" + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""))
                             + "\t" + TempData["current"] + "\t" + TempData["dataPost"];
-                        System.IO.File.WriteAllText(path0, noidungZ.Trim('\n'));
+                       System.IO.File.WriteAllText(path0, noidungZ.Trim('\n'));
                     }
                 }
 

@@ -39,6 +39,7 @@
 /Admin/DeleteAll_ThisIPLockedClient
 /Admin/DeleteFirstIP
 /Admin/ReplaceUpload
+/Admin/EditFileAdminStatic
 /Admin/KhoiPhucSetting_Admin
 /Cover/Ef8e2d510133438f980423324078e0939
 /Cover/Ee98b70f046cbdf12b3eee2d65e625373

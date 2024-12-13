@@ -11,6 +11,11 @@
             $("div[style='height: 65px;']").remove();
         });
     }, 10);
+
+    function okxong()
+    {
+        alert("Cập nhật thành công !");
+    }
 </script>
 <html lang="vi">
     <head>
@@ -24,10 +29,16 @@
     </head>
     <body>
         <meta charset="ISO-8859-1" />
-        @Html.Raw(TempData["nd-file-admin"])
         <br />
-        <br />
-        <a href="/Admin/EditFileAdminStatic" style="color:deeppink">Chỉnh Sửa Nội Dung</a>
+         @using (Html.BeginForm())
+         {
+            @Html.ValidationSummary(true)
+            <input type="text" name="txtFile" hidden value="@TempData["hohoFile"]" />
+            <textarea name="txtNoiDung" cols="150" rows="20">@TempData["TextInFileAd"]</textarea>
+            <br />
+            <br />
+            <input type="submit" value="CẬP NHẬT" style="color:red" onclick="okxong()" />
+         }
     </body>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

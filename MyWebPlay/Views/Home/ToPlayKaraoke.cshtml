@@ -340,6 +340,8 @@
                 document.getElementById("okxem").style.display = "none";
                 document.getElementById("loading").style.display = "block";
             }
+
+            var lancop = 0;
             
             function copyshare() {
                 //if (dFlag == 1)
@@ -388,13 +390,29 @@
                     contentType: false,
                     processData: false,
                     success: function(data) {
+
+                        var urlFull = '@TempData["https_url"]' + "://" + "@ViewBag.Host" + "/Home/RedirectUrlEncode?id=share_karaoke&&code=" + data.url;
             
-                  navigator.clipboard.writeText('@TempData["https_url"]' + "://" + "@ViewBag.Host" + "/Home/RedirectUrlEncode?id=share_karaoke&&code=" + data.url);
+                    if (lancop % 2 == 0)
+                    {
+                          navigator.clipboard.writeText(urlFull);
+                    }
+
                 document.getElementById("message").style.display = "block";
                 document.getElementById("error").style.display = "block";
+
+                if (lancop % 2 == 0)
+                {
                 document.getElementById("error").innerHTML = "✔️ Một url chia sẻ Karaoke đã được copy vào Clipboard của bạn. Hãy chia sẻ bài hát này và mang niềm vui đến bạn bè mình nhé !";
+                }
+                else
+                {
+                     document.getElementById("error").innerHTML = "✔️ Một url chia sẻ Karaoke đã được xuất ra ở TextBox bên dưới. Hãy chia sẻ bài hát này và mang niềm vui đến bạn bè mình nhé !<br /><input type='text' size='100%' value='"+urlFull+"'readonly />";
+                }
                 notice = 1;
             }});
+
+            lancop++;
             }
             
             var idX;

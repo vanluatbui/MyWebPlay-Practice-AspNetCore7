@@ -94,6 +94,8 @@ Layout = null;
                 document.getElementById("linkread4").href += "&&keyX="+keyX;
                 document.getElementById("linkread5").href += "&&keyX="+keyX;
                 document.getElementById("linkread6").href += "&&keyX="+keyX;
+                document.getElementById("linkread7").href += "&&keyX="+keyX;
+                document.getElementById("linkread8").href += "&&keyX="+keyX;
                 loadlinkread = 1;
             }});
         
@@ -1252,7 +1254,7 @@ Layout = null;
                 <br />
                 <h2 style="color:goldenrod">Trạng thái lần cuối : @ViewBag.SettingStatus</h2>
                 <a href="#xuly" style="color:orangered" onclick="updatetrangthai()">Thay đổi trạng thái</a><br /><br />
-                <h4><a href="#xuly" onclick="refreshHetHan()" style="color:purple">Refresh hoặc xoá tất cả thư mục và các file hết hạn</a>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:15px; color:lime"><input type="checkbox" id="chkFileExternal" />&nbsp;&nbsp;<b>Xoá luôn các file tại root - FileExternal (ngoại trừ các file nằm bên ngoài và không nằm trong thư mục con)</b></span></h4>
+                <h4><a href="#xuly" onclick="refreshHetHan()" style="color:purple">Refresh hoặc xoá tất cả thư mục và các file hết hạn</a>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:15px; color:lime"><input type="checkbox" id="chkFileExternal" />&nbsp;&nbsp;<b>Xoá luôn các file tại root - FileExternal (ngoại trừ các file nằm bên ngoài và không nằm trong thư mục con)</b></span></h4><a id="linkread8" href="/Admin/ReadAdminFileByStatic?file=/InfoWebFile/InfoWebFile.txt" target="_blank" style="color:deeppink">Xem list các file đã tải và thời hạn</a>
                 <br>
                 <h4>
                     <a href="#xuly" id="#welcome" onclick="chonall()" style="color:green">CHỌN TẤT CẢ</a> | <a href="#xuly" onclick="boall()" style="color:red">BỎ CHỌN TẤT CẢ</a> <br><span>&nbsp;</span><span style="color:coral">(ngoại trừ các setting phụ)<span>&nbsp;</span><span>&nbsp;</span><a href="/Admin/DongMoFileStatus" style="color:maroon">Đóng/mở sử dụng thư mục file upload Server (trạng thái : @ViewBag.FileStatus)</a>
@@ -2435,7 +2437,8 @@ Layout = null;
             </span>
         </h4>
         <a target="_blank" href="/Admin/RedirectToAPIPage" style="color:lawngreen">Xem Kết Quả</a> ||
-        <a target="_blank" href="#xuly" style="color:lawngreen" onclick="EditSettingAPI()">Edit TXT/HTML API</a>
+        <a target="_blank" href="#xuly" style="color:lawngreen" onclick="EditSettingAPI()">Edit TXT/HTML API</a> ||
+        <a id="linkread7" href="/Admin/ReadAdminFileByStatic?file=/API_WebPage/API-Menu.txt&&isHTML=false" target="_blank" style="color:lime">Xem nội dung menu API</a>
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

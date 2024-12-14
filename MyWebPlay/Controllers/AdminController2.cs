@@ -606,13 +606,12 @@ namespace MyWebPlay.Controllers
 
         }
 
-        public ActionResult ReadAdminFileByStatic(string? file, string? keyX, bool? admin = false)
+        public ActionResult ReadAdminFileByStatic(string? file, string? keyX, bool? admin = false, string isHTML = "true")
         {
             try
             {
                 var pathXY = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin/SecureSettingAdmin.txt");
                 var matpassAd = System.IO.File.ReadAllText(pathXY).Replace("\r", "").Split("\n")[1];
-
 
                 if (admin == false && keyX != matpassAd)
                 {
@@ -709,17 +708,25 @@ namespace MyWebPlay.Controllers
                     var ndx = HttpContext.Session.GetString("nd-file-admin");
                     if (ndx == null) return RedirectToAction("Error", "Home");
                     HttpContext.Session.Remove("nd-file-admin");
-                    TempData["nd-file-admin"] = ndx.Replace("\r","").Replace("\n", "<br />").Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
+
+                    var noidux = (isHTML == "true") ? ndx.Replace("\r", "").Replace("\n", "<br />").Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;") : ndx;
+
+                    if (isHTML == "true")
+                    {
+                        TempData["nd-file-admin"] = noidux;
+                    }
+                    else
+                    {
+                        TempData["nd-file-admin-NOHTML"] = noidux;
+                    }
                     return View();
                 }
-
-
 
                 var nd = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin" + file));
 
                 HttpContext.Session.SetString("nd-file-admin",  nd);
 
-                return RedirectToAction("ReadAdminFileByStatic", "Admin", new { admin = true });
+                return RedirectToAction("ReadAdminFileByStatic", "Admin", new { admin = true, isHTML = isHTML });
             }
             catch (Exception ex)
             {

@@ -11,6 +11,26 @@
             $("div[style='height: 65px;']").remove();
         });
     }, 10);
+
+    setInterval(function()
+    {
+         const urlParams = new URLSearchParams(window.location.search);
+        const isHTML = urlParams.get('isHTML');
+        if (isHTML == "false")
+        {
+            if (document.getElementById("noHTML") != null)
+            {
+            document.getElementById("noHTML").style.display = "inline-block";
+            }
+
+            if (document.getElementById("yesHTML") != null)
+            {
+            document.getElementById("yesHTML").style.display = "none";
+            }
+        }
+    },10);
+
+    
 </script>
 <html lang="vi">
     <head>
@@ -24,8 +44,14 @@
     </head>
     <body>
         <meta charset="ISO-8859-1" />
+
+        <div id="yesHTML">
         @Html.Raw(TempData["nd-file-admin"])
-        <br />
+        </div>
+        <div id="noHTML" style="display:none">
+        @TempData["nd-file-admin-NOHTML"]
+        </div>
+    <br />
         <br />
         <a href="/Admin/EditFileAdminStatic" style="color:deeppink">Chỉnh Sửa Nội Dung</a>
     </body>

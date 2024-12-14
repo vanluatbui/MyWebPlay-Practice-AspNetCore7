@@ -465,6 +465,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult EncodeUrlData(string url)
         {
+            url = url.Replace("__HostWeb__", this.Request.Host.ToString());
             return Ok(new { url = StringMaHoaExtension.Encrypt(url) });
         }
 

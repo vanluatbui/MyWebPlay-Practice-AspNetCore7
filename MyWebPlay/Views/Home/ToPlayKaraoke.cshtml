@@ -295,18 +295,18 @@
 
                 //--------------------------------
 
-                if ('@TempData["post-kara"]' == "true" && flg == 1) {
-                    var musixPause = document.getElementById('musix');
-                    var musicPause = document.getElementById('music');
+                //if ('@TempData["post-kara"]' == "true" && flg == 1) {
+                //    var musixPause = document.getElementById('musix');
+                //    var musicPause = document.getElementById('music');
 
-                    if (musixPause.paused || musicPause.paused)
-                    {
-                        resetKaraoke();
-                        musicPause.play();
-                        musixPause.play();
-                        replay_Youtube();
-                    }
-                }
+                //    if (musixPause.paused || musicPause.paused)
+                //    {
+                //        resetKaraoke();
+                //        musicPause.play();
+                //        musixPause.play();
+                //        replay_Youtube();
+                //    }
+                //}
 
             }, 10);
             
@@ -379,7 +379,7 @@
                     luutru = "&&setting=" + hangR + "<>" + mauR + "<>" + mauXR + "<>" + mauYR + "<>" + kichthuocR + "<>" + fontKieuR + "<>" + kieudemnguocR + "<>" + maunexR + "<>" + anhmoR;
                 }
             
-                var url = '@TempData["https_url"]' + "://" + "@ViewBag.Host" + "/Home/Share_Karaoke?id=" + document.getElementById("linkKara").value + mi + luutru;
+                var url = '@TempData["https_url"]' + "://" + "__HostWeb__" + "/Home/Share_Karaoke?id=" + document.getElementById("linkKara").value + mi + luutru;
 
                 var formData = new FormData();
                 formData.append("url", url);
@@ -407,7 +407,7 @@
                 }
                 else
                 {
-                     document.getElementById("error").innerHTML = "✔️ Một url chia sẻ Karaoke đã được xuất ra ở TextBox bên dưới. Hãy chia sẻ bài hát này và mang niềm vui đến bạn bè mình nhé !<br /><input type='text' size='180' value='"+urlFull+"'readonly />";
+                     document.getElementById("error").innerHTML = "✔️ Một url chia sẻ Karaoke đã được xuất ra ở TextBox bên dưới. Hãy chia sẻ bài hát này và mang niềm vui đến bạn bè mình nhé (nhấn lân nữa để copy - nếu có thể) !<br /><input type='text' size='180' value='"+urlFull+"'readonly />";
                 }
                 notice = 1;
             }});
@@ -721,7 +721,6 @@
             
                         xanh.innerHTML = "<b>FULL MÀN HÌNH - ON</b>";
                         dongmomenu();
-            
                         document.getElementById("message").style.display = "block";
                         document.getElementById("error").style.display = "block";
                         document.getElementById("error").innerHTML = "Lưu ý : Khi bật chế độ full màn hình, các option menu sẽ bị ẩn (nhằm mở rộng không gian). Bạn cũng có thể nhấn phím M hoặc m để hiện/ẩn khung menu (hoặc nhấn đúp vào màn hình || hoặc click vào nội dung text Karaoke đang chạy). MẸO BỔ SUNG : hãy rê chuột vào các nút và các element đang có ở khung menu để hiện hướng dẫn sử dụng cũng như các phím tắt cần thiết nhé.";
@@ -1522,7 +1521,7 @@
                         if (nanFirst == 0 && '@TempData["boquathongbao"]' == "false") {
                             document.getElementById("message").style.display = "block";
                             document.getElementById("error").style.display = "block";
-                            document.getElementById("error").innerHTML = 'Xin lỗi vì sự bất tiện : khi lần đầu tiên bạn truy cập vào đây, vui lòng click nút "Khởi động lại" bên dưới sau khi nhạc đã phát được vài giây.';
+                            document.getElementById("error").innerHTML = 'Xin lỗi vì sự bất tiện : khi lần đầu tiên bạn truy cập vào đây, vui lòng click nút "Khởi động lại" bên dưới sau khi nhạc đã phát được vài giây.<br />Nếu bạn cảm thấy tiến trình chạy màu chữ không kịp tiến độ của lời nhạc thực tế thì hãy thử reset lại mp3 vài lần hoặc kiểm tra/tạo lại bản TXT karaoke của bạn 😁';
                             notice = 1;
                             nanFirst = 1;
                         }

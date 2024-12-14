@@ -878,7 +878,7 @@ namespace MyWebPlay.Controllers
                 {
                     ViewBag.Text = System.IO.File.ReadAllText(path);
                     Calendar x = CultureInfo.InvariantCulture.Calendar;
-                    ViewBag.DateTime = x.AddHours(file.LastWriteTimeUtc, 7);
+                    ViewBag.DateTime = x.AddHours(file.LastWriteTimeUtc, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
                 }
                 return View();
             }

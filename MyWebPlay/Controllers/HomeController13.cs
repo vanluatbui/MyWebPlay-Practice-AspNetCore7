@@ -85,7 +85,7 @@ namespace MyWebPlay.Controllers
                     ViewBag.Text1 = System.IO.File.ReadAllText(path);
                     ViewBag.Text2 = "<p id=\"preX\" name=\"colorX\" style=\"color:" + TempData["mau_text"] + ";font-size:22px; display:none\">" + ViewBag.Text1.Replace("\n", "<br>") + "</p>";
                     Calendar x = CultureInfo.InvariantCulture.Calendar;
-                    ViewBag.DateTime = x.AddHours(file.LastWriteTimeUtc, 7);
+                    ViewBag.DateTime = x.AddHours(file.LastWriteTimeUtc, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
                 }
                 return View();
             }

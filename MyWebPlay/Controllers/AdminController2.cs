@@ -7,6 +7,7 @@ using System.Net;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Xml.Linq;
+using System.Web;
 
 namespace MyWebPlay.Controllers
 {
@@ -709,17 +710,10 @@ namespace MyWebPlay.Controllers
                     if (ndx == null) return RedirectToAction("Error", "Home");
                     HttpContext.Session.Remove("nd-file-admin");
 
-                    var noidux = (isHTML == "true") ? ndx.Replace("\r", "").Replace("\n", "<br />").Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;") : ndx;
+                    var noidux = (isHTML == "true") ? ndx.Replace("\r", "").Replace("\n", "<br />").Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;") : HttpUtility.HtmlEncode(ndx).Replace("\r", "").Replace("\n", "<br />").Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
 
-                    if (isHTML == "true")
-                    {
-                        TempData["nd-file-admin"] = noidux;
-                    }
-                    else
-                    {
-                        TempData["nd-file-admin-NOHTML"] = noidux;
-                    }
-                    return View();
+                     TempData["nd-file-admin"] = noidux;
+                     return View();
                 }
 
                 var nd = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin" + file));

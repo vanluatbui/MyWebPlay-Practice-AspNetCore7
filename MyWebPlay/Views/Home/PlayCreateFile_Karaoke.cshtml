@@ -71,10 +71,20 @@ Layout = null;
         if (music == 4)
         {
             document.getElementById("xuxu").style.display = "inline-block";
+            document.getElementById("lainhac").style.display = "inline-block";
              document.getElementById("loading1").style.display = "none";
              not = 1;
         }
     },10);
+
+    function chonlainhac(input)
+    {
+        var audio = document.getElementById("music");
+        const file = input.files[0];
+        const url = URL.createObjectURL(file);
+
+        audio.src = url;
+    }
     
     var playmute = 0;
     
@@ -111,6 +121,7 @@ Layout = null;
     
              music.play();
              document.getElementById("xuxu").style.display = "none";
+             document.getElementById("lainhac").style.display = "none";
              document.getElementById("LBH2").innerHTML = "&nbsp;";
              document.getElementById("balax").style.display = "none";
              phat = 1;
@@ -249,6 +260,8 @@ Layout = null;
                  if (e.keyCode == 13)
                  {
              var lbh = document.getElementById("BH2").value.split(' ');
+             if (lbh[k] != undefined && lbh[k] != null)
+             {
                 nn += lbh[k].length + 1;
     
                 document.getElementById("LBH1").innerHTML = new String (document.getElementById("BH2").value).substring(0,nn).toUpperCase();
@@ -258,6 +271,7 @@ Layout = null;
                 if (k < lbh.length - 1)
                     time_LuuVet[n - 1] += ",";
                     k++;
+              }
            }
            else if (e.keyCode == 32)
            {
@@ -341,6 +355,8 @@ Layout = null;
     </audio>
     <br />
     <button style="color:olive;display:none" id="xuxu" onclick="startplay()"><b>START PLAY</b></button>
+    <br />
+    <span id="lainhac" style="display:none"><input type="file" id="bannhac" onchange="chonlainhac(this)" /><b style="color:lawngreen"> Chọn lại bản nhạc hiện tại (nên làm thêm bước này)</b></span>
     <img id="loading1" src="/Image_Play/waiting.gif" />
     <br />
     <b id="tgian" style="color:deeppink; font-size:20px"></b>

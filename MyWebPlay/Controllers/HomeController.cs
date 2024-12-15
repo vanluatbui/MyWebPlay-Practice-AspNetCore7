@@ -153,6 +153,11 @@ namespace MyWebPlay.Controllers
                     TempData["chiendich"] = "false";
                 }
 
+                if (HttpContext.Session.GetString("IsAdminUsing") == "true")
+                {
+                    TempData["chiendich"] = "false";
+                }
+
                 var info = listSetting[31].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
                 if (info[1] == "true")

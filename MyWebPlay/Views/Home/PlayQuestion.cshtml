@@ -38,6 +38,10 @@ Layout = null;
                  nensangtoi("null");
                  nensangtoi("null");
                  nensangtoi("null");
+                 if (localStorage.getItem("nensangtoi") == null && (('@TempData["mau_background"]' == "white" && sang == 0) || ('@TempData["mau_background"]' == "black" && sang == 1)))
+                 {
+                     nensangtoi("null");
+                 }
             alert("Bài question của bạn đã được tải hoàn tất.\nNhấn [OK] nếu bạn đã sẵn sàng!");
              }
             return;

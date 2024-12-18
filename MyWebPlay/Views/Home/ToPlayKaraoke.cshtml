@@ -379,7 +379,7 @@
                     luutru = "&&setting=" + hangR + "<>" + mauR + "<>" + mauXR + "<>" + mauYR + "<>" + kichthuocR + "<>" + fontKieuR + "<>" + kieudemnguocR + "<>" + maunexR + "<>" + anhmoR;
                 }
             
-                var url = '@TempData["https_url"]' + "://" + "__HostWeb__" + "/Home/Share_Karaoke?id=" + document.getElementById("linkKara").value + mi + luutru;
+                var url = '@TempData["https_url"]' + "://" + "@ViewBag.Host" + "/Home/Share_Karaoke?id=" + document.getElementById("linkKara").value + mi + luutru;
 
                 var formData = new FormData();
                 formData.append("url", url);

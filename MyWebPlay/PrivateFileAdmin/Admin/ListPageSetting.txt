@@ -11,6 +11,7 @@
 /Admin/ListSongKaraoke_Call
 /Admin/EncryptPasswordByKey_Call
 /Admin/DecryptPasswordByKey_Call
+/Admin/Admin_ChangePassword
 /Admin/FrameNoticeAdmin
 /Admin/BackupDataAdmin
 /Admin/ReadAdminFileByStatic

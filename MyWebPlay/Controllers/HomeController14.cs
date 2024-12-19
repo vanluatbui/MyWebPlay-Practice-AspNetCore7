@@ -128,6 +128,12 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                var pathSecure = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
+                var noidungSecure = System.IO.File.ReadAllText(pathSecure);
+                var fileMOTAT = noidungSecure.Replace("\r", "").Split("\n")[3];
+                var ajax = noidungSecure.Replace("\r", "").Split("\n")[24];
+                if (fileMOTAT == "file_TAT" && (txtKaraoke != null && txtKaraoke.Length > 0 || txtMusic != null && txtMusic.Length > 0 || txtMusix != null && txtMusix.Length > 0)) return RedirectToAction("Error", "Home");
+
                 var fix = "";
                 foreach (var item in f.Keys)
                 {
@@ -340,54 +346,58 @@ namespace MyWebPlay.Controllers
 
                 if (f["txtChon"].ToString() != "on")
                 {
-                    var fileName = Path.GetFileName(txtMusic.FileName);
-                    var nameFile = Path.GetFileName(txtMusix.FileName);
-
-                    var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", fileName);
-                    var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", nameFile);
-
-                    using (Stream fileStream = new FileStream(path, FileMode.Create))
+                    if (fileMOTAT != "file_TAT" || ajax != "AJAX_JAVASCRIPT_ON")
                     {
-                        txtMusic.CopyTo(fileStream);
+                        var fileName = Path.GetFileName(txtMusic.FileName);
+                        var nameFile = Path.GetFileName(txtMusix.FileName);
+
+                        var path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", fileName);
+                        var pathX = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/music", nameFile);
+
+                        using (Stream fileStream = new FileStream(path, FileMode.Create))
+                        {
+                            txtMusic.CopyTo(fileStream);
+                        }
+
+                        using (Stream fileStream = new FileStream(pathX, FileMode.Create))
+                        {
+                            txtMusix.CopyTo(fileStream);
+                        }
+
+                        ViewBag.Music = "/karaoke/music/" + fileName;
+                        ViewBag.Musix = "/karaoke/music/" + nameFile;
+
+                        fileName = Path.GetFileName(txtKaraoke.FileName);
+
+                        path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text", fileName);
+
+                        using (Stream fileStream = new FileStream(path, FileMode.Create))
+                        {
+                            txtKaraoke.CopyTo(fileStream);
+                        }
+
+                        var xu = System.IO.File.ReadAllText(path);
+                        var encrypt = false;
+                        try
+                        {
+                            StringMaHoaExtension.Decrypt(xu);
+                            encrypt = true;
+                        }
+                        catch
+                        {
+                            encrypt = false;
+                        }
+
+                        if (encrypt == true)
+                        {
+                            xu = StringMaHoaExtension.Decrypt(xu);
+                        }
+                        ViewBag.Karaoke = xu;
                     }
-
-                    using (Stream fileStream = new FileStream(pathX, FileMode.Create))
-                    {
-                        txtMusix.CopyTo(fileStream);
-                    }
-
-                    ViewBag.Music = "/karaoke/music/" + fileName;
-                    ViewBag.Musix = "/karaoke/music/" + nameFile;
-
-                    fileName = Path.GetFileName(txtKaraoke.FileName);
-
-                    path = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text", fileName);
-
-                    using (Stream fileStream = new FileStream(path, FileMode.Create))
-                    {
-                        txtKaraoke.CopyTo(fileStream);
-                    }
-
-                    var xu = System.IO.File.ReadAllText(path);
-                    var encrypt = false;
-                    try
-                    {
-                        StringMaHoaExtension.Decrypt(xu);
-                        encrypt = true;
-                    }
-                    catch
-                    {
-                        encrypt = false;
-                    }
-
-                    if (encrypt == true)
-                    {
-                        xu = StringMaHoaExtension.Decrypt(xu);
-                    }
-                    ViewBag.Karaoke = xu;
                 }
                 else
                 {
+                    TempData["DemoKaraoke"] = "true";
                     var xu = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ExamKara/TextDemo.txt"));
                     var encrypt = false;
                     try
@@ -543,6 +553,11 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                var pathSecure = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
+                var noidungSecure = System.IO.File.ReadAllText(pathSecure);
+                var fileMOTAT = noidungSecure.Replace("\r", "").Split("\n")[3];
+                if (fileMOTAT == "file_TAT" && txtMusic != null && txtMusic.Length > 0) return RedirectToAction("Error", "Home");
+
                 var fix = "";
                 foreach (var item in f.Keys)
                 {
@@ -1362,6 +1377,16 @@ namespace MyWebPlay.Controllers
                 if (string.IsNullOrEmpty(boquathongbao))
                     boquathongbao = "false";
 
+                var pathSecure = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
+                var noidungSecure = System.IO.File.ReadAllText(pathSecure);
+                var fileMOTAT = noidungSecure.Replace("\r", "").Split("\n")[3];
+                var ajax = noidungSecure.Replace("\r", "").Split("\n")[24];
+                if (fileMOTAT == "file_TAT" && ajax == "AJAX_JAVASCRIPT_ON")
+                {
+                    TempData["ajax_on_no_upload"] = "Hiện tại bạn không thể thực hiện tải lên các file tại đây. Tuy nhiên hãy bỏ qua điều này và thực hiện các bước tiếp theo và bạn sẽ được hướng dẫn thêm sau đó...";
+                }
+
+
                 HttpContext.Session.SetString("boquathongbao", boquathongbao);
 
                 if (HttpContext.Session.GetString("length-list-auto") != null || HttpContext.Session.GetString("length-list-auto") != "")
@@ -1598,6 +1623,16 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                var pathSecure = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
+                var noidungSecure = System.IO.File.ReadAllText(pathSecure);
+                var fileMOTAT = noidungSecure.Replace("\r", "").Split("\n")[3];
+                if (fileMOTAT == "file_TAT" && (txtKaraoke != null && txtKaraoke.Length > 0 || txtMusic != null && txtMusic.Length > 0 || txtMusix != null && txtMusix.Length > 0)) return RedirectToAction("Error", "Home");
+
+                var ajax = noidungSecure.Replace("\r", "").Split("\n")[24];
+
+                TempData["ajax_file_on_off"] = (fileMOTAT == "file_TAT").ToString();
+                TempData["ajax_on_off"] = (ajax == "AJAX_JAVASCRIPT_ON").ToString();
+
                 TempData["boquathongbao"] = HttpContext.Session.GetString("boquathongbao");
                 HttpContext.Session.Remove("boquathongbao");
                 var fix = "";
@@ -2177,7 +2212,9 @@ namespace MyWebPlay.Controllers
                 else
                 if (f["txtChon"].ToString() != "on")
                 {
-                    if (string.IsNullOrEmpty(f["txtMusic1"].ToString()))
+                    if (fileMOTAT != "file_TAT" || ajax != "AJAX_JAVASCRIPT_ON")
+                    {
+                        if (string.IsNullOrEmpty(f["txtMusic1"].ToString()))
                     {
                         var fileName = Path.GetFileName(txtMusic.FileName);
                         ViewBag.Music = "/karaoke/music/" + fileName;
@@ -2219,15 +2256,18 @@ namespace MyWebPlay.Controllers
                     if (string.IsNullOrEmpty(f["txtKaraoke1"].ToString()))
                     {
 
-                        var fileName1 = Path.GetFileName(txtKaraoke.FileName);
-
-                        var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text", fileName1);
-
-                        using (Stream fileStream = new FileStream(path1, FileMode.Create))
+                        if (fileMOTAT != "file_TAT" || ajax != "AJAX_JAVASCRIPT_ON")
                         {
-                            txtKaraoke.CopyTo(fileStream);
+                            var fileName1 = Path.GetFileName(txtKaraoke.FileName);
+
+                            var path1 = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke/text", fileName1);
+
+                            using (Stream fileStream = new FileStream(path1, FileMode.Create))
+                            {
+                                txtKaraoke.CopyTo(fileStream);
+                            }
+                            nd = System.IO.File.ReadAllText(path1);
                         }
-                        nd = System.IO.File.ReadAllText(path1);
                     }
                     else
                     {
@@ -2255,49 +2295,51 @@ namespace MyWebPlay.Controllers
                         nd = StringMaHoaExtension.Decrypt(nd);
                     }
 
-                    if (nd.Contains("<>") == false)
-                    {
-                        ViewBag.Karaoke = nd;
-                        TempData["TK-KARA"] = "";
-
-                        if (TempData["hassinger"] != "true")
-                            TempData["hassinger"] = "false";
-                    }
-                    else
-                    {
-                        var xa = nd.Replace("\r", "").Split("\n");
-                        var noidung = "";
-                        for (int i = 0; i < xa.Length; i++)
+                        if (nd.Contains("<>") == false)
                         {
-                            if (xa[i].Contains("<>"))
-                            {
-                                var xb = xa[i].Split("<>");
-                                var xc = xb[1].Split("#");
-                                var xd = xb[0].Split("-");
-                                noidung += xc[0] + "=" + xd[0] + "=" + xd[1];
+                            ViewBag.Karaoke = nd;
+                            TempData["TK-KARA"] = "";
 
-                                if (xd[0] == "[SINGER]")
-                                {
-                                    TempData["hassinger"] = "true";
-                                }
-                                else
-                                {
-                                    if (TempData["hassinger"] != "true")
-                                        TempData["hassinger"] = "false";
-                                }
-
-                                nd = nd.Replace(xb[0] + "<>", "");
-
-                                if (i < xa.Length - 1)
-                                    noidung += "\n";
-                            }
+                            if (TempData["hassinger"] != "true")
+                                TempData["hassinger"] = "false";
                         }
-                        TempData["TK-KARA"] = noidung;
-                        ViewBag.Karaoke = nd;
+                        else
+                        {
+                            var xa = nd.Replace("\r", "").Split("\n");
+                            var noidung = "";
+                            for (int i = 0; i < xa.Length; i++)
+                            {
+                                if (xa[i].Contains("<>"))
+                                {
+                                    var xb = xa[i].Split("<>");
+                                    var xc = xb[1].Split("#");
+                                    var xd = xb[0].Split("-");
+                                    noidung += xc[0] + "=" + xd[0] + "=" + xd[1];
+
+                                    if (xd[0] == "[SINGER]")
+                                    {
+                                        TempData["hassinger"] = "true";
+                                    }
+                                    else
+                                    {
+                                        if (TempData["hassinger"] != "true")
+                                            TempData["hassinger"] = "false";
+                                    }
+
+                                    nd = nd.Replace(xb[0] + "<>", "");
+
+                                    if (i < xa.Length - 1)
+                                        noidung += "\n";
+                                }
+                            }
+                            TempData["TK-KARA"] = noidung;
+                            ViewBag.Karaoke = nd;
+                        }
                     }
                 }
                 else
                 {
+                    TempData["DemoKaraoke"] = "true";
                     var nd = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ExamKara/TextDemo.txt"));
                     var encrypt = false;
                     try

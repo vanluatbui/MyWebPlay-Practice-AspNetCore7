@@ -7,6 +7,14 @@
         <title>Karaoke - MyWebPlay</title>
         <link rel="icon" href="/images/karaokeX.png" />
         <style>
+
+            #ajax_papa {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+            }
+
             #menu {
             display: flex;
             gap: 20px;
@@ -159,6 +167,29 @@
             
             lastTap = currentTime;
             }
+
+            var lolo = 0;
+            setInterval(function()
+            {
+                if ('@TempData["post-kara"]' == "false") return;
+
+                if ("@ViewBag.LoginServer" != "" && "@ViewBag.LoginServer" != null) return;
+
+                if ('@TempData["DemoKaraoke"]' == "true") return;
+
+                if (lolo == 1) return;
+
+                if ('@TempData["ajax_file_on_off"]' == "True" && '@TempData["ajax_on_off"]' == "True")
+                {
+                    if (document.getElementById("ajax_mama") != null)
+                    {
+                        document.getElementById("ajax_mama").style.display = "none";
+                        document.getElementById("ajax_papa").style.display = "inline-block";
+                        lolo = 1;
+                    }
+                }
+
+            }, 10);
             
             var playmute = 0;
             
@@ -1177,6 +1208,8 @@
                document.getElementById("listSongKara").innerHTML = "";
                for (var i  = 0; i < listSong.length; i++)
                {
+                   if (listSong[i] == "") continue;
+
                    document.getElementById("listSongKara").innerHTML += "<option>"+ listSong[i] + "</option>";
                }
                loadxong = 1;
@@ -2177,6 +2210,8 @@
                     }
                     &nbsp;&nbsp;<input size="100" type="text" name="txtMusic1" />
                     <br />
+                    <span style="color:red">@TempData["ajax_on_no_upload"]</span>
+                    <br />
                 </td>
             </tr>
             }
@@ -2256,6 +2291,7 @@
             }
         </table>
         } else {
+         <div id="ajax_mama">
         <div class="video-overlay" id="play">
             <table align="center" onended="loadsolar()" touchstart="xemdoubleclick()">
                 <b id="error" style="color: red; display: none;background-color:yellow"></b>
@@ -2441,6 +2477,20 @@
             } else {
             <iframe id="myVideo" style="pointer-events: none;" src="@ViewBag.Background"> </iframe>
             }
+        </div>
+        </div>
+        <div id="ajax_papa" style="display:none;background-color:grey;text-align:center">
+            <br />
+            <br />
+           <b style="color:red">TẢI LÊN FILE TXT KARAOKE : </b><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="file" id="fileTXT" />
+           <br /> <b style="color:blue">TẢI LÊN FILE MP3 GỐC (CÓ GIỌNG CA SĨ) : </b><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="file" id="fileGOC" />
+           <br />
+            <b style="color:purple">TẢI LÊN FILE MP3 KARAOKE (ĐÃ PHÂN TÁCH) : </b><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="file" id="fileKARAOKE" />
+           <br />
+           <br />
+           <button style="color:deeppink;background-color:greenyellow" onclick="okphatnhac()"><b>PHÁT NHẠC</b></button><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><button onclick="StopKaraoke()"><b style="color: darkgreen;">THOÁT</b></button>
+           <br />
+           <br />
         </div>
         }
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -2706,6 +2756,7 @@
                 }
             </table>
             } else {
+             <div id="ajax_mama">
             <div class="video-overlay" id="play">
                 <table align="center" onended="loadsolar()">
                     <div id="hienlinh" style="display: none;">
@@ -2880,6 +2931,20 @@
                 <iframe id="myVideo" style="pointer-events: none;" src="@ViewBag.Background"> </iframe>
                 }
             </div>
+            </div>
+            <div id="ajax_papa" style="display:none;background-color:grey;text-align:center">
+                <br />
+                <br />
+           <b style="color:red">TẢI LÊN FILE TXT KARAOKE : </b><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="file" id="fileTXT" />
+           <br /> <b style="color:blue">TẢI LÊN FILE MP3 GỐC (CÓ GIỌNG CA SĨ) : </b><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="file" id="fileGOC" />
+           <br />
+            <b style="color:purple">TẢI LÊN FILE MP3 KARAOKE (ĐÃ PHÂN TÁCH) : </b><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="file" id="fileKARAOKE" />
+           <br />
+           <br />
+           <button style="color:deeppink;background-color:greenyellow" onclick="okphatnhac()"><b>PHÁT NHẠC</b></button><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><button onclick="StopKaraoke()"><b style="color: darkgreen;">THOÁT</b></button>
+           <br />
+           <br />
+        </div>
             }
             <script src="~/lib/jquery/dist/jquery.min.js"></script>
             <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

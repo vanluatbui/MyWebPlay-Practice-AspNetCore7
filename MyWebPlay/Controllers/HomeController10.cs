@@ -138,6 +138,11 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                //var pathSecure = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
+                //var noidungSecure = System.IO.File.ReadAllText(pathSecure);
+                //var fileMOTAT = noidungSecure.Replace("\r", "").Split("\n")[3];
+                //if (fileMOTAT == "file_TAT" && txtFile != null && txtFile.Length > 0) return RedirectToAction("Error", "Home");
+
                 var fix = "";
                 foreach (var item in f.Keys)
                 {

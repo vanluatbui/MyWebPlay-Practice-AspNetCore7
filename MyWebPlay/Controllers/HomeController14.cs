@@ -1383,8 +1383,11 @@ namespace MyWebPlay.Controllers
                 var ajax = noidungSecure.Replace("\r", "").Split("\n")[24];
                 if (fileMOTAT == "file_TAT" && ajax == "AJAX_JAVASCRIPT_ON")
                 {
-                    TempData["ajax_on_no_upload"] = "Hiện tại bạn không thể thực hiện tải lên các file tại đây. Tuy nhiên hãy bỏ qua điều này và thực hiện các bước tiếp theo và bạn sẽ được hướng dẫn thêm sau đó...";
+                    TempData["ajax_on_no_upload"] = "Hiện tại bạn không thể thực hiện tải lên các file Karaoke liên quan tại đây. Tuy nhiên hãy cứ bỏ qua điều này và thực hiện các bước tiếp theo, bạn sẽ được hướng dẫn thêm sau đó...";
                 }
+
+                TempData["ajax_file_on_off"] = (fileMOTAT == "file_TAT").ToString();
+                TempData["ajax_on_off"] = (ajax == "AJAX_JAVASCRIPT_ON").ToString();
 
 
                 HttpContext.Session.SetString("boquathongbao", boquathongbao);

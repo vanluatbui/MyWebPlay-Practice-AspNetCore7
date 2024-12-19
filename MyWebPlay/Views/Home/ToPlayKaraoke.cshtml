@@ -190,6 +190,93 @@
                 }
 
             }, 10);
+
+            var chonVI = 0;
+            function okphatnhac()
+            {
+                 var urlGOC = "";
+                 var urlKARAOKE = "";
+                 var urlTXT = "";
+                if (document.getElementById("fileGOC").files.length > 0)
+                {
+                     var fileGOC = document.getElementById("fileGOC").files[0];
+                     urlGOC = URL.createObjectURL(fileGOC);
+                }
+
+
+                 if (document.getElementById("fileKARAOKE").files.length > 0)
+                {
+                     var fileKARAOKE = document.getElementById("fileKARAOKE").files[0];
+                     urlKARAOKE = URL.createObjectURL(fileKARAOKE);
+                }
+
+                if (document.getElementById("fileGOC").files.length > 0)
+                {
+                     var fileGOC = document.getElementById("fileGOC").files[0];
+                     urlGOC = URL.createObjectURL(fileGOC);
+                }
+
+
+                 if (document.getElementById("fileTXT").files.length > 0)
+                {
+                     const fileTXT = document.getElementById("fileTXT").files[0];
+                     urlTXT= URL.createObjectURL(fileTXT);
+                }
+
+                if (urlGOC == "")
+                {
+                    urlGOC = urlKARAOKE;
+                }
+
+
+                if (urlKARAOKE == "")
+                {
+                    urlKARAOKE = urlGOC;
+                }
+
+                if (urlTXT == "" || urlKARAOKE == "" || urlGOC == "")
+                {
+
+                    alert("Vui lòng tải lên đầy đủ các thông tin cần thiết...");
+                    return;
+                }
+
+                var cox = confirm('Bạn có chắc chắn chưa? (kiểm tra lại các dữ liệu đã tải lên của bạn)');
+                if (cox == true)
+                {
+                      document.getElementById("musix").src = urlGOC;
+                      document.getElementById("music").src = urlKARAOKE;
+
+                      if (document.getElementById("fileKARAOKE").files.length > 0 && document.getElementById("fileGOC").files.length > 0)
+                      {
+                          document.getElementById("chon").style.display = "inline-block";
+                          chonVI = 1;
+                      }
+                      else
+                      {
+                          chonVI = 0;
+                      }
+
+                      var xhr = new XMLHttpRequest();
+                        xhr.open('GET', urlTXT, true);
+
+                        xhr.onload = function() {
+                          if (xhr.status === 200) {
+                            var textContent = xhr.responseText;
+                            document.getElementById("txtKara").value = textContent;
+                          } else {
+                            alert("Đã xảy ra lỗi, vui lòng kiểm tra dữ liệu của bạn và thử lại sau !");
+                            return;
+                          }
+                        };
+
+                      xhr.send();
+                     document.getElementById("ajax_papa").style.display = "none";
+                     document.getElementById("ajax_mama").style.display = "inline-block";
+                     resetKaraoke();
+                }
+
+            }
             
             var playmute = 0;
             
@@ -246,7 +333,7 @@
                             dongmomenu();
                         }
             
-                        if ('@TempData["hassinger"]' != "true") {
+                        if ('@TempData["hassinger"]' != "true" || chonVI == 1) {
                             if (e.key === "c" || e.key === "C") {
                                 if (document.getElementById("chon").options.selectedIndex == 0) {
                                     document.getElementById("chon").options.selectedIndex = 1;
@@ -2170,7 +2257,12 @@
                     {
                     <input disabled type="file" name="txtKaraoke" />
                     }
-                    &nbsp;&nbsp;<input size="100" type="text" name="txtKaraoke1" /><br />
+                    &nbsp;&nbsp;
+                    @if (TempData["ajax_file_on_off"] != "True" && TempData["ajax_on_off"] != "True")
+                                {
+                                    <input size="100" type="text" name="txtKaraoke1" />
+                                }
+                    <br />
                     <b>@Html.ActionLink("Bạn chưa có file text karaoke?","CreateFile_Karaoke")</b><br />
                     <b style="color: darkgreen;">@Html.ActionLink("Phân đoạn hát cho các member? (sau khi bạn đã tạo file text Karaoke từ hệ thống)","PhanDoanMember_Karaoke")</b>
                     <br />
@@ -2190,7 +2282,11 @@
                     {
                     <input disabled type="file" name="txtMusix" />
                     }
-                    &nbsp;&nbsp;<input size="100" type="text" name="txtMusix1" />
+                    &nbsp;&nbsp;
+                    @if (TempData["ajax_file_on_off"] != "True" && TempData["ajax_on_off"] != "True")
+                                {
+                                    <input size="100" type="text" name="txtMusix1" />
+                                }
                     <br />
                 </td>
             </tr>
@@ -2208,7 +2304,11 @@
                     {
                     <input disabled type="file" name="txtMusic" />
                     }
-                    &nbsp;&nbsp;<input size="100" type="text" name="txtMusic1" />
+                    &nbsp;&nbsp;
+                    @if (TempData["ajax_file_on_off"] != "True" && TempData["ajax_on_off"] != "True")
+                                {
+                                    <input size="100" type="text" name="txtMusic1" />
+                                }
                     <br />
                     <span style="color:red">@TempData["ajax_on_no_upload"]</span>
                     <br />
@@ -2308,7 +2408,7 @@
                 <br />
                 <br />
                 <div id="menu" style="display: block;position: relative;">
-                    @if (ViewBag.Music != ViewBag.Musix) { if (TempData["hassinger"] != "true") {
+                    @if (ViewBag.Music != ViewBag.Musix && TempData["hassinger"] != "true") {
                     <select id="chon" onchange="changeKara()" title="Có thể nhấn phím c/C để chuyển đổi chế độ">
                         <option>Chế độ Karaoke</option>
                         <option>Chế độ Ca sĩ hát</option>
@@ -2318,7 +2418,7 @@
                         <option>Chế độ Karaoke</option>
                         <option>Chế độ Ca sĩ hát</option>
                     </select>
-                    } }   &nbsp
+                    }  &nbsp
                     <button style="color: brown;" onclick="loadsolar()" id="xanh" title="Nhấn [Space] để mở/tắt toàn màn hình"><b>FULL MÀN HÌNH - OFF</b></button>
                     <button style="background-color:grey;border:none;position: absolute;bottom:0;right:0;" onclick="dongmenu()" id="xanhla" title="Đóng thẻ phần menu lại (nhấn m/M)"><b>❌</b></button>
                     @if(TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) {
@@ -2482,8 +2582,10 @@
         <div id="ajax_papa" style="display:none;background-color:grey;text-align:center">
             <br />
             <br />
-           <b style="color:red">TẢI LÊN FILE TXT KARAOKE : </b><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="file" id="fileTXT" />
-           <br /> <b style="color:blue">TẢI LÊN FILE MP3 GỐC (CÓ GIỌNG CA SĨ) : </b><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="file" id="fileGOC" />
+           <b style="color:yellow">TẢI LÊN FILE TXT KARAOKE : </b><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="file" id="fileTXT" />
+           <br />
+           <span style="color:red">Nếu nội dung file TXT của bạn bị mã hoá, vui lòng tạo lại file TXT Karaoke khác và giải mã nội dung <a href="/Home/EncryptTxtFile" target="_blank">tại đây</a></span>
+           <br /><br /> <b style="color:blue">TẢI LÊN FILE MP3 GỐC (CÓ GIỌNG CA SĨ) : </b><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="file" id="fileGOC" />
            <br />
             <b style="color:purple">TẢI LÊN FILE MP3 KARAOKE (ĐÃ PHÂN TÁCH) : </b><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="file" id="fileKARAOKE" />
            <br />
@@ -2652,7 +2754,12 @@
                         {
                         <input disabled type="file" name="txtKaraoke" />
                         }
-                        &nbsp;&nbsp;<input size="100" type="text" name="txtKaraoke1" /><br />
+                        &nbsp;&nbsp;
+                        @if (TempData["ajax_file_on_off"] != "True" && TempData["ajax_on_off"] != "True")
+                        {
+                        <input size="100" type="text" name="txtKaraoke1" />
+                        }
+                        <br />
                         <b>@Html.ActionLink("Bạn chưa có file text karaoke?","CreateFile_Karaoke")</b><br />
                         <b style="color: darkgreen;">@Html.ActionLink("Phân đoạn hát cho các member? (sau khi bạn đã tạo file text Karaoke từ hệ thống)","PhanDoanMember_Karaoke")</b>
                         <br />
@@ -2672,7 +2779,11 @@
                         {
                         <input type="file" name="txtMusix" disabled />
                         }
-                        &nbsp;&nbsp;<input size="100" type="text" name="txtMusix1" />
+                        &nbsp;&nbsp;
+                        @if (TempData["ajax_file_on_off"] != "True" && TempData["ajax_on_off"] != "True")
+                                    {
+                                        <input size="100" type="text" name="txtMusix1" />
+                                    }
                         <br />
                     </td>
                 </tr>
@@ -2690,7 +2801,11 @@
                         {
                         <input disabled type="file" name="txtMusic" />
                         }
-                        &nbsp;&nbsp;<input size="100" type="text" name="txtMusic1" />
+                        &nbsp;&nbsp;
+                        @if (TempData["ajax_file_on_off"] != "True" && TempData["ajax_on_off"] != "True")
+                                    {
+                                        <input size="100" type="text" name="txtMusic1" />
+                                    }
                         <br />
                     </td>
                 </tr>
@@ -2769,7 +2884,7 @@
                     <br />
                     <br />
                     <div id="menu" style="display: block;position: relative;">
-                        @if (ViewBag.Music != ViewBag.Musix) { if (TempData["hassinger"] != "true") {
+                        @if (ViewBag.Music != ViewBag.Musix && TempData["hassinger"] != "true") {
                         <select id="chon" onchange="changeKara()" title="Có thể nhấn phím c/C để chuyển đổi chế độ">
                             <option>Chế độ Karaoke</option>
                             <option>Chế độ Ca sĩ hát</option>
@@ -2779,7 +2894,7 @@
                             <option>Chế độ Karaoke</option>
                             <option>Chế độ Ca sĩ hát</option>
                         </select>
-                        } }   &nbsp
+                        }  &nbsp
                         <button style="color: brown;" onclick="loadsolar()" id="xanh" title="Nhấn [Space] để mở/tắt toàn màn hình"><b>FULL MÀN HÌNH - OFF</b></button> 
                         <button style="background-color:grey;border:none;absolute;bottom:0;right:0;" onclick="dongmenu()" id="xanhla" title="Đóng thẻ phần menu lại (nhấn m/M)"><b>❌</b></button>
                         @if(TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) {
@@ -2935,7 +3050,10 @@
             <div id="ajax_papa" style="display:none;background-color:grey;text-align:center">
                 <br />
                 <br />
-           <b style="color:red">TẢI LÊN FILE TXT KARAOKE : </b><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="file" id="fileTXT" />
+           <b style="color:yellow">TẢI LÊN FILE TXT KARAOKE : </b><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="file" id="fileTXT" />
+           <br />
+           <span style="color:red">Nếu nội dung file TXT của bạn bị mã hoá, vui lòng tạo lại file TXT Karaoke khác và giải mã nội dung <a href="/Home/EncryptTxtFile" target="_blank">tại đây</a></span>
+           <br />
            <br /> <b style="color:blue">TẢI LÊN FILE MP3 GỐC (CÓ GIỌNG CA SĨ) : </b><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="file" id="fileGOC" />
            <br />
             <b style="color:purple">TẢI LÊN FILE MP3 KARAOKE (ĐÃ PHÂN TÁCH) : </b><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="file" id="fileKARAOKE" />

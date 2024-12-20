@@ -185,6 +185,7 @@
                     {
                         document.getElementById("ajax_mama").style.display = "none";
                         document.getElementById("ajax_papa").style.display = "inline-block";
+                        document.getElementById("bodix").style.backgroundColor = 'black';
                         lolo = 1;
                     }
                 }
@@ -2258,7 +2259,7 @@
                     <input disabled type="file" name="txtKaraoke" />
                     }
                     &nbsp;&nbsp;
-                    @if (TempData["ajax_file_on_off"] != "True" && TempData["ajax_on_off"] != "True")
+                    @if (TempData["ajax_on_no_upload"] == null || TempData["ajax_on_no_upload"] == "")
                                 {
                                     <input size="100" type="text" name="txtKaraoke1" />
                                 }
@@ -2283,7 +2284,7 @@
                     <input disabled type="file" name="txtMusix" />
                     }
                     &nbsp;&nbsp;
-                    @if (TempData["ajax_file_on_off"] != "True" && TempData["ajax_on_off"] != "True")
+                    @if (TempData["ajax_on_no_upload"] == null || TempData["ajax_on_no_upload"] == "")
                                 {
                                     <input size="100" type="text" name="txtMusix1" />
                                 }
@@ -2305,7 +2306,7 @@
                     <input disabled type="file" name="txtMusic" />
                     }
                     &nbsp;&nbsp;
-                    @if (TempData["ajax_file_on_off"] != "True" && TempData["ajax_on_off"] != "True")
+                    @if (TempData["ajax_on_no_upload"] == null || TempData["ajax_on_no_upload"] == "")
                                 {
                                     <input size="100" type="text" name="txtMusic1" />
                                 }
@@ -2755,7 +2756,7 @@
                         <input disabled type="file" name="txtKaraoke" />
                         }
                         &nbsp;&nbsp;
-                        @if (TempData["ajax_file_on_off"] != "True" && TempData["ajax_on_off"] != "True")
+                        @if (TempData["ajax_on_no_upload"] == null || TempData["ajax_on_no_upload"] == "")
                         {
                         <input size="100" type="text" name="txtKaraoke1" />
                         }
@@ -2780,7 +2781,7 @@
                         <input type="file" name="txtMusix" disabled />
                         }
                         &nbsp;&nbsp;
-                        @if (TempData["ajax_file_on_off"] != "True" && TempData["ajax_on_off"] != "True")
+                        @if (TempData["ajax_on_no_upload"] == null || TempData["ajax_on_no_upload"] == "")
                                     {
                                         <input size="100" type="text" name="txtMusix1" />
                                     }
@@ -2802,7 +2803,7 @@
                         <input disabled type="file" name="txtMusic" />
                         }
                         &nbsp;&nbsp;
-                        @if (TempData["ajax_file_on_off"] != "True" && TempData["ajax_on_off"] != "True")
+                        @if (TempData["ajax_on_no_upload"] == null || TempData["ajax_on_no_upload"] == "")
                                     {
                                         <input size="100" type="text" name="txtMusic1" />
                                     }

@@ -451,6 +451,14 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                var pathSecure = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
+                var noidungSecure = System.IO.File.ReadAllText(pathSecure);
+                var fileMOTAT = noidungSecure.Replace("\r", "").Split("\n")[3];
+                var ajax = noidungSecure.Replace("\r", "").Split("\n")[24];
+                if (fileMOTAT == "file_TAT" && ajax == "AJAX_JAVASCRIPT_ON")
+                {
+                    TempData["ajax_on_no_upload"] = "Hiện tại bạn không thể thực hiện tải lên file Karaoke liên quan tại đây. Tuy nhiên hãy cứ bỏ qua điều này và thực hiện các bước tiếp theo, bạn sẽ được hướng dẫn thêm sau đó...";
+                }
                 TempData["lyricdemo"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ExamKara/LyricDemo.txt")).Replace("\r", "").Replace("\n", "<br />");
                 TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
                 khoawebsiteClient(null);
@@ -739,7 +747,7 @@ namespace MyWebPlay.Controllers
                 if (f["txtCuoiCung"].ToString() == "on")
                     HttpContext.Session.SetString("CuoiCung", "true");
 
-                if (string.IsNullOrEmpty(f["txtMusic1"].ToString()))
+                if (string.IsNullOrEmpty(f["txtMusic1"].ToString()) && (txtMusic != null && txtMusic.Length > 0))
                 {
                     TempData["Music"] = "/karaoke/music/" + txtMusic.FileName;
 
@@ -809,6 +817,14 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                var pathSecure = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
+                var noidungSecure = System.IO.File.ReadAllText(pathSecure);
+                var fileMOTAT = noidungSecure.Replace("\r", "").Split("\n")[3];
+                var ajax = noidungSecure.Replace("\r", "").Split("\n")[24];
+                if (fileMOTAT == "file_TAT" && ajax == "AJAX_JAVASCRIPT_ON")
+                {
+                    TempData["ajax_on_no_upload"] = "OK";
+                }
                 var IDemail = TempData["IDemail-Karaoke"];
                 TempData["IDemail-Karaoke"] = IDemail;
 
@@ -970,6 +986,15 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                var pathSecure = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
+                var noidungSecure = System.IO.File.ReadAllText(pathSecure);
+                var fileMOTAT = noidungSecure.Replace("\r", "").Split("\n")[3];
+                var ajax = noidungSecure.Replace("\r", "").Split("\n")[24];
+                if (fileMOTAT == "file_TAT" && ajax == "AJAX_JAVASCRIPT_ON")
+                {
+                    TempData["ajax_on_no_upload"] = "OK";
+                }
+
                 var fix = "";
                 foreach (var item in f.Keys)
                 {

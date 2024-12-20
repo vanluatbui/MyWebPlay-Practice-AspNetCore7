@@ -73,7 +73,16 @@ Layout = null;
                     {
                         <input disabled type="file" name="txtMusic"/>
                     }
-                    &nbsp;&nbsp;<input size="100" type="text" name="txtMusic1" />
+                    &nbsp;&nbsp;
+                    @if (TempData["ajax_on_no_upload"] == "" || TempData["ajax_on_no_upload"] == null)
+                    {
+                        <input size="100" type="text" name="txtMusic1" />
+                    }
+                    else
+                    {
+                        <br />
+                        <span style="color:red">@TempData["ajax_on_no_upload"]</span>
+                    }
                     <br>
             <br />
         </td>

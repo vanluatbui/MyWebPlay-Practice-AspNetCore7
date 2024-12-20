@@ -68,7 +68,7 @@ Layout = null;
     
         var music = document.getElementById("music").readyState;
     
-        if (music == 4)
+        if (music == 4 || ('@TempData["ajax_on_no_upload"]' != null && '@TempData["ajax_on_no_upload"]' != ""))
         {
             document.getElementById("xuxu").style.display = "inline-block";
             document.getElementById("lainhac").style.display = "inline-block";
@@ -112,6 +112,16 @@ Layout = null;
     
         function startplay()
         {
+            if ('TempData["ajax_on_no_upload"]' != null && 'TempData["ajax_on_no_upload"]' != "")
+            {
+                if (document.getElementById("bannhac").files.length == 0)
+                {
+                    alert("Vui lòng chọn/tải lên lại file mp3 karaoke để xử lý ....");
+                    return;
+                }
+            }
+
+
             var music = document.getElementById("music");
             if (music.duration == 0 || playmute == 0)
               {
@@ -357,6 +367,8 @@ Layout = null;
     <button style="color:olive;display:none" id="xuxu" onclick="startplay()"><b>START PLAY</b></button>
     <br />
     <span id="lainhac" style="display:none"><input type="file" id="bannhac" onchange="chonlainhac(this)" /><b style="color:lawngreen"> Chọn lại bản nhạc hiện tại (nên làm thêm bước này)</b></span>
+    <br />
+    <span style="color:red">Nếu trước đó bạn chưa chọn tải lên file mp3 karaoke để xử lý hay đơn giản bạn nếu muốn chọn lại file khác thì thực hiện lại một lần nửa tại đây nhé 🌞 ...</span><br />
     <img id="loading1" src="/Image_Play/waiting.gif" />
     <br />
     <b id="tgian" style="color:deeppink; font-size:20px"></b>

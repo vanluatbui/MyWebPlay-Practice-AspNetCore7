@@ -96,19 +96,7 @@ Layout = null;
             <br>
             <b> Tải file TXT trắc nghiệm của bạn cho chương bài @(i+1) (đã xử lý) : </b>
             <br>
-            @if(TempData["fileSuDung"] == "true")
-            {
             <input type="file" name="txtFile"/>
-            }
-            else
-            {
-            <input disabled type="file" name="txtFile"/>
-                            @if (i == 0)
-                            {
-                                <br />
-                                <span style="color:red">Hiện tại bạn không thể tải file lên ngay lúc này, nhưng bạn có thể mở Dev Tools của trình duyệt và xoá thuộc tính disabled của element input chọn file trên 😁</span>
-                            }
-                        }
             @if (i == 0)
             {
             <b>@Html.ActionLink("Bạn chưa có file trắc nghiệm?","CreateFile_TracNghiem")</b><br />

@@ -114,16 +114,7 @@ Layout = null;
             <div id="upfile">
             <b> Đưa tất cả các file trắc nghiệm (chương bài học) của bạn vào cùng 1 thư mục sau đó sẽ dễ dàng kéo tất cả các file vào đây...</b>
             <br>
-            @if(TempData["fileSuDung"] == "true")
-            {
             <input type="file" onchange="return xemfile(event)" name="txtFile" multiple/>
-            }
-            else
-            {
-            <input disabled type="file" onchange="return xemfile(event)" name="txtFile" multiple/>
-            <br />
-            <span style="color:red">Hiện tại bạn không thể tải file lên ngay lúc này, nhưng bạn có thể mở Dev Tools của trình duyệt và xoá thuộc tính disabled của element input chọn file trên 😁</span>
-            }
             </div>
             <div id="noupfile">
                 <input type="checkbox" name="cbCoSan" id="cosan" onchange="xulycosan()" /><b style="color:orangered">Sử dụng mẫu trắc nghiệm có sẵn của hệ thống</b>

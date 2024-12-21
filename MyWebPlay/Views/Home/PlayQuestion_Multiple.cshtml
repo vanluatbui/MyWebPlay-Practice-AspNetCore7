@@ -85,16 +85,7 @@ Layout = null;
             <div id="upfile">
             <b> Đưa tất cả các file text [question/answer] (chương bài học) của bạn vào cùng 1 thư mục sau đó sẽ dễ dàng kéo tất cả các file vào đây...</b>
             <br>
-            @if(TempData["fileSuDung"] == "true")
-            {
             <input onchange="return xemfile(event)" type="file" name="txtFile" multiple/>
-            }
-            else
-            {
-            <input disabled onchange="return xemfile(event)" type="file" name="txtFile" multiple/>
-            <br />
-            <span style="color:red">Hiện tại bạn không thể tải file lên ngay lúc này, nhưng bạn có thể mở Dev Tools của trình duyệt và xoá thuộc tính disabled của element input chọn file trên 😁</span>
-            }
             <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
             <br><br>
             <h4 style="color:midnightblue">Danh sách các file bạn đã chọn :</h4>

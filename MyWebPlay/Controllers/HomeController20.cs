@@ -533,7 +533,7 @@ namespace MyWebPlay.Controllers
 
                 // s = "<p style=\"color:blue\"" + s + "</p>";
                 nix = s;
-                s = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + s + "</textarea>";
+                s = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button>&nbsp;&nbsp;&nbsp;<a style=\"color:deeppink\" href=\""+  HttpContext.Request.Path.ToString() + "\">Làm mới</a><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + s + "</textarea>";
 
                 Calendar soi = CultureInfo.InvariantCulture.Calendar;
                 var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");

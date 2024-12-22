@@ -411,7 +411,7 @@ namespace MyWebPlay.Controllers
                 //sql = "\r\n" + sql;
                 //sql = sql.Replace("\r\n", "<br>");
                 nix = sql;
-                sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
+                sql = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button>&nbsp;&nbsp;&nbsp;<a style=\"color:deeppink\" href=\""+  HttpContext.Request.Path.ToString() + "\">Làm mới</a><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + sql + "</textarea>";
 
                 Calendar soi = CultureInfo.InvariantCulture.Calendar;
                 var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
@@ -949,7 +949,7 @@ namespace MyWebPlay.Controllers
 
                 //s = s.Replace("<", "&lt;").Replace(">", "&gt;").Replace("\r\n", "<br>");
                 nix = s;
-                s = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + s + "</textarea>";
+                s = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button>&nbsp;&nbsp;&nbsp;<a style=\"color:deeppink\" href=\""+  HttpContext.Request.Path.ToString() + "\">Làm mới</a><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + s + "</textarea>";
 
                 Calendar soi = CultureInfo.InvariantCulture.Calendar;
                 var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
@@ -1444,7 +1444,7 @@ namespace MyWebPlay.Controllers
 
                 //ss = ss.Replace("\r\n", "<br>");
                 nix = ss;
-                ss = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + ss + "</textarea>";
+                ss = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button>&nbsp;&nbsp;&nbsp;<a style=\"color:deeppink\" href=\""+  HttpContext.Request.Path.ToString() + "\">Làm mới</a><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + ss + "</textarea>";
 
                 Calendar soi = CultureInfo.InvariantCulture.Calendar;
                 var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");

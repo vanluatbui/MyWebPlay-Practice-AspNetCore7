@@ -357,7 +357,7 @@ namespace MyWebPlay.Controllers
 
                 // s = "<p style=\"color:blue\"" + s + "</p>";
                 var nix = result;
-                result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+                result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button>&nbsp;&nbsp;&nbsp;<a style=\"color:deeppink\" href=\""+  HttpContext.Request.Path.ToString() + "\">Làm mới</a><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
 
                 Calendar soi = CultureInfo.InvariantCulture.Calendar;
                 var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
@@ -767,7 +767,7 @@ namespace MyWebPlay.Controllers
 
                 // s = "<p style=\"color:blue\"" + s + "</p>";
                 var nix = result;
-                result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+                result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button>&nbsp;&nbsp;&nbsp;<a style=\"color:deeppink\" href=\""+  HttpContext.Request.Path.ToString() + "\">Làm mới</a><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
 
                 Calendar soi = CultureInfo.InvariantCulture.Calendar;
                 var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
@@ -1120,7 +1120,7 @@ namespace MyWebPlay.Controllers
 
                 result += "--------------------SỬ DỤNG XONG HÃY NHỚ DROP PROC PROC_MYWEBPLAY---------------------\n\n\n";
                 var nix = result;
-                result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+                result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button>&nbsp;&nbsp;&nbsp;<a style=\"color:deeppink\" href=\""+  HttpContext.Request.Path.ToString() + "\">Làm mới</a><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
 
                 Calendar soi = CultureInfo.InvariantCulture.Calendar;
                 var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
@@ -1518,7 +1518,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
                 var nix = result;
-                result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+                result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button>&nbsp;&nbsp;&nbsp;<a style=\"color:deeppink\" href=\""+  HttpContext.Request.Path.ToString() + "\">Làm mới</a><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
 
                 Calendar soi = CultureInfo.InvariantCulture.Calendar;
                 var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
@@ -1893,7 +1893,7 @@ namespace MyWebPlay.Controllers
 
                 var result = phan1 + "\n" + phan2.Replace("<", "").Replace(">", "") + "\n" + phan3.Replace("<", "").Replace(">", "");
                 nix = result;
-                result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+                result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button>&nbsp;&nbsp;&nbsp;<a style=\"color:deeppink\" href=\""+  HttpContext.Request.Path.ToString() + "\">Làm mới</a><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
 
                 Calendar soi = CultureInfo.InvariantCulture.Calendar;
                 var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
@@ -2279,7 +2279,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
                 var nix = result;
-                result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+                result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button>&nbsp;&nbsp;&nbsp;<a style=\"color:deeppink\" href=\""+  HttpContext.Request.Path.ToString() + "\">Làm mới</a><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
 
                 Calendar soi = CultureInfo.InvariantCulture.Calendar;
                 var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");
@@ -2617,7 +2617,7 @@ namespace MyWebPlay.Controllers
                         result += "\n\t" + thieus[i] + " nvarchar(max),\n";
                 }
                 var nix = result;
-                result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
+                result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button>&nbsp;&nbsp;&nbsp;<a style=\"color:deeppink\" href=\""+  HttpContext.Request.Path.ToString() + "\">Làm mới</a><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
 
                 Calendar soi = CultureInfo.InvariantCulture.Calendar;
                 var chim = HttpContext.Request.Path.ToString().Replace("/", "").Replace("Home", "");

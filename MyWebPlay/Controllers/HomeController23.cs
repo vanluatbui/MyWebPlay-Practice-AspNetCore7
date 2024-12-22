@@ -345,8 +345,8 @@ namespace MyWebPlay.Controllers
                     }
 
                     var calES = sortDataByTA.Where(dat => dat.PJ == pj && dat.TA == name).Sum(dat => dat.ES);
-                    var calESByCode = sortDataByTA.Where(dat => dat.PJ == pj && dat.TA == name && (dat.PC == "CODING" || dat.PC == "INVESTIGATE")).Sum(dat => dat.AL);
-                    var calESByFix = sortDataByTA.Where(dat => dat.PJ == pj && dat.TA == name && dat.PC.Contains("FIX")).Sum(dat => dat.AL);
+                    var calESByCode = sortDataByTA.Where(dat => dat.PJ == pj && dat.TA == name && (dat.PC == "CODING" || dat.PC == "INVESTIGATE" || dat.PC == "FIX BUG")).Sum(dat => dat.AL);
+                    var calESByFix = sortDataByTA.Where(dat => dat.PJ == pj && dat.TA == name && dat.PC.Contains("FIX") && dat.PC != "FIX BUG").Sum(dat => dat.AL);
                     var calESByRun = sortDataByTA.Where(dat => dat.PJ == pj && dat.TA == name && dat.PC == "RUN TEST").Sum(dat => dat.AL);
 
 

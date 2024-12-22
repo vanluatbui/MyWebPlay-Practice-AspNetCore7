@@ -620,6 +620,7 @@
                 var e = document.getElementById("listsong");
                 var song = e.options[e.selectedIndex].text;
                 document.getElementById("baihatX").value = song;
+                nas = true;
             }
             
             function showlist() {
@@ -2237,7 +2238,7 @@
                     <span style="color: orangered;"><u>Lưu ý</u> : Danh sách bên dưới có thể chưa được hoàn tất do file <span style="color: deeppinkgreen;">MyListSong.txt</span> trên host server của bạn chưa được cập nhật !</span>
                     <br />
                     <br />
-                    <select id="listsong" size="10" onclick="changesong()">
+                    <select id="listsong" size="10" onclick="changesong()" onchange="changesong()">
                         <option></option>
                     </select>
                     <br />
@@ -2734,7 +2735,7 @@
                         <span style="color: orangered;"><u>Lưu ý</u> : Danh sách bên dưới có thể chưa được hoàn tất do file <span style="color: deeppinkgreen;">MyListSong.txt</span> trên host server của bạn chưa được cập nhật !</span>
                         <br />
                         <br />
-                        <select id="listsong" size="10" onclick="changesong()">
+                        <select id="listsong" size="10" onclick="changesong()" onchange="changesong()">
                             <option></option>
                         </select>
                         <br />

@@ -404,8 +404,8 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    bandau = apiValue[0].Replace("[Empty]", "");
-                    chuoi = apiValue[1].Replace("[Empty]", "");
+                    bandau = apiValue[0].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    chuoi = apiValue[1].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
                 }
 
                 if (string.IsNullOrEmpty(bandau))

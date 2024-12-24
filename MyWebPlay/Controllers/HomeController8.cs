@@ -339,10 +339,10 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    sapxep = apiValue[0].Replace("[Empty]", "");
-                    chuoi = apiValue[1].Replace("[Empty]", "");
-                    tanggiam = apiValue[2].Replace("[Empty]", "");
-                    codinh = apiValue[3].Replace("[Empty]", "");
+                    sapxep = apiValue[0].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    chuoi = apiValue[1].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    tanggiam = apiValue[2].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    codinh = apiValue[3].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
                 }
 
                 string[] DS = Regex.Split(chuoi, "\r\n");

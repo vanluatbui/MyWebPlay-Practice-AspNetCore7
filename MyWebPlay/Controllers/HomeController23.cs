@@ -199,6 +199,12 @@ namespace MyWebPlay.Controllers
                 chuoi = chuoi.Replace("[N-PLAY]", "\n");
                 chuoi = chuoi.Replace("[R-PLAY]", "\r");
 
+
+                string locra = f["LocRa"].ToString();
+                locra = locra.Replace("[T-PLAY]", "\t");
+                locra = locra.Replace("[N-PLAY]", "\n");
+                locra = locra.Replace("[R-PLAY]", "\r");
+
                 if (f.ContainsKey("txtAPI") || (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
@@ -214,7 +220,8 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    chuoi = apiValue[0].Replace("[Empty]", "");
+                    chuoi = apiValue[0].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    locra = apiValue[1].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
                 }
 
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
@@ -308,52 +315,123 @@ namespace MyWebPlay.Controllers
                 var cuctac = "";
                 var chim = "";
 
-                var txtChuoi = chuoi.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+                var s = "";
 
-                var txtData = new List<STData>();
-
-                for (int i = 0; i < txtChuoi.Length; i++)
+                if (string.IsNullOrEmpty(locra))
                 {
-                    var span = txtChuoi[i].Split("\t");
-                    var data = new STData();
-                    for (int j = 0; j < span.Length; j++)
+                    var txtChuoi = chuoi.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+
+                    var txtData = new List<STData>();
+
+                    for (int i = 0; i < txtChuoi.Length; i++)
                     {
-                        data.PJ = span[0];
-                        data.TA = span[1];
-                        data.PC = span[2];
-                        data.ES = double.Parse(span[5]);
-                        data.AL = double.Parse(span[6]);
+                        var span = txtChuoi[i].Split("\t");
+                        var data = new STData();
+                        for (int j = 0; j < span.Length; j++)
+                        {
+                            data.PJ = span[0];
+                            data.TA = span[1];
+                            data.PC = span[2];
+                            data.ES = double.Parse(span[5]);
+                            data.AL = double.Parse(span[6]);
+                        }
+                        txtData.Add(data);
                     }
-                    txtData.Add(data);
+
+                    var sortDataByTA = txtData.OrderBy(dat => dat.TA).ToList();
+                    s = "PJ\tName\tMucDo\tES\tCode\tFix\tRun\tAll";
+
+                    var name = "";
+                    var pj = "";
+                    for (int i = 0; i < sortDataByTA.Count(); i++)
+                    {
+                        if (name == sortDataByTA[i].TA)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            name = sortDataByTA[i].TA;
+                            pj = sortDataByTA[i].PJ;
+                        }
+
+                        var calES = sortDataByTA.Where(dat => dat.PJ == pj && dat.TA == name).Sum(dat => dat.ES);
+                        var calESByCode = sortDataByTA.Where(dat => dat.PJ == pj && dat.TA == name && (dat.PC == "CODING" || dat.PC == "INVESTIGATE" || dat.PC == "FIX BUG")).Sum(dat => dat.AL);
+                        var calESByFix = sortDataByTA.Where(dat => dat.PJ == pj && dat.TA == name && dat.PC.Contains("FIX") && dat.PC != "FIX BUG").Sum(dat => dat.AL);
+                        var calESByRun = sortDataByTA.Where(dat => dat.PJ == pj && dat.TA == name && dat.PC == "RUN TEST").Sum(dat => dat.AL);
+
+
+                        s += "\r\n" + pj + "\t" + name + "\t\t" + calES + "\t" + calESByCode + "\t" + calESByFix + "\t" + calESByRun + "\t" + (calESByFix + calESByCode + calESByRun);
+                    }
+
+                    nix = s;
                 }
-
-                var sortDataByTA = txtData.OrderBy(dat => dat.TA).ToList();
-                var s = "PJ\tName\tMucDo\tES\tCode\tFix\tRun\tAll";
-
-                var name = "";
-                var pj = "";
-                for (int i = 0; i < sortDataByTA.Count(); i++)
+                else
                 {
-                    if (name == sortDataByTA[i].TA)
+                    var txtChuoi = chuoi.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+                    var txtLocRa = locra.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+                    var locras = new List<string>();
+                    foreach(var lr in txtLocRa)
                     {
-                        continue;
+                        var lrx = lr.Split('\t');
+                        locras.Add(lrx[0] + "\t" + lrx[1]);
                     }
-                    else
+
+                    foreach (var lora in locras)
                     {
-                        name = sortDataByTA[i].TA;
-                        pj = sortDataByTA[i].PJ;
+                        var lr1 = lora.Split("\t")[0];
+                        var lr2 = lora.Split("\t")[1];
+
+                        var cot0 = "";
+                        var cot1 = "";
+                        var cot2 = "";
+                        var cot3 = "";
+
+                        var cot4 = 0m;
+                        var cot5 = 0m;
+                        var cot6 = 0m;
+                        var cot7 = 0m;
+                        var cot8 = 0m;
+                        var cot9 = 0m;
+                        var cot10 = 0m;
+                        var cot11 = 0m;
+                        var cot12 = 0m;
+                        var cot13 = 0m;
+                        var cot14 = 0m;
+                        var cot15 = 0m;
+                        var cot16 = 0m;
+
+                        foreach (var chi in txtChuoi)
+                        {
+                            var chix = chi.Split("\t");
+                             if (lr1 == chix[1] && lr2 == chix[2])
+                             {
+                                 cot0 += chix[0] + " , ";
+                                 cot1 = chix[1];
+                                 cot2 = chix[2];
+                                 cot3= chix[3];
+
+                                  cot4 += decimal.Parse(chix[4]);
+                                    cot5 += decimal.Parse(chix[5]);
+                                        cot6 += decimal.Parse(chix[6]);
+                                        cot7 += decimal.Parse(chix[7]);
+                                        cot8 += decimal.Parse(chix[8]);
+                                        cot9 += decimal.Parse(chix[9]);
+                                        cot10 += decimal.Parse(chix[10]);
+                                        cot11 += decimal.Parse(chix[11]);
+                                        cot12 += decimal.Parse(chix[12]);
+                                        cot13 += decimal.Parse(chix[13]);
+                                        cot14 += decimal.Parse(chix[14]);
+                                        cot15 += decimal.Parse(chix[15]);
+                                        cot16 += decimal.Parse(chix[16]);
+                                }
+                        }
+
+                        s += cot0 + "\t" + cot1 + "\t" + cot2 + "\t" + cot3 + "\t" + cot4 + "\t" + cot5 + "\t" + cot6 + "\t" + cot7 + "\t" + cot8 + "\t" + cot9 + "\t" + cot10 + "\t" + cot11 + "\t" + cot12 + "\t" + cot13 + "\t" + cot14 + "\t" + cot15 + "\t" + cot16 + "\r\n";
                     }
 
-                    var calES = sortDataByTA.Where(dat => dat.PJ == pj && dat.TA == name).Sum(dat => dat.ES);
-                    var calESByCode = sortDataByTA.Where(dat => dat.PJ == pj && dat.TA == name && (dat.PC == "CODING" || dat.PC == "INVESTIGATE" || dat.PC == "FIX BUG")).Sum(dat => dat.AL);
-                    var calESByFix = sortDataByTA.Where(dat => dat.PJ == pj && dat.TA == name && dat.PC.Contains("FIX") && dat.PC != "FIX BUG").Sum(dat => dat.AL);
-                    var calESByRun = sortDataByTA.Where(dat => dat.PJ == pj && dat.TA == name && dat.PC == "RUN TEST").Sum(dat => dat.AL);
-
-
-                    s += "\r\n" + pj + "\t" + name + "\t\t" + calES + "\t" + calESByCode + "\t" + calESByFix + "\t" + calESByRun + "\t" + (calESByFix + calESByCode + calESByRun);
+                    nix = s;
                 }
-                
-                nix = s;
 
                 s = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button>&nbsp;&nbsp;&nbsp;<a style=\"color:deeppink\" href=\""+  HttpContext.Request.Path.ToString() + "\">Làm mới</a><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + s + "</textarea>";
                 Calendar x = CultureInfo.InvariantCulture.Calendar;

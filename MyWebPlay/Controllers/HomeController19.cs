@@ -222,9 +222,9 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    table = apiValue[0].Replace("[Empty]", "");
-                    constants = apiValue[1].Replace("[Empty]", "").ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Trim('\t').Trim(' ').Replace("\r", "").Split("\n");
-                    modelCs = apiValue[2].Replace("[Empty]", "");
+                    table = apiValue[0].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    constants = apiValue[1].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Trim('\t').Trim(' ').Replace("\r", "").Split("\n");
+                    modelCs = apiValue[2].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
                 }
 
 

@@ -8,6 +8,19 @@ Layout = null;
           document.getElementById(ele).value = "";
           document.getElementById(ele).focus();
     }
+
+    function thaydoichon()
+    {
+        if (document.getElementById("chon").checked == true)
+        {
+            document.getElementById("laplai").style.display = "inline-block";
+        }
+        else
+        {
+            document.getElementById("laplai").style.display = "none";
+            xoaValue('locra');
+        }
+    }
 </script>
 <table align="center">
     <h2 style="text-align:center">Export excel from ST for me</h2>
@@ -19,10 +32,19 @@ Layout = null;
         <td> </td>
         <td>
             <br>
-            <a href="#xuly" onclick="xoaValue('chuoi')"> <b>Nhập chuỗi trong ST (hãy tự lọc các PC trước khi dán vào đây) : </b></a><br>
+            <a href="#xuly" onclick="xoaValue('chuoi')"> <b>Nhập chuỗi trong ST (hãy tự lọc các PC trước khi dán vào đây, chỉ cần từ cột PJ -> Late) - hoặc là kết quả trước đó muốn loại bỏ sự trùng lặp (có thể thêm các cột chỉ số RV - cột 0 thường là date) : </b></a><br>
             <br>
             <textarea name="Chuoi" id="chuoi" cols="100" rows="10"></textarea>
             <br />
+            <input id="chon" type="checkbox" onchange="thaydoichon()" /><b style="color:crimson">Đã có kết quả? (muốn lọc các sự trùng lặp)</b>
+            <br />
+            <div id="laplai"style="display:none">
+                <br />
+                 <a href="#xuly" onclick="xoaValue('locra')"> <b>Tự lọc ra bằng excel trước (chỉ cẩn cột PJ và TA) bằng cách sử dụng **duplication remove**</b></a><br>
+            <br>
+            <textarea name="LocRa" id="locra" cols="100" rows="10"></textarea>
+            <br />
+            </div>
         </td>
     </tr>
     <tr style="height:40px">

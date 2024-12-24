@@ -332,9 +332,9 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    chuoi = apiValue[0].Replace("[Empty]", "");
-                    pattern = apiValue[1].Replace("[Empty]", "");
-                    dukien2 = apiValue[2].Replace("[Empty]", "");
+                    chuoi = apiValue[0].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    pattern = apiValue[1].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    dukien2 = apiValue[2].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
                 }
 
                 if (string.IsNullOrEmpty(dukien2))
@@ -782,12 +782,12 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    chuoi = apiValue[0].Replace("[Empty]", "");
-                    input = apiValue[1].Replace("[Empty]", "");
-                    output = apiValue[2].Replace("[Empty]", "");
-                    dukien1 = apiValue[3].Replace("[Empty]", "");
-                    dukien2 = apiValue[4].Replace("[Empty]", "");
-                    dukien3 = apiValue[5].Replace("[Empty]", "");
+                    chuoi = apiValue[0].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    input = apiValue[1].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    output = apiValue[2].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    dukien1 = apiValue[3].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    dukien2 = apiValue[4].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    dukien3 = apiValue[5].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
                 }
 
                 Regex regex = new Regex(input);

@@ -245,12 +245,12 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    chuoi = apiValue[0].Replace("[Empty]", "");
-                    txtDefault = apiValue[1].Replace("[Empty]", "");
-                    boqua = apiValue[2].Replace("[Empty]", "");
-                    record = apiValue[3].Replace("[Empty]", "");
-                    dateForm = apiValue[4].Replace("[Empty]", "");
-                    checkDefault = apiValue[5].Replace("[Empty]", "");
+                    chuoi = apiValue[0].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    txtDefault = apiValue[1].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    boqua = apiValue[2].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    record = apiValue[3].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    dateForm = apiValue[4].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    checkDefault = apiValue[5].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
                 }
 
                 ViewBag.Chuoi = f["Chuoi"].ToString();

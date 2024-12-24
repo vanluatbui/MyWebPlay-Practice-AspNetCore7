@@ -853,9 +853,9 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    table = apiValue[0].Replace("[Empty]", "");
-                    daydu = apiValue[1].Replace("[Empty]", "");
-                    hientai = apiValue[2].Replace("[Empty]", "");
+                    table = apiValue[0].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    daydu = apiValue[1].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    hientai = apiValue[2].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
                 }
 
                 table = table.Replace("[T-PLAY]", "\t");
@@ -2013,9 +2013,9 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    table = apiValue[0].Replace("[Empty]", "");
-                    loai = int.Parse(apiValue[1].Replace("[Empty]", ""));
-                    fields = apiValue[2].Replace("[Empty]", "").Replace("\r\n", "\n").Replace("\n", "\r\n").Replace("\r", "").Split("\n"); ;
+                    table = apiValue[0].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    loai = int.Parse(apiValue[1].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r"));
+                    fields = apiValue[2].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r\n", "\n").Replace("\n", "\r\n").Replace("\r", "").Split("\n"); ;
                 }
 
                 if (loai == 2)
@@ -2224,10 +2224,10 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    statement = apiValue[0].Replace("[Empty]", "");
-                    replace = apiValue[1].Replace("[Empty]", "").ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
-                    param = apiValue[2].Replace("[Empty]", "").ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
-                    chon = apiValue[3].Replace("[Empty]", "");
+                    statement = apiValue[0].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    replace = apiValue[1].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+                    param = apiValue[2].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").ToString().Replace("\r\n", "\n").Replace("\n", "\r\n").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+                    chon = apiValue[3].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
                 }
 
                 TempData["dataPost"] = "[" + statement.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
@@ -3070,10 +3070,10 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    table = apiValue[0].Replace("[Empty]", "");
-                    constants = apiValue[1].Replace("[Empty]", "").Replace("\r\n", "\n").Replace("\n", "\r\n").Trim('\t').Trim(' ').Replace("\r", "").Split("\n");
-                    script = apiValue[2].Replace("[Empty]", "").Replace("\r\n", "\n").Replace("\n", "\r\n").Trim('\t').Trim(' ').Replace("\r", "").Split("\n");
-                    chon = apiValue[3].Replace("[Empty]", "");
+                    table = apiValue[0].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    constants = apiValue[1].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r\n", "\n").Replace("\n", "\r\n").Trim('\t').Trim(' ').Replace("\r", "").Split("\n");
+                    script = apiValue[2].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r\n", "\n").Replace("\n", "\r\n").Trim('\t').Trim(' ').Replace("\r", "").Split("\n");
+                    chon = apiValue[3].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
                 }
 
                 var result = "";
@@ -3391,7 +3391,7 @@ namespace MyWebPlay.Controllers
                         }
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
-                    noidung = apiValue[0].Replace("[Empty]", "");
+                    noidung = apiValue[0].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
                 }
 
                 TempData["dataPost"] = "[" + f["txtNoiDung"].ToString().Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";

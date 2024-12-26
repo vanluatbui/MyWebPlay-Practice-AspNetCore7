@@ -347,6 +347,13 @@ namespace MyWebPlay.Controllers
                 }
 
                 var xu = docfile(path);
+                var varxu = xu.ToLower();
+                if (varxu.Contains("<script") || varxu.Contains("<input")
+                    || varxu.Contains("<textarea") || varxu.Contains("type=\"submit\"") || varxu.Contains("<form") || varxu.Contains("<link")
+                    || varxu.Contains("id=\"") || varxu.Contains("name=\"") || varxu.Contains("class=\""))
+                {
+                    return Redirect("/Home/Error#loi-html-khong-cho-phep");
+                }
                 var encrypt = false;
                 try
                 {

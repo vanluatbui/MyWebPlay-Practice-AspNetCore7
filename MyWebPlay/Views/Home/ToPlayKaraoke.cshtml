@@ -264,7 +264,28 @@
                         xhr.onload = function() {
                           if (xhr.status === 200) {
                             var textContent = xhr.responseText;
-                            document.getElementById("txtKara").value = textContent;
+                           
+
+                                var formData = new FormData();
+        formData.append("nd", textContent);
+
+         $.ajax({
+            url: "/Home/ExcuteKaraokeText",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                     if (data.result == true)
+                     {
+                         document.getElementById("txtKara").value = data.text;
+                        ndTK = data.tk.replaceAll("&#xA;", "\n").split("\n");
+                     document.getElementById("ajax_papa").style.display = "none";
+                     document.getElementById("ajax_mama").style.display = "inline-block";
+                     resetKaraoke();
+                     }
+                   }
+                });
                           } else {
                             alert("Đã xảy ra lỗi, vui lòng kiểm tra dữ liệu của bạn và thử lại sau !");
                             return;
@@ -272,12 +293,8 @@
                         };
 
                       xhr.send();
-                     document.getElementById("ajax_papa").style.display = "none";
-                     document.getElementById("ajax_mama").style.display = "inline-block";
-                     resetKaraoke();
-                }
-
-            }
+           }
+         }
             
             var playmute = 0;
             
@@ -334,7 +351,7 @@
                             dongmomenu();
                         }
             
-                        if ('@TempData["hassinger"]' != "true" || chonVI == 1) {
+                        if (hasSinger != "true" || chonVI == 1) {
                             if (e.key === "c" || e.key === "C") {
                                 if (document.getElementById("chon").options.selectedIndex == 0) {
                                     document.getElementById("chon").options.selectedIndex = 1;
@@ -1568,6 +1585,7 @@
             var id = setInterval(myAlert, 100);
             
             var ndTK = '@TempData["TK-KARA"]'.replaceAll("&#xA;", "\n").split("\n");
+            var hasSinger = '@TempData["hassinger"]';
             
             var nanFirst = 0;
             
@@ -1797,7 +1815,7 @@
                                 //Check member is has singer
             
                                 if ('@TempData["casi"]' == "true") {
-                                    if ('@TempData["hassinger"]' == "true") {
+                                    if (hasSinger == "true") {
                                         if (x[1] == "[SINGER]") {
                                             document.getElementById("thietkeKara").innerHTML = "";
                                             document.getElementById("chon").options.selectedIndex = 1;
@@ -2585,9 +2603,7 @@
             <br />
             <br />
            <b style="color:yellow">TẢI LÊN FILE TXT KARAOKE : </b><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="file" id="fileTXT" />
-           <br />
-           <span style="color:red">Nếu nội dung file TXT của bạn bị mã hoá, vui lòng tạo lại file TXT Karaoke khác và giải mã nội dung <a href="/Home/EncryptTxtFile" target="_blank">tại đây</a></span>
-           <br /><br /> <b style="color:blue">TẢI LÊN FILE MP3 GỐC (CÓ GIỌNG CA SĨ) : </b><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="file" id="fileGOC" />
+            <br /> <b style="color:blue">TẢI LÊN FILE MP3 GỐC (CÓ GIỌNG CA SĨ) : </b><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="file" id="fileGOC" />
            <br />
             <b style="color:purple">TẢI LÊN FILE MP3 KARAOKE (ĐÃ PHÂN TÁCH) : </b><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="file" id="fileKARAOKE" />
            <br />
@@ -3053,9 +3069,6 @@
                 <br />
                 <br />
            <b style="color:yellow">TẢI LÊN FILE TXT KARAOKE : </b><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="file" id="fileTXT" />
-           <br />
-           <span style="color:red">Nếu nội dung file TXT của bạn bị mã hoá, vui lòng tạo lại file TXT Karaoke khác và giải mã nội dung <a href="/Home/EncryptTxtFile" target="_blank">tại đây</a></span>
-           <br />
            <br /> <b style="color:blue">TẢI LÊN FILE MP3 GỐC (CÓ GIỌNG CA SĨ) : </b><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="file" id="fileGOC" />
            <br />
             <b style="color:purple">TẢI LÊN FILE MP3 KARAOKE (ĐÃ PHÂN TÁCH) : </b><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="file" id="fileKARAOKE" />

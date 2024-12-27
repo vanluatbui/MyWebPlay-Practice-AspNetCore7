@@ -462,7 +462,7 @@ namespace MyWebPlay.Controllers
                 var urlCurrent = TempData["urlCurrent"];
                 TempData["urlCurrent"] = urlCurrent;
 
-                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "EXCEPTION_ERROR_LOG.txt"), "");
+               // System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "EXCEPTION_ERROR_LOG.txt"), "");
                 if (HttpContext.Session.GetString("mini-web") == "true")
                 {
                     TempData["mini-web"] = "true";

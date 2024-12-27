@@ -4015,7 +4015,7 @@ namespace MyWebPlay.Controllers
         {
             try
             {
-
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "EXCEPTION_ERROR_LOG.txt"), "");
                 if (chk)
                 {
                     var pathE = Path.Combine(_webHostEnvironment.WebRootPath, "FileExternal");

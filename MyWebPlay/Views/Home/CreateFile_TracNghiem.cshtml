@@ -534,6 +534,9 @@ Layout = null;
     var xd = 0;
     function upAnswer()
     {
+        document.getElementById("Chuoi").readOnly = true;
+        document.getElementById("Num").readOnly = true;
+
          var tong = document.getElementById("CH_Num").value;
         if (tong == "" || isNaN(tong) == true)
         {
@@ -655,6 +658,8 @@ Layout = null;
     
          so.innerHTML = "[NULL]";
     }
+
+    
     
 </script>
 <h2 style="text-align:center">File Trắc Nghiệm Theo Hệ Thống (dành cho admin hoặc các user hiểu biết chức năng)</h2>
@@ -682,8 +687,8 @@ Layout = null;
     <tr style="height:40px">
         <td></td>
         <td>
-            <input type="text" name="txtNum" id="Num" value="@ViewBag.CH_VD" size="20" placeholder="Liệt kê các câu hỏi (index)"> <br>
-            <input  type="text" readonly name="txtNux" id="CH_Num" placeholder="Tổng số câu hỏi bài trắc nghiệm (bắt buộc)" size="80" /> <input type="radio" onclick="checkNum()" checked> <b style="color:purple"> ⬅️ Click để cập nhật tự động</b><br>
+            <input type="text" name="txtNum" id="Num" value="@ViewBag.CH_VD" size="20" placeholder="Liệt kê các câu hỏi (index)" onchange="checkNum()"> <br>
+            <span style="color:red">* Tổng số câu hiện có (được tính lại tự động) : </span><input  type="text" readonly name="txtNux" id="CH_Num" placeholder="Tổng số câu hỏi bài trắc nghiệm (bắt buộc)" size="80" value="6" /> 
             <span style="color:red" id="loisox"></span>
         </td>
     </tr>

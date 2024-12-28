@@ -1411,6 +1411,15 @@ namespace MyWebPlay.Controllers
                     TempData["ajax_on_no_upload"] = "Hiện tại bạn không thể thực hiện tải lên các file Karaoke liên quan tại đây. Tuy nhiên hãy cứ bỏ qua điều này và thực hiện các bước tiếp theo, bạn sẽ được hướng dẫn thêm sau đó...";
                 }
 
+                if (fileMOTAT == "file_MO")
+                {
+                    TempData["yes-file-mo"] = "true";
+                }
+                else
+                {
+                    TempData["yes-file-mo"] = "false";
+                }
+
                 TempData["ajax_file_on_off"] = (fileMOTAT == "file_TAT").ToString();
                 TempData["ajax_on_off"] = (ajax == "AJAX_JAVASCRIPT_ON").ToString();
 
@@ -1889,6 +1898,25 @@ namespace MyWebPlay.Controllers
                 {
                     TempData["auto-play"] = "true";
                 }
+
+                if (f["random_font"].ToString() == "on")
+                {
+                    TempData["random_font"] = "true";
+                }
+                else
+                {
+                    TempData["random_font"] = "false";
+                }
+
+                if (f["random_color"].ToString() == "on")
+                {
+                    TempData["random_color"] = "true";
+                }
+                else
+                {
+                    TempData["random_color"] = "false";
+                }
+
 
                 if (f["auto_music"].ToString() == "on")
                 {

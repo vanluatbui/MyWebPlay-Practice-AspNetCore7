@@ -1444,8 +1444,10 @@
             function doimau() {
                 mau = document.getElementById("mau").value;
                 document.getElementById("xemthumau").style.color = mau;
-                document.getElementById("xanhX1").style.setProperty("--color", mau);
-                document.getElementById("xanhX2").style.setProperty("--color", mau);
+                if (document.getElementById("xanhX1") != null)
+               document.getElementById("xanhX1").style.setProperty("--color", mau);
+                if (document.getElementById("xanhX2") != null)
+               document.getElementById("xanhX2").style.setProperty("--color", mau);
             }
             
             function doimaunex_Save() {
@@ -1496,7 +1498,9 @@
                 document.getElementById("xemmauthu").style.color = mauX;
                 //-- document.getElementById("txtKaraoke1").style.color = document.getElementById("mauX").value;
                 //-- document.getElementById("txtKaraoke2").style.color = document.getElementById("mauX").value;
+                 if (document.getElementById("xanhX1") != null)
                 document.getElementById("xanhX1").style.setProperty("--colox", mauX);
+                 if (document.getElementById("xanhX2") != null)
                 document.getElementById("xanhX2").style.setProperty("--color", mauX);
             }
             
@@ -1603,6 +1607,16 @@
             var hasSinger = '@TempData["hassinger"]';
             
             var nanFirst = 0;
+
+            function getRandomColor() {
+              const r = Math.floor(Math.random() * 256);
+              const g = Math.floor(Math.random() * 256);
+              const b = Math.floor(Math.random() * 256);
+
+              return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+            }
+
+            var random_font_index = 0;
             
             function myAlert() {
                 if (flag == 0) {
@@ -1806,10 +1820,32 @@
                 document.getElementById("thietkeKara").style.fontSize = document.getElementById("kichthuoc").value + "px";
             
                 if (t == time_xuathien[n]) {
+
                     h_xh = [];
                     h_le = [];
             
                     if (LBH[n] != "[Empty]" && LBH[n] != "[Empty-X]") {
+
+                if ('@TempData["random_font"]' == "true")
+                {
+                    var fontKieuF = document.getElementById("fontKieu");
+                    fontKieuF.options.selectedIndex = random_font_index;
+                    doiFontKieu();
+                    random_font_index++;
+                    if (random_font_index >= fontKieuF. options.length)
+                    {
+                        random_font_index = 0;
+                    }
+                }
+
+                if ('@TempData["random_color"]' == "true")
+                {
+                    document.getElementById("mau").value = getRandomColor();
+                    document.getElementById("mauX").value = getRandomColor();
+                    doimau();
+                    doimauX();
+                }
+
                         var s = time_luuvet[n].split(",");
             
                         for (var i = 0; i < s.length; i++) {
@@ -2299,7 +2335,14 @@
                                 }
                     <br />
                     <b>@Html.ActionLink("Bạn chưa có file text karaoke?","CreateFile_Karaoke")</b><br />
+                    @if (TempData["yes-file-mo"] == "true")
+                    {
                     <b style="color: darkgreen;">@Html.ActionLink("Phân đoạn hát cho các member? (sau khi bạn đã tạo file text Karaoke từ hệ thống)","PhanDoanMember_Karaoke")</b>
+                    }
+                    else
+                    {
+                        <del><b style="color: darkgreen;">@Html.ActionLink("Phân đoạn hát cho các member? (sau khi bạn đã tạo file text Karaoke từ hệ thống)","PhanDoanMember_Karaoke")</b></del>
+                    }
                     <br />
                 </td>
             </tr>
@@ -2388,17 +2431,35 @@
                     </span>
                     *@ <br />
                     <br />
-                    <input type="checkbox" name="auto_play" />&nbsp;<b>Không tự động phát nhạc khi bắt đầu</b> <br />
+                    @if(TempData["yes-file-mo"] == "true")
+                    {
+                    <input type="checkbox" name="auto_play" /><span>&nbsp;</span><b>Không tự động phát nhạc khi bắt đầu</b> <br />
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="auto_play" /><del><span>&nbsp;</span><b>Không tự động phát nhạc khi bắt đầu</b></del><br />
+                    }
                     <br />
                     <input type="checkbox" name="auto_music" />&nbsp;<b>Tự động lặp lại music (không đảm bảo)</b> <br />
                     <br />
-                    <input type="checkbox" name="txtBehind" id="behind" />&nbsp;<b>Sẽ bắt đầu phát nhạc sau <input type="number" name="txtBehindNumber" value="10" min="10" max="100" style="width: 5em;" /> giây</b> <br />
-                    <br />
+                     @if(TempData["yes-file-mo"] == "true")
+                     {
+                                <input type="checkbox" name="txtBehind" id="behind" /><span>&nbsp;</span><b>Sẽ bắt đầu phát nhạc sau <input type="number" name="txtBehindNumber" value="10" min="10" max="100" style="width: 5em;" /> giây</b> <br />
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="txtBehind" id="behind" /><span>&nbsp;</span><del><b>Sẽ bắt đầu phát nhạc sau <input type="number" name="txtBehindNumber" value="10" min="10" max="100" style="width: 5em;" /> giây</b></del><br />
+                            }
+                            <br />
                     <input type="checkbox" name="txtInHoa" />&nbsp;<b>Viết in hoa tất cả đoạn Text Karaoke</b> <br />
                     <br />
                     <input type="checkbox" id="cangiua" name="txtCanGiua" onchange="kiemtracangiua()" />&nbsp;<b>Căn giữa tất cả đoạn Text Karaoke</b> <br />
                     <br />
-                    <input type="checkbox" id="codinh1" name="txtCoDinh" checked />&nbsp;<b id="codinh2">Cố định đoạn text Karaoke ở phía dưới (như các bản karaoke thông thường)</b>
+                    <input type="checkbox" id="codinh1" name="txtCoDinh" checked />&nbsp;<b id="codinh2">Cố định đoạn text Karaoke ở phía dưới (như các bản karaoke thông thường)</b><br />
+                        <br />
+                        <input type="checkbox" name="random_font" />&nbsp;<b>Tự động chuyển đổi lần lượt font chữ của text karaoke</b> <br />
+                        <br />
+                        <input type="checkbox" name="random_color" />&nbsp;<b>Tự động chuyển đổi random màu sắc (ban đầu/điểm tô) của text karaoke</b> <br />
                 </td>
             </tr>
             <tr style="height: 40px;">
@@ -2456,13 +2517,29 @@
                     }  &nbsp
                     <button style="color: brown;" onclick="loadsolar()" id="xanh" title="Nhấn [Space] để mở/tắt toàn màn hình"><b>FULL MÀN HÌNH - OFF</b></button>
                     <button style="background-color:grey;border:none;position: absolute;bottom:0;right:0;" onclick="dongmenu()" id="xanhla" title="Đóng thẻ phần menu lại (nhấn m/M)"><b>❌</b></button>
-                    @if(TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) {
+                    @if((TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) && (TempData["random_color"] == "false")) {
                     <b id="xemthumau" style="color: #2900f5;">Chọn màu tô điểm text</b><span> : </span><input type="color" onchange="doimau()" id="mau" value="#2900f5" />
                     } else {
                     <span style="display: none;"> <b id="xemthumau" style="color: #2900f5;">Chọn màu tô điểm text</b><span> : </span><input type="color" onchange="doimau()" id="mau" value="#2900f5" /></span>
-                    } <b id="xemmauthu" style="color: #efe6e6;">Chọn màu đoạn text ban đầu</b> : <input type="color" onchange="doimauX()" id="mauX" value="#efe6e6" /> 
+                    }
+
+                     @if(TempData["random_color"] == "false")
+                    {
+                    <b id="xemmauthu" style="color: #efe6e6;">Chọn màu đoạn text ban đầu</b><span> : </span><input type="color" onchange="doimauX()" id="mauX" value="#efe6e6" /> 
+                    }
+                    else
+                    {
+                        <span style="display:none"><b id="xemmauthu" style="color: #efe6e6;display:none">Chọn màu đoạn text ban đầu</b><span> : </span><input type="color" onchange="doimauX()" id="mauX" value="#efe6e6" /></span>
+                    }
                     <b id="xemmaudi" style="color: #e3f207;">Chọn màu cho time đếm ngược bắt đầu karaoke</b> : <input type="color" onchange="doimauY()" id="mauY" value="#e3f207" />
-                    <select id="fontKieu" onchange="doiFontKieu()" title="Chọn kiểu chữ cho text hiển thị karaoke"> </select>
+                    @if(TempData["random_font"] == "false")
+                    {
+                                <select id="fontKieu" onchange="doiFontKieu()" title="Chọn kiểu chữ cho text hiển thị karaoke"> </select>
+                            }
+                            else
+                            {
+                                <select id="fontKieu" onchange="doiFontKieu()" title="Chọn kiểu chữ cho text hiển thị karaoke" style="display: none;"> </select>
+                            }
                     <span style="color: deeppink;"><b>Kích thước chữ : </b></span><input id="kichthuoc" type="number" style="width: 5em;" min="0" value="80" onchange="doikichthuoc()" />
                     @if((TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) && TempData["codinh"] == "false") {
                     <span style="color: deeppink;"><b>Vị trí xuất hiện : </b></span> <input id="hang" type="number" style="width: 5em;" min="0" value="0" onchange="doihang()" />
@@ -2881,17 +2958,35 @@
                         </span>
                         *@ <br />
                         <br />
-                        <input type="checkbox" name="auto_play" />&nbsp;<b>Không tự động phát nhạc khi bắt đầu</b> <br />
+                          @if(TempData["yes-file-mo"] == "true")
+                    {
+                    <input type="checkbox" name="auto_play" /><span>&nbsp;</span><b>Không tự động phát nhạc khi bắt đầu</b> <br />
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="auto_play" /><span>&nbsp;</span><del><b>Không tự động phát nhạc khi bắt đầu</b></del> <br />
+                    }
                         <br />
                         <input type="checkbox" name="auto_music" />&nbsp;<b>Tự động lặp lại music (không đảm bảo)</b> <br />
                         <br />
-                        <input type="checkbox" name="txtBehind" id="behind" />&nbsp;<b>Sẽ bắt đầu phát nhạc sau <input type="number" name="txtBehindNumber" value="10" min="10" max="100" style="width: 5em;" /> giây</b> <br />
+                       @if(TempData["yes-file-mo"] == "true")
+                     {
+                                <input type="checkbox" name="txtBehind" id="behind" /><span>&nbsp;</span><b>Sẽ bắt đầu phát nhạc sau <input type="number" name="txtBehindNumber" value="10" min="10" max="100" style="width: 5em;" /> giây</b> <br />
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="txtBehind" id="behind" /><span>&nbsp;</span><del><b>Sẽ bắt đầu phát nhạc sau <input type="number" name="txtBehindNumber" value="10" min="10" max="100" style="width: 5em;" /> giây</b></del><br />
+                            }
                         <br />
                         <input type="checkbox" name="txtInHoa" />&nbsp;<b>Viết in hoa tất cả đoạn Text Karaoke</b> <br />
                         <br />
                         <input type="checkbox" id="cangiua" name="txtCanGiua" onchange="kiemtracangiua()" />&nbsp;<b>Căn giữa tất cả đoạn Text Karaoke</b> <br />
                         <br />
-                        <input type="checkbox" id="codinh1" name="txtCoDinh" checked />&nbsp;<b id="codinh2">Cố định đoạn text Karaoke ở phía dưới (như các bản karaoke thông thường)</b>
+                        <input type="checkbox" id="codinh1" name="txtCoDinh" checked />&nbsp;<b id="codinh2">Cố định đoạn text Karaoke ở phía dưới (như các bản karaoke thông thường)</b><br />
+                        <br />
+                        <input type="checkbox" name="random_font" />&nbsp;<b>Tự động chuyển đổi lần lượt font chữ của text karaoke</b> <br />
+                        <br />
+                        <input type="checkbox" name="random_color" />&nbsp;<b>Tự động chuyển đổi random màu sắc (ban đầu/điểm tô) của text karaoke</b> <br />
                     </td>
                 </tr>
                 <tr style="height: 40px;">
@@ -2930,11 +3025,22 @@
                         }  &nbsp
                         <button style="color: brown;" onclick="loadsolar()" id="xanh" title="Nhấn [Space] để mở/tắt toàn màn hình"><b>FULL MÀN HÌNH - OFF</b></button> 
                         <button style="background-color:grey;border:none;absolute;bottom:0;right:0;" onclick="dongmenu()" id="xanhla" title="Đóng thẻ phần menu lại (nhấn m/M)"><b>❌</b></button>
-                        @if(TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) {
+                        @if((TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) && (TempData["random_color"] == "false")) {
                         <b id="xemthumau" style="color: #2900f5;">Chọn màu tô điểm text</b><span> : </span><input type="color" onchange="doimau()" id="mau" value="#2900f5" />
                         } else {
                         <span style="display: none;"> <b id="xemthumau" style="color: #2900f5;">Chọn màu tô điểm text</b><span> : </span><input type="color" onchange="doimau()" id="mau" value="#2900f5" /></span>
-                        } <b id="xemmauthu" style="color: #efe6e6;">Chọn màu đoạn text ban đầu</b> : <input type="color" onchange="doimauX()" id="mauX" value="#efe6e6" /> 
+                        }
+
+                        
+                     @if(TempData["random_color"] == "false")
+                    {
+                    <b id="xemmauthu" style="color: #efe6e6;">Chọn màu đoạn text ban đầu</b><span> : </span><input type="color" onchange="doimauX()" id="mauX" value="#efe6e6" /> 
+                    }
+                    else
+                    {
+                        <span style="display:none"><b id="xemmauthu" style="color: #efe6e6;display:none">Chọn màu đoạn text ban đầu</b><span> : </span><input type="color" onchange="doimauX()" id="mauX" value="#efe6e6" /></span>
+                    }
+
                         <b id="xemmaudi" style="color: #e3f207;">Chọn màu cho time đếm ngược bắt đầu karaoke</b> : <input type="color" onchange="doimauY()" id="mauY" value="#e3f207" />  
                         <span style="color: red;">Kích thước chữ : </span><input id="kichthuoc" type="number" style="width: 5em;" min="0" value="90" onchange="doikichthuoc()" />
                         @if((TempData["TK-KARA"] == "" || TempData["TK-KARA"] == null) && TempData["codinh"] == "false") {

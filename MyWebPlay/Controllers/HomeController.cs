@@ -319,14 +319,25 @@ namespace MyWebPlay.Controllers
                     foreach (var key in f.Keys)
                     {
                         var s = "";
-                        if (f[key].ToString().Length > 100)
-                            s = f[key].ToString().Substring(0, 100);
-                        else
-                            s = f[key].ToString();
 
+                        if (f[key].ToString().Length > 100)
+                                s = f[key].ToString().Substring(0, 100);
+                            else
+                                s = f[key].ToString();
                         fi += key + " : " + s.Replace("\r","").Replace("\n","") + "...\t---\t";
                     }
                     fi += "]";
+
+                    if (f.Files.Count > 0)
+                    {
+                        fi += "[FILES : ";
+                        foreach (var file in f.Files)
+                        {
+                            fi += file.FileName + " -> ";
+                        }
+
+                        fi += "]";
+                    }
                 }
 
                 var yes_log = true;

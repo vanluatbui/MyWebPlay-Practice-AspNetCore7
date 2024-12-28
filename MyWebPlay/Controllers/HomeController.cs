@@ -332,7 +332,7 @@ namespace MyWebPlay.Controllers
                     if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = false;
                 }
 
-                if (yes_log)
+                if (yes_log || HttpContext.Session.GetString("NoAdmin_YesLog") == "true")
                 {
                     var ipAddress = SetUserIPClientWhenAPI();
                     if (string.IsNullOrEmpty(ipAddress))
@@ -1353,7 +1353,7 @@ namespace MyWebPlay.Controllers
                         if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = false;
                     }
 
-                    if (yes_log)
+                    if (yes_log || HttpContext.Session.GetString("NoAdmin_YesLog") == "true")
                     {
                         var ipAddress = SetUserIPClientWhenAPI();
                         if (string.IsNullOrEmpty(ipAddress))
@@ -1527,7 +1527,7 @@ namespace MyWebPlay.Controllers
             return View();
         }
 
-        public ActionResult Index(string? mini)
+        public ActionResult Index(string? mini, string? yeslog)
         {
             try
             {
@@ -1536,6 +1536,15 @@ namespace MyWebPlay.Controllers
                     TempData.Remove("check-me");
                     HttpContext.Session.Remove("mini-mini");
                     return RedirectToAction("Error", "Home");
+                }
+
+                if (yeslog == "true")
+                {
+                    HttpContext.Session.SetString("NoAdmin_YesLog", "true");
+                }
+                else if (yeslog == "true")
+                {
+                    HttpContext.Session.Remove("NoAdmin_YesLog");
                 }
 
                 HttpContext.Session.Remove("mini-mini");

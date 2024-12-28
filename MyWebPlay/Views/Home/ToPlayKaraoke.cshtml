@@ -475,6 +475,21 @@
             
                 document.getElementById("okxem").style.display = "none";
                 document.getElementById("loading").style.display = "block";
+
+                 thatbai_time = 0;
+        setInterval(function()
+        {
+            if (thatbai_time == 5)
+            {
+                if (thatbai == true)
+                {
+                      document.getElementById("okxem").style.display = "inline-block";
+                     document.getElementById("loading").style.display = "none";
+                }
+                return;
+            }
+            thatbai_time++;
+        },10);
             }
 
             var lancop = 0;

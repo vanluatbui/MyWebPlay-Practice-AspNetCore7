@@ -1010,6 +1010,10 @@
         return;
         
         toanmanhinh();
+
+             window.addEventListener('beforeunload', (event) => {
+             event.preventDefault();
+          });
         },10);
         
         if ('@TempData["AdminControl"]' == "true")

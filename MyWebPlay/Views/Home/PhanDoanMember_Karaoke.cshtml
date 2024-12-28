@@ -191,6 +191,21 @@ else if (TempData["karax-cre"] == "1")
             id = setInterval(myAlertX, 1000);
             document.getElementById("loading").style.display = "block";
             document.getElementById("xl").style.display = "none";
+
+             thatbai_time = 0;
+        setInterval(function()
+        {
+            if (thatbai_time == 5)
+            {
+                if (thatbai == true)
+                {
+                      document.getElementById("xl").style.display = "inline-block";
+                     document.getElementById("loading").style.display = "none";
+                }
+                return;
+            }
+            thatbai_time++;
+        },10);
         }
         else
         {

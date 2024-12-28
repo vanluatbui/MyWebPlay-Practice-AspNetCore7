@@ -79,10 +79,19 @@ namespace MyWebPlay.Controllers
             return 1;
         }
 
-        public ActionResult Error(string? onoff, string? encrypt)
+        public ActionResult Error(string? onoff, string? encrypt, string? yeslog)
         {
             try
             {
+                if (yeslog == "true")
+                {
+                    HttpContext.Session.SetString("NoAdmin_YesLog", "true");
+                }
+                else if (yeslog == "true")
+                {
+                    HttpContext.Session.Remove("NoAdmin_YesLog");
+                }
+
                 if (onoff != null)
                 {
                     var pth = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
@@ -332,7 +341,7 @@ namespace MyWebPlay.Controllers
                     if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = false;
                 }
 
-                if (yes_log || HttpContext.Session.GetString("NoAdmin_YesLog") == "true")
+                if ((yes_log || HttpContext.Session.GetString("NoAdmin_YesLog") == "true"))
                 {
                     var ipAddress = SetUserIPClientWhenAPI();
                     if (string.IsNullOrEmpty(ipAddress))
@@ -1353,7 +1362,7 @@ namespace MyWebPlay.Controllers
                         if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = false;
                     }
 
-                    if (yes_log || HttpContext.Session.GetString("NoAdmin_YesLog") == "true")
+                    if ((yes_log || HttpContext.Session.GetString("NoAdmin_YesLog") == "true"))
                     {
                         var ipAddress = SetUserIPClientWhenAPI();
                         if (string.IsNullOrEmpty(ipAddress))

@@ -420,7 +420,7 @@ namespace MyWebPlay.Controllers
                     if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = false;
                 }
 
-                if (infoXWW[1] == "true" && yes_log || HttpContext.Session.GetString("NoAdmin_YesLog") == "true")
+                if (infoXWW[1] == "true" && (yes_log || HttpContext.Session.GetString("NoAdmin_YesLog") == "true"))
                 {
                     var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
                     var noidungS = docfile(pathS);
@@ -537,7 +537,7 @@ namespace MyWebPlay.Controllers
                     if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = false;
                 }
 
-                if (infoXWW[1] == "true" && yes_log || HttpContext.Session.GetString("NoAdmin_YesLog") == "true")
+                if (infoXWW[1] == "true" && (yes_log || HttpContext.Session.GetString("NoAdmin_YesLog") == "true"))
                 {
                     var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
                     var noidungS = docfile(pathS);
@@ -669,7 +669,7 @@ namespace MyWebPlay.Controllers
                     if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = false;
                 }
 
-                if (infoXWW[1] == "true" && yes_log || HttpContext.Session.GetString("NoAdmin_YesLog") == "true")
+                if (infoXWW[1] == "true" && (yes_log || HttpContext.Session.GetString("NoAdmin_YesLog") == "true"))
                 {
                     var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
                     var noidungS = docfile(pathS);

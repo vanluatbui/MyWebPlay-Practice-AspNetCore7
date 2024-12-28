@@ -14,6 +14,21 @@ Layout = null;
      document.getElementById("ID-X").readOnly = true;
       document.getElementById("MSSV-X").readOnly = true;
      idSA = setInterval(myAlertX, 1000);
+
+      thatbai_time = 0;
+        setInterval(function()
+        {
+            if (thatbai_time == 5)
+            {
+                if (thatbai == true)
+                {
+                      document.getElementById("xong").style.display = "inline-block";
+                     document.getElementById("loading").style.display = "none";
+                }
+                return;
+            }
+            thatbai_time++;
+        },10);
     }
     
     function changeID()

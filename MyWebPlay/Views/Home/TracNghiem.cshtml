@@ -7,6 +7,21 @@ Layout = null;
     {
        document.getElementById("ok").style.display = "none";
        document.getElementById("loading").style.display = "inline-block";
+
+        thatbai_time = 0;
+        setInterval(function()
+        {
+            if (thatbai_time == 5)
+            {
+                if (thatbai == true)
+                {
+                      document.getElementById("ok").style.display = "inline-block";
+                     document.getElementById("loading").style.display = "none";
+                }
+                return;
+            }
+            thatbai_time++;
+        },10);
     }
 </script>
 <table align="center">

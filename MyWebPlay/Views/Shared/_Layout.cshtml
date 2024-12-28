@@ -135,6 +135,12 @@
 
     var urlExternal = "";
 
+    var thatbai = true;
+    var thatbai_time = 0;
+    window.addEventListener('beforeunload', (event) => {
+        thatbai = false;
+});
+
     window.addEventListener('message', (event) => {
         if (event.data === 'dongTB_mywebplay') {
             if (urlExternal == "_blank")

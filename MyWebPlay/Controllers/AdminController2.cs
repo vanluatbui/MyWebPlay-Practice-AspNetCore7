@@ -1922,19 +1922,61 @@ namespace MyWebPlay.Controllers
                 if (key == valuePam)
                 {
                     HttpContext.Session.SetString("adminSetting", "true");
+                    HttpContext.Session.SetString("admin-userIP", SetUserIPClientWhenAPI());
                     return Ok(new { result = "Thành công !" });
                 }
                 else
                 {
                     HttpContext.Session.Remove("adminSetting");
+                    HttpContext.Session.Remove("admin-userIP");
                     return Ok(new { result = "Thất bại !" });
                 }
             }
             catch
             {
                 HttpContext.Session.Remove("adminSetting");
-                return Ok(new { result = "Thất bại !" });
+                HttpContext.Session.Remove("admin-userIP");
+                return Ok(new { result = "Thất bại rồi !" });
             }
+        }
+
+        public string SetUserIPClientWhenAPI()
+        {
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            var check = 0;
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "All_People" && info[1] == "true") check++;
+                if (info[0] == "External_Post" && info[1] == "true") check++;
+                if (info[0] == "Get_Blocked" && info[1] == "true") check++;
+            }
+
+            string ipAddress = string.Empty;
+            if (check == 3)
+            {
+                //using (var client = new HttpClient())
+                //{
+                //    var response = await client.GetAsync("https://api.ipify.org?format=text");
+                //    ipAddress = await response.Content.ReadAsStringAsync();
+                //}
+
+                if (string.IsNullOrEmpty(ipAddress))
+                {
+                    ipAddress = Request.Headers["X-Forwarded-For"];
+                }
+
+                if (string.IsNullOrEmpty(ipAddress))
+                {
+                    ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+                }
+            }
+
+            return ipAddress;
         }
     }
 }

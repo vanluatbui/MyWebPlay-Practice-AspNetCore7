@@ -839,6 +839,8 @@ namespace MyWebPlay.Controllers
                     TempData["WantToGetUserIP"] = "false";
                 }
 
+                HttpContext.Session.Remove("keyTempAdmin");
+
 
                 if (locked == true)
                 {
@@ -1490,6 +1492,21 @@ namespace MyWebPlay.Controllers
                     return RedirectToAction("LoginSettingAdmin", "Admin");
                 }
 
+                var keyTempAdmin = HttpContext.Session.GetString("keyTempAdmin");
+                if (keyTempAdmin != null)
+                {
+                    var pax = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                    var valuePax = System.IO.File.ReadAllText(pax).Split("<>");
+                    if (valuePax.Length > 1)
+                    {
+                        if (valuePax[1] != keyTempAdmin)
+                        {
+                            HttpContext.Session.Remove("keyTempAdmin");
+                            return RedirectToAction("LoginSettingAdmin", "Admin");
+                        }
+                    }
+                }
+
                 TempData["root_path_web"] = _webHostEnvironment.ContentRootPath.ToString();
 
                 var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
@@ -2041,6 +2058,21 @@ namespace MyWebPlay.Controllers
                 {
                     TempData["WantToGetUserIP"] = "true";
                     return RedirectToAction("LoginSettingAdmin", "Admin");
+                }
+
+                var keyTempAdmin = HttpContext.Session.GetString("keyTempAdmin");
+                if (keyTempAdmin != null)
+                {
+                    var pax = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                    var valuePax = System.IO.File.ReadAllText(pax).Split("<>");
+                    if (valuePax.Length > 1)
+                    {
+                        if (valuePax[1] != keyTempAdmin)
+                        {
+                            HttpContext.Session.Remove("keyTempAdmin");
+                            return RedirectToAction("LoginSettingAdmin", "Admin");
+                        }
+                    }
                 }
 
                 var testUser = HttpContext.Session.GetString("open-admin-yes");

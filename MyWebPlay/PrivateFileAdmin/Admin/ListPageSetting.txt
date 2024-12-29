@@ -1,4 +1,5 @@
 /Admin/XoaViewMark
+/Admin/LoginAdminTemp
 /Admin/PublicSecureAdmin
 /Admin/SetIPForAdmin
 /Admin/GetInfoKaraokeServerForShare

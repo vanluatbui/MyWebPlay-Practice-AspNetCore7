@@ -1287,6 +1287,27 @@
                document.getElementById("music").src = data.mp3_kara;
                document.getElementById("txtKara").value = data.text_kara;
                document.getElementById("thutu").value = thutu;
+                ndTK = data.text_content.replaceAll("&#xA;", "\n").split("\n");
+                  if (ndTK != "")
+                        {
+                            document.getElementById("s_mau").style.display = "none";
+                        }
+                        else
+                        {
+                            document.getElementById("s_mau").style.display = "inline-block";
+                            doimau();
+                        }
+                        hasSinger = data.singer;
+                        if (hasSinger == "true")
+                        {
+                            document.getElementById("chon").style.display = "none";
+                        }
+                        else
+                        {
+                            document.getElementById("chon").style.display = "inline-block";
+                            document.getElementById("chon").options.selectedIndex = 0;
+                            changeKara();
+                        }
                document.getElementById("thutuXYZ").innerHTML = "Huỷ trình phát Karaoke tự động";
                if ('@TempData["ajax_js"]' == "false")
                {
@@ -1390,6 +1411,27 @@
                document.getElementById("txtKara").value = data.text_kara;
                document.getElementById("thutu").value = thutu;
                document.getElementById("thutuXYZ").innerHTML = "Huỷ trình phát Karaoke tự động";
+                ndTK = data.text_content.replaceAll("&#xA;", "\n").split("\n");
+                  if (ndTK != "")
+                        {
+                            document.getElementById("s_mau").style.display = "none";
+                        }
+                        else
+                        {
+                            document.getElementById("s_mau").style.display = "inline-block";
+                            doimau();
+                        }
+                        hasSinger = data.singer;
+                        if (hasSinger == "true")
+                        {
+                            document.getElementById("chon").style.display = "none";
+                        }
+                        else
+                        {
+                            document.getElementById("chon").style.display = "inline-block";
+                            document.getElementById("chon").options.selectedIndex = 0;
+                            changeKara();
+                        }
                if ('@TempData["ajax_js"]' == "false")
                {
                    document.getElementById("thutuXYZ").innerHTML += " (đã phát : "+ thutu + "/" + maxthutu + ")"

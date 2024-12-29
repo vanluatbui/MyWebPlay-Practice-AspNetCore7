@@ -878,6 +878,9 @@ namespace MyWebPlay.Controllers
             }
 
             var baihat = "";
+            var hasSinger = "false";
+            var tkKara = "";
+            var noidung = "";
 
             WebClient client = new WebClient();
             var https = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[10] == "LINK_HTTPS_ON") ? "https" : "http";
@@ -927,11 +930,14 @@ namespace MyWebPlay.Controllers
                 //TempData["TK-KARA"] = "";
                 //if (TempData["hassinger"] != "true")
                 //    TempData["hassinger"] = "false";
+
+                tkKara = "";
+                if (hasSinger != "true")
+                hasSinger = "false";
             }
             else
             {
                 var xa = content.Replace("\r", "").Split("\n");
-                var noidung = "";
                 for (int i = 0; i < xa.Length; i++)
                 {
                     if (xa[i].Contains("<>"))
@@ -943,12 +949,15 @@ namespace MyWebPlay.Controllers
 
                         if (xd[0] == "[SINGER]")
                         {
-                           // TempData["hassinger"] = "true";
+                            hasSinger = "true";
                         }
                         else
                         {
                             //if (TempData["hassinger"] != "true")
                             //    TempData["hassinger"] = "false";
+
+                            if (hasSinger != "true")
+                                hasSinger = "false";
                         }
 
                         content = content.Replace(xb[0] + "<>", "");
@@ -965,6 +974,8 @@ namespace MyWebPlay.Controllers
                 mp3_kara = https + "://" + url_kara,
                 text_kara = content,
                 tenbaihat = baihat,
+                singer = hasSinger,
+                text_content = noidung,
                 error = "false",
             });
         }

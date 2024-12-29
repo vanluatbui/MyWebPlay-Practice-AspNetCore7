@@ -864,7 +864,7 @@ namespace MyWebPlay.Controllers
                 var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
                 var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
-                var valuePam = System.IO.File.ReadAllText(pam);
+                var valuePam = System.IO.File.ReadAllText(pam).Split("<>")[0];
 
                 if (string.IsNullOrEmpty(valuePam))
                 {
@@ -1065,7 +1065,7 @@ namespace MyWebPlay.Controllers
 
 
                 var pamX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
-                var valuePamX = System.IO.File.ReadAllText(pamX);
+                var valuePamX = System.IO.File.ReadAllText(pamX).Split("<>")[0];
 
                 //var adminIP = HttpContext.Session.GetString("admin-userIP");
                 //if (adminIP != null)
@@ -1493,7 +1493,7 @@ namespace MyWebPlay.Controllers
                 TempData["root_path_web"] = _webHostEnvironment.ContentRootPath.ToString();
 
                 var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
-                var valuePam = System.IO.File.ReadAllText(pam);
+                var valuePam = System.IO.File.ReadAllText(pam).Split("<>")[0];
 
                 if (string.IsNullOrEmpty(valuePam))
                 {
@@ -2050,7 +2050,7 @@ namespace MyWebPlay.Controllers
                 }
 
                 var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
-                var valuePam = System.IO.File.ReadAllText(pam);
+                var valuePam = System.IO.File.ReadAllText(pam).Split("<>")[0];
 
                 if (string.IsNullOrEmpty(valuePam))
                 {
@@ -2677,7 +2677,7 @@ namespace MyWebPlay.Controllers
                 var yes_log = true;
 
                 var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
-                var valuePam = System.IO.File.ReadAllText(pam);
+                var valuePam = System.IO.File.ReadAllText(pam).Split("<>")[0];
 
                 if (HttpContext.Session.GetString("admin-userIP") != null)
                 {
@@ -2839,7 +2839,7 @@ namespace MyWebPlay.Controllers
                 var yes_log = true;
 
                 var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
-                var valuePam = System.IO.File.ReadAllText(pam);
+                var valuePam = System.IO.File.ReadAllText(pam).Split("<>")[0];
 
                 if (HttpContext.Session.GetString("admin-userIP") != null)
                 {
@@ -3000,7 +3000,7 @@ namespace MyWebPlay.Controllers
                 var yes_log = true;
 
                 var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
-                var valuePam = System.IO.File.ReadAllText(pam);
+                var valuePam = System.IO.File.ReadAllText(pam).Split("<>")[0];
 
                 if (HttpContext.Session.GetString("admin-userIP") != null)
                 {

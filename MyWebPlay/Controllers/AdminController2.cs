@@ -408,7 +408,7 @@ namespace MyWebPlay.Controllers
                 var yes_log = true;
 
                 var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
-                var valuePam = System.IO.File.ReadAllText(pam);
+                var valuePam = System.IO.File.ReadAllText(pam).Split("<>")[0];
 
                 if (HttpContext.Session.GetString("admin-userIP") != null)
                 {
@@ -525,7 +525,7 @@ namespace MyWebPlay.Controllers
                 var yes_log = true;
 
                 var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
-                var valuePam = System.IO.File.ReadAllText(pam);
+                var valuePam = System.IO.File.ReadAllText(pam).Split("<>")[0];
 
                 if (HttpContext.Session.GetString("admin-userIP") != null)
                 {
@@ -657,7 +657,7 @@ namespace MyWebPlay.Controllers
                 var yes_log = true;
 
                 var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
-                var valuePam = System.IO.File.ReadAllText(pam);
+                var valuePam = System.IO.File.ReadAllText(pam).Split("<>")[0];
 
                 if (HttpContext.Session.GetString("admin-userIP") != null)
                 {
@@ -1550,7 +1550,7 @@ namespace MyWebPlay.Controllers
             {
                 var adminIP = HttpContext.Session.GetString("admin-userIP");
                 var pamX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
-                var valuePamX = System.IO.File.ReadAllText(pamX);
+                var valuePamX = System.IO.File.ReadAllText(pamX).Split("<>")[0];
 
                 if (ip != null && valuePamX == MD5.CreateMD5(ip))
                 {
@@ -1909,6 +1909,31 @@ namespace MyWebPlay.Controllers
                 {
                     exception = "true"
                 });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult LoginAdminTemp(string? key)
+        {
+            var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+            try
+            {
+                var valuePam = System.IO.File.ReadAllText(pam).Split("<>")[1];
+                if (key == valuePam)
+                {
+                    HttpContext.Session.SetString("adminSetting", "true");
+                    return Ok(new { result = "Thành công !" });
+                }
+                else
+                {
+                    HttpContext.Session.Remove("adminSetting");
+                    return Ok(new { result = "Thất bại !" });
+                }
+            }
+            catch
+            {
+                HttpContext.Session.Remove("adminSetting");
+                return Ok(new { result = "Thất bại !" });
             }
         }
     }

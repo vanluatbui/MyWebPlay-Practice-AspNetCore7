@@ -830,6 +830,8 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                HttpContext.Session.Remove("IsLoginAdminTemp");
+
                 if (HttpContext.Session.GetString("admin-userIP") == null)
                 {
                     TempData["WantToGetUserIP"] = "true";
@@ -1486,6 +1488,26 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Session.GetString("IsLoginAdminTemp") == "true")
+                {
+                    TempData["IsLoginAdminTemp"] = "true";
+                    TempData["logincodetemp"] = "";
+                }
+                else
+                {
+                    var pau = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                    var valuePau = System.IO.File.ReadAllText(pau).Split("<>");
+                    if (valuePau.Length > 1)
+                    {
+                        var code = valuePau[2];
+                        TempData["logincodetemp"] = code;
+                    }
+                    else
+                    {
+                        TempData["logincodetemp"] = "[ERROR THE CODE]";
+                    }
+                }
+
                 if (HttpContext.Session.GetString("admin-userIP") == null)
                 {
                     TempData["WantToGetUserIP"] = "true";

@@ -1965,27 +1965,39 @@ namespace MyWebPlay.Controllers
                 if (key == valuePay)
                 {
                     HttpContext.Session.SetString("adminSetting", "true");
+                    HttpContext.Session.SetString("IsLoginAdminTemp", "true");
                     HttpContext.Session.SetString("admin-userIP", SetUserIPClientWhenAPI());
                     HttpContext.Session.SetString("keyTempAdmin", key);
 
                     var ipCurrent = MD5.CreateMD5(HttpContext.Session.GetString("admin-userIP"));
                     var valuePax = System.IO.File.ReadAllText(pam).Split("<>")[0];
 
-                    if (ipCurrent != valuePax)
+                    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*_-=+?:;'{}[]|\\() /,.<>\"`~";
+                    var stringChars = new char[20];
+                    var random = new Random();
+
+                    for (int i = 0; i < stringChars.Length; i++)
                     {
-                        Calendar xz = CultureInfo.InvariantCulture.Calendar;
-                        var xuxuz = xz.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""));
-                        string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
-                        var body = "Có một ai đó (khác admin gốc/chế độ trạng thái đăng nhập đang giữ hiện tại) đã sử dụng mã key và api login setting admin tạm thời thành công. Vui lòng kiểm tra lại !\r\nThay đổi mã key TMP mới để đăng xuất tất cả...\r\n[Mã key đang sử dụng : "+key+" - " +ipCurrent +"]\r\n";
-                        SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + ((HttpContext.Session.GetString("admin-userIP") != null) ? HttpContext.Session.GetString("admin-userIP") : HttpContext.Session.GetString("admin-userIP")) + "] CẢNH BÁO ĐĂNG NHẬP ADMIN TMP In " + xuxuz, body, "teinnkatajeqerfl");
+                        stringChars[i] = chars[random.Next(chars.Length)];
                     }
 
-                return Ok(new { result = "Thành công !" });
+                    var keyNew = new String(stringChars);
+
+                    var pax = System.IO.File.ReadAllText(pam);
+                    if (string.IsNullOrEmpty(pax) == false)
+                    {
+                        var pac = pax.Split("<>");
+                        var moi = pac[0] + "<>" + keyNew;
+                        System.IO.File.WriteAllText(pam, moi);
+                    }
+
+                    return Ok(new { result = "Thành công !" });
                 }
                 else
                 {
                     HttpContext.Session.Remove("adminSetting");
                     HttpContext.Session.Remove("admin-userIP");
+                    HttpContext.Session.Remove("IsLoginAdminTemp");
                     return Ok(new { result = "Thất bại !" });
                 }
             }
@@ -1993,6 +2005,7 @@ namespace MyWebPlay.Controllers
             {
                 HttpContext.Session.Remove("adminSetting");
                 HttpContext.Session.Remove("admin-userIP");
+                HttpContext.Session.Remove("IsLoginAdminTemp");
                 return Ok(new { result = "Thất bại rồi !" });
             }
         }
@@ -2036,7 +2049,7 @@ namespace MyWebPlay.Controllers
             return ipAddress;
         }
 
-        public ActionResult ChangeKeyLoginAdminTemp(string? keyX, string? key)
+        public ActionResult ChangeKeyLoginAdminTemp(string? keyX, bool remove = false)
         {
             var pathXY = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin/SecureSettingAdmin.txt");
             var matpassAd = System.IO.File.ReadAllText(pathXY).Replace("\r", "").Split("\n")[1];
@@ -2120,12 +2133,23 @@ namespace MyWebPlay.Controllers
                 }
             }
 
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*_-=+?:;'{}[]|\\() /,.<>\"`~";
+            var stringChars = new char[20];
+            var random = new Random();
+
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+
+            var key = new String(stringChars);
+
             var pax = System.IO.File.ReadAllText(pam);
             if (string.IsNullOrEmpty(pax) == false)
             {
                 var pac = pax.Split("<>");
                 var moi = "";
-                if (string.IsNullOrEmpty(key) == false)
+                if (remove == false)
                 {
                      moi = pac[0] + "<>" + key;
                 }

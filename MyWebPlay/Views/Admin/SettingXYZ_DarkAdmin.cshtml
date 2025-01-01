@@ -908,7 +908,7 @@ Layout = null;
         
            var list = '@TempData["ListIPActive"]'.toString().split("##");
         
-           var listA = "";
+           var listA = "<option></option>";
            for (var i =0 ; i < list.length; i++)
            {
                if (list[i] != "")
@@ -938,7 +938,7 @@ Layout = null;
         
            var list = '@TempData["ListIPLockAdmin"]'.toString().split("##");
         
-           var listB = "";
+           var listB = "<option></option>";
            for (var i =0 ; i < list.length; i++)
            {
                if (list[i] != "")
@@ -968,7 +968,7 @@ Layout = null;
         
            var list = '@TempData["ListIPLockClient"]'.toString().split("##");
         
-           var listC = "";
+           var listC = "<option></option>";
            for (var i =0 ; i < list.length; i++)
            {
                if (list[i] != "")

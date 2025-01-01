@@ -258,6 +258,11 @@
                           chonVI = 0;
                       }
 
+                      if (hasSinger)
+                      {
+                          chonVI = 0;
+                      }
+
                       var xhr = new XMLHttpRequest();
                         xhr.open('GET', urlTXT, true);
 
@@ -360,7 +365,7 @@
                             dongmomenu();
                         }
             
-                        if (hasSinger != "true" || chonVI == 1) {
+                        if (hasSinger != "true") {
                             if (e.key === "c" || e.key === "C") {
                                 if (document.getElementById("chon").options.selectedIndex == 0) {
                                     document.getElementById("chon").options.selectedIndex = 1;
@@ -919,10 +924,14 @@
             var youX = false;
             
             function PlayY() {
+                if ('@TempData["not_singer"]' == "true") return;
+
                 if (document.getElementById("music").currentTime != document.getElementById("musix").currentTime) document.getElementById("music").currentTime = document.getElementById("musix").currentTime;
             }
             
             function PlayZ() {
+                if ('@TempData["not_singer"]' == "true") return;
+
                 if (document.getElementById("music").currentTime != document.getElementById("musix").currentTime) document.getElementById("musix").currentTime = document.getElementById("music").currentTime;
             }
             
@@ -997,7 +1006,10 @@
                 document.getElementById("error").style.display = "none";
                 document.getElementById("error").innerHTML = "";
             
+                if ('@TempData["not_singer"]' == "false")
+                {
                 if (document.getElementById("music").currentTime != document.getElementById("musix").currentTime) document.getElementById("music").currentTime = document.getElementById("musix").currentTime;
+                }
             
                 document.getElementById("musix").play();
             
@@ -1013,7 +1025,10 @@
                     return;
                 }
             
+                if ('@TempData["not_singer"]' == "false")
+                {
                 if (document.getElementById("musix").currentTime != document.getElementById("music").currentTime) document.getElementById("musix").currentTime = document.getElementById("music").currentTime;
+                }
             
                 document.getElementById("music").play();
                 youX = true;
@@ -2507,6 +2522,8 @@
                         <input type="checkbox" name="random_font" />&nbsp;<b>Tự động chuyển đổi lần lượt font chữ của text karaoke</b> <br />
                         <br />
                         <input type="checkbox" name="random_color" />&nbsp;<b>Tự động chuyển đổi random màu sắc (ban đầu/điểm tô) của text karaoke</b> <br />
+                        <br />
+                        <input type="checkbox" name="not_singer" />&nbsp;<b>Không cần xử lý/kiểm tra quá trình chạy của mp3 gốc (có giọng ca sĩ)</b> <br />
                 </td>
             </tr>
             <tr style="height: 40px;">
@@ -3035,6 +3052,8 @@
                         <input type="checkbox" name="random_font" />&nbsp;<b>Tự động chuyển đổi lần lượt font chữ của text karaoke</b> <br />
                         <br />
                         <input type="checkbox" name="random_color" />&nbsp;<b>Tự động chuyển đổi random màu sắc (ban đầu/điểm tô) của text karaoke</b> <br />
+                        <br />
+                        <input type="checkbox" name="not_singer" />&nbsp;<b>Không cần xử lý/kiểm tra quá trình chạy của mp3 gốc (có giọng ca sĩ)</b> <br />
                     </td>
                 </tr>
                 <tr style="height: 40px;">

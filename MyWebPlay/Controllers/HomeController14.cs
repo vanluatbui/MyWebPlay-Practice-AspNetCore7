@@ -1917,6 +1917,15 @@ namespace MyWebPlay.Controllers
                     TempData["random_color"] = "false";
                 }
 
+                if (f["not_singer"].ToString() == "on")
+                {
+                    TempData["not_singer"] = "true";
+                }
+                else
+                {
+                    TempData["not_singer"] = "false";
+                }
+
 
                 if (f["auto_music"].ToString() == "on")
                 {

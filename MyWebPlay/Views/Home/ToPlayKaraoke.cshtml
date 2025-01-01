@@ -2526,27 +2526,29 @@
                         <input type="checkbox" name="not_singer" />&nbsp;<b>Không cần xử lý/kiểm tra quá trình chạy của mp3 gốc (có giọng ca sĩ)</b> <br />
                 </td>
             </tr>
-            <tr style="height: 40px;">
-                <td></td>
-                <td>
-                    <br />
-                    <input onclick="xong()" style="font-weight: bolder;" type="Submit" id="okxem" value="Bắt Đầu" />
-                    <br />
-                    <img id="loading" src="/Image_Play/waiting.gif" style="display: none;" />
-                </td>
-            </tr>
-            <tr style="height: 40px;">
-                <td></td>
-                <td>
-                    <br />
-                    <br />
-                    <b style="color: red; background-color: aqua;">
-                    - Hiện tại nếu bạn play Karaoke online trực tiếp trên website của hệ thống (tải lên các file hoặc sử dụng hosting server của riêng bạn); khi gặp các sự cố như mạng yếu hay đường truyền Internet yếu, tốc độ băng thông
-                    thấp,... thì sẽ gây khó khăn và gián đoạn trong quá trình trải nghiệm.
-                    <br />
-                    - Chúng tôi đang triển khai HTML dịch vụ karaoke của MyWebPlay ngay trên local (offline) dành cho bạn. <a href="/karaoke_Example/karaoke-MyWebPlay.zip" download> Click vào đây</a> để tải xuống phiên bản trải nghiệm.
-                    </b>
-                </td>
+                    <tr style="height: 40px;">
+                        <td></td>
+                        <td>
+                            <br />
+                            <input onclick="xong()" style="font-weight: bolder;" type="Submit" id="okxem" value="Bắt Đầu" />
+                            <br />
+                            <img id="loading" src="/Image_Play/waiting.gif" style="display: none;" />
+                        </td>
+                    </tr>
+                    <tr style="height: 40px;">
+                        <td></td>
+                        <td>
+                            <br />
+                            <br />
+                            <b style="color: red; background-color: aqua;">
+                                - Hiện tại nếu bạn play Karaoke online trực tiếp trên website của hệ thống (tải lên các file hoặc sử dụng hosting server của riêng bạn); khi gặp các sự cố như mạng yếu hay đường truyền Internet yếu, tốc độ băng thông
+                                thấp,... thì sẽ gây khó khăn và gián đoạn trong quá trình trải nghiệm.
+                                <br />
+                                @if (TempData["exists_karaoke_offline"] == "true")
+                                {
+                                   <b> -Chúng tôi đang triển khai HTML dịch vụ karaoke của MyWebPlay ngay trên local(offline) dành cho bạn. < a href = "/karaoke_Example/karaoke-MyWebPlay.zip" download > Click vào đây</ a > để tải xuống phiên bản trải nghiệm.</b >
+                                }
+                        </td>
             </tr>
             }
         </table>

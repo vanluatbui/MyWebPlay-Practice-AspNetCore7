@@ -1420,6 +1420,16 @@ namespace MyWebPlay.Controllers
                     TempData["yes-file-mo"] = "false";
                 }
 
+                var pathOFF = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "karaoke-MyWebPlay.zip");
+                if (System.IO.File.Exists(pathOFF))
+                {
+                    TempData["exists_karaoke_offline"] = "true";
+                }
+                else
+                {
+                    TempData["exists_karaoke_offline"] = "false";
+                }
+
                 TempData["ajax_file_on_off"] = (fileMOTAT == "file_TAT").ToString();
                 TempData["ajax_on_off"] = (ajax == "AJAX_JAVASCRIPT_ON").ToString();
 

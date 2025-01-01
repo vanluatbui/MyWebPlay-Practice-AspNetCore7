@@ -1333,7 +1333,7 @@ Layout = null;
                 <label class="switch">
                 @if (Model.Topics[i].Option == false)
                 {
-                    if (TempData["IsLoginAdminTemp"] != "true" && (i == 22 || i == 23))
+                    if (TempData["IsLoginAdminTemp"] == "true" && (i == 22 || i == 23))
                     {
                                             <input id="check-@i" onchange="saveX(@i)" name="@Model.Topics[i].ID" type="checkbox" disabled />
                                         }
@@ -1344,7 +1344,7 @@ Layout = null;
                                     }
                 else
                 {
-                     if (TempData["IsLoginAdminTemp"] != "true" && (i == 22 || i == 23))
+                     if (TempData["IsLoginAdminTemp"] == "true" && (i == 22 || i == 23))
                      {
                                             <input id="check-@i" onchange="saveX(@i)" name="@Model.Topics[i].ID" type="checkbox" checked disabled />
                                         }

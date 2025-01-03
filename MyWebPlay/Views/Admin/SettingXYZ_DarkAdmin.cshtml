@@ -2449,7 +2449,7 @@ Layout = null;
 
          @if (TempData["IsLoginAdminTemp"] != "true")
          {
-        <div style="background-color:blueviolet">
+        <div style="background-color:blueviolet" id="forever_locked">
             @using (Html.BeginForm("UnlockAllWeb","Admin"))
             {
             @Html.ValidationSummary(true)

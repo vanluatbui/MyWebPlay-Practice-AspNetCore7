@@ -342,11 +342,14 @@ namespace MyWebPlay.Controllers
                 if (StringMaHoaExtension.Decrypt(password, key) == f["txtPassword"].ToString())
                 {
                     var logset = f["txtSetting"].ToString();
+
+                    var spanset = logset.Replace("\r", "").Split("\n");
+                    var nuna = System.IO.File.ReadAllText(pthX).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+
+                    if (spanset[4] != nuna[4]) return Redirect("/Admin/SettingXYZ_DarkAdmin#da-xay-ra-loi");
+
                     if (HttpContext.Session.GetString("IsLoginAdminTemp") == "true")
                     {
-                        var spanset = logset.Replace("\r", "").Split("\n");
-                        var nuna = System.IO.File.ReadAllText(pthX).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
-
                         if (spanset[0] != nuna[0]
                             || spanset[1] != nuna[1]
                             || spanset[18] != nuna[18])

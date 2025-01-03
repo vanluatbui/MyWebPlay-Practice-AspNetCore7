@@ -1593,6 +1593,9 @@ Layout = null;
             <hr />
             <hr />
         </div>
+
+       @if (TempData["IsLoginAdminTemp"] != "true")
+       {
         <h3 style="color:orangered">
             - [Quy tắc link rút gọn bom.so, còn link gốc bạn có thể không cần quan tâm cái này] Lưu ý, các hướng dẫn ở đây có thể sau này sẽ cũ hoặc một số bây giờ sẽ không thể sử dụng được. Mặc dù vậy, bạn hãy thử nghĩ và random thử nhiều cách khác nhau (vì nhiều cái muốn đổi thay mà giờ làm biếng đổi quá 🤣😄). Mà không sao đâu, mấy này cũng tương tự à : bạn tự mò nha 😁. Ví dụ ở hướng dẫn là <b>abc1</b> (nhưng giờ thử không được) thì bạn có thể thử nhiều cái cách khác như : <b>abc2, abc3, abc4, ...</b> (hên xui ahihi 🤩).
             <br />
@@ -2417,6 +2420,7 @@ Layout = null;
         <br />
         <br />
         <br />
+        }
         <div id="changesetting"></div>
         @using (Html.BeginForm("ThayDoiSetting", "Admin"))
         {

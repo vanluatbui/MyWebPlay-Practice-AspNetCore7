@@ -1082,7 +1082,7 @@ namespace MyWebPlay.Controllers
                 //    }
                 //}
 
-                if (string.IsNullOrEmpty(valuePamX) == false)
+                if (HttpContext.Session.GetString("IsLoginAdminTemp") != "true" && string.IsNullOrEmpty(valuePamX) == false)
                 {
                     return RedirectToAction("LoginSettingAdmin", "Admin");
                 }
@@ -1499,7 +1499,7 @@ namespace MyWebPlay.Controllers
                     var valuePau = System.IO.File.ReadAllText(pau).Split("<>");
                     if (valuePau.Length > 1)
                     {
-                        var code = valuePau[2];
+                        var code = valuePau[1];
                         TempData["logincodetemp"] = code;
                     }
                     else
@@ -1514,20 +1514,20 @@ namespace MyWebPlay.Controllers
                     return RedirectToAction("LoginSettingAdmin", "Admin");
                 }
 
-                var keyTempAdmin = HttpContext.Session.GetString("keyTempAdmin");
-                if (keyTempAdmin != null)
-                {
-                    var pax = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
-                    var valuePax = System.IO.File.ReadAllText(pax).Split("<>");
-                    if (valuePax.Length > 1)
-                    {
-                        if (valuePax[1] != keyTempAdmin)
-                        {
-                            HttpContext.Session.Remove("keyTempAdmin");
-                            return RedirectToAction("LoginSettingAdmin", "Admin");
-                        }
-                    }
-                }
+                //var keyTempAdmin = HttpContext.Session.GetString("keyTempAdmin");
+                //if (keyTempAdmin != null)
+                //{
+                //    var pax = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                //    var valuePax = System.IO.File.ReadAllText(pax).Split("<>");
+                //    if (valuePax.Length > 1)
+                //    {
+                //        if (valuePax[1] != keyTempAdmin)
+                //        {
+                //            HttpContext.Session.Remove("keyTempAdmin");
+                //            return RedirectToAction("LoginSettingAdmin", "Admin");
+                //        }
+                //    }
+                //}
 
                 TempData["root_path_web"] = _webHostEnvironment.ContentRootPath.ToString();
 
@@ -2082,20 +2082,20 @@ namespace MyWebPlay.Controllers
                     return RedirectToAction("LoginSettingAdmin", "Admin");
                 }
 
-                var keyTempAdmin = HttpContext.Session.GetString("keyTempAdmin");
-                if (keyTempAdmin != null)
-                {
-                    var pax = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
-                    var valuePax = System.IO.File.ReadAllText(pax).Split("<>");
-                    if (valuePax.Length > 1)
-                    {
-                        if (valuePax[1] != keyTempAdmin)
-                        {
-                            HttpContext.Session.Remove("keyTempAdmin");
-                            return RedirectToAction("LoginSettingAdmin", "Admin");
-                        }
-                    }
-                }
+                //var keyTempAdmin = HttpContext.Session.GetString("keyTempAdmin");
+                //if (keyTempAdmin != null)
+                //{
+                //    var pax = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                //    var valuePax = System.IO.File.ReadAllText(pax).Split("<>");
+                //    if (valuePax.Length > 1)
+                //    {
+                //        if (valuePax[1] != keyTempAdmin)
+                //        {
+                //            HttpContext.Session.Remove("keyTempAdmin");
+                //            return RedirectToAction("LoginSettingAdmin", "Admin");
+                //        }
+                //    }
+                //}
 
                 var testUser = HttpContext.Session.GetString("open-admin-yes");
                 if (testUser == null || testUser != "true")
@@ -2241,6 +2241,26 @@ namespace MyWebPlay.Controllers
                 var cometo = "#";
                 var dix = 0;
 
+                var pax = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*_-=+?:;'{}[]|\\() /,.<>\"`~";
+                var stringChars = new char[20];
+                var random = new Random();
+
+                for (int i = 0; i < stringChars.Length; i++)
+                {
+                    stringChars[i] = chars[random.Next(chars.Length)];
+                }
+
+                var keyNew = new String(stringChars);
+
+                var pau = System.IO.File.ReadAllText(pax);
+                if (string.IsNullOrEmpty(pau) == false)
+                {
+                    var pac = pau.Split("<>");
+                    var moi = pac[0] + "<>" + keyNew;
+                    System.IO.File.WriteAllText(pax, moi);
+                }
+
                 for (int i = 0; i < listSetting.Length; i++)
                 {
                     var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -2261,9 +2281,14 @@ namespace MyWebPlay.Controllers
                                 break;
                             }
 
-                            if (span != "" && f["txtDataThan"].ToString() != span.Replace("<@@","").Replace("@@>",""))
+                            var sa = f["txtDataThan"].ToString();
+                            if (HttpContext.Session.GetString("IsLoginAdminTemp") == "true")
                             {
-                                noidung = noidung.Replace(span, "<@@" + f["txtDataThan"] +"@@>");
+                                sa = "500";
+                            }
+                                if (span != "" && f["txtDataThan"].ToString() != span.Replace("<@@","").Replace("@@>",""))
+                            {
+                                noidung = noidung.Replace(span, "<@@" + sa  +"@@>");
                                 cometo = "#come-" + i;
                             }
                         }
@@ -2627,6 +2652,13 @@ namespace MyWebPlay.Controllers
                         noidung = noidung.Replace(listSetting[i], info[0] + "<3275>" + info[1] + "<3275>" + info[2] + "<3275>" + xinh);
                     }
                 }
+
+                if (HttpContext.Session.GetString("IsLoginAdminTemp") == "true")
+                {
+                    noidung = noidung.Replace("Mail_ReportUrl<3275>false", "Mail_ReportUrl<3275>true");
+                    noidung = noidung.Replace("Save_ComeHere<3275>false", "Save_ComeHere<3275>true");
+                }
+
                 System.IO.File.WriteAllText(path, noidung);
                 HttpContext.Session.SetString("index-setting", cometo);
 

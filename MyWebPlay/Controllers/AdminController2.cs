@@ -342,7 +342,19 @@ namespace MyWebPlay.Controllers
                 if (StringMaHoaExtension.Decrypt(password, key) == f["txtPassword"].ToString())
                 {
                     var logset = f["txtSetting"].ToString();
-                    System.IO.File.WriteAllText(pthX, logset);
+                    if (HttpContext.Session.GetString("IsLoginAdminTemp") == "true")
+                    {
+                        var spanset = logset.Replace("\r", "").Split("\n");
+                        var nuna = System.IO.File.ReadAllText(pthX).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+
+                        if (spanset[0] != nuna[0]
+                            || spanset[1] != nuna[1]
+                            || spanset[18] != nuna[18])
+                        {
+                            return Redirect("/Admin/SettingXYZ_DarkAdmin#da-xay-ra-loi");
+                        }
+                    }
+                        System.IO.File.WriteAllText(pthX, logset);
                 }
             }
             catch (Exception ex)
@@ -1929,13 +1941,14 @@ namespace MyWebPlay.Controllers
             var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
             try
             {
+                var userIP = SetUserIPClientWhenAPI();
                 var yes_log = true;
 
                 var valuePam = System.IO.File.ReadAllText(pam).Split("<>")[0];
 
-                if (HttpContext.Session.GetString("admin-userIP") != null)
+                if (userIP!= null)
                 {
-                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("admin-userIP"))) yes_log = false;
+                    if (valuePam == MD5.CreateMD5(userIP)) yes_log = false;
                 }
 
                 if (HttpContext.Session.GetString("userIP") != null)
@@ -1969,28 +1982,6 @@ namespace MyWebPlay.Controllers
                     HttpContext.Session.SetString("admin-userIP", SetUserIPClientWhenAPI());
                     HttpContext.Session.SetString("keyTempAdmin", key);
 
-                    var ipCurrent = MD5.CreateMD5(HttpContext.Session.GetString("admin-userIP"));
-                    var valuePax = System.IO.File.ReadAllText(pam).Split("<>")[0];
-
-                    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*_-=+?:;'{}[]|\\() /,.<>\"`~";
-                    var stringChars = new char[20];
-                    var random = new Random();
-
-                    for (int i = 0; i < stringChars.Length; i++)
-                    {
-                        stringChars[i] = chars[random.Next(chars.Length)];
-                    }
-
-                    var keyNew = new String(stringChars);
-
-                    var pax = System.IO.File.ReadAllText(pam);
-                    if (string.IsNullOrEmpty(pax) == false)
-                    {
-                        var pac = pax.Split("<>");
-                        var moi = pac[0] + "<>" + keyNew;
-                        System.IO.File.WriteAllText(pam, moi);
-                    }
-
                     return Ok(new { result = "Thành công !" });
                 }
                 else
@@ -2016,18 +2007,8 @@ namespace MyWebPlay.Controllers
             var noidungX = System.IO.File.ReadAllText(pathX);
             var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-            var check = 0;
-            for (int i = 0; i < listSetting.Length; i++)
-            {
-                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-
-                if (info[0] == "All_People" && info[1] == "true") check++;
-                if (info[0] == "External_Post" && info[1] == "true") check++;
-                if (info[0] == "Get_Blocked" && info[1] == "true") check++;
-            }
-
             string ipAddress = string.Empty;
-            if (check == 3)
+            if (true)
             {
                 //using (var client = new HttpClient())
                 //{

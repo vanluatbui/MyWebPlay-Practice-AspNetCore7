@@ -1441,8 +1441,8 @@ namespace MyWebPlay.Controllers
                     var s = "";
                     for (i = 0; i < tnX.tongsocau; i++)
                     {
-                        tnX.ch[i] = Regex.Replace(tnX.ch[i], "<br><img name=\"hinhcau" + i + "\".*><br>", "");
-                        ViewBag.ND_File = Regex.Replace(ViewBag.ND_File, "<br><img name=\"hinhcau" + i + "\".*><br>", "");
+                        tnX.ch[i] = Regex.Replace(tnX.ch[i], "<br><img title=\"hinhcau" + i + "\".*><br>", "");
+                        ViewBag.ND_File = Regex.Replace(ViewBag.ND_File, "<br><img title=\"hinhcau" + i + "\".*><br>", "");
 
                         if (tnX.dung[i] == tnX.a[i])
                             s += "1\n";

@@ -682,7 +682,7 @@ namespace MyWebPlay.Controllers
                 for (int i = 0; i < tn.gioihancau; i++)
                 {
 
-                    tn.ch[i] = Regex.Replace(tn.ch[i], "<br><img name=\"hinhcau" + i + "\".*><br>", "");
+                    tn.ch[i] = Regex.Replace(tn.ch[i], "<br><img title=\"hinhcau" + i + "\".*><br>", "");
                 }
 
                 return View(tn);
@@ -1137,7 +1137,7 @@ namespace MyWebPlay.Controllers
                                 kt2 = 500;
                             }
 
-                            string ch = tn.ch[i] + "<br><img name=\"hinhcau" + i + "\" src=\"" + ax[0] + "\" alt=\"Image Error\" width=\"" + kt1 + "\" height=\"" + kt2 + "\" /><br>";
+                            string ch = tn.ch[i] + "<br><img title=\"hinhcau" + i + "\" src=\"" + ax[0] + "\" alt=\"Image Error\" width=\"" + kt1 + "\" height=\"" + kt2 + "\" /><br>";
                             ND_File = ND_File.Replace(tn.ch[i], ch);
                         }
 

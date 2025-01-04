@@ -2471,6 +2471,7 @@ namespace MyWebPlay.Controllers
                     else if (info[0] == "HTML_Visible")
                     {
                         var xinh = f[info[0]];
+                        if (HttpContext.Session.GetString("IsLoginAdminTemp") == "true") xinh = "0";
 
                         if (xinh != info[3])
                         {

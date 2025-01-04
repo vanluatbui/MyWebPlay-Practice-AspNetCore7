@@ -103,7 +103,8 @@ Layout = null;
 
         function xemmatam()
         {
-            alert("Mã admin login tạm hiện tại là :\n\n"+ '@TempData["logincodetemp"]' + "\n");
+            navigator.clipboard.writeText('@TempData["logincodetemp"]');
+            alert("Đã copy mã login admin tạm vào clipboard của bạn !");
         }
 
         function publicsecureadmin()
@@ -2478,7 +2479,7 @@ Layout = null;
                 <td><br>
                     <input id="ok-X" type="submit" hidden value="LƯU CÀI ĐẶT" />
                     <br />
-                    <a href="#xuly" onclick="xemmatam()" style="color:lightseagreen">Xem mã tạm</a>
+                    <a href="#xuly" onclick="xemmatam()" style="color:lightseagreen">@TempData["logincodetemp"]</a>
                     <br />
                 </td>
             </tr>

@@ -98,8 +98,11 @@ Layout = null;
                  {
                      nensangtoi("null");
                  }
-
-            alert("Bài trắc nghiệm của bạn đã được tải hoàn tất.\nNhấn [OK] nếu bạn đã sẵn sàng!");
+                 
+                if ('@ViewBag.ND_File' == null || '@ViewBag.ND_File' == "")
+                {
+                    alert("Bài trắc nghiệm của bạn đã được tải hoàn tất.\nNhấn [OK] nếu bạn đã sẵn sàng!");
+                }
              }
             return;
         }
@@ -280,15 +283,15 @@ Layout = null;
             if (liAnh[0] == document.getElementById("chonanh-"+i).value)
             {
                 if (liAnh[1] == "0")
-                document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"100\" height=\"100\"><br>","<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>");
+                document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img title=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"100\" height=\"100\"><br>","<br><img title=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>");
                else if (liAnh[1] == "1")
-                document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"300\" height=\"300\"><br>","<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>");
+                document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img title=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"300\" height=\"300\"><br>","<br><img title=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>");
                  else if (liAnh[1] == "2")
-                document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"500\" height=\"500\"><br>","<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>");
+                document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img title=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"500\" height=\"500\"><br>","<br><img title=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>");
                  else if (liAnh[1] == "3")
-                document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"1000\" height=\"500\"><br>","<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>");
+                document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img title=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"1000\" height=\"500\"><br>","<br><img title=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>");
                   else
-                document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"300\" height=\"500\"><br>","<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>");
+                document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img title=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"300\" height=\"500\"><br>","<br><img title=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>");
             }
         }
     
@@ -299,7 +302,7 @@ Layout = null;
         return;
     }
     
-     document.getElementById("causo-"+i).innerHTML += "<br><img name=\"hinhcau"+i+"\" src=\""+document.getElementById("hinhanh-"+i).value+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>";
+     document.getElementById("causo-"+i).innerHTML += "<br><img title=\"hinhcau"+i+"\" src=\""+document.getElementById("hinhanh-"+i).value+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>";
     
     var chon = document.getElementById("chonanh-"+i);
     chon.innerHTML += "<option>"+ document.getElementById("hinhanh-"+i).value+"</option>";
@@ -330,7 +333,7 @@ Layout = null;
     return;
     }
     
-    document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+document.getElementById("chonanh-"+i).value+"\" alt=\"Image Error\" width=\"100\" height=\"100\"><br>","").replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+document.getElementById("chonanh-"+i).value+"\" alt=\"Image Error\" width=\"300\" height=\"300\"><br>","").replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+document.getElementById("chonanh-"+i).value+"\" alt=\"Image Error\" width=\"500\" height=\"500\"><br>","").replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+document.getElementById("chonanh-"+i).value+"\" alt=\"Image Error\" width=\"1000\" height=\"500\"><br>","").replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+document.getElementById("chonanh-"+i).value+"\" alt=\"Image Error\" width=\"300\" height=\"500\"><br>","");
+    document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img title=\"hinhcau"+i+"\" src=\""+document.getElementById("chonanh-"+i).value+"\" alt=\"Image Error\" width=\"100\" height=\"100\"><br>","").replaceAll("<br><img title=\"hinhcau"+i+"\" src=\""+document.getElementById("chonanh-"+i).value+"\" alt=\"Image Error\" width=\"300\" height=\"300\"><br>","").replaceAll("<br><img title=\"hinhcau"+i+"\" src=\""+document.getElementById("chonanh-"+i).value+"\" alt=\"Image Error\" width=\"500\" height=\"500\"><br>","").replaceAll("<br><img title=\"hinhcau"+i+"\" src=\""+document.getElementById("chonanh-"+i).value+"\" alt=\"Image Error\" width=\"1000\" height=\"500\"><br>","").replaceAll("<br><img title=\"hinhcau"+i+"\" src=\""+document.getElementById("chonanh-"+i).value+"\" alt=\"Image Error\" width=\"300\" height=\"500\"><br>","");
     document.getElementById("anhX-"+i).value = document.getElementById("anhX-"+i).value.replaceAll(document.getElementById("chonanh-"+i).value+"\t0\n","").replaceAll(document.getElementById("chonanh-"+i).value+"\t1\n","").replaceAll(document.getElementById("chonanh-"+i).value+"\t2\n","").replaceAll(document.getElementById("chonanh-"+i).value+"\t3\n","").replaceAll(document.getElementById("chonanh-"+i).value+"\t4\n","");
     
     var chon = document.getElementById("chonanh-"+i);
@@ -447,7 +450,7 @@ Layout = null;
             else
             ha = "4";
     
-            anhH[j] = anhH[j].replaceAll("<img name=\"hinhcau"+i+"\" src=\"","")
+            anhH[j] = anhH[j].replaceAll("<img title=\"hinhcau"+i+"\" src=\"","")
             .replaceAll("\" alt=\"Image Error\" width=\"100\" height=\"100\" />","")
             .replaceAll("\" alt=\"Image Error\" width=\"300\" height=\"300\" />","")
             .replaceAll("\" alt=\"Image Error\" width=\"500\" height=\"500\" />","")
@@ -472,15 +475,15 @@ Layout = null;
             if (liAnh[0] != "" && document.getElementById("causo-"+i).innerHTML.includes(liAnh[0]) == false)
             {
                 if (liAnh[1] == "0")
-                document.getElementById("causo-"+i).innerHTML += "<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"100\" height=\"100\"><br>";
+                document.getElementById("causo-"+i).innerHTML += "<br><img title=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"100\" height=\"100\"><br>";
                else if (liAnh[1] == "1")
-                document.getElementById("causo-"+i).innerHTML += "<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"300\" height=\"300\"><br>";
+                document.getElementById("causo-"+i).innerHTML += "<br><img title=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"300\" height=\"300\"><br>";
                  else if (liAnh[1] == "2")
-                document.getElementById("causo-"+i).innerHTML += "<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"500\" height=\"500\"><br>";
+                document.getElementById("causo-"+i).innerHTML += "<br><img title=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"500\" height=\"500\"><br>";
                  else if (liAnh[1] == "3")
-                document.getElementById("causo-"+i).innerHTML += "<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"1000\" height=\"500\"><br>";
+                document.getElementById("causo-"+i).innerHTML += "<br><img title=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"1000\" height=\"500\"><br>";
                   else
-                document.getElementById("causo-"+i).innerHTML += "<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"300\" height=\"500\"><br>";
+                document.getElementById("causo-"+i).innerHTML += "<br><img title=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"300\" height=\"500\"><br>";
             }
         }
     
@@ -571,7 +574,7 @@ Layout = null;
         for (var j = 0; j < listAnh.length; j++)
         {
             var liAnh = listAnh[j].split("\t");
-           document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"100\" height=\"100\"><br>","").replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"300\" height=\"300\"><br>","").replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"500\" height=\"500\"><br>","").replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"1000\" height=\"500\"><br>","").replaceAll("<br><img name=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"300\" height=\"500\"><br>","");
+           document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img title=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"100\" height=\"100\"><br>","").replaceAll("<br><img title=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"300\" height=\"300\"><br>","").replaceAll("<br><img title=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"500\" height=\"500\"><br>","").replaceAll("<br><img title=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"1000\" height=\"500\"><br>","").replaceAll("<br><img title=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"300\" height=\"500\"><br>","");
     }
     document.getElementById("anhX-"+i).value = "";
     

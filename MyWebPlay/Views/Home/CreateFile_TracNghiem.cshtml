@@ -124,20 +124,20 @@ Layout = null;
         document.getElementById("ticky0").disabled = true;
         id = setInterval(myAlertX, 1000);
 
-         thatbai_time = 0;
-        setInterval(function()
-        {
-            if (thatbai_time == 5)
-            {
-                if (thatbai == true)
-                {
-                      document.getElementById("xong").style.display = "inline-block";
-                     document.getElementById("loading").style.display = "none";
-                }
-                return;
-            }
-            thatbai_time++;
-        },10);
+        // thatbai_time = 0;
+        //setInterval(function()
+        //{
+        //    if (thatbai_time == 5)
+        //    {
+        //        if (thatbai == true)
+        //        {
+        //              document.getElementById("xong").style.display = "inline-block";
+        //             document.getElementById("loading").style.display = "none";
+        //        }
+        //        return;
+        //    }
+        //    thatbai_time++;
+        //},10);
     }
     
     var xw = new Number('@TempData["Time_Waiting"]') * 3;
@@ -193,6 +193,11 @@ Layout = null;
         }
     
     }
+
+    setInterval(function()
+    {
+        checkNum();
+    },10);
     
     function checkNum()
     {

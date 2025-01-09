@@ -446,7 +446,7 @@ namespace MyWebPlay.Controllers
                     var xu = docfile(path);
 
                     var pathXY1 = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
-                    var noidung1 = System.IO.File.ReadAllText(pathXY);
+                    var noidung1 = System.IO.File.ReadAllText(pathXY1);
 
                     var listSettingX1 = noidung1.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
@@ -1090,7 +1090,7 @@ namespace MyWebPlay.Controllers
                     }
 
                     var pathXY1 = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
-                    var noidung1 = System.IO.File.ReadAllText(pathXY);
+                    var noidung1 = System.IO.File.ReadAllText(pathXY1);
 
                     var listSettingX1 = noidung1.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 

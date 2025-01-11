@@ -417,7 +417,6 @@ Layout = null;
      var listAnhCu = document.getElementById("listAnhCu").value.split("\n\n");
      var listHoanVi = document.getElementById("hoanvis").value.split("\n");
      var an = document.getElementById("answerX").value.split("\n");
-     var k =0;
     for (var i =0 ; i< new Number('@ViewBag.TongCau'); i++)
     {
     if (listHoanVi[i] == "YES")
@@ -431,42 +430,40 @@ Layout = null;
     //---------------------------------------------------
     
      var chon = document.getElementById("chonanh-"+i);
-    if (k < listAnhCu.length)
-    {
-    var anhH = listAnhCu[k].split("\n");
-    if (anhH[0].includes("hinhcau"+i) == true)
-    {
-        for (var j =0 ; j < anhH.length; j++)
+
+        for (var j =0 ; j < listAnhCu.length; j++)
         {
-            var ha = "?";
-            if (anhH[j].includes("width=\"100\" height=\"100\"") == true)
-            ha = "0";
-            else if (anhH[j].includes("width=\"300\" height=\"300\"") == true)
-            ha = "1";
-            else if (anhH[j].includes("width=\"500\" height=\"500\"") == true)
-            ha = "2";
-            else if (anhH[j].includes("width=\"1000\" height=\"500\"") == true)
-            ha = "3";
-            else
-            ha = "4";
-    
-            anhH[j] = anhH[j].replaceAll("<img title=\"hinhcau"+i+"\" src=\"","")
-            .replaceAll("\" alt=\"Image Error\" width=\"100\" height=\"100\" />","")
-            .replaceAll("\" alt=\"Image Error\" width=\"300\" height=\"300\" />","")
-            .replaceAll("\" alt=\"Image Error\" width=\"500\" height=\"500\" />","")
-            .replaceAll("\" alt=\"Image Error\" width=\"1000\" height=\"500\" />","")
-            .replaceAll("\" alt=\"Image Error\" width=\"300\" height=\"500\" />","")
-    
-            if (document.getElementById("anhX-"+i).value.includes(anhH[j]) == false)
+            var listAnhCux = listAnhCu[j].split("\n");
+            for(var jj = 0 ; jj < listAnhCux.length; jj++)
             {
-            document.getElementById("anhX-"+i).value += anhH[j]+"\t"+ha+"\n";
-            chon.innerHTML += "<option>"+ anhH[j] +"</option>";
-            document.getElementById("soluong-"+i).innerHTML = new Number(document.getElementById("soluong-"+i).innerHTML) + 1;
+                if (listAnhCux[jj] == "" || listAnhCux[jj].includes("hinhcau"+i) == false) continue;
+                var ha = "?";
+                if (listAnhCux[jj].includes("width=\"100\" height=\"100\"") == true)
+                ha = "0";
+                else if (listAnhCux[jj].includes("width=\"300\" height=\"300\"") == true)
+                ha = "1";
+                else if (listAnhCux[jj].includes("width=\"500\" height=\"500\"") == true)
+                ha = "2";
+                else if (listAnhCux[jj].includes("width=\"1000\" height=\"500\"") == true)
+                ha = "3";
+                else
+                ha = "4";
+    
+                listAnhCux[jj] = listAnhCux[jj].replaceAll("<img title=\"hinhcau"+i+"\" src=\"","")
+                .replaceAll("\" alt=\"Image Error\" width=\"100\" height=\"100\" />","")
+                .replaceAll("\" alt=\"Image Error\" width=\"300\" height=\"300\" />","")
+                .replaceAll("\" alt=\"Image Error\" width=\"500\" height=\"500\" />","")
+                .replaceAll("\" alt=\"Image Error\" width=\"1000\" height=\"500\" />","")
+                .replaceAll("\" alt=\"Image Error\" width=\"300\" height=\"500\" />","")
+    
+                if (document.getElementById("anhX-"+i).value.includes(listAnhCux[jj]) == false)
+                {
+                document.getElementById("anhX-"+i).value += listAnhCux[jj]+"\t"+ha+"\n";
+                chon.innerHTML += "<option>"+ listAnhCux[jj] +"</option>";
+                document.getElementById("soluong-"+i).innerHTML = new Number(document.getElementById("soluong-"+i).innerHTML) + 1;
+                }
             }
         }
-        k++;
-      }
-    }
     
     var listAnh = document.getElementById("anhX-"+i).value.split("\n");
         for (var j = 0; j < listAnh.length; j++)

@@ -1094,10 +1094,21 @@ namespace MyWebPlay.Controllers
 
                         var chx = tn.ch[i];
 
-                        if (f["txtHoanVix-" + i].ToString() == "on" && chx.StartsWith("$") == false)
+                        if (f["txtHoanVix-" + i].ToString() == "on")
                         {
                             chx = "$" + chx;
-                            ND_File = ND_File.Replace(tn.ch[i], chx);
+                            if (ND_File.Contains("$" + tn.ch[i]))
+                            {
+                                ND_File = ND_File.Replace("$" + tn.ch[i], chx);
+                            }
+                            else if (ND_File.Contains(tn.ch[i]))
+                            {
+                                ND_File = ND_File.Replace(tn.ch[i], chx);
+                            }
+                        }
+                        else if (f["txtHoanVix-" + i].ToString() != "on")
+                        {
+                            ND_File = ND_File.Replace("$" + tn.ch[i], tn.ch[i]);
                         }
 
                         //---------------------------------------------------------------------------

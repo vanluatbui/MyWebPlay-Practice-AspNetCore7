@@ -900,17 +900,10 @@ namespace MyWebPlay.Controllers
 
                     var xu = docfile(path);
 
-                    var pathXY1 = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
-                    var noidung1 = System.IO.File.ReadAllText(pathXY1);
-
-                    var listSettingX1 = noidung1.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
-
-                    var infoX1 = listSettingX1[49].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-
                     var encrypt = false;
                     try
                     {
-                        StringMaHoaExtension.Decrypt(xu, infoX1[3]).Replace("\r\n", "\n");
+                        StringMaHoaExtension.Decrypt(xu).Replace("\r\n", "\n");
                         encrypt = true;
                     }
                     catch
@@ -920,7 +913,7 @@ namespace MyWebPlay.Controllers
 
                     if (encrypt == true)
                     {
-                        xu = StringMaHoaExtension.Decrypt(xu, infoX1[3]).Replace("\r\n", "\n");
+                        xu = StringMaHoaExtension.Decrypt(xu).Replace("\r\n", "\n");
                     }
 
                     String ND_file = xu;

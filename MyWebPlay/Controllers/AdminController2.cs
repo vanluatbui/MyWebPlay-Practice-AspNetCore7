@@ -640,7 +640,7 @@ namespace MyWebPlay.Controllers
                 }
 
                 var settingFile = System.IO.File.ReadAllText(pathXY).Replace("\r", "").Split("\n")[4];
-                if (admin == false && (file.Contains(settingFile) || file.Contains("SecureSettingAdmin")))
+                if (admin == false && (file.Contains(settingFile) || file.Contains("SecureSettingAdmin") || file.Contains("SettingAdminLoginConnect")))
                 {
                     return RedirectToAction("Error", "Home");
                 }

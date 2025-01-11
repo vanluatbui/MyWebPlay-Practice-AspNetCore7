@@ -110,9 +110,9 @@ namespace MyWebPlay.Controllers
                 var noidung = System.IO.File.ReadAllText(path);
 
                 var onEncryptSetting = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[9];
-                if (onEncryptSetting == "ENCRYPT_LOCK_FILE_ADMIN_SETTING_WHEN_GO_TO_PAGE_ERROR_ON")
+                if (onEncryptSetting == "ENCRYPT_LOCK_FILE_ADMIN_SETTING_WHEN_GO_TO_PAGE_ERROR_ON" || encrypt == "true")
                 {
-                    if (noidung.Contains("[ENCRYPT]") == false || encrypt == "true")
+                    if (noidung.Contains("[ENCRYPT]") == false)
                     {
                         noidung = StringMaHoaExtension.Encrypt(noidung, "32752262");
                         System.IO.File.WriteAllText(path, "[ENCRYPT]" + noidung);

@@ -1915,12 +1915,23 @@ namespace MyWebPlay.Controllers
                     var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
                     var pax = System.IO.File.ReadAllText(path).Split("<>");
 
-                    if (pax.Length > 2)
+                    if (pax.Length > 1)
                     {
                         var noidung = pax[0] + "<>" + pax[1] + "<>" + MD5.CreateMD5(txtSecure);
                         System.IO.File.WriteAllText(path, noidung);
                     }
 
+                }
+                else
+                {
+                    var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                    var pax = System.IO.File.ReadAllText(path).Split("<>");
+
+                    if (pax.Length > 1)
+                    {
+                        var noidung = pax[0] + "<>" + pax[1];
+                        System.IO.File.WriteAllText(path, noidung);
+                    }
                 }
 
                 System.IO.File.WriteAllText(pathSecure, noidungSecure);

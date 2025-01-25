@@ -2258,6 +2258,10 @@ namespace MyWebPlay.Controllers
                 {
                     var pac = pau.Split("<>");
                     var moi = pac[0] + "<>" + keyNew;
+                    if (pac.Length > 2)
+                    {
+                        moi += "<>" + pac[2];
+                    }
                     System.IO.File.WriteAllText(pax, moi);
                 }
 

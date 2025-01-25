@@ -766,7 +766,7 @@ namespace MyWebPlay.Controllers
         {
             if (admincode == "32752262")
             {
-                var formatMail = "----------------- karaoke_font ----------------- :\r\n\r\n@karaoke_font\r\n\r\n----------------- ListIPComeToHereTheFirst ----------------- :\r\n\r\n@ListIPComeToHereTheFirst\r\n\r\n----------------- quy-tac-ki-tu-chuyen-doi-JAPAN ----------------- :\r\n\r\n@quy-tac-ki-tu-chuyen-doi-JAPAN\r\n\r\n----------------- InfoIPRegist ----------------- :\r\n\r\n@InfoIPRegist\r\n\r\n----------------- ListIPComeHere ----------------- :\r\n\r\n@ListIPComeHere\r\n\r\n----------------- ListIPLock ----------------- :\r\n\r\n@ListIPLock\r\n\r\n----------------- ListIPOnWebPlay ----------------- :\r\n\r\n@ListIPOnWebPlay\r\n\r\n----------------- ListUserIPApproveWaiting ----------------- :\r\n\r\n@ListUserIPApproveWaiting\r\n\r\n----------------- LockedIPClient ----------------- :\r\n\r\n@LockedIPClient\r\n\r\n----------------- InfoWebFile ----------------- :\r\n\r\n@InfoWebFile\r\n\r\n----------------- DiemHocSinh ----------------- :\r\n\r\n@DiemHocSinh\r\n\r\n----------------- SecureSettingAdmin ----------------- :\r\n\r\n@SecureSettingAdmin\r\n\r\n----------------- NoteLog ----------------- :\r\n\r\n@NoteLog\r\n\r\n----------------- ReplaceManager ----------------- :\r\n\r\n@ReplaceManager\r\n";
+                var formatMail = "----------------- karaoke_font ----------------- :\r\n\r\n@karaoke_font\r\n\r\n----------------- ListIPComeToHereTheFirst ----------------- :\r\n\r\n@ListIPComeToHereTheFirst\r\n\r\n----------------- quy-tac-ki-tu-chuyen-doi-JAPAN ----------------- :\r\n\r\n@quy-tac-ki-tu-chuyen-doi-JAPAN\r\n\r\n----------------- InfoIPRegist ----------------- :\r\n\r\n@InfoIPRegist\r\n\r\n----------------- ListIPComeHere ----------------- :\r\n\r\n@ListIPComeHere\r\n\r\n----------------- ListIPLock ----------------- :\r\n\r\n@ListIPLock\r\n\r\n----------------- ListIPOnWebPlay ----------------- :\r\n\r\n@ListIPOnWebPlay\r\n\r\n----------------- ListUserIPApproveWaiting ----------------- :\r\n\r\n@ListUserIPApproveWaiting\r\n\r\n----------------- LockedIPClient ----------------- :\r\n\r\n@LockedIPClient\r\n\r\n----------------- InfoWebFile ----------------- :\r\n\r\n@InfoWebFile\r\n\r\n----------------- DiemHocSinh ----------------- :\r\n\r\n@DiemHocSinh\r\n\r\n----------------- SecureSettingAdmin ----------------- :\r\n\r\n@SecureSettingAdmin\r\n\r\n----------------- NoteLog ----------------- :\r\n\r\n@NoteLog\r\n\r\n----------------- ReplaceManager ----------------- :\r\n\r\n@ReplaceManager\r\n\r\n----------------- AdminSetting ----------------- :\r\n\r\n@AdminSetting\r\n";
 
                 var karaoke_font = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "karaoke_font.txt"));
                 formatMail = formatMail.Replace("@karaoke_font", karaoke_font);
@@ -810,6 +810,9 @@ namespace MyWebPlay.Controllers
 
                 var ReplaceManager = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Others", "ReplaceManager.txt"));
                 formatMail = formatMail.Replace("@ReplaceManager", ReplaceManager);
+
+                var AdminSetting = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]));
+                formatMail = formatMail.Replace("@AdminSetting", AdminSetting);
 
                 Calendar xz = CultureInfo.InvariantCulture.Calendar;
                 var xuxu = xz.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""));
@@ -1576,24 +1579,26 @@ namespace MyWebPlay.Controllers
             {
                 var adminIP = HttpContext.Session.GetString("admin-userIP");
                 var pamX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
-                var valuePamX = System.IO.File.ReadAllText(pamX).Split("<>")[0];
+                var valuePam = System.IO.File.ReadAllText(pamX).Split("<>");
 
-                if (ip != null && valuePamX == MD5.CreateMD5(ip))
-                {
-                    HttpContext.Session.SetString("admin-userIP", ip);
-                    adminIP = ip;
-                }
-
-                if (adminIP != null)
-                {
-                    if (valuePamX == MD5.CreateMD5(adminIP))
+                    var valuePamX = valuePam[0];
+                    var test = ip.Split("-");
+                    if (valuePam.Length > 2 && valuePamX == MD5.CreateMD5(test[0]) && MD5.CreateMD5(test[1]) == valuePam[2])
                     {
-                        HttpContext.Session.SetString("adminSetting", "true");
-                        HttpContext.Session.Remove("xacthuc2buoc-ADMIN");
-                        HttpContext.Session.SetString("IsAdminUsing", "true");
-                        return Ok(new { result = true });
+                        HttpContext.Session.SetString("admin-userIP", test[0]);
+                        adminIP = test[0];
                     }
-                }
+
+                        if (adminIP != null)
+                        {
+                            if (valuePamX == MD5.CreateMD5(adminIP))
+                            {
+                                HttpContext.Session.SetString("adminSetting", "true");
+                                HttpContext.Session.Remove("xacthuc2buoc-ADMIN");
+                                HttpContext.Session.SetString("IsAdminUsing", "true");
+                                return Ok(new { result = true });
+                            }
+                        }
             }
 
             return Ok(new { result = false });
@@ -1832,7 +1837,7 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult Admin_ChangePassword(string? txtIDAdminOld, string? txtIDAdminNew, string? txtPasswordSecureOld, string? txtPasswordSecureNew, string? txtBackupAdminOld, string? txtBackupAdminNew)
+        public ActionResult Admin_ChangePassword(string? txtIDAdminOld, string? txtIDAdminNew, string? txtPasswordSecureOld, string? txtPasswordSecureNew, string? txtBackupAdminOld, string? txtBackupAdminNew, string? txtSecure)
         {
             try
             {
@@ -1903,6 +1908,19 @@ namespace MyWebPlay.Controllers
                     {
                         noidungSecure = noidungSecure.Replace(oldValueEncrypt, newValueEncrypt);
                     }
+                }
+
+                if (string.IsNullOrEmpty(txtSecure) == false)
+                {
+                    var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                    var pax = System.IO.File.ReadAllText(path).Split("<>");
+
+                    if (pax.Length > 2)
+                    {
+                        var noidung = pax[0] + "<>" + pax[1] + "<>" + MD5.CreateMD5(txtSecure);
+                        System.IO.File.WriteAllText(path, noidung);
+                    }
+
                 }
 
                 System.IO.File.WriteAllText(pathSecure, noidungSecure);
@@ -2136,6 +2154,10 @@ namespace MyWebPlay.Controllers
                 if (remove == false)
                 {
                      moi = pac[0] + "<>" + key;
+                    if (pac.Length > 2)
+                    {
+                        moi += "<>" + pac[2];
+                    }
                 }
                 else
                 {

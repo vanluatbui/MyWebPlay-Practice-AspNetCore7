@@ -28,8 +28,9 @@ namespace MyWebPlay.Model
             {
                 var req = context.Request.Path;
 
+                var urlDefault = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[20].Split("--")[1];
                 if (req == "/" || string.IsNullOrEmpty(req))
-                    req = "/Home/Index";
+                    req = "/Home/"+urlDefault;
 
                 var errx = (context.Session.GetString("hanhdong_3275") != null) ? context.Session.GetString("hanhdong_3275") : string.Empty;
                 context.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + context.Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);

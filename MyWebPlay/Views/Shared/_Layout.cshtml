@@ -1105,7 +1105,7 @@
         {
             var s = '@TempData["urlCurrent"]';
             if (s == null || s == "" || s == "SessionPlay_DarkAdmin" || s == "/")
-            s = "Index";
+            s = '@TempData["urlDefault"]';
         
         fetch('https://api.ipify.org?format=json')
         .then(response => response.json())

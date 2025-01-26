@@ -1,4 +1,5 @@
 /Admin/XoaViewMark
+/Admin/ShowHtmlPlay
 /Admin/LoginAdminTemp
 /Admin/ChangeKeyLoginAdminTemp
 /Admin/PublicSecureAdmin

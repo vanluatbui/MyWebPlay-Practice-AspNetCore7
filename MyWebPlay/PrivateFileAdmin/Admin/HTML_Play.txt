@@ -1,0 +1,13 @@
+﻿/Home/ABC
+||
+<h1 style="color:blue">BUI VAN LUAT</h1>
+<br />
+<input type="text" size="20" />
+#3275#
+/Admin/XYZ
+||
+<h2 style="color:red">BUI VAN LUAT</h2>
+<br />
+<script>
+alert("Thanks you !");
+</script>

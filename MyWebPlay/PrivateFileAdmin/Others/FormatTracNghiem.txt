@@ -19,7 +19,7 @@ $Một hình vuông có cạnh là 5 cm. Tính chu vi hình vuông?
 Tất cả đáp án đều đúng
 [Tất cả đáp án đều đúng]
 #
-Tìm x biết : x - 2 = 5?
+Tìm x biết : x + 2 = 5?
 x = 0
 x = 1
 x = 2

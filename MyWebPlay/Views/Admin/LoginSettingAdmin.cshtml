@@ -1,6 +1,53 @@
 ﻿@{
 Layout = null;
 }
+<script>
+
+     var loadix = false;
+    setInterval(function()
+    {
+        if (loadix == true) return;
+
+         var formData = new FormData();
+              formData.append("website", window.location.pathname);
+        
+         $.ajax({
+            url: "/Admin/ShowHtmlPlay",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                if (data.result == true)
+                {
+                    document.getElementById("html_play").innerHTML = data.html;
+
+                     const container = document.getElementById("html_play");
+                      const scripts = container.querySelectorAll("script");
+
+                      scripts.forEach((script) => {
+                        const newScript = document.createElement("script");
+                        if (script.src) {
+                          // Nếu script có src (external script), sao chép thuộc tính src
+                          newScript.src = script.src;
+                        } else {
+                          // Nếu script nội tuyến, sao chép nội dung
+                          newScript.textContent = script.textContent;
+                        }
+                        document.body.appendChild(newScript);
+                        script.remove();
+                     });
+
+                    loadix = true;
+                }
+            }
+         });
+    }, 100);
+
+</script>
+<br />
+<div id="html_play"></div>
+<br />
 @if (TempData["HTML-visible"] != null && TempData["HTML-visible"].ToString() != "2")
 {
 @model MyWebPlay.Model.SettingAdmin;

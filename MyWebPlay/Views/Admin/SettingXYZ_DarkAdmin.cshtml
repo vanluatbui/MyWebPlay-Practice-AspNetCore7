@@ -2607,7 +2607,7 @@ Layout = null;
             <tr style="height:40px">
                 <td> </td>
                 <td>
-                    <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-33"><span style="color:red">[[33 - Model.Topics[33].ID]]</span>@Html.Raw(Model.Topics[33].NoiDung)</h3>
+                    <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-33"><span style="color:red">[[33 - @Model.Topics[33].ID]]</span>@Html.Raw(Model.Topics[33].NoiDung)</h3>
                     <label class="switch">
                     @if (Model.Topics[33].Option == false)
                     {

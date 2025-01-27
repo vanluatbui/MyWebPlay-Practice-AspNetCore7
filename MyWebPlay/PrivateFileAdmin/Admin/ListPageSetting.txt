@@ -9,6 +9,7 @@
 /Admin/DiChuyenFileExternal
 /Admin/CheckingAutoLoginAdmin
 /Admin/RedirectToAPIPage
+/Admin/TestSendMailOrMegaIO
 /Admin/APIPageSetting
 /Admin/EditAPIPageSetting
 /Admin/Karaoke_Ajax_Call

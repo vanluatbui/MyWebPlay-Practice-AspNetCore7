@@ -9,6 +9,7 @@ using System.Text;
 using System.Xml.Linq;
 using System.Web;
 using Org.BouncyCastle.Security.Certificates;
+using MyWebPlay.Models;
 
 namespace MyWebPlay.Controllers
 {
@@ -2236,6 +2237,24 @@ namespace MyWebPlay.Controllers
             catch(Exception ex)
             {
                 return Ok(new { result = false, data = ex.Message });
+            }
+
+            return Ok(new { result = false });
+        }
+
+        [HttpPost]
+        public ActionResult TestSendMailOrMegaIO(string? type)
+        {
+            if (type == "1")
+            {
+                MailRequest mail = new MailRequest();
+                var data = _mailService.TestSendMail(mail);
+                return Ok(new { result = data });
+            }
+            else if (type == "2")
+            {
+                var data = MegaIo.TestMegaIO(_webHostEnvironment.WebRootPath);
+                return Ok(new { result = data });
             }
 
             return Ok(new { result = false });

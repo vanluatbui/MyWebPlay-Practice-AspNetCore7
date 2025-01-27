@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using MyWebPlay.Model;
 using System.Globalization;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace MyWebPlay.Extension
 {
@@ -151,6 +152,24 @@ namespace MyWebPlay.Extension
                 smtp.Disconnect(true);
             }
 
+        }
+
+        public bool TestSendMail(MailRequest mailRequest)
+        {
+            try
+            {
+                using var smtp = new SmtpClient();
+                smtp.CheckCertificateRevocation = false;
+                smtp.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.Auto);
+                smtp.Authenticate(_mailSettings.Mail, _mailSettings.Password);
+                smtp.Disconnect(true);
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

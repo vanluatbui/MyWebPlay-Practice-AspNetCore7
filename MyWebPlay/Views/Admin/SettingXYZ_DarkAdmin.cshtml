@@ -469,6 +469,31 @@ Layout = null;
            if (con == true)
            window.location.href = "/Admin/ReportListIPComeHere";
         }
+
+        function testmailORmegaio(type)
+        {
+             var formData = new FormData();
+              formData.append("type", type);
+        
+                 $.ajax({
+                    url: "/Admin/TestSendMailOrMegaIO",
+                    type: "POST",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        if (data.result == true)
+                        {
+                            alert("Kiểm tra thành công !");
+                        }
+                         else
+                        {
+                             alert("Kiểm tra thất bại !");
+                        }
+                    }
+                 });
+             }, 100);
+        }
         
         function deleteIPcomehere()
         {
@@ -1484,6 +1509,7 @@ Layout = null;
                 <br />
                 <a target="_blank" href="https://myaccount.google.com/u/1/apppasswords?utm_source=OGB&utm_medium=app&rapt=AEjHL4OY__c51h58DyKnCdWTbLJTG7kVG58jltsEIhz-ZvgcprmrcODmUoElAQ423Uv0b5mpKenEkLVgZxzuCMmCFrddXAIQihHEInzXDfPM0qBk7LWhLys" style="color:dodgerblue">Tạo key (app password Gmail) mới tại đây</a>
                 <br />
+                <a href="#xuly" onclick="testmailORmegaio('1')" style="color:blue">TEST RESULT</a>
                  <br />
                 <a id="textclick-@i" href="#xuly" style="color:lime; display:none" onclick="xong()">SAVE</a>
                 <br />
@@ -1494,6 +1520,8 @@ Layout = null;
                 <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.InfoMegaIO" oninput="changesettingtext('@Model.Topics[i].ID', '@i')" />
                  <br />
                 <a id="textclick-@i" href="#xuly" style="color:lime; display:none" onclick="xong()">SAVE</a>
+                <br />
+                <a href="#xuly" onclick="testmailORmegaio('2')" style="color:blue">TEST RESULT</a>
                 <br />
                 }
                 else

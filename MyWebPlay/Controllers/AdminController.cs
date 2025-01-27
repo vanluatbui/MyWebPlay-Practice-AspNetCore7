@@ -20,9 +20,11 @@ namespace MyWebPlay.Controllers
     public partial class AdminController : Controller
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public AdminController(IWebHostEnvironment webHostEnvironment)
+        private readonly IMailService _mailService;
+        public AdminController(IWebHostEnvironment webHostEnvironment, IMailService mailService)
         {
             _webHostEnvironment = webHostEnvironment;
+            _mailService = mailService;
         }
 
         public ActionResult DeleteFirstIP()

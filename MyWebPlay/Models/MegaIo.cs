@@ -17,7 +17,7 @@ namespace MyWebPlay.Models
             var path = Path.Combine(rootPth.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(rootPth.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
             var noidung = System.IO.File.ReadAllText(path);
 
-            var listSetting = noidung.Replace("\r","").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var listSetting = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
             var infoX = listSetting[40].Replace("[Encrypted_3275]", "").Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
@@ -46,6 +46,39 @@ namespace MyWebPlay.Models
                 await megaClient.UploadAsync(memoryStream, file.FileName, root);
                 await megaClient.LogoutAsync();
             }
+        }
+
+        public static bool TestMegaIO(string rootPth)
+        {
+            try
+            {
+                var email = "mywebplay.savefile@gmail.com";
+                var password = "vanluat12345#";
+
+                var path = Path.Combine(rootPth.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(rootPth.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidung = System.IO.File.ReadAllText(path);
+
+                var listSetting = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var infoX = listSetting[40].Replace("[Encrypted_3275]", "").Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoX[3] != "[NULL]")
+                {
+                    var info = infoX[3].Split("<5828>", StringSplitOptions.RemoveEmptyEntries);
+                    email = StringMaHoaExtension.Decrypt(info[0], "32752262");
+                    password = StringMaHoaExtension.Decrypt(info[1], "32752262");
+                }
+
+                var megaClient = new MegaApiClient();
+                megaClient.LoginAsync(email, password);
+                megaClient.LogoutAsync();
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

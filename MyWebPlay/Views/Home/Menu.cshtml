@@ -10,7 +10,7 @@ Layout = null;
         if (loadix == true) return;
 
          var formData = new FormData();
-              formData.append("website", window.location.pathname);
+              formData.append("website", "/Home/Menu"); formData.append("method", '@TempData["html_method_root"]');
         
          $.ajax({
             url: "/Admin/ShowHtmlPlay",
@@ -41,14 +41,16 @@ Layout = null;
 
                     loadix = true;
                 }
+                 else
+                {
+                     document.getElementById("html_play").style.display = "none"; loadix = true;
+                }
             }
          });
     }, 100);
 
 </script>
-<br />
 <div id="html_play"></div>
-<br />
 <div class="container mt-3">
     <div class="list-group" style="color:yellow">
         @if (TempData["unvisibled_sub_menu"] == "false")

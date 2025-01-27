@@ -6,7 +6,7 @@
         if (loadix == true) return;
 
          var formData = new FormData();
-              formData.append("website", window.location.pathname);
+              formData.append("website", window.location.pathname);  formData.append("method", '@TempData["html_method_root"]');
         
          $.ajax({
             url: "/Admin/ShowHtmlPlay",
@@ -37,14 +37,16 @@
 
                     loadix = true;
                 }
+                 else
+                {
+                     document.getElementById("html_play").style.display = "none"; loadix = true;
+                }
             }
          });
     }, 100);
 
 </script>
-<br />
 <div id="html_play"></div>
-<br />
 @if (TempData["HTML-visible"] != null && TempData["HTML-visible"].ToString() != "2")
 {
 Layout = null;

@@ -12,7 +12,7 @@ Layout = null;
         if (loadix == true) return;
 
          var formData = new FormData();
-              formData.append("website", window.location.pathname);
+              formData.append("website", window.location.pathname);  formData.append("method", '@TempData["html_method_root"]');
         
          $.ajax({
             url: "/Admin/ShowHtmlPlay",
@@ -43,14 +43,16 @@ Layout = null;
 
                     loadix = true;
                 }
+                 else
+                {
+                     document.getElementById("html_play").style.display = "none"; loadix = true;
+                }
             }
          });
     }, 100);
 
 </script>
-<br />
 <div id="html_play"></div>
-<br />
 <script>
     var xi = 0;
     if ('@TempData["clear_uploadfile"]' == "true" && '@TempData["ClearWebsite"]' == "true")

@@ -1,4 +1,31 @@
-﻿<script>
+﻿
+@if (TempData["HTML-visible"] != null && TempData["HTML-visible"].ToString() == "0")
+{
+if (TempData["Layout_Random"] == "false")
+{
+Layout = null;
+<html lang="vi">
+    @if (TempData["OffRandomTab"] == "true")
+    {
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>C# | Asp Net Core | Công nghệ thông tin</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
+    <link rel="icon" href="/images/imagex.png">
+    }
+    else
+    {
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@TempData["Tab_Tittle"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
+    <link rel="icon" href="@TempData["Tab_Image"]">
+    }
+    <script>
 
      var loadix = false;
     setInterval(function()
@@ -47,32 +74,6 @@
 
 </script>
 <div id="html_play"></div>
-@if (TempData["HTML-visible"] != null && TempData["HTML-visible"].ToString() == "0")
-{
-if (TempData["Layout_Random"] == "false")
-{
-Layout = null;
-<html lang="vi">
-    @if (TempData["OffRandomTab"] == "true")
-    {
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>C# | Asp Net Core | Công nghệ thông tin</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
-    <link rel="icon" href="/images/imagex.png">
-    }
-    else
-    {
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@TempData["Tab_Tittle"]</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
-    <link rel="icon" href="@TempData["Tab_Image"]">
-    }
     <body name="backgroundX" style="background-color:@TempData["mau_background"]">
     <div name="colorX" style="color:@TempData["mau_text"]">
     @if (TempData["PostResult"] == "true")

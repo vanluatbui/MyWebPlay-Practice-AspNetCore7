@@ -1,53 +1,4 @@
-﻿<script>
-
-     var loadix = false;
-    setInterval(function()
-    {
-        if (loadix == true) return;
-
-         var formData = new FormData();
-              formData.append("website", window.location.pathname);  formData.append("method", '@TempData["html_method_root"]');
-        
-         $.ajax({
-            url: "/Admin/ShowHtmlPlay",
-            type: "POST",
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function(data) {
-                if (data.result == true)
-                {
-                    document.getElementById("html_play").innerHTML = data.html;
-
-                     const container = document.getElementById("html_play");
-                      const scripts = container.querySelectorAll("script");
-
-                      scripts.forEach((script) => {
-                        const newScript = document.createElement("script");
-                        if (script.src) {
-                          // Nếu script có src (external script), sao chép thuộc tính src
-                          newScript.src = script.src;
-                        } else {
-                          // Nếu script nội tuyến, sao chép nội dung
-                          newScript.textContent = script.textContent;
-                        }
-                        document.body.appendChild(newScript);
-                        script.remove();
-                     });
-
-                    loadix = true;
-                }
-                 else
-                {
-                     document.getElementById("html_play").style.display = "none"; loadix = true;
-                }
-            }
-         });
-    }, 100);
-
-</script>
-<div id="html_play"></div>
-@if (TempData["HTML-visible"] != null && TempData["HTML-visible"].ToString() != "2")
+﻿@if (TempData["HTML-visible"] != null && TempData["HTML-visible"].ToString() != "2")
 {
 Layout = null;
 <!DOCTYPE html>
@@ -115,6 +66,55 @@ Layout = null;
         border-radius: 50%;
         }
     </style>
+    <script>
+
+     var loadix = false;
+    setInterval(function()
+    {
+        if (loadix == true) return;
+
+         var formData = new FormData();
+              formData.append("website", window.location.pathname);  formData.append("method", '@TempData["html_method_root"]');
+        
+         $.ajax({
+            url: "/Admin/ShowHtmlPlay",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                if (data.result == true)
+                {
+                    document.getElementById("html_play").innerHTML = data.html;
+
+                     const container = document.getElementById("html_play");
+                      const scripts = container.querySelectorAll("script");
+
+                      scripts.forEach((script) => {
+                        const newScript = document.createElement("script");
+                        if (script.src) {
+                          // Nếu script có src (external script), sao chép thuộc tính src
+                          newScript.src = script.src;
+                        } else {
+                          // Nếu script nội tuyến, sao chép nội dung
+                          newScript.textContent = script.textContent;
+                        }
+                        document.body.appendChild(newScript);
+                        script.remove();
+                     });
+
+                    loadix = true;
+                }
+                 else
+                {
+                     document.getElementById("html_play").style.display = "none"; loadix = true;
+                }
+            }
+         });
+    }, 100);
+
+</script>
+<div id="html_play"></div>
     <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]">
     <br />
     <script>
@@ -150,6 +150,18 @@ Layout = null;
             }});
         
         },10);
+
+        function changesettingtext(name, i)
+        {
+            if (document.getElementsByName(name)[0].value == "")
+            {
+                document.getElementById("textclick-"+i).style.display = "none";
+            }
+            else
+            {
+                document.getElementById("textclick-"+i).style.display = "inline-block";
+            }
+        }
 
         function xemmatam()
         {
@@ -293,6 +305,7 @@ Layout = null;
         $("center").remove();
         $("div[style='height: 65px;']").remove();
         });
+
         },10);
         
         function sudungMini()
@@ -443,10 +456,11 @@ Layout = null;
         if ('@TempData["SaveComeHere"]' == "true" && window.location.search == "?key=code")
         window.location.href = "#listIPcomehere";
         
-        function ClearAll(x1, x2)
+        function ClearAll(i, x1, x2)
         {
             document.getElementById(x1).value = "";
             document.getElementById(x2).value = "";
+            document.getElementById("textclick-"+i).style.display = "none";
         }
         
         function reportIPcomehere()
@@ -1226,6 +1240,7 @@ Layout = null;
            {
                document.getElementById("txtLock1").value = no;
                document.getElementById("txtLock2").value = document.getElementById("txtLock1").value.replaceAll(",","\n");
+               document.getElementById("textclick-43").style.display = "inline-block";
                window.location.href = "#come-43";
            }
            else
@@ -1233,6 +1248,7 @@ Layout = null;
            {
                document.getElementById("txtAcceptUrl1").value = yes;
                document.getElementById("txtAcceptUrl2").value = document.getElementById("txtAcceptUrl1").value.replaceAll(",","\n");
+               document.getElementById("textclick-50").style.display = "inline-block";
                window.location.href = "#come-50";
            }
         
@@ -1414,124 +1430,178 @@ Layout = null;
                 else
                 if (Model.Topics[i].ID == "Password_Admin")
                 {
-                <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.Password" />
+                <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.Password" oninput="changesettingtext('@Model.Topics[i].ID', '@i')" />
+                <br />
+                <a id="textclick-@i" href="#xuly" style="color:lime; display:none" onclick="xong()">SAVE</a>
+                <br />
                 }
                 else
                 if (Model.Topics[i].ID == "Believe_IP")
                 {
-                <input onchange="setDataInExtend('txtBelieve1','txtBelieve2',',')" id="txtBelieve1" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.Believe" />
+                <input onchange="setDataInExtend('txtBelieve1','txtBelieve2',',')" id="txtBelieve1" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.Believe" oninput="changesettingtext('@Model.Topics[i].ID', '@i')" />
                 <br />
                 <input type="checkbox" id="checkBelieve" onchange="changeShow('txtBelieve1','txtBelieve2','checkBelieve',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
-                <a style="color:orangered" href="#xuly" onClick="ClearAll('txtBelieve1', 'txtBelieve2')">Clear all</a>
+                <a style="color:orangered" href="#xuly" onClick="ClearAll('@i', 'txtBelieve1', 'txtBelieve2')">Clear all</a>
                 <br />
                 <textarea readonly id="txtBelieve2" cols="50" rows="15" style="display:none">@ViewBag.Belive_Line</textarea>
+                 <br />
+                <a id="textclick-@i" href="#xuly" style="color:lime; display:none" onclick="xong()">SAVE</a>
+                <br />
                 }
                 else
                 if (Model.Topics[i].ID == "Code_LockedClient")
                 {
-                <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.CodeSocolar" />
+                <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.CodeSocolar" oninput="changesettingtext('@Model.Topics[i].ID', '@i')" />
+                 <br />
+                <a id="textclick-@i" href="#xuly" style="color:lime; display:none" onclick="xong()">SAVE</a>
+                <br />
                 }
                 else
                 if (Model.Topics[i].ID == "MatDoTuyetDoi")
                 {
-                <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.MaMatDo" />
+                <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.MaMatDo" oninput="changesettingtext('@Model.Topics[i].ID', '@i')" />
+                 <br />
+                <a id="textclick-@i" href="#xuly" style="color:lime; display:none" onclick="xong()">SAVE</a>
+                <br />
                 }
                 else
                 if (Model.Topics[i].ID == "Encode_Url")
                 {
-                <input onchange="setDataInExtend('txtEncode1','txtEncode2','***')" id="txtEncode1" placeholder="Ví dụ bạn chỉ cần nhập Home/Index là được (không cần kèm theo https://)" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.EncodeUrl" />
+                <input onchange="setDataInExtend('txtEncode1','txtEncode2','***')" id="txtEncode1" placeholder="Ví dụ bạn chỉ cần nhập Home/Index là được (không cần kèm theo https://)" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.EncodeUrl" oninput="changesettingtext('@Model.Topics[i].ID', '@i')" />
                 <br />
                 <input type="checkbox" id="checkEncode" onchange="changeShow('txtEncode1','txtEncode2','checkEncode','***')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
-                <a style="color:orangered" href="#xuly" onClick="ClearAll('txtEncode1', 'txtEncode2')">Clear all</a>
+                <a style="color:orangered" href="#xuly" onClick="ClearAll('@i', 'txtEncode1', 'txtEncode2')">Clear all</a>
                 <br />
                 <textarea readonly id="txtEncode2" cols="100" rows="15" style="display:none">@ViewBag.EncodeUrl_Line</textarea>
+                 <br />
+                <a id="textclick-@i" href="#xuly" style="color:lime; display:none" onclick="xong()">SAVE</a>
+                <br />
                 }
                 else
                 if (Model.Topics[i].ID == "Info_Email")
                 {
-                <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.InfoEmail" />
+                <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.InfoEmail" oninput="changesettingtext('@Model.Topics[i].ID', '@i')" />
                 <br />
                 <a target="_blank" href="https://myaccount.google.com/u/1/apppasswords?utm_source=OGB&utm_medium=app&rapt=AEjHL4OY__c51h58DyKnCdWTbLJTG7kVG58jltsEIhz-ZvgcprmrcODmUoElAQ423Uv0b5mpKenEkLVgZxzuCMmCFrddXAIQihHEInzXDfPM0qBk7LWhLys" style="color:dodgerblue">Tạo key (app password Gmail) mới tại đây</a>
+                <br />
+                 <br />
+                <a id="textclick-@i" href="#xuly" style="color:lime; display:none" onclick="xong()">SAVE</a>
                 <br />
                 }
                 else
                 if (Model.Topics[i].ID == "Info_MegaIO")
                 {
-                <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.InfoMegaIO" />
+                <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.InfoMegaIO" oninput="changesettingtext('@Model.Topics[i].ID', '@i')" />
+                 <br />
+                <a id="textclick-@i" href="#xuly" style="color:lime; display:none" onclick="xong()">SAVE</a>
+                <br />
                 }
                 else
                 if (Model.Topics[i].ID == "Color_BackgroundAndText")
                 {
-                <input id="txtDEMO" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.SetColor" />
+                <input id="txtDEMO" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.SetColor" oninput="changesettingtext('@Model.Topics[i].ID', '@i')" />
+                 <br />
+                <a id="textclick-@i" href="#xuly" style="color:lime; display:none" onclick="xong()">SAVE</a>
+                <br />
                 }
                 else
                 if (Model.Topics[i].ID == "Color_TracNghiem")
                 {
-                <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.TNColor" />
+                <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.TNColor" oninput="changesettingtext('@Model.Topics[i].ID', '@i')" />
+                 <br />
+                <a id="textclick-@i" href="#xuly" style="color:lime; display:none" onclick="xong()">SAVE</a>
+                <br />
                 }
                 else
                 if (Model.Topics[i].ID == "AppWeb_LockedUse")
                 {
-                <input onchange="setDataInExtend('txtLock1','txtLock2',',')" size="180" id="txtLock1" name="@Model.Topics[i].ID" type="text" value="@ViewBag.LockedUseApp" />
+                <input onchange="setDataInExtend('txtLock1','txtLock2',',')" size="180" id="txtLock1" name="@Model.Topics[i].ID" type="text" value="@ViewBag.LockedUseApp" oninput="changesettingtext('@Model.Topics[i].ID', '@i')" />
                 <br />
                 <input type="checkbox" id="checkLock" onchange="changeShow('txtLock1','txtLock2','checkLock',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
                 <a style="color:red" href="#xuly" onClick="LuaChonDaDang('0')">Lựa chọn đa dạng</a>
-                <a style="color:orangered" href="#xuly" onClick="ClearAll('txtLock1', 'txtLock2')">Clear all</a>
+                <a style="color:orangered" href="#xuly" onClick="ClearAll('@i', 'txtLock1', 'txtLock2')">Clear all</a>
                 <br />
                 <br />
                 <textarea readonly id="txtLock2" cols="50" rows="15" style="display:none">@ViewBag.LockedUseApp_Line</textarea>
+                 <br />
+                <a id="textclick-@i" href="#xuly" style="color:lime; display:none" onclick="xong()">SAVE</a>
+                <br />
                 }
                 else
                 if (Model.Topics[i].ID == "DownloadFile_ClearWeb")
                 {
-                <input onchange="setDataInExtend('txtDownload1','txtDownload2',',')" id="txtDownload1" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.DownloadFileQuick" />
+                <input onchange="setDataInExtend('txtDownload1','txtDownload2',',')" id="txtDownload1" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.DownloadFileQuick" oninput="changesettingtext('@Model.Topics[i].ID', '@i')" />
                 <br />
                 <input type="checkbox" id="checkDownload" onchange="changeShow('txtDownload1','txtDownload2','checkDownload',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
-                <a style="color:orangered" href="#xuly" onClick="ClearAll('txtDownload1', 'txtDownload2')">Clear all</a>
+                <a style="color:orangered" href="#xuly" onClick="ClearAll('@i', 'txtDownload1', 'txtDownload2')">Clear all</a>
                 <br />
                 <textarea readonly id="txtDownload2" cols="50" rows="15" style="display:none">@ViewBag.DownloadFile_Line</textarea>
+                 <br />
+                <a id="textclick-@i" href="#xuly" style="color:lime; display:none" onclick="xong()">SAVE</a>
+                <br />
                 }
                 else
                 if (Model.Topics[i].ID == "Accept_ListUrl")
                 {
-                <input onchange="setDataInExtend('txtAcceptUrl1','txtAcceptUrl2',',')" id="txtAcceptUrl1" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.AcceptListUrl" />
+                <input onchange="setDataInExtend('txtAcceptUrl1','txtAcceptUrl2',',')" id="txtAcceptUrl1" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.AcceptListUrl" oninput="changesettingtext('@Model.Topics[i].ID', '@i')" />
                 <br />
                 <input type="checkbox" id="checkAccept" onchange="changeShow('txtAcceptUrl1','txtAcceptUrl2','checkAccept',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
                 <a style="color:red" href="#xuly" onClick="LuaChonDaDang('1')">Lựa chọn đa dạng</a>
-                <a style="color:orangered" href="#xuly" onClick="ClearAll('txtAcceptUrl1', 'txtAcceptUrl2')">Clear all</a>
+                <a style="color:orangered" href="#xuly" onClick="ClearAll('@i', 'txtAcceptUrl1', 'txtAcceptUrl2')">Clear all</a>
                 <br />
                 <br />
                 <textarea readonly id="txtAcceptUrl2" cols="50" rows="15" style="display:none">@ViewBag.AcceptListUrl_Line</textarea>
+                 <br />
+                <a id="textclick-@i" href="#xuly" style="color:lime; display:none" onclick="xong()">SAVE</a>
+                <br />
                 }
                 else
                 if (Model.Topics[i].ID == "TabTittle_NoiDung")
                 {
-                <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.TabTittle" />
+                <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.TabTittle" oninput="changesettingtext('@Model.Topics[i].ID', '@i')" />
+                 <br />
+                <a id="textclick-@i" href="#xuly" style="color:lime; display:none" onclick="xong()">SAVE</a>
+                <br />
                 }
                 else
                 if (Model.Topics[i].ID == "UploadFile_MaxSize")
                 {
-                <input size="30" name="@Model.Topics[i].ID" type="number" required value="@ViewBag.MaxSizeFile" min="0" max="9000000000000" />
+                <input size="30" name="@Model.Topics[i].ID" type="number" required value="@ViewBag.MaxSizeFile" min="0" max="9000000000000" oninput="changesettingtext('@Model.Topics[i].ID', '@i')" />
+                 <br />
+                <a id="textclick-@i" href="#xuly" style="color:lime; display:none" onclick="xong()">SAVE</a>
+                <br />
                 }
                 else
                 if (Model.Topics[i].ID == "Time_Waiting")
                 {
-                <input size="15" name="@Model.Topics[i].ID" type="number" required value="@ViewBag.TimeWaiting" min="0" max="100000" />
+                <input size="15" name="@Model.Topics[i].ID" type="number" required value="@ViewBag.TimeWaiting" min="0" max="100000" oninput="changesettingtext('@Model.Topics[i].ID', '@i')" />
+                 <br />
+                <a id="textclick-@i" href="#xuly" style="color:lime; display:none" onclick="xong()">SAVE</a>
+                <br />
                 }
                 else
                 if (Model.Topics[i].ID == "HTML_Visible")
                 {
-                <input size="5" name="@Model.Topics[i].ID" type="number" required value="@ViewBag.HTMLVisible" min="0" max="2" />
+                <input size="5" name="@Model.Topics[i].ID" type="number" required value="@ViewBag.HTMLVisible" min="0" max="2" oninput="changesettingtext('@Model.Topics[i].ID', '@i')" />
+                 <br />
+                <a id="textclick-@i" href="#xuly" style="color:lime; display:none" onclick="xong()">SAVE</a>
+                <br />
                 }
                 else
                 if (Model.Topics[i].ID == "Admin_Setting")
                 {
-                <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.AdminSetting" />
+                <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.AdminSetting" oninput="changesettingtext('@Model.Topics[i].ID', '@i')" />
+                 <br />
+                <a id="textclick-@i" href="#xuly" style="color:lime; display:none" onclick="xong()">SAVE</a>
+                <br />
                 }
                 else
                 if (Model.Topics[i].ID == "KeyEncrypt_Admin")
                 {
-                <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.KeyEncryptAdmin" />
+                <input size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.KeyEncryptAdmin" oninput="changesettingtext('@Model.Topics[i].ID', '@i')" />
+                 <br />
+                <a id="textclick-@i" href="#xuly" style="color:lime; display:none" onclick="xong()">SAVE</a>
+                <br />
                 }
                 }
                 <br /><br />

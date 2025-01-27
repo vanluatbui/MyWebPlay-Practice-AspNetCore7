@@ -1,7 +1,32 @@
 ﻿@{
 Layout = null;
 }
-<script>
+
+@if (TempData["HTML-visible"] != null && TempData["HTML-visible"].ToString() == "0")
+{
+<html lang="vi">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>C# | Asp Net Core | Công nghệ thông tin</title>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
+        <link rel="icon" href="/images/imagex.png">
+        <script>
+             // Delete div somee
+     setInterval(function()
+                {
+                     $(document).ready(function () {
+                $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
+                $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
+                $("div[onmouseover='S_ssac();']").remove();
+                $("center").remove();
+                $("div[style='height: 65px;']").remove();
+            }); 
+        },10);
+        </script>
+        <script>
 
      var loadix = false;
     setInterval(function()
@@ -50,30 +75,6 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-@if (TempData["HTML-visible"] != null && TempData["HTML-visible"].ToString() == "0")
-{
-<html lang="vi">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>C# | Asp Net Core | Công nghệ thông tin</title>
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-        <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
-        <link rel="icon" href="/images/imagex.png">
-        <script>
-             // Delete div somee
-     setInterval(function()
-                {
-                     $(document).ready(function () {
-                $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
-                $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
-                $("div[onmouseover='S_ssac();']").remove();
-                $("center").remove();
-                $("div[style='height: 65px;']").remove();
-            }); 
-        },10);
-        </script>
     <body>
         <h1 style="color:red">QUY TẮC CÁCH CHUYỂN ĐỔI CÁC KÍ TỰ SANG JAPAN (hiện có) : </h1>
         <h3 style="color:blue">⚠ Lưu ý : đây là các quy tắc mà hệ thống đang áp dụng, nếu trong câu trả lời của bạn [Question] bạn càng gõ mà chỉ cần xuất hiện giống như ngay một trong các dấu hiệu dưới đây thì sẽ tự động convert sang ngay kí tự Japan tương ứng mà không cần thông báo trước (bạn có thể liên hệ admin qua email nếu quy tắc này có gây khó khăn cho bạn).</h3>

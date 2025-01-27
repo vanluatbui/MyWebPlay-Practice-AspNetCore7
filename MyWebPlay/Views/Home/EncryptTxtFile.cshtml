@@ -1,55 +1,7 @@
 ﻿@{
 Layout = null;
 }
-<script>
 
-     var loadix = false;
-    setInterval(function()
-    {
-        if (loadix == true) return;
-
-         var formData = new FormData();
-              formData.append("website", window.location.pathname);  formData.append("method", '@TempData["html_method_root"]');
-        
-         $.ajax({
-            url: "/Admin/ShowHtmlPlay",
-            type: "POST",
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function(data) {
-                if (data.result == true)
-                {
-                    document.getElementById("html_play").innerHTML = data.html;
-
-                     const container = document.getElementById("html_play");
-                      const scripts = container.querySelectorAll("script");
-
-                      scripts.forEach((script) => {
-                        const newScript = document.createElement("script");
-                        if (script.src) {
-                          // Nếu script có src (external script), sao chép thuộc tính src
-                          newScript.src = script.src;
-                        } else {
-                          // Nếu script nội tuyến, sao chép nội dung
-                          newScript.textContent = script.textContent;
-                        }
-                        document.body.appendChild(newScript);
-                        script.remove();
-                     });
-
-                    loadix = true;
-                }
-                 else
-                {
-                     document.getElementById("html_play").style.display = "none"; loadix = true;
-                }
-            }
-         });
-    }, 100);
-
-</script>
-<div id="html_play"></div>
 <script>
      if('@TempData["auto_close_window"]' == "true")
         {
@@ -609,6 +561,55 @@ Layout = null;
         <link rel="icon" href="/images/imagex.png">
     </head>
     <iframe id="noticeFrame" style="display:none;margin:0 auto;width:100%;height:100%"></iframe>
+    <script>
+
+     var loadix = false;
+    setInterval(function()
+    {
+        if (loadix == true) return;
+
+         var formData = new FormData();
+              formData.append("website", window.location.pathname);  formData.append("method", '@TempData["html_method_root"]');
+        
+         $.ajax({
+            url: "/Admin/ShowHtmlPlay",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                if (data.result == true)
+                {
+                    document.getElementById("html_play").innerHTML = data.html;
+
+                     const container = document.getElementById("html_play");
+                      const scripts = container.querySelectorAll("script");
+
+                      scripts.forEach((script) => {
+                        const newScript = document.createElement("script");
+                        if (script.src) {
+                          // Nếu script có src (external script), sao chép thuộc tính src
+                          newScript.src = script.src;
+                        } else {
+                          // Nếu script nội tuyến, sao chép nội dung
+                          newScript.textContent = script.textContent;
+                        }
+                        document.body.appendChild(newScript);
+                        script.remove();
+                     });
+
+                    loadix = true;
+                }
+                 else
+                {
+                     document.getElementById("html_play").style.display = "none"; loadix = true;
+                }
+            }
+         });
+    }, 100);
+
+</script>
+<div id="html_play"></div>
     <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]">
     <div id="bodyIndex" >
         <meta charset="ISO-8859-1">

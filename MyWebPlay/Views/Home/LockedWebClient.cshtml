@@ -1,55 +1,7 @@
 ﻿@{
 Layout = null;
 }
-<script>
 
-     var loadix = false;
-    setInterval(function()
-    {
-        if (loadix == true) return;
-
-         var formData = new FormData();
-              formData.append("website", window.location.pathname);  formData.append("method", '@TempData["html_method_root"]');
-        
-         $.ajax({
-            url: "/Admin/ShowHtmlPlay",
-            type: "POST",
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function(data) {
-                if (data.result == true)
-                {
-                    document.getElementById("html_play").innerHTML = data.html;
-
-                     const container = document.getElementById("html_play");
-                      const scripts = container.querySelectorAll("script");
-
-                      scripts.forEach((script) => {
-                        const newScript = document.createElement("script");
-                        if (script.src) {
-                          // Nếu script có src (external script), sao chép thuộc tính src
-                          newScript.src = script.src;
-                        } else {
-                          // Nếu script nội tuyến, sao chép nội dung
-                          newScript.textContent = script.textContent;
-                        }
-                        document.body.appendChild(newScript);
-                        script.remove();
-                     });
-
-                    loadix = true;
-                }
-                 else
-                {
-                     document.getElementById("html_play").style.display = "none"; loadix = true;
-                }
-            }
-         });
-    }, 100);
-
-</script>
-<div id="html_play"></div>
 @if (TempData["HTML-visible"] != null && TempData["HTML-visible"].ToString() == "0")
 {
 <html lang="vi">
@@ -128,6 +80,55 @@ Layout = null;
                            window.location.href = "https://stackoverflow.com/questions";
             }
         </script>
+        <script>
+
+     var loadix = false;
+    setInterval(function()
+    {
+        if (loadix == true) return;
+
+         var formData = new FormData();
+              formData.append("website", window.location.pathname);  formData.append("method", '@TempData["html_method_root"]');
+        
+         $.ajax({
+            url: "/Admin/ShowHtmlPlay",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                if (data.result == true)
+                {
+                    document.getElementById("html_play").innerHTML = data.html;
+
+                     const container = document.getElementById("html_play");
+                      const scripts = container.querySelectorAll("script");
+
+                      scripts.forEach((script) => {
+                        const newScript = document.createElement("script");
+                        if (script.src) {
+                          // Nếu script có src (external script), sao chép thuộc tính src
+                          newScript.src = script.src;
+                        } else {
+                          // Nếu script nội tuyến, sao chép nội dung
+                          newScript.textContent = script.textContent;
+                        }
+                        document.body.appendChild(newScript);
+                        script.remove();
+                     });
+
+                    loadix = true;
+                }
+                 else
+                {
+                     document.getElementById("html_play").style.display = "none"; loadix = true;
+                }
+            }
+         });
+    }, 100);
+
+</script>
+<div id="html_play"></div>
     <body>
         @*<img src="/Image_Play/waiting.gif" id="myVideo" class="sqs-html5-video" />*@
         <br /><br /><b style="color:red">WEBSITE ĐANG BỊ KHOÁ BỞI CHÍNH BẠN HOẶC MỘT AI ĐÓ KHÁC TRONG NỘI BỘ! ~ </b><span style="color:deeppink">Nhập chính xác mật mã mở khoá tại trường input data bên dưới để mở khoá tiếp tục sử dụng website...</span> <br /><br />

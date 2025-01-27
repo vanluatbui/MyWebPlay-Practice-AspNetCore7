@@ -4,6 +4,7 @@ using CG.Web.MegaApiClient;
 using MyWebPlay.Extension;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace MyWebPlay.Models
 {
@@ -70,8 +71,9 @@ namespace MyWebPlay.Models
                 }
 
                 var megaClient = new MegaApiClient();
-                megaClient.LoginAsync(email, password);
-                megaClient.LogoutAsync();
+                megaClient.Login(email, password);
+                if (megaClient.IsLoggedIn == false) return false;
+                megaClient.Logout();
             }
             catch
             {

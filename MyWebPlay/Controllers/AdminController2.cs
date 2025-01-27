@@ -2248,7 +2248,7 @@ namespace MyWebPlay.Controllers
             if (type == "1")
             {
                 MailRequest mail = new MailRequest();
-                var data = _mailService.TestSendMail(mail);
+                var data = _mailService.TestSendMail(mail, _webHostEnvironment.WebRootPath);
                 return Ok(new { result = data });
             }
             else if (type == "2")

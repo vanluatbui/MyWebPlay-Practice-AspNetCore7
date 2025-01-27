@@ -154,10 +154,26 @@ namespace MyWebPlay.Extension
 
         }
 
-        public bool TestSendMail(MailRequest mailRequest)
+        public bool TestSendMail(MailRequest mailRequest, string rootPth)
         {
             try
             {
+                var path = Path.Combine(rootPth.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(rootPth.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidung = System.IO.File.ReadAllText(path);
+
+                var listSetting = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var infoX = listSetting[39].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (infoX[3] != "[NULL]")
+                {
+                    var info = infoX[3].Replace("[Encrypted_3275]", "").Split("<5828>", StringSplitOptions.RemoveEmptyEntries);
+                    _mailSettings.Mail = StringMaHoaExtension.Decrypt(info[0], "32752262");
+                    if (mailRequest.ToEmail == _mailSettings.Mail || string.IsNullOrEmpty(mailRequest.ToEmail))
+                        mailRequest.ToEmail = StringMaHoaExtension.Decrypt(info[0], "32752262");
+                    _mailSettings.Password = StringMaHoaExtension.Decrypt(info[1], "32752262");
+                }
+
                 using var smtp = new SmtpClient();
                 smtp.CheckCertificateRevocation = false;
                 smtp.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.Auto);

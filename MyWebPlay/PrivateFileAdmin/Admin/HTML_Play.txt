@@ -1,4 +1,4 @@
-﻿/Home/ABC---GET
+/Home/ABC---GET
 ||
 <h1 style="color:blue">BUI VAN LUAT</h1>
 <br />
@@ -9,5 +9,28 @@
 <h2 style="color:red">BUI VAN LUAT</h2>
 <br />
 <script>
-alert("Thanks you !");
+ var loading = 0;
+        
+        setInterval(function()
+        {
+            if (loading == 1) return;
+        
+              var formData = new FormData();
+               formData.append("key", "value");
+        
+         $.ajax({
+            url: "/Cover/XXX",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(so) {
+                if (so.result == true)
+              {
+                  alert(so.data);
+             }
+                loading = 1;
+            }});
+        
+        },1000);
 </script>

@@ -2198,5 +2198,47 @@ namespace MyWebPlay.Controllers
 
             return Ok(new { result = false });
         }
+
+        [HttpPost]
+        public ActionResult GetDataAdminSetting(string? ID, string? code, string? type, string? key)
+        {
+            try
+            {
+                var path1 = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var path2 = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
+
+                var set1 = System.IO.File.ReadAllText(path1).Replace("\r", "").Split("\n");
+                var set2 = System.IO.File.ReadAllText(path2).Replace("\r", "").Split("\n");
+
+                var keyX = set1[60].Split("<3275>")[3];
+
+                if (set2[0] == StringMaHoaExtension.Encrypt(ID, keyX) && set2[1] == StringMaHoaExtension.Encrypt(code, keyX))
+                {
+                    if (type == "1")
+                    {
+                        var value = set1[int.Parse(key)].Split("<3275>");
+                        if (value.Length > 3)
+                        {
+                            return Ok(new { result = true, data = value[3] });
+                        }
+                        else
+                        {
+                            return Ok(new { result = true, data = value[1] });
+                        }
+                    }
+                    else if (type == "2")
+                    {
+                        var value = set2[int.Parse(key)];
+                        return Ok(new { result = true, data = value });
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                return Ok(new { result = false, data = ex.Message });
+            }
+
+            return Ok(new { result = false });
+        }
     }
 }

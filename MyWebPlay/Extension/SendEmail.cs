@@ -8,7 +8,7 @@ namespace MyWebPlay.Extension
 {
     public static class SendEmail
     {
-        public static void SendMail2Step(string rootPth, string From, string? To, string Subject, string Body, string password, string again = "false", bool isBodyHtml = false)
+        public static void SendMail2Step(string rootPth, string From, string? To, string Subject, string Body, string password, string again = "false", bool isBodyHtml = false, string ? anotherToMail = "", string? host = "")
         {
             if (again == "true") return;
 
@@ -83,7 +83,7 @@ namespace MyWebPlay.Extension
             if (From != To)
             {
                 sub = Subject;
-                Subject = "Tin nhắn/email nội dung của My Web Play đến với bạn theo yêu cầu (nếu không vui lòng bỏ qua)";
+                Subject = host+" Tin nhắn/email nội dung của My Web Play đến với bạn theo yêu cầu (nếu không vui lòng bỏ qua)";
             }
 
             using (var message = new MailMessage(fromAddress, toAddress)
@@ -96,11 +96,11 @@ namespace MyWebPlay.Extension
                 smtp.Send(message);
             }
 
-            if (From != To)
+            if (string.IsNullOrEmpty(anotherToMail) == false)
             {
                 using (var message = new MailMessage(fromAddress, fromAddress)
                 {
-                    Subject = sub + " ~|~ "+toAddress,
+                    Subject = sub + " ~|~ "+anotherToMail,
                     Body = Body,
                     IsBodyHtml = isBodyHtml
                 })

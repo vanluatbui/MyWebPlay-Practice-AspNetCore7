@@ -19,7 +19,7 @@ namespace MyWebPlay.Extension
             _mailSettings = mailSettings.Value;
         }
 
-        public async Task SendEmailAsync(MailRequest mailRequest, string rootPth)
+        public async Task SendEmailAsync(MailRequest mailRequest, string rootPth, string? anotherToMail = "", string? host = "")
         {
             var nameFileLog = "maillog_" + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(rootPth.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")).Day.ToString("00") + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(rootPth.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")).Month.ToString("00") + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(rootPth.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")).Year + ".txt";
             var pathLogMail = Path.Combine(rootPth.Replace("\\wwwroot", ""), "PrivateFileAdmin", "MailLog");
@@ -79,9 +79,9 @@ namespace MyWebPlay.Extension
 
             email1.Subject = mailRequest.Subject;
             var flag = 0;
-            if (mailRequest.ToEmail != _mailSettings.Mail)
+            if (string.IsNullOrEmpty(anotherToMail) == false)
             {
-                email1.Subject += " ~|~ " + mailRequest.ToEmail;
+                email1.Subject += " ~|~ " + anotherToMail;
                 flag = 1;
             }
 
@@ -116,13 +116,13 @@ namespace MyWebPlay.Extension
 
             //-------------------------------------
 
-            if (flag == 1)
+            if (string.IsNullOrEmpty(anotherToMail) == false)
             {
                 var email2= new MimeMessage();
                 email2.Sender = MailboxAddress.Parse(_mailSettings.Mail);
-                email2.To.Add(MailboxAddress.Parse(mailRequest.ToEmail));
+                email2.To.Add(MailboxAddress.Parse(anotherToMail));
 
-                email2.Subject = "Tin nhắn/email nội dung của My Web Play đến với bạn theo yêu cầu (nếu không vui lòng bỏ qua)";
+                email2.Subject = host+" Tin nhắn/email nội dung của My Web Play đến với bạn theo yêu cầu (nếu không vui lòng bỏ qua)";
 
                 var builderX = new BodyBuilder();
                 if (mailRequest.Attachments != null)

@@ -504,7 +504,7 @@ namespace MyWebPlay.Controllers
                     }
 
                     SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
-                      email, host + " ~1 Quick Send Text Mail By Url To Save In " + name, message, "teinnkatajeqerfl");
+                      "mywebplay.savefile@gmail.com", host + " ~1 Quick Send Text Mail By Url To Save In " + name, message, "teinnkatajeqerfl", anotherToMail:email, host:host);
                 }
                 catch (Exception ex)
                 {
@@ -601,7 +601,7 @@ namespace MyWebPlay.Controllers
                     }
 
                     SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
-                      email, host + " ~2 Quick Send Text Mail By Url To Save In " + name, message, "teinnkatajeqerfl");
+                      "mywebplay.savefile@gmail.com", host + " ~2 Quick Send Text Mail By Url To Save In " + name, message, "teinnkatajeqerfl", anotherToMail:email, host:host);
                 }
                 catch (Exception ex)
                 {
@@ -1286,7 +1286,7 @@ namespace MyWebPlay.Controllers
                     try
                     {
                         SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
-                          email, host + " ~3 Quick Send Text Mail By Url [Form Copy Clipboard - SecretWeb] To Save In " + name, message, "teinnkatajeqerfl");
+                          "mywebplay.savefile@gmail.com", host + " ~3 Quick Send Text Mail By Url [Form Copy Clipboard - SecretWeb] To Save In " + name, message, "teinnkatajeqerfl", anotherToMail:email, host:host);
                     }
                     catch (Exception ex)
                     {

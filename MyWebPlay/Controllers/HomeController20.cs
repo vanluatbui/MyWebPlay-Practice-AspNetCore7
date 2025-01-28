@@ -791,7 +791,7 @@ namespace MyWebPlay.Controllers
                     xuxu.AddSeconds(int.Parse(secDL));
                 }
 
-                SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", email, host + "[ADMIN] External send mail with data log In " + xuxu, txtText, "teinnkatajeqerfl");
+                SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", host + "[ADMIN] External send mail with data log In " + xuxu, txtText, "teinnkatajeqerfl", anotherToMail:email, host:host);
 
                 if (External == "false")
                 {

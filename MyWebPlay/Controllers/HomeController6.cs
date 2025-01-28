@@ -201,7 +201,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-                string chuoi = f["Chuoi"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n"); ;
+                string chuoi = f["Chuoi"].ToString().Replace("\r\n", "\n").Replace("\n", "\r\n");
                 chuoi = chuoi.Replace("[T-PLAY]", "\t");
                 chuoi = chuoi.Replace("[N-PLAY]", "\n");
                 chuoi = chuoi.Replace("[R-PLAY]", "\r");

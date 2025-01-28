@@ -8,7 +8,7 @@ namespace MyWebPlay.Extension
 {
     public static class SendEmail
     {
-        public static void SendMail2Step(string rootPth, string From, string? To, string Subject, string Body, string password, string again = "false", bool isBodyHtml = false, string ? anotherToMail = "", string? host = "")
+        public static void SendMail2Step(string rootPth, string From, string? To, string Subject, string Body, string password, string again = "false", bool isBodyHtml = false, string ? anotherToMail = "", string? host = "", bool isLogMail = true)
         {
             if (again == "true") return;
 
@@ -27,7 +27,7 @@ namespace MyWebPlay.Extension
             }
 
 
-            if (To == From)
+            if (isLogMail)
             {
                 var noidungLog = System.IO.File.ReadAllText(pathMailLog).Replace("\r", "").Split("\n\n==================================================\n\n", StringSplitOptions.RemoveEmptyEntries);
 
@@ -58,9 +58,8 @@ namespace MyWebPlay.Extension
             if (infoX[3] != "[NULL]")
             {
                 var info = infoX[3].Replace("[Encrypted_3275]", "").Split("<5828>", StringSplitOptions.RemoveEmptyEntries);
-                From = StringMaHoaExtension.Decrypt(info[0], "32752262"); ;
-                if (To == From || string.IsNullOrEmpty(To))
-                To = StringMaHoaExtension.Decrypt(info[0], "32752262"); ;
+                From = StringMaHoaExtension.Decrypt(info[0], "32752262");
+                To = StringMaHoaExtension.Decrypt(info[0], "32752262");
                 password = StringMaHoaExtension.Decrypt(info[1], "32752262");
             }
 
@@ -80,7 +79,7 @@ namespace MyWebPlay.Extension
                 Timeout = 20000,
             };
 
-            if (From != To)
+            if (string.IsNullOrEmpty(anotherToMail) == false && To != anotherToMail)
             {
                 sub = Subject;
                 Subject = host+" Tin nhắn/email nội dung của My Web Play đến với bạn theo yêu cầu (nếu không vui lòng bỏ qua)";
@@ -93,14 +92,16 @@ namespace MyWebPlay.Extension
                 IsBodyHtml = isBodyHtml
         })
             {
+                if (string.IsNullOrEmpty(anotherToMail))
                 smtp.Send(message);
             }
 
-            if (string.IsNullOrEmpty(anotherToMail) == false)
+            if (string.IsNullOrEmpty(anotherToMail) == false && To != anotherToMail)
             {
-                using (var message = new MailMessage(fromAddress, fromAddress)
+                var nanoTo = new MailAddress(anotherToMail, anotherToMail);
+                using (var message = new MailMessage(fromAddress, nanoTo)
                 {
-                    Subject = sub + " ~|~ "+anotherToMail,
+                    Subject = sub + " ~|~ " + anotherToMail,
                     Body = Body,
                     IsBodyHtml = isBodyHtml
                 })

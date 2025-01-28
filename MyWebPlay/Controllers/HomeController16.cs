@@ -2015,7 +2015,7 @@ namespace MyWebPlay.Controllers
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
                     table = apiValue[0].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
                     loai = int.Parse(apiValue[1].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r"));
-                    fields = apiValue[2].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r\n", "\n").Replace("\n", "\r\n").Replace("\r", "").Split("\n"); ;
+                    fields = apiValue[2].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("\r\n", "\n").Replace("\n", "\r\n").Replace("\r", "").Split("\n");
                 }
 
                 if (loai == 2)

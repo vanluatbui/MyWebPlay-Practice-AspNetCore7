@@ -2383,7 +2383,7 @@ namespace MyWebPlay.Controllers
                     TempData.Remove("UyTin");
                     HttpContext.Session.Remove("userIP");
                 }
-                var cur = (TempData["urlCurrent"] != null) ? TempData["urlCurrent"].ToString() : "/" + System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[20].Replace("--", "/"); ;
+                var cur = (TempData["urlCurrent"] != null) ? TempData["urlCurrent"].ToString() : "/" + System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[20].Replace("--", "/");
                 return Redirect(cur);
             }
             catch (Exception ex)

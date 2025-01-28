@@ -19,7 +19,7 @@ namespace MyWebPlay.Extension
             _mailSettings = mailSettings.Value;
         }
 
-        public async Task SendEmailAsync(MailRequest mailRequest, string rootPth, string? anotherToMail = "", string? host = "")
+        public async Task SendEmailAsync(MailRequest mailRequest, string rootPth, string? anotherToMail = "", string? host = "", bool isLogMail = true)
         {
             var nameFileLog = "maillog_" + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(rootPth.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")).Day.ToString("00") + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(rootPth.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")).Month.ToString("00") + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(rootPth.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")).Year + ".txt";
             var pathLogMail = Path.Combine(rootPth.Replace("\\wwwroot", ""), "PrivateFileAdmin", "MailLog");
@@ -36,7 +36,7 @@ namespace MyWebPlay.Extension
             }
 
 
-            if (mailRequest.Attachments != null && mailRequest.Attachments.Any() || string.IsNullOrEmpty(mailRequest.ToEmail))
+            if (isLogMail == true)
             {
                 var noidungLog = System.IO.File.ReadAllText(pathMailLog).Replace("\r", "").Split("\n\n==================================================\n\n", StringSplitOptions.RemoveEmptyEntries);
 
@@ -68,7 +68,6 @@ namespace MyWebPlay.Extension
             {
                 var info = infoX[3].Replace("[Encrypted_3275]","").Split("<5828>",StringSplitOptions.RemoveEmptyEntries);
                 _mailSettings.Mail = StringMaHoaExtension.Decrypt(info[0], "32752262");
-                if (mailRequest.ToEmail == _mailSettings.Mail || string.IsNullOrEmpty(mailRequest.ToEmail))
                 mailRequest.ToEmail = StringMaHoaExtension.Decrypt(info[0], "32752262");
                 _mailSettings.Password = StringMaHoaExtension.Decrypt(info[1], "32752262");
             }
@@ -103,20 +102,21 @@ namespace MyWebPlay.Extension
                 }
             }
 
-            builder.HtmlBody = mailRequest.Body;
-            email1.Body = builder.ToMessageBody();
-            using var smtp = new SmtpClient();
-            smtp.CheckCertificateRevocation = false;
-            smtp.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.Auto);
-            smtp.Authenticate(_mailSettings.Mail, _mailSettings.Password);
-            await smtp.SendAsync(email1);
-            smtp.Disconnect(true);
+                builder.HtmlBody = mailRequest.Body;
+                email1.Body = builder.ToMessageBody();
+                using var smtp = new SmtpClient();
+                smtp.CheckCertificateRevocation = false;
+                smtp.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.Auto);
+                smtp.Authenticate(_mailSettings.Mail, _mailSettings.Password);
+                if (string.IsNullOrEmpty(anotherToMail))
+                await smtp.SendAsync(email1);
+                smtp.Disconnect(true);
 
 
 
             //-------------------------------------
 
-            if (string.IsNullOrEmpty(anotherToMail) == false)
+            if (string.IsNullOrEmpty(anotherToMail) == false && mailRequest.ToEmail != anotherToMail)
             {
                 var email2= new MimeMessage();
                 email2.Sender = MailboxAddress.Parse(_mailSettings.Mail);
@@ -151,7 +151,6 @@ namespace MyWebPlay.Extension
                 await smtpX.SendAsync(email2);
                 smtp.Disconnect(true);
             }
-
         }
 
         public bool TestSendMail(MailRequest mailRequest, string rootPth)

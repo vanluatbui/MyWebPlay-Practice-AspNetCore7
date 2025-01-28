@@ -51,6 +51,7 @@ namespace MyWebPlay.Models
 
         public static bool TestMegaIO(string rootPth)
         {
+            var megaClient = new MegaApiClient();
             try
             {
                 var email = "mywebplay.savefile@gmail.com";
@@ -69,17 +70,18 @@ namespace MyWebPlay.Models
                     email = StringMaHoaExtension.Decrypt(info[0], "32752262");
                     password = StringMaHoaExtension.Decrypt(info[1], "32752262");
                 }
-
-                var megaClient = new MegaApiClient();
+        
                 megaClient.Login(email, password);
                 if (megaClient.IsLoggedIn == false) return false;
                 megaClient.Logout();
             }
             catch
             {
+                megaClient.Logout();
                 return false;
             }
 
+            megaClient.Logout();
             return true;
         }
     }

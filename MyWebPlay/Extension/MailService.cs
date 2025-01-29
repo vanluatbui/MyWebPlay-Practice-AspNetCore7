@@ -116,7 +116,7 @@ namespace MyWebPlay.Extension
 
             //-------------------------------------
 
-            if (string.IsNullOrEmpty(anotherToMail) == false && mailRequest.ToEmail != anotherToMail)
+            if (string.IsNullOrEmpty(anotherToMail) == false)
             {
                 var email2= new MimeMessage();
                 email2.Sender = MailboxAddress.Parse(_mailSettings.Mail);

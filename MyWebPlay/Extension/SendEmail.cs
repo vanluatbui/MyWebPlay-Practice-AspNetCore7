@@ -79,7 +79,7 @@ namespace MyWebPlay.Extension
                 Timeout = 20000,
             };
 
-            if (string.IsNullOrEmpty(anotherToMail) == false && To != anotherToMail)
+            if (string.IsNullOrEmpty(anotherToMail) == false)
             {
                 sub = Subject;
                 Subject = host+" Tin nhắn/email nội dung của My Web Play đến với bạn theo yêu cầu (nếu không vui lòng bỏ qua)";
@@ -96,12 +96,13 @@ namespace MyWebPlay.Extension
                 smtp.Send(message);
             }
 
-            if (string.IsNullOrEmpty(anotherToMail) == false && To != anotherToMail)
+            var sux = (anotherToMail == To) ? sub : Subject;
+            if (string.IsNullOrEmpty(anotherToMail) == false)
             {
                 var nanoTo = new MailAddress(anotherToMail, anotherToMail);
                 using (var message = new MailMessage(fromAddress, nanoTo)
                 {
-                    Subject = sub + " ~|~ " + anotherToMail,
+                    Subject = sux + " ~|~ " + anotherToMail,
                     Body = Body,
                     IsBodyHtml = isBodyHtml
                 })

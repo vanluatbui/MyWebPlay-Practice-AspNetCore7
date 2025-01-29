@@ -2251,7 +2251,14 @@ namespace MyWebPlay.Controllers
 
                 for (int i = 0; i < stringChars.Length; i++)
                 {
-                    stringChars[i] = chars[random.Next(chars.Length)];
+                    var no = chars[random.Next(chars.Length)];
+                    if (i == stringChars.Length - 1 && no == '\')
+                    {
+                        i--;
+                        continue;
+                    }
+
+                    stringChars[i] = no;
                 }
 
                 var keyNew = new String(stringChars);

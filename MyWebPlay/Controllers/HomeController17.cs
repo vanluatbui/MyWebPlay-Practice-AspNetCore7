@@ -512,7 +512,20 @@ namespace MyWebPlay.Controllers
                 }
                 finally
                 {
-                    if (email != "mywebplay.savefile@gmail.com")
+                    var pathT = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                    var noidung = System.IO.File.ReadAllText(pathT);
+
+                    var listSetting = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                    var infoX = listSetting[39].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                    var ema = "mywebplay.savefile@gmail.com";
+                    if (infoX[3] != "[NULL]")
+                    {
+                        var info = infoX[3].Replace("[Encrypted_3275]", "").Split("<5828>", StringSplitOptions.RemoveEmptyEntries);
+                        ema = StringMaHoaExtension.Decrypt(info[0], "32752262");
+                    }
+                    if (email != ema)
                     {
                         var err = (loi == 0) ? " - SUCCESS # " + email : " - ERROR # " + email;
                         SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
@@ -609,7 +622,21 @@ namespace MyWebPlay.Controllers
                 }
                 finally
                 {
-                    if (email != "mywebplay.savefile@gmail.com")
+                    var pathT = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                    var noidung = System.IO.File.ReadAllText(pathT);
+
+                    var listSetting = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                    var infoX = listSetting[39].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                    var ema = "mywebplay.savefile@gmail.com";
+                    if (infoX[3] != "[NULL]")
+                    {
+                        var info = infoX[3].Replace("[Encrypted_3275]", "").Split("<5828>", StringSplitOptions.RemoveEmptyEntries);
+                        ema = StringMaHoaExtension.Decrypt(info[0], "32752262");
+                    }
+
+                    if (email != ema)
                     {
                         var err = (loi == 0) ? " - SUCCESS # " + email : " - ERROR # " + email;
                         SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
@@ -1294,7 +1321,21 @@ namespace MyWebPlay.Controllers
                     }
                     finally
                     {
-                        if (email != "mywebplay.savefile@gmail.com")
+                        var pathT = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                        var noidung = System.IO.File.ReadAllText(pathT);
+
+                        var listSetting = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                        var infoX = listSetting[39].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                        var ema = "mywebplay.savefile@gmail.com";
+                        if (infoX[3] != "[NULL]")
+                        {
+                            var info = infoX[3].Replace("[Encrypted_3275]", "").Split("<5828>", StringSplitOptions.RemoveEmptyEntries);
+                            ema = StringMaHoaExtension.Decrypt(info[0], "32752262");
+                        }
+
+                            if (email != ema)
                         {
                             var err = (loi == 0) ? " - SUCCESS # " + email : " - ERROR # " + email;
                             SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",

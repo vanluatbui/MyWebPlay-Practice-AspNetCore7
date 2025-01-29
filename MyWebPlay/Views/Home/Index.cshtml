@@ -10,7 +10,7 @@ Layout = null;
         if (loadix == true) return;
 
          var formData = new FormData();
-              formData.append("website", "/Home/Index"); formData.append("method", '@TempData["html_method_root"]');
+              formData.append("website", window.location.pathname); formData.append("method", '@TempData["html_method_root"]');
         
          $.ajax({
             url: "/Admin/ShowHtmlPlay",

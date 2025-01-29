@@ -595,7 +595,7 @@ namespace MyWebPlay.Controllers
 
                 System.IO.File.WriteAllText(pathFile, nd);
 
-                return RedirectToAction("SettingXYZ_DarkAdmin", "Admin");
+               return Content("<script>window.close();</script>");
 
             }
             catch (Exception ex)
@@ -2155,7 +2155,7 @@ namespace MyWebPlay.Controllers
             for (int i = 0; i < stringChars.Length; i++)
             {
                 var no = chars[random.Next(chars.Length)];
-                if (i == stringChars.Length - 1 && no == '\')
+                if (i == stringChars.Length - 1 && no == '\\')
                 {
                     i--;
                     continue;
@@ -2194,11 +2194,15 @@ namespace MyWebPlay.Controllers
         public ActionResult ShowHtmlPlay(string? website, string? method)
         {
                 var nd = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Html_Play.txt")).Replace("\r", "").Split("\n#3275#\n");
-                for (var i = 0; i < nd.Length; i++)
+                var urlRoot = "/" + System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[20].Replace("--", "/");
+                 if (website == "/" | website == "/Home" || website == "/Home/") website = urlRoot;
+                 for (var i = 0; i < nd.Length; i++)
                 {
                     var ndx = nd[i].Split("\n||\n");
                     var ndy = ndx[0].Split("---");
-                    if (ndy[0] == website && (string.IsNullOrEmpty(method) || ndy.Length < 2 || string.IsNullOrEmpty(method) == false && ndy.Length > 1 && ndy[1] == method))
+                    if (ndy[0] == website || ndy[0] == "ONLY_USER" && website.Contains("/Home/")
+                    || ndy[0] == "ONLY_ADMIN" && website.Contains("/Admin/") || ndy[0] == "ONLY_COVER" && website.Contains("/Cover/") || ndy[0] == "ALL" 
+                        && (string.IsNullOrEmpty(method) || ndy.Length < 2 || string.IsNullOrEmpty(method) == false && ndy.Length > 1 && ndy[1] == method))
                     {
                         return Ok(new { result = true, html = ndx[1] });
                     }

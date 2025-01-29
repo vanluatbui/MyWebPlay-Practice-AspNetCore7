@@ -2252,7 +2252,7 @@ namespace MyWebPlay.Controllers
                 for (int i = 0; i < stringChars.Length; i++)
                 {
                     var no = chars[random.Next(chars.Length)];
-                    if (i == stringChars.Length - 1 && no == '\')
+                    if (i == stringChars.Length - 1 && no == '\\')
                     {
                         i--;
                         continue;

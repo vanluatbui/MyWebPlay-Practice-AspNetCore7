@@ -2200,10 +2200,17 @@ namespace MyWebPlay.Controllers
                 {
                     var ndx = nd[i].Split("\n||\n");
                     var ndy = ndx[0].Split("---");
+                    var ndz = ndx[0].Split("===");
                     if (ndy[0] == website || ndy[0] == "ONLY_USER" && website.Contains("/Home/")
-                    || ndy[0] == "ONLY_ADMIN" && website.Contains("/Admin/") || ndy[0] == "ONLY_COVER" && website.Contains("/Cover/") || ndy[0] == "ALL" 
-                        && (string.IsNullOrEmpty(method) || ndy.Length < 2 || string.IsNullOrEmpty(method) == false && ndy.Length > 1 && ndy[1] == method))
+                    || ndy[0] == "ONLY_ADMIN" && website.Contains("/Admin/") || ndy[0] == "ONLY_COVER" && website.Contains("/Cover/") || ndy[0] == "ALL" || 
+                        (ndy[0] == "BOQUA" || ndy[0] == "CHIBAOGOM")
+                            && (string.IsNullOrEmpty(method) || ndy.Length < 2 || string.IsNullOrEmpty(method) == false && ndy.Length > 1 && ndy[1] == method))
                     {
+                        if (ndz.Length > 1 && ((ndy[0] == "BOQUA" && ndz[1].Contains(website)) || (ndy[0] == "CHIBAOGOM" && ndz[1].Contains(website) == false)))
+                        {
+                             return Ok(new { result = false });
+                        }
+
                         return Ok(new { result = true, html = ndx[1] });
                     }
                 }
@@ -2274,6 +2281,46 @@ namespace MyWebPlay.Controllers
             }
 
             return Ok(new { result = false });
+        }
+
+        [HttpPost]
+        public ActionResult GetDataSession(string ID, string code, string type, string key)
+        {
+            var data = "";
+            try
+            {
+                var path1 = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var path2 = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
+
+                var set1 = System.IO.File.ReadAllText(path1).Replace("\r", "").Split("\n");
+                var set2 = System.IO.File.ReadAllText(path2).Replace("\r", "").Split("\n");
+
+                var keyX = set1[60].Split("<3275>")[3];
+
+                if (set2[0] == StringMaHoaExtension.Encrypt(ID, keyX) && set2[1] == StringMaHoaExtension.Encrypt(code, keyX))
+                {
+                    switch (type)
+                    {
+                        case "1":
+                            data = HttpContext.Session.GetString(key);
+                            break;
+
+                        case "2":
+                            data = HttpContext.Session.GetObject<string>(key);
+                            break;
+
+                        case "3":
+                            data = TempData[key].ToString();
+                            return Ok(new { result = true, value = data });
+                    }
+                }
+            }
+            catch
+            {
+                return Ok(new { result = false });
+            }
+
+            return Ok(new { result = true, value = data });
         }
     }
 }

@@ -4669,7 +4669,11 @@ namespace MyWebPlay.Controllers
 
             var infoX = listSetting[39].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
             var key = listSetting[60].Split("<3275>")[3];
-            if (code == StringMaHoaExtension.Decrypt(nd[1], key))
+
+            var pamX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+            var valuePam = System.IO.File.ReadAllText(pamX).Split("<>");
+            var test = code.Split("<>");
+            if (test[0] == StringMaHoaExtension.Decrypt(nd[1], key) && (valuePam.Length < 3 || (valuePam.Length > 2 && test.Length > 1 && MD5.CreateMD5(test[1]) == valuePam[2])))
             {
                 HttpContext.Session.SetString("open-admin", "true");
                 HttpContext.Session.SetString("open-admin-yes", "true");

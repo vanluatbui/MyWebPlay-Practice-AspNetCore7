@@ -595,7 +595,7 @@ namespace MyWebPlay.Controllers
 
                 System.IO.File.WriteAllText(pathFile, nd);
 
-               return Content("<script>window.close();</script>");
+               return Content("Phiên bản này đã kết thúc !");
 
             }
             catch (Exception ex)

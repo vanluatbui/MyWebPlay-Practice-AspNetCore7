@@ -4783,5 +4783,16 @@ namespace MyWebPlay.Controllers
             }
         }
 
+        public ActionResult ViewFile(string? path)
+        {
+            if (string.IsNullOrEmpty(path) == false)
+            {
+                TempData["file_view_path"] = path;
+                return RedirectToAction("ViewFile", "Home");
+            }
+
+            return View();
+        }
+
     }
 }

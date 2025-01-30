@@ -340,7 +340,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-                var yes_log = HttpContext.Session.GetString("IsAdminUsing") != "true" ? false : true;
+                var yes_log = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1] == "NOT_IS_ADMINUSING" ? false : true;
 
                 if (HttpContext.Session.GetString("admin-userIP") != null)
                 {
@@ -477,7 +477,8 @@ namespace MyWebPlay.Controllers
         {
             try
             {
-                if (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1] == "NOT_IS_ADMINUSING")
+                if (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1
+                    && System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1] == "NOT_IS_ADMINUSING")
                 {
                     HttpContext.Session.Remove("IsAdminUsing");
                 }
@@ -1358,7 +1359,7 @@ namespace MyWebPlay.Controllers
 
                     TempData.Remove("dataPost");
 
-                    var yes_log = HttpContext.Session.GetString("IsAdminUsing") != "true" ? false : true;
+                    var yes_log = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1] == "NOT_IS_ADMINUSING" ? false : true;
 
                     var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
                     var valuePam = System.IO.File.ReadAllText(pam).Split("<>")[0];

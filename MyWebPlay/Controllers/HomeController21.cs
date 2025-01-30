@@ -824,7 +824,7 @@ namespace MyWebPlay.Controllers
 
                 var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                var yes_log = true;
+                var yes_log = HttpContext.Session.GetString("IsAdminUsing") != "true" ? false : true;
 
                 var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
                 var valuePam = System.IO.File.ReadAllText(pam).Split("<>")[0];
@@ -936,7 +936,7 @@ namespace MyWebPlay.Controllers
 
                 var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                var yes_log = true;
+                var yes_log = HttpContext.Session.GetString("IsAdminUsing") != "true" ? false : true;
 
                 var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
                 var valuePam = System.IO.File.ReadAllText(pam).Split("<>")[0];

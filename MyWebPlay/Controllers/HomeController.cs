@@ -340,7 +340,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-                var yes_log = true;
+                var yes_log = HttpContext.Session.GetString("IsAdminUsing") != "true" ? false : true;
 
                 if (HttpContext.Session.GetString("admin-userIP") != null)
                 {
@@ -477,6 +477,11 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1] == "NOT_IS_ADMINUSING")
+                {
+                    HttpContext.Session.Remove("IsAdminUsing");
+                }
+
                 TempData["html_method_root"] = Request.Method;
                 TempData["urlDefault"]  = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[20].Split("--")[1];
                 TempData["say-hi-delay-path"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "");
@@ -540,7 +545,7 @@ namespace MyWebPlay.Controllers
 
                 TempData["ajax_js"] = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[24] == "AJAX_JAVASCRIPT_ON") ? "true" : "false";
 
-                TempData["auto_close_window"] = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23] == "JS_AUTO_CLOSE_WINDOW_ON") ? "true" : "false";
+                TempData["auto_close_window"] = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[0] == "JS_AUTO_CLOSE_WINDOW_ON") ? "true" : "false";
 
                 TempData["https_url"] = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[10] == "LINK_HTTPS_ON") ? "https" : "http";
                 // Send mail try again - karaoke with member
@@ -1353,7 +1358,7 @@ namespace MyWebPlay.Controllers
 
                     TempData.Remove("dataPost");
 
-                    var yes_log = true;
+                    var yes_log = HttpContext.Session.GetString("IsAdminUsing") != "true" ? false : true;
 
                     var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
                     var valuePam = System.IO.File.ReadAllText(pam).Split("<>")[0];

@@ -881,7 +881,7 @@ namespace MyWebPlay.Controllers
                     TempData["giu_dang_nhap"] = "YES";
                 }
 
-                var yes_log = true;
+                var yes_log = HttpContext.Session.GetString("IsAdminUsing") != "true" ? false : true;
 
                 TempData["admin_IP"] = HttpContext.Session.GetString("admin-userIP");
 
@@ -1334,6 +1334,11 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1] == "NOT_IS_ADMINUSING")
+                {
+                    HttpContext.Session.Remove("IsAdminUsing");
+                }
+
                 TempData["html_method_root"] = Request.Method;
                 var addHtml = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "");
                 var addHtmlSpan = addHtml.Split("\n:::\n");
@@ -1551,7 +1556,7 @@ namespace MyWebPlay.Controllers
 
                 var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                var yes_log = true;
+                var yes_log = HttpContext.Session.GetString("IsAdminUsing") != "true" ? false : true;
 
                 if (HttpContext.Session.GetString("admin-userIP") != null)
                 {
@@ -2684,7 +2689,7 @@ namespace MyWebPlay.Controllers
 
                 var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                var yes_log = true;
+                var yes_log = HttpContext.Session.GetString("IsAdminUsing") != "true" ? false : true;
 
                 if (HttpContext.Session.GetString("admin-userIP") != null)
                 {
@@ -2775,7 +2780,7 @@ namespace MyWebPlay.Controllers
 
                 var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                var yes_log = true;
+                var yes_log = HttpContext.Session.GetString("IsAdminUsing") != "true" ? false : true;
 
                 var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
                 var valuePam = System.IO.File.ReadAllText(pam).Split("<>")[0];
@@ -2937,7 +2942,7 @@ namespace MyWebPlay.Controllers
 
                 var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                var yes_log = true;
+                var yes_log = HttpContext.Session.GetString("IsAdminUsing") != "true" ? false : true;
 
                 var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
                 var valuePam = System.IO.File.ReadAllText(pam).Split("<>")[0];
@@ -3098,7 +3103,7 @@ namespace MyWebPlay.Controllers
 
                 var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                var yes_log = true;
+                var yes_log = HttpContext.Session.GetString("IsAdminUsing") != "true" ? false : true;
 
                 var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
                 var valuePam = System.IO.File.ReadAllText(pam).Split("<>")[0];

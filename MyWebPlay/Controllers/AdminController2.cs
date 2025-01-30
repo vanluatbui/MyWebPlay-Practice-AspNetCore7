@@ -1844,6 +1844,7 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                var no_logout = false;
                 TempData["opacity-body-css"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[16].Replace("OPACITY_CSS_BODY_", "");
                 if (HttpContext.Session.GetString("adminSetting") == null)
                 {
@@ -1922,6 +1923,7 @@ namespace MyWebPlay.Controllers
                     {
                         var noidung = pax[0] + "<>" + pax[1] + "<>" + MD5.CreateMD5(txtSecure);
                         System.IO.File.WriteAllText(path, noidung);
+                        no_logout = true;
                     }
 
                 }
@@ -1934,13 +1936,17 @@ namespace MyWebPlay.Controllers
                     {
                         var noidung = pax[0] + "<>" + pax[1];
                         System.IO.File.WriteAllText(path, noidung);
+                        no_logout = true;
                     }
                 }
 
                 System.IO.File.WriteAllText(pathSecure, noidungSecure);
 
-                var pamXD = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
-                System.IO.File.WriteAllText(pamXD, "");
+                if (no_logout == false)
+                {
+                    var pamXD = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                    System.IO.File.WriteAllText(pamXD, "");
+                }
 
                 return Ok(new { result = true });
 

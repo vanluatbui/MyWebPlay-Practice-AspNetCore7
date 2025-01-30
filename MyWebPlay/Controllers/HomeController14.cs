@@ -1421,9 +1421,19 @@ namespace MyWebPlay.Controllers
                 }
 
                 var pathOFF = Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "karaoke-MyWebPlay.zip");
-                if (System.IO.File.Exists(pathOFF))
+                var xemxet = (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("###").Length > 1
+                    && string.IsNullOrEmpty(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("###")[1]) == false);
+                if (System.IO.File.Exists(pathOFF) || xemxet == true)
                 {
                     TempData["exists_karaoke_offline"] = "true";
+                    if (System.IO.File.Exists(pathOFF))
+                    {
+                        TempData["link_offline_kara"] = "/karaoke_Example/karaoke-MyWebPlay.zip";
+                    }
+                    else if (xemxet == true)
+                    {
+                        TempData["link_offline_kara"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("###")[1];
+                    }
                 }
                 else
                 {

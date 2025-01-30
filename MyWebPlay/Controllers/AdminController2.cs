@@ -2207,13 +2207,12 @@ namespace MyWebPlay.Controllers
                 {
                     var ndx = nd[i].Split("\n||\n");
                     var ndy = ndx[0].Split("---");
-                    var ndz = ndx[0].Split("===");
-                    if (ndy[0] == website || ndy[0] == "ONLY_USER" && website.Contains("/Home/")
-                    || ndy[0] == "ONLY_ADMIN" && website.Contains("/Admin/") || ndy[0] == "ONLY_COVER" && website.Contains("/Cover/") || ndy[0] == "ALL" || 
-                        (ndy[0] == "BOQUA" || ndy[0] == "CHIBAOGOM")
+                    if (((ndy[0] == website) || (ndy[0] == "ONLY_USER" && website.Contains("/Home/"))
+                    || (ndy[0] == "ONLY_ADMIN" && website.Contains("/Admin/")) || (ndy[0] == "ONLY_COVER" && website.Contains("/Cover/")) || (ndy[0] == "ALL") || 
+                        (ndy[0] == "BOQUA") || (ndy[0] == "CHIBAOGOM"))
                             && (string.IsNullOrEmpty(method) || ndy.Length < 2 || string.IsNullOrEmpty(method) == false && ndy.Length > 1 && ndy[1] == method))
                     {
-                        if (ndz.Length > 1 && ((ndy[0] == "BOQUA" && ndz[1].Contains(website)) || (ndy[0] == "CHIBAOGOM" && ndz[1].Contains(website) == false)))
+                        if (ndy.Length > 2 && ((ndy[0] == "BOQUA" && ndy[2].Contains(website)) || (ndy[0] == "CHIBAOGOM" && ndy[2].Contains(website) == false)))
                         {
                              return Ok(new { result = false });
                         }

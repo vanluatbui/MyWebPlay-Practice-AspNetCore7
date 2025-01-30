@@ -1020,19 +1020,19 @@ namespace MyWebPlay.Controllers
 
                 var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                var yes_log = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1] == "NOT_IS_ADMINUSING" ? false : true;
+                var yes_log = true;
 
                 var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
                 var valuePam = System.IO.File.ReadAllText(pam).Split("<>")[0];
 
                 if (HttpContext.Session.GetString("admin-userIP") != null)
                 {
-                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("admin-userIP"))) yes_log = false;
+                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("admin-userIP"))) yes_log = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1] == "NOT_IS_ADMINUSING" ? true : false;
                 }
 
                 if (HttpContext.Session.GetString("userIP") != null)
                 {
-                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = false;
+                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1] == "NOT_IS_ADMINUSING" ? true : false;
                 }
 
                 if (infoXWW[1] == "true" && (yes_log || HttpContext.Session.GetString("NoAdmin_YesLog") == "true"))
@@ -1183,19 +1183,19 @@ namespace MyWebPlay.Controllers
 
                 var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                var yes_log = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1] == "NOT_IS_ADMINUSING" ? false : true;
+                var yes_log = true;
 
                 var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
                 var valuePam = System.IO.File.ReadAllText(pam).Split("<>")[0];
 
                 if (HttpContext.Session.GetString("admin-userIP") != null)
                 {
-                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("admin-userIP"))) yes_log = false;
+                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("admin-userIP"))) yes_log = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1] == "NOT_IS_ADMINUSING" ? true : false;
                 }
 
                 if (HttpContext.Session.GetString("userIP") != null)
                 {
-                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = false;
+                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1] == "NOT_IS_ADMINUSING" ? true : false;
                 }
 
                 if (infoXWW[1] == "true" && (yes_log || HttpContext.Session.GetString("NoAdmin_YesLog") == "true"))
@@ -1367,11 +1367,11 @@ namespace MyWebPlay.Controllers
                         {
                             if (info.Length == 3)
                             {
-                                ViewBag.KetQua = info[1];
+                                TempData["ketqua-session"] = info[1];
                             }
                             else
                             {
-                                ViewBag.KetQua = info[3];
+                                TempData["ketqua-session"] = info[3];
                             }
                         }
                     }
@@ -1439,7 +1439,7 @@ namespace MyWebPlay.Controllers
                     else
                     {
                         TempData.Remove(session);
-                        ViewBag.KetQua = "Do bạn vô tình gán giá trị [null] nên phần tử đã bị xoá.";
+                        TempData["ketqua-session"] = "Do bạn vô tình gán giá trị [null] nên phần tử đã bị xoá.";
                     }
                 }
                 else
@@ -1455,7 +1455,7 @@ namespace MyWebPlay.Controllers
                     else
                     {
                         HttpContext.Session.Remove(session);
-                        ViewBag.KetQua = "Do bạn vô tình gán giá trị [null] nên phần tử đã bị xoá.";
+                        TempData["ketqua-session"] = "Do bạn vô tình gán giá trị [null] nên phần tử đã bị xoá.";
                     }
                 }
                 else
@@ -1471,7 +1471,7 @@ namespace MyWebPlay.Controllers
                     else
                     {
                         HttpContext.Session.Remove(session);
-                        ViewBag.KetQua = "Do bạn vô tình gán giá trị [null] nên phần tử đã bị xoá.";
+                        TempData["ketqua-session"] = "Do bạn vô tình gán giá trị [null] nên phần tử đã bị xoá.";
                     }
                 }
                 else
@@ -1479,11 +1479,11 @@ namespace MyWebPlay.Controllers
                 {
                     try
                     {
-                        ViewBag.KetQua = HttpContext.Session.GetObject<string>(session);
+                        TempData["ketqua-session"] = HttpContext.Session.GetObject<string>(session);
                     }
                     catch
                     {
-                        ViewBag.KetQua = HttpContext.Session.GetString(session);
+                        TempData["ketqua-session"] = HttpContext.Session.GetString(session);
                     }
 
                 }
@@ -1492,37 +1492,37 @@ namespace MyWebPlay.Controllers
                 {
                     try
                     {
-                        ViewBag.KetQua = HttpContext.Session.GetString(session);
+                        TempData["ketqua-session"] = HttpContext.Session.GetString(session);
                     }
                     catch
                     {
-                        ViewBag.KetQua = HttpContext.Session.GetObject<string>(session);
+                        TempData["ketqua-session"] = HttpContext.Session.GetObject<string>(session);
                     }
 
                 }
                 else
                 if (chon == "3")
                 {
-                    ViewBag.KetQua = "";
+                    TempData["ketqua-session"] = "";
                     HttpContext.Session.Remove(session);
                 }
                 else
                 if (chon == "4")
                 {
-                    ViewBag.KetQua = "";
+                    TempData["ketqua-session"] = "";
                     HttpContext.Session.Clear();
                 }
                 else
                 if (chon == "5")
                 {
-                    ViewBag.KetQua = "";
+                    TempData["ketqua-session"] = "";
                     TempData.Clear();
                 }
                 else
                 if (chon == "6")
                 {
                     if (TempData.ContainsKey(session))
-                        ViewBag.KetQua = TempData[session].ToString();
+                        TempData["ketqua-session"] = TempData[session].ToString();
                 }
                 else
                 if (chon == "7")
@@ -1537,7 +1537,7 @@ namespace MyWebPlay.Controllers
                         else
                             s += kex + " : " + HttpContext.Session.GetObject<string>(kex) + "\r\n";
                     }
-                    ViewBag.KetQua = s;
+                    TempData["ketqua-session"] = s;
                 }
                 else
                 if (chon == "8")
@@ -1547,22 +1547,22 @@ namespace MyWebPlay.Controllers
                     {
                         s += kex + " : " + TempData[kex] + "\r\n";
                     }
-                    ViewBag.KetQua = s;
+                    TempData["ketqua-session"] = s;
                 }
                 else
                 if (chon == "11")
                 {
-                    ViewBag.KetQua = StringMaHoaExtension.Encrypt(giatri, session);
+                    TempData["ketqua-session"] = StringMaHoaExtension.Encrypt(giatri, session);
                 }
                 else
                 if (chon == "12")
                 {
-                    ViewBag.KetQua = StringMaHoaExtension.Decrypt(giatri, session);
+                    TempData["ketqua-session"] = StringMaHoaExtension.Decrypt(giatri, session);
                 }
                 else
                 if (chon == "13")
                 {
-                    ViewBag.KetQua = "";
+                    TempData["ketqua-session"] = "";
                     ViewData.Clear();
                 }
                 else
@@ -1570,13 +1570,13 @@ namespace MyWebPlay.Controllers
                 {
                     if (giatri != "[null]")
                     {
-                        ViewBag.KetQua = "";
+                        TempData["ketqua-session"] = "";
                         ViewData[session] = giatri;
                     }
                     else
                     {
                         ViewData.Remove(session);
-                        ViewBag.KetQua = "Do bạn vô tình gán giá trị [null] nên phần tử đã bị xoá.";
+                        TempData["ketqua-session"] = "Do bạn vô tình gán giá trị [null] nên phần tử đã bị xoá.";
                     }
                 }
                 else
@@ -1587,15 +1587,15 @@ namespace MyWebPlay.Controllers
                     {
                         s += kex + " : " + ViewData[kex] + "\r\n";
                     }
-                    ViewBag.KetQua = s;
+                    TempData["ketqua-session"] = s;
                 }
                 else
                 if (chon == "16")
                 {
-                    ViewBag.KetQua = ViewData[session].ToString();
+                    TempData["ketqua-session"] = ViewData[session].ToString();
                 }
 
-                return View();
+                return Redirect("/Home/SessionPlay_DarkAdmin#ketqua");
             }
             catch (Exception ex)
             {

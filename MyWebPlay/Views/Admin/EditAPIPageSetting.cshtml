@@ -71,6 +71,7 @@ Layout = null;
     
         if (con == true)
         {
+            document.getElementById("data").value = editor.getValue();
             var data = document.getElementById("data").value;
             var formData = new FormData();
             formData.append("txtData", data);
@@ -121,4 +122,6 @@ Layout = null;
     indentWithTabs: true,
     tabSize: 2
   });
+
+  editor.setSize(null, "550px");
 </script>

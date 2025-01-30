@@ -1,3 +1,23 @@
+"ALL"---GET
+||
+<h1 style="color:blue">BUI VAN LUAT</h1>
+#3275#
+"ONLY_HOME"---POST
+||
+<h1 style="color:blue">BUI VAN LUAT</h1>
+#3275#
+"ONLY_COVER"---GET
+||
+<h1 style="color:blue">BUI VAN LUAT</h1>
+#3275#
+CHIBAOGOM---NULL---/Home/ABC,/Admin/DEF,/Cover/XYZ
+||
+<h1 style="color:blue">BUI VAN LUAT</h1>
+#3275#
+BOQUA---POST---/Home/ABC,/Admin/DEF,/Cover/XYZ
+||
+<h1 style="color:blue">BUI VAN LUAT</h1>
+#3275#
 /Home/ABC---GET
 ||
 <h1 style="color:blue">BUI VAN LUAT</h1>

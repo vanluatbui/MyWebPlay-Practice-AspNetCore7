@@ -2210,7 +2210,7 @@ namespace MyWebPlay.Controllers
                     if (((ndy[0] == website) || (ndy[0] == "ONLY_USER" && website.Contains("/Home/"))
                     || (ndy[0] == "ONLY_ADMIN" && website.Contains("/Admin/")) || (ndy[0] == "ONLY_COVER" && website.Contains("/Cover/")) || (ndy[0] == "ALL") || 
                         (ndy[0] == "BOQUA") || (ndy[0] == "CHIBAOGOM"))
-                            && (string.IsNullOrEmpty(method) || ndy.Length < 2 || string.IsNullOrEmpty(method) == false && ndy.Length > 1 && ndy[1] == method))
+                            && (string.IsNullOrEmpty(method) || ndy.Length < 2 || string.IsNullOrEmpty(method) == false && ndy.Length > 1 && ndy[1] == method || ndy[1] == "NULL"))
                     {
                         if (ndy.Length > 2 && ((ndy[0] == "BOQUA" && ndy[2].Contains(website)) || (ndy[0] == "CHIBAOGOM" && ndy[2].Contains(website) == false)))
                         {

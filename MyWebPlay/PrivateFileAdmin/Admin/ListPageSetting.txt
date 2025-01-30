@@ -1,6 +1,7 @@
 /Admin/XoaViewMark
 /Admin/ShowHtmlPlay
 /Admin/GetDataSession
+/Admin/ReloadIPComeHere
 /Admin/LoginAdminTemp
 /Admin/GetDataAdminSetting
 /Admin/ChangeKeyLoginAdminTemp

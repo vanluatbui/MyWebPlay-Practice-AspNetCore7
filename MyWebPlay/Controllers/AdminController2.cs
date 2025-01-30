@@ -10,6 +10,7 @@ using System.Xml.Linq;
 using System.Web;
 using Org.BouncyCastle.Security.Certificates;
 using MyWebPlay.Models;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
 
 namespace MyWebPlay.Controllers
 {
@@ -2321,6 +2322,53 @@ namespace MyWebPlay.Controllers
             }
 
             return Ok(new { result = true, value = data });
+        }
+
+        [HttpPost]
+        public ActionResult ReloadIPComeHere()
+        {
+            TempData["opacity-body-css"] = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[16].Replace("OPACITY_CSS_BODY_", "");
+            if (HttpContext.Session.GetString("adminSetting") == null)
+            {
+                return RedirectToAction("LoginSettingAdmin");
+            }
+
+
+            khoawebsiteAdmin();
+            var dua = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
+            {
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+
+            if (TempData["locked-app"] == "true")
+                return RedirectToAction("Error", "Home", "Home");
+
+            var pth = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
+            var onoff = System.IO.File.ReadAllText(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[2];
+
+            if (onoff == "ADMINSETTING_OFF")
+                return Redirect("https://google.com");
+
+            var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
+            var data = docfile(pathS);
+            return Ok(new { result = data });
         }
     }
 }

@@ -500,9 +500,31 @@ Layout = null;
            if (con == true)
            window.location.href = "/Admin/DeleteIPComeHere";
         }
+
+        setInterval(function()
+        {
+             $.ajax({
+            url: "/Admin/ReloadIPComeHere",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                document.getElementById("comehex").value = data.result;
+            }});
+
+        }, 1000);
         
         function listIPcomehere()
         {
+            $.ajax({
+            url: "/Admin/ReloadIPComeHere",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                document.getElementById("comehex").value = data.result;
+            }});
+
            window.location.href = "#listIPcomehere";
         }
         
@@ -1713,11 +1735,10 @@ Layout = null;
         <button onclick="deleteIPcomehere()"><b style="color:orangered">DELETE AND DON'T MAIL REPORT</b></button>
         <br /><br />
         <p style="color:purple">
-            - Bạn chỉ cần/nên nhấn button "RELOAD" 1 lần, từ lần sau bạn hãy F5 hoặc reload lại trang như thường.<br />
-            - Nhấn button "MAIL REPORT" nếu bạn muốn tự xuất báo cáo thủ công ngay hiện tại, hoặc không nếu hệ thống phát hiện dữ liệu này đã hơn 100 thì cũng tự động gửi report và khôi phục...<br>
-            - Kết quả danh sách bên dưới có thể chưa đủ thông tin vì trước đó bạn đã từng tắt/tạm ngưng save setting chế độ lưu trữ này hoặc tự động được reset lại khi data đã quá 100 (hãy bật setting report mail when data than 100 để kịp thời lưu trữ).
+            - Nhấn button "MAIL REPORT" nếu bạn muốn tự xuất báo cáo thủ công ngay hiện tại, hoặc không nếu hệ thống phát hiện dữ liệu này đã hơn xxx thì cũng tự động gửi report và khôi phục...<br>
+            - Kết quả danh sách bên dưới có thể chưa đủ thông tin vì trước đó bạn đã từng tắt/tạm ngưng save setting chế độ lưu trữ này hoặc tự động được reset lại khi data đã quá xxx (hãy bật setting report mail when data than xxx để kịp thời lưu trữ).
         </p>
-        <textarea readonly cols="500" rows="100">@TempData["showIPCome"]</textarea>
+        <textarea id="comehex""" readonly cols="500" rows="100">@TempData["showIPCome"]</textarea>
         }
         <br /><br />
         <hr />

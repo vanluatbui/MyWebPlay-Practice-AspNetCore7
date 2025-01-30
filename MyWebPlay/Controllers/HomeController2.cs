@@ -401,12 +401,12 @@ namespace MyWebPlay.Controllers
                 ViewBag.Result = sql;
 
                 ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
-                if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+                if (TempData["ConnectLinkDown"] == "true") return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
                ghilogrequest(f); if (exter == false)
                     return View();
                 else
                 {
-                    if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+                    if (linkdown == true) return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
                     return Ok(new
                     {
                         result = "http://" + Request.Host + "/POST_DataResult/" + TempData["fileResult"].ToString().Replace(" ", "%20")
@@ -835,12 +835,12 @@ namespace MyWebPlay.Controllers
                 ViewBag.Result = sql;
 
                 ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
-                if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+                if (TempData["ConnectLinkDown"] == "true") return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
                ghilogrequest(f); if (exter == false)
                     return View();
                 else
                 {
-                    if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+                    if (linkdown == true) return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
                     return Ok(new
                     {
                         result = "http://" + Request.Host + "/POST_DataResult/" + TempData["fileResult"].ToString().Replace(" ", "%20")
@@ -960,7 +960,7 @@ namespace MyWebPlay.Controllers
             System.IO.File.WriteAllText(sox, nix);
             ViewBag.Result = sql;
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
-            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
@@ -1047,7 +1047,7 @@ namespace MyWebPlay.Controllers
             ViewBag.Result = sql;
 
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
-            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
@@ -1118,7 +1118,7 @@ namespace MyWebPlay.Controllers
             khoawebsiteClient(listIP);
             //TextCopy.ClipboardService.SetText("backup database SinhVien\r\nto disk = 'D:\\SinhVien.bak'\r\nwith password = '12345'");
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
-            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
 
             String sql = "\r\n\r\nbackup database SinhVien\r\nto disk = 'D:\\SinhVien.bak'\r\nwith password = '12345'";
             // sql = sql.Replace("\r\n", "<br>");
@@ -1218,7 +1218,7 @@ namespace MyWebPlay.Controllers
             System.IO.File.WriteAllText(sox, nix);
             ViewBag.Result = sql;
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
-            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
@@ -1303,7 +1303,7 @@ namespace MyWebPlay.Controllers
             System.IO.File.WriteAllText(sox, nix);
             ViewBag.Result = sql;
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
-            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
@@ -1388,7 +1388,7 @@ namespace MyWebPlay.Controllers
             System.IO.File.WriteAllText(sox, nix);
             ViewBag.Result = sql;
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
-            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
@@ -1473,7 +1473,7 @@ namespace MyWebPlay.Controllers
             System.IO.File.WriteAllText(sox, nix);
             ViewBag.Result = sql;
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
-            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
@@ -1558,7 +1558,7 @@ namespace MyWebPlay.Controllers
             System.IO.File.WriteAllText(sox, nix);
             ViewBag.Result = sql;
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
-            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
@@ -1643,7 +1643,7 @@ namespace MyWebPlay.Controllers
             System.IO.File.WriteAllText(sox, nix);
             ViewBag.Result = sql;
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
-            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
@@ -1728,7 +1728,7 @@ namespace MyWebPlay.Controllers
             System.IO.File.WriteAllText(sox, nix);
             ViewBag.Result = sql;
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
-            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
@@ -1813,7 +1813,7 @@ namespace MyWebPlay.Controllers
             System.IO.File.WriteAllText(sox, nix);
             ViewBag.Result = sql;
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
-            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
@@ -1898,7 +1898,7 @@ namespace MyWebPlay.Controllers
             System.IO.File.WriteAllText(sox, nix);
             ViewBag.Result = sql;
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
-            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
@@ -1983,7 +1983,7 @@ namespace MyWebPlay.Controllers
             System.IO.File.WriteAllText(sox, nix);
             ViewBag.Result = sql;
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
-            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
@@ -2068,7 +2068,7 @@ namespace MyWebPlay.Controllers
             System.IO.File.WriteAllText(sox, nix);
             ViewBag.Result = sql;
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
-            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
@@ -2153,7 +2153,7 @@ namespace MyWebPlay.Controllers
             System.IO.File.WriteAllText(sox, nix);
             ViewBag.Result = sql;
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
-            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
@@ -2238,7 +2238,7 @@ namespace MyWebPlay.Controllers
             System.IO.File.WriteAllText(sox, nix);
             ViewBag.Result = sql;
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
-            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
@@ -2323,7 +2323,7 @@ namespace MyWebPlay.Controllers
             System.IO.File.WriteAllText(sox, nix);
             ViewBag.Result = sql;
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
-            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
@@ -2408,7 +2408,7 @@ namespace MyWebPlay.Controllers
             System.IO.File.WriteAllText(sox, nix);
             ViewBag.Result = sql;
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
-            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
 
@@ -2493,7 +2493,7 @@ namespace MyWebPlay.Controllers
             System.IO.File.WriteAllText(sox, nix);
             ViewBag.Result = sql;
             ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
-            if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+            if (TempData["ConnectLinkDown"] == "true") return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
             return View("SQL_InsertDoc", "Home");
         }
     }

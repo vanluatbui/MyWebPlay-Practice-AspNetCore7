@@ -416,13 +416,13 @@ namespace MyWebPlay.Controllers
                 ViewBag.Result = result;
 
                 ViewBag.KetQua = "Thành công! Một kết quả đã được hiển thị ở cuối trang này!";
-                if (TempData["ConnectLinkDown"] == "true") return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+                if (TempData["ConnectLinkDown"] == "true") return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
 
                ghilogrequest(f); if (exter == false)
                     return View();
                 else
                 {
-                    if (linkdown == true) return Redirect("/POST_DataResult/" + TempData["fileResult"]);
+                    if (linkdown == true) return Redirect("/Home/ViewFile?path=/POST_DataResult/" + TempData["fileResult"]);
                     return Ok(new
                     {
                         result = "http://" + Request.Host + "/POST_DataResult/" + TempData["fileResult"].ToString().Replace(" ", "%20")

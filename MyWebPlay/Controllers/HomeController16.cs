@@ -1595,6 +1595,14 @@ namespace MyWebPlay.Controllers
                     TempData["ketqua-session"] = ViewData[session].ToString();
                 }
 
+                if (TempData["ketqua-session"] != null && TempData["ketqua-session"].ToString().Length > 500)
+                {
+                    var pathTmp = Path.Combine(_webHostEnvironment.WebRootPath, "Others", "TempSession.txt");
+                    System.IO.File.WriteAllText(pathTmp, TempData["ketqua-session"].ToString());
+                    TempData["ketqua-session"] = null;
+                    return Redirect("/Home/ViewFile?path=/Others/TempSession.txt");
+                }
+
                 return Redirect("/Home/SessionPlay_DarkAdmin#ketqua");
             }
             catch (Exception ex)

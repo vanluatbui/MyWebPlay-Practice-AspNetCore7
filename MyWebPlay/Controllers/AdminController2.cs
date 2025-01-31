@@ -737,6 +737,7 @@ namespace MyWebPlay.Controllers
                 var nd = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin" + file));
 
                 HttpContext.Session.SetString("nd-file-admin", nd);
+                HttpContext.Session.SetString("nd-file-admin-session", nd);
 
                 return RedirectToAction("ReadAdminFileByStatic", "Admin", new { admin = true, isHTML = isHTML });
             }

@@ -1334,6 +1334,7 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                HttpContext.Session.Remove("nd-file-admin-session");
                 if (System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1
                     && System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1] == "NOT_IS_ADMINUSING")
                 {
@@ -4190,6 +4191,9 @@ namespace MyWebPlay.Controllers
                     new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "FileExternal")).Create();
 
                 new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "apiUpload")).Create();
+
+                var pathTmp = Path.Combine(_webHostEnvironment.WebRootPath, "Others", "TempSession.txt");
+                System.IO.File.WriteAllText(pathTmp, "");
 
                 var noteLog = Path.Combine(_webHostEnvironment.WebRootPath, "note", "notelog.txt");
                 if (System.IO.File.Exists(noteLog) == false)

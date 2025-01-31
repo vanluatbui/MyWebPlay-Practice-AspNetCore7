@@ -976,15 +976,29 @@
             
             var you = false;
             var youX = false;
+
+            window.addEventListener("hashchange", function() {
+                    var hash = window.location.hash.substring(1);
+                   
+                    if (hash == "unlocked")
+                    {
+                        isLocked = false;
+                    }
+                    else if (hash == "locked")
+                    {
+                        isLocked = true;
+                    }
+                });
             
+            var isLocked = false;
             function PlayY() {
-                if ('@TempData["not_singer"]' == "true") return;
+                if ('@TempData["not_singer"]' == "true" || isLocked == true) return;
 
                 if (document.getElementById("music").currentTime != document.getElementById("musix").currentTime) document.getElementById("music").currentTime = document.getElementById("musix").currentTime;
             }
             
             function PlayZ() {
-                if ('@TempData["not_singer"]' == "true") return;
+                if ('@TempData["not_singer"]' == "true" || isLocked == true) return;
 
                 if (document.getElementById("music").currentTime != document.getElementById("musix").currentTime) document.getElementById("musix").currentTime = document.getElementById("music").currentTime;
             }
@@ -1060,7 +1074,7 @@
                 document.getElementById("error").style.display = "none";
                 document.getElementById("error").innerHTML = "";
             
-                if ('@TempData["not_singer"]' == "false")
+                if ('@TempData["not_singer"]' == "false" && isLocked == false)
                 {
                 if (document.getElementById("music").currentTime != document.getElementById("musix").currentTime) document.getElementById("music").currentTime = document.getElementById("musix").currentTime;
                 }
@@ -1079,7 +1093,7 @@
                     return;
                 }
             
-                if ('@TempData["not_singer"]' == "false")
+                if ('@TempData["not_singer"]' == "false" && isLocked == false)
                 {
                 if (document.getElementById("musix").currentTime != document.getElementById("music").currentTime) document.getElementById("musix").currentTime = document.getElementById("music").currentTime;
                 }

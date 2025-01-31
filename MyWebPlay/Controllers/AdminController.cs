@@ -1698,6 +1698,24 @@ namespace MyWebPlay.Controllers
                     return RedirectToAction("LoginSettingAdmin");
                 }
 
+                var fileBG_Karas = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "background")).GetFiles();
+                var luutru_BGKara = "";
+                for (var i = 0; i < fileBG_Karas.Length; i++)
+                {
+                    luutru_BGKara += "/karaoke_Example/background/" + fileBG_Karas[i].Name;
+                    if (i < fileBG_Karas.Length - 1) luutru_BGKara += ",";
+                }
+                TempData["files-bg-kara"] = luutru_BGKara;
+
+                var fileEX_Karas = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke_Example", "ExamKara")).GetFiles();
+                var luutru_EXKara = "";
+                for (var i = 0; i < fileEX_Karas.Length; i++)
+                {
+                    luutru_EXKara += "/karaoke_Example/ExamKara/" + fileEX_Karas[i].Name;
+                    if (i < fileEX_Karas.Length - 1) luutru_EXKara += ",";
+                }
+                TempData["files-ex-kara"] = luutru_EXKara;
+
                 var setlog = System.IO.File.ReadAllText(pthX);
                 TempData["setting-play"] = setlog;
 

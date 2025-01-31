@@ -341,6 +341,11 @@
                         {
                             document.getElementById("s_mau").style.display = "none";
                         }
+                        else
+                        {
+                            document.getElementById("mau").value = mau_default;
+                            doimau();
+                        }
                         hasSinger = data.singer;
                         if (hasSinger == "true")
                         {
@@ -1359,6 +1364,8 @@
                         else
                         {
                             document.getElementById("s_mau").style.display = "inline-block";
+
+                            document.getElementById("mau").value = mau_default;
                             doimau();
                         }
                         hasSinger = data.singer;
@@ -1483,6 +1490,8 @@
                         else
                         {
                             document.getElementById("s_mau").style.display = "inline-block";
+
+                            document.getElementById("mau").value = mau_default;
                             doimau();
                         }
                         hasSinger = data.singer;
@@ -1558,8 +1567,10 @@
             var kieuchu = 0;
             var kieudemnguoc = "N";
             
+            var mau_default = "#2900f5";
             function doimau() {
                 mau = document.getElementById("mau").value;
+                if (ndTK == "" || ndTK == null) mau_default = mau;
                 document.getElementById("xemthumau").style.color = mau;
                 if (document.getElementById("xanhX1") != null)
                document.getElementById("xanhX1").style.setProperty("--color", mau);
@@ -1597,12 +1608,26 @@
                     xoamaunen();
                 }
             }
+
+            var lox_BH = 0;
+            setInterval(function()
+            {
+                if (lox_BH == 1) return;
+
+                if(document.getElementById("listSongKara") != null)
+                {
+                    loadlistSong();
+                    lox_BH = 1;
+                }
+
+            }, 100);
             
             function doimau_Save() {
                 if (localStorage.getItem("mau") == null
                  || document.getElementById("mau") == null || document.getElementById("xanhX1") == null || document.getElementById("xanhX2") == null ||  document.getElementById("xemthumau") == null) return;
             
                 mau = localStorage.getItem("mau");
+                if (ndTK == "" || ndTK == null) mau_default = mau;
                 document.getElementById("mau").value = mau;
             
                 document.getElementById("xemthumau").style.color = mau;

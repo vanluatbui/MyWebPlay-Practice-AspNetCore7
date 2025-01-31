@@ -18,7 +18,7 @@ namespace MyWebPlay.Controllers
     {
         public ActionResult XemXetShowSetting(string? code)
         {
-            //if (HttpContext.Session.GetString("adminSetting") == null)
+            // if (HttpContext.Session.GetString("adminSetting") == null)
             //{
             //    return RedirectToAction("LoginSettingAdmin");
             //}

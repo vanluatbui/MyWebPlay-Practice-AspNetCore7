@@ -1,4 +1,4 @@
-@if (TempData["ViewSiteBasic"] == "true")
+﻿@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -58,17 +58,17 @@ Layout = null;
           document.getElementById(ele).focus();
     }
 </script>
-<table align="center" id="custom1381">
-    <h2 style="text-align:center" id="custom1382">Text all one line-column to convert x column part 2</h2>
-    <h3 style="color:purple" onclick="muaxuan()" id="custom1383">@ViewBag.KetQua</h3>
+<table align="center">
+    <h2 style="text-align:center">Text all one line-column to convert x column part 2</h2>
+    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px" id="custom1384">
-        <td id="custom1385"></td>
-        <td id="custom1385">
+    <tr style="height:40px">
+        <td></td>
+        <td>
             <br>
-            <a href="#xuly" onclick="xoaValue('chuoi')"><b id="custom1387"> Chuỗi của bạn :</b></a>
+            <a href="#xuly" onclick="xoaValue('chuoi')"><b> Chuỗi của bạn :</b></a>
             <br>
             <textarea rows="20" cols="150" name="Chuoi" id="chuoi" autofocus>A
 B
@@ -86,23 +86,23 @@ N
 O
 P</textarea>
             <br>
-            <span style="color:red; font-style:italic" id="custom1388">@ViewData["Loi1"] </span>
+            <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
         </td>
     </tr>
-    <tr style="height:40px" id="custom1384">
-        <td id="custom1385"></td>
-        <td id="custom1385">
+    <tr style="height:40px">
+        <td></td>
+        <td>
             <br>
-            <a href="#xuly" onclick="xoaValue('number')"><b id="custom1387">  Number rows : </b></a>
+            <a href="#xuly" onclick="xoaValue('number')"><b>  Number rows : </b></a>
             <br>
             <input type="number" id="number" name="Number" min="1" value="3">
             <br>
-            <span style="color:red; font-style:italic" id="custom1388">@ViewData["Loi2"] </span>
+            <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
         </td>
     </tr>
-    <tr style="height:40px" id="custom1384">
-        <td id="custom1385"></td>
-        <td id="custom1385">
+    <tr style="height:40px">
+        <td></td>
+        <td>
             <input type="Submit" value="Kết Quả" />
         </td>
     </tr>

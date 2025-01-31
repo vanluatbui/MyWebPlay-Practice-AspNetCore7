@@ -1,4 +1,4 @@
-@if (TempData["ViewSiteBasic"] == "true")
+﻿@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -58,30 +58,30 @@ Layout = null;
           document.getElementById(ele).focus();
     }
 </script>
-<table align="center" id="custom241">
-    <h2 style="text-align:center" id="custom242">C# tạo lệnh create class cơ bản</h2>
-    <h3 style="color:purple" onclick="muaxuan()" id="custom243">@ViewBag.KetQua</h3>
+<table align="center">
+    <h2 style="text-align:center">C# tạo lệnh create class cơ bản</h2>
+    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px" id="custom244">
-        <td id="custom245"></td>
-        <td id="custom245">
+    <tr style="height:40px">
+        <td></td>
+        <td>
             <br>
-            <a href="#xuly" onclick="xoaValue('tenclass')"><b id="custom247">Nhập tên class </b></a>
+            <a href="#xuly" onclick="xoaValue('tenclass')"><b>Nhập tên class </b></a>
             <br>
             <input type="text" size="50" name="TenClass" id="tenclass" value="ClassName">
             <br>
-            <span style="color:red; font-style:italic" id="custom248">@ViewData["Loi2"] </span>
+            <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
         </td>
     </tr>
     <br />
     <br />
-    <tr style="height:40px" id="custom244">
-        <td id="custom245"></td>
-        <td id="custom245">
+    <tr style="height:40px">
+        <td></td>
+        <td>
             <br>
-            <a href="#xuly" onclick="xoaValue(dulieu')"><b id="custom247">Nhập dãy dữ liệu theo mẫu (ví dụ - lưu ý)... </b></a>
+            <a href="#xuly" onclick="xoaValue(dulieu')"><b>Nhập dãy dữ liệu theo mẫu (ví dụ - lưu ý)... </b></a>
             <br>
             <textarea name="DuLieu" id="dulieu" cols="100" rows="50">int-property1
 float-property2
@@ -89,15 +89,15 @@ double-property3
 decimal-property4
 long[,]-property5
 string[]-property6
-List<bool id="custom253">-property7
+List<bool>-property7
 #ClassOther-property8</textarea>
             <br>
-            <span style="color:red; font-style:italic" id="custom248">@ViewData["Loi3"] </span>
+            <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
         </td>
     </tr>
-    <tr style="height:40px" id="custom244">
-        <td id="custom245"></td>
-        <td id="custom245">
+    <tr style="height:40px">
+        <td></td>
+        <td>
             <input type="Submit" value="Kết Quả" />
         </td>
     </tr>

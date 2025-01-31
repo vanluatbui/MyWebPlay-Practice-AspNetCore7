@@ -1,17 +1,17 @@
-@{
+﻿@{
     Layout = null;
 }
 <html lang="vi">
 <head>
-    <meta charset="UTF-8" id="custom1946">
+    <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title id="custom1947">Files view in MyWebPlay</title>
+    <title>Files view in MyWebPlay</title>
     <link rel="icon" href="/images/imagex.png">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
 </head>
-<body id="custom1948">
+<body>
     <script>
     var loadix = false;
      setInterval(function()
@@ -107,7 +107,7 @@
     }, 100);
 
 </script>
- <style id="custom1949">
+ <style>
         html, body {
             margin: 0;
             padding: 0;
@@ -126,7 +126,7 @@
 <div id="html_play"></div>
     @if(TempData["file_view_path"] == "" || TempData["file_view_path"] == null)
     {
-        <span id="custom1950">Phiên bản này đã kết thúc !</span>
+        <span>Phiên bản này đã kết thúc !</span>
     }
     else
     {

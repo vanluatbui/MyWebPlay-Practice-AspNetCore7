@@ -1,4 +1,4 @@
-
+﻿
 
 
 
@@ -109,7 +109,7 @@
         {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title id="custom1">@TempData["TabTittleView"]</title>
+        <title>@TempData["TabTittleView"]</title>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
@@ -119,15 +119,15 @@
         {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title id="custom1">@TempData["Tab_Tittle"]</title>
+        <title>@TempData["Tab_Tittle"]</title>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
         <link rel="icon" href="@TempData["Tab_Image"]">
         }
     </head>
-    <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]" id="custom3">
-    <meta charset="ISO-8859-1" id="custom4">
+    <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]">
+    <meta charset="ISO-8859-1">
     <script>
          //var queryString = window.location.search;
          //var urlParams = new URLSearchParams(queryString);
@@ -1011,7 +1011,7 @@
         
         toanmanhinh();
 
-             window.addEventListener('beforeunload', (event) = id="custom5"> {
+             window.addEventListener('beforeunload', (event) => {
              event.preventDefault();
           });
         },10);
@@ -1042,10 +1042,10 @@
         {
         <header>
             <nav id="nenta" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color:@TempData["mau_nen"]">
-            <div class="container-fluid" id="custom6">
+            <div class="container-fluid">
                 @if (TempData["belix"] == "false" && TempData["not-locked-web-client-play"] != "true")
                 {
-                <button style="color:yellow" class="navbar-brand" asp-area="" onclick="khoawebsite()">Khoá WebSite bằng mật mã LockedClientID (<u id="custom7">hãy cẩn thận đừng nhấn nhầm vào đây nếu bạn không có nhu cầu 😁</u>)</button>
+                <button style="color:yellow" class="navbar-brand" asp-area="" onclick="khoawebsite()">Khoá WebSite bằng mật mã LockedClientID (<u>hãy cẩn thận đừng nhấn nhầm vào đây nếu bạn không có nhu cầu 😁</u>)</button>
                 <h2 onclick="toanmanhinh()" id="tmh" href="#xuly">@TempData["TMH"]</h2>
                 }
                 else
@@ -1056,20 +1056,20 @@
                 }
                 }
                 <a href="/Home/Index">
-                    <p style="color:orangered" id="custom8">BACK HOME MENU</p>
+                    <p style="color:orangered">BACK HOME MENU</p>
                 </a>
                 @if (TempData["belix"] == "false")
                 {
                 if (TempData["IPUser_UnVisible"] == "false")
                 {
-                <span onclick="savebelive()" style="color:chartreuse" id="custom9">@TempData["userIP"]</span>
+                <span onclick="savebelive()" style="color:chartreuse">@TempData["userIP"]</span>
                 }
                 else
                 {
-                <span onclick="savebelive()" style="color:chartreuse" id="custom9">###</span>
+                <span onclick="savebelive()" style="color:chartreuse">###</span>
                 }
                 }
-                <h2 style="color:@TempData["mau_winx"]" onclick="xoaluunen()" id="custom11">@TempData["winx"]</h2><h2 id="custom12">@TempData["logo-admin"]</h2>
+                <h2 style="color:@TempData["mau_winx"]" onclick="xoaluunen()">@TempData["winx"]</h2><h2>@TempData["logo-admin"]</h2>
                 @if (TempData["demo-mau"] == "false")
                 {
                 @if(TempData["mau_background"] == "white")
@@ -1085,7 +1085,7 @@
             </nav>
         </header>
         }
-        <div name="colorX" style="color:@TempData["mau_text"]" id="custom13">
+        <div name="colorX" style="color:@TempData["mau_text"]">
         @if (TempData["AdminControl"] == "false" && TempData["ClearWebsite"] == "false")
         {
         <a href="#xuly" onclick="copyCurrent()">
@@ -1097,7 +1097,7 @@
         {
         @if (TempData["GetDataIP"] == "true")
         {
-        <div hidden id="custom14">@RenderBody()</div>
+        <div hidden>@RenderBody()</div>
         <img src="/Image_Play/waiting.gif" />
         <script>
              // Get user IP
@@ -1120,23 +1120,23 @@
         }
         else
         {
-        <div hidden id="custom14">@RenderBody()</div>
+        <div hidden>@RenderBody()</div>
         <img id="autoCP" onclick="autoCopy()" src="/Image_Play/Google.png" width="100%" height="100%" style="position:fixed;min-width:100%;min-height:100%">
         }
     </div>
     @if (TempData["ClearWebsite"] == "false")
     {
-    <footer class="border-top footer text-muted" id="custom16">
-        <div class="container" id="custom17">
+    <footer class="border-top footer text-muted">
+        <div class="container">
             &copy; 2023 - MyWebPlay - Bùi Văn Luật - C# ~ Asp Net Core 7
         </div>
-        <audio autoplay hidden id="custom18">
-            <source src="@TempData["nhacnendemo"]" type="audio/mpeg" id="custom19">
+        <audio autoplay hidden>
+            <source src="@TempData["nhacnendemo"]" type="audio/mpeg">
         </audio>
     </footer>
     }
     </div>
-    <style id="custom20">
+    <style>
         body {
         font-family: Arial, sans-serif;
         background-color: #f8f9fa;

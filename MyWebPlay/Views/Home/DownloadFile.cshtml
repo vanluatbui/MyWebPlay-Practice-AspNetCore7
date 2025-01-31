@@ -1,4 +1,4 @@
-@if (TempData["ViewSiteBasic"] == "true")
+﻿@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -102,7 +102,7 @@ Layout = null;
                {
                     alert("Thành công, tác vụ hiện đã được xử lý.\nCòn file này ở đây cũng đã bị xoá 😁.");
                      const urlParams = new URLSearchParams(window.location.search);
-                    var folder = urlParams.get("folder").split("<split id="custom284">")[0];
+                    var folder = urlParams.get("folder").split("<split>")[0];
                     document.getElementById("Folder").value = folder;
                     downall();
                }
@@ -127,12 +127,12 @@ Layout = null;
     
      function downall()
      {
-         window.location.href = "/Home/DownloadFile?folder="+document.getElementById("Folder").value + "<split id="custom284">1";
+         window.location.href = "/Home/DownloadFile?folder="+document.getElementById("Folder").value + "<split>1";
      }
     
      function downall1()
      {
-         window.location.href = "/Home/DownloadFile?folder="+document.getElementById("Folder").value + "<split id="custom284">4";
+         window.location.href = "/Home/DownloadFile?folder="+document.getElementById("Folder").value + "<split>4";
      }
     
      function alldown()
@@ -148,46 +148,46 @@ Layout = null;
      }
     
 </script>
-<table align="center" id="custom287">
-    <h2 style="text-align:center" id="custom288">DOWNLOAD YOUR FILE ON SERVER</h2>
+<table align="center">
+    <h2 style="text-align:center">DOWNLOAD YOUR FILE ON SERVER</h2>
     <br /><br />
-    <h3 style="color:red" id="custom289">@ViewBag.KQF</h3>
+    <h3 style="color:red">@ViewBag.KQF</h3>
     <br /><br />
     @for (int i = 0; i < ViewBag.XL; i++)
     {
     if (ViewBag.All == "1")
     {
-    <b id="custom290"> KẾT QUẢ FILE THỨ @(i+1) CỦA BẠN : </b>
+    <b> KẾT QUẢ FILE THỨ @(i+1) CỦA BẠN : </b>
     }
     else if (ViewBag.All == "2")
     {
-    <b id="custom291"> KẾT QUẢ FOLDER THỨ @(i+1) TRONG THƯ MỤC BẠN CHỈ ĐỊNH : </b>
+    <b> KẾT QUẢ FOLDER THỨ @(i+1) TRONG THƯ MỤC BẠN CHỈ ĐỊNH : </b>
     }
     <br />
-    <h3 style="color:sienna" id="custom292">@Html.Raw(@ViewData["KetQua"+i])</h3>
+    <h3 style="color:sienna">@Html.Raw(@ViewData["KetQua"+i])</h3>
     <br />
     <br />
     }
     <hr />
     <input type="password" id="matkhauadmin" size="30" />
-    <button style="color:purple" onclick="xoaallfile()" id="custom293">Xoá tất cả các file trên Server - toàn bộ (dành cho admin)</button>
+    <button style="color:purple" onclick="xoaallfile()">Xoá tất cả các file trên Server - toàn bộ (dành cho admin)</button>
     <br />
     <br />
-    <button style="color:blueviolet" onclick="uploadfile()" id="custom294">Bạn chưa đăng tải file trên hệ thống trước đó?</button>
+    <button style="color:blueviolet" onclick="uploadfile()">Bạn chưa đăng tải file trên hệ thống trước đó?</button>
     <br />
     <br />
-    <a href="#xuly" onclick="xoaValue('Folder')"><b id="custom291">Nhập chính xác path folder để truy xuất các file (không bao gồm các folder con) để download - nếu để / mặc định là ROOT : </b></a><input id="Folder" type="text" size="50" value="/Folder1/Folder2" />
-    <button style="color:blue;font-weight:bold" onclick="downall()" id="custom296">ALL DOWNLOAD SERVER IN THIS FOLDER</button>
-    <button style="color:blue;font-weight:bold" onclick="downall1()" id="custom297">ALL DOWNLOAD SERVER IN THIS FOLDER (NÉN ALL ZIP)</button>
+    <a href="#xuly" onclick="xoaValue('Folder')"><b>Nhập chính xác path folder để truy xuất các file (không bao gồm các folder con) để download - nếu để / mặc định là ROOT : </b></a><input id="Folder" type="text" size="50" value="/Folder1/Folder2" />
+    <button style="color:blue;font-weight:bold" onclick="downall()">ALL DOWNLOAD SERVER IN THIS FOLDER</button>
+    <button style="color:blue;font-weight:bold" onclick="downall1()">ALL DOWNLOAD SERVER IN THIS FOLDER (NÉN ALL ZIP)</button>
     <br />
     <br />
     <button style="color:brown;font-weight:bold" onclick="alldown()">ALL DOWNLOAD (TOÀN BỘ - chỉ admin)</button>
     <br />
     <br />
-    @*<b id="custom291">Nhập số lượng file mà bạn muốn download (ROOT) : </b>*@ <input hidden type="number" id="SL" value="@ViewBag.SL" min="1"/>
+    @*<b>Nhập số lượng file mà bạn muốn download (ROOT) : </b>*@ <input hidden type="number" id="SL" value="@ViewBag.SL" min="1"/>
     @* <button id="okX" onclick="soluongfile()">OK</button>*@
     <br />
     <br />
-    <a href="#xuly" onclick="xoaValue('FOLD')"><b id="custom291">Nếu bạn không nhớ các folder trên Server có thể <u id="custom300">lần mò từ từ</u> để xuất DS các thư mục đang tồn tại, bắt đầu bỏ trống trường này để đi từ mục ROOT (chỉ admin) : </b></a> <input type="text" value="/Folder1/Folder2" id="FOLD" size="50" /><button onclick="qwerty()" id="custom301"><b id="custom291">XUẤT DS FOLDER IN THIS</b></button>
+    <a href="#xuly" onclick="xoaValue('FOLD')"><b>Nếu bạn không nhớ các folder trên Server có thể <u>lần mò từ từ</u> để xuất DS các thư mục đang tồn tại, bắt đầu bỏ trống trường này để đi từ mục ROOT (chỉ admin) : </b></a> <input type="text" value="/Folder1/Folder2" id="FOLD" size="50" /><button onclick="qwerty()"><b>XUẤT DS FOLDER IN THIS</b></button>
     <br /><br />
 </table>

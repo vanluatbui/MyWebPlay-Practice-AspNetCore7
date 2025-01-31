@@ -1,4 +1,4 @@
-<script>
+﻿<script>
 
      var loadix = false;
     setInterval(function()
@@ -231,19 +231,19 @@ Layout = null;
     
         if (h< 10 && m < 10 && s < 10)
                 document.getElementById("tgian").innerHTML = "ĐANG PHÁT - "+ "0" + h + " : 0" + m + " : 0" + s;
-            if (h < 10 && m < 10 && s  id="custom610">= 10)
+            if (h < 10 && m < 10 && s >= 10)
                 document.getElementById("tgian").innerHTML = "ĐANG PHÁT - "+ "0" + h + " : 0" + m + " : " + s;
-            if (h < 10 && m  id="custom611">= 10 && s < 10)
+            if (h < 10 && m >= 10 && s < 10)
                 document.getElementById("tgian").innerHTML = "ĐANG PHÁT - "+ "0" + h + " : " + m + " : 0" + s;
-            if (h < 10 && m  id="custom611">= 10 && s >= 10)
+            if (h < 10 && m >= 10 && s >= 10)
                 document.getElementById("tgian").innerHTML = "ĐANG PHÁT - "+ "0" + h + " : " + m + " : " + s;
             if (h >= 10 && m < 10 && s < 10)
                 document.getElementById("tgian").innerHTML = "ĐANG PHÁT - "+ "" + h + " : 0" + m + " : 0" + s;
-            if (h  id="custom613">= 10 && m < 10 && s  id="custom614">= 10)
+            if (h >= 10 && m < 10 && s >= 10)
                 document.getElementById("tgian").innerHTML = "ĐANG PHÁT - "+ "" + h + " : 0" + m + " : " + s;
             if (h >= 10 && m >= 10 && s < 10)
                 document.getElementById("tgian").innerHTML = "ĐANG PHÁT - "+ "" + h + " : " + m + " : 0" + s;
-            if (h  id="custom615">=10 && m >= 10 && s >= 10)
+            if (h >=10 && m >= 10 && s >= 10)
                 document.getElementById("tgian").innerHTML = "ĐANG PHÁT - "+ "" + h + " : " + m + " : " + s;
     }
     
@@ -325,7 +325,7 @@ Layout = null;
     
     var phat = 0;
     
-     document.addEventListener("DOMContentLoaded", (event) = id="custom616"> {
+     document.addEventListener("DOMContentLoaded", (event) => {
                     document.body.addEventListener("keydown", (e) => {
                          //document.getElementById("txtVD").value = "";
     
@@ -367,42 +367,42 @@ Layout = null;
 </script>
 @if (ViewBag.KaraX == "")
 {
-<h3 style="color:aqua" id="custom617">[THÔNG BÁO]<br /><br />Xin vui lòng không refresh lại trang này vì sẽ làm mất dữ liệu...<br />Nếu bạn vô tình làm như vậy, hãy quay lại trang trước đó và thử lại!</h3>
+<h3 style="color:aqua">[THÔNG BÁO]<br /><br />Xin vui lòng không refresh lại trang này vì sẽ làm mất dữ liệu...<br />Nếu bạn vô tình làm như vậy, hãy quay lại trang trước đó và thử lại!</h3>
 <br />
 }
-<h3 style="color:deeppink" id="custom618">@Html.Raw(@ViewBag.FileKaraoke)</h3>
+<h3 style="color:deeppink">@Html.Raw(@ViewBag.FileKaraoke)</h3>
 <br /><br />
 @if (ViewBag.KaraX == "")
 {
 <audio id="muteplay" autoplay hidden onplaying="ketquaplay()" onpause="playketqua()" onended="playketqua()" muted>
-    <source src="/karaoke_Example/ExamKara/KaraokeDemo.mp3" type="audio/mpeg" id="custom619">
+    <source src="/karaoke_Example/ExamKara/KaraokeDemo.mp3" type="audio/mpeg">
 </audio>
-<table align="center" id="custom620">
-    <h2 style="text-align:center" id="custom621">Create File Your Karaoke - Online</h2>
+<table align="center">
+    <h2 style="text-align:center">Create File Your Karaoke - Online</h2>
     <br />
-    <h2 style="color:red" id="custom622">HƯỚNG DẪN THỰC HIỆN - VUI LÒNG ĐỌC KỸ TRƯỚC KHI THỰC HIỆN</h2>
+    <h2 style="color:red">HƯỚNG DẪN THỰC HIỆN - VUI LÒNG ĐỌC KỸ TRƯỚC KHI THỰC HIỆN</h2>
     - Sẵn sàng nghe nhạc mp3 của bạn cùng ca sĩ hát để xác định thời điểm của mỗi khúc/đoạn và mỗi từ  có trong lyric mà ca sĩ sẽ hát.
     <br>
     - Nếu bạn đã chuẩn bị sẵn sàng, nhấn nút Start Play và nghe bản nhạc của bạn bên dưới. Trong khi đang nghe, bạn sẽ vừa thao tác để tiến hành tạo file Karaoke của bạn.
     <br>
-    - Cách thực hiện : vừa nghe nhạc, đồng thời hai ngón tay của bạn luôn giữ phím <b id="custom623">Enter</b> và <b id="custom623">Space</b> để thao tác trong suốt quá trình.
+    - Cách thực hiện : vừa nghe nhạc, đồng thời hai ngón tay của bạn luôn giữ phím <b>Enter</b> và <b>Space</b> để thao tác trong suốt quá trình.
     <br>
-    + Nếu ca sĩ sắp hát đến đoạn lyric nào, hãy nhấn <b id="custom623">Space</b> (đoạn lyric đó sẽ xuất hiện - ca sĩ sắp hát đến đoạn đó (nên dành thời gian 1-3 giây hoặc từ 5-8 giây (nếu sau nhạc dạo)).
+    + Nếu ca sĩ sắp hát đến đoạn lyric nào, hãy nhấn <b>Space</b> (đoạn lyric đó sẽ xuất hiện - ca sĩ sắp hát đến đoạn đó (nên dành thời gian 1-3 giây hoặc từ 5-8 giây (nếu sau nhạc dạo)).
     <br>
-    + Nếu ca sĩ đang hát đến từ nào trong đoạn lyric, hãy nhấn phím <b id="custom623">Enter</b> (màu chữ của từ đó sẽ được tô) - ngoại trừ các đoạn nhạc dạo <b id="custom623">[Empty]</b> bạn có thể bỏ qua mà không cần gõ để tô màu đoạn này!
+    + Nếu ca sĩ đang hát đến từ nào trong đoạn lyric, hãy nhấn phím <b>Enter</b> (màu chữ của từ đó sẽ được tô) - ngoại trừ các đoạn nhạc dạo <b>[Empty]</b> bạn có thể bỏ qua mà không cần gõ để tô màu đoạn này!
     <br>
     + Và thực hiện tương tự cho đến khi hết bài hát!
     <br />
-    LƯU Ý : trong suốt quá trình thực hiện, bạn không nên có bất kỳ thao tác nào khác ngoài việc bạn chỉ cần giữ và canh gõ 2 phím : <b id="custom623">Enter</b> và <b id="custom623">Space</b>.
+    LƯU Ý : trong suốt quá trình thực hiện, bạn không nên có bất kỳ thao tác nào khác ngoài việc bạn chỉ cần giữ và canh gõ 2 phím : <b>Enter</b> và <b>Space</b>.
     <div id="balax">
-        <br /><u id="custom630">XIN LỖI VÌ SỰ BẤT TIỆN</u> : mọi thao tác sai, bạn phải thực hiện lại từ đầu :)) - khi dò xét mỗi đoạn lyric mà đoạn đó có bao nhiêu từ thì bạn chỉ gõ đúng số lần đó (VD : đoạn lyric có 5 từ sẽ tương ứng chỉ đủ 5 lần gõ phím <b id="custom623">Enter</b> của bạn [tô màu đủ số từ đang hiển thị]  tại đoạn Lyric đang dò xét đó - không nên nhấn lố hay thiếu (hãy cẩn thận)) ... Chúc bạn thành công!😄
+        <br /><u>XIN LỖI VÌ SỰ BẤT TIỆN</u> : mọi thao tác sai, bạn phải thực hiện lại từ đầu :)) - khi dò xét mỗi đoạn lyric mà đoạn đó có bao nhiêu từ thì bạn chỉ gõ đúng số lần đó (VD : đoạn lyric có 5 từ sẽ tương ứng chỉ đủ 5 lần gõ phím <b>Enter</b> của bạn [tô màu đủ số từ đang hiển thị]  tại đoạn Lyric đang dò xét đó - không nên nhấn lố hay thiếu (hãy cẩn thận)) ... Chúc bạn thành công!😄
         <br />
-        <span style="color:orangered" id="custom632">Thông tin bổ sung : hiện tại dịch vụ thiết kế Karaoke của my web play chỉ là một tính năng nhỏ, cơ bản và có thể không được hoàn hảo như bạn mong muốn; có lẽ bạn phải tự thử đi thử lại nhiều lần (tuỳ vào cảm nhận của bạn về ứng dụng và lần sau khi tạo bản karaoke khác, sẽ dựa vào kinh nghiệm của bạn và theo phong cách của bạn - lúc đó bạn có thể tự tạo cho mình cách thiết kế karaoke từ my web play vì bạn đã hiểu được cách mà ứng dụng này nó hoạt động ra sao (mỗi người mỗi nhu cầu và cách xử lý sẽ khác nhau 😂). Thành thật xin lỗi vì điều này, nhưng mình sẽ cố gắng nâng cấp phiên bản mới tốt hơn từng ngày nếu có thể). Và trong khi play, nếu gặp một từ mà ca sĩ hát kéo dài (đoạn hơi dài), gợi ý bạn vui lòng đợi sau khi ca sĩ sắp và gần chót hát xong từ đó thì mới hãy tô màu cho từ chữ đó mà singer đang đã ca xong; còn nếu từ đó được singer ca và lấy hơi kéo quá dài thì bạn hãy bổ sung đại diện các dấu ba chấm sau từ đang ca đó - VD :"🎼 Hò ... ... ơi ..." (tuỳ chọn và tuỳ độ dài) và cũng tô màu cho chúng (tốt hơn hết đừng vì một từ mà đợi/kéo dài quá 0.3 giây mới tô) 😀.</span>
-        <br /><span style="color:green" id="custom633">Hiện nay bạn đã có thể chờ và tô màu từ text đó theo quãng và tốc độ hát của ca sĩ vào đúng thời điểm thực tế, nhưng cho dù vậy bạn cũng không nên quá lố và quá sức... Mọi sự ở đây đều là hên xui (hướng dẫn này chỉ là một phần), hãy tự học hỏi - cảm nhận và tự sáng tạo và rút ra kinh nghiệm của mình và cho ra những sản phẩm karaoke theo ý bạn nhé 😎</span>
+        <span style="color:orangered">Thông tin bổ sung : hiện tại dịch vụ thiết kế Karaoke của my web play chỉ là một tính năng nhỏ, cơ bản và có thể không được hoàn hảo như bạn mong muốn; có lẽ bạn phải tự thử đi thử lại nhiều lần (tuỳ vào cảm nhận của bạn về ứng dụng và lần sau khi tạo bản karaoke khác, sẽ dựa vào kinh nghiệm của bạn và theo phong cách của bạn - lúc đó bạn có thể tự tạo cho mình cách thiết kế karaoke từ my web play vì bạn đã hiểu được cách mà ứng dụng này nó hoạt động ra sao (mỗi người mỗi nhu cầu và cách xử lý sẽ khác nhau 😂). Thành thật xin lỗi vì điều này, nhưng mình sẽ cố gắng nâng cấp phiên bản mới tốt hơn từng ngày nếu có thể). Và trong khi play, nếu gặp một từ mà ca sĩ hát kéo dài (đoạn hơi dài), gợi ý bạn vui lòng đợi sau khi ca sĩ sắp và gần chót hát xong từ đó thì mới hãy tô màu cho từ chữ đó mà singer đang đã ca xong; còn nếu từ đó được singer ca và lấy hơi kéo quá dài thì bạn hãy bổ sung đại diện các dấu ba chấm sau từ đang ca đó - VD :"🎼 Hò ... ... ơi ..." (tuỳ chọn và tuỳ độ dài) và cũng tô màu cho chúng (tốt hơn hết đừng vì một từ mà đợi/kéo dài quá 0.3 giây mới tô) 😀.</span>
+        <br /><span style="color:green">Hiện nay bạn đã có thể chờ và tô màu từ text đó theo quãng và tốc độ hát của ca sĩ vào đúng thời điểm thực tế, nhưng cho dù vậy bạn cũng không nên quá lố và quá sức... Mọi sự ở đây đều là hên xui (hướng dẫn này chỉ là một phần), hãy tự học hỏi - cảm nhận và tự sáng tạo và rút ra kinh nghiệm của mình và cho ra những sản phẩm karaoke theo ý bạn nhé 😎</span>
         <br /><br />
-        <h3 style="color:red" id="custom634">TỔNG HỢP MẸO XỬ LÝ - GIÚP CHO KARAOKE CÓ TIẾN TRÌNH/THIẾT KẾ KHI PLAY SẼ MƯỢT MÀ VÀ CHUẨN HƠN</h3>
+        <h3 style="color:red">TỔNG HỢP MẸO XỬ LÝ - GIÚP CHO KARAOKE CÓ TIẾN TRÌNH/THIẾT KẾ KHI PLAY SẼ MƯỢT MÀ VÀ CHUẨN HƠN</h3>
         <br >
-        <span style="color:chartreuse" id="custom635">
+        <span style="color:chartreuse">
         - Hai ngón tay của bạn luôn canh và giữ 2 phím : Enter và Space. Nhấn Space khi muốn chuyển sang đoạn khác và ca sĩ cũng sắp hát đến đoạn đó. Và nhấn Enter khi ca sĩ đang hát đến từ đó (tô màu chữ theo tiến độ mà ca sĩ đang hát).
         <br />
         - Bạn cần phải nắm rõ tiến độ và lời bài hát (file mp3) mà ca sĩ đã trình bày để việc canh giữ phím Enter và Space của bạn sẽ được chuẩn xác hơn so với thực tế.
@@ -419,25 +419,25 @@ Layout = null;
         </span>
         <br />
         <br />
-        <h3 style="color:deeppink" id="custom618">Nếu bạn đã hiểu và sẵn sàng, nhấn nút START PLAY và bắt đầu nghe nhạc của bạn : </h3>
+        <h3 style="color:deeppink">Nếu bạn đã hiểu và sẵn sàng, nhấn nút START PLAY và bắt đầu nghe nhạc của bạn : </h3>
     </div>
     <br />
     <b style="color:red;display:none" id="error">⚠️ Cảnh báo về một lỗi có thể xảy ra nếu bạn tiếp tục thực hiện, vui lòng thử thao tác lại sau.</b>
     <br />
     <audio id="music" onplay="PlayKaraoke()" hidden>
-        <source src="@TempData["Music"]" type="audio/mpeg" id="custom637">
+        <source src="@TempData["Music"]" type="audio/mpeg">
     </audio>
     <br />
-    <button style="color:olive;display:none" id="xuxu" onclick="startplay()"><b id="custom623">START PLAY</b></button>
+    <button style="color:olive;display:none" id="xuxu" onclick="startplay()"><b>START PLAY</b></button>
     <br />
-    <span id="lainhac" style="display:none"><input type="file" id="bannhac" onchange="chonlainhac(this)" /><b style="color:lawngreen" id="custom639"> Chọn lại bản nhạc hiện tại (nên làm thêm bước này)</b></span>
+    <span id="lainhac" style="display:none"><input type="file" id="bannhac" onchange="chonlainhac(this)" /><b style="color:lawngreen"> Chọn lại bản nhạc hiện tại (nên làm thêm bước này)</b></span>
     <br />
-    <span style="color:red" id="custom640">Nếu trước đó bạn chưa chọn tải lên file mp3 karaoke để xử lý hay đơn giản bạn nếu muốn chọn lại file khác thì thực hiện lại một lần nữa tại đây nhé 🌞 ...</span><br />
+    <span style="color:red">Nếu trước đó bạn chưa chọn tải lên file mp3 karaoke để xử lý hay đơn giản bạn nếu muốn chọn lại file khác thì thực hiện lại một lần nữa tại đây nhé 🌞 ...</span><br />
     <img id="loading1" src="/Image_Play/waiting.gif" />
     <br />
     <b id="tgian" style="color:deeppink; font-size:20px"></b>
     <br /><br />
-    <button style="display:none" id="xong" onclick="xulyKaraoke()"><b id="custom623">XONG - XỬ LÝ FILE KARAOKE</b></button>
+    <button style="display:none" id="xong" onclick="xulyKaraoke()"><b>XONG - XỬ LÝ FILE KARAOKE</b></button>
     <br>
     <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
     <br /><br />
@@ -448,14 +448,14 @@ Layout = null;
         <span id="LBH2" name="colorX" style="color:@TempData["mau_text"]">&nbsp;</span>
     </h1>
     <br /><br />
-    <p hidden id="custom642">
+    <p hidden>
         @using (Html.BeginForm("PlayCreateFile_Karaoke", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
         {
         @Html.ValidationSummary(true)
         <textarea rows="30" cols="50" id="Lyrix" name="txtLyric"></textarea>
-        <tr style="height:40px" id="custom643">
-    <td id="custom644"></td>
-    <td id="custom644">
+        <tr style="height:40px">
+    <td></td>
+    <td>
     <input id="ok" style="font-weight:bolder; display:none" type="Submit" value="HOÀN TẤT" />
     </td>
     </tr>

@@ -1,4 +1,4 @@
-@if (TempData["ViewSiteBasic"] == "true")
+﻿@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -118,76 +118,76 @@ Layout = null;
       }
     }
 </script>
-<table align="center" id="custom408">
-    <h2 style="text-align:center" id="custom409">Find Value Check In SQL</h2>
-    <h3 style="color:purple" onclick="muaxuan()" id="custom410">@ViewBag.KetQua</h3>
+<table align="center">
+    <h2 style="text-align:center">Find Value Check In SQL</h2>
+    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px" id="custom411">
-        <td id="custom412"> </td>
-        <td id="custom412">
+    <tr style="height:40px">
+        <td> </td>
+        <td>
             <br>
-            <a href="#xuly" onclick="xoaValue('field')"><b id="custom414">Chuỗi các fields - kiểu dữ liệu của bạn (cách nhau bởi Enter và Tab) : <br>
+            <a href="#xuly" onclick="xoaValue('field')"><b>Chuỗi các fields - kiểu dữ liệu của bạn (cách nhau bởi Enter và Tab) : <br>
             </b></a>
-            <span style="color:red" id="custom415">LƯU Ý : hệ thống sẽ tự động phát hiện và phân lọc những fields không liên quan!</span>
+            <span style="color:red">LƯU Ý : hệ thống sẽ tự động phát hiện và phân lọc những fields không liên quan!</span>
             <br><br>
             <textarea cols="50" rows="12" name="txtFields" id="field">@ViewBag.ViDu</textarea>
         </td>
     </tr>
-    <tr style="height:40px" id="custom411">
-        <td id="custom412"> </td>
-        <td id="custom412">
+    <tr style="height:40px">
+        <td> </td>
+        <td>
             <br>
-            <a href="#xuly" onclick="xoaValue('table')"><b id="custom414">Nhập tên table hoặc view ... : <br>
+            <a href="#xuly" onclick="xoaValue('table')"><b>Nhập tên table hoặc view ... : <br>
             </b></a>
             <input type="text" name="txtTable" size="50" value="User" id="table"/>
         </td>
     </tr>
-    <tr style="height:40px" id="custom411">
-        <td id="custom412"> </td>
-        <td id="custom412">
+    <tr style="height:40px">
+        <td> </td>
+        <td>
             <br>
-            <a href="#xuly" onclick="xoaValue('check')"><b id="custom414">Nhập giá trị tìm kiếm : <br>
+            <a href="#xuly" onclick="xoaValue('check')"><b>Nhập giá trị tìm kiếm : <br>
             </b></a>
             <input type="text" name="txtCheck" id="check" size="50" value="abc-xyz" />
         </td>
     </tr>
-    <tr style="height:40px" id="custom411">
-        <td id="custom412"> </td>
-        <td id="custom412">
+    <tr style="height:40px">
+        <td> </td>
+        <td>
             <br>
-            <b id="custom414">Mời bạn chọn phạm vi của giá trị tìm kiếm : <br>
+            <b>Mời bạn chọn phạm vi của giá trị tìm kiếm : <br>
             </b>
             <select id="selex" onchange="changeSelect()">
-                <option id="custom428">Chuỗi thường</option>
-                <option id="custom428">Dạng Số</option>
-                <option id="custom428">Date (dd/mm/yyyy)</option>
-                <option id="custom428">Chuỗi và số</option>
-                <option id="custom428">Chuỗi và ngày</option>
-                <option id="custom428">Chuỗi UTF8</option>
+                <option>Chuỗi thường</option>
+                <option>Dạng Số</option>
+                <option>Date (dd/mm/yyyy)</option>
+                <option>Chuỗi và số</option>
+                <option>Chuỗi và ngày</option>
+                <option>Chuỗi UTF8</option>
             </select>
             <input type="number" value="1" min="1" max="6" name="txtLoai" id="Loai" />
         </td>
     </tr>
-    <tr style="height:40px" id="custom411">
-        <td id="custom412"> </td>
+    <tr style="height:40px">
+        <td> </td>
         <td id="shin">
             <br>
-            <b id="custom414">Mời bạn chọn kiểu so sánh phạm vi của giá trị tìm kiếm (chỉ áp dụng với kiểu chuỗi) : <br>
+            <b>Mời bạn chọn kiểu so sánh phạm vi của giá trị tìm kiếm (chỉ áp dụng với kiểu chuỗi) : <br>
             </b>
             <select id="seles" onchange="changeSeles()">
-                <option id="custom428">Bằng đúng</option>
-                <option id="custom428">LIKE 'abc%'</option>
-                <option id="custom428">LIKE '%abc%'</option>
-                <option id="custom428">LIKE '%abc'</option>
+                <option>Bằng đúng</option>
+                <option>LIKE 'abc%'</option>
+                <option>LIKE '%abc%'</option>
+                <option>LIKE '%abc'</option>
             </select>
             <input type="number" value="1" min="1" max="4" name="txtLoas" id="Loas" />
         </td>
     </tr>
-    <tr style="height:40px" id="custom411">
-        <td id="custom412"></td>
-        <td id="custom412">
+    <tr style="height:40px">
+        <td></td>
+        <td>
             <input type="Submit" value="Kết Quả" />
         </td>
     </tr>

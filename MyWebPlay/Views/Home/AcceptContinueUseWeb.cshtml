@@ -1,4 +1,4 @@
-@{
+﻿@{
 Layout = null;
 }
 <script>
@@ -57,9 +57,9 @@ Layout = null;
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-        <title id="custom1">C# | Asp Net Core | Công nghệ thông tin</title>
+        <title>C# | Asp Net Core | Công nghệ thông tin</title>
         <link rel="icon" href="/images/imagex.png">
-        <style id="custom2">
+        <style>
             .video-overlay{
             position:absolute;
             z-index: 2;
@@ -125,7 +125,7 @@ Layout = null;
                     else
                     x= ""+i;
             
-                    s += "<button onclick=\"accept("+i+")\" id="custom3">"+x+"</button> ";
+                    s += "<button onclick=\"accept("+i+")\">"+x+"</button> ";
                 }
                 document.getElementById("ok").style.display = "none";
                 document.getElementById("maika").innerHTML = s;
@@ -135,8 +135,8 @@ Layout = null;
         <div id="ok">
             <input type="text" id="info" placeholder="Nhập info to regist..." size="100"/>
             <br /><br />
-            <button onclick="show()" style="color:red" id="custom4">
-                <h2 id="custom5">Displays a list of all button IDs to open and allow continued use of the Web (you must click exactly one ID 😎)</h2>
+            <button onclick="show()" style="color:red">
+                <h2>Displays a list of all button IDs to open and allow continued use of the Web (you must click exactly one ID 😎)</h2>
             </button>
         </div>
         <div id="maika">

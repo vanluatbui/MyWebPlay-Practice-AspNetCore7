@@ -1,4 +1,4 @@
-@{
+﻿@{
 Layout = null;
 }
 
@@ -8,7 +8,7 @@ Layout = null;
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title id="custom37">C# | Asp Net Core | Công nghệ thông tin</title>
+        <title>C# | Asp Net Core | Công nghệ thông tin</title>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
@@ -63,8 +63,8 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-    <body name="backgroundX" style="background-color:@TempData["mau_background"]" id="custom38">
-    <meta charset="ISO-8859-1" id="custom39">
+    <body name="backgroundX" style="background-color:@TempData["mau_background"]">
+    <meta charset="ISO-8859-1">
     <script>
         var t = 0;
         setInterval(function(){
@@ -74,7 +74,7 @@ Layout = null;
         
             var fr = document.getElementById("frameplay");
             var url = '@ViewBag.Link';
-            url = url.replaceAll("&lt;","<").replaceAll("&gt;"," id="custom40">");
+            url = url.replaceAll("&lt;","<").replaceAll("&gt;",">");
             fr.src = url;
             fr.style.minWidth = "100%";
             fr.style.minHeight = "100%";

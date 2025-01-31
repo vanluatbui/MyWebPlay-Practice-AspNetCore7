@@ -1,4 +1,4 @@
-@if (TempData["ViewSiteBasic"] == "true")
+﻿@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -59,27 +59,27 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-<table align="center" id="custom227">
-    <h2 style="text-align:center" id="custom228">CSDL - Find main key</h2>
-    <h3 style="color:purple" onclick="muaxuan()" id="custom229">@ViewBag.KetQua</h3>
+<table align="center">
+    <h2 style="text-align:center">CSDL - Find main key</h2>
+    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px" id="custom230">
-        <td id="custom231"> </td>
-        <td id="custom231">
+    <tr style="height:40px">
+        <td> </td>
+        <td>
             <br>
-            <a href="#xuly" onclick="xoaValue('chuoi')"> <b id="custom233">Chuỗi đề bài của bạn : <br>
+            <a href="#xuly" onclick="xoaValue('chuoi')"> <b>Chuỗi đề bài của bạn : <br>
             Lưu ý kiểm tra kỹ các thành phần tham gia phải đủ! (VD nhập : AB>C,C>BD,BE>A,A>C)</b></a>
             <br>
             <input type="text" name="Chuoi" id="chuoi" size="100" value="AB>C,C>BD,BE>A,A>C" />
             <br>
-            <span style="color:red; font-style:italic" id="custom234">@ViewData["Loi"] </span>
+            <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
         </td>
     </tr>
-    <tr style="height:40px" id="custom230">
-        <td id="custom231"></td>
-        <td id="custom231">
+    <tr style="height:40px">
+        <td></td>
+        <td>
             <input type="Submit" value="Kết Quả" />
         </td>
     </tr>
@@ -97,7 +97,7 @@ Layout = null;
 <br>
 <br>
 <br>+ Cho đề bài : B->A , DA->CE , D->H , GH->C , AC->D <
-<VÀ id="custom238">
+<VÀ>
 > các thuộc tính tham gia là : ABCDEGH.
 <br>
 <br>+ Khi đó, các thuộc tính cần tham gia đã có mặt đầy đủ ít nhất nơi nào đó trong dãy đề bài.
@@ -107,7 +107,7 @@ Layout = null;
 <br>- Ví dụ đối với TH2 :
 <br>
 <br>+ Cho đề bài : EC->B , AB->C , EB->A , BG->A , AE->G <
-<VÀ id="custom238">
+<VÀ>
 > các thuộc tính tham gia là : ABCDEGH.
 <br>
 <br>+ Khi đó, các thuộc tính cần tham gia không có mặt đầy đủ dù ít nhất nơi nào đó trong dãy đề bài.Lý do : thiếu thuộc tính D và H không xuất hiện bất cứ đâu trong dãy đề bài !
@@ -115,7 +115,7 @@ Layout = null;
 <br>+ Sử dụng ứng dụng này để tìm siêu khoá bé nhất, ta được : EC , EB (tuy nhiên đây là kết quả chưa chính xác).
 <br>
 <br>+ Mẹo cách giải quyết như sau, ta đã biết được rằng trong dãy đề bài còn thiếu thuộc tính D và H <
-<VÀ id="custom238">
+<VÀ>
 > ở kết quả trên, các thuộc tính thuộc tập trung gian là : ABCG.
 <br>
 <br>+ Chọn bất kỳ một hay nhiều thuộc tính trung gian (với điều kiện là một trong các thuộc tính bạn chọn không được trùng với các thuộc tính nào trong tập kết quả siêu khoá vùa tìm được ở trên - mặc dù kết quả trên gần như sai), ví dụ nếu ta chọn AG thì ta sẽ thêm dữ kiện là DH -> AG.

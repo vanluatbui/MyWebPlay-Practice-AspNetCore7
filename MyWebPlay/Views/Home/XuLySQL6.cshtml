@@ -1,4 +1,4 @@
-@if (TempData["ViewSiteBasic"] == "true")
+﻿@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -66,20 +66,20 @@ Layout = null;
     }
     
 </script>
-<table align="center" id="custom2115">
-    <h2 style="text-align:center" id="custom2116">Xử Lý SQL 6</h2>
-    <h3 style="color:purple" onclick="muaxuan()" id="custom2117">@ViewBag.KetQua</h3>
+<table align="center">
+    <h2 style="text-align:center">Xử Lý SQL 6</h2>
+    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
     @using (Html.BeginForm("XuLySQL6", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px" id="custom2118">
-        <td id="custom2119"> </td>
-        <td id="custom2119">
-            <b id="custom2121">Lọc đuôi file cần loại bỏ (nếu có) : </b>
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <b>Lọc đuôi file cần loại bỏ (nếu có) : </b>
             <br>
             <input type="text" id="duoifile" value=".sql" />
             <br><br>
-            <b id="custom2121">Tải lên các file sql - Table : </b>
+            <b>Tải lên các file sql - Table : </b>
             <br>
              @if(TempData["fileSuDung"] == "true")
              {
@@ -90,15 +90,15 @@ Layout = null;
                     <input disabled type="file" onchange="return xemfile(event)" multiple />
                 }
                 <br><br>
-            <b id="custom2121">💙 Kết quả nhận được từ các file (sau khi chọn file từ nút trên) : </b>
+            <b>💙 Kết quả nhận được từ các file (sau khi chọn file từ nút trên) : </b>
             <br>
             <textarea name="txtKetQua" cols="100" rows="15" id="ketqua" readonly></textarea>
             <br><br>
         </td>
     </tr>
-    <tr style="height:40px" id="custom2118">
-        <td id="custom2119"></td>
-        <td id="custom2119"><br>
+    <tr style="height:40px">
+        <td></td>
+        <td><br>
             <input type="Submit" value="Kết Quả" />
         </td>
     </tr>

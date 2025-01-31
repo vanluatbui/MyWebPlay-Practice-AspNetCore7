@@ -1,4 +1,4 @@
-@if (TempData["HTML-visible"] != null && TempData["HTML-visible"].ToString() != "2")
+﻿@if (TempData["HTML-visible"] != null && TempData["HTML-visible"].ToString() != "2")
 {
 Layout = null;
 <!DOCTYPE html>
@@ -7,13 +7,13 @@ Layout = null;
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title id="custom113">C# | Asp Net Core | Công nghệ thông tin</title>
+        <title>C# | Asp Net Core | Công nghệ thông tin</title>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
         <link rel="icon" href="/images/imagex.png">
     </head>
-    <style id="custom114">
+    <style>
         .switch {
         position: relative;
         display: inline-block;
@@ -115,7 +115,7 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-    <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]" id="custom115">
+    <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]">
     <br />
     <script>
         var loadlinkread = 0;
@@ -776,7 +776,7 @@ Layout = null;
                 var n = new Number(document.getElementById("count").value) - 28;
            for (var i = 0; i < n;i++)
            {
-               if (i >=13 && i<= 19 || i  id="custom116">= 21 && i <= 23 || i == 28)
+               if (i >=13 && i<= 19 || i >= 21 && i <= 23 || i == 28)
                document.getElementById("check-"+i).checked = true;
                else
                continue;
@@ -790,7 +790,7 @@ Layout = null;
                 var n = new Number(document.getElementById("count").value) - 28;
            for (var i = 0; i < n;i++)
            {
-               if (i  id="custom117">=13 && i<= 19 || i  id="custom116">= 21 && i <= 23 || i == 28)
+               if (i >=13 && i<= 19 || i >= 21 && i <= 23 || i == 28)
                document.getElementById("check-"+i).checked = false;
                else
                continue;
@@ -1066,11 +1066,11 @@ Layout = null;
         
            var list = '@TempData["ListIPActive"]'.toString().split("##");
         
-           var listA = "<option id="custom119"></option>";
+           var listA = "<option></option>";
            for (var i =0 ; i < list.length; i++)
            {
                if (list[i] != "")
-               listA += "<option id="custom120">"+list[i]+"</option>";
+               listA += "<option>"+list[i]+"</option>";
            }
            document.getElementById("ip_active").innerHTML = listA;
             var x = document.getElementById("ip_active");
@@ -1096,11 +1096,11 @@ Layout = null;
         
            var list = '@TempData["ListIPLockAdmin"]'.toString().split("##");
         
-           var listB = "<option id="custom121"></option>";
+           var listB = "<option></option>";
            for (var i =0 ; i < list.length; i++)
            {
                if (list[i] != "")
-               listB += "<option id="custom121">"+list[i]+"</option>";
+               listB += "<option>"+list[i]+"</option>";
            }
            document.getElementById("ip_blockadmin").innerHTML = listB;
             var x = document.getElementById("ip_blockadmin");
@@ -1126,11 +1126,11 @@ Layout = null;
         
            var list = '@TempData["ListIPLockClient"]'.toString().split("##");
         
-           var listC = "<option id="custom121"></option>";
+           var listC = "<option></option>";
            for (var i =0 ; i < list.length; i++)
            {
                if (list[i] != "")
-               listC += "<option id="custom121">"+list[i]+"</option>";
+               listC += "<option>"+list[i]+"</option>";
            }
            document.getElementById("ip_blockclient").innerHTML = listC;
            var x = document.getElementById("ip_blockclient");
@@ -1391,11 +1391,11 @@ Layout = null;
         }
         
     </script>
-    @*<label class="switch" id="custom125">
-    <input type="checkbox" id="custom126">
-    <span class="slider" id="custom127"></span>
+    @*<label class="switch">
+    <input type="checkbox">
+    <span class="slider"></span>
     </label>*@
-    <a href="#xuly" style="color:seagreen" onclick="checkmeMiniWeb()">Hãy kiểm tra tôi? (cấp quyền sử dụng mini web)</a><span id="custom128">&nbsp;</span><button onclick="sudungMini()" id="custom129"><span id="custom128">&nbsp;</span><b id="custom131">Bật sử dụng Mini Web - Admin (load lại trang nếu muốn tắt)</b></button><b style="color:orangered" id="custom132">Chú ý : hãy nhớ load lại trang ngay khi sử dụng xong ✔</b><br />
+    <a href="#xuly" style="color:seagreen" onclick="checkmeMiniWeb()">Hãy kiểm tra tôi? (cấp quyền sử dụng mini web)</a><span>&nbsp;</span><button onclick="sudungMini()"><span>&nbsp;</span><b>Bật sử dụng Mini Web - Admin (load lại trang nếu muốn tắt)</b></button><b style="color:orangered">Chú ý : hãy nhớ load lại trang ngay khi sử dụng xong ✔</b><br />
     <br />
     <iframe style="display:none" id="frameplay"></iframe>
     <br />
@@ -1413,63 +1413,63 @@ Layout = null;
         <br />
         <input type="number" id="count" hidden value ="@Model.Topics.Count" />
         <select id="chon">
-            <option id="custom121">Chọn một - lưu lại liền</option>
-            <option id="custom121">Chọn nhiều liên tục - lưu lại sau</option>
+            <option>Chọn một - lưu lại liền</option>
+            <option>Chọn nhiều liên tục - lưu lại sau</option>
         </select>
         <br /><br />
-        <tr style="height:40px" id="custom135">
-            <td id="custom136"></td>
-            <td id="custom136">
+        <tr style="height:40px">
+            <td></td>
+            <td>
                 <br>
                 <h2 style="color:deeppink" href="#mini-X">Cài ĐẶT ADMIN (<a href="#xuly" onclick="xulydangxuat()" style="color:tomato;font-weight:bolder">Đăng xuất?</a>)&nbsp;&nbsp;<a href="/Admin/LoginSettingAdmin?locked=true" style="color:chartreuse;font-size:20px";>Đăng xuất tất cả từ xa</a></h2>
                 <br />
-                <span style="color:orangered" id="custom138">(@TempData["admin_IP"])</span>
+                <span style="color:orangered">(@TempData["admin_IP"])</span>
                 <br />
-                <b style="color:greenyellow" id="custom139"><u id="custom140">Path project</u> : @TempData["root_path_web"]</b><br />
+                <b style="color:greenyellow"><u>Path project</u> : @TempData["root_path_web"]</b><br />
                 <br />
-                <h2 style="color:goldenrod" id="custom141">Trạng thái lần cuối : @ViewBag.SettingStatus</h2>
+                <h2 style="color:goldenrod">Trạng thái lần cuối : @ViewBag.SettingStatus</h2>
                 <a href="#xuly" style="color:orangered" onclick="updatetrangthai()">Thay đổi trạng thái</a><br /><br />
                 @if (TempData["IsLoginAdminTemp"] != "true")
                         {
-                            <h4 id="custom142"><a href="#xuly" onclick="refreshHetHan()" style="color:purple">Refresh hoặc xoá tất cả thư mục và các file hết hạn</a>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:15px; color:lime" id="custom143"><input type="checkbox" id="chkFileExternal" />&nbsp;&nbsp;<b id="custom131">Xoá luôn các file tại root - FileExternal (ngoại trừ các file nằm bên ngoài và không nằm trong thư mục con)</b></span></h4><a id="linkread8" href="/Admin/ReadAdminFileByStatic?file=/InfoWebFile/InfoWebFile.txt" target="_blank" style="color:deeppink">Xem list các file đã tải và thời hạn</a>
+                            <h4><a href="#xuly" onclick="refreshHetHan()" style="color:purple">Refresh hoặc xoá tất cả thư mục và các file hết hạn</a>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:15px; color:lime"><input type="checkbox" id="chkFileExternal" />&nbsp;&nbsp;<b>Xoá luôn các file tại root - FileExternal (ngoại trừ các file nằm bên ngoài và không nằm trong thư mục con)</b></span></h4><a id="linkread8" href="/Admin/ReadAdminFileByStatic?file=/InfoWebFile/InfoWebFile.txt" target="_blank" style="color:deeppink">Xem list các file đã tải và thời hạn</a>
                         }
                 <br>
-                <h4 id="custom142">
-                    <a href="#xuly" id="#welcome" onclick="chonall()" style="color:green">CHỌN TẤT CẢ</a> | <a href="#xuly" onclick="boall()" style="color:red">BỎ CHỌN TẤT CẢ</a> <br><span id="custom128">&nbsp;</span><span style="color:coral" id="custom147">(ngoại trừ các setting phụ)<span id="custom128">&nbsp;</span><span id="custom128">&nbsp;</span><a href="/Admin/DongMoFileStatus" style="color:maroon">Đóng/mở sử dụng thư mục file upload Server (trạng thái : @ViewBag.FileStatus)</a>
+                <h4>
+                    <a href="#xuly" id="#welcome" onclick="chonall()" style="color:green">CHỌN TẤT CẢ</a> | <a href="#xuly" onclick="boall()" style="color:red">BỎ CHỌN TẤT CẢ</a> <br><span>&nbsp;</span><span style="color:coral">(ngoại trừ các setting phụ)<span>&nbsp;</span><span>&nbsp;</span><a href="/Admin/DongMoFileStatus" style="color:maroon">Đóng/mở sử dụng thư mục file upload Server (trạng thái : @ViewBag.FileStatus)</a>
                     <br> 
                     <select id="chonXY">
-                        <option id="custom121"></option>
-                        <option id="custom121">Tắt hoạt động web site (tất cả, không nhận đơn đăng kí tiếp theo, mở chiến dịch xoá localStorage JS), ngoại trừ mật độ tuyệt đối</option>
-                        <option id="custom121">Bật hoạt động web site (chỉ người đã đăng kí, bật TB, nhận đơn đăng kí tiếp theo)</option>
-                        <option id="custom121">Bật hoạt động web site (chỉ người đã đăng kí, tắt TB, không nhận đơn đăng kí tiếp theo)</option>
-                        <option id="custom121">Bật hoạt động website (cho phép tất cả mọi người, không get IP)</option>
-                        <option id="custom121">Bật hoạt động website (cho phép tất cả mọi người, get IP)</option>
-                        <option id="custom121">Tắt hoạt động web site (không nhận đơn đăng kí tiếp theo, bật thông báo), ngoại trừ các IP đã đăng kí và tin tưởng</option>
-                        <option id="custom121">Tắt hoạt động web site (không nhận đơn đăng kí tiếp theo, tắt thông báo), ngoại trừ các IP đã đăng kí và tin tưởng</option>
-                        <option id="custom121">Sử dụng POST QUICK DATA và tàng hình (copy), không get IP - cho phép mọi người</option>
-                        <option id="custom121">Sử dụng POST QUICK DATA và tàng hình (download *.txt), không get IP - cho phép mọi người</option>
-                        <option id="custom121">Bật thông báo tất cả liên quan email và MegaIO File and list user get to link request (riêng karaoke sẽ cả Text và MP3) - giữ nguyên còn lại</option>
-                        <option id="custom121">Tắt thông báo tất cả nội dung liên quan email và MegaIO File and list user get to link request - giữ nguyên còn lại</option>
-                        <option id="custom121">Bật sử dụng website with url encode secret play - giữ nguyên còn lại (nên chọn cái này lại hoặc sau cùng)</option>
-                        <option id="custom121">Không cho phép sử dụng mật độ tuyệt đối hay IP tin tưởng để truy cập website - giữ nguyên còn lại</option>
-                        <option id="custom121">Cho phép upload file nhanh (UploadFile_ClearWeb) và chế độ tàng hình - giữ nguyên còn lại</option>
-                        <option id="custom121">Sử dụng POST DATA QUICK admin, cho phép mọi người, chuyển hướng đến trang file TXT của result (dành cho external)</option>
+                        <option></option>
+                        <option>Tắt hoạt động web site (tất cả, không nhận đơn đăng kí tiếp theo, mở chiến dịch xoá localStorage JS), ngoại trừ mật độ tuyệt đối</option>
+                        <option>Bật hoạt động web site (chỉ người đã đăng kí, bật TB, nhận đơn đăng kí tiếp theo)</option>
+                        <option>Bật hoạt động web site (chỉ người đã đăng kí, tắt TB, không nhận đơn đăng kí tiếp theo)</option>
+                        <option>Bật hoạt động website (cho phép tất cả mọi người, không get IP)</option>
+                        <option>Bật hoạt động website (cho phép tất cả mọi người, get IP)</option>
+                        <option>Tắt hoạt động web site (không nhận đơn đăng kí tiếp theo, bật thông báo), ngoại trừ các IP đã đăng kí và tin tưởng</option>
+                        <option>Tắt hoạt động web site (không nhận đơn đăng kí tiếp theo, tắt thông báo), ngoại trừ các IP đã đăng kí và tin tưởng</option>
+                        <option>Sử dụng POST QUICK DATA và tàng hình (copy), không get IP - cho phép mọi người</option>
+                        <option>Sử dụng POST QUICK DATA và tàng hình (download *.txt), không get IP - cho phép mọi người</option>
+                        <option>Bật thông báo tất cả liên quan email và MegaIO File and list user get to link request (riêng karaoke sẽ cả Text và MP3) - giữ nguyên còn lại</option>
+                        <option>Tắt thông báo tất cả nội dung liên quan email và MegaIO File and list user get to link request - giữ nguyên còn lại</option>
+                        <option>Bật sử dụng website with url encode secret play - giữ nguyên còn lại (nên chọn cái này lại hoặc sau cùng)</option>
+                        <option>Không cho phép sử dụng mật độ tuyệt đối hay IP tin tưởng để truy cập website - giữ nguyên còn lại</option>
+                        <option>Cho phép upload file nhanh (UploadFile_ClearWeb) và chế độ tàng hình - giữ nguyên còn lại</option>
+                        <option>Sử dụng POST DATA QUICK admin, cho phép mọi người, chuyển hướng đến trang file TXT của result (dành cho external)</option>
                          @if (TempData["IsLoginAdminTemp"] != "true")
                          {
-                                        <option id="custom121">[Đặc biệt] Khoá trang web tuyệt đối/vĩnh viễn, không thể truy cập trang nào (kể cả admin) => error all web page</option>
+                                        <option>[Đặc biệt] Khoá trang web tuyệt đối/vĩnh viễn, không thể truy cập trang nào (kể cả admin) => error all web page</option>
                                     }
                                     else
                                     {
-                                        <option id="custom121">[ERROR FOR THIS CHOICE]</option>
+                                        <option>[ERROR FOR THIS CHOICE]</option>
                                     }
-                                    <option id="custom121">[Sub admin setting] Tắt hết các setting phụ (giữ nguyên còn lại)</option>
-                        <option id="custom121">[Bonus secret] Bí mật và sử dụng data External API</option>
-                        <option id="custom121">[Special] Tắt hết các setting (kể cả phụ)</option>
-                        <option id="custom121">[Special] Bật hết các setting phụ</option>
-                        <option id="custom121">[Special] Bật hết các item setting (kể cả phụ)</option>
-                        <option id="custom121">Bật xác thực hai bước ADMIN (giữ nguyên còn lại)</option>
-                        <option id="custom121">API công khai (*)</option>
-                        <option id="custom121">Sử dụng web công khai (*)</option>
+                                    <option>[Sub admin setting] Tắt hết các setting phụ (giữ nguyên còn lại)</option>
+                        <option>[Bonus secret] Bí mật và sử dụng data External API</option>
+                        <option>[Special] Tắt hết các setting (kể cả phụ)</option>
+                        <option>[Special] Bật hết các setting phụ</option>
+                        <option>[Special] Bật hết các item setting (kể cả phụ)</option>
+                        <option>Bật xác thực hai bước ADMIN (giữ nguyên còn lại)</option>
+                        <option>API công khai (*)</option>
+                        <option>Sử dụng web công khai (*)</option>
                     </select>
                     <br /><br /><a href="#xuly" onclick="chonnhanh()">Xử lý setting nhanh (có sẵn)</a>
                     <br /><br />
@@ -1477,20 +1477,20 @@ Layout = null;
                 <br>
             </td>
         </tr>
-        <tr style="height:40px" id="custom135">
-            <td id="custom136"> </td>
-            <td id="custom136">
+        <tr style="height:40px">
+            <td> </td>
+            <td>
                 @for (int i = 0; i < Model.Topics.Count; i++)
                 {
                 if (i == 33) continue; // Item setting khoá all page web nằm tuốt phía cuối trang
-                <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-@i"><span style="color:red" id="custom179">[[@i - @Model.Topics[i].ID]]</span>@Html.Raw(Model.Topics[i].NoiDung)</h3>
+                <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-@i"><span style="color:red">[[@i - @Model.Topics[i].ID]]</span>@Html.Raw(Model.Topics[i].NoiDung)</h3>
                 @if(Model.Topics[i].ID != "Password_Admin" && Model.Topics[i].ID != "Believe_IP" && Model.Topics[i].ID != "Code_LockedClient" && Model.Topics[i].ID != "MatDoTuyetDoi" 
                 && Model.Topics[i].ID != "Encode_Url" && Model.Topics[i].ID != "Info_Email" && Model.Topics[i].ID != "Info_MegaIO" 
                 && Model.Topics[i].ID != "Color_BackgroundAndText" && Model.Topics[i].ID != "Color_TracNghiem"  && Model.Topics[i].ID != "AppWeb_LockedUse"
                 && Model.Topics[i].ID != "DownloadFile_ClearWeb" && Model.Topics[i].ID != "Accept_ListUrl" && Model.Topics[i].ID != "UploadFile_MaxSize" 
                 && Model.Topics[i].ID != "TabTittle_NoiDung" && Model.Topics[i].ID != "Time_Waiting" && Model.Topics[i].ID != "HTML_Visible" && Model.Topics[i].ID != "Admin_Setting" && Model.Topics[i].ID != "KeyEncrypt_Admin")
                 {
-                <label class="switch" id="custom125">
+                <label class="switch">
                 @if (Model.Topics[i].Option == false)
                 {
                     if (TempData["IsLoginAdminTemp"] == "true" && (i == 22 || i == 23))
@@ -1513,7 +1513,7 @@ Layout = null;
                                             <input id="check-@i" onchange="saveX(@i)" name="@Model.Topics[i].ID" type="checkbox" checked />
                                         }
                                     }
-                <span class="slider round" id="custom181"></span>
+                <span class="slider round"></span>
                 </label>
                 <br /><br />
                 <h3 id="save-@i" style="display:none"><a onclick="xong()" href="#save" style="color:crimson">SAVE</a></h3>
@@ -1531,7 +1531,7 @@ Layout = null;
                 {
                 <input onchange="setDataInExtend('txtBelieve1','txtBelieve2',',')" id="txtBelieve1" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.Believe" oninput="changesettingtext('@Model.Topics[i].ID', '@i')" />
                 <br />
-                <input type="checkbox" id="checkBelieve" onchange="changeShow('txtBelieve1','txtBelieve2','checkBelieve',',')" /><b style="color:deeppink" id="custom182">Xem chế độ mở rộng</b>
+                <input type="checkbox" id="checkBelieve" onchange="changeShow('txtBelieve1','txtBelieve2','checkBelieve',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
                 <a style="color:orangered" href="#xuly" onClick="ClearAll('@i', 'txtBelieve1', 'txtBelieve2')">Clear all</a>
                 <br />
                 <textarea readonly id="txtBelieve2" cols="50" rows="15" style="display:none">@ViewBag.Belive_Line</textarea>
@@ -1560,7 +1560,7 @@ Layout = null;
                 {
                 <input onchange="setDataInExtend('txtEncode1','txtEncode2','***')" id="txtEncode1" placeholder="Ví dụ bạn chỉ cần nhập Home/Index là được (không cần kèm theo https://)" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.EncodeUrl" oninput="changesettingtext('@Model.Topics[i].ID', '@i')" />
                 <br />
-                <input type="checkbox" id="checkEncode" onchange="changeShow('txtEncode1','txtEncode2','checkEncode','***')" /><b style="color:deeppink" id="custom182">Xem chế độ mở rộng</b>
+                <input type="checkbox" id="checkEncode" onchange="changeShow('txtEncode1','txtEncode2','checkEncode','***')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
                 <a style="color:orangered" href="#xuly" onClick="ClearAll('@i', 'txtEncode1', 'txtEncode2')">Clear all</a>
                 <br />
                 <textarea readonly id="txtEncode2" cols="100" rows="15" style="display:none">@ViewBag.EncodeUrl_Line</textarea>
@@ -1613,7 +1613,7 @@ Layout = null;
                 {
                 <input onchange="setDataInExtend('txtLock1','txtLock2',',')" size="180" id="txtLock1" name="@Model.Topics[i].ID" type="text" value="@ViewBag.LockedUseApp" oninput="changesettingtext('@Model.Topics[i].ID', '@i')" />
                 <br />
-                <input type="checkbox" id="checkLock" onchange="changeShow('txtLock1','txtLock2','checkLock',',')" /><b style="color:deeppink" id="custom182">Xem chế độ mở rộng</b>
+                <input type="checkbox" id="checkLock" onchange="changeShow('txtLock1','txtLock2','checkLock',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
                 <a style="color:red" href="#xuly" onClick="LuaChonDaDang('0')">Lựa chọn đa dạng</a>
                 <a style="color:orangered" href="#xuly" onClick="ClearAll('@i', 'txtLock1', 'txtLock2')">Clear all</a>
                 <br />
@@ -1628,7 +1628,7 @@ Layout = null;
                 {
                 <input onchange="setDataInExtend('txtDownload1','txtDownload2',',')" id="txtDownload1" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.DownloadFileQuick" oninput="changesettingtext('@Model.Topics[i].ID', '@i')" />
                 <br />
-                <input type="checkbox" id="checkDownload" onchange="changeShow('txtDownload1','txtDownload2','checkDownload',',')" /><b style="color:deeppink" id="custom182">Xem chế độ mở rộng</b>
+                <input type="checkbox" id="checkDownload" onchange="changeShow('txtDownload1','txtDownload2','checkDownload',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
                 <a style="color:orangered" href="#xuly" onClick="ClearAll('@i', 'txtDownload1', 'txtDownload2')">Clear all</a>
                 <br />
                 <textarea readonly id="txtDownload2" cols="50" rows="15" style="display:none">@ViewBag.DownloadFile_Line</textarea>
@@ -1641,7 +1641,7 @@ Layout = null;
                 {
                 <input onchange="setDataInExtend('txtAcceptUrl1','txtAcceptUrl2',',')" id="txtAcceptUrl1" size="180" name="@Model.Topics[i].ID" type="text" value="@ViewBag.AcceptListUrl" oninput="changesettingtext('@Model.Topics[i].ID', '@i')" />
                 <br />
-                <input type="checkbox" id="checkAccept" onchange="changeShow('txtAcceptUrl1','txtAcceptUrl2','checkAccept',',')" /><b style="color:deeppink" id="custom182">Xem chế độ mở rộng</b>
+                <input type="checkbox" id="checkAccept" onchange="changeShow('txtAcceptUrl1','txtAcceptUrl2','checkAccept',',')" /><b style="color:deeppink">Xem chế độ mở rộng</b>
                 <a style="color:red" href="#xuly" onClick="LuaChonDaDang('1')">Lựa chọn đa dạng</a>
                 <a style="color:orangered" href="#xuly" onClick="ClearAll('@i', 'txtAcceptUrl1', 'txtAcceptUrl2')">Clear all</a>
                 <br />
@@ -1703,9 +1703,9 @@ Layout = null;
                 <br /><br />
             </td>
         </tr>
-        <tr style="height:40px" id="custom135">
-            <td id="custom136"></td>
-            <td id="custom136"><br>
+        <tr style="height:40px">
+            <td></td>
+            <td><br>
                 <input id="ok" type="submit" hidden value="LƯU CÀI ĐẶT" />
             </td>
         </tr>
@@ -1716,50 +1716,50 @@ Layout = null;
         <div id="background-demo" style="background-color:#fbff05;width:30%">
             <pre id="text-demo" style="color:#2205ff">This is demo text (background and color text)</pre>
         </div>
-        <input type="color" id="bgColor" onchange="demoBG()" value="#fbff05" /><input type="color" id="textColor" onchange="demoText()" value="#2205ff" /><span id="custom128">&nbsp;</span><button onclick="luulaiDemo()" id="custom191">Set lại demo này vào setting trên và lưu nó</button><span id="custom128">&nbsp;</span><span id="apdungnen" style="color:deeppink">(Hiện chưa được áp dụng)</span><span id="custom128">&nbsp;</span><a href="#xuly" onclick="getmamau()" style="color:orangered">Xem mã màu đang chọn (ô màu thứ nhất)</a>
+        <input type="color" id="bgColor" onchange="demoBG()" value="#fbff05" /><input type="color" id="textColor" onchange="demoText()" value="#2205ff" /><span>&nbsp;</span><button onclick="luulaiDemo()">Set lại demo này vào setting trên và lưu nó</button><span>&nbsp;</span><span id="apdungnen" style="color:deeppink">(Hiện chưa được áp dụng)</span><span>&nbsp;</span><a href="#xuly" onclick="getmamau()" style="color:orangered">Xem mã màu đang chọn (ô màu thứ nhất)</a>
         <hr />
         <hr />
         <br />
          @if (TempData["IsLoginAdminTemp"] != "true")
             {
-                <div style="background-color:grey" id="custom194">
+                <div style="background-color:grey">
                     <b id="labelActive" name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG HOẠT ĐỘNG (một số thiết bị có thể chưa xác nhận cấp phép/approve sử dụng hoặc họ đã xoá dữ liệu trình duyệt)</b>
                     <br />
                     <select onclick="loadActive()" onchange="setActive()" id="ip_active">
-                    </select><span id="custom128">&nbsp;</span><input type="text" id="txtIPActive" />&nbsp;&nbsp;<span id="custom128"><a id="linkread1" style="color:violet" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/ListUserIPApproveWaiting.txt" target="_blank">Xem list IP user đang chờ approve</a><span id="custom128">&nbsp;&nbsp;<span id="custom128"><a style="color:violet" href="#xuly" onclick="DeleteAllListApprove()">Delete all list IP user (đang chờ approve)</a><span id="custom128"><br />
+                    </select><span>&nbsp;</span><input type="text" id="txtIPActive" />&nbsp;&nbsp;<span><a id="linkread1" style="color:violet" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/ListUserIPApproveWaiting.txt" target="_blank">Xem list IP user đang chờ approve</a><span>&nbsp;&nbsp;<span><a style="color:violet" href="#xuly" onclick="DeleteAllListApprove()">Delete all list IP user (đang chờ approve)</a><span><br />
                                     <input type="text" size="100" placeholder="Nhập thông tin user hoặc ghi chú (nếu có)" id="ghichu" /><br />
-                                    <button onclick="addActive()" style="color:green" id="custom200">THÊM (HOẠT ĐỘNG NHƯNG CHƯA XÁC NHẬN THIẾT BỊ)</button><span id="custom128">&nbsp;</span><button onclick="removeActive()" style="color:red" id="custom202">XOÁ (HẾT HẠN)</button><span id="custom128">&nbsp;</span>
-                                    <br />(<a id="linkread0" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/ListIPOnWebPlay.txt" target="_blank" style="color:yellow">List IP đang đăng kí (hoạt động)</a><b id="custom131"> <span id="custom128">&nbsp;</span> </b><a id="linkread2" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/InfoIPRegist.txt" target="_blank" style="color:yellow">Xem Chi Tiết - list IP đã từng/đang đăng kí (có thể chưa đủ thông tin)</a><b id="custom131"> <span id="custom128">&nbsp;</span> </b><a style="color:yellow" href="/ClientConnect/InfoIPRegist.txt" @*onclick="xoachitiet()"*@ download="">Tải xuống</a> <span id="custom128">&nbsp;</span> <a style="color:yellow" href="#xuly" onclick="deletechitiet()">Delete detail</a> <span id="custom128">&nbsp;</span> <a style="color:yellow" href="#xuly" onclick="deleteX()">Delete all this</a>&nbsp;&nbsp;<a style="color:orangered" href="#xuly" onclick="addApprove()">Add IP approve to list</a>&nbsp;&nbsp;<a style="color:orangered" href="#xuly" onclick="removeApprove()">Remove IP approve to list</a><span id="custom128">)</span>
+                                    <button onclick="addActive()" style="color:green">THÊM (HOẠT ĐỘNG NHƯNG CHƯA XÁC NHẬN THIẾT BỊ)</button><span>&nbsp;</span><button onclick="removeActive()" style="color:red">XOÁ (HẾT HẠN)</button><span>&nbsp;</span>
+                                    <br />(<a id="linkread0" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/ListIPOnWebPlay.txt" target="_blank" style="color:yellow">List IP đang đăng kí (hoạt động)</a><b> <span>&nbsp;</span> </b><a id="linkread2" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/InfoIPRegist.txt" target="_blank" style="color:yellow">Xem Chi Tiết - list IP đã từng/đang đăng kí (có thể chưa đủ thông tin)</a><b> <span>&nbsp;</span> </b><a style="color:yellow" href="/ClientConnect/InfoIPRegist.txt" @*onclick="xoachitiet()"*@ download="">Tải xuống</a> <span>&nbsp;</span> <a style="color:yellow" href="#xuly" onclick="deletechitiet()">Delete detail</a> <span>&nbsp;</span> <a style="color:yellow" href="#xuly" onclick="deleteX()">Delete all this</a>&nbsp;&nbsp;<a style="color:orangered" href="#xuly" onclick="addApprove()">Add IP approve to list</a>&nbsp;&nbsp;<a style="color:orangered" href="#xuly" onclick="removeApprove()">Remove IP approve to list</a><span>)</span>
                                     <br />
                                     <br />
-                                    <b name="colorX" style="color:@TempData["mau_text"]" id="custom211">DANH SÁCH CÁC IP ĐANG BỊ KHOÁ (ADMIN)</b>
+                                    <b name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG BỊ KHOÁ (ADMIN)</b>
                                     <br />
                                     <select onclick="loadLockAdmin()" onchange="setLockAdmin()" id="ip_blockadmin">
-                                    </select><span id="custom128">&nbsp;</span><input type="text" id="txtIPLockAdmin" /><br />
-                                    <button onclick="addLockAdmin()" style="color:green" id="custom213">THÊM (KHOÁ IP ADMIN)</button><span id="custom128">&nbsp;</span><button onclick="removeLockAdmin()" style="color:red" id="custom215">XOÁ (MỞ KHOÁ IP ADMIN)</button><span id="custom128">&nbsp;</span><a id="linkread3" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/ListIPLock.txt" target="_blank" style="color:yellow">Xem Chi Tiết</a> <span id="custom128"> || </span> <a style="color:yellow" href="#xuly" onclick="deleteY()">Delete all this</a>
+                                    </select><span>&nbsp;</span><input type="text" id="txtIPLockAdmin" /><br />
+                                    <button onclick="addLockAdmin()" style="color:green">THÊM (KHOÁ IP ADMIN)</button><span>&nbsp;</span><button onclick="removeLockAdmin()" style="color:red">XOÁ (MỞ KHOÁ IP ADMIN)</button><span>&nbsp;</span><a id="linkread3" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/ListIPLock.txt" target="_blank" style="color:yellow">Xem Chi Tiết</a> <span> || </span> <a style="color:yellow" href="#xuly" onclick="deleteY()">Delete all this</a>
                                     <br />
                                     <br />
-                                    <b name="colorX" style="color:@TempData["mau_text"]" id="custom211">DANH SÁCH CÁC IP ĐANG BỊ KHOÁ (CLIENT)</b>
+                                    <b name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG BỊ KHOÁ (CLIENT)</b>
                                     <br />
                                     <select onclick="loadLockClient()" onchange="setLockClient()" id="ip_blockclient">
-                                    </select><span id="custom128">&nbsp;</span><input type="text" id="txtIPLockClient" size="180" placeholder="Nhập với cấu trúc : IP<>Mật khẩu; hoặc nếu bạn muốn sử dụng mật khẩu mặc định thì nhập như sau : IP" /><br />
-                                    <button onclick="addLockClient()" style="color:green" id="custom220">THÊM (KHOÁ IP CLIENT)</button><span id="custom128">&nbsp;</span><button onclick="removeLockClient()" style="color:red" id="custom222">XOÁ (MỞ KHOÁ IP CLIENT)</button><span id="custom128">&nbsp;</span><button onclick="changeCodeLockClient()" style="color:orangered" id="custom224">ĐỔI MẬT KHẨU</button><span id="custom128">&nbsp;</span><a id="linkread4" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/LockedIPClient.txt" target="_blank" style="color:yellow">Xem Chi Tiết</a><span id="custom128"> || </span><a style="color:yellow" href="#xuly" onclick="deleteZ()">Delete all this</a>
+                                    </select><span>&nbsp;</span><input type="text" id="txtIPLockClient" size="180" placeholder="Nhập với cấu trúc : IP<>Mật khẩu; hoặc nếu bạn muốn sử dụng mật khẩu mặc định thì nhập như sau : IP" /><br />
+                                    <button onclick="addLockClient()" style="color:green">THÊM (KHOÁ IP CLIENT)</button><span>&nbsp;</span><button onclick="removeLockClient()" style="color:red">XOÁ (MỞ KHOÁ IP CLIENT)</button><span>&nbsp;</span><button onclick="changeCodeLockClient()" style="color:orangered">ĐỔI MẬT KHẨU</button><span>&nbsp;</span><a id="linkread4" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/LockedIPClient.txt" target="_blank" style="color:yellow">Xem Chi Tiết</a><span> || </span><a style="color:yellow" href="#xuly" onclick="deleteZ()">Delete all this</a>
                                     <br/><br />
-                                    <a id="linkread5" href="/Admin/ReadAdminFileByStatic?file=/Admin/ListIPComeToHereTheFirst.txt" style="color:aqua" target="_blank">Xem list các IP đã ghé thăm (save in the first) hiện có</a><span id="custom128">&nbsp;</span><span id="custom128">&nbsp;</span><span id="custom128">&nbsp;</span><a href="#xuly" style="color:aqua" onclick="deleteFirstIP()">Delete</a><span id="custom128">&nbsp;</span><span id="custom128">&nbsp;</span><span id="custom128">&nbsp;</span><a href="#xuly" style="color:aqua" onclick="mailthefirstIP()">Báo cáo list các IP đã ghé thăm (save in the first) hiện có qua mail và refresh</a>
+                                    <a id="linkread5" href="/Admin/ReadAdminFileByStatic?file=/Admin/ListIPComeToHereTheFirst.txt" style="color:aqua" target="_blank">Xem list các IP đã ghé thăm (save in the first) hiện có</a><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><a href="#xuly" style="color:aqua" onclick="deleteFirstIP()">Delete</a><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><a href="#xuly" style="color:aqua" onclick="mailthefirstIP()">Báo cáo list các IP đã ghé thăm (save in the first) hiện có qua mail và refresh</a>
                                     <hr />
                                     <hr />
                                     <br /><br />
                                     <select id="chonlua" onchange="doichonlua()">
-                                        <option id="custom121">Thay thế các ảnh ngẫu nhiên hệ thống khi play karaoke (có thể tải lên nhiều file *.jpg)</option>
-                                        <option id="custom121">Thay thế ảnh gif error khi truy cập page Error (chỉ tải lên 1 file *.gif hoặc lấy file đầu tiên)</option>
-                                        <option id="custom121">Thay thế ảnh gif waiting đại diện cho tiến trình chờ xử lý (chỉ tải lên 1 file *.gif hoặc lấy file đầu tiên)</option>
-                                        <option id="custom121">Thay thế ảnh hiển thị cho phần Tab Tittle View (chỉ tải lên 1 file *.png hoặc lấy file đầu tiên)</option>
-                                        <option id="custom121">Thay thế nội dung các Tab Tittle View (chỉ tải lên 1 file *.txt hoặc lấy file đầu tiên)</option>
-                                        <option id="custom121">Thay thế nội dung các link ảnh online cho Tab Tittle View (chỉ tải lên 1 file *.txt hoặc lấy file đầu tiên)</option>
-                                        <option id="custom121">Thay thế nội dung các link video youtube ngẫu nhiên - background play karaoke (chỉ tải lên 1 file *.txt hoặc lấy file đầu tiên)</option>
-                                        <option id="custom121">Thay thế các tệp dành cho Karaoke demo của hệ thống (chỉ tải lên các file : TextDemo.txt, KaraokeDemo.mp3, NhacDemo.mp3, LyricDemo.txt - admin tự hiểu và cẩn thận 😎)</option>
-                                        <option id="custom121">Thay thế file mẫu trắc nghiệm của hệ thống (tải lên 1 file *.txt hoặc lấy file đầu tiên)</option>
-                                        <option id="custom121">Thay thế file mẫu question của hệ thống (tải lên 1 file *.txt hoặc lấy file đầu tiên)</option>
+                                        <option>Thay thế các ảnh ngẫu nhiên hệ thống khi play karaoke (có thể tải lên nhiều file *.jpg)</option>
+                                        <option>Thay thế ảnh gif error khi truy cập page Error (chỉ tải lên 1 file *.gif hoặc lấy file đầu tiên)</option>
+                                        <option>Thay thế ảnh gif waiting đại diện cho tiến trình chờ xử lý (chỉ tải lên 1 file *.gif hoặc lấy file đầu tiên)</option>
+                                        <option>Thay thế ảnh hiển thị cho phần Tab Tittle View (chỉ tải lên 1 file *.png hoặc lấy file đầu tiên)</option>
+                                        <option>Thay thế nội dung các Tab Tittle View (chỉ tải lên 1 file *.txt hoặc lấy file đầu tiên)</option>
+                                        <option>Thay thế nội dung các link ảnh online cho Tab Tittle View (chỉ tải lên 1 file *.txt hoặc lấy file đầu tiên)</option>
+                                        <option>Thay thế nội dung các link video youtube ngẫu nhiên - background play karaoke (chỉ tải lên 1 file *.txt hoặc lấy file đầu tiên)</option>
+                                        <option>Thay thế các tệp dành cho Karaoke demo của hệ thống (chỉ tải lên các file : TextDemo.txt, KaraokeDemo.mp3, NhacDemo.mp3, LyricDemo.txt - admin tự hiểu và cẩn thận 😎)</option>
+                                        <option>Thay thế file mẫu trắc nghiệm của hệ thống (tải lên 1 file *.txt hoặc lấy file đầu tiên)</option>
+                                        <option>Thay thế file mẫu question của hệ thống (tải lên 1 file *.txt hoặc lấy file đầu tiên)</option>
                                     </select>
                                     @using (Html.BeginForm("ReplaceUpload", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
                                     {
@@ -1769,7 +1769,7 @@ Layout = null;
                                         <input type="submit" hidden id="oki" />
                                     }
                                     <br />
-            <button style="color:crimson" onclick="okreplace()" id="custom243">OK REPLACE</button>
+            <button style="color:crimson" onclick="okreplace()">OK REPLACE</button>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <a style="color:red" id="linkmausan" href="/Home/ViewFile?path=@TempData["files-bg-kara"]#1" target="_blank">Xem nội dung hiện tại</a>
             <br />
@@ -1778,11 +1778,11 @@ Layout = null;
 
         @if (TempData["SaveComeHere"] == "true" && TempData["IsLoginAdminTemp"] != "true")
         {
-        <button id="listIPcomehere" onclick="listIPcomehere()"><b style="color:red" id="custom244">RELOAD THIS HERE</b></button>
-        <button onclick="reportIPcomehere()" id="custom245"><b style="color:green" id="custom246">MAIL REPORT THIS RESULT AND RESET THIS HERE</b></button>
-        <button onclick="deleteIPcomehere()" id="custom247"><b style="color:orangered" id="custom132">DELETE AND DON'T MAIL REPORT</b></button>
+        <button id="listIPcomehere" onclick="listIPcomehere()"><b style="color:red">RELOAD THIS HERE</b></button>
+        <button onclick="reportIPcomehere()"><b style="color:green">MAIL REPORT THIS RESULT AND RESET THIS HERE</b></button>
+        <button onclick="deleteIPcomehere()"><b style="color:orangered">DELETE AND DON'T MAIL REPORT</b></button>
         <br /><br />
-        <p style="color:purple" id="custom249">
+        <p style="color:purple">
             - Nhấn button "MAIL REPORT" nếu bạn muốn tự xuất báo cáo thủ công ngay hiện tại, hoặc không nếu hệ thống phát hiện dữ liệu này đã hơn xxx thì cũng tự động gửi report và khôi phục...<br>
             - Kết quả danh sách bên dưới có thể chưa đủ thông tin vì trước đó bạn đã từng tắt/tạm ngưng save setting chế độ lưu trữ này hoặc tự động được reset lại khi data đã quá xxx (hãy bật setting report mail when data than xxx để kịp thời lưu trữ).
         </p>
@@ -1791,11 +1791,11 @@ Layout = null;
         <br /><br />
         <hr />
         <hr />
-        <div style="background-color:yellow" id="custom250">
-            <button id="rexJPhere" onclick="addJPReplace()"><b style="color:green" id="custom246">CẬP NHẬT NỘI DUNG (⚠ lưu ý nên xác định ví trí phù hợp để thêm vào, phải nhập bắt chước theo cấu trúc cũ)</b></button>
-            <button onclick="resetJPReplace()" id="custom252"><b style="color:red" id="custom244">RESET LẠI MẶC ĐỊNH HỆ THỐNG</b></button>
+        <div style="background-color:yellow">
+            <button id="rexJPhere" onclick="addJPReplace()"><b style="color:green">CẬP NHẬT NỘI DUNG (⚠ lưu ý nên xác định ví trí phù hợp để thêm vào, phải nhập bắt chước theo cấu trúc cũ)</b></button>
+            <button onclick="resetJPReplace()"><b style="color:red">RESET LẠI MẶC ĐỊNH HỆ THỐNG</b></button>
             <br /><br />
-            <h1 style="color:red" id="custom254">QUY TẮC CÁCH CHUYỂN ĐỔI CÁC KÍ TỰ SANG JAPAN - QUESTION (hiện có) : </h1>
+            <h1 style="color:red">QUY TẮC CÁCH CHUYỂN ĐỔI CÁC KÍ TỰ SANG JAPAN - QUESTION (hiện có) : </h1>
             <textarea id="JPrex" cols="30" rows="20">@TempData["rexJP"]</textarea>
             <br /><br />
             <hr />
@@ -1804,11 +1804,11 @@ Layout = null;
         <br /><br />
         <hr />
         <hr />
-        <div style="background-color:lightpink" id="custom255">
-            <button id="fontHere" onclick="addFontReplace()"><b style="color:green" id="custom246">CẬP NHẬT NỘI DUNG</b></button>
-            <button onclick="resetFontReplace()" id="custom257"><b style="color:red" id="custom244">RESET LẠI MẶC ĐỊNH HỆ THỐNG</b></button>
+        <div style="background-color:lightpink">
+            <button id="fontHere" onclick="addFontReplace()"><b style="color:green">CẬP NHẬT NỘI DUNG</b></button>
+            <button onclick="resetFontReplace()"><b style="color:red">RESET LẠI MẶC ĐỊNH HỆ THỐNG</b></button>
             <br /><br />
-            <h1 style="color:red" id="custom254">DANH SÁCH CÁC FONT CHỮ KHI PLAY KARAOKE (hiện có) : </h1>
+            <h1 style="color:red">DANH SÁCH CÁC FONT CHỮ KHI PLAY KARAOKE (hiện có) : </h1>
             <textarea id="txtFont" cols="30" rows="20">@TempData["fontKara"]</textarea>
             <br /><br />
             <hr />
@@ -1817,24 +1817,24 @@ Layout = null;
 
        @if (TempData["IsLoginAdminTemp"] != "true")
        {
-        <h3 style="color:orangered" id="custom260">
-            - [Quy tắc link rút gọn bom.so, còn link gốc bạn có thể không cần quan tâm cái này] Lưu ý, các hướng dẫn ở đây có thể sau này sẽ cũ hoặc một số bây giờ sẽ không thể sử dụng được. Mặc dù vậy, bạn hãy thử nghĩ và random thử nhiều cách khác nhau (vì nhiều cái muốn đổi thay mà giờ làm biếng đổi quá 🤣😄). Mà không sao đâu, mấy này cũng tương tự à : bạn tự mò nha 😁. Ví dụ ở hướng dẫn là <b id="custom131">abc1</b> (nhưng giờ thử không được) thì bạn có thể thử nhiều cái cách khác như : <b id="custom131">abc2, abc3, abc4, ...</b> (hên xui ahihi 🤩).
+        <h3 style="color:orangered">
+            - [Quy tắc link rút gọn bom.so, còn link gốc bạn có thể không cần quan tâm cái này] Lưu ý, các hướng dẫn ở đây có thể sau này sẽ cũ hoặc một số bây giờ sẽ không thể sử dụng được. Mặc dù vậy, bạn hãy thử nghĩ và random thử nhiều cách khác nhau (vì nhiều cái muốn đổi thay mà giờ làm biếng đổi quá 🤣😄). Mà không sao đâu, mấy này cũng tương tự à : bạn tự mò nha 😁. Ví dụ ở hướng dẫn là <b>abc1</b> (nhưng giờ thử không được) thì bạn có thể thử nhiều cái cách khác như : <b>abc2, abc3, abc4, ...</b> (hên xui ahihi 🤩).
             <br />
-            - Bạn chỉ cần nhớ thêm các quy tắc sau : thường link rút gọn của <b id="custom131">bom.so</b> mình sẽ tự đặt ra cái tên và phía cuối là con số (VD : bom.so/abc1). Mà web hoạt động hiện tại dựa trên 2 dịch vụ host server : somee và bsite. 
+            - Bạn chỉ cần nhớ thêm các quy tắc sau : thường link rút gọn của <b>bom.so</b> mình sẽ tự đặt ra cái tên và phía cuối là con số (VD : bom.so/abc1). Mà web hoạt động hiện tại dựa trên 2 dịch vụ host server : somee và bsite. 
             Bây giờ hãy nhớ, nếu số cuối là số chẵn thì thuộc về somee; ngược lại nếu số cuối lẻ là của bsite. 
             Ngoại trừ link đăng kí bật web (VD : bom.so/batweb11), nếu các số cuối (có số lượng chẵn) đều là lẻ thì là của somee/các số cuối (có số lượng lẻ) đều là các số lẻ thì là của bsite (thông tin của tôi/tuyệt đối ở nhà); 
             và ngược lại nếu các số cuối (có số lượng chẵn) đều là chẵn thì là của somee/các số cuối (có số lượng lẻ) đều là các số chẵn thì là của bsite (thông tin của người khác/tôi xài bên ngoài - w2) ⭐⭐⭐
             <br />
-            - Còn nếu bạn quá mệt mỏi với cái này, hãy tự tìm đến <b id="custom131">bom.so</b> và tự đặt ra link rút gọn phù hợp đi nha (nhiều khi tui làm biếng nên mấy quy tắc tào lao này tui cũng chưa nghĩ ra 😪😀) :)) ...
+            - Còn nếu bạn quá mệt mỏi với cái này, hãy tự tìm đến <b>bom.so</b> và tự đặt ra link rút gọn phù hợp đi nha (nhiều khi tui làm biếng nên mấy quy tắc tào lao này tui cũng chưa nghĩ ra 😪😀) :)) ...
         </h3>
         <br />
-        <h3 style="color:deeppink" id="custom265">
-            * Email support : mywebplay.website@gmail.com<br>* Email save data/message (secret 🔒) :  mywebplay.savefile@gmail.com<br /><br />* Đăng nhập :<br><br>http://freeasphosting.net/<br><br>ID : kienthuccode<br><br><br>somee.com<br><br>ID : mywebplay<br><br><br>* Link sử dụng web :<br><br>http://bom.so/playweb1<br>kienthuccode.bsite.net<br><br>http://bom.so/playweb2<br>kienthuccongnghe.somee.com<br><br>* Cài đặt admin (chỉ nên truy cập cá nhân) :<br><br>http://bom.so/adset1<br>http://bom.so/adset2<br><br>/Admin/SettingXYZ_DarkAdmin<br><br>* Password web admin (cho tất cả - riêng tư cá nhân) :<br><br>Mặc định : mywebplay-ADMIN<br>Hoặc tuỳ thuộc sự thay đổi tại : /Admin/SettingXYZ_DarkAdmin<br><br>* Link bật web :<br><br>http://bom.so/batweb1 | http://bom.so/batweb11 (ở nhà)<br><br>http://bom.so/batweb2 | http://bom.so/batweb22 (bên ngoài - W2 solution my work)<br><br>Thông tin bật web cho người khác/nơi khác :<br><br>/Home/PlayOnWebInLocalX?key=true&info=[THÔNG-TIN-NGƯỜI-MUỐN-ĐĂNG-KÍ-BẬT-WEB]<br><br>* Link tắt web (đồng thời xoá luôn cấp phép truy cập) :<br><br>http://bom.so/tatweb1<br>http://bom.so/tatweb2<br><br>/Home/PlayOnWebInLocalX?key=false<br><br>* Link cấp phép tiếp tục sử dụng (thiết bị mới) :<br><br>http://bom.so/capphep1<br>http://bom.so/capphep2<br><br>/Home/ContinueUsedWebX?code=1234567890qwertyuiopasdfghjklzxcvbnm<br><br>Sau khi vào link cấp phép, cần phải xác nhận :<br><br>=> Ví dụ lúc đó đang là 10 giờ 05 phút (đọc ngược lại ta có dãy số 5001), thì ta sẽ Ctrl+ F và tìm button đang có dãy số này và chỉ nhấn vào button đó thôi.<br><br>* Link xoá cấp phép truy cập web cho thiết bị hiện tại (tuy nhiên vẫn còn đăng kí) :<br><br>http://bom.so/traiphep1<br>http://bom.so/traiphep2<br><br>/Home/ContinueUsedWebX?code=<br><br>* Nếu bị khoá web bởi admin :<br><br>[Kiểm tra và tìm lại email admin để xử lý - các link nhấn (chỉ admin mới quyết định)]<br><br>* Nếu bị khoá web bởi khoá LockedClientID (user) :<br><br>18:08<br>02/12<br><br>Ví dụ, lúc cần mở khoá đang 18 giờ 08 phút, ngày 02 tháng 12 thì mật khẩu LockedClientID sẽ là : <span style="color:darkred" id="custom266">00</span>81212080 (trừ khi password đã được user tự thiết kế riêng) - nghĩa là cấu trúc : 00 đầu - giờ đảo - tháng đảo - phút đảo - ngày đảo<br><br>Hoặc password chung (dự phòng) dễ hơn là : abc-xyz (nhưng khuyên hạn chế xài/riêng tư, hoặc có thể đổi lại tại phần setting ở trên)<br><br>* Mega.io :<br><br>ID : mywebplay.savefile@gmail.com<br><br><br>* Điều khiển session :<br><br>/Home/SessionPlay_DarkAdmin<br><br>* Các link ngoại khoá (tham khảo thêm) :<br><br>Home/SendMailSave1?email=[...]&message=[...] (này cũng tạm được)<br>Home/SecretWeb?email=[...]<br><br>💚 Tuy nhiên thường sẽ xài cái dưới : <br><br>* Hướng dẫn COPY :<br><br>- LƯU Ý : phải thực sự cần xài thì mới vào đây, nếu lỡ đã vào thì phải xài cho hết.<br>Dấu hiệu xài xong và ok là khi mình được chuyển hướng sang trang google.com<br><br>________________________________________________________<br><br>- Copy nội dung bạn muốn (copy lại lần nữa cho chắc), phải đảm bảo nội dung bạn đang copy hiện có thể Ctrl+V được và phải chính xác nội dung bạn đang mong muốn và cần copy.<br><br>- Truy cập : http://bom.so/copy_on<br><br>- Nếu muốn thay đổi có thể thêm param ?email=[your-email] trên thanh url (không thì sẽ là mặc định).<br><br>- <b id="custom131">/Home/RandomLayout</b> : html layout ngẫu nhiên thiết kế cho các site secret, (admin) send POST quick data...<br><br>- Như đã nói, vô đây là phải xài. Mà dù lỡ xài hay không xài cũng ráng mà click vào link chuyển hướng sang google.com là ok tất :)), chứ đừng có thoát hay X close nha ...<br><br>Bye!<br /><br />bom.so/remove1 hoặc bom.so/remove2 : Xoá all session và tempdata in this web<br />
+        <h3 style="color:deeppink">
+            * Email support : mywebplay.website@gmail.com<br>* Email save data/message (secret 🔒) :  mywebplay.savefile@gmail.com<br /><br />* Đăng nhập :<br><br>http://freeasphosting.net/<br><br>ID : kienthuccode<br><br><br>somee.com<br><br>ID : mywebplay<br><br><br>* Link sử dụng web :<br><br>http://bom.so/playweb1<br>kienthuccode.bsite.net<br><br>http://bom.so/playweb2<br>kienthuccongnghe.somee.com<br><br>* Cài đặt admin (chỉ nên truy cập cá nhân) :<br><br>http://bom.so/adset1<br>http://bom.so/adset2<br><br>/Admin/SettingXYZ_DarkAdmin<br><br>* Password web admin (cho tất cả - riêng tư cá nhân) :<br><br>Mặc định : mywebplay-ADMIN<br>Hoặc tuỳ thuộc sự thay đổi tại : /Admin/SettingXYZ_DarkAdmin<br><br>* Link bật web :<br><br>http://bom.so/batweb1 | http://bom.so/batweb11 (ở nhà)<br><br>http://bom.so/batweb2 | http://bom.so/batweb22 (bên ngoài - W2 solution my work)<br><br>Thông tin bật web cho người khác/nơi khác :<br><br>/Home/PlayOnWebInLocalX?key=true&info=[THÔNG-TIN-NGƯỜI-MUỐN-ĐĂNG-KÍ-BẬT-WEB]<br><br>* Link tắt web (đồng thời xoá luôn cấp phép truy cập) :<br><br>http://bom.so/tatweb1<br>http://bom.so/tatweb2<br><br>/Home/PlayOnWebInLocalX?key=false<br><br>* Link cấp phép tiếp tục sử dụng (thiết bị mới) :<br><br>http://bom.so/capphep1<br>http://bom.so/capphep2<br><br>/Home/ContinueUsedWebX?code=1234567890qwertyuiopasdfghjklzxcvbnm<br><br>Sau khi vào link cấp phép, cần phải xác nhận :<br><br>=> Ví dụ lúc đó đang là 10 giờ 05 phút (đọc ngược lại ta có dãy số 5001), thì ta sẽ Ctrl+ F và tìm button đang có dãy số này và chỉ nhấn vào button đó thôi.<br><br>* Link xoá cấp phép truy cập web cho thiết bị hiện tại (tuy nhiên vẫn còn đăng kí) :<br><br>http://bom.so/traiphep1<br>http://bom.so/traiphep2<br><br>/Home/ContinueUsedWebX?code=<br><br>* Nếu bị khoá web bởi admin :<br><br>[Kiểm tra và tìm lại email admin để xử lý - các link nhấn (chỉ admin mới quyết định)]<br><br>* Nếu bị khoá web bởi khoá LockedClientID (user) :<br><br>18:08<br>02/12<br><br>Ví dụ, lúc cần mở khoá đang 18 giờ 08 phút, ngày 02 tháng 12 thì mật khẩu LockedClientID sẽ là : <span style="color:darkred">00</span>81212080 (trừ khi password đã được user tự thiết kế riêng) - nghĩa là cấu trúc : 00 đầu - giờ đảo - tháng đảo - phút đảo - ngày đảo<br><br>Hoặc password chung (dự phòng) dễ hơn là : abc-xyz (nhưng khuyên hạn chế xài/riêng tư, hoặc có thể đổi lại tại phần setting ở trên)<br><br>* Mega.io :<br><br>ID : mywebplay.savefile@gmail.com<br><br><br>* Điều khiển session :<br><br>/Home/SessionPlay_DarkAdmin<br><br>* Các link ngoại khoá (tham khảo thêm) :<br><br>Home/SendMailSave1?email=[...]&message=[...] (này cũng tạm được)<br>Home/SecretWeb?email=[...]<br><br>💚 Tuy nhiên thường sẽ xài cái dưới : <br><br>* Hướng dẫn COPY :<br><br>- LƯU Ý : phải thực sự cần xài thì mới vào đây, nếu lỡ đã vào thì phải xài cho hết.<br>Dấu hiệu xài xong và ok là khi mình được chuyển hướng sang trang google.com<br><br>________________________________________________________<br><br>- Copy nội dung bạn muốn (copy lại lần nữa cho chắc), phải đảm bảo nội dung bạn đang copy hiện có thể Ctrl+V được và phải chính xác nội dung bạn đang mong muốn và cần copy.<br><br>- Truy cập : http://bom.so/copy_on<br><br>- Nếu muốn thay đổi có thể thêm param ?email=[your-email] trên thanh url (không thì sẽ là mặc định).<br><br>- <b>/Home/RandomLayout</b> : html layout ngẫu nhiên thiết kế cho các site secret, (admin) send POST quick data...<br><br>- Như đã nói, vô đây là phải xài. Mà dù lỡ xài hay không xài cũng ráng mà click vào link chuyển hướng sang google.com là ok tất :)), chứ đừng có thoát hay X close nha ...<br><br>Bye!<br /><br />bom.so/remove1 hoặc bom.so/remove2 : Xoá all session và tempdata in this web<br />
             <br /><br />
-            <span style="color:purple" id="custom268">MÀ THÔI NÓI NGHE 🤩 : xài cái này đi 😅  <b id="custom131">bom.so/sodata1</b> hoặc <b id="custom131">bom.so/sodata2</b></span>
-            <br /><br /><br /><b id="custom131">#BỔ SUNG ADMIN</b> (dịch vụ truyền và xử lý dữ liệu nhanh chóng của các chức năng có trên website - bom.so/quickly1 hoặc bom.so/quickly2) - tuy nhiên nếu là lần đầu bạn phải truy cập <b id="custom131">bom.so/firstdata1</b> hoặc <b id="custom131">bom.so/firstdata2</b> nhằm để lưu quyền cho phép truy cập clipboard trên trình duyệt, rồi từ đây về sau muốn sử dụng vào thẳng link kia là được 😆 : <br />
+            <span style="color:purple">MÀ THÔI NÓI NGHE 🤩 : xài cái này đi 😅  <b>bom.so/sodata1</b> hoặc <b>bom.so/sodata2</b></span>
+            <br /><br /><br /><b>#BỔ SUNG ADMIN</b> (dịch vụ truyền và xử lý dữ liệu nhanh chóng của các chức năng có trên website - bom.so/quickly1 hoặc bom.so/quickly2) - tuy nhiên nếu là lần đầu bạn phải truy cập <b>bom.so/firstdata1</b> hoặc <b>bom.so/firstdata2</b> nhằm để lưu quyền cho phép truy cập clipboard trên trình duyệt, rồi từ đây về sau muốn sử dụng vào thẳng link kia là được 😆 : <br />
             <br />
-            <span style="color:blue" id="custom274">Admin/QuickDataInWeb</span> (nếu truyền thêm giá trị bất kỳ cho param <b id="custom131">first</b> nghĩa là lần đầu, có vẻ cần cấp quyền clipboard trước...)
+            <span style="color:blue">Admin/QuickDataInWeb</span> (nếu truyền thêm giá trị bất kỳ cho param <b>first</b> nghĩa là lần đầu, có vẻ cần cấp quyền clipboard trước...)
             <br><br />
             - Ví dụ bạn muốn sử dụng chức năng tính tổng 2 số, đường dẫn của chức năng là Home/TinhTongHaiSo thì trước đây bạn sẽ truy cập đến trang này, trên màn hình bạn sẽ nhập số thứ 1 tại input A và nhập số thứ hai tại input textbox B. Sau đó, bạn nhấn nút submit để gọi POST và trả về kết quả tổng của 2 số đó ở màn hình tiếp theo.<br>
             <br>
@@ -1870,14 +1870,14 @@ Layout = null;
             <br>
             - Bước 3 : truy cập page /Admin/QuickDataInWeb và chờ đợi (và do không có form màn hình để nhìn như trước đây nên sẽ khó hình dung 😁😪)...<br>
             <br />
-            - <b style="color:chartreuse" id="custom276">Đặc biệt hơn : </b>Nếu bạn áp dụng dịch vụ này nhưng bật setting download kết quả POST từ file .txt (thay vì copy vào clipboard) và trong khi bạn đã setting chế độ tàng hình + không xác minh [ADMIN]. Đối với trường hợp này, khi bạn vừa load page /Admin/QuickDataInWeb trên, bạn đừng nên làm gì cả. Hãy cứ Ctrl + V nội dung bạn vừa copy (dù không nhìn thấy gì nhưng cũng đừng sốt ruột); sau đó rê chuột thật xa và click đại chỗ nào cũng được - càng về phía phải càng tốt, sau đó cũng chờ đợi...Sau khi sự chờ đợi và xử lý kết thúc, ở trang POST kết quả đã xong, bạn click đại chỗ nào cũng được để kết quả đó được copy vào clipboard hay tải về file .txt (tuỳ thuộc)⭐⭐⭐
+            - <b style="color:chartreuse">Đặc biệt hơn : </b>Nếu bạn áp dụng dịch vụ này nhưng bật setting download kết quả POST từ file .txt (thay vì copy vào clipboard) và trong khi bạn đã setting chế độ tàng hình + không xác minh [ADMIN]. Đối với trường hợp này, khi bạn vừa load page /Admin/QuickDataInWeb trên, bạn đừng nên làm gì cả. Hãy cứ Ctrl + V nội dung bạn vừa copy (dù không nhìn thấy gì nhưng cũng đừng sốt ruột); sau đó rê chuột thật xa và click đại chỗ nào cũng được - càng về phía phải càng tốt, sau đó cũng chờ đợi...Sau khi sự chờ đợi và xử lý kết thúc, ở trang POST kết quả đã xong, bạn click đại chỗ nào cũng được để kết quả đó được copy vào clipboard hay tải về file .txt (tuỳ thuộc)⭐⭐⭐
             <br>
             <br>
             => Yên tâm, sẽ liệt kê một số ví dụ tương ứng và có thể áp dụng thử <a href="#hahaha">ở bên dưới</a> 😍
         </h3>
         <hr />
         <h3 style="color:firebrick">
-            * Đối với giáo viên :<br><br>- Sử dụng chức năng Upload File - khuyên nên tạm bật setting chế độ View site pattern cho đẹp :)) (bsite hoặc somee) và tạo thư mục trong wwroot là TracNghiemOnline_32752262 - trong thư mục FileExternal (cái này bạn phải tự copy file để chuyển sang thủ công) và tạo tiếp thư mục là một chuỗi mã (TNID) tuỳ ý (VD : qwerty).<br><br>- Mỗi thư mục mã (TNID) là một loại trắc nghiệm dành riêng/phân biệt cho một môn học theo mỗi đợt. Bên trong thư mục này, hãy gán tất cả các file txt trắc nghiệm có liên quan đến môn học đó.<br><br>- Để xem điểm học sinh : /Admin/TracNghiemOnline_ViewMark (không tiết lộ cho HS)<br><br>* Đối với học sinh (mỗi bạn tự biết MSSV của mình) :<br><br>- ID liên kết thực hiện trắc nghiệm : A_B_C_D<br><br>#Trong đó :<br><br>A : tên thư mục mã TNID chứa các file txt cần thực hiện<br>B : tổng số câu phải làm<br>C : thời gian làm bài<br>D : tên môn học (để phân biệt và hiển thị)<br /><br />- Link dành cho HS làm bài : <span style="color:red" id="custom179">Home/PlayTracNghiem_Online</span><br />
+            * Đối với giáo viên :<br><br>- Sử dụng chức năng Upload File - khuyên nên tạm bật setting chế độ View site pattern cho đẹp :)) (bsite hoặc somee) và tạo thư mục trong wwroot là TracNghiemOnline_32752262 - trong thư mục FileExternal (cái này bạn phải tự copy file để chuyển sang thủ công) và tạo tiếp thư mục là một chuỗi mã (TNID) tuỳ ý (VD : qwerty).<br><br>- Mỗi thư mục mã (TNID) là một loại trắc nghiệm dành riêng/phân biệt cho một môn học theo mỗi đợt. Bên trong thư mục này, hãy gán tất cả các file txt trắc nghiệm có liên quan đến môn học đó.<br><br>- Để xem điểm học sinh : /Admin/TracNghiemOnline_ViewMark (không tiết lộ cho HS)<br><br>* Đối với học sinh (mỗi bạn tự biết MSSV của mình) :<br><br>- ID liên kết thực hiện trắc nghiệm : A_B_C_D<br><br>#Trong đó :<br><br>A : tên thư mục mã TNID chứa các file txt cần thực hiện<br>B : tổng số câu phải làm<br>C : thời gian làm bài<br>D : tên môn học (để phân biệt và hiển thị)<br /><br />- Link dành cho HS làm bài : <span style="color:red">Home/PlayTracNghiem_Online</span><br />
         </h3>
         <br />
         <hr />
@@ -2086,7 +2086,7 @@ Layout = null;
             <br>long[,]-property5
             <br>string[]-property6
             <br>List
-            <bool id="custom278">
+            <bool>
             -property7
             <br>#ClassOther-property8
             <br>
@@ -2497,13 +2497,13 @@ Layout = null;
             ...<br />
             >>> Còn lại bạn tự khám phá và giải quyết bổ sung nhé, vì tào lao hên xui lắm 🤣🤣🤣 !
             <br />
-            <span style="color:purple" id="custom268">(Mã số bí mật - giúp đỡ admin hoạn nạn come in setting (tự biết cách dùng 😎): <b id="custom131">32752262 - 20062000 - 20063275</b>)</span><br />
-            <span style="color:lawngreen" id="custom281">(Kí tự sẽ replace tượng trưng cho dấu ngoặc kép " (sử dụng khi request quick POST data) : <b id="custom131">[ngoackep_0000]</b>)</span><br /><br />
-            <span style="color:red" id="custom179">Mẹo : để thay đổi link hosting (server ngoài) karaoke demo của hệ thống, vào trang SessionPlay và thiết lập giá trị session C# có key là "kara-demox-3275" là link mới bạn muốn thay đổi, sau đó load lại trang Home bất kỳ để được cập nhật tương ứng...</span><br />
+            <span style="color:purple">(Mã số bí mật - giúp đỡ admin hoạn nạn come in setting (tự biết cách dùng 😎): <b>32752262 - 20062000 - 20063275</b>)</span><br />
+            <span style="color:lawngreen">(Kí tự sẽ replace tượng trưng cho dấu ngoặc kép " (sử dụng khi request quick POST data) : <b>[ngoackep_0000]</b>)</span><br /><br />
+            <span style="color:red">Mẹo : để thay đổi link hosting (server ngoài) karaoke demo của hệ thống, vào trang SessionPlay và thiết lập giá trị session C# có key là "kara-demox-3275" là link mới bạn muốn thay đổi, sau đó load lại trang Home bất kỳ để được cập nhật tương ứng...</span><br />
         </span>
         <br />
         <br/>
-        <span style="color:darkslategrey" id="custom284">
+        <span style="color:darkslategrey">
         [Lưu ý : thiết đặt mật khẩu mới (Admin) nên tránh 1 số các kí tự đặc biệt, bị nhầm lẫn với URL và mã hoá với HTML...]<br />
         <br />
         Play : http://localhost:5000/<br />
@@ -2647,24 +2647,24 @@ Layout = null;
         {
         @Html.ValidationSummary(true)
         <br />
-        <tr style="height:40px" id="custom135">
-            <td id="custom136"><textarea cols="180" rows="10"  name="txtSetting" id="custom287">@TempData["setting-play"]</textarea></td>
+        <tr style="height:40px">
+            <td><textarea cols="180" rows="10"  name="txtSetting">@TempData["setting-play"]</textarea></td>
             <br /><br />
-            <td id="custom136"><input id="matma" size="30" type="password" name="txtPassword" /></td>
+            <td><input id="matma" size="30" type="password" name="txtPassword" /></td>
             <br /><br />
-            <td id="custom136"><button type="submit" style="color:mediumblue" id="custom290">THAY ĐỔI</button></td>&nbsp;&nbsp;<a href="#xuly" onclick="publicsecureadmin()" style="color:lime"><b id="custom131">Public secure setting (admin)</b></a>
+            <td><button type="submit" style="color:mediumblue">THAY ĐỔI</button></td>&nbsp;&nbsp;<a href="#xuly" onclick="publicsecureadmin()" style="color:lime"><b>Public secure setting (admin)</b></a>
             <br /><br />
-            <span style="color:red" id="custom179">Để reset lại nội dung mặc định, tại trang play session C# sử dụng key "reset-play-setting" với giá trị là 32752262_20062000 (tốt nhất nên thực hiện thêm bước API để khôi phục setting admin).</span>
+            <span style="color:red">Để reset lại nội dung mặc định, tại trang play session C# sử dụng key "reset-play-setting" với giá trị là 32752262_20062000 (tốt nhất nên thực hiện thêm bước API để khôi phục setting admin).</span>
             <br />
-            <span style="color:orangered" id="custom138">Phần &#34;Notice : [NULL]&#34; khi không có thông báo (nếu có thì sẽ luôn luôn xuất hiện). Để cho phép user tắt nhận thông báo ấy, phía sau thêm "&lt;3275&gt;<span style="color:crimson" id="custom294">mã số bất kỳ</span>".<br />Lưu ý : khi bạn đổi mã số khác thì user lại nhận thông báo đó 1 lần nữa và cũng có thể chọn huỷ một lần nữa và cứ như thế...</span>
+            <span style="color:orangered">Phần &#34;Notice : [NULL]&#34; khi không có thông báo (nếu có thì sẽ luôn luôn xuất hiện). Để cho phép user tắt nhận thông báo ấy, phía sau thêm "&lt;3275&gt;<span style="color:crimson">mã số bất kỳ</span>".<br />Lưu ý : khi bạn đổi mã số khác thì user lại nhận thông báo đó 1 lần nữa và cũng có thể chọn huỷ một lần nữa và cứ như thế...</span>
             <br />
-            <span style="color:orangered" id="custom138">Phía cuối setting &#34;DELAY_DATETIME&#34;, có thể thêm link mp3 online để làm nhạc nền trang web.</span>
+            <span style="color:orangered">Phía cuối setting &#34;DELAY_DATETIME&#34;, có thể thêm link mp3 online để làm nhạc nền trang web.</span>
             <br />
-            <span style="color:orangered" id="custom138">Phía cuối cùng nhất sau khi các setting được liệt kê, bổ sung &#34;###&#34; sau đó là đoạn HTML để hiển thị/thiết kế tạm thời trên trang Index (có thể là phần banner).</span>
+            <span style="color:orangered">Phía cuối cùng nhất sau khi các setting được liệt kê, bổ sung &#34;###&#34; sau đó là đoạn HTML để hiển thị/thiết kế tạm thời trên trang Index (có thể là phần banner).</span>
             <br />
-            <span style="color:orangered" id="custom138">Và cuối cùng cuối cùng nhất sau cái trên nữa (có thể không cần bao gồm cái trên), bổ sung &#34;:::&#34; và sau đó là đoạn HTML, cụ thể là có thể bổ sung đoạn script, thiết kết thêm style css cho phần _Layout và các ảnh hưởng...</span>
+            <span style="color:orangered">Và cuối cùng cuối cùng nhất sau cái trên nữa (có thể không cần bao gồm cái trên), bổ sung &#34;:::&#34; và sau đó là đoạn HTML, cụ thể là có thể bổ sung đoạn script, thiết kết thêm style css cho phần _Layout và các ảnh hưởng...</span>
             <br />
-            <span style="color:orangered" id="custom138">Tại setting "JS_AUTO_CLOSE_WINDOW" bổ sung phía sau là <span style="color:green" id="custom299">===NOT_IS_ADMINUSING</span> để huỷ tư cách admin đang sử dụng website (dù đã được nhận dạng) || hoặc cũng có thể đặt là (đặt tiếp luôn cũng được) <span style="color:green" id="custom299">###link_download_file_karaoke_offline_html</span> ...</span>
+            <span style="color:orangered">Tại setting "JS_AUTO_CLOSE_WINDOW" bổ sung phía sau là <span style="color:green">===NOT_IS_ADMINUSING</span> để huỷ tư cách admin đang sử dụng website (dù đã được nhận dạng) || hoặc cũng có thể đặt là (đặt tiếp luôn cũng được) <span style="color:green">###link_download_file_karaoke_offline_html</span> ...</span>
             <br />
             <br />
         </tr>
@@ -2677,11 +2677,11 @@ Layout = null;
             {
             @Html.ValidationSummary(true)
             <br />
-            <tr style="height:40px" id="custom135">
-                <td id="custom136"> </td>
-                <td id="custom136">
-                    <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-33"><span style="color:red" id="custom179">[[33 - @Model.Topics[33].ID]]</span>@Html.Raw(Model.Topics[33].NoiDung)</h3>
-                    <label class="switch" id="custom125">
+            <tr style="height:40px">
+                <td> </td>
+                <td>
+                    <h3 name="colorX" style="color:@TempData["mau_text"]" id="come-33"><span style="color:red">[[33 - @Model.Topics[33].ID]]</span>@Html.Raw(Model.Topics[33].NoiDung)</h3>
+                    <label class="switch">
                     @if (Model.Topics[33].Option == false)
                     {
                     <input id="check-33" onchange="saveXY()" name="@Model.Topics[33].ID" type="checkbox" />
@@ -2690,15 +2690,15 @@ Layout = null;
                     {
                     <input id="check-33" onchange="saveXY()" name="@Model.Topics[33].ID" type="checkbox" checked />
                     }
-                    <span class="slider round" id="custom181"></span>
+                    <span class="slider round"></span>
                     </label>
                 </td>
             </tr>
             <br /><br />
-            <b style="color:yellow" id="custom307">[Cẩn thận] Chỉ cần vô tình một cái gạt bật item setting này lên, toàn bộ website giống như bị tiêu diệt (tệ hơn nếu sau đó bạn đã mất đi dữ liệu quyền admin)...</b>
-            <tr style="height:40px" id="custom135">
-                <td id="custom136"></td>
-                <td id="custom136"><br>
+            <b style="color:yellow">[Cẩn thận] Chỉ cần vô tình một cái gạt bật item setting này lên, toàn bộ website giống như bị tiêu diệt (tệ hơn nếu sau đó bạn đã mất đi dữ liệu quyền admin)...</b>
+            <tr style="height:40px">
+                <td></td>
+                <td><br>
                     <input id="ok-X" type="submit" hidden value="LƯU CÀI ĐẶT" />
                     <br />
                     <a href="#xuly" onclick="xemmatam()" style="color:lightseagreen">@TempData["logincodetemp"]</a>
@@ -2712,11 +2712,11 @@ Layout = null;
         <br />
         <a id="linkread9" href="/Admin/ReadAdminFileByStatic?file=/Admin/Html_Play.txt&&isHTML=false" target="_blank" style="color:purple">Show HTML Play (edit)</a><br />
         <br />
-        <h4 id="custom142"><button style="color:red" onclick="SettingAPI()" id="custom312">ĐIỀU CHỈNH ỨNG DỤNG/WEB PAGE LIÊN KẾT API</button>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:20px;color:lightseagreen" id="custom313">(txtAPI : tách biệt các input bởi \n||\n) - (/Home/OnOffAPIHtml?isEnabled=32752262 : ẩn/hiện HTML API || [hoặc fileData])</span>
+        <h4><button style="color:red" onclick="SettingAPI()">ĐIỀU CHỈNH ỨNG DỤNG/WEB PAGE LIÊN KẾT API</button>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:20px;color:lightseagreen">(txtAPI : tách biệt các input bởi \n||\n) - (/Home/OnOffAPIHtml?isEnabled=32752262 : ẩn/hiện HTML API || [hoặc fileData])</span>
             <br />
             <br />
-            <span style="color:darkgoldenrod" id="custom314">
-                * Format API Multiple :<br /><br />Home/Multiple_API (fileData)<br /><br />url<br /><** id="custom315"><br />body<br /><|| id="custom316"><br />url<br /><** id="custom315"><br />body<br /><|| id="custom316"><br />url<br /><** id="custom315"><br />body<br />....<br /><br /><br />[Chú ý : body chỉ liên quan đến txtAPI như hướng dẫn trên và chỉ API nội bộ của MyWebplay - một số có thể không thuộc diện tác dụng]
+            <span style="color:darkgoldenrod">
+                * Format API Multiple :<br /><br />Home/Multiple_API (fileData)<br /><br />url<br /><**><br />body<br /><||><br />url<br /><**><br />body<br /><||><br />url<br /><**><br />body<br />....<br /><br /><br />[Chú ý : body chỉ liên quan đến txtAPI như hướng dẫn trên và chỉ API nội bộ của MyWebplay - một số có thể không thuộc diện tác dụng]
             </span>
         </h4>
         <a target="_blank" href="/Admin/RedirectToAPIPage" style="color:lawngreen">Xem Kết Quả</a> ||
@@ -2724,7 +2724,7 @@ Layout = null;
         <a id="linkread7" href="/Admin/ReadAdminFileByStatic?file=/API_WebPage/API-Menu.txt&&isHTML=false" target="_blank" style="color:lime">Xem nội dung menu API</a>
         <br />
         <br />
-        <button style="color:darkblue;background-color:lawngreen" onclick="changePasswordAdmin()" id="custom320">THAY ĐỔI CÁC MẬT KHẨU ADMIN</button>
+        <button style="color:darkblue;background-color:lawngreen" onclick="changePasswordAdmin()">THAY ĐỔI CÁC MẬT KHẨU ADMIN</button>
         <br />
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

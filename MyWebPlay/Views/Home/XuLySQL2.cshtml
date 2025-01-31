@@ -1,4 +1,4 @@
-@if (TempData["ViewSiteBasic"] == "true")
+﻿@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -58,31 +58,31 @@ Layout = null;
           document.getElementById(ele).focus();
     }
 </script>
-<table align="center" id="custom2066">
-    <h2 style="text-align:center" id="custom2067">Xử Lý SQL 2</h2>
-    <h3 style="color:purple" onclick="muaxuan()" id="custom2068">@ViewBag.KetQua</h3>
+<table align="center">
+    <h2 style="text-align:center">Xử Lý SQL 2</h2>
+    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px" id="custom2069">
-        <td id="custom2070"> </td>
-        <td id="custom2070">
+    <tr style="height:40px">
+        <td> </td>
+        <td>
             <br>
-            <a href="#xuly" onclick="xoaValue('table')"> <b id="custom2072">Chuỗi tên các Tables (chú ý index - cách nhau bởi Enter) : <br>
+            <a href="#xuly" onclick="xoaValue('table')"> <b>Chuỗi tên các Tables (chú ý index - cách nhau bởi Enter) : <br>
             </b></a>
             <br>
             <textarea cols="50" rows="12" name="txtTable" id="table">@ViewBag.Table</textarea>
         </td>
     </tr>
-    <tr style="height:40px" id="custom2069">
-        <td id="custom2070"></td>
-        <td id="custom2070"><br>
+    <tr style="height:40px">
+        <td></td>
+        <td><br>
             <input type="checkbox" name="txtChon" /> Mong muốn xoá các kết quả Trigger
         </td>
     </tr>
-    <tr style="height:40px" id="custom2069">
-        <td id="custom2070"></td>
-        <td id="custom2070"><br>
+    <tr style="height:40px">
+        <td></td>
+        <td><br>
             <input type="Submit" value="Kết Quả" />
         </td>
     </tr>

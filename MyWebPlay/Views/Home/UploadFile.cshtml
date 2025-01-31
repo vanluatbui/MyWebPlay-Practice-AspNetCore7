@@ -1,4 +1,4 @@
-@using System.Globalization;
+﻿@using System.Globalization;
 @using MyWebPlay.Model;
 @if (TempData["ViewSiteBasic"] == "true")
 {
@@ -59,7 +59,7 @@ Layout = null;
     {
         if (window.location.search != "?type=1%3Csplix%3E0%3Csplix%3E0" || window.location.search == null || window.location.search == "")
         {
-            window.location.href = "/Home/UploadFile?type=1<splix id="custom1854">0<splix id="custom1854">0";
+            window.location.href = "/Home/UploadFile?type=1<splix>0<splix>0";
         }
     }
     
@@ -307,12 +307,12 @@ Layout = null;
     
     function DEF()
     {
-        window.location.href = "/Home/UploadFile?type="+document.getElementById("SL").value+"<splix id="custom1854">0<splix id="custom1854">0";
+        window.location.href = "/Home/UploadFile?type="+document.getElementById("SL").value+"<splix>0<splix>0";
     }
     
     function XYZ()
     {
-         window.location.href = "/Home/UploadFile?type="+document.getElementById("SL").value+"<splix id="custom1854">0<splix id="custom1854">1";
+         window.location.href = "/Home/UploadFile?type="+document.getElementById("SL").value+"<splix>0<splix>1";
     }
     
     function ChonLoai()
@@ -352,65 +352,65 @@ Layout = null;
     }
     
 </script>
-<h1 id="custom1859">@ViewBag.Xuan</h1>
-@* <button style="color:blue" onclick="ABC()" id="custom1860">Have u (Have name - one file)</button>
+<h1>@ViewBag.Xuan</h1>
+@* <button style="color:blue" onclick="ABC()">Have u (Have name - one file)</button>
 <br />
 <br />*@
-<table align="center" id="custom1861">
-    <h2 style="text-align:center" id="custom1862">UPLOAD YOUR FILE - lưu ý nếu thao tác bạn thực hiện đã xảy ra lỗi (mặc dù các thông tin của bạn cung cấp đúng và đầy đủ), tuy nhiên một số trường hợp các file của bạn vẫn có thể upload lên Server thành công bằng một cách kỳ diệu nào đó :)) - vì vậy bạn có thể kiểm tra tồn tại file của bạn đã được đăng tải hoặc thử lại sau :v</h2>
+<table align="center">
+    <h2 style="text-align:center">UPLOAD YOUR FILE - lưu ý nếu thao tác bạn thực hiện đã xảy ra lỗi (mặc dù các thông tin của bạn cung cấp đúng và đầy đủ), tuy nhiên một số trường hợp các file của bạn vẫn có thể upload lên Server thành công bằng một cách kỳ diệu nào đó :)) - vì vậy bạn có thể kiểm tra tồn tại file của bạn đã được đăng tải hoặc thử lại sau :v</h2>
     <input type="password" id="matkhauadmin" size="30" />
-    <button style="color:purple" onclick="xoaallfile()" id="custom1863">Xoá tất cả các file và folder trên Server - toàn bộ (dành cho admin)</button>
+    <button style="color:purple" onclick="xoaallfile()">Xoá tất cả các file và folder trên Server - toàn bộ (dành cho admin)</button>
     <br />
     <br />
-    <a href="#xuly" onclick="xoaValue('FDX')"><b id="custom1864">Xoá tất cả các file hoặc folder chỉ định tại path thư mục (nếu để trống mặc định chỉ folder ROOT) : </b></a><br />
+    <a href="#xuly" onclick="xoaValue('FDX')"><b>Xoá tất cả các file hoặc folder chỉ định tại path thư mục (nếu để trống mặc định chỉ folder ROOT) : </b></a><br />
     <input size="50" id="FDX" type="text" value="/Folder1/Folder2" />
     <select id="chon" onchange="ChonLoai()">
-        <option id="custom1865">Xoá toàn bộ và cả chính thư mục đã chỉ định</option>
-        <option id="custom1865">Chỉ xoá các thư mục (&con) trong Folder chỉ định</option>
-        <option id="custom1865">Chỉ xoá các file trong Folder chỉ định</option>
-        <option id="custom1865">Chỉ xoá tất cả - toàn bộ các file và thư mục (&con) trong Folder chỉ định</option>
+        <option>Xoá toàn bộ và cả chính thư mục đã chỉ định</option>
+        <option>Chỉ xoá các thư mục (&con) trong Folder chỉ định</option>
+        <option>Chỉ xoá các file trong Folder chỉ định</option>
+        <option>Chỉ xoá tất cả - toàn bộ các file và thư mục (&con) trong Folder chỉ định</option>
     </select>
-    <input type="text" id="DKX" value="1" hidden/><button onclick="XoaFolder()" style="color:purple;font-weight:bolder" id="custom1869">XOÁ FOLDER HOẶC FILE</button>
+    <input type="text" id="DKX" value="1" hidden/><button onclick="XoaFolder()" style="color:purple;font-weight:bolder">XOÁ FOLDER HOẶC FILE</button>
     <br />
     <br />
-    <a href="#xuly" onclick="xoaValue('FileXY')"><b id="custom1864">Nhập chính xác path folder kèm theo tên file (extension) mà bạn muốn xoá - nếu nhập /filename.extension là chỉ file trong ROOT : </b></a><input id="FileXY" type="text" size="50" value="/Folder1/Folder2/myfile.txt" /><button onclick="XoaFileX()" style="color:purple;font-weight:bolder" id="custom1871">XOÁ FILE</button>
+    <a href="#xuly" onclick="xoaValue('FileXY')"><b>Nhập chính xác path folder kèm theo tên file (extension) mà bạn muốn xoá - nếu nhập /filename.extension là chỉ file trong ROOT : </b></a><input id="FileXY" type="text" size="50" value="/Folder1/Folder2/myfile.txt" /><button onclick="XoaFileX()" style="color:purple;font-weight:bolder">XOÁ FILE</button>
     <br /><br />
-    <button style="color:blueviolet" onclick="downloadfile()" id="custom1872">Bạn đã có file trên hệ thống trước đó?</button>
+    <button style="color:blueviolet" onclick="downloadfile()">Bạn đã có file trên hệ thống trước đó?</button>
     <br />
     <br />
-    <a href="#xuly" onclick="xoaValue('SL')"><b id="custom1864">Nhập số lượng file mà bạn muốn đăng tải : </b></a> <input onkeydown="return hanhphuc(event)" type="number" id="SL" value="@ViewBag.SL" min="1"/>
-    <button onclick="soluongfile()" id="custom1874">OK</button>
+    <a href="#xuly" onclick="xoaValue('SL')"><b>Nhập số lượng file mà bạn muốn đăng tải : </b></a> <input onkeydown="return hanhphuc(event)" type="number" id="SL" value="@ViewBag.SL" min="1"/>
+    <button onclick="soluongfile()">OK</button>
     <br />
     <br />
     @using (Html.BeginForm("UploadFile", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
     @Html.ValidationSummary(true)
     <br />
-    <span style="color:red; font-style:italic" id="custom1875">@ViewData["Loi"] </span>
+    <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
     <br />
     <br />
     if (ViewBag.Y == 0)
     {
-    <h3 style="color:red" id="custom1876">NO UPLOAD SERVER [CHẾ ĐỘ ADMIN]</h3>
+    <h3 style="color:red">NO UPLOAD SERVER [CHẾ ĐỘ ADMIN]</h3>
     }
     else
     {
-    <h3 style="color:red" id="custom1876">YES UPLOAD SERVER - UPLOAD YOUR FILES [CHẾ ĐỘ USER]<br>HÃY CẨN THẬN VÌ NẾU FILE ĐÃ TỒN TẠI THÌ VIỆC TẢI LÊN MỘT LẦN NỮA NÓ SẼ BỊ GHI ĐÈ!</h3>
+    <h3 style="color:red">YES UPLOAD SERVER - UPLOAD YOUR FILES [CHẾ ĐỘ USER]<br>HÃY CẨN THẬN VÌ NẾU FILE ĐÃ TỒN TẠI THÌ VIỆC TẢI LÊN MỘT LẦN NỮA NÓ SẼ BỊ GHI ĐÈ!</h3>
     }
-    <span style="color:sienna" id="custom1878">
-    <u id="custom1879">Xin lưu ý</u> : tính năng này không dành cho việc các file tải lên của bạn là riêng tư...<br>Hiện tại tất cả các file của bạn tải lên Server hệ thống bất kỳ ai cũng có thể truy cập (miễn là họ biết đường dẫn thư mục hoặc nơi truy cập của file đó).<br>Tất cả các file bạn tải lên tại đây đều có giới hạn thời gian sử dụng (tối đa là 7 ngày).<br>Vì vậy, hãy cẩn thận và tự quản lý/trách nhiệm khi lựa chọn tải các file của bạn tại đây. Tốt nhất bạn nên tự xoá thủ công các file/thư mục của bạn sau khi sử dụng xong!<br><span style="color:purple" id="custom1880">Gợi ý bạn nên đưa các file upload của bạn phân biệt vào các thư mục, mà tên thư mục này phải khó đoán và độc lập 🤣😃😅...</span>
+    <span style="color:sienna">
+    <u>Xin lưu ý</u> : tính năng này không dành cho việc các file tải lên của bạn là riêng tư...<br>Hiện tại tất cả các file của bạn tải lên Server hệ thống bất kỳ ai cũng có thể truy cập (miễn là họ biết đường dẫn thư mục hoặc nơi truy cập của file đó).<br>Tất cả các file bạn tải lên tại đây đều có giới hạn thời gian sử dụng (tối đa là 7 ngày).<br>Vì vậy, hãy cẩn thận và tự quản lý/trách nhiệm khi lựa chọn tải các file của bạn tại đây. Tốt nhất bạn nên tự xoá thủ công các file/thư mục của bạn sau khi sử dụng xong!<br><span style="color:purple">Gợi ý bạn nên đưa các file upload của bạn phân biệt vào các thư mục, mà tên thư mục này phải khó đoán và độc lập 🤣😃😅...</span>
     </span>
     @if (ViewBag.SL > 0 && ViewBag.Y == 0)
     {
-    <tr style="height:40px" id="custom1881">
-        <td id="custom1882"> </td>
-        <td id="custom1882">
-            <h3 style="color:seagreen" id="custom1884">@Html.Raw(@ViewBag.KetQua)</h3>
+    <tr style="height:40px">
+        <td> </td>
+        <td>
+            <h3 style="color:seagreen">@Html.Raw(@ViewBag.KetQua)</h3>
             <br />
-            <h3 style="color:aqua" id="custom1885">Bạn hiện đang ở chế độ Admin (tính năng không dành cho khách hàng).<br>Vui lòng chuyển sang chế độ tính năng dành cho người dùng...</h3>
+            <h3 style="color:aqua">Bạn hiện đang ở chế độ Admin (tính năng không dành cho khách hàng).<br>Vui lòng chuyển sang chế độ tính năng dành cho người dùng...</h3>
             <br />
             <a href="#xuly" style="color:blue" onclick="XYZ()">
-                <h2 id="custom1886">Chuyển sang chế độ người dùng</h2>
+                <h2>Chuyển sang chế độ người dùng</h2>
             </a>
             <br />
             <br />
@@ -422,84 +422,84 @@ Layout = null;
     }
     @if (ViewBag.Y != 0)
     {
-    <tr style="height:40px" id="custom1881">
-        <td id="custom1882"></td>
-        <td id="custom1882">
-            <h3 style="color:deeppink" id="custom1890">@Html.Raw(@ViewBag.KetQua)</h3>
+    <tr style="height:40px">
+        <td></td>
+        <td>
+            <h3 style="color:deeppink">@Html.Raw(@ViewBag.KetQua)</h3>
             <br />
             <a href="#xuly" style="color:darkgrey" onclick="DEF()">
-                <h2 id="custom1886">Chuyển sang chế độ Admin</h2>
+                <h2>Chuyển sang chế độ Admin</h2>
             </a>
             <br />
             <br>
-            <b id="custom1864">Nhập mật mã hoặc nhận dạng Admin để có thể sử dụng các ưu đãi về tính năng nếu có (hoặc bạn bỏ qua bước này)</b>
+            <b>Nhập mật mã hoặc nhận dạng Admin để có thể sử dụng các ưu đãi về tính năng nếu có (hoặc bạn bỏ qua bước này)</b>
             <br>
             <input autofocus onchange="changePass()" id="hidePass" type="Password" name="Admin" size="50" value="@TempData["Password"]" />
             <input autofocus style="display:none" name="AdminX" id="showPass" onchange="changePassX()" type="text" size="50" value="@TempData["Password"]" />
             <input type="checkbox" onchange="checkShowPass()" value="Hiện mật mã"/>Hiện mật mã<br>
             <br>
-            <p style="color:lime" id="custom1893">Chỉ khi nhập đúng mật mã, ưu đãi tính năng mới được áp dụng dành cho bạn!</p>
+            <p style="color:lime">Chỉ khi nhập đúng mật mã, ưu đãi tính năng mới được áp dụng dành cho bạn!</p>
             <br />
         </td>
     </tr>
     <br />
     <br />
-    <tr style="height:40px" id="custom1881">
-        <td id="custom1882"></td>
-        <td id="custom1882">
+    <tr style="height:40px">
+        <td></td>
+        <td>
             <br>
-            <a href="#xuly" onclick="xoaValue('folx')"><b id="custom1864">Nhập tên thư mục (nếu bạn muốn upload các file của bạn phân biệt vào Folder này) - nếu bỏ trống mặc định các file của bạn sẽ upload vào thư mục gốc ROOT của Server * XIN HÃY GHI NHỚ...</b></a>
+            <a href="#xuly" onclick="xoaValue('folx')"><b>Nhập tên thư mục (nếu bạn muốn upload các file của bạn phân biệt vào Folder này) - nếu bỏ trống mặc định các file của bạn sẽ upload vào thư mục gốc ROOT của Server * XIN HÃY GHI NHỚ...</b></a>
             <br>
             <input type="text" name="Folder" id="folx" size="50" value="/Folder1/Folder2"/>
             <br>
-            <span style="color:seagreen; font-style:italic" id="custom1898">Khuyến cáo bạn không nên tạo thư mục mà để nó bị trống quá lâu (không chứa file nào bên trong) - và hạn chế sử dụng các kí tự đặc biệt hoặc dễ bị mã hoá nhầm lần với tên thư mục/file...</span>
+            <span style="color:seagreen; font-style:italic">Khuyến cáo bạn không nên tạo thư mục mà để nó bị trống quá lâu (không chứa file nào bên trong) - và hạn chế sử dụng các kí tự đặc biệt hoặc dễ bị mã hoá nhầm lần với tên thư mục/file...</span>
             <br>
-            <span style="color:red; font-style:italic" id="custom1875">@ViewData["LoiX"] </span>
+            <span style="color:red; font-style:italic">@ViewData["LoiX"] </span>
             <br />
         </td>
     </tr>
     <br />
     <br />
-    <tr style="height:40px" id="custom1881">
-        <td id="custom1882"></td>
-        <td id="custom1882">
+    <tr style="height:40px">
+        <td></td>
+        <td>
             <br>
-            <b id="custom1864">Mời bạn lựa chọn (1 : Nếu thư mục đã tồn tại, tiếp tục upload/update các file mới vào _ tự động mà không báo trước | 2 : Nếu thư mục đã tồn tại, hãy thông báo cho tôi biết và tôi sẽ nhập lại tên thư mục khác) - Chỉ áp dụng khi bạn có nhập dữ liệu cho trường Input trên</b>
+            <b>Mời bạn lựa chọn (1 : Nếu thư mục đã tồn tại, tiếp tục upload/update các file mới vào _ tự động mà không báo trước | 2 : Nếu thư mục đã tồn tại, hãy thông báo cho tôi biết và tôi sẽ nhập lại tên thư mục khác) - Chỉ áp dụng khi bạn có nhập dữ liệu cho trường Input trên</b>
             <br>
             <select id="chon2" onchange="PlayChon2()">
-                <option id="custom1865">Nếu thư mục đã tồn tại, tiếp tục upload các file mới vào</option>
-                <option id="custom1865">Nếu thư mục đã tồn tại, hãy thông báo cho tôi biết và tôi sẽ nhập lại tên thư mục khác</option>
+                <option>Nếu thư mục đã tồn tại, tiếp tục upload các file mới vào</option>
+                <option>Nếu thư mục đã tồn tại, hãy thông báo cho tôi biết và tôi sẽ nhập lại tên thư mục khác</option>
             </select>
             <input type="number" name="DuKien" min="1" max="2" id="DK2" value="1"/>
             <br>
         </td>
     </tr>
     <br /><br />
-    <tr style="height:40px" id="custom1881">
-        <td id="custom1882"></td>
-        <td id="custom1882">
+    <tr style="height:40px">
+        <td></td>
+        <td>
             <br />
-            <b id="custom1864">Việc tải file của bạn lên hệ thống chỉ là tạm thời, vui lòng chọn ngày hết hạn mong muốn của các file này (nếu bạn là admin hay có mã ưu đãi user thì các file được phép tồn tại không giới hạn) : </b>
+            <b>Việc tải file của bạn lên hệ thống chỉ là tạm thời, vui lòng chọn ngày hết hạn mong muốn của các file này (nếu bạn là admin hay có mã ưu đãi user thì các file được phép tồn tại không giới hạn) : </b>
             <input type="date" name="txtHetHan" value="@CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(@TempData["say-hi-delay-path"].ToString()).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)"/><br>
-            <span style="color:seagreen" id="custom1910">Nếu đến ngày hết hạn bạn đã cài đặt, các file của bạn sẽ tự động xoá khỏi hệ thống (có thể sớm/trễ hơn dự kiến nhưng sẽ phạm vi trong ngày này).<br />
+            <span style="color:seagreen">Nếu đến ngày hết hạn bạn đã cài đặt, các file của bạn sẽ tự động xoá khỏi hệ thống (có thể sớm/trễ hơn dự kiến nhưng sẽ phạm vi trong ngày này).<br />
             Ngoài ra bạn cũng có thể tự xoá file thủ công trước khi đến ngày hết hạn...<br />
-            <u id="custom1879">Lưu ý</u> : vui lòng tự ghi nhớ ngày hết hạn các file bạn sẽ cài đặt này, hệ thống sẽ tự động xoá các file mà không cần thông báo!</span>
+            <u>Lưu ý</u> : vui lòng tự ghi nhớ ngày hết hạn các file bạn sẽ cài đặt này, hệ thống sẽ tự động xoá các file mà không cần thông báo!</span>
             <br>
-            <span style="color:red; font-style:italic" id="custom1875">@ViewData["LoiY"] </span><br>
+            <span style="color:red; font-style:italic">@ViewData["LoiY"] </span><br>
         </td>
     </tr>
     }
     <br />
     <br />
-    <tr style="height:40px" id="custom1881">
-        <td id="custom1882"></td>
-        <td id="custom1882">
+    <tr style="height:40px">
+        <td></td>
+        <td>
             <br>
-            <b id="custom1864">Mời bạn lựa chọn việc tải lên [1 : Tải lên các file | 2 : Tải lên 1 folder (bên trong chứa các file hoặc các file trong các thư mục con của nó mà bạn muốn upload)]</b>
+            <b>Mời bạn lựa chọn việc tải lên [1 : Tải lên các file | 2 : Tải lên 1 folder (bên trong chứa các file hoặc các file trong các thư mục con của nó mà bạn muốn upload)]</b>
             <br>
             <select id="chonYX" onchange="PlayChonYX(@ViewBag.SL)">
-                <option id="custom1865">Tải lên các file</option>
-                <option id="custom1865">Tải lên 1 folder (bên trong chứa các file hoặc các file trong các thư mục con của nó mà bạn muốn upload)</option>
+                <option>Tải lên các file</option>
+                <option>Tải lên 1 folder (bên trong chứa các file hoặc các file trong các thư mục con của nó mà bạn muốn upload)</option>
             </select>
             <input onchange="PlayChonYX()" type="number" name="DuKienYX" min="1" max="2" id="DKYX" value="1"/>
             <br>
@@ -509,17 +509,17 @@ Layout = null;
     <br />
     @for (int i = 0; i < ViewBag.SL; i++)
     {
-    <tr style="height:40px" id="custom1881">
-        <td id="custom1882"></td>
-        <td id="custom1882">
+    <tr style="height:40px">
+        <td></td>
+        <td>
             <br>
             @if (ViewBag.X == 0)
             {
-            <b id="custom1864">@(i + 1).</b> <span id="custom1923">Upload 1 hay nhiều file (hoặc 1 folder chứa các file/con) của bạn :</span>
+            <b>@(i + 1).</b> <span>Upload 1 hay nhiều file (hoặc 1 folder chứa các file/con) của bạn :</span>
             }
             else
             {
-            <b id="custom1864">@(i + 1).</b> <span id="custom1923">Upload 1 file của bạn :</span>
+            <b>@(i + 1).</b> <span>Upload 1 file của bạn :</span>
             }
             <br>
             @if (ViewBag.X == 0)
@@ -537,7 +537,7 @@ Layout = null;
             <br><br>
             <div id="fileS-@i">
                 <a href="#xuly" onclick="your(@i)">
-                    <h4 style="color:midnightblue" id="custom1926">Danh sách các file bạn đã chọn :</h4>
+                    <h4 style="color:midnightblue">Danh sách các file bạn đã chọn :</h4>
                 </a>
                 <div id="your-@i" style="display:block">
                     <ul id="ulx-@i"></ul>
@@ -545,7 +545,7 @@ Layout = null;
             </div>
             <div id="fileSS-@i" style="display:none">
                 <a href="#xuly" onclick="yourX(@i)">
-                    <h4 style="color:midnightblue" id="custom1926">Danh sách các file (all and sub folder) bạn đã chọn :</h4>
+                    <h4 style="color:midnightblue">Danh sách các file (all and sub folder) bạn đã chọn :</h4>
                 </a>
                 <div id="yourX-@i" style="display:block">
                     <ul id="ulx1-@i"></ul>
@@ -556,11 +556,11 @@ Layout = null;
             {
             @if(TempData["fileSuDung"] == "true" || ViewBag.Y == 0)
             {
-            <input type="file" name="fileUpload" id="custom1928">
+            <input type="file" name="fileUpload">
             }
             else
             {
-            <input disabled type="file" name="fileUpload" id="custom1929">
+            <input disabled type="file" name="fileUpload">
             }
             }
             <br>
@@ -568,13 +568,13 @@ Layout = null;
     </tr>
     @* @if (ViewBag.X != 0)
     {
-    <tr style="height:40px" id="custom1881">
-        <td id="custom1882"> </td>
-        <td id="custom1882">
+    <tr style="height:40px">
+        <td> </td>
+        <td>
             <br>
-            <b id="custom1864">@(i + 1).2</b> Đặt lại tên file ngắn gọn tuỳ bạn gợi nhớ (file được lưu trữ trên Server sẽ mang tên này) :
+            <b>@(i + 1).2</b> Đặt lại tên file ngắn gọn tuỳ bạn gợi nhớ (file được lưu trữ trên Server sẽ mang tên này) :
             <br>
-            <input type="text" size="50" name="TenFile" id="custom1934">
+            <input type="text" size="50" name="TenFile">
             <br>
         </td>
     </tr>
@@ -584,28 +584,28 @@ Layout = null;
     {
     <br />
     <br />
-    <tr style="height:40px" id="custom1881">
-        <td id="custom1882"></td>
-        <td id="custom1882">
+    <tr style="height:40px">
+        <td></td>
+        <td>
             <br>
-            <b id="custom1864">Mời bạn lựa chọn Server xử lý (chỉ chuyển sử dụng Server khác nếu bạn gặp vấn đề khi tải lên các file, nếu không vui lòng bỏ qua bước này) - SERVER đã chọn mặc định bên dưới được khuyến nghị (các server còn lại chỉ là tạm thời thử sức hỗ trợ, mặc dù càng về sau tốc độ xử lý càng giảm...😅)</b>
+            <b>Mời bạn lựa chọn Server xử lý (chỉ chuyển sử dụng Server khác nếu bạn gặp vấn đề khi tải lên các file, nếu không vui lòng bỏ qua bước này) - SERVER đã chọn mặc định bên dưới được khuyến nghị (các server còn lại chỉ là tạm thời thử sức hỗ trợ, mặc dù càng về sau tốc độ xử lý càng giảm...😅)</b>
             <br>
             <select id="chonXY" onchange="PlayChonXY()">
-                <option id="custom1865">SERVER 1 (khuyến nghị) - EM&MG</option>
-                <option id="custom1865">SERVER 2 - EM</option>
-                <option id="custom1865">SERVER 3 - MG</option>
+                <option>SERVER 1 (khuyến nghị) - EM&MG</option>
+                <option>SERVER 2 - EM</option>
+                <option>SERVER 3 - MG</option>
             </select>
             <input type="number" name="DuKienXY" min="1" max="3" id="DKXY" value="1" hidden />
             <br>
-            <span style="color:seagreen" id="custom1910">Nếu tất cả Server áp dụng bạn đều gặp lỗi khi upload các file, hãy kiểm tra lại mặc dù kết quả không thành công nhưng rất có thể các file của bạn đã âm thầm upload lên hệ thống 😁😂. Ngoài ra, bạn vui lòng thử lại vào dịp khác và khuyến cáo không nên thử lại quá nhiều lần thất bại!</span>
+            <span style="color:seagreen">Nếu tất cả Server áp dụng bạn đều gặp lỗi khi upload các file, hãy kiểm tra lại mặc dù kết quả không thành công nhưng rất có thể các file của bạn đã âm thầm upload lên hệ thống 😁😂. Ngoài ra, bạn vui lòng thử lại vào dịp khác và khuyến cáo không nên thử lại quá nhiều lần thất bại!</span>
             <br>
         </td>
     </tr>
     <br />
     <br />
-    <tr style="height:40px" id="custom1881">
-        <td id="custom1882"></td>
-        <td id="custom1882">
+    <tr style="height:40px">
+        <td></td>
+        <td>
             <input id="ok" onclick="xong()" style="font-weight:bolder" type="Submit" value="OK UPLOAD" />
             <br />
             <img id="loading" src="/Image_Play/waiting.gif" style="display:none"/>

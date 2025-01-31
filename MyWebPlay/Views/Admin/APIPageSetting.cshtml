@@ -1,4 +1,4 @@
-@{
+﻿@{
 Layout = null;
 }
 <script>
@@ -149,11 +149,11 @@ Layout = null;
     }, 10);
     
 </script>
-<div style="opacity:@TempData["opacity-body-css"]" id="custom11">
-<b style="color:crimson" id="custom12">Cập nhật web page hệ thống và sử dụng liên kết API</b>
+<div style="opacity:@TempData["opacity-body-css"]">
+<b style="color:crimson">Cập nhật web page hệ thống và sử dụng liên kết API</b>
 <br /><br />
 <div id="first">
-    <button style="background-color:orangered;color:darkblue" onclick="xacnhan()" id="custom13"><b id="custom14">OK</b></button>
+    <button style="background-color:orangered;color:darkblue" onclick="xacnhan()"><b>OK</b></button>
     <br />
     <br />
     <a href="#xuly" onclick="chonall()" style="color:green">Chọn tất cả</a> || <a href="#xuly" onclick="bochonall()" style="color:red">Bỏ chọn tất cả</a>
@@ -161,10 +161,10 @@ Layout = null;
     <br />
     @for (int i = 0; i < Model.Count; i++)
     {
-    <input id="web-@i" type="checkbox" value="@Model[@i]" name="@Model[i].Replace("/","_")" /><span id="custom15">&nbsp;</span><b id="custom14">@Model[@i]</b><br />
+    <input id="web-@i" type="checkbox" value="@Model[@i]" name="@Model[i].Replace("/","_")" /><span>&nbsp;</span><b>@Model[@i]</b><br />
     }
     <br />
-    <button style="background-color:orangered;color:darkblue" onclick="xacnhan()" id="custom13"><b id="custom14">OK</b></button>
+    <button style="background-color:orangered;color:darkblue" onclick="xacnhan()"><b>OK</b></button>
 </div>
 <div id="last" style="display:none">
     <img id="loading" src="/Image_Play/waiting.gif" />

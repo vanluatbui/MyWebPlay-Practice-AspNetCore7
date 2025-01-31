@@ -1,27 +1,27 @@
-@{
+﻿@{
 Layout = null;
 }
 
 <!DOCTYPE html>
 <html lang="vi">
     <head>
-        <meta charset="UTF-8" id="custom322">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" id="custom323">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         @if (TempData["OffRandomTab"] == "true")
         {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title id="custom324">@TempData["TabTittleView"]</title>
+        <title>@TempData["TabTittleView"]</title>
         <link rel="icon" href="/images/imagex.png">
         }
         else
         {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title id="custom324">@TempData["Tab_Tittle"]</title>
+        <title>@TempData["Tab_Tittle"]</title>
         <link rel="icon" href="@TempData["Tab_Image"]">
         }
-        <style id="custom326">
+        <style>
             body {
             display: flex;
             flex-direction: column;
@@ -155,20 +155,20 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-    <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]" id="custom327">
+    <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]">
     <div id="bodyIndex">
         @using(Html.BeginForm())
         {
         <div class="header" style="color:orangered" name="backgroundX">Edit Text Note (soạn thảo bản nháp ghi chú)</div>
-        <div class="container" id="custom328">
+        <div class="container">
             <div name="backgroundX" class="line-numbers" id="lineNumbers">1</div>
-            <div class="editor-container" id="custom329">
+            <div class="editor-container">
                 <div class="highlight" id="highlight"></div>
                 <textarea autofocus class="editor" id="editor" name="txtText">@ViewBag.Text</textarea>
             </div>
         </div>
-        <div class="footer" name="backgroundX" id="custom330">
-            <button style="color:red" id="custom331">LƯU LẠI</button>
+        <div class="footer" name="backgroundX">
+            <button style="color:red">LƯU LẠI</button>
             &nbsp;&nbsp;&nbsp;&nbsp;
             @Html.ActionLink("Trở về", "ViewNoteFile")
         </div>
@@ -191,7 +191,7 @@ Layout = null;
             const lines = editor.value.split('\n');
             const formattedLines = lines.map(line => {
                 return line.replace(/^(\t+| +)/, match => 
-                    match.replace(/\t/g, '<span class="tab" id="custom332">→</span>').replace(/ /g, '<span class="space" id="custom333">·</span>'));
+                    match.replace(/\t/g, '<span class="tab">→</span>').replace(/ /g, '<span class="space">·</span>'));
             });
             highlight.innerHTML = formattedLines.join('\n');
             updateLineNumbers();

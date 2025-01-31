@@ -1,4 +1,4 @@
-@{
+﻿@{
 Layout = null;
 }
 @if (TempData["HTML-visible"] != null && TempData["HTML-visible"].ToString() == "0")
@@ -7,7 +7,7 @@ Layout = null;
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title id="custom321">C# | Asp Net Core | Công nghệ thông tin</title>
+        <title>C# | Asp Net Core | Công nghệ thông tin</title>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
@@ -62,8 +62,8 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-    <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]" id="custom322">
-    <meta charset="ISO-8859-1" id="custom323">
+    <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]">
+    <meta charset="ISO-8859-1">
     <script>
         var sang = 0;
             if ('@TempData["mau_background"]' == "white")
@@ -138,20 +138,20 @@ Layout = null;
          }
     </script>
     <select id="chon" onchange="chonX()">
-        <option id="custom324">Xem view dưới dạng textbox</option>
-        <option id="custom324">Xem view dưới dạng lable</option>
+        <option>Xem view dưới dạng textbox</option>
+        <option>Xem view dưới dạng lable</option>
     </select>
-    <button onclick="xoa()" id="custom326"><b style="color:red" id="custom327">XOÁ</b></button>
-    <h3 style="color:pink" id="custom328"> @ViewBag.DateTime </h3>
+    <button onclick="xoa()"><b style="color:red">XOÁ</b></button>
+    <h3 style="color:pink"> @ViewBag.DateTime </h3>
     <br /><br />
-    <h3 id="custom329">@Html.ActionLink("Chỉnh sửa Student Test Mark", "EditStudentMark")</h3>
+    <h3>@Html.ActionLink("Chỉnh sửa Student Test Mark", "EditStudentMark")</h3>
     <br />
-    <table align="center" id="custom330">
-        <h2 style="text-align:center;color:deeppink" id="custom331">View Of Student Mark Test</h2>
-        <tr style="height:40px" id="custom332">
-            <td id="custom333">
+    <table align="center">
+        <h2 style="text-align:center;color:deeppink">View Of Student Mark Test</h2>
+        <tr style="height:40px">
+            <td>
             </td>
-            <td id="custom333">
+            <td>
                 <br>
                 <br>
                 <hr />
@@ -165,7 +165,7 @@ Layout = null;
         </tr>
     </table>
     <br />
-    <h3 id="custom329">@Html.ActionLink("Chỉnh sửa Student Test Mark", "EditStudentMark")</h3>
+    <h3>@Html.ActionLink("Chỉnh sửa Student Test Mark", "EditStudentMark")</h3>
     </body>
 </html>
 }

@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -59,49 +59,49 @@ Layout = null;
         }
         
 </script>
-<table align="center">
-    <h2 style="text-align:center">Text Convert X ???</h2>
-    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
+<table align="center" id="custom1343">
+    <h2 style="text-align:center" id="custom1344">Text Convert X ???</h2>
+    <h3 style="color:purple" onclick="muaxuan()" id="custom1345">@ViewBag.KetQua</h3>
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1346">
+        <td id="custom1347"></td>
+        <td id="custom1347">
             <br>
-            <a href="#xuly" onclick="xoaValue('chuoi')"><b>Chuỗi của bạn (mỗi phần tử cách nhau bởi Enter) :</b></a>
+            <a href="#xuly" onclick="xoaValue('chuoi')"><b id="custom1349">Chuỗi của bạn (mỗi phần tử cách nhau bởi Enter) :</b></a>
             <br>
-            <textarea rows="20" cols="150" name="chuoi" autofocus>MyWebPlay Asp Net Core
+            <textarea rows="20" cols="150" name="chuoi" autofocus id="custom1350">MyWebPlay Asp Net Core
 Lê Xuân Thảo
 Trần Thị Mỹ Anh
 Dương Hoàng Ngọc Mỹ
 Lê Thị Cẩm Tiên
 Nguyễn Minh Đức</textarea>
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
+            <span style="color:red; font-style:italic" id="custom1351">@ViewData["Loi"] </span>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1346">
+        <td id="custom1347"></td>
+        <td id="custom1347">
             <br>
-            <b> START_X :</b>
+            <b id="custom1349"> START_X :</b>
             <br>
-            <input type="text" name="Start" size="100" value="(...">
+            <input type="text" name="Start" size="100" value="(..." id="custom1356">
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1346">
+        <td id="custom1347"></td>
+        <td id="custom1347">
             <br>
-            <b> END_Y :</b>
+            <b id="custom1349"> END_Y :</b>
             <br>
-            <input type="text" name="End" size="100" value="...);">
+            <input type="text" name="End" size="100" value="...);" id="custom1361">
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1346">
+        <td id="custom1347"></td>
+        <td id="custom1347">
             <input type="Submit" value="Kết Quả" />
         </td>
     </tr>

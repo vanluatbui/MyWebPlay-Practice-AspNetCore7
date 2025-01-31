@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -101,64 +101,64 @@ Layout = null;
     }
     
 </script>
-<table align="center">
-    <h2 style="text-align:center">Thiết lập bảng chân trị</h2>
-    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
+<table align="center" id="custom6">
+    <h2 style="text-align:center" id="custom7">Thiết lập bảng chân trị</h2>
+    <h3 style="color:purple" onclick="muaxuan()" id="custom8">@ViewBag.KetQua</h3>
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom9">
+        <td id="custom10"></td>
+        <td id="custom10">
             <br>
-            <a href="#xuly" onclick="xoaValue('tt')"> <b>Nhập các thuộc tính đơn ban đầu - số lượng x (ví dụ) :  </b></a>
+            <a href="#xuly" onclick="xoaValue('tt')"> <b id="custom12">Nhập các thuộc tính đơn ban đầu - số lượng x (ví dụ) :  </b></a>
             <br>
             <input type="text" size="50" name="ThuocTinh" id="tt" value="A-B" autofocus>
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+            <span style="color:red; font-style:italic" id="custom13">@ViewData["Loi1"] </span>
         </td>
     </tr>
     <br /><br />
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+    <tr style="height:40px" id="custom9">
+        <td id="custom10"> </td>
+        <td id="custom10">
             <br>
-            <a href="#xuly" onclick="xoaValue('ch1')"> <b>Dán đề bài (không quan trọng - chỉ là để tự mò dò xét trường điền bên dưới dễ hơn :)) - ví dụ)  : </b></a>
+            <a href="#xuly" onclick="xoaValue('ch1')"> <b id="custom12">Dán đề bài (không quan trọng - chỉ là để tự mò dò xét trường điền bên dưới dễ hơn :)) - ví dụ)  : </b></a>
             <br>
             <input type="text" name="Chuoi1" id="ch1" size="100" value="#[ A ∨ B ] →  B">
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+            <span style="color:red; font-style:italic" id="custom13">@ViewData["Loi2"] </span>
         </td>
     </tr>
     <br />
     <br />
-    <tr style="height:40px">
-        <td>
+    <tr style="height:40px" id="custom9">
+        <td id="custom10">
         </td>
         <br>
-        <td> </td>
-        <td>
+        <td id="custom10"> </td>
+        <td id="custom10">
             <br><br>
             <input type="radio" id="Null" onclick="ChonNull()" checked> Click để Set All Null<br />
             <br/><br /><input type="radio" id="PhuDinh" onclick="ChonPhepPhuDinh()" checked>
-            Click để add Phủ Định <br><br> <input type="radio" id="Hoi" onclick="ChonPhepHoi()" checked> Click để add Phép Hội <br><br><input type="radio" id="Tuyen" style="color:red" onclick="ChonPhepTuyen()" checked> Click để add Phép Tuyển <br><br> <input type="radio" onclick="ChonPhepKeoTheo()" checked> Click để add Phép Kéo Theo <br><br> <input type="radio" onclick="ChonPhepTuongDuong()" checked> Click để add Phép Tương Đương <br><br><br> <input type="radio" onclick="ChonEnter()" checked> Click để add Enter
+            Click để add Phủ Định <br><br> <input type="radio" id="Hoi" onclick="ChonPhepHoi()" checked> Click để add Phép Hội <br><br><input type="radio" id="Tuyen" style="color:red" onclick="ChonPhepTuyen()" checked> Click để add Phép Tuyển <br><br> <input type="radio" onclick="ChonPhepKeoTheo()" checked id="custom23"> Click để add Phép Kéo Theo <br><br> <input type="radio" onclick="ChonPhepTuongDuong()" checked id="custom24"> Click để add Phép Tương Đương <br><br><br> <input type="radio" onclick="ChonEnter()" checked id="custom25"> Click để add Enter
             <br><br><br>
-            <a href="#xuly" onclick="xoaValue('ChuoiX')"> <b>Dán lại các thành phần đề bài (dựa vào trên nhưng bây giờ tự mò dò theo index - ngoại trừ các thuộc tính đơn ban đầu (start in 1 (but number again this start in x + 1 - possible - understand ??? !!! :)) ) - ví dụ bên dưới)</b></a>
+            <a href="#xuly" onclick="xoaValue('ChuoiX')"> <b id="custom12">Dán lại các thành phần đề bài (dựa vào trên nhưng bây giờ tự mò dò theo index - ngoại trừ các thuộc tính đơn ban đầu (start in 1 (but number again this start in x + 1 - possible - understand ??? !!! :)) ) - ví dụ bên dưới)</b></a>
             <br>
             <textarea rows="20" cols="30" name="Chuoi" id="ChuoiX">1∨2
 #3
 4→2</textarea>
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
-            <span style="color:deeppink; font-style:italic">Ngoài ra bật mí nếu bạn muốn gõ kí tự phép hội, bạn có thể gõ tạm thay thế thành <b>[HOI]</b> và tương tự như phép phủ, phép tuyển, phép kéo theo, phép tương đương có thể gõ thay thế lần lượt là : <b>[PHU], [TUYEN], [KEOTHEO], [TUONGDUONG]...</b> </span>
+            <span style="color:red; font-style:italic" id="custom13">@ViewData["Loi3"] </span>
+            <span style="color:deeppink; font-style:italic" id="custom28">Ngoài ra bật mí nếu bạn muốn gõ kí tự phép hội, bạn có thể gõ tạm thay thế thành <b id="custom12">[HOI]</b> và tương tự như phép phủ, phép tuyển, phép kéo theo, phép tương đương có thể gõ thay thế lần lượt là : <b id="custom12">[PHU], [TUYEN], [KEOTHEO], [TUONGDUONG]...</b> </span>
         </td>
     </tr>
     <br />
     <br />
-    <p> * QUY TẮC KÍ HIỆU : <br> Hội : Λ <br> Tuyển : ∨ <br> Kéo theo : → <br> Tương đương : ⇔ <br> Phủ định : # </p>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <p id="custom31"> * QUY TẮC KÍ HIỆU : <br> Hội : Λ <br> Tuyển : ∨ <br> Kéo theo : → <br> Tương đương : ⇔ <br> Phủ định : # </p>
+    <tr style="height:40px" id="custom9">
+        <td id="custom10"></td>
+        <td id="custom10">
             <input type="Submit" value="Kết Quả" />
         </td>
     </tr>
@@ -166,7 +166,7 @@ Layout = null;
 </table>
 <br>
 <br />
-<pre>
+<pre id="custom35">
 
 * Bảng chân trị các BT luận lý cơ bản :
 
@@ -194,9 +194,9 @@ Layout = null;
 || 1 || 0 ||     0    ||
 || 1 || 1 ||     1    ||
 
-4/ Phép tương đương ( A <-> B ) :
+4/ Phép tương đương ( A <- id="custom36"> B ) :
 
-   A    B     A <-> B 
+   A    B     A <- id="custom36"> B 
 || 0 || 0 ||     1     ||
 || 0 || 1 ||     0     ||
 || 1 || 0 ||     0     ||
@@ -210,7 +210,7 @@ Layout = null;
 
 * Thiết lập bảng chân trị cho biểu thức luận lý như sau (cho ví dụ) :
 
-BT = [ (A ^ B) -> (A v C) ] <-> [ - A ]
+BT = [ (A ^ B) -> (A v C) ] <- id="custom36"> [ - A ]
 
 - Ta có : n = 3 phần tử là : A,B và C.Các phần tử cũng được xem là một biểu thức nhỏ trong biểu thức (BT) lớn...
 
@@ -225,8 +225,8 @@ BT = [ (A ^ B) -> (A v C) ] <-> [ - A ]
 
  + Biểu thức 4 (BT1) : - A
 
-+ Biểu thức 5 : [ (A ^ B) -> (A v C) ] <-> [ - A ]
-                = BT3 <-> BT4
++ Biểu thức 5 : [ (A ^ B) -> (A v C) ] <- id="custom36"> [ - A ]
+                = BT3 <- id="custom36"> BT4
 => Biểu thức 5 (BT5) là biểu thức lớn (BT) cần tìm theo yêu cầu đề bài...
 
 * Lập bảng chân trị cho BT = BT5 :

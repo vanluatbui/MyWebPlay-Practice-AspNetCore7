@@ -1,4 +1,4 @@
-﻿<script>
+<script>
 
      var loadix = false;
     setInterval(function()
@@ -58,7 +58,7 @@ Layout = null;
         {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>C# | Asp Net Core | Công nghệ thông tin</title>
+        <title id="custom82">C# | Asp Net Core | Công nghệ thông tin</title>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
@@ -68,7 +68,7 @@ Layout = null;
         {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>@TempData["Tab_Tittle"]</title>
+        <title id="custom82">@TempData["Tab_Tittle"]</title>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
@@ -98,10 +98,10 @@ Layout = null;
                     document.getElementById("ok").click();
                 }
         </script>
-        <div name="colorX" style="color:@TempData["mau_text"]">
+        <div name="colorX" style="color:@TempData["mau_text"]" id="custom84">
         @Html.Raw(TempData["RandomLayout"])
         </div>
-        <div style="display:none">
+        <div style="display:none" id="custom85">
             @using (Html.BeginForm(TempData["Name"].ToString(), "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
             {
             @Html.ValidationSummary(true)
@@ -142,9 +142,9 @@ Layout = "~/Views/Shared/RandomLayout/Layout"+ViewBag.NumberRandom+".cshtml";
             document.getElementById("ok").click();
         }
 </script>
-<div name="colorX" style="color:@TempData["mau_text"]">
+<div name="colorX" style="color:@TempData["mau_text"]" id="custom84">
 </div>
-<div style="display:none">
+<div style="display:none" id="custom85">
     @using (Html.BeginForm(TempData["Name"].ToString(), "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
     @Html.ValidationSummary(true)

@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -58,24 +58,24 @@ Layout = null;
           document.getElementById(ele).focus();
     }
 </script>
-<table align="center">
-    <h2 style="text-align:center">Xử Lý SQL 12</h2>
-    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
+<table align="center" id="custom2011">
+    <h2 style="text-align:center" id="custom2012">Xử Lý SQL 12</h2>
+    <h3 style="color:purple" onclick="muaxuan()" id="custom2013">@ViewBag.KetQua</h3>
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px">
-        <td> </td>
-        <td>
-            <a href="#xuly" onclick="xoaValue('template')"> <b>Nhập nội dung mail template : </b></a>
+    <tr style="height:40px" id="custom2014">
+        <td id="custom2015"> </td>
+        <td id="custom2015">
+            <a href="#xuly" onclick="xoaValue('template')"> <b id="custom2017">Nhập nội dung mail template : </b></a>
             <br>
             <textarea name="txtNoiDung" id="template" cols="100" rows="12"></textarea>
             <br>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td><br>
+    <tr style="height:40px" id="custom2014">
+        <td id="custom2015"></td>
+        <td id="custom2015"><br>
             <input type="Submit" value="Kết Quả" />
         </td>
     </tr>

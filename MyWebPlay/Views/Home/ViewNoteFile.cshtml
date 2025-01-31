@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -73,21 +73,21 @@ Layout = null;
     }
 </script>
 <select id="chon" onchange="chonX()">
-    <option>Xem note dưới dạng textbox</option>
-    <option>Xem note dưới dạng lable</option>
+    <option id="custom1951">Xem note dưới dạng textbox</option>
+    <option id="custom1951">Xem note dưới dạng lable</option>
 </select>
-<button onclick="xoa()"><b style="color:red">XOÁ</b></button>
-<h3 style="color:purple"> @ViewBag.DateTime<br />
-    <span style="color:orangered">(nội dung note có thể sẽ tự động xoá sau 7 ngày kể từ ngày ghi chú này được cập nhật lần cuối)</span></h3>
+<button onclick="xoa()" id="custom1953"><b style="color:red" id="custom1954">XOÁ</b></button>
+<h3 style="color:purple" id="custom1955"> @ViewBag.DateTime<br />
+    <span style="color:orangered" id="custom1956">(nội dung note có thể sẽ tự động xoá sau 7 ngày kể từ ngày ghi chú này được cập nhật lần cuối)</span></h3>
 <br /><br />
-<h3>@Html.ActionLink("Chỉnh sửa Text Note", "EditTextNote")</h3>
+<h3 id="custom1957">@Html.ActionLink("Chỉnh sửa Text Note", "EditTextNote")</h3>
 <br />
-<table align="center">
-    <h2 style="text-align:center;color:deeppink">Text View Note File</h2>
-    <tr style="height:40px">
-        <td>
+<table align="center" id="custom1958">
+    <h2 style="text-align:center;color:deeppink" id="custom1959">Text View Note File</h2>
+    <tr style="height:40px" id="custom1960">
+        <td id="custom1961">
         </td>
-        <td>
+        <td id="custom1961">
             <br>
             <br>
             <hr />
@@ -101,4 +101,4 @@ Layout = null;
     </tr>
 </table>
 <br />
-<h3>@Html.ActionLink("Chỉnh sửa Text Note", "EditTextNote")</h3>
+<h3 id="custom1957">@Html.ActionLink("Chỉnh sửa Text Note", "EditTextNote")</h3>

@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -82,97 +82,97 @@ Layout = null;
     }
     
 </script>
-<table align="center">
-    <h2 style="text-align:center">Split-Special String Regex</h2>
-    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
+<table align="center" id="custom1297">
+    <h2 style="text-align:center" id="custom1298">Split-Special String Regex</h2>
+    <h3 style="color:purple" onclick="muaxuan()" id="custom1299">@ViewBag.KetQua</h3>
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1300">
+        <td id="custom1301"></td>
+        <td id="custom1301">
             <br>
-            <b> Chuỗi của bạn :</b>
+            <b id="custom1303"> Chuỗi của bạn :</b>
             <br>
-            <textarea rows="20" cols="150" name="Chuoi" autofocus></textarea>
+            <textarea rows="20" cols="150" name="Chuoi" autofocus id="custom1304"></textarea>
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+            <span style="color:red; font-style:italic" id="custom1305">@ViewData["Loi1"] </span>
         </td>
     </tr>
     <br /><br />
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1300">
+        <td id="custom1301"></td>
+        <td id="custom1301">
             <br>
-            <b>Mời bạn lựa chọn áp dụng Regex (Với 1 : Áp dụng Regex, 2 : Không áp dụng Regex) </b>
+            <b id="custom1303">Mời bạn lựa chọn áp dụng Regex (Với 1 : Áp dụng Regex, 2 : Không áp dụng Regex) </b>
             <br>
             <select id="chon1" onchange="PlayChon1()">
-                <option>Không áp dụng Regex</option>
-                <option>Áp dụng Regex</option>
+                <option id="custom1310">Không áp dụng Regex</option>
+                <option id="custom1310">Áp dụng Regex</option>
             </select>
             <input type="number" min="1" max="2" name="DuKien1" id="DK1" value="2" hidden>
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+            <span style="color:red; font-style:italic" id="custom1305">@ViewData["Loi2"] </span>
         </td>
     </tr>
     <br /><br />
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1300">
+        <td id="custom1301"></td>
+        <td id="custom1301">
             <br>
-            <b>Nhập pattern hoặc dấu hiệu cần tách </b>
+            <b id="custom1303">Nhập pattern hoặc dấu hiệu cần tách </b>
             <br>
-            <input type="text" size="50" name="Pattern" value="">
+            <input type="text" size="50" name="Pattern" value="" id="custom1317">
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
+            <span style="color:red; font-style:italic" id="custom1305">@ViewData["Loi3"] </span>
         </td>
     </tr>
     <br /><br />
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1300">
+        <td id="custom1301"></td>
+        <td id="custom1301">
             <br>
-            <b>Mời bạn lựa chọn dạng tách (Với 1 : X -> N(Y), 2 : 0 + X -> N - Y, 3 : X, 4 : Y) </b>
+            <b id="custom1303">Mời bạn lựa chọn dạng tách (Với 1 : X -> N(Y), 2 : 0 + X -> N - Y, 3 : X, 4 : Y) </b>
             <br>
             <select id="chon2" onchange="PlayChon2()">
-                <option>X -> N(Y)</option>
-                <option>0 + X -> N - Y</option>
-                <option>X</option>
-                <option>Y</option>
+                <option id="custom1310">X -> N(Y)</option>
+                <option id="custom1310">0 + X -> N - Y</option>
+                <option id="custom1310">X</option>
+                <option id="custom1310">Y</option>
             </select>
             <input type="number" min="1" max="4" name="DuKien2" id="DK2" value="1" hidden>
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi4"] </span>
+            <span style="color:red; font-style:italic" id="custom1305">@ViewData["Loi4"] </span>
         </td>
     </tr>
     <br /><br />
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+    <tr style="height:40px" id="custom1300">
+        <td id="custom1301"> </td>
+        <td id="custom1301">
             <br>
-            <b> Nhập X :</b>
+            <b id="custom1303"> Nhập X :</b>
             <br>
-            <input type="text" size="50" name="X" value="">
+            <input type="text" size="50" name="X" value="" id="custom1332">
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi5"] </span>
+            <span style="color:red; font-style:italic" id="custom1305">@ViewData["Loi5"] </span>
         </td>
     </tr>
     <br />
     <br />
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1300">
+        <td id="custom1301"></td>
+        <td id="custom1301">
             <br>
-            <b> Nhập Y :</b>
+            <b id="custom1303"> Nhập Y :</b>
             <br>
-            <input type="text" size="50" name="Y" value="">
+            <input type="text" size="50" name="Y" value="" id="custom1338">
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi6"] </span>
+            <span style="color:red; font-style:italic" id="custom1305">@ViewData["Loi6"] </span>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1300">
+        <td id="custom1301"></td>
+        <td id="custom1301">
             <input type="Submit" value="Kết Quả" />
         </td>
     </tr>

@@ -1,4 +1,4 @@
-﻿@{
+@{
 Layout = null;
 }
 
@@ -6,7 +6,7 @@ Layout = null;
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>C# | Asp Net Core | Công nghệ thông tin</title>
+        <title id="custom303">C# | Asp Net Core | Công nghệ thông tin</title>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
@@ -61,8 +61,8 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-    <body name="backgroundX" style="background-color:@TempData["mau_background"]">
-    <meta charset="ISO-8859-1">
+    <body name="backgroundX" style="background-color:@TempData["mau_background"]" id="custom304">
+    <meta charset="ISO-8859-1" id="custom305">
     <script>
         var xi = 0;
         setInterval(function()
@@ -133,7 +133,7 @@ Layout = null;
         
         
     </script>
-    <div style="display:none">
+    <div style="display:none" id="custom306">
         @for(int i =0; i< ViewBag.CountFile; i++)
         {
         <a id="clickfile-@i" href="/file/Folder1/Folder2/@TempData["file-"+i]" download>/file/Folder1/Folder2/@TempData["file-"+i]</a><br/>

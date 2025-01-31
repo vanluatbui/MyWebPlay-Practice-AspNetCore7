@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -58,24 +58,24 @@ Layout = null;
           document.getElementById(ele).focus();
     }
 </script>
-<table align="center">
-    <h2 style="text-align:center">Xử Lý SQL 8</h2>
-    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
+<table align="center" id="custom2139">
+    <h2 style="text-align:center" id="custom2140">Xử Lý SQL 8</h2>
+    <h3 style="color:purple" onclick="muaxuan()" id="custom2141">@ViewBag.KetQua</h3>
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px">
-        <td> </td>
-        <td>
-            <a href="#xuly" onclick="xoaValue('table')"><b>Nhập tên table : </b></a>
+    <tr style="height:40px" id="custom2142">
+        <td id="custom2143"> </td>
+        <td id="custom2143">
+            <a href="#xuly" onclick="xoaValue('table')"><b id="custom2145">Nhập tên table : </b></a>
             <br>
             <input type="text" name="txtTable" id="table" value="User" />
             <br>
-            <b>Với 1 : trình bày theo name + type (từ file script) hoặc 2 : nguyên như sự ở Constants.cs (nhưng các type đều sẽ mặc định tất cả là nvarchar(max)?</b>
+            <b id="custom2145">Với 1 : trình bày theo name + type (từ file script) hoặc 2 : nguyên như sự ở Constants.cs (nhưng các type đều sẽ mặc định tất cả là nvarchar(max)?</b>
             <br>
             <input type="number" name="txtLoai" min="1" max="2" value="1" />
             <br>
-            <a href="#xuly" onclick="xoaValue('field')"> <b>Nhập toàn bộ fields + type hiện có (lấy từ script sql file - tách nhau bởi Enter) hoặc liệt kê trong sự Constants : </b></a>
+            <a href="#xuly" onclick="xoaValue('field')"> <b id="custom2145">Nhập toàn bộ fields + type hiện có (lấy từ script sql file - tách nhau bởi Enter) hoặc liệt kê trong sự Constants : </b></a>
             <br>
             <textarea name="txtFields" id="field" cols="100" rows="12">Column1 nvarchar(10)
 Column2 int
@@ -84,9 +84,9 @@ Column4 varchar(5)
 Column5 datetime</textarea>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td><br>
+    <tr style="height:40px" id="custom2142">
+        <td id="custom2143"></td>
+        <td id="custom2143"><br>
             <input type="Submit" value="Kết Quả" />
         </td>
     </tr>

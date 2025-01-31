@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -73,62 +73,62 @@ Layout = null;
         },10);
     }
 </script>
-<table align="center">
-    <h3 style="color:aqua">Bạn nên trải nghiệm tính năng này trên máy tính (PC), laptop,... nhé 😄</h3>
+<table align="center" id="custom1738">
+    <h3 style="color:aqua" id="custom1739">Bạn nên trải nghiệm tính năng này trên máy tính (PC), laptop,... nhé 😄</h3>
     <br />
-    <h2 style="text-align:center">Play Test Trắc Nghiệm</h2>
+    <h2 style="text-align:center" id="custom1740">Play Test Trắc Nghiệm</h2>
     <br />
     @using (Html.BeginForm("TracNghiem", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+    <tr style="height:40px" id="custom1741">
+        <td id="custom1742"> </td>
+        <td id="custom1742">
             <br>
-            <b> Tải file TXT trắc nghiệm của bạn (đã xử lý) : </b>
+            <b id="custom1744"> Tải file TXT trắc nghiệm của bạn (đã xử lý) : </b>
             <br>
             <input type="file" name="txtFile"/>
-            <b>@Html.ActionLink("Bạn chưa có file trắc nghiệm?","CreateFile_TracNghiem")</b>
+            <b id="custom1744">@Html.ActionLink("Bạn chưa có file trắc nghiệm?","CreateFile_TracNghiem")</b>
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+            <span style="color:red; font-style:italic" id="custom1746">@ViewData["Loi1"] </span>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+    <tr style="height:40px" id="custom1741">
+        <td id="custom1742"> </td>
+        <td id="custom1742">
             <br>
-            <b> Nhập tên môn học/tên kỳ kiểm tra : </b>
+            <b id="custom1744"> Nhập tên môn học/tên kỳ kiểm tra : </b>
             <br>
             <input type="text" name="txtMon" size="50" value=" "/>
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
+            <span style="color:red; font-style:italic" id="custom1746">@ViewData["Loi"] </span>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+    <tr style="height:40px" id="custom1741">
+        <td id="custom1742"> </td>
+        <td id="custom1742">
             <br>
-            <b>Số câu cần làm :</b>
+            <b id="custom1744">Số câu cần làm :</b>
             <br>
-            <input type="number" name="txtSoCau" min="1" value="100">
+            <input type="number" name="txtSoCau" min="1" value="100" id="custom1756">
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+            <span style="color:red; font-style:italic" id="custom1746">@ViewData["Loi2"] </span>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1741">
+        <td id="custom1742"></td>
+        <td id="custom1742">
             <br>
-            <b>Thời gian làm bài (phút) : </b>
+            <b id="custom1744">Thời gian làm bài (phút) : </b>
             <br>
-            <input type="number" name="txtTime" min="1" value="30">
+            <input type="number" name="txtTime" min="1" value="30" id="custom1762">
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
+            <span style="color:red; font-style:italic" id="custom1746">@ViewData["Loi3"] </span>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1741">
+        <td id="custom1742"></td>
+        <td id="custom1742">
             <input  id="ok" onclick="xong()" style="font-weight:bolder" type="Submit" value="Bắt đầu làm bài" />
             <br>
             <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />

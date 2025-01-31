@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -73,29 +73,29 @@ Layout = null;
         }
     }
 </script>
-<div style="opacity:@TempData["opacity-body-css"]">
-<button onclick="xoa()"><b style="color:red">XOÁ</b></button>
-<h3 style="color:pink"> @ViewBag.DateTime </h3>
+<div style="opacity:@TempData["opacity-body-css"]" id="custom992">
+<button onclick="xoa()" id="custom993"><b style="color:red" id="custom994">XOÁ</b></button>
+<h3 style="color:pink" id="custom995"> @ViewBag.DateTime </h3>
 <br /><br />
-<h3>@Html.ActionLink("Chỉnh sửa Layout", "EditLayout")</h3>
+<h3 id="custom996">@Html.ActionLink("Chỉnh sửa Layout", "EditLayout")</h3>
 <br />
 <select id="chon" onchange="changexem()">
-    <option>Xem dưới dạng text</option>
-    <option>Xem dưới dạng HTML</option>
+    <option id="custom997">Xem dưới dạng text</option>
+    <option id="custom997">Xem dưới dạng HTML</option>
 </select>
 <br />
-<table align="center">
-    <h2 style="text-align:center">Text Layout Random File</h2>
-    <tr style="height:40px">
-        <td>
+<table align="center" id="custom999">
+    <h2 style="text-align:center" id="custom1000">Text Layout Random File</h2>
+    <tr style="height:40px" id="custom1001">
+        <td id="custom1002">
         </td>
-        <td>
+        <td id="custom1002">
             <br>
             <br>
             <hr />
             <br />
             <div id="text1">
-                <textarea rows="500" cols="150" name="txtText" readonly placeholder="Nội dung view layout file hiện đang trống..." autofocus>@ViewBag.Text</textarea>
+                <textarea rows="500" cols="150" name="txtText" readonly placeholder="Nội dung view layout file hiện đang trống..." autofocus id="custom1004">@ViewBag.Text</textarea>
             </div>
             <div id="text2" style="display:none">
                 @Html.Raw(ViewBag.Text)
@@ -120,7 +120,7 @@ Layout = null;
         },10);
 </script>
 <br />
-<h3>@Html.ActionLink("Chỉnh sửa Layout", "EditLayout")</h3>
+<h3 id="custom996">@Html.ActionLink("Chỉnh sửa Layout", "EditLayout")</h3>
 </div>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

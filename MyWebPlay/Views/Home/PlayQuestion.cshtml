@@ -1,4 +1,4 @@
-﻿@model MyWebPlay.Model.TracNghiem
+@model MyWebPlay.Model.TracNghiem
 @if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
@@ -147,19 +147,19 @@ Layout = null;
     
         if (h< 10 && m < 10 && s < 10)
                 t.innerHTML = "0" + h + " : 0" + m + " : 0" + s;
-            if (h < 10 && m < 10 && s >= 10)
+            if (h < 10 && m < 10 && s  id="custom720">= 10)
                 t.innerHTML = "0" + h + " : 0" + m + " : " + s;
-            if (h < 10 && m >= 10 && s < 10)
+            if (h < 10 && m  id="custom721">= 10 && s < 10)
                 t.innerHTML = "0" + h + " : " + m + " : 0" + s;
-            if (h < 10 && m >= 10 && s >= 10)
+            if (h < 10 && m  id="custom721">= 10 && s >= 10)
                 t.innerHTML = "0" + h + " : " + m + " : " + s;
             if (h >= 10 && m < 10 && s < 10)
                 t.innerHTML = "" + h + " : 0" + m + " : 0" + s;
-            if (h >= 10 && m < 10 && s >= 10)
+            if (h  id="custom723">= 10 && m < 10 && s  id="custom724">= 10)
                 t.innerHTML = "" + h + " : 0" + m + " : " + s;
             if (h >= 10 && m >= 10 && s < 10)
                 t.innerHTML = "" + h + " : " + m + " : 0" + s;
-            if (h >=10 && m >= 10 && s >= 10)
+            if (h  id="custom725">=10 && m >= 10 && s >= 10)
                 t.innerHTML = "" + h + " : " + m + " : " + s;
     
             timeX--;
@@ -180,27 +180,27 @@ Layout = null;
     <img src="/Image_Play/waiting.gif" />
 </div>
 <div id="waiting-loading" style="display:none">
-    <table align="center">
-        <h2 style="text-align:center;color:lightsalmon">Play Test Question Answer</h2>
-        <h3 style="color:aqua">@ViewBag.KetQuaDung</h3>
-        <h3 style="color:aqua">@ViewBag.KetQuaSai</h3>
-        <h3 style="color:aqua">@ViewBag.KetQuaChuaLam</h3>
-        <h2 style="color:lightgreen">@ViewBag.KetQuaDiem</h2>
+    <table align="center" id="custom726">
+        <h2 style="text-align:center;color:lightsalmon" id="custom727">Play Test Question Answer</h2>
+        <h3 style="color:aqua" id="custom728">@ViewBag.KetQuaDung</h3>
+        <h3 style="color:aqua" id="custom728">@ViewBag.KetQuaSai</h3>
+        <h3 style="color:aqua" id="custom728">@ViewBag.KetQuaChuaLam</h3>
+        <h2 style="color:lightgreen" id="custom731">@ViewBag.KetQuaDiem</h2>
         @using (Html.BeginForm("PlayQuestion", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
         {
         @Html.ValidationSummary(true)
         <br />
         <br />
-        <b>Tên môn học/kỳ kiểm tra : @Model.tenmon</b>
+        <b id="custom732">Tên môn học/kỳ kiểm tra : @Model.tenmon</b>
         <br />
-        <b>Tổng số câu cần làm : @Model.gioihancau/@Model.tongsocau</b>
+        <b id="custom732">Tổng số câu cần làm : @Model.gioihancau/@Model.tongsocau</b>
         <br />
-        <b>
+        <b id="custom732">
             Thời gian làm bài : @Model.timelambai phút
             @if (ViewBag.TimeLamBai != null)
             {
-            <div class="divOnTop">
-                <span style="color:blue;text-align:center">
+            <div class="divOnTop" id="custom735">
+                <span style="color:blue;text-align:center" id="custom736">
                     <h2 id="Time">00 : 00 : 00</h2>
                 </span>
             </div>
@@ -211,38 +211,38 @@ Layout = null;
         <hr />
         @for (int i = 0; i < @Model.gioihancau; i++)
         {
-        <tr style="height:40px; background-color: @TempData["mau-question-"+i]">
-        <td></td>
-        <td>
+        <tr style="height:40px; background-color: @TempData["mau-question-"+i]" id="custom737">
+        <td id="custom738"></td>
+        <td id="custom738">
             @if (TempData["ViewSiteBasic"] == "false")
             {
-            <h3><b name="mau-TN-1">Câu số @(i + 1)</b>.<span  name="mau-TN-2"> @Html.Raw(Model.ch[@i])</span></h3>
+            <h3 id="custom740"><b name="mau-TN-1" id="custom741">Câu số @(i + 1)</b>.<span  name="mau-TN-2" id="custom742"> @Html.Raw(Model.ch[@i])</span></h3>
             }
             else
             {
-            <h3 style="color:blue"><b name="mau-TN-1">Câu số @(i + 1)</b>.<span  name="mau-TN-2"> @Html.Raw(Model.ch[@i])</span></h3>
+            <h3 style="color:blue" id="custom743"><b name="mau-TN-1" id="custom741">Câu số @(i + 1)</b>.<span  name="mau-TN-2" id="custom742"> @Html.Raw(Model.ch[@i])</span></h3>
             }
         </td>
         </tr>
         @if(ViewData["KetQua-"+@i] ==  null)
         {
-        <tr style="height:40px; background-color: @TempData["mau-question-"+i]">
-        <td></td>
-        <td>
-            <h4><b style="color:black"> Nhập answer cho câu @(i+1) của bạn : </b></h4>
-            <h3><textarea type="text" name="dapan-@i" id="answix-@i" cols="80" rows="1" ti onchange="hienthitittle(@i)" onclick="chuyendoiJapan(@i)"></textarea></h3>
+        <tr style="height:40px; background-color: @TempData["mau-question-"+i]" id="custom746">
+        <td id="custom738"></td>
+        <td id="custom738">
+            <h4 id="custom749"><b style="color:black" id="custom750"> Nhập answer cho câu @(i+1) của bạn : </b></h4>
+            <h3 id="custom740"><textarea type="text" name="dapan-@i" id="answix-@i" cols="80" rows="1" ti onchange="hienthitittle(@i)" onclick="chuyendoiJapan(@i)"></textarea></h3>
             <br><br />
         </td>
         </tr>
         }
         else
         {
-        <tr style="height:40px">
-            <td></td>
-            <td>
+        <tr style="height:40px" id="custom752">
+            <td id="custom738"></td>
+            <td id="custom738">
                 @Html.Raw(ViewData["ketqua-"+@i])
-                <h4>@Html.Raw(ViewData["dapandachon-"+@i])</h4>
-                <h4>@Html.Raw(ViewData["dapandung-"+@i])</h4>
+                <h4 id="custom749">@Html.Raw(ViewData["dapandachon-"+@i])</h4>
+                <h4 id="custom749">@Html.Raw(ViewData["dapandung-"+@i])</h4>
                 <br><br />
             </td>
         </tr>
@@ -250,31 +250,31 @@ Layout = null;
         }
         @if (ViewBag.KetQuaDung == "")
         {
-        <tr style="height:40px">
-            <td></td>
-            <td>
+        <tr style="height:40px" id="custom752">
+            <td id="custom738"></td>
+            <td id="custom738">
                 <input style="font-weight:bolder" id="OKX" type="Submit" value="Đánh Giá Bài Làm" />
                 <br>
-                <p style="color:deeppink">Lưu ý : kiểm tra thật kỹ toàn bộ bài làm trước khi xem kết quả!</p>
+                <p style="color:deeppink" id="custom760">Lưu ý : kiểm tra thật kỹ toàn bộ bài làm trước khi xem kết quả!</p>
             </td>
         </tr>
         }
         else
         {
-        <h3>@Html.ActionLink("Thực hiện bài test [text question/answer] mới", "PlayQuestion_Multiple")</h3>
+        <h3 id="custom740">@Html.ActionLink("Thực hiện bài test [text question/answer] mới", "PlayQuestion_Multiple")</h3>
         <br />
         }
         <input name="txtUserIP" type="text" value="@TempData["userIP"]" readonly hidden />
         <input type="text" readonly name="TongSoCau" value="@ViewBag.TongSoCau" hidden />
         <input type="text" id="socau" readonly name="GioiHanCau" value="@ViewBag.GioiHanCau" hidden />
         <input type="text" readonly name="TimeLamBai" value="@ViewBag.TimeLamBaiX" hidden />
-        <input type="text" readonly name="TenMon" value="@ViewBag.TenMon" hidden>
-        <textarea readonly name="CauHoi" hidden>@ViewBag.CauHoi</textarea>
-        <textarea readonly name="A" hidden>@ViewBag.A</textarea>
-        <textarea readonly name="B" hidden>@ViewBag.B</textarea>
-        <textarea readonly name="C" hidden>@ViewBag.C</textarea>
-        <textarea readonly name="D" hidden>@ViewBag.D</textarea>
-        <textarea readonly name="Dung" hidden>@ViewBag.Dung</textarea>
+        <input type="text" readonly name="TenMon" value="@ViewBag.TenMon" hidden id="custom762">
+        <textarea readonly name="CauHoi" hidden id="custom763">@ViewBag.CauHoi</textarea>
+        <textarea readonly name="A" hidden id="custom764">@ViewBag.A</textarea>
+        <textarea readonly name="B" hidden id="custom765">@ViewBag.B</textarea>
+        <textarea readonly name="C" hidden id="custom766">@ViewBag.C</textarea>
+        <textarea readonly name="D" hidden id="custom767">@ViewBag.D</textarea>
+        <textarea readonly name="Dung" hidden id="custom768">@ViewBag.Dung</textarea>
         <textarea readonly id="rpJP" hidden>@TempData["replaceJapan"]</textarea>
         }
     </table>

@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -71,34 +71,34 @@ Layout = null;
         }
     }
 </script>
-<table align="center">
-    <h2 style="text-align:center">Export excel from ST for me</h2>
-    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
+<table align="center" id="custom374">
+    <h2 style="text-align:center" id="custom375">Export excel from ST for me</h2>
+    <h3 style="color:purple" onclick="muaxuan()" id="custom376">@ViewBag.KetQua</h3>
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+    <tr style="height:40px" id="custom377">
+        <td id="custom378"> </td>
+        <td id="custom378">
             <br>
-            <a href="#xuly" onclick="xoaValue('chuoi')"> <b>Nhập chuỗi trong ST (hãy tự lọc các PC trước khi dán vào đây, chỉ cần từ cột PJ -> Late) - hoặc là kết quả trước đó muốn loại bỏ sự trùng lặp (có thể thêm các cột chỉ số RV - cột 0 thường là date) : </b></a><br>
+            <a href="#xuly" onclick="xoaValue('chuoi')"> <b id="custom380">Nhập chuỗi trong ST (hãy tự lọc các PC trước khi dán vào đây, chỉ cần từ cột PJ -> Late) - hoặc là kết quả trước đó muốn loại bỏ sự trùng lặp (có thể thêm các cột chỉ số RV - cột 0 thường là date) : </b></a><br>
             <br>
             <textarea name="Chuoi" id="chuoi" cols="100" rows="10"></textarea>
             <br />
-            <input id="chon" type="checkbox" onchange="thaydoichon()" /><b style="color:crimson">Đã có kết quả? (muốn lọc các sự trùng lặp)</b>
+            <input id="chon" type="checkbox" onchange="thaydoichon()" /><b style="color:crimson" id="custom381">Đã có kết quả? (muốn lọc các sự trùng lặp)</b>
             <br />
             <div id="laplai"style="display:none">
                 <br />
-                 <a href="#xuly" onclick="xoaValue('locra')"> <b>Tự lọc ra bằng excel trước (chỉ cẩn cột PJ và TA) bằng cách sử dụng **duplication remove**</b></a><br>
+                 <a href="#xuly" onclick="xoaValue('locra')"> <b id="custom380">Tự lọc ra bằng excel trước (chỉ cẩn cột PJ và TA) bằng cách sử dụng **duplication remove**</b></a><br>
             <br>
             <textarea name="LocRa" id="locra" cols="100" rows="10"></textarea>
             <br />
             </div>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom377">
+        <td id="custom378"></td>
+        <td id="custom378">
             <input type="Submit" value="Kết Quả" />
         </td>
     </tr>

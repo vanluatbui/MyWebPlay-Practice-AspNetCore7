@@ -1,4 +1,4 @@
-﻿@{
+@{
 Layout = null;
 }
 @if (TempData["HTML-visible"] != null && TempData["HTML-visible"].ToString() != "2")
@@ -7,13 +7,13 @@ Layout = null;
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>C# | Asp Net Core | Công nghệ thông tin</title>
+        <title id="custom1166">C# | Asp Net Core | Công nghệ thông tin</title>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
         <link rel="icon" href="/images/imagex.png">
     </head>
-    <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]">
+    <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]" id="custom1167">
         <script>
 
      var loadix = false;
@@ -63,7 +63,7 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-    <meta charset="ISO-8859-1">
+    <meta charset="ISO-8859-1" id="custom1168">
     <script>
         function okhihi()
         {
@@ -379,26 +379,26 @@ Layout = null;
              }
         
     </script>
-    <table align="center">
-        <h2 style="text-align:center;color:lightsalmon">Play Session</h2>
-        <h2 style="color:red">@Html.ActionLink("Reload this page (hạn chế F5)?","SessionPlay_DarkAdmin")</h2>
+    <table align="center" id="custom1169">
+        <h2 style="text-align:center;color:lightsalmon" id="custom1170">Play Session</h2>
+        <h2 style="color:red" id="custom1171">@Html.ActionLink("Reload this page (hạn chế F5)?","SessionPlay_DarkAdmin")</h2>
         <br />
         @using (Html.BeginForm())
         {
         @Html.ValidationSummary(true)
-        <tr style="height:40px">
-            <td> </td>
-            <td>
+        <tr style="height:40px" id="custom1172">
+            <td id="custom1173"> </td>
+            <td id="custom1173">
                 <input hidden id="chon" type="number" name="txtChon" value="0" />
-                <input type="text" name="txtSession" size="100" id="session" placeholder="Nhập tên session (lưu ý phân biệt hoa/thường)" value="@ViewBag.Session"/> - <span style="color:orangered">gán giá trị [null] nếu muốn xoá phần tử đó - chỉ C#</span>
+                <input type="text" name="txtSession" size="100" id="session" placeholder="Nhập tên session (lưu ý phân biệt hoa/thường)" value="@ViewBag.Session"/> - <span style="color:orangered" id="custom1175">gán giá trị [null] nếu muốn xoá phần tử đó - chỉ C#</span>
                 <br><br />
                 <textarea cols="100" rows="12" name="txtGiaTri" id="giatri" placeholder="Nhập giá trị gán cho session (nếu có) - nếu để trống mặc định sẽ là 'Default Session Webplay' !">@ViewBag.GiaTri</textarea>
                 <br>
-                <button onclick="okhihi()">❤</button>
+                <button onclick="okhihi()" id="custom1176">❤</button>
                 <br>
                 <br>
                 <hr />
-                <h3>
+                <h3 id="custom1177">
                     <a style="color:red" onclick="docLocalStorageJS()" href="#xuly">Đọc giá trị localStorage bằng JS</a>
                     <br /><a onclick="docsessionJS()" href="#xuly">Đọc giá trị session bằng JS</a>
                     <br /><a style="color:red" id="hahaha" onclick="docsessionC()" href="#xuly">Đọc giá trị session bằng C# (chờ xử lý)</a>
@@ -421,7 +421,7 @@ Layout = null;
                     <br /><a style="color:red" onclick="gansessionJS()" href="#xuly">Gán session bằng JS</a>
                     <br /><a onclick="SetViewData_C()" href="#xuly">Gán giá trị View Data C# - chờ xử lý</a>
                     <br /><a style="color:red" onclick="gansessionC()" href="#xuly">Gán session bằng C# (chờ xử lý)</a>
-                    <br /> <input id="check-s" type="checkbox"/><b style="color:deeppink">&nbsp;Gán bởi string (nếu không tick sẽ gán mặc định bởi <span style="color:green">object&lt;string&gt;</span> - cũng có thể sử dụng khi muốn đọc Session</b><br /><br/>
+                    <br /> <input id="check-s" type="checkbox"/><b style="color:deeppink" id="custom1178">&nbsp;Gán bởi string (nếu không tick sẽ gán mặc định bởi <span style="color:green" id="custom1179">object&lt;string&gt;</span> - cũng có thể sử dụng khi muốn đọc Session</b><br /><br/>
                     <hr />
                     <br /><a onclick="xoaallJS()" href="#xuly">Xoá all session bằng JS</a>
                     <br /><a style="color:red" onclick="xoaallC()" href="#xuly">Xoá all session bằng C# (chờ xử lý)</a>           
@@ -433,15 +433,15 @@ Layout = null;
                     <br /><a onclick="giaima()" href="#xuly">Giải mã - chờ xử lý (!)</a>
                 </h3>
                 <br>
-                <h1 onclick="dichuyen()" style="color:orangered">⬇</h1>
+                <h1 onclick="dichuyen()" style="color:orangered" id="custom1180">⬇</h1>
                 <br><br>
                 <textarea cols="100" rows="12" name="txtKetQua" id="ketqua" placeholder="Kết quả của Session sau khi xử lý sẽ xuất hiện tại đây (nếu có)!">@TempData["ketqua-session"]</textarea>
                 <br>
             </td>
         </tr>
-        <tr style="height:40px">
-            <td></td>
-            <td><br>
+        <tr style="height:40px" id="custom1172">
+            <td id="custom1173"></td>
+            <td id="custom1173"><br>
                 <input hidden id="ok" type="Submit" value="Kết Quả" />
             </td>
         </tr>

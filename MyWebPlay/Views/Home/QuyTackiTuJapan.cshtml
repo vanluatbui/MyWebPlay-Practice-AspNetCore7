@@ -1,4 +1,4 @@
-﻿@{
+@{
 Layout = null;
 }
 
@@ -8,7 +8,7 @@ Layout = null;
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>C# | Asp Net Core | Công nghệ thông tin</title>
+        <title id="custom987">C# | Asp Net Core | Công nghệ thông tin</title>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
@@ -75,10 +75,10 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-    <body>
-        <h1 style="color:red">QUY TẮC CÁCH CHUYỂN ĐỔI CÁC KÍ TỰ SANG JAPAN (hiện có) : </h1>
-        <h3 style="color:blue">⚠ Lưu ý : đây là các quy tắc mà hệ thống đang áp dụng, nếu trong câu trả lời của bạn [Question] bạn càng gõ mà chỉ cần xuất hiện giống như ngay một trong các dấu hiệu dưới đây thì sẽ tự động convert sang ngay kí tự Japan tương ứng mà không cần thông báo trước (bạn có thể liên hệ admin qua email nếu quy tắc này có gây khó khăn cho bạn).</h3>
-        <h5 style="color:purple">Quy tắc mặc định hệ thống (có thể sau này sẽ đổi) : chữ higarana thì bạn cứ gõ bình thường (VD : ni ➡ に, riêng chữ "in" thì nhập 2 lần n : nn ➡ ん), chữ katakana thì bạn thêm phía trước dấu bằng (VD : =ni ➡ ニ), các kiểu dạng các chữ nhỏ như tsu nhỏ, shi nhỏ, a nhỏ,...vv... thì bạn thêm phía trước 1 dấu gạch nối (nếu muốn là higarana) hoặc 2 dấu gạch nối (nếu muốn là katakana) -> VD : mi-tsu ➡ みっ; hoặc ^tt (dấu ten ten) hay ^mr (dấu maru),... Bạn hãy thử xem bên dưới và tự hình dung nhé 😎 : </h5>
+    <body id="custom988">
+        <h1 style="color:red" id="custom989">QUY TẮC CÁCH CHUYỂN ĐỔI CÁC KÍ TỰ SANG JAPAN (hiện có) : </h1>
+        <h3 style="color:blue" id="custom990">⚠ Lưu ý : đây là các quy tắc mà hệ thống đang áp dụng, nếu trong câu trả lời của bạn [Question] bạn càng gõ mà chỉ cần xuất hiện giống như ngay một trong các dấu hiệu dưới đây thì sẽ tự động convert sang ngay kí tự Japan tương ứng mà không cần thông báo trước (bạn có thể liên hệ admin qua email nếu quy tắc này có gây khó khăn cho bạn).</h3>
+        <h5 style="color:purple" id="custom991">Quy tắc mặc định hệ thống (có thể sau này sẽ đổi) : chữ higarana thì bạn cứ gõ bình thường (VD : ni ➡ に, riêng chữ "in" thì nhập 2 lần n : nn ➡ ん), chữ katakana thì bạn thêm phía trước dấu bằng (VD : =ni ➡ ニ), các kiểu dạng các chữ nhỏ như tsu nhỏ, shi nhỏ, a nhỏ,...vv... thì bạn thêm phía trước 1 dấu gạch nối (nếu muốn là higarana) hoặc 2 dấu gạch nối (nếu muốn là katakana) -> VD : mi-tsu ➡ みっ; hoặc ^tt (dấu ten ten) hay ^mr (dấu maru),... Bạn hãy thử xem bên dưới và tự hình dung nhé 😎 : </h5>
         <br />
         @Html.Raw(TempData["rule-JP"])
     </body>

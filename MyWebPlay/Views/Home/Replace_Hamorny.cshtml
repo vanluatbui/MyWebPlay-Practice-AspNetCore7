@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -58,25 +58,25 @@ Layout = null;
           document.getElementById(ele).focus();
     }
 </script>
-<table align="center">
-    <h2 style="text-align:center">Replace Text - Harmony</h2>
-    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
+<table align="center" id="custom1072">
+    <h2 style="text-align:center" id="custom1073">Replace Text - Harmony</h2>
+    <h3 style="color:purple" onclick="muaxuan()" id="custom1074">@ViewBag.KetQua</h3>
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+    <tr style="height:40px" id="custom1075">
+        <td id="custom1076"> </td>
+        <td id="custom1076">
             <br>
-            <a href="#xuly" onclick="xoaValue('index')"> <b>Nhập số lượng index thay thế : </b></a><br />
+            <a href="#xuly" onclick="xoaValue('index')"> <b id="custom1078">Nhập số lượng index thay thế : </b></a><br />
             <br>
             <input type="number" name="txtIndex" id="index" size="10" value="3" />
             <br><br>
-            <a href="#xuly" onclick="xoaValue('chuoi')"> <b>Nhập mẫu chuỗi gốc (chỗ cần replace phải đúng như với số lượng index trên - ví dụ nhập dấu hiệu tại đó là [i]) : </b></a><br>
+            <a href="#xuly" onclick="xoaValue('chuoi')"> <b id="custom1078">Nhập mẫu chuỗi gốc (chỗ cần replace phải đúng như với số lượng index trên - ví dụ nhập dấu hiệu tại đó là [i]) : </b></a><br>
             <br>
             <textarea cols="100" rows="10" id="chuoi" name="txtChuoi">[1] + [2] = [3]</textarea>
             <br><br>
-            <a href="#xuly" onclick="xoaValue('input')"> <b>Nhập input (mỗi thành phần cách nhau bởi Enter, mỗi index cách nhau bởi Tab) : </b></a><br>
+            <a href="#xuly" onclick="xoaValue('input')"> <b id="custom1078">Nhập input (mỗi thành phần cách nhau bởi Enter, mỗi index cách nhau bởi Tab) : </b></a><br>
             <br>
             <textarea cols="100" rows="10" id="input" name="txtInput">1[T-PLAY]2[T-PLAY]3
 5[T-PLAY]3[T-PLAY]8
@@ -86,9 +86,9 @@ Layout = null;
             <br>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1075">
+        <td id="custom1076"></td>
+        <td id="custom1076">
             <input type="Submit" value="Kết Quả" />
         </td>
     </tr>

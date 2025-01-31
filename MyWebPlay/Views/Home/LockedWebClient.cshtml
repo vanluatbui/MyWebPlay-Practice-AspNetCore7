@@ -1,4 +1,4 @@
-﻿@{
+@{
 Layout = null;
 }
 
@@ -10,7 +10,7 @@ Layout = null;
         {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>C# | Asp Net Core | Công nghệ thông tin</title>
+        <title id="custom507">C# | Asp Net Core | Công nghệ thông tin</title>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
@@ -20,13 +20,13 @@ Layout = null;
         {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>@TempData["Tab_Tittle"]</title>
+        <title id="custom507">@TempData["Tab_Tittle"]</title>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
         <link rel="icon" href="@TempData["Tab_Image"]">
         }
-        <style>
+        <style id="custom509">
             .video-overlay{
             position:absolute;
             z-index: 2;
@@ -129,17 +129,17 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-    <body>
+    <body id="custom510">
         @*<img src="/Image_Play/waiting.gif" id="myVideo" class="sqs-html5-video" />*@
-        <br /><br /><b style="color:red">WEBSITE ĐANG BỊ KHOÁ BỞI CHÍNH BẠN HOẶC MỘT AI ĐÓ KHÁC TRONG NỘI BỘ! ~ </b><span style="color:deeppink">Nhập chính xác mật mã mở khoá tại trường input data bên dưới để mở khoá tiếp tục sử dụng website...</span> <br /><br />
+        <br /><br /><b style="color:red" id="custom511">WEBSITE ĐANG BỊ KHOÁ BỞI CHÍNH BẠN HOẶC MỘT AI ĐÓ KHÁC TRONG NỘI BỘ! ~ </b><span style="color:deeppink" id="custom512">Nhập chính xác mật mã mở khoá tại trường input data bên dưới để mở khoá tiếp tục sử dụng website...</span> <br /><br />
         @using (Html.BeginForm())
         {
         @Html.ValidationSummary(true)
         <input type="password" autofocus name="LockedClientID" size="30" />
-        <button hidden></button>
+        <button hidden id="custom513"></button>
         <br />
         <br />
-        <h3><a href="/Home/Index">CLICK ĐỂ THỬ TẢI LẠI TRANG INDEX (Không nên reload/F5)</a></h3>
+        <h3 id="custom514"><a href="/Home/Index">CLICK ĐỂ THỬ TẢI LẠI TRANG INDEX (Không nên reload/F5)</a></h3>
         }
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

@@ -1,4 +1,4 @@
-﻿@{
+@{
 Layout = null;
 }
 <script>
@@ -52,7 +52,7 @@ Layout = null;
 <div id="html_play"></div>
 @if (TempData["alert_admin"] != null && TempData["alert_admin"] != "")
 {
-<style>
+<style id="custom46">
     /* Kiểu dáng cho hộp thoại */
     .custom-dialog {
     position: fixed;
@@ -84,11 +84,11 @@ Layout = null;
     }
 </style>
 <div id="custom-alert" class="custom-dialog">
-    <div class="custom-dialog-content">
-        <h3 style="color:yellow">MyWebPlay xin thông báo</h3>
-        <p style="color:white">@Html.Raw(TempData["alert_admin"])</p>
-        <span style="color:aqua">Nội dung này sẽ hiển thị và tự động đóng lại sau 15 giây (hãy chờ đợi vì có thể còn có thông báo khác sau đó).</span>
-        <button style="color:red;float:right;font-size:20px" onclick="dongthongbao()"><b>ĐÓNG</b></button>
+    <div class="custom-dialog-content" id="custom47">
+        <h3 style="color:yellow" id="custom48">MyWebPlay xin thông báo</h3>
+        <p style="color:white" id="custom49">@Html.Raw(TempData["alert_admin"])</p>
+        <span style="color:aqua" id="custom50">Nội dung này sẽ hiển thị và tự động đóng lại sau 15 giây (hãy chờ đợi vì có thể còn có thông báo khác sau đó).</span>
+        <button style="color:red;float:right;font-size:20px" onclick="dongthongbao()" id="custom51"><b id="custom52">ĐÓNG</b></button>
         <br />
     </div>
 </div>

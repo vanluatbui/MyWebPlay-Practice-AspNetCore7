@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -58,39 +58,39 @@ Layout = null;
           document.getElementById(ele).focus();
     }
 </script>
-<table align="center">
-    <h2 style="text-align:center">Insert JSON Doc</h2>
-    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
+<table align="center" id="custom482">
+    <h2 style="text-align:center" id="custom483">Insert JSON Doc</h2>
+    <h3 style="color:purple" onclick="muaxuan()" id="custom484">@ViewBag.KetQua</h3>
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+    <tr style="height:40px" id="custom485">
+        <td id="custom486"> </td>
+        <td id="custom486">
             <br>
-            <a href="#xuly" onclick="xoaValue('trangthai')"><b>Nhập trạng thái theo mẫu (tên cột-kiểu dữ liệu) *** Với # 1 : Kiểu số, 2 : Kiểu chuỗi, 3 : Kiểu DateTime/Char </b></a>
+            <a href="#xuly" onclick="xoaValue('trangthai')"><b id="custom488">Nhập trạng thái theo mẫu (tên cột-kiểu dữ liệu) *** Với # 1 : Kiểu số, 2 : Kiểu chuỗi, 3 : Kiểu DateTime/Char </b></a>
             <br>
             <input type="text" size="50" name="TrangThai" id="trangthai" value="MSSV-3,HoTen-2,DTB-1,NgaySinh-3">
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+            <span style="color:red; font-style:italic" id="custom489">@ViewData["Loi2"] </span>
         </td>
     </tr>
     <br />
     <br />
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+    <tr style="height:40px" id="custom485">
+        <td id="custom486"> </td>
+        <td id="custom486">
             <br>
-            <a href="#xuly" onclick="xoaValue('dulieu')"> <b>Nhập dãy dữ liệu theo mẫu (VD - nếu mỗi doc SQL có 5 cột/ mỗi col cách nhau bởi [Tab] - mỗi doc cách nhau bởi Enter)... </b></a>
+            <a href="#xuly" onclick="xoaValue('dulieu')"> <b id="custom488">Nhập dãy dữ liệu theo mẫu (VD - nếu mỗi doc SQL có 5 cột/ mỗi col cách nhau bởi [Tab] - mỗi doc cách nhau bởi Enter)... </b></a>
             <br>
             <textarea name="DuLieu" id="dulieu" cols="100" rows="50">@ViewBag.VD</textarea>
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
+            <span style="color:red; font-style:italic" id="custom489">@ViewData["Loi3"] </span>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom485">
+        <td id="custom486"></td>
+        <td id="custom486">
             <input type="Submit" value="Kết Quả" />
         </td>
     </tr>

@@ -1,56 +1,56 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
-<div class="container mt-3">
-    <div class="list-group" style="color:yellow">
+<div class="container mt-3" id="custom515">
+    <div class="list-group" style="color:yellow" id="custom516">
         @if (TempData["unvisibled_sub_menu"] == "false")
         {
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="HD_API">HD_API</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="ExportCalculatorSTForMe">ExportCalculatorSTForMe</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="HD_Web_AspNetCore">HD_Web_AspNetCore</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="HD_Web_AspNet">HD_Web_AspNet</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="CheckText">CheckText</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="TextToColumn1">TextToColumn-X1</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="TextToColumn2">TextToColumn-X2</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="CSDL_MainKey">CSDL_MainKey</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="ReadNumber">ReadNumber</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="TextConvertX">Text-ConvertX</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="SQL_InsertDoc">SQL_InsertDoc</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="JSON_InsertDoc">JSON_InsertDoc</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="SQL_CreateTable">SQL_CreateTable</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="Cxap_CreateClass">Cxap_CreateClass</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="Cxap_InsertValueClass">Cxap_InsertValueClass</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="String_Reverse">String_Reverse 1</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="String_Reverse2">String_Reverse 2</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="Special_OrderBy">Special_OrderBy</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="SpecialX_OrderBy">SpecialX_OrderBy</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="String_Split_Regex">String_Split_Regex</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="Check_Regex">Check_Regex</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="ResultCheck_Regex">ResultFindCheck_Regex</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="Replace_Hamorny">Replace_Hamorny</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="Replace_Regex">Replace_Regex</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="BangChanTri">Bảng Chân Trị</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="Euler_X">Euler - Đồ thị</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="FindValueCheckInSQL">Find-Value-Check-In-SQL</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="FindCompareValueInSQL">Find-Compare-Value-In-SQL</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="Regex_Replace_Multiple">Regex_Replace_Multiple</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="HD_API" id="custom517">HD_API</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="ExportCalculatorSTForMe" id="custom518">ExportCalculatorSTForMe</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="HD_Web_AspNetCore" id="custom519">HD_Web_AspNetCore</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="HD_Web_AspNet" id="custom520">HD_Web_AspNet</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="CheckText" id="custom521">CheckText</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="TextToColumn1" id="custom522">TextToColumn-X1</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="TextToColumn2" id="custom523">TextToColumn-X2</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="CSDL_MainKey" id="custom524">CSDL_MainKey</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="ReadNumber" id="custom525">ReadNumber</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="TextConvertX" id="custom526">Text-ConvertX</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="SQL_InsertDoc" id="custom527">SQL_InsertDoc</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="JSON_InsertDoc" id="custom528">JSON_InsertDoc</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="SQL_CreateTable" id="custom529">SQL_CreateTable</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="Cxap_CreateClass" id="custom530">Cxap_CreateClass</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="Cxap_InsertValueClass" id="custom531">Cxap_InsertValueClass</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="String_Reverse" id="custom532">String_Reverse 1</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="String_Reverse2" id="custom533">String_Reverse 2</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="Special_OrderBy" id="custom534">Special_OrderBy</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="SpecialX_OrderBy" id="custom535">SpecialX_OrderBy</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="String_Split_Regex" id="custom536">String_Split_Regex</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="Check_Regex" id="custom537">Check_Regex</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="ResultCheck_Regex" id="custom538">ResultFindCheck_Regex</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="Replace_Hamorny" id="custom539">Replace_Hamorny</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="Replace_Regex" id="custom540">Replace_Regex</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="BangChanTri" id="custom541">Bảng Chân Trị</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="Euler_X" id="custom542">Euler - Đồ thị</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="FindValueCheckInSQL" id="custom543">Find-Value-Check-In-SQL</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="FindCompareValueInSQL" id="custom544">Find-Compare-Value-In-SQL</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="Regex_Replace_Multiple" id="custom545">Regex_Replace_Multiple</a>
         }
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="TronMau">Trộn Màu</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="UploadFile">Upload File</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="DownloadFile">Download File</a>
-        @*<a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="TracNghiem">Play-Trắc-Nghiệm</a>*@
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="TracNghiemX_Multiple">Play-Trắc-Nghiệm_Multiple</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="PlayQuestion_Multiple">PlayQuestion_Multiple</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="ViewNoteFile">ViewNoteFile</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="ToPlayKaraoke">Play-Karaoke</a>
-        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="GetColorAtPicture">GetColorAtPicture</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="TronMau" id="custom546">Trộn Màu</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="UploadFile" id="custom547">Upload File</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="DownloadFile" id="custom548">Download File</a>
+        @*<a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="TracNghiem" id="custom549">Play-Trắc-Nghiệm</a>*@
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="TracNghiemX_Multiple" id="custom550">Play-Trắc-Nghiệm_Multiple</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="PlayQuestion_Multiple" id="custom551">PlayQuestion_Multiple</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="ViewNoteFile" id="custom552">ViewNoteFile</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="ToPlayKaraoke" id="custom553">Play-Karaoke</a>
+        <a class="nav-link menu-item" asp-area="" asp-controller="Home" asp-action="GetColorAtPicture" id="custom554">GetColorAtPicture</a>
     </div>
 </div>
 <br /><br /><br />
 @if (TempData["unvisibled_sub_menu"] == "false")
 {
-<h3>
+<h3 id="custom555">
     @Html.ActionLink("Copy ví dụ lệnh tạo và sử dụng database Sinh Viên","Copy_CreateDatabase") <br /><br />
     @Html.ActionLink("Copy ví dụ lệnh backup database Sinh Viên - không mật khẩu","Copy_BackupDatabase1") <br /><br />
     @Html.ActionLink("Copy ví dụ lệnh backup database Sinh Viên - có mật khẩu","Copy_BackupDatabase2")<br /><br />
@@ -89,41 +89,41 @@ Layout = null;
     <br />
 </h3>
 <br /><br /><br />
-<h3>@Html.ActionLink("Xử Lý SQL 1 ? (tạo proc count all table/dành cho admin)","XuLySQL1")</h3>
+<h3 id="custom555">@Html.ActionLink("Xử Lý SQL 1 ? (tạo proc count all table/dành cho admin)","XuLySQL1")</h3>
 <br />
-<h3>@Html.ActionLink("Xử Lý SQL 2 ? (tạo-xoá trigger thông báo phát hiện Table insert-update-delete/dành cho admin)","XuLySQL2")</h3>
+<h3 id="custom555">@Html.ActionLink("Xử Lý SQL 2 ? (tạo-xoá trigger thông báo phát hiện Table insert-update-delete/dành cho admin)","XuLySQL2")</h3>
 <br />
-<h3>@Html.ActionLink("Xử Lý SQL 3 ? (tên cột #3275# old value #3275# new value - trình bày lại để có thể copy vào Excel/dành cho admin)","XuLySQL3")</h3>
+<h3 id="custom555">@Html.ActionLink("Xử Lý SQL 3 ? (tên cột #3275# old value #3275# new value - trình bày lại để có thể copy vào Excel/dành cho admin)","XuLySQL3")</h3>
 <br />
-<h3>@Html.ActionLink("Xử Lý SQL 4 ? (tìm phát hiện và thêm cột của Table còn thiếu [đã biết trước]/dành cho admin)","XuLySQL4")</h3>
+<h3 id="custom555">@Html.ActionLink("Xử Lý SQL 4 ? (tìm phát hiện và thêm cột của Table còn thiếu [đã biết trước]/dành cho admin)","XuLySQL4")</h3>
 <br />
-<h3>@Html.ActionLink("Xử Lý SQL 5 ? (cũng như No.1 nhưng nhập các Tables bằng file)","XuLySQL5")*<span style="color:red">(Khuyên dùng - Create Proc Count All Tables)</span></h3>
+<h3 id="custom555">@Html.ActionLink("Xử Lý SQL 5 ? (cũng như No.1 nhưng nhập các Tables bằng file)","XuLySQL5")*<span style="color:red" id="custom561">(Khuyên dùng - Create Proc Count All Tables)</span></h3>
 <br />
-<h3>@Html.ActionLink("Xử Lý SQL 6 ? (nhập file và tìm các Table còn thiếu)","XuLySQL6")*<span style="color:red">(Khuyên dùng - Tìm Table chưa có)</span></h3>
+<h3 id="custom555">@Html.ActionLink("Xử Lý SQL 6 ? (nhập file và tìm các Table còn thiếu)","XuLySQL6")*<span style="color:red" id="custom561">(Khuyên dùng - Tìm Table chưa có)</span></h3>
 <br />
-<h3>@Html.ActionLink("Xử Lý SQL 7 ? (tìm phát hiện và thêm cột của Table còn thiếu [chưa biết trước & duyệt tất cả]/dành cho admin)","XuLySQL7")</h3>
+<h3 id="custom555">@Html.ActionLink("Xử Lý SQL 7 ? (tìm phát hiện và thêm cột của Table còn thiếu [chưa biết trước & duyệt tất cả]/dành cho admin)","XuLySQL7")</h3>
 <br />
-<h3>@Html.ActionLink("Xử Lý SQL 8 (nên xài này thay vì 7) ? (nghi ngờ Table còn thiếu cột-đem vào toàn bộ và bổ sung+cái nào đã tồn tại thì bỏ qua/dành cho admin)","XuLySQL8")*<span style="color:red">(Khuyên dùng - Tìm và tạo các cột chưa có của Table)</span></h3>
+<h3 id="custom555">@Html.ActionLink("Xử Lý SQL 8 (nên xài này thay vì 7) ? (nghi ngờ Table còn thiếu cột-đem vào toàn bộ và bổ sung+cái nào đã tồn tại thì bỏ qua/dành cho admin)","XuLySQL8")*<span style="color:red" id="custom561">(Khuyên dùng - Tìm và tạo các cột chưa có của Table)</span></h3>
 <br />
-<h3>@Html.ActionLink("Xử Lý Code 9 ? (ghi ra file D:/XemCode script lưu trữ và theo dõi biến đổi các giá trị của variation.../dành cho admin)","XuLyCode9")* <span style="color:red">(Khuyên dùng - D:/ value params code C#)</span></h3>
+<h3 id="custom555">@Html.ActionLink("Xử Lý Code 9 ? (ghi ra file D:/XemCode script lưu trữ và theo dõi biến đổi các giá trị của variation.../dành cho admin)","XuLyCode9")* <span style="color:red" id="custom561">(Khuyên dùng - D:/ value params code C#)</span></h3>
 <br />
-<h3>@Html.ActionLink("Xử Lý SQL 10 ? (cập nhật statement thực thi SQL kèm theo đầy đủ các param khi debug cần tìm hiện tại từ D:/.../dành cho admin)","XuLySQL10")*<span style="color:red">(Khuyên dùng - D:/ params relace statement SQL)</span></h3>
+<h3 id="custom555">@Html.ActionLink("Xử Lý SQL 10 ? (cập nhật statement thực thi SQL kèm theo đầy đủ các param khi debug cần tìm hiện tại từ D:/.../dành cho admin)","XuLySQL10")*<span style="color:red" id="custom561">(Khuyên dùng - D:/ params relace statement SQL)</span></h3>
 <br />
-<h3>@Html.ActionLink("Xử Lý SQL 11 ? (tìm và tạo các cột bị thiếu cho Table (kết hợp giữa file script .sql và constants/dành cho admin)","XuLySQL11")*<span style="color:red">(Khuyên dùng - Tìm và tạo các cột bị thiếu cho Table (kết hợp giữa file script .sql và constants))</span></h3>
+<h3 id="custom555">@Html.ActionLink("Xử Lý SQL 11 ? (tìm và tạo các cột bị thiếu cho Table (kết hợp giữa file script .sql và constants/dành cho admin)","XuLySQL11")*<span style="color:red" id="custom561">(Khuyên dùng - Tìm và tạo các cột bị thiếu cho Table (kết hợp giữa file script .sql và constants))</span></h3>
 <br />
-<h3>@Html.ActionLink("Xử Lý SQL 12 ? (cấu trúc customize và file script sql dành cho template mail (code rule) ở bảng w2_MailTemplate/dành cho admin)","XuLySQL12")*<span style="color:red">(Khuyên dùng - Cấu trúc customize và file script sql dành cho template mail (code rule) ở bảng w2_MailTemplate)</span></h3>
+<h3 id="custom555">@Html.ActionLink("Xử Lý SQL 12 ? (cấu trúc customize và file script sql dành cho template mail (code rule) ở bảng w2_MailTemplate/dành cho admin)","XuLySQL12")*<span style="color:red" id="custom561">(Khuyên dùng - Cấu trúc customize và file script sql dành cho template mail (code rule) ở bảng w2_MailTemplate)</span></h3>
 <br />
-<h3>@Html.ActionLink("Xử Lý SQL 13 ? (tìm và tạo các cột bị thiếu cho Table (kết hợp giữa file model và constants, chính xác hơn về kiểu dữ liệu/dành cho admin)","XuLySQL13")*<span style="color:red">(Khuyên dùng - Tìm và tạo các cột bị thiếu cho Table (kết hợp giữa file model và constants, chính xác hơn về kiểu dữ liệu)</span></h3>
+<h3 id="custom555">@Html.ActionLink("Xử Lý SQL 13 ? (tìm và tạo các cột bị thiếu cho Table (kết hợp giữa file model và constants, chính xác hơn về kiểu dữ liệu/dành cho admin)","XuLySQL13")*<span style="color:red" id="custom561">(Khuyên dùng - Tìm và tạo các cột bị thiếu cho Table (kết hợp giữa file model và constants, chính xác hơn về kiểu dữ liệu)</span></h3>
 <br />
-<h3>@Html.ActionLink("Xử Lý SQL 14 ? (bạn có 2 DB gần như giống nhau và trong đó 2 Table ở mỗi DB cũng na ná nhau, nó chỉ khác là record và một số cột của bảng không được giống. Bạn muốn di chuyển dữ liệu một record từ DB cũ sao cho phù hợp bên Table của DB mới)","XuLySQL14")*<span style="color:red">(Khuyên dùng)</span></h3>
+<h3 id="custom555">@Html.ActionLink("Xử Lý SQL 14 ? (bạn có 2 DB gần như giống nhau và trong đó 2 Table ở mỗi DB cũng na ná nhau, nó chỉ khác là record và một số cột của bảng không được giống. Bạn muốn di chuyển dữ liệu một record từ DB cũ sao cho phù hợp bên Table của DB mới)","XuLySQL14")*<span style="color:red" id="custom561">(Khuyên dùng)</span></h3>
 <br />
-<h3>@Html.ActionLink("Xử Lý SQL 15 ? (W2 - thêm field/table DB SQL và tạo các thành phần như : Constants, Model, Respository, Service, DB XML, Master export setting XML, validate XML và đúng format)","XuLySQL15")*<span style="color:red">(Khuyên dùng)</span></h3>
+<h3 id="custom555">@Html.ActionLink("Xử Lý SQL 15 ? (W2 - thêm field/table DB SQL và tạo các thành phần như : Constants, Model, Respository, Service, DB XML, Master export setting XML, validate XML và đúng format)","XuLySQL15")*<span style="color:red" id="custom561">(Khuyên dùng)</span></h3>
 <br />
-<h3>@Html.ActionLink("Xử Lý SQL 16 ? (W2 - format master file import batch)","XuLySQL16")*<span style="color:red">(Khuyên dùng)</span></h3>
+<h3 id="custom555">@Html.ActionLink("Xử Lý SQL 16 ? (W2 - format master file import batch)","XuLySQL16")*<span style="color:red" id="custom561">(Khuyên dùng)</span></h3>
 <br />
 }
 <!-- CSS to add hover effect -->
-<style>
+<style id="custom583">
     .menu-item {
     color: #4682b4;
     transition: color 0.3s ease;

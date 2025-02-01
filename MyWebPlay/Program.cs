@@ -46,12 +46,12 @@ var con = string.Format("@leftcontroller={0}@right/@leftaction={1}@right/@leftid
 //var pam = Path.Combine(app.Environment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
 //System.IO.File.WriteAllText(pam, string.Empty);
 
+app.UseMiddleware<ErrorHandlingMiddleware>();
+
 app.MapControllerRoute(
     name: "default",
     pattern: con.Replace("@left","{").Replace("@right", "}"));
 
 BuildProgram.BuildProgramPlay(app.Environment);
-
-app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.Run();

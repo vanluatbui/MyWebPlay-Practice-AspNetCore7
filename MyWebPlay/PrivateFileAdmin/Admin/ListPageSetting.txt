@@ -59,6 +59,13 @@
 /Cover/E41fb870a2ab7c2470cb35f51171e20ee
 /Cover/E10f628a33fcf828bb57d497794a34094
 /Cover/E003e16661a80c9451f46587afb2ec5c3
+/Cover/SaveSessionTemp
+/Cover/ShowMyHtml1
+/Cover/ShowMyHtml2
+/Cover/ShowMyHtml3
+/Cover/ShowMyHtml4
+/Cover/ShowMyHtml5
+/Cover/ShowMyHtml6
 /Home/TextToColumn2
 /Home/TextToColumn1
 /Home/TextConvertX
@@ -206,4 +213,3 @@
 /Home/Multiple_API
 /Home/ExcuteKaraokeText
 /Home/ViewFile
-/Cover/ShowMyHtml

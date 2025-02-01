@@ -686,7 +686,26 @@ namespace MyWebPlay.Controllers
             }
         }
 
-        public ActionResult ShowMyHtml(string path, string isRoot = "true")
+        [HttpPost]
+        public async Task<IActionResult> SaveSessionTemp(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            string content;
+            using (var reader = new StreamReader(file.OpenReadStream()))
+            {
+                content = await reader.ReadToEndAsync();
+            }
+
+            HttpContext.Session.SetString("save_session_tmp", content);
+
+            return Ok(new { result = true, message = "Đã xử lý và đưa nội dung của bạn vào session thành công." });
+        }
+
+        public ActionResult ShowMyHtml1(string path, string isRoot = "true")
         {
             if (string.IsNullOrEmpty(path) == false)
             {
@@ -702,6 +721,164 @@ namespace MyWebPlay.Controllers
                     StreamReader reader = new StreamReader(stream);
                     string noidung = reader.ReadToEnd();
                     return Content(noidung, "text/html");
+                }
+            }
+            else
+            {
+                var content = HttpContext.Session.GetString("save_session_tmp");
+                if (content != null && string.IsNullOrEmpty(content) == false)
+                {
+                    return Content(content, "text/html");
+                }
+            }
+
+            return Content("Đã xảy ra lỗi.");
+        }
+
+        public ActionResult ShowMyHtml2(string path, string isRoot = "true")
+        {
+            if (string.IsNullOrEmpty(path) == false)
+            {
+                if (isRoot == "true")
+                {
+                    var noidung = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, path));
+                    return Content(noidung, "text/html");
+                }
+                else
+                {
+                    WebClient client = new WebClient();
+                    Stream stream = client.OpenRead(path);
+                    StreamReader reader = new StreamReader(stream);
+                    string noidung = reader.ReadToEnd();
+                    return Content(noidung, "text/html");
+                }
+            }
+            else
+            {
+                var content = HttpContext.Session.GetString("save_session_tmp");
+                if (content != null && string.IsNullOrEmpty(content) == false)
+                {
+                    return Content(content, "text/html");
+                }
+            }
+
+            return Content("Đã xảy ra lỗi.");
+        }
+
+        public ActionResult ShowMyHtml3(string path, string isRoot = "true")
+        {
+            if (string.IsNullOrEmpty(path) == false)
+            {
+                if (isRoot == "true")
+                {
+                    var noidung = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, path));
+                    return Content(noidung, "text/html");
+                }
+                else
+                {
+                    WebClient client = new WebClient();
+                    Stream stream = client.OpenRead(path);
+                    StreamReader reader = new StreamReader(stream);
+                    string noidung = reader.ReadToEnd();
+                    return Content(noidung, "text/html");
+                }
+            }
+            else
+            {
+                var content = HttpContext.Session.GetString("save_session_tmp");
+                if (content != null && string.IsNullOrEmpty(content) == false)
+                {
+                    return Content(content, "text/html");
+                }
+            }
+
+            return Content("Đã xảy ra lỗi.");
+        }
+
+        public ActionResult ShowMyHtml4(string path, string isRoot = "true")
+        {
+            if (string.IsNullOrEmpty(path) == false)
+            {
+                if (isRoot == "true")
+                {
+                    var noidung = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, path));
+                    return Content(noidung, "application/json");
+                }
+                else
+                {
+                    WebClient client = new WebClient();
+                    Stream stream = client.OpenRead(path);
+                    StreamReader reader = new StreamReader(stream);
+                    string noidung = reader.ReadToEnd();
+                    return Content(noidung, "application/json");
+                }
+            }
+            else
+            {
+                var content = HttpContext.Session.GetString("save_session_tmp");
+                if (content != null && string.IsNullOrEmpty(content) == false)
+                {
+                    return Content(content, "application/json");
+                }
+            }
+
+            return Content("Đã xảy ra lỗi.");
+        }
+
+        public ActionResult ShowMyHtml5(string path, string isRoot = "true")
+        {
+            if (string.IsNullOrEmpty(path) == false)
+            {
+                if (isRoot == "true")
+                {
+                    var noidung = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, path));
+                    return Content(noidung, "application/json");
+                }
+                else
+                {
+                    WebClient client = new WebClient();
+                    Stream stream = client.OpenRead(path);
+                    StreamReader reader = new StreamReader(stream);
+                    string noidung = reader.ReadToEnd();
+                    return Content(noidung, "application/json");
+                }
+            }
+            else
+            {
+                var content = HttpContext.Session.GetString("save_session_tmp");
+                if (content != null && string.IsNullOrEmpty(content) == false)
+                {
+                    return Content(content, "application/json");
+                }
+            }
+
+            return Content("Đã xảy ra lỗi.");
+        }
+
+        public ActionResult ShowMyHtml6(string path, string isRoot = "true")
+        {
+            if (string.IsNullOrEmpty(path) == false)
+            {
+                if (isRoot == "true")
+                {
+                    var noidung = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, path));
+                    return Content(noidung, "application/json");
+                }
+                else
+                {
+                    WebClient client = new WebClient();
+                    Stream stream = client.OpenRead(path);
+                    StreamReader reader = new StreamReader(stream);
+                    string noidung = reader.ReadToEnd();
+                    return Content(noidung, "application/json");
+                }
+            }
+            else
+            {
+                var content = HttpContext.Session.GetString("save_session_tmp");
+                if (content != null && string.IsNullOrEmpty(content) == false)
+                {
+                    return Content(content, "application/json");
                 }
             }
 

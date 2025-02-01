@@ -1,4 +1,4 @@
-﻿@{
+@{
 Layout = null;
 }
 
@@ -554,7 +554,7 @@ Layout = null;
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>C# | Asp Net Core | Công nghệ thông tin</title>
+        <title id="custom298">C# | Asp Net Core | Công nghệ thông tin</title>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
@@ -610,39 +610,39 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-    <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]">
+    <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]" id="custom299">
     <div id="bodyIndex" >
-        <meta charset="ISO-8859-1">
-        <table align="center">
-            <h2 style="text-align:center;color:orangered">Encrypt TXT File (các dịch vụ : trắc nghiệm, question, play karaoke,...)</h2>
+        <meta charset="ISO-8859-1" id="custom300">
+        <table align="center" id="custom301">
+            <h2 style="text-align:center;color:orangered" id="custom302">Encrypt TXT File (các dịch vụ : trắc nghiệm, question, play karaoke,...)</h2>
             <br /><br />
-            <b style="color:red;background-color:yellow">
+            <b style="color:red;background-color:yellow" id="custom303">
             Hiện tại; nếu bạn sử dụng các dịch vụ trắc nghiệm, question, play karaoke,... của MyWebPlay và xử lý download file TXT. Mặc dù nội dung file có thể bị mã hoá nhưng bạn vẫn có thể tải lên và sử dụng dịch vụ như bình thường. Tuy nhiên trong một số trường hợp điều này có thể xảy ra lỗi hoặc đơn giản nếu bạn muốn giải mã nội dung để sử dụng, hãy thử sử dụng tiện ích tại đây nhé.<br /><br />
             </b>
             @using(Html.BeginForm())
             {
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <textarea name="txtNoiDung" placeholder="Dán nội dung đã bị mã hoá từ file TXT của bạn vào đây" rows="20" cols="100">@TempData["noidungTXT"]</textarea>
+            <tr style="height:40px" id="custom304">
+                <td id="custom305"></td>
+                <td id="custom306">
+                    <textarea name="txtNoiDung" placeholder="Dán nội dung đã bị mã hoá từ file TXT của bạn vào đây" rows="20" cols="100" id="custom307">@TempData["noidungTXT"]</textarea>
                 </td>
             </tr>
             @if (TempData["noidungTXT"] == null)
             {
-            <tr style="height:40px">
-                <td></td>
-                <td>
+            <tr style="height:40px" id="custom308">
+                <td id="custom309"></td>
+                <td id="custom310">
                     <input type="Submit" value="Kết Quả" />
                 </td>
             </tr>
             }
             else
             {
-            <tr style="height:40px">
-                <td></td>
-                <td>
-                    <b style="color:deeppink">Đã xử lý nội dung mã hoá của bạn. Copy và thay thế nội dung mới này cho file hiện tại của bạn...</b><br />
-                    <h4 style="color:red">@Html.ActionLink("Reload this page (hạn chế F5)?","EncryptTxtFile")</h4>
+            <tr style="height:40px" id="custom311">
+                <td id="custom312"></td>
+                <td id="custom313">
+                    <b style="color:deeppink" id="custom314">Đã xử lý nội dung mã hoá của bạn. Copy và thay thế nội dung mới này cho file hiện tại của bạn...</b><br />
+                    <h4 style="color:red" id="custom315">@Html.ActionLink("Reload this page (hạn chế F5)?","EncryptTxtFile")</h4>
                 </td>
             </tr>
             }

@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -101,11 +101,11 @@ Layout = null;
      }
     }
 </script>
-<table align="center">
-    <h2 style="text-align:center">Play Test Trắc Nghiệm - Online</h2>
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+<table align="center" id="custom861">
+    <h2 style="text-align:center" id="custom862">Play Test Trắc Nghiệm - Online</h2>
+    <tr style="height:40px" id="custom863">
+        <td id="custom864"> </td>
+        <td id="custom865">
             <br>
             <input onchange="changeID()" autofocus id="ID-Y" name="txtID" type="text" placeholder="Nhập ID liên kết bài với test trắc nghiệm" size="100" value="@ViewBag.ID" />
             <br>
@@ -119,38 +119,38 @@ Layout = null;
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px">
-        <td> </td>
-        <td style="display:none">
+    <tr style="height:40px" id="custom866">
+        <td id="custom867"> </td>
+        <td style="display:none" id="custom868">
             <br>
             <input id="ID-X" name="txtID" type="text" placeholder="Nhập ID liên kết bài với test trắc nghiệm" size="100" value="@ViewBag.ID" />
             <br>
             <input id="MSSV-X" name="txtMSSV" type="text" size="100" placeholder="Nhập mã số học sinh" value="@ViewBag.MSSV" />
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td><br>
+    <tr style="height:40px" id="custom869">
+        <td id="custom870"></td>
+        <td id="custom871"><br>
             <input style="font-weight:bolder" id="OKX" type="Submit" hidden />
         </td>
     </tr>
     }
     <br />
     <tr style="height:40px" id="xong">
-        <td></td>
-        <td>
-            <button><b onclick="xongroi()">BẮT ĐẦU LÀM BÀI</b></button>
+        <td id="custom872"></td>
+        <td id="custom873">
+            <button id="custom874"><b onclick="xongroi()" id="custom875">BẮT ĐẦU LÀM BÀI</b></button>
         </td>
     </tr>
     <br>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom876">
+        <td id="custom877"></td>
+        <td id="custom878">
             <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
         </td>
     </tr>
-    <p style="color:deeppink">
-        <b style="color:darkred">* LƯU Ý (đọc hiểu và xác nhận):</b><br><br>
+    <p style="color:deeppink" id="custom879">
+        <b style="color:darkred" id="custom880">* LƯU Ý (đọc hiểu và xác nhận):</b><br><br>
         - Vui lòng đợi trang được tải hoàn tất dữ liệu trước khi bạn có thể bắt tay vào làm. Thông thường, giáo viên sẽ khuyến mãi cho bạn từ 3 - 5 phút thời gian làm bài để có thể chuẩn bị và hoàn tất tải dữ liệu của bài thi.<br />
         - Khi bạn nhấn nút "Bắt đầu làm bài" đồng nghĩa thời gian làm bài của bạn đã bắt đầu được tính.<br>
         - Sau khi hết thời gian làm bài quy định, hệ thống sẽ tự động nộp bài. Hoặc bạn có thể tự nộp thủ công (kiểm tra kỹ bài làm của mình trước khi hoàn thành).<br>

@@ -1,4 +1,4 @@
-﻿@{
+@{
 Layout = null;
 }
 @if (TempData["HTML-visible"] != null && TempData["HTML-visible"].ToString() == "0")
@@ -7,7 +7,7 @@ Layout = null;
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>C# | Asp Net Core | Công nghệ thông tin</title>
+        <title id="custom28">C# | Asp Net Core | Công nghệ thông tin</title>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
@@ -62,8 +62,8 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-    <body name="backgroundX" style="background-color:@TempData["mau_background"]">
-    <meta charset="ISO-8859-1">
+    <body name="backgroundX" style="background-color:@TempData["mau_background"]" id="custom29">
+    <meta charset="ISO-8859-1" id="custom30">
     <script>
 
          // Delete div somee
@@ -130,32 +130,32 @@ Layout = null;
                }
             }
     </script>
-    <table align="center">
+    <table align="center" id="custom31">
         @using(Html.BeginForm())
         {
-        <h2 style="text-align:center;color:deeppink">Edit Text Note File</h2>
-        <tr style="height:40px">
-            <td></td>
-            <td>
+        <h2 style="text-align:center;color:deeppink" id="custom32">Edit Text Note File</h2>
+        <tr style="height:40px" id="custom33">
+            <td id="custom34"></td>
+            <td id="custom35">
                 <input type="Submit" value="LƯU" />
                 <br>
-                <h4>@Html.ActionLink("Trở về", "TracNghiemOnline_ViewMark")</h4>
+                <h4 id="custom36">@Html.ActionLink("Trở về", "TracNghiemOnline_ViewMark")</h4>
             </td>
         </tr>
-        <tr style="height:40px">
-            <td></td>
-            <td>
+        <tr style="height:40px" id="custom37">
+            <td id="custom38"></td>
+            <td id="custom39">
                 <br>
                 <br>
-                <textarea rows="500" cols="150" name="txtText" autofocus>@ViewBag.Text</textarea>
+                <textarea rows="500" cols="150" name="txtText" autofocus id="custom40">@ViewBag.Text</textarea>
             </td>
         </tr>
-        <tr style="height:40px">
-            <td></td>
-            <td>
+        <tr style="height:40px" id="custom41">
+            <td id="custom42"></td>
+            <td id="custom43">
                 <input type="Submit" value="LƯU" />
                 <br>
-                <h4>@Html.ActionLink("Trở về", "TracNghiemOnline_ViewMark")</h4>
+                <h4 id="custom44">@Html.ActionLink("Trở về", "TracNghiemOnline_ViewMark")</h4>
             </td>
         </tr>
         }

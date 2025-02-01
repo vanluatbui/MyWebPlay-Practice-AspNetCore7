@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -7,7 +7,7 @@ Layout = null;
     <head>
         <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="styles/style.css" />
-        <title>Trộn 2 màu</title>
+        <title id="custom1710">Trộn 2 màu</title>
     </head>
     <script>
 
@@ -58,7 +58,7 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-    <body onload="hienthimau()">
+    <body onload="hienthimau()" id="custom1711">
         <script>
             // Delete div somee
             
@@ -174,13 +174,13 @@ Layout = null;
         </script>
         Chọn màu thứ nhất :
         <input id="color1" type="color">
-        <input type="button" value="Xem mã màu này" onclick="xemmamau()">
+        <input type="button" value="Xem mã màu này" onclick="xemmamau()" id="custom1712">
         <br>
         <br>
         <br>
         Chọn màu thứ hai :
         <input id="color2" type="color">
-        <input type="button" value="Trộn hai màu này" onclick="tronmau()">
+        <input type="button" value="Trộn hai màu này" onclick="tronmau()" id="custom1713">
         <br>
         <br>
         <br>
@@ -196,19 +196,19 @@ Layout = null;
         <br>
         <br>
         Chọn màu thứ nhất :
-        <select onchange="xemmau()" name="select"></select>
+        <select onchange="xemmau()" name="select" id="custom1714"></select>
         <br>
         <br>
-        <div name="xem" style="border : 2px solid black; background-color:aliceblue;width:50px;height:50px"></div>
+        <div name="xem" style="border : 2px solid black; background-color:aliceblue;width:50px;height:50px" id="custom1715"></div>
         <br>
         <br>
         Chọn màu thứ hai :
-        <select onchange="xemmau()" name="select"></select>
+        <select onchange="xemmau()" name="select" id="custom1716"></select>
         <br>
         <br>
-        <div name="xem" style="border : 2px solid black; background-color:aliceblue;width:50px;height:50px"></div>
+        <div name="xem" style="border : 2px solid black; background-color:aliceblue;width:50px;height:50px" id="custom1717"></div>
         <br>
-        <input type="button" value="Trộn hai màu này" onclick="mixmau()">
+        <input type="button" value="Trộn hai màu này" onclick="mixmau()" id="custom1718">
         <br>
         <br>
         Kết quả :

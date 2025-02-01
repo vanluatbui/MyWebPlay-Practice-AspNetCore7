@@ -1,4 +1,4 @@
-﻿@if (ViewBag.Show != null && ViewBag.Show == "show" || TempData["ViewSiteBasic"] == "true")
+@if (ViewBag.Show != null && ViewBag.Show == "show" || TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -6,7 +6,7 @@ Layout = null;
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>MyWebPlay - Karaoke</title>
+        <title id="custom596">MyWebPlay - Karaoke</title>
         <link rel="icon" href="/images/karaoke.png">
         <style>
             .video-overlay{
@@ -101,8 +101,8 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-    <body>
-        <meta charset="ISO-8859-1">
+    <body id="custom597">
+        <meta charset="ISO-8859-1" id="custom598">
         <script>
             // Delete div somee
             
@@ -259,7 +259,7 @@ Layout = null;
                     var xanh = document.getElementById("xanh");
                     if ('@ViewBag.Show' == "show")
                     {
-                        if (xanh.innerHTML == "<b>FULL MÀN HÌNH - OFF</b>")
+                        if (xanh.innerHTML == "<b id=\"custom639\">FULL MÀN HÌNH - OFF</b>")
                         {
                             if (elem.requestFullscreen)
                             elem.requestFullscreen();
@@ -268,7 +268,7 @@ Layout = null;
                            else if (elem.msRequestFullscreen) /* IE11 */
                             elem.msRequestFullscreen();
             
-                            xanh.innerHTML = "<b>FULL MÀN HÌNH - ON</b>";
+                            xanh.innerHTML = "<b id=\"custom639\">FULL MÀN HÌNH - ON</b>";
                             dongmomenu();
                         }
                         else 
@@ -291,7 +291,7 @@ Layout = null;
                     hienlinh.style.display = "none";
                 }
             
-                          xanh.innerHTML = "<b>FULL MÀN HÌNH - OFF</b>";
+                          xanh.innerHTML = "<b id=\"custom639\">FULL MÀN HÌNH - OFF</b>";
                         }
                     }
                 }
@@ -382,7 +382,7 @@ Layout = null;
                            else if (elem.msRequestFullscreen) /* IE11 */
                             elem.msRequestFullscreen();
             
-                            document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - ON</b>";
+                            document.getElementById("xanh").innerHTML = "<b id=\"custom639\">FULL MÀN HÌNH - ON</b>";
                 resetKaraoke();
             }
             
@@ -487,7 +487,7 @@ Layout = null;
             
                 alert("Các cài đặt Karaoke của bạn đã được ghi nhớ thành công, hệ thống phải khởi động lại để áp dụng!");
             
-                document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - OFF</b>";
+                document.getElementById("xanh").innerHTML = "<b id=\"custom639\">FULL MÀN HÌNH - OFF</b>";
             
                  var menu = document.getElementById("menu");
                 var hienlinh = document.getElementById("hienlinh");
@@ -543,7 +543,7 @@ Layout = null;
                                 {
                                 if (!window.screenTop && !window.screenY)
                                 {
-                                document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - OFF</b>";
+                                document.getElementById("xanh").innerHTML = "<b id=\"custom639\">FULL MÀN HÌNH - OFF</b>";
                                    var menu = document.getElementById("menu");
                 var hienlinh = document.getElementById("hienlinh");
                 
@@ -554,7 +554,7 @@ Layout = null;
                 }
                                 }
                                 else
-                                 document.getElementById("xanh").innerHTML = "<b>FULL MÀN HÌNH - ON</b>";
+                                 document.getElementById("xanh").innerHTML = "<b id=\"custom639\">FULL MÀN HÌNH - ON</b>";
                                 }
                       
                                 t++;
@@ -677,46 +677,46 @@ Layout = null;
             
         </script>
         <audio id="muteplay" autoplay hidden onplaying="ketquaplay()" onpause="playketqua()" onended="playketqua()" muted>
-            <source src="/karaoke_Example/ExamKara/KaraokeDemo.mp3" type="audio/mpeg">
+            <source src="/karaoke_Example/ExamKara/KaraokeDemo.mp3" type="audio/mpeg" id="custom599">
         </audio>
         <audio id="music" autoplay hidden  onplay="PlayKaraoke()" onplaying="PlayY()" onpause="PlayXKaraoke()" onended="StopKaraoke()">
-            <source src="@ViewBag.Music" type="audio/mpeg">
+            <source src="@ViewBag.Music" type="audio/mpeg" id="custom600">
         </audio>
         <audio id="musix" autoplay hidden muted onplay="ToPlayKaraoke()" onplaying="PlayZ()" onpause="PlayXKaraokeX()" onended="StopKaraoke()">
-            <source src="@ViewBag.Musix" type="audio/mpeg">
+            <source src="@ViewBag.Musix" type="audio/mpeg" id="custom601">
         </audio>
         <textarea id="txtKara" hidden>@ViewBag.Karaoke</textarea>
         @if (ViewBag.Music == "")
         {
         @if (ViewBag.Karaoke == "karaoke")
         {
-        <h3 style="color:aqua">Bạn nên trải nghiệm tính năng này trên máy tính (PC), laptop,... nhé 😄<br>Lưu ý : trong khi đang trải nghiệm Karaoke, bạn không nên refresh lại trang để tránh mất dữ liệu!</h3>
+        <h3 style="color:aqua" id="custom602">Bạn nên trải nghiệm tính năng này trên máy tính (PC), laptop,... nhé 😄<br>Lưu ý : trong khi đang trải nghiệm Karaoke, bạn không nên refresh lại trang để tránh mất dữ liệu!</h3>
         <br />
         }
-        <span style="color:red">Phiên bản này hiện nay đã quá cũ và chúng tôi rất ít khi nâng cấp nó (sẽ có một số lỗi xảy ra). Nhưng bạn có thể tiếp tục sử dụng bình thường (nếu muốn) !</span>
+        <span style="color:red" id="custom603">Phiên bản này hiện nay đã quá cũ và chúng tôi rất ít khi nâng cấp nó (sẽ có một số lỗi xảy ra). Nhưng bạn có thể tiếp tục sử dụng bình thường (nếu muốn) !</span>
         <br />
-        <h2>@Html.ActionLink("Bạn có muốn trải nghiệm phiên bản Karaoke thông thường?", "ToPlayKaraoke")</h2>
+        <h2 id="custom604">@Html.ActionLink("Bạn có muốn trải nghiệm phiên bản Karaoke thông thường?", "ToPlayKaraoke")</h2>
         <br />
         <br />
-        <table align="center">
-            <h2 style="text-align:center">Play Your Karaoke - Online</h2>
+        <table align="center" id="custom605">
+            <h2 style="text-align:center" id="custom606">Play Your Karaoke - Online</h2>
             <br />
             @using (Html.BeginForm("PlayKaraoke", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
             {
             @Html.ValidationSummary(true)
-            <tr style="height:40px">
-                <td> </td>
-                <td>
+            <tr style="height:40px" id="custom607">
+                <td id="custom608"> </td>
+                <td id="custom609">
                     <br>
-                    <b style="color:orangered"><input id="checkdemo" disabled onchange="democheck()" type="checkbox" name="txtChon" /> Tham khảo bản karaoke demo có sẵn trên hệ thống (phiên bản này hiện không còn hỗ trợ)</b>
+                    <b style="color:orangered" id="custom610"><input id="checkdemo" disabled onchange="democheck()" type="checkbox" name="txtChon" /> Tham khảo bản karaoke demo có sẵn trên hệ thống (phiên bản này hiện không còn hỗ trợ)</b>
                     <br>
                 </td>
             </tr>
-            <tr style="height:40px">
-                <td> </td>
+            <tr style="height:40px" id="custom611">
+                <td id="custom612"> </td>
                 <td id="phan1">
                     <br>
-                    <b> Tải file TXT karaoke (đã xử lý) : </b>
+                    <b id="custom613"> Tải file TXT karaoke (đã xử lý) : </b>
                     <br>
                     @if(TempData["fileSuDung"] == "true")
                     {
@@ -726,15 +726,15 @@ Layout = null;
                     {
                     <input disabled type="file" name="txtKaraoke"/>
                     }
-                    <b>@Html.ActionLink("Bạn chưa có file text karaoke?","CreateFile_Karaoke")</b>
+                    <b id="custom614">@Html.ActionLink("Bạn chưa có file text karaoke?","CreateFile_Karaoke")</b>
                     <br>
                 </td>
             </tr>
-            <tr style="height:40px">
-                <td> </td>
+            <tr style="height:40px" id="custom615">
+                <td id="custom616"> </td>
                 <td id="phan2">
                     <br>
-                    <b> Tải file MP3 karaoke - nhạc gốc có giọng ca sĩ (đã xử lý) : </b>
+                    <b id="custom617"> Tải file MP3 karaoke - nhạc gốc có giọng ca sĩ (đã xử lý) : </b>
                     <br>
                     @if(TempData["fileSuDung"] == "true")
                     {
@@ -747,11 +747,11 @@ Layout = null;
                     <br>
                 </td>
             </tr>
-            <tr style="height:40px">
-                <td> </td>
+            <tr style="height:40px" id="custom618">
+                <td id="custom619"> </td>
                 <td id="phan3">
                     <br>
-                    <b> Tải file MP3 karaoke - nhạc beat tách giọng ca sĩ (karaoke - đã xử lý) : </b>
+                    <b id="custom620"> Tải file MP3 karaoke - nhạc beat tách giọng ca sĩ (karaoke - đã xử lý) : </b>
                     <br>
                     @if(TempData["fileSuDung"] == "true")
                     {
@@ -764,9 +764,9 @@ Layout = null;
                     <br>
                 </td>
             </tr>
-            <tr style="height:40px">
-                <td> </td>
-                <td>
+            <tr style="height:40px" id="custom621">
+                <td id="custom622"> </td>
+                <td id="custom623">
                     <br>
                     <h5 style="color:brown">
                         - Sử dụng các app/web bên ngoài để giúp tách nhạc và giọng ca sĩ (nếu bạn không có bản nhạc Karaoke)
@@ -777,24 +777,24 @@ Layout = null;
                     </h5>
                 </td>
             </tr>
-            <tr style="height:40px">
-                <td></td>
-                <td>
+            <tr style="height:40px" id="custom624">
+                <td id="custom625"></td>
+                <td id="custom626">
                     <select id="chonKara" onchange="chonKaraHay()">
-                        <option>Sử dụng ngẫu nhiên ảnh/background có sẵn trên hệ thống</option>
-                        <option>Sử dụng link ảnh/background online của bạn</option>
-                        <option>Sử dụng link video/background online của bạn</option>
-                        <option>Nhập link video Youtube online</option>
+                        <option id="custom627">Sử dụng ngẫu nhiên ảnh/background có sẵn trên hệ thống</option>
+                        <option id="custom628">Sử dụng link ảnh/background online của bạn</option>
+                        <option id="custom629">Sử dụng link video/background online của bạn</option>
+                        <option id="custom630">Nhập link video Youtube online</option>
                     </select>
                     <input type="number" hidden id="chonKarax" name="KaraChon" value="1" min="1" max="4" />
                     <br><br>
                     <input name="txtOnline" id="online" size="100" style="display:none" type="text" placeholder="Nhập link online background của bạn thực hiện karaoke..." />
-                    <br><span id="helpYoutube" style="color:red; display:none"><u>Lưu ý</u> : một số link Youtube có thể không khả dụng hoặc bạn nên cố gắng thử lại!</span>
+                    <br><span id="helpYoutube" style="color:red; display:none"><u id="custom631">Lưu ý</u> : một số link Youtube có thể không khả dụng hoặc bạn nên cố gắng thử lại!</span>
                 </td>
             </tr>
-            <tr style="height:40px">
-                <td></td>
-                <td>
+            <tr style="height:40px" id="custom632">
+                <td id="custom633"></td>
+                <td id="custom634">
                     <br>
                     <input id="ok" onclick="xong()" style="font-weight:bolder" type="Submit" value="Bắt Đầu" />
                     <br>
@@ -807,33 +807,33 @@ Layout = null;
         else
         {
         <div class="video-overlay" id="play">
-            <table align="center" onended="loadsolar()">
+            <table align="center" onended="loadsolar()" id="custom635">
                 <div id="hienlinh" style="display:none">
                     <br>
                     <br>
                     <br>
                     <br>
                 </div>
-                <b style="color:black; font-size:5px"><a style="color:black; font-size:5px" onclick="dongmomenu()" href="#xuly">...</a></b>
+                <b style="color:black; font-size:5px" id="custom636"><a style="color:black; font-size:5px" onclick="dongmomenu()" href="#xuly">...</a></b>
                 &nbsp;&nbsp;&nbsp;<br><br>
                 <div id="menu" style="display:inline-block">
                     @if (ViewBag.Music != ViewBag.Musix)
                     {
                     <select id="chon" onchange="changeKara()">
-                        <option>Chế độ Karaoke</option>
-                        <option>Chế độ Ca sĩ hát</option>
+                        <option id="custom637">Chế độ Karaoke</option>
+                        <option id="custom638">Chế độ Ca sĩ hát</option>
                     </select>
                     }
-                    &nbsp; &nbsp; &nbsp<button style="color:brown" onclick="loadsolar()" id="xanh"><b>FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp;<b id="xemthumau" style="color:#2900f5">Chọn màu tô điểm text</b> : <input type="color" onchange="doimau()" id="mau" value="#2900f5" />
+                    &nbsp; &nbsp; &nbsp<button style="color:brown" onclick="loadsolar()" id="xanh"><b id="custom639">FULL MÀN HÌNH - OFF</b></button>&nbsp;&nbsp;&nbsp;<b id="xemthumau" style="color:#2900f5">Chọn màu tô điểm text</b> : <input type="color" onchange="doimau()" id="mau" value="#2900f5" />
                     &nbsp;&nbsp;&nbsp;<b id="xemmauthu" style="color:#efe6e6">Chọn màu đoạn text ban đầu</b> : <input type="color" onchange="doimauX()" id="mauX" value="#efe6e6" />
                     &nbsp;&nbsp;&nbsp;<b id="xemmaudi" style="color:#e3f207">Chọn màu cho time đếm ngược bắt đầu karaoke</b> : <input type="color" onchange="doimauY()" id="mauY" value="#e3f207" />
                     &nbsp;&nbsp;&nbsp; <input id="kichthuoc" type="number" min="0" value="100" onchange="doikichthuoc()"/>
                     &nbsp;&nbsp;&nbsp; <input id="hang" type="number" min="0" value="10" onchange="doihang()"/>
-                    &nbsp;&nbsp;&nbsp; <button onclick="ghinho()"><b style="color:lightcoral">Ghi nhớ các cài đặt</b></button>
-                    &nbsp;&nbsp;&nbsp; <b style="color:aqua"><a onclick="xemplay()" href="#xuly">Restart & full screen</a></b>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="StopKaraoke()"><b style="color:darkgreen">THOÁT</b></button>
-                    <br /><br /><b><span style="color:white">Xin lỗi, đôi khi vì sự cố kết nối mạng mà khiến cho chức năng Karaoke : nhạc và đoạn text lời xuất hiện không đồng nhất với nhau hay dữ liệu chưa được tải lên hết.
-                    <br>Mỗi khi gặp sự cố này, phiền bạn hãy nhấn nút <button style="color:purple" onclick="resetKaraoke()"><b>KHỞI ĐỘNG LẠI</b></button> để tải lại dữ liệu cho đến khi một cách hoàn tất. Xin cảm ơn!</span></b>
+                    &nbsp;&nbsp;&nbsp; <button onclick="ghinho()" id="custom640"><b style="color:lightcoral" id="custom641">Ghi nhớ các cài đặt</b></button>
+                    &nbsp;&nbsp;&nbsp; <b style="color:aqua" id="custom642"><a onclick="xemplay()" href="#xuly">Restart & full screen</a></b>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="StopKaraoke()" id="custom643"><b style="color:darkgreen" id="custom644">THOÁT</b></button>
+                    <br /><br /><b id="custom645"><span style="color:white" id="custom646">Xin lỗi, đôi khi vì sự cố kết nối mạng mà khiến cho chức năng Karaoke : nhạc và đoạn text lời xuất hiện không đồng nhất với nhau hay dữ liệu chưa được tải lên hết.
+                    <br>Mỗi khi gặp sự cố này, phiền bạn hãy nhấn nút <button style="color:purple" onclick="resetKaraoke()" id="custom647"><b id="custom648">KHỞI ĐỘNG LẠI</b></button> để tải lại dữ liệu cho đến khi một cách hoàn tất. Xin cảm ơn!</span></b>
                     <br />
                 </div>
                 <div id="hienthi">
@@ -858,13 +858,13 @@ Layout = null;
                 </div>
                 <input type="text" id="txtKara1" hidden>
                 <input type="text" id="txtKara2" hidden>
-                <tr style="height:40px">
-                    <td></td>
-                    <td>
+                <tr style="height:40px" id="custom649">
+                    <td id="custom650"></td>
+                    <td id="custom651">
                         <span id="number" style="color:#e3f207; font-size:100px"></span>
                         <br>
-                        <div style="text-align:center">
-                            <div style="display:inline-block">
+                        <div style="text-align:center" id="custom652">
+                            <div style="display:inline-block" id="custom653">
                                 <span id="txtKaraoke1" style="font-size:100px;color:#efe6e6"></span>
                                 <br><br>
                                 <span id="txtKaraoke2" style="font-size:100px;color:#efe6e6"></span>
@@ -882,7 +882,7 @@ Layout = null;
             else if (ViewBag.SuDung == "Video")
             {
             <video muted loop autoplay id="myVideo" class="sqs-html5-video">
-                <source src="@ViewBag.Background" >
+                <source src="@ViewBag.Background"  id="custom654">
             </video>
             }
             else

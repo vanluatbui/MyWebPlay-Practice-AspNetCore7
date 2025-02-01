@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -69,32 +69,32 @@ Layout = null;
         document.getElementById("textX").value = "<img src=\"/Image_Play/Google.png\" width=\"100%\" heigth=\"100%\" onclick=\"chuyendoi()\" style=\"position:fixed;min-width:100%;min-height:100%\">";
     }
 </script>
-<table align="center">
-    <h2 style="text-align:center">Edit Random Layout File&nbsp;&nbsp;&nbsp;&nbsp;<button style="color:orangered" onclick="defaultlayout()">LẤY NỘI DUNG LAYOUT MẶC ĐỊNH</button></h2>
+<table align="center" id="custom275">
+    <h2 style="text-align:center" id="custom276">Edit Random Layout File&nbsp;&nbsp;&nbsp;&nbsp;<button style="color:orangered" onclick="defaultlayout()" id="custom277">LẤY NỘI DUNG LAYOUT MẶC ĐỊNH</button></h2>
     @using(Html.BeginForm())
     {
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom278">
+        <td id="custom279"></td>
+        <td id="custom280">
             <input type="Submit" value="LƯU" />
             <br>
-            <h4>@Html.ActionLink("Trở về", "RandomLayout")</h4>
+            <h4 id="custom281">@Html.ActionLink("Trở về", "RandomLayout")</h4>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom282">
+        <td id="custom283"></td>
+        <td id="custom284">
             <br>
             <br>
             <textarea id="textX" rows="500" cols="150" name="txtText" autofocus>@ViewBag.Text</textarea>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom285">
+        <td id="custom286"></td>
+        <td id="custom287">
             <input type="Submit" value="LƯU" />
             <br>
-            <h4>@Html.ActionLink("Trở về", "RandomLayout")</h4>
+            <h4 id="custom288">@Html.ActionLink("Trở về", "RandomLayout")</h4>
         </td>
     </tr>
     }

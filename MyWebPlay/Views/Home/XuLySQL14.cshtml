@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -58,37 +58,37 @@ Layout = null;
           document.getElementById(ele).focus();
     }
 </script>
-<table align="center">
-    <h2 style="text-align:center">Xử lý SQL 14</h2>
-    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
+<table align="center" id="custom1892">
+    <h2 style="text-align:center" id="custom1893">Xử lý SQL 14</h2>
+    <h3 style="color:purple" onclick="muaxuan()" id="custom1894">@ViewBag.KetQua</h3>
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+    <tr style="height:40px" id="custom1895">
+        <td id="custom1896"> </td>
+        <td id="custom1897">
             <br>
-            <a href="#xuly" onclick="xoaValue('namecu')"> <b>Nhập tên các cột của Table tại DB cũ (tách nhau bởi Enter) : </b></a><br>
+            <a href="#xuly" onclick="xoaValue('namecu')"> <b id="custom1898">Nhập tên các cột của Table tại DB cũ (tách nhau bởi Enter) : </b></a><br>
             <br>
             <textarea name="txtNameCu" id="namecu" cols="100" rows="10">@ViewBag.NameCu</textarea>
             <br>
-            <a href="#xuly" onclick="xoaValue('recordcu')"> <b>Nhập một record bất kỳ của bảng tại DB cũ muốn sao chép (vui lòng copy dữ liệu từ kết quả SQL sau khi excute Table để nội dung được phân tách bởi Tab) : </b></a><br>
+            <a href="#xuly" onclick="xoaValue('recordcu')"> <b id="custom1899">Nhập một record bất kỳ của bảng tại DB cũ muốn sao chép (vui lòng copy dữ liệu từ kết quả SQL sau khi excute Table để nội dung được phân tách bởi Tab) : </b></a><br>
             <br>
             <input type="text" id="recordcu" name="txtRecordCu" value="@ViewBag.RecordCu" size="100" />
             <br>
-            <a href="#xuly" onclick="xoaValue('namemoi')"> <b>Nhập tên các cột của Table tại DB mới (tách nhau bởi Enter) : </b></a><br>
+            <a href="#xuly" onclick="xoaValue('namemoi')"> <b id="custom1900">Nhập tên các cột của Table tại DB mới (tách nhau bởi Enter) : </b></a><br>
             <br>
             <textarea name="txtNameMoi" id="namemoi" cols="100" rows="10">@ViewBag.NameMoi</textarea>
             <br>
-            <a href="#xuly" onclick="xoaValue('recordmoi')"> <b>Nhập một record bất kỳ của bảng tại DB mới bạn mà tin tưởng (vui lòng copy dữ liệu từ kết quả SQL sau khi excute Table để nội dung được phân tách bởi Tab) : </b></a><br>
+            <a href="#xuly" onclick="xoaValue('recordmoi')"> <b id="custom1901">Nhập một record bất kỳ của bảng tại DB mới bạn mà tin tưởng (vui lòng copy dữ liệu từ kết quả SQL sau khi excute Table để nội dung được phân tách bởi Tab) : </b></a><br>
             <br>
             <input type="text" id="recordmoi" name="txtRecordMoi" value="@ViewBag.RecordMoi" size="100" />
             <br />
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1902">
+        <td id="custom1903"></td>
+        <td id="custom1904">
             <input type="Submit" value="Kết Quả" />
         </td>
     </tr>

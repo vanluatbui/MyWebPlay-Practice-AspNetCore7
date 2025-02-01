@@ -1,4 +1,4 @@
-﻿<script>
+<script>
 
      var loadix = false;
     setInterval(function()
@@ -149,41 +149,41 @@ Layout = null;
         document.getElementById("ok").click();
     }
 </script>
-<table align="center">
-    <h2 style="text-align:center">PHÂN ĐOẠN HÁT - KARAOKE CHO CÁC MEMBER</h2>
+<table align="center" id="custom544">
+    <h2 style="text-align:center" id="custom545">PHÂN ĐOẠN HÁT - KARAOKE CHO CÁC MEMBER</h2>
     <input id="sl" type="number" min="2" size="10" placeholder="Nhập số lượng member tham gia (Karaoke)" value="2" />&nbsp;<button id="sl_click" onclick="soluongmember()" style="background-color:blueviolet;color:red">OK</button><br />
-    <u style="color:red">Bật mí thêm : </u><span style="color:purple">  : nếu bạn để tên phân đoạn member là <span style="color:blue">[SINGER]</span>, khi play karaoke sẽ tự động chuyển sang chế độ ca sĩ hát (nếu có) - tuy nhiên khi đến đoạn ca sĩ hát, biểu tượng tên member sẽ không được hiển thị</span>
+    <u style="color:red" id="custom546">Bật mí thêm : </u><span style="color:purple" id="custom547">  : nếu bạn để tên phân đoạn member là <span style="color:blue" id="custom548">[SINGER]</span>, khi play karaoke sẽ tự động chuyển sang chế độ ca sĩ hát (nếu có) - tuy nhiên khi đến đoạn ca sĩ hát, biểu tượng tên member sẽ không được hiển thị</span>
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px">
-        <td></td>
+    <tr style="height:40px" id="custom549">
+        <td id="custom550"></td>
         <td id="member">
         </td>
     </tr>
     <br />
     <br />
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom551">
+        <td id="custom552"></td>
+        <td id="custom553">
             <textarea id="xilip" name="txtXiLip" hidden></textarea>
-            <b>Nhập (dán) đầy đủ và chính xác nội dung text karaoke từ file TXT bạn đã <a href="/Home/CreateFile_Karaoke">tải trước đó</a></b>
+            <b id="custom554">Nhập (dán) đầy đủ và chính xác nội dung text karaoke từ file TXT bạn đã <a href="/Home/CreateFile_Karaoke">tải trước đó</a></b>
             <br /><br />
             <textarea required disabled id="xinloi1" name="txtText" cols="150" rows="15" ></textarea>
             <br />
         </td>
         <br /><br />
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom555">
+        <td id="custom556"></td>
+        <td id="custom557">
             <input id="ok" hidden type="Submit" value="Kết Quả" />
         </td>
     </tr>
     }
 </table>
 <br />
-<button id="xinloi3" onclick="okex()" disabled><b>KẾT QUẢ</b></button>
+<button id="xinloi3" onclick="okex()" disabled><b id="custom558">KẾT QUẢ</b></button>
 <br /><br />
 }
 else if (TempData["karax-cre"] == "1")
@@ -228,12 +228,12 @@ else if (TempData["karax-cre"] == "1")
     {
         var n = new Number('@TempData["soluong2"]');
     
-        document.getElementById("xl").innerHTML = "<b>TIẾP THEO</b>";
+        document.getElementById("xl").innerHTML = "<b id=\"custom565\">TIẾP THEO</b>";
     
         if (o == n - 1)
         {
             document.getElementById("noidung").value +=  document.getElementById("sd-"+o).innerText;
-            document.getElementById("xl").innerHTML = "<b style=\"color:red\">TẠO LẠI BẢN KARAOKE</b>";
+            document.getElementById("xl").innerHTML = "<b id=\"custom565\" style=\"color:red\">TẠO LẠI BẢN KARAOKE</b>";
         }
         else if (o == n)
         {
@@ -271,7 +271,7 @@ else if (TempData["karax-cre"] == "1")
     
              if (document.getElementById("sd-"+(o+1)).innerText.includes("Empty") == true || document.getElementById("sd-"+(o+1)).innerText.includes("# *#") == true)
              {
-                document.getElementById("xl").innerHTML = "<b style=\"color:blue\">BỎ QUA</b>";;
+                document.getElementById("xl").innerHTML = "<b id=\"custom565\" style=\"color:blue\">BỎ QUA</b>";;
              }
     
             if (document.getElementById("sd-"+o).innerText.includes("Empty") == true || document.getElementById("sd-"+o).innerText.includes("# *#") == true)
@@ -291,10 +291,10 @@ else if (TempData["karax-cre"] == "1")
     }
     
 </script>
-<h2 style="text-align:center">PHÂN ĐOẠN HÁT - KARAOKE CHO CÁC MEMBER</h2>
-<h1 style="color:red">Đoạn text Karaoke này ai hát vậy?</h1>
+<h2 style="text-align:center" id="custom559">PHÂN ĐOẠN HÁT - KARAOKE CHO CÁC MEMBER</h2>
+<h1 style="color:red" id="custom560">Đoạn text Karaoke này ai hát vậy?</h1>
 <br />
-<u style="color:darkblue">Lưu ý</u><span style="color:deeppink">  : nếu quá trình có xảy ra sự cố hoặc sai sót, bạn phải thực hiện lại từ đấu. Xin lỗi vì sự bất tiện này !</span><br /><br />
+<u style="color:darkblue" id="custom561">Lưu ý</u><span style="color:deeppink" id="custom562">  : nếu quá trình có xảy ra sự cố hoặc sai sót, bạn phải thực hiện lại từ đấu. Xin lỗi vì sự bất tiện này !</span><br /><br />
 @for (int i = 0; i < int.Parse(TempData["soluong2"].ToString()); i++)
 {
 if (i == 0)
@@ -317,14 +317,14 @@ else
 <input type="text" id="colox-@i" hidden value="@Model.mausac[i]">
 @if (i == 0)
 {
-<input onclick="changechon(@i)" type="radio" id="chon-@i" checked /><b>&nbsp;&nbsp;@Model.member[i]</b><br /><br />
+<input onclick="changechon(@i)" type="radio" id="chon-@i" checked /><b id="custom563">&nbsp;&nbsp;@Model.member[i]</b><br /><br />
 }
 else
 {
-<input onclick="changechon(@i)" type="radio" id="chon-@i" /><b>&nbsp;&nbsp;@Model.member[i]</b><br /><br />
+<input onclick="changechon(@i)" type="radio" id="chon-@i" /><b id="custom564">&nbsp;&nbsp;@Model.member[i]</b><br /><br />
 }
 }
-<button onclick="xuly()" id="xl"><b>TIẾP THEO</b></button><br /><br />
+<button onclick="xuly()" id="xl"><b id="custom565">TIẾP THEO</b></button><br /><br />
 <img id="loading" src="/Image_Play/waiting.gif" style="display:none" /><br />
 @using (Html.BeginForm())
 {
@@ -335,5 +335,5 @@ else
 }
 else if (TempData["karax-cre"] == "2")
 {
-<h3 style="color:deeppink">@Html.Raw(@ViewBag.FileKaraoke)</h3>
+<h3 style="color:deeppink" id="custom566">@Html.Raw(@ViewBag.FileKaraoke)</h3>
 }

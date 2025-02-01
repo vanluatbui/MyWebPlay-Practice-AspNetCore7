@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }<script>
@@ -57,41 +57,41 @@ Layout = null;
           document.getElementById(ele).focus();
     }
 </script>
-<table align="center">
-    <h2 style="text-align:center">Check Text Pattern Regex</h2>
-    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
+<table align="center" id="custom50">
+    <h2 style="text-align:center" id="custom51">Check Text Pattern Regex</h2>
+    <h3 style="color:purple" onclick="muaxuan()" id="custom52">@ViewBag.KetQua</h3>
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom53">
+        <td id="custom54"></td>
+        <td id="custom55">
             <br>
-            <a href="#xuly" onclick="xoaValue('chuoi')">  <b>Chuỗi của bạn : </b></a>
+            <a href="#xuly" onclick="xoaValue('chuoi')">  <b id="custom56">Chuỗi của bạn : </b></a>
             <br>
             <input type="text" size="100" name="Chuoi" id="chuoi">
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+            <span style="color:red; font-style:italic" id="custom57">@ViewData["Loi1"] </span>
         </td>
     </tr>
     <br />
     <br />
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom58">
+        <td id="custom59"></td>
+        <td id="custom60">
             <br>
-            <a href="#xuly" onclick="xoaValue('pattern')">  <b>Pattern cần kiểm tra : </b></a>
+            <a href="#xuly" onclick="xoaValue('pattern')">  <b id="custom61">Pattern cần kiểm tra : </b></a>
             <br>
             <input type="text" size="100" name="Pattern" id="pattern">
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+            <span style="color:red; font-style:italic" id="custom62">@ViewData["Loi2"] </span>
         </td>
     </tr>
     <br />
     <br />
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom63">
+        <td id="custom64"></td>
+        <td id="custom65">
             <input type="Submit" value="Kết Quả" />
         </td>
     </tr>

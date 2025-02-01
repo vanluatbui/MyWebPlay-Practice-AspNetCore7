@@ -1,4 +1,4 @@
-﻿@{
+@{
 Layout = null;
 }
 @if (TempData["HTML-visible"] != null && TempData["HTML-visible"].ToString() != "2")
@@ -241,13 +241,13 @@ Layout = null;
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Đăng nhập Admin - Setting</title>
+        <title id="custom59">Đăng nhập Admin - Setting</title>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
         <link rel="icon" href="/images/imagex.png">
     </head>
-    <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]">
+    <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]" id="custom60">
         <script>
 
      var loadix = false;
@@ -297,28 +297,28 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-    <meta charset="ISO-8859-1">
-    <div style="background-color:aqua">
-        <h1 style="color:red">ĐĂNG NHẬP ADMIN - SETTING WEB</h1>
+    <meta charset="ISO-8859-1" id="custom61">
+    <div style="background-color:aqua" id="custom62">
+        <h1 style="color:red" id="custom63">ĐĂNG NHẬP ADMIN - SETTING WEB</h1>
         <a href="#xuly" onclick="backupdataAdmin()" style="color:purple">Backup data for admin in mail</a>
         <br /><br />
-        <span style="color:blue">Trạng thái đăng nhập đang giữ : @TempData["giu_dang_nhap"]</span>
+        <span style="color:blue" id="custom64">Trạng thái đăng nhập đang giữ : @TempData["giu_dang_nhap"]</span>
         <br />
         <br />
         <br />
-        <h2 style="color:goldenrod">Trạng thái lần cuối : @ViewBag.SettingStatus</h2>
+        <h2 style="color:goldenrod" id="custom65">Trạng thái lần cuối : @ViewBag.SettingStatus</h2>
         <br /><br />
         @using(Html.BeginForm())
         {
-                    <b style="color:darkred">Nhập ID admin : </b><input id="IDadmin" name="txtID" type="password" size="100" autofocus />
+                    <b style="color:darkred" id="custom66">Nhập ID admin : </b><input id="IDadmin" name="txtID" type="password" size="100" autofocus />
                     <br /><br />
-        <b style="color:darkred">Nhập mật khẩu : </b><input id="PASSadmin" name="txtPassword" type="password" size="100" />
+        <b style="color:darkred" id="custom67">Nhập mật khẩu : </b><input id="PASSadmin" name="txtPassword" type="password" size="100" />
         <br /><br />
-        <input type="checkbox" id="ghinho" onchange="rememberMe()" /> <b style="color:purple">Ghi nhớ thông tin - hãy nhập xong các thông tin trên mới được tick vào đây? (nếu sau này muốn huỷ, hãy tick checkbox này và tắt nó lại lần nữa)</b>
+        <input type="checkbox" id="ghinho" onchange="rememberMe()" /> <b style="color:purple" id="custom68">Ghi nhớ thông tin - hãy nhập xong các thông tin trên mới được tick vào đây? (nếu sau này muốn huỷ, hãy tick checkbox này và tắt nó lại lần nữa)</b>
         <br /><br />
         @if(TempData["xacthuc"] == "true")
         {
-        <b style="color:darkblue">Nhập mã xác thực (hai bước) : </b><input name="txtXacMinh" type="password" size="100" /><span>&nbsp;</span>
+        <b style="color:darkblue" id="custom69">Nhập mã xác thực (hai bước) : </b><input name="txtXacMinh" type="password" size="100" /><span id="custom70">&nbsp;</span>
         <br /><br />
         }
         <input style="font-weight:bolder" type="submit" value="Đăng nhập" onclick="kiemtralogintudong()" />
@@ -330,13 +330,13 @@ Layout = null;
     <br />
     @if (TempData["show-setting"] == "true")
     {
-    <h1 style="color:deeppink">BẢN XEM TRƯỚC MỘT SỐ CÀI ĐẶT HIỆN TẠI (để chỉnh sửa vui lòng đăng nhập)</h1>
-    <span style="color:orangered">(@TempData["admin_IP"])</span>
+    <h1 style="color:deeppink" id="custom71">BẢN XEM TRƯỚC MỘT SỐ CÀI ĐẶT HIỆN TẠI (để chỉnh sửa vui lòng đăng nhập)</h1>
+    <span style="color:orangered" id="custom72">(@TempData["admin_IP"])</span>
     <br />
     <br />
     <select id="chonX" onchange="thaydoichon()">
-        <option>Hiển thị tất cả</option>
-        <option>Chỉ hiển thị các setting đang bật</option>
+        <option id="custom73">Hiển thị tất cả</option>
+        <option id="custom74">Chỉ hiển thị các setting đang bật</option>
     </select>
     <br /><br />
     @for (int i = 0; i < Model.Topics.Count; i++)
@@ -351,12 +351,12 @@ Layout = null;
     {
     <input id="check-@i" disabled type="checkbox" checked />
     }
-    <span class="slider round"></span>
+    <span class="slider round" id="custom75"></span>
     <br /><br />
     </label>
     }
     <br /><br />
-    <h3 style="color:blue">...</h3>
+    <h3 style="color:blue" id="custom76">...</h3>
     <br />
     }
     else
@@ -375,13 +375,13 @@ else
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Đăng nhập Admin - Setting</title>
+        <title id="custom77">Đăng nhập Admin - Setting</title>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
         <link rel="icon" href="/images/imagex.png">
     </head>
-    <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]">
+    <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]" id="custom78">
         <script>
 
      var loadix = false;

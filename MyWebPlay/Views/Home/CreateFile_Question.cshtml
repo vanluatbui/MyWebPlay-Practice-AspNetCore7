@@ -1,4 +1,4 @@
-﻿<script>
+<script>
 
      var loadix = false;
     setInterval(function()
@@ -148,29 +148,29 @@ Layout = null;
                so++;
     }
 </script>
-<h2 style="text-align:center">File Question/Answer Theo Hệ Thống (dành cho admin hoặc các user hiểu biết chức năng)</h2>
-<h3 style="color:deeppink">@Html.Raw(ViewBag.KetQua)</h3>
+<h2 style="text-align:center" id="custom96">File Question/Answer Theo Hệ Thống (dành cho admin hoặc các user hiểu biết chức năng)</h2>
+<h3 style="color:deeppink" id="custom97">@Html.Raw(ViewBag.KetQua)</h3>
 <br />
 @if ((ViewBag.KetQua == null || ViewBag.KetQua == "") || (ViewBag.KetQua != null && ViewBag.KetQua.ToString().Contains("[ERROR]") == true))
 {
-<table align="center">
+<table align="center" id="custom98">
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom99">
+        <td id="custom100"></td>
+        <td id="custom101">
             <br>
-            <b>Dán bài question/answer của bạn tại đây (xem ví dụ tương đương) :</b>
+            <b id="custom102">Dán bài question/answer của bạn tại đây (xem ví dụ tương đương) :</b>
             <br>
-            <b style="color:deeppink">Để tránh trường hợp có thể xảy ra, tốt nhất bạn nên lưu và thực hiện nội dung question answer đâu đó trên local và sao chép chúng thông qua vào trường điền dưới đây...</b>
+            <b style="color:deeppink" id="custom103">Để tránh trường hợp có thể xảy ra, tốt nhất bạn nên lưu và thực hiện nội dung question answer đâu đó trên local và sao chép chúng thông qua vào trường điền dưới đây...</b>
             <br>
             <textarea rows="20" cols="150" id="chuoi" name="txtChuoi" autofocus>@ViewBag.ChuoiVD</textarea>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom104">
+        <td id="custom105"></td>
+        <td id="custom106">
             <input id="ok" type="Submit" value="Kết Quả" hidden />
             <br>
             <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
@@ -178,9 +178,9 @@ Layout = null;
     </tr>
     }
     <tr style="height:40px" id="xong">
-        <td></td>
-        <td>
-            <button><b onclick="xongroi()">XỬ LÝ</b></button>
+        <td id="custom107"></td>
+        <td id="custom108">
+            <button id="custom109"><b onclick="xongroi()" id="custom110">XỬ LÝ</b></button>
         </td>
     </tr>
 </table>

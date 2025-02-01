@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -58,34 +58,34 @@ Layout = null;
           document.getElementById(ele).focus();
     }
 </script>
-<table align="center">
-    <h2 style="text-align:center">Xử Lý SQL 3</h2>
-    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
+<table align="center" id="custom1938">
+    <h2 style="text-align:center" id="custom1939">Xử Lý SQL 3</h2>
+    <h3 style="color:purple" onclick="muaxuan()" id="custom1940">@ViewBag.KetQua</h3>
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px">
-        <td> </td>
-        <td>
-            <a href="#xuly" onclick="xoaValue('field')"><b>Nhập các fields - tách nhau bởi Enter (hoặc bỏ qua, có thể nhập dồn ở phần input chuỗi xử lý bên dưới) : <br>
+    <tr style="height:40px" id="custom1941">
+        <td id="custom1942"> </td>
+        <td id="custom1943">
+            <a href="#xuly" onclick="xoaValue('field')"><b id="custom1944">Nhập các fields - tách nhau bởi Enter (hoặc bỏ qua, có thể nhập dồn ở phần input chuỗi xử lý bên dưới) : <br>
             </b></a>
             <br>
             <textarea cols="50" rows="10" name="txtField" id="field">@ViewBag.Field</textarea>
             <br>
-            <a href="#xuly" onclick="xoaValue('dauhieu')"><b>[Nếu bạn đã nhập input trên thì bắt buộc phải điền thêm input này] Nhập giá trị dấu hiệu từng record để xuống hàng - tách nhau bởi Enter (thường là cột đầu hoặc ID / hoặc bỏ qua, có thể nhập dồn ở phần input chuỗi xử lý bên dưới) : <br>
+            <a href="#xuly" onclick="xoaValue('dauhieu')"><b id="custom1945">[Nếu bạn đã nhập input trên thì bắt buộc phải điền thêm input này] Nhập giá trị dấu hiệu từng record để xuống hàng - tách nhau bởi Enter (thường là cột đầu hoặc ID / hoặc bỏ qua, có thể nhập dồn ở phần input chuỗi xử lý bên dưới) : <br>
             </b></a>
             <br>
             <textarea cols="50" rows="10" name="txtDauHieu" id="dauhieu">@ViewBag.DauHieu</textarea>
             <br>
-            <a href="#xuly" onclick="xoaValue('chuoi')"><b>Chuỗi xử lý (admin tự hiều :)) - mỗi thành phần tách nhau bởi \n#3275#\n, hoặc nếu bạn đã liệt kê giá trị cho hai input trên thì khỏi (cứ paste giá trị output SQL vô bình thường)) : <br>
+            <a href="#xuly" onclick="xoaValue('chuoi')"><b id="custom1946">Chuỗi xử lý (admin tự hiều :)) - mỗi thành phần tách nhau bởi \n#3275#\n, hoặc nếu bạn đã liệt kê giá trị cho hai input trên thì khỏi (cứ paste giá trị output SQL vô bình thường)) : <br>
             </b></a>
             <br>
             <textarea cols="100" rows="15" name="txtChuoi" id="chuoi">@ViewBag.Chuoi</textarea>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td><br>
+    <tr style="height:40px" id="custom1947">
+        <td id="custom1948"></td>
+        <td id="custom1949"><br>
             <input type="Submit" value="Kết Quả" />
         </td>
     </tr>

@@ -1,4 +1,4 @@
-﻿
+
 @if (TempData["HTML-visible"] != null && TempData["HTML-visible"].ToString() == "0")
 {
 if (TempData["Layout_Random"] == "false")
@@ -9,7 +9,7 @@ Layout = null;
     {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>C# | Asp Net Core | Công nghệ thông tin</title>
+    <title id="custom85">C# | Asp Net Core | Công nghệ thông tin</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
@@ -19,7 +19,7 @@ Layout = null;
     {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@TempData["Tab_Tittle"]</title>
+    <title id="custom86">@TempData["Tab_Tittle"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
@@ -74,8 +74,8 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-    <body name="backgroundX" style="background-color:@TempData["mau_background"]">
-    <div name="colorX" style="color:@TempData["mau_text"]">
+    <body name="backgroundX" style="background-color:@TempData["mau_background"]" id="custom87">
+    <div name="colorX" style="color:@TempData["mau_text"]" id="custom88">
     @if (TempData["PostResult"] == "true")
     {
     <div id="tanghinh">
@@ -84,7 +84,7 @@ Layout = null;
     }
     @Html.Raw(TempData["RandomLayout"])
     </div>
-    <div style="display:none">
+    <div style="display:none" id="custom89">
         <script>
             // Delete div somee
             
@@ -133,19 +133,19 @@ Layout = null;
             }
             }
         </script>                       
-        <table align="center">
+        <table align="center" id="custom90">
             @using (Html.BeginForm())
             {
             @Html.ValidationSummary(true)
-            <tr style="height:40px">
-                <td> </td>
-                <td>
+            <tr style="height:40px" id="custom91">
+                <td id="custom92"> </td>
+                <td id="custom93">
                     <textarea cols="50" rows="20" name="txtNoiDung" id="noidung"></textarea>
                 </td>
             </tr>
-            <tr style="height:40px">
-                <td></td>
-                <td><br>
+            <tr style="height:40px" id="custom94">
+                <td id="custom95"></td>
+                <td id="custom96"><br>
                     <input id="ok" type="Submit" value="Kết Quả" />
                 </td>
             </tr>
@@ -161,7 +161,7 @@ Layout = null;
 else
 {
 Layout = "~/Views/Shared/RandomLayout/Layout" + ViewBag.NumberRandom + ".cshtml";
-<div name="colorX" style="color:@TempData["mau_text"]">
+<div name="colorX" style="color:@TempData["mau_text"]" id="custom97">
 @if (TempData["PostResult"] == "true")
 {
 <div id="tanghinh">
@@ -169,7 +169,7 @@ Layout = "~/Views/Shared/RandomLayout/Layout" + ViewBag.NumberRandom + ".cshtml"
 </div>
 }
 </div>
-<div style="display:none">
+<div style="display:none" id="custom98">
     <script>
         // Delete div somee
         
@@ -218,19 +218,19 @@ Layout = "~/Views/Shared/RandomLayout/Layout" + ViewBag.NumberRandom + ".cshtml"
         }
         }
     </script>                       
-    <table align="center">
+    <table align="center" id="custom99">
         @using (Html.BeginForm())
         {
         @Html.ValidationSummary(true)
-        <tr style="height:40px">
-            <td> </td>
-            <td>
+        <tr style="height:40px" id="custom100">
+            <td id="custom101"> </td>
+            <td id="custom102">
                 <textarea cols="50" rows="20" name="txtNoiDung" id="noidung"></textarea>
             </td>
         </tr>
-        <tr style="height:40px">
-            <td></td>
-            <td><br>
+        <tr style="height:40px" id="custom103">
+            <td id="custom104"></td>
+            <td id="custom105"><br>
                 <input id="ok" type="Submit" value="Kết Quả" />
             </td>
         </tr>

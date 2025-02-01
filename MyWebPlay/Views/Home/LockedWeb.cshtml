@@ -1,4 +1,4 @@
-﻿@{
+@{
 Layout = null;
 }
 
@@ -10,7 +10,7 @@ Layout = null;
         {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>C# | Asp Net Core | Công nghệ thông tin</title>
+        <title id="custom461">C# | Asp Net Core | Công nghệ thông tin</title>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
@@ -20,7 +20,7 @@ Layout = null;
         {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>@TempData["Tab_Tittle"]</title>
+        <title id="custom462">@TempData["Tab_Tittle"]</title>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
@@ -148,21 +148,21 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-    <body>
+    <body id="custom463">
         <img src="/Image_Play/lock.gif" name="myVideo" class="sqs-html5-video" />
         <img src="/Image_Play/waiting.gif" name="myVideo" class="sqs-html5-video" />
         <br />
-        <h1 style="color:red">WEBSITE HIỆN ĐANG BỊ KHOÁ, XIN VUI LÒNG QUAY LẠI SAU!</h1>
+        <h1 style="color:red" id="custom464">WEBSITE HIỆN ĐANG BỊ KHOÁ, XIN VUI LÒNG QUAY LẠI SAU!</h1>
         @if (TempData["user_ip_form_regist"] == "true")
         {
         <br />
         <hr />
         <br />
-        <span style="color:blue">Nhập info user (của bạn) muốn đăng kí tham gia : </span>
+        <span style="color:blue" id="custom465">Nhập info user (của bạn) muốn đăng kí tham gia : </span>
         <input type="text" id="txtUserInfo" />
-        <button onclick="registUser()"><b style="color:purple">ĐĂNG KÍ THAM GIA</b></button>
+        <button onclick="registUser()" id="custom466"><b style="color:purple" id="custom467">ĐĂNG KÍ THAM GIA</b></button>
         <br />
-        <span style="color:orangered">Bạn chỉ có thể đăng kí 1 lần và dữ liệu dăng kí sẽ lưu trữ data vào trình duyệt bạn đang sử dụng. Nếu bạn làm mất dữ liệu này do xoá lịch sử/dữ liệu duyệt web, vui lòng <a href="/Home/PlayOnWebInLocalX?key=false" style="color:saddlebrown">huỷ bỏ đăng kí</a> và sau đó đăng kí lại.</span>
+        <span style="color:orangered" id="custom468">Bạn chỉ có thể đăng kí 1 lần và dữ liệu dăng kí sẽ lưu trữ data vào trình duyệt bạn đang sử dụng. Nếu bạn làm mất dữ liệu này do xoá lịch sử/dữ liệu duyệt web, vui lòng <a href="/Home/PlayOnWebInLocalX?key=false" style="color:saddlebrown">huỷ bỏ đăng kí</a> và sau đó đăng kí lại.</span>
         <br />
         <hr />
         <br />

@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -58,43 +58,43 @@ Layout = null;
           document.getElementById(ele).focus();
     }
 </script>
-<table align="center">
-    <h2 style="text-align:center">SQL - CREATE TABLE</h2>
-    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
+<table align="center" id="custom1126">
+    <h2 style="text-align:center" id="custom1127">SQL - CREATE TABLE</h2>
+    <h3 style="color:purple" onclick="muaxuan()" id="custom1128">@ViewBag.KetQua</h3>
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+    <tr style="height:40px" id="custom1129">
+        <td id="custom1130"> </td>
+        <td id="custom1131">
             <br>
-            <a href="#xuly" onclick="xoaValue('table')"><b>Tên danh sách Table (thứ tự theo mẫu) : </b></a>
+            <a href="#xuly" onclick="xoaValue('table')"><b id="custom1132">Tên danh sách Table (thứ tự theo mẫu) : </b></a>
             <br>
             <input type="text" size="50" name="Table" id="table" value="SINHVIEN-MONHOC-DIEMSINHVIEN">
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+            <span style="color:red; font-style:italic" id="custom1133">@ViewData["Loi1"] </span>
         </td>
     </tr>
     <br />
     <br />
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+    <tr style="height:40px" id="custom1134">
+        <td id="custom1135"> </td>
+        <td id="custom1136">
             <br>
-            <a href="#xuly" onclick="xoaValue('key')"><b>Nhập số lượng cột cần làm khoá chính (lưu ý sẽ lấy các cột đầu tiên - ví dụ)</b></a>
+            <a href="#xuly" onclick="xoaValue('key')"><b id="custom1137">Nhập số lượng cột cần làm khoá chính (lưu ý sẽ lấy các cột đầu tiên - ví dụ)</b></a>
             <br>
             <input type="text" size="50" name="Key" id="key" value="1-1-2">
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+            <span style="color:red; font-style:italic" id="custom1138">@ViewData["Loi2"] </span>
         </td>
     </tr>
     <br />
     <br />
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1139">
+        <td id="custom1140"></td>
+        <td id="custom1141">
             <br>
-            <a href="#xuly" onclick="xoaValue('dulieu')"><b>Nhập dãy dữ liệu các Table (theo mẫu và lưu ý) :</b></a>
+            <a href="#xuly" onclick="xoaValue('dulieu')"><b id="custom1142">Nhập dãy dữ liệu các Table (theo mẫu và lưu ý) :</b></a>
             <br>
             <textarea name="DuLieu" id="dulieu" cols="100" rows="50">MSSV VARCHAR(5)
 HOTEN NVARCHAR(30)
@@ -109,12 +109,12 @@ MSSV VARCHAR(5) [SINHVIEN] MSSV
 MAMH VARCHAR(5) [MONHOC] MAMH
 DIEM FLOAT</textarea>
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
+            <span style="color:red; font-style:italic" id="custom1143">@ViewData["Loi3"] </span>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1144">
+        <td id="custom1145"></td>
+        <td id="custom1146">
             <input type="Submit" value="Kết Quả" />
         </td>
     </tr>

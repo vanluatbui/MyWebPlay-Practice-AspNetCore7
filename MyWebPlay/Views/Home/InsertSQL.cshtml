@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -58,43 +58,43 @@ Layout = null;
           document.getElementById(ele).focus();
     }
 </script>
-<table align="center">
-    <h2 style="text-align:center">Insert SQL (mới)</h2>
-    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
+<table align="center" id="custom430">
+    <h2 style="text-align:center" id="custom431">Insert SQL (mới)</h2>
+    <h3 style="color:purple" onclick="muaxuan()" id="custom432">@ViewBag.KetQua</h3>
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+    <tr style="height:40px" id="custom433">
+        <td id="custom434"> </td>
+        <td id="custom435">
             <br>
-            <a href="#xuly" onclick="xoaValue('chuoi')"> <b>Chuỗi (tên field[TAB]kiểu dữ liệu[TAB]giá trị default nếu có) : </b></a><br>
+            <a href="#xuly" onclick="xoaValue('chuoi')"> <b id="custom436">Chuỗi (tên field[TAB]kiểu dữ liệu[TAB]giá trị default nếu có) : </b></a><br>
             <br>
             <textarea name="Chuoi" id="chuoi" cols="100" rows="10">@ViewBag.Chuoi</textarea>
             <br>
-            <a href="#xuly" onclick="xoaValue('default')"> <b>[Textarea thứ hai] Giá trị gán có sẵn bắt buộc, nếu không sẽ bỏ qua và gán mặc định (tên field[=]giá trị) [Nếu muốn thêm nhiều record có thể tách nhau bởi \n#3275#\n] - hoặc tích chọn checkbox bên dưới và thử lại khác : </b></a><br>
+            <a href="#xuly" onclick="xoaValue('default')"> <b id="custom437">[Textarea thứ hai] Giá trị gán có sẵn bắt buộc, nếu không sẽ bỏ qua và gán mặc định (tên field[=]giá trị) [Nếu muốn thêm nhiều record có thể tách nhau bởi \n#3275#\n] - hoặc tích chọn checkbox bên dưới và thử lại khác : </b></a><br>
             <br>
             <textarea name="Default" id="default" cols="100" rows="5">@ViewBag.Default</textarea>
             <br>
-            <a href="#xuly" onclick="xoaValue('boqua')"> <b>Các cột bị bỏ qua (cách nhau bởi Enter)  - ví dụ do field có kiểu identity tự tăng ... : </b></a><br>
+            <a href="#xuly" onclick="xoaValue('boqua')"> <b id="custom438">Các cột bị bỏ qua (cách nhau bởi Enter)  - ví dụ do field có kiểu identity tự tăng ... : </b></a><br>
             <br>
             <textarea name="BoQua" id="boqua" cols="100" rows="5">@ViewBag.BoQua</textarea>
             <br>
-             <a href="#xuly" onclick="xoaValue('record')"> <b>Hãy cho vào đây một record từ kết quả SQL excute bất kỳ bạn muốn (nhằm để set các cột còn lại chưa có giá trị cụ thể) : </b></a><br>
+             <a href="#xuly" onclick="xoaValue('record')"> <b id="custom439">Hãy cho vào đây một record từ kết quả SQL excute bất kỳ bạn muốn (nhằm để set các cột còn lại chưa có giá trị cụ thể) : </b></a><br>
             <br>
             <input type="text" id="record" name="Record" size="100" value="@ViewBag.Record" />
             <br />
-             <a href="#xuly" onclick="xoaValue('dateform')"> <b>Với giá trị cột có kiểu datetime, nhập format ngày đang ghi ứng với giá trị hiện tại của bạn : </b></a><br>
+             <a href="#xuly" onclick="xoaValue('dateform')"> <b id="custom440">Với giá trị cột có kiểu datetime, nhập format ngày đang ghi ứng với giá trị hiện tại của bạn : </b></a><br>
             <br>
             <input type="text" id="dateform" name="DateForm" size="10" value="@ViewBag.DateForm" />
             <br>
-            <input type="checkbox" name="checkDefault" /><b>Phân tách các giá trị mặc định gán cho các field (ở textarea thứ hai trên) bằng sự liệt kê như file csv/Excel</b>
+            <input type="checkbox" name="checkDefault" /><b id="custom441">Phân tách các giá trị mặc định gán cho các field (ở textarea thứ hai trên) bằng sự liệt kê như file csv/Excel</b>
             <br />
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom442">
+        <td id="custom443"></td>
+        <td id="custom444">
             <input type="Submit" value="Kết Quả" />
         </td>
     </tr>

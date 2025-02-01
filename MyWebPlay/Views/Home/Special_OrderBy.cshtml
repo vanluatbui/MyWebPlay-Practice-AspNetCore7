@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -51,32 +51,32 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-<table align="center">
-    <h2 style="text-align:center">Special - OrderBy (Sắp xếp tăng dần)</h2>
-    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
+<table align="center" id="custom1108">
+    <h2 style="text-align:center" id="custom1109">Special - OrderBy (Sắp xếp tăng dần)</h2>
+    <h3 style="color:purple" onclick="muaxuan()" id="custom1110">@ViewBag.KetQua</h3>
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1111">
+        <td id="custom1112"></td>
+        <td id="custom1113">
             <br>
-            <b>Dữ kiện thứ tự sắp xếp và ưu tiên (index mỗi từ) : </b>
+            <b id="custom1114">Dữ kiện thứ tự sắp xếp và ưu tiên (index mỗi từ) : </b>
             <br>
-            <input type="text" size="50" name="SapXep" value="N-1=N-2=0=1">
+            <input type="text" size="50" name="SapXep" value="N-1=N-2=0=1" id="custom1115">
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+            <span style="color:red; font-style:italic" id="custom1116">@ViewData["Loi1"] </span>
         </td>
     </tr>
     <br />
     <br />
-    <tr style="height:40px">
-        <td>  </td>
-        <td>
+    <tr style="height:40px" id="custom1117">
+        <td id="custom1118">  </td>
+        <td id="custom1119">
             <br>
-            <b>Chuỗi của bạn :</b>
+            <b id="custom1120">Chuỗi của bạn :</b>
             <br>
-            <textarea rows="20" cols="150" name="Chuoi" autofocus>Bùi Nguyễn Tú Dương
+            <textarea rows="20" cols="150" name="Chuoi" autofocus id="custom1121">Bùi Nguyễn Tú Dương
 Nguyễn Thị Xuân Hoài Anh
 Lê Trần Anh Huy
 MyWebPlay Asp Net Core
@@ -115,12 +115,12 @@ Lê Anh Hào
 Phạm Xuân Anh
 Trần Phương Thảo</textarea>
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
+            <span style="color:red; font-style:italic" id="custom1122">@ViewData["Loi"] </span>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1123">
+        <td id="custom1124"></td>
+        <td id="custom1125">
             <input type="Submit" value="Kết Quả" />
         </td>
     </tr>

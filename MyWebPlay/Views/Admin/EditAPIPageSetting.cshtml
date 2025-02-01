@@ -1,4 +1,4 @@
-﻿@{
+@{
 Layout = null;
 }
 <script>
@@ -98,14 +98,14 @@ Layout = null;
     
 </script>
 <style></style>
-<h3 style="color:blue">EDIT TXT/HTML OF API PAGE SETTING</h3>
-<span style="color:red"><u>Lưu ý</u> : dù bạn có muốn cập nhật hay không, bạn cũng phải nhấn nút [OK] để đảm bảo về dữ liệu nhé. Nếu không, admin có thể tự khôi phục lại...</span>
+<h3 style="color:blue" id="custom19">EDIT TXT/HTML OF API PAGE SETTING</h3>
+<span style="color:red" id="custom20"><u id="custom21">Lưu ý</u> : dù bạn có muốn cập nhật hay không, bạn cũng phải nhấn nút [OK] để đảm bảo về dữ liệu nhé. Nếu không, admin có thể tự khôi phục lại...</span>
 <br /><br />
-<button style="background-color:aqua; color:deeppink" onclick="xacnhan()"><b>OK</b></button>
+<button style="background-color:aqua; color:deeppink" onclick="xacnhan()" id="custom22"><b id="custom23">OK</b></button>
 <br /><br />
 <textarea name="txtData" id="data" cols="200" rows="40">@TempData["edit_html_api"]</textarea>
 <br /><br />
-<button style="background-color:aqua; color:deeppink" onclick="xacnhan()"><b>OK</b></button>
+<button style="background-color:aqua; color:deeppink" onclick="xacnhan()" id="custom24"><b id="custom25">OK</b></button>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> @Html.Raw(TempData["HTML-added"])

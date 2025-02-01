@@ -1,4 +1,4 @@
-﻿<script>
+<script>
 
      var loadix = false;
     setInterval(function()
@@ -731,145 +731,145 @@ Layout = null;
     
     
 </script>
-<h2 style="text-align:center">File Trắc Nghiệm Theo Hệ Thống (dành cho admin hoặc các user hiểu biết chức năng)</h2>
-<h3 style="color:deeppink">@Html.Raw(ViewBag.KetQua)</h3>
+<h2 style="text-align:center" id="custom111">File Trắc Nghiệm Theo Hệ Thống (dành cho admin hoặc các user hiểu biết chức năng)</h2>
+<h3 style="color:deeppink" id="custom112">@Html.Raw(ViewBag.KetQua)</h3>
 <br />
 @if ((ViewBag.KetQua == null || ViewBag.KetQua == "") || (ViewBag.KetQua != null && ViewBag.KetQua.ToString().Contains("[ERROR]") == true))
 {
-<table align="center">
+<table align="center" id="custom113">
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom114">
+        <td id="custom115"></td>
+        <td id="custom116">
             <br>
-            <b>Dán bài trắc nghiệm của bạn tại đây (xem ví dụ tương đương) :</b>
+            <b id="custom117">Dán bài trắc nghiệm của bạn tại đây (xem ví dụ tương đương) :</b>
             <br>
-            <b style="color:deeppink">Để tránh trường hợp có thể xảy ra, tốt nhất bạn nên lưu và thực hiện nội dung trắc nghiệm đâu đó trên local và sao chép chúng thông qua vào trường điền dưới đây...</b>
+            <b style="color:deeppink" id="custom118">Để tránh trường hợp có thể xảy ra, tốt nhất bạn nên lưu và thực hiện nội dung trắc nghiệm đâu đó trên local và sao chép chúng thông qua vào trường điền dưới đây...</b>
             <br>
             <textarea rows="50" cols="150" id="Chuoi" name="txtChuoi" autofocus>@ViewBag.ChuoiVD</textarea>
             <br>
-            <p style="color:orange">LƯU Ý (khuyến nghị) : nếu dữ liệu câu hỏi của bạn mà các <span style="color:red">Number</span> không phải là số tự nhiên, phiền bạn hãy tự tìm mọi cách thay thế chúng phù hợp và thử lại...</p>
+            <p style="color:orange" id="custom119">LƯU Ý (khuyến nghị) : nếu dữ liệu câu hỏi của bạn mà các <span style="color:red" id="custom120">Number</span> không phải là số tự nhiên, phiền bạn hãy tự tìm mọi cách thay thế chúng phù hợp và thử lại...</p>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom121">
+        <td id="custom122"></td>
+        <td id="custom123">
             <input type="text" name="txtNum" id="Num" value="@ViewBag.CH_VD" size="20" placeholder="Liệt kê các câu hỏi (index)" onchange="checkNum()"> <br>
-            <span style="color:red">* Tổng số câu hiện có (được tính lại tự động) : </span><input  type="text" readonly name="txtNux" id="CH_Num" placeholder="Tổng số câu hỏi bài trắc nghiệm (bắt buộc)" size="80" value="6" /> 
+            <span style="color:red" id="custom124">* Tổng số câu hiện có (được tính lại tự động) : </span><input  type="text" readonly name="txtNux" id="CH_Num" placeholder="Tổng số câu hỏi bài trắc nghiệm (bắt buộc)" size="80" value="6" /> 
             <span style="color:red" id="loisox"></span>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
+    <tr style="height:40px" id="custom125">
+        <td id="custom126"></td>
         <td
-            ><b><u>Xem lại nội dung bài trắc nghiệm của bạn để tự tìm và đánh giá phân tách phù hợp (xem ví dụ)...</u></b></td>
+             id="custom127"><b id="custom128"><u id="custom129">Xem lại nội dung bài trắc nghiệm của bạn để tự tìm và đánh giá phân tách phù hợp (xem ví dụ)...</u></b></td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom130">
+        <td id="custom131"></td>
+        <td id="custom132">
             <input type="text" id="CH_Front" name="txtX" value="@ViewBag.XCH_VD" size="25" placeholder="Split câu hỏi - After Number">
-            <span style="color:red; font-weight:bold">Number</span>
-            <input type="text" id="CH_Back" name="txtXX" value="@ViewBag.CHX_VD" size="25" placeholder="Split câu hỏi - Before Number"> <input type="radio" onclick="checkCH()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
+            <span style="color:red; font-weight:bold" id="custom133">Number</span>
+            <input type="text" id="CH_Back" name="txtXX" value="@ViewBag.CHX_VD" size="25" placeholder="Split câu hỏi - Before Number"> <input type="radio" onclick="checkCH()" checked id="custom134"> <b style="color:green" id="custom135"> ⬅️ Click để kiểm tra thử dữ liệu</b>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
-            <input type="text" id="DA_A" name="txtA" value="@ViewBag.A_VD" size="10" placeholder="Split đáp án A"> <input type="radio" onclick="checkA()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
+    <tr style="height:40px" id="custom136">
+        <td id="custom137"></td>
+        <td id="custom138">
+            <input type="text" id="DA_A" name="txtA" value="@ViewBag.A_VD" size="10" placeholder="Split đáp án A"> <input type="radio" onclick="checkA()" checked id="custom139"> <b style="color:green" id="custom140"> ⬅️ Click để kiểm tra thử dữ liệu</b>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
-            <input type="text" id="DA_B"  name="txtB" value="@ViewBag.B_VD" size="10"  placeholder="Split đáp án B"> <input type="radio" onclick="checkB()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
+    <tr style="height:40px" id="custom141">
+        <td id="custom142"></td>
+        <td id="custom143">
+            <input type="text" id="DA_B"  name="txtB" value="@ViewBag.B_VD" size="10"  placeholder="Split đáp án B"> <input type="radio" onclick="checkB()" checked id="custom144"> <b style="color:green" id="custom145"> ⬅️ Click để kiểm tra thử dữ liệu</b>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
-            <input type="text" id="DA_C" name="txtC" value="@ViewBag.C_VD" size="10"  placeholder="Split đáp án C"> <input type="radio" onclick="checkC()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
+    <tr style="height:40px" id="custom146">
+        <td id="custom147"></td>
+        <td id="custom148">
+            <input type="text" id="DA_C" name="txtC" value="@ViewBag.C_VD" size="10"  placeholder="Split đáp án C"> <input type="radio" onclick="checkC()" checked id="custom149"> <b style="color:green" id="custom150"> ⬅️ Click để kiểm tra thử dữ liệu</b>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
-            <input type="text" id="DA_D" name="txtD" value="@ViewBag.D_VD" size="10"  placeholder="Split đáp án D"> <input type="radio" onclick="checkD()" checked> <b style="color:green"> ⬅️ Click để kiểm tra thử dữ liệu</b>
+    <tr style="height:40px" id="custom151">
+        <td id="custom152"></td>
+        <td id="custom153">
+            <input type="text" id="DA_D" name="txtD" value="@ViewBag.D_VD" size="10"  placeholder="Split đáp án D"> <input type="radio" onclick="checkD()" checked id="custom154"> <b style="color:green" id="custom155"> ⬅️ Click để kiểm tra thử dữ liệu</b>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
+    <tr style="height:40px" id="custom156">
+        <td id="custom157"></td>
         <td id="Error">
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td><b>--------------------------------------------------------------------------------------------------------------------------------------------------------------------------</b></td>
+    <tr style="height:40px" id="custom158">
+        <td id="custom159"></td>
+        <td id="custom160"><b id="custom161">--------------------------------------------------------------------------------------------------------------------------------------------------------------------------</b></td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom162">
+        <td id="custom163"></td>
+        <td id="custom164">
             <br>
-            <b>Chọn những câu không cần hoán vị đáp án - theo index hệ thống * start in 1 (xem ví dụ) : </b>
+            <b id="custom165">Chọn những câu không cần hoán vị đáp án - theo index hệ thống * start in 1 (xem ví dụ) : </b>
             <br>
             <input type="text" name="txtNoSwap" id="Swap1" value="@ViewBag.NoSwap_VD" size="50">
         </td>
     </tr>
-    <tr style="height:40px">
-        <td><u>...HOẶC BẠN CÓ THỂ...</u></td>
-        <td>
+    <tr style="height:40px" id="custom166">
+        <td id="custom167"><u id="custom168">...HOẶC BẠN CÓ THỂ...</u></td>
+        <td id="custom169">
             <br>
-            <b>Nhận dạng dấu hiệu của đáp án xuất hiện trong câu, nó sẽ làm cho câu đó không bị hoán vị (hãy kỹ càng - cẩn thận - mỗi dấu hiệu cách nhau bởi Enter) : </b>
+            <b id="custom170">Nhận dạng dấu hiệu của đáp án xuất hiện trong câu, nó sẽ làm cho câu đó không bị hoán vị (hãy kỹ càng - cẩn thận - mỗi dấu hiệu cách nhau bởi Enter) : </b>
             <br>
             <textarea id="Swap2" name="txtHoanVi" cols="80" rows="10">@ViewBag.HoanVi_VD</textarea>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom171">
+        <td id="custom172"></td>
+        <td id="custom173">
             <input id="ticky0" onchange="setTicky()" type="checkbox" checked /><b id="tick0" style="color:forestgreen">Hiện tại tôi không muốn đánh đáp án bây giờ (sẽ cập nhật/bổ sung bằng tính năng chỉnh sửa sau)</b>
             <input id="ticky00" type="checkbox" name="tick" hidden checked />
             <br>
         </td>
     </tr>
-    <tr style="height:40px">
+    <tr style="height:40px" id="custom174">
         <td id="ticky1">
-            <h4><u style="color:red">NẠP TẢI ĐÁP ÁN CHO TỪNG CÂU HỎI</u></h4>
+            <h4 id="custom175"><u style="color:red" id="custom176">NẠP TẢI ĐÁP ÁN CHO TỪNG CÂU HỎI</u></h4>
         </td>
         <td id="ticky2" style="display:none">
             <input type="radio" id="upAnswex" onclick="upAnswer()" checked /> <b id="upAns" style="color:orchid"> ⬅️ Click để bắt đầu nạp tải đáp án</b>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
+    <tr style="height:40px" id="custom177">
+        <td id="custom178"></td>
         <td id="setupAnswer">
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
+    <tr style="height:40px" id="custom179">
+        <td id="custom180"></td>
         <td style="display:none" id="win">
-            <b style="color:deeppink">Hoặc là bạn cũng có thể thiết đặt các đáp án tại đây...</b><br><b style="color:deeppink">Forcus tại input bên dưới và lần lượt gõ đáp án theo nguyên tắc như sau (1 : đáp án A, 2 : đáp án B, 3 : đáp án C, 4 : Đáp án D)
+            <b style="color:deeppink" id="custom181">Hoặc là bạn cũng có thể thiết đặt các đáp án tại đây...</b><br><b style="color:deeppink" id="custom182">Forcus tại input bên dưới và lần lượt gõ đáp án theo nguyên tắc như sau (1 : đáp án A, 2 : đáp án B, 3 : đáp án C, 4 : Đáp án D)
             </b><br><br>
             <input id="txtansw" type="number" size="1" min="1" max="4"  onkeyup="changeDA()" />
         </td>
     </tr>
-    <tr style="height:40px">
-        <td> </td>
+    <tr style="height:40px" id="custom183">
+        <td id="custom184"> </td>
         <td style="display:none" id="datn">
             <br>
-            <b>Tự đánh đáp án (hoặc nhờ sự nạp tải ở trên) thích hợp cho từng câu - phải dựa vào index bạn đã thiết đặt ở trên? (xem ví dụ tương đương) - đây là textbox tổng chốt quyết định : </b>
+            <b id="custom185">Tự đánh đáp án (hoặc nhờ sự nạp tải ở trên) thích hợp cho từng câu - phải dựa vào index bạn đã thiết đặt ở trên? (xem ví dụ tương đương) - đây là textbox tổng chốt quyết định : </b>
             <br>
             <textarea rows="20" cols="150" id="DapAn" name="txtDapAn" autofocus>@ViewBag.DapAn_VD</textarea>
             <br>
-            <input type="radio" onclick="xuatAnswer()" checked> <b style="color:lime">⬅️ Click here to upset Answer</b>
+            <input type="radio" onclick="xuatAnswer()" checked id="custom186"> <b style="color:lime" id="custom187">⬅️ Click here to upset Answer</b>
             <br><br>
-            <input style="font-size:40px" type="radio" onclick="checkXX()" checked /> <b>⬅️ Click here to reset to check</b> || <input style="font-size:40px" type="radio" onclick="checkX()" checked /> <b id="winx" style="color:lightcoral;font-size:40px">0</b> (index hệ thống) : <b style="color:lightseagreen;font-size:40px" id="socolar">[NULL]</b> || <input style="font-size:40px" type="radio" onclick="checkdapas()" checked /> <b style="color:orangered">Kiểm tra tình trạng đáp án</b>
+            <input style="font-size:40px" type="radio" onclick="checkXX()" checked /> <b id="custom188">⬅️ Click here to reset to check</b> || <input style="font-size:40px" type="radio" onclick="checkX()" checked /> <b id="winx" style="color:lightcoral;font-size:40px">0</b> (index hệ thống) : <b style="color:lightseagreen;font-size:40px" id="socolar">[NULL]</b> || <input style="font-size:40px" type="radio" onclick="checkdapas()" checked /> <b style="color:orangered" id="custom189">Kiểm tra tình trạng đáp án</b>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom190">
+        <td id="custom191"></td>
+        <td id="custom192">
             <input id="ok" type="Submit" value="Kết Quả" hidden />
             <br>
             <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
@@ -877,14 +877,14 @@ Layout = null;
     </tr>
     }
     <tr style="height:40px" id="xong">
-        <td></td>
-        <td>
-            <button><b onclick="xongroi()">XỬ LÝ</b></button>
+        <td id="custom193"></td>
+        <td id="custom194">
+            <button id="custom195"><b onclick="xongroi()" id="custom196">XỬ LÝ</b></button>
         </td>
     </tr>
 </table>
 <br /><br />
-<pre>**********************************************************************************************************************************</pre>
+<pre id="custom197">**********************************************************************************************************************************</pre>
 <br /><br /><br />
 <p id="muadong">@Html.Raw(ViewBag.Temp_TN)</p>
 }

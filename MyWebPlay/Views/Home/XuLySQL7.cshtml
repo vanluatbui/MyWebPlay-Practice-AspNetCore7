@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -58,20 +58,20 @@ Layout = null;
           document.getElementById(ele).focus();
     }
 </script>
-<table align="center">
-    <h2 style="text-align:center">Xử Lý SQL 7</h2>
-    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
+<table align="center" id="custom1986">
+    <h2 style="text-align:center" id="custom1987">Xử Lý SQL 7</h2>
+    <h3 style="color:purple" onclick="muaxuan()" id="custom1988">@ViewBag.KetQua</h3>
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px">
-        <td> </td>
-        <td>
-            <a href="#xuly" onclick="xoaValue('table')"><b>Nhập tên table : </b></a>
+    <tr style="height:40px" id="custom1989">
+        <td id="custom1990"> </td>
+        <td id="custom1991">
+            <a href="#xuly" onclick="xoaValue('table')"><b id="custom1992">Nhập tên table : </b></a>
             <br>
             <input type="text" id="table" name="txtTable" value="User" />
             <br><br>
-            <a href="#xuly" onclick="xoaValue('daydu')"><b>Nhập nội dung được cho là đầy đủ (fileds - type) (liệt kê tách bởi Enter/sử dụng file SQL) : </b>
+            <a href="#xuly" onclick="xoaValue('daydu')"><b id="custom1993">Nhập nội dung được cho là đầy đủ (fileds - type) (liệt kê tách bởi Enter/sử dụng file SQL) : </b>
             <br></a>
             <textarea name="txtDayDu" id="daydu" cols="100" rows="12">Column1 nvarchar(10)
 Column2 int
@@ -79,16 +79,16 @@ Column3 money
 Column4 varchar(5)
 Column5 datetime</textarea>
             <br><br>
-            <a href="#xuly" onclick="xoaValue('hientai')"><b>Nhập các fileds hiện có - tách bởi Enter (có thể dùng lệnh : SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'name') : </b></a>
+            <a href="#xuly" onclick="xoaValue('hientai')"><b id="custom1994">Nhập các fileds hiện có - tách bởi Enter (có thể dùng lệnh : SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'name') : </b></a>
             <br>
             <textarea name="txtHienTai" id="hientai" cols="100" rows="12">Column1
 Column2
 Column4</textarea>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td><br>
+    <tr style="height:40px" id="custom1995">
+        <td id="custom1996"></td>
+        <td id="custom1997"><br>
             <input type="Submit" value="Kết Quả" />
         </td>
     </tr>

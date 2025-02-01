@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -90,103 +90,103 @@ Layout = null;
       output.value += "\t";
     }
 </script>
-<table align="center">
-    <h2 style="text-align:center">Replace - Regex</h2>
-    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
+<table align="center" id="custom978">
+    <h2 style="text-align:center" id="custom979">Replace - Regex</h2>
+    <h3 style="color:purple" onclick="muaxuan()" id="custom980">@ViewBag.KetQua</h3>
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom981">
+        <td id="custom982"></td>
+        <td id="custom983">
             <br>
-            <a href="#xuly" onclick="xoaValue('Chuoi')"><b>Chuỗi của bạn : </b></a>
+            <a href="#xuly" onclick="xoaValue('Chuoi')"><b id="custom984">Chuỗi của bạn : </b></a>
             <br>
-            <input type="radio" onclick="TabChuoi()" checked><b>Click để thêm [TAB] vào cuối</b>
+            <input type="radio" onclick="TabChuoi()" checked id="custom985"><b id="custom986">Click để thêm [TAB] vào cuối</b>
             <br>
             <textarea rows="20" cols="150" name="Chuoi" id="Chuoi" autofocus></textarea>
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+            <span style="color:red; font-style:italic" id="custom987">@ViewData["Loi1"] </span>
         </td>
     </tr>
     <br />
     <br />
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+    <tr style="height:40px" id="custom988">
+        <td id="custom989"> </td>
+        <td id="custom990">
             <br>
-            <input type="radio" onclick="TabInput()" checked><b>Click để thêm [TAB] vào cuối</b>
+            <input type="radio" onclick="TabInput()" checked id="custom991"><b id="custom992">Click để thêm [TAB] vào cuối</b>
             <br>
-            <a href="#xuly" onclick="xoaValue('Input')">  <b> Nhập pattern-input cần được thay thế : </b></a>
+            <a href="#xuly" onclick="xoaValue('Input')">  <b id="custom993"> Nhập pattern-input cần được thay thế : </b></a>
             <br>
             <textarea rows="10" cols="100" name="Input" id="Input" autofocus></textarea>
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+            <span style="color:red; font-style:italic" id="custom994">@ViewData["Loi2"] </span>
         </td>
     </tr>
     <br />
     <br />
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom995">
+        <td id="custom996"></td>
+        <td id="custom997">
             <br>
-            <input type="radio" onclick="TabOutput()" checked><b>Click để thêm [TAB] vào cuối</b>
+            <input type="radio" onclick="TabOutput()" checked id="custom998"><b id="custom999">Click để thêm [TAB] vào cuối</b>
             <br>
-            <a href="#xuly" onclick="xoaValue('Output')"><b> Nhập pattern-output sẽ được thay thế thành : </b></a>
+            <a href="#xuly" onclick="xoaValue('Output')"><b id="custom1000"> Nhập pattern-output sẽ được thay thế thành : </b></a>
             <br>
             <textarea rows="10" cols="100" name="Output" id="Output" autofocus></textarea>
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
+            <span style="color:red; font-style:italic" id="custom1001">@ViewData["Loi3"] </span>
         </td>
     </tr>
     <br />
     <br />
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+    <tr style="height:40px" id="custom1002">
+        <td id="custom1003"> </td>
+        <td id="custom1004">
             <br>
-            <b>Mời bạn lựa chọn áp dụng Regex (Với 1 : Áp dụng Regex, 2 : Không áp dụng Regex)</b>
+            <b id="custom1005">Mời bạn lựa chọn áp dụng Regex (Với 1 : Áp dụng Regex, 2 : Không áp dụng Regex)</b>
             <br>
             <select id="chon1" onchange="PlayChon1()">
-                <option>Không áp dụng Regex</option>
-                <option>Áp dụng Regex</option>
+                <option id="custom1006">Không áp dụng Regex</option>
+                <option id="custom1007">Áp dụng Regex</option>
             </select>
             <input type="number" min="1" max="2" name="DuKien1" id="DK1" value="2" hidden>
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi4"] </span>
+            <span style="color:red; font-style:italic" id="custom1008">@ViewData["Loi4"] </span>
         </td>
     </tr>
     <br />
     <br />
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+    <tr style="height:40px" id="custom1009">
+        <td id="custom1010"> </td>
+        <td id="custom1011">
             <br>
-            <b>Nhập số lượng thay thế kết quả áp dụng - [Chú ý nếu đã chọn không áp dụng Regex thì nó sẽ áp dụng tất cả...] (ưu tiên các kết quả đầu tiên) # Có thể nhập -1 để áp dụng tất cả...</b>
+            <b id="custom1012">Nhập số lượng thay thế kết quả áp dụng - [Chú ý nếu đã chọn không áp dụng Regex thì nó sẽ áp dụng tất cả...] (ưu tiên các kết quả đầu tiên) # Có thể nhập -1 để áp dụng tất cả...</b>
             <br>
-            <input type="number" min="-1" name="DuKien2" value="-1">
+            <input type="number" min="-1" name="DuKien2" value="-1" id="custom1013">
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi5"] </span>
+            <span style="color:red; font-style:italic" id="custom1014">@ViewData["Loi5"] </span>
         </td>
     </tr>
     <br />
     <br />
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+    <tr style="height:40px" id="custom1015">
+        <td id="custom1016"> </td>
+        <td id="custom1017">
             <br>
-            <b>Nhập số lượng lần lặp cần thay thế (với 0 là tất cả mãi mãi)</b>
+            <b id="custom1018">Nhập số lượng lần lặp cần thay thế (với 0 là tất cả mãi mãi)</b>
             <br>
-            <input type="number" min="0" name="DuKien3" value="0">
+            <input type="number" min="0" name="DuKien3" value="0" id="custom1019">
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi6"] </span>
+            <span style="color:red; font-style:italic" id="custom1020">@ViewData["Loi6"] </span>
         </td>
     </tr>
     <br />
     <br />
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1021">
+        <td id="custom1022"></td>
+        <td id="custom1023">
             <input type="Submit" value="Kết Quả" />
         </td>
     </tr>

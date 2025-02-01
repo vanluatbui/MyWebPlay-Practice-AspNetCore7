@@ -1,4 +1,4 @@
-﻿@model MyWebPlay.Model.TracNghiem
+@model MyWebPlay.Model.TracNghiem
 <script>
 
      var loadix = false;
@@ -700,23 +700,23 @@ Layout = null;
 <div id="waiting-loading" style="display:none">
     @if (ViewBag.ND_File != null)
     {
-    <button onclick="loading()"><b style="color:dodgerblue">Click vào đây để cập nhật các answer/hình ảnh questions hiện có từ file của bạn</b></button><br><span style="color:saddlebrown">Khuyến nghị : Vui lòng ban đầu hãy click nút này để tải toàn bộ dữ liệu và đồng thời tránh lỗi/mất dữ liệu khi hoàn tất. Cảm ơn!</span><br /><br />
-    <button onclick="refresh()"><b style="color:darkred">Click to refresh all answer/hình ảnh questions setting</b></button>
+    <button onclick="loading()" id="custom733"><b style="color:dodgerblue" id="custom734">Click vào đây để cập nhật các answer/hình ảnh questions hiện có từ file của bạn</b></button><br><span style="color:saddlebrown">Khuyến nghị : Vui lòng ban đầu hãy click nút này để tải toàn bộ dữ liệu và đồng thời tránh lỗi/mất dữ liệu khi hoàn tất. Cảm ơn!</span><br /><br />
+    <button onclick="refresh()" id="custom735"><b style="color:darkred" id="custom736">Click to refresh all answer/hình ảnh questions setting</b></button>
     <textarea hidden id="answerX">@ViewBag.SettingAnswer</textarea>
     <textarea readonly id="listAnhCu" cols="100" rows="12" hidden>@ViewBag.HinhAnh.TrimStart("\n".ToCharArray()).TrimEnd("\n".ToCharArray())</textarea>
     var ND_File = ViewBag.ND_File;
     ViewBag.ND_File = ND_File;
     }
-    <table align="center">
-        <h2 style="text-align:center;color:lightsalmon">Play Test Trắc Nghiệm</h2>
-        <h3 style="color:aqua">@ViewBag.KetQuaDung</h3>
-        <h3 style="color:aqua">@ViewBag.KetQuaSai</h3>
-        <h3 style="color:aqua">@ViewBag.KetQuaChuaLam</h3>
-        <h2 style="color:lightgreen">@ViewBag.KetQuaDiem</h2>
+    <table align="center" id="custom737">
+        <h2 style="text-align:center;color:lightsalmon" id="custom738">Play Test Trắc Nghiệm</h2>
+        <h3 style="color:aqua" id="custom739">@ViewBag.KetQuaDung</h3>
+        <h3 style="color:aqua" id="custom740">@ViewBag.KetQuaSai</h3>
+        <h3 style="color:aqua" id="custom741">@ViewBag.KetQuaChuaLam</h3>
+        <h2 style="color:lightgreen" id="custom742">@ViewBag.KetQuaDiem</h2>
         <br />
         @if (TempData["Socola"] != null && TempData["Socola"].ToString() == "hay")
         {
-        <h3 style="color:royalblue">@Html.Raw(ViewBag.KetQua)</h3>
+        <h3 style="color:royalblue" id="custom743">@Html.Raw(ViewBag.KetQua)</h3>
         }
         else
         {
@@ -725,23 +725,23 @@ Layout = null;
         @Html.ValidationSummary(true)
         <br />
         <br />
-        <b>Tên môn học/kỳ kiểm tra : @Model.tenmon</b>
+        <b id="custom744">Tên môn học/kỳ kiểm tra : @Model.tenmon</b>
         <br />
         @if (TempData["TracNghiem_Online"] == null && TempData["online_null"] == null)
         {
-        <b>Tổng số câu cần làm : @Model.gioihancau/@Model.tongsocau</b>
+        <b id="custom745">Tổng số câu cần làm : @Model.gioihancau/@Model.tongsocau</b>
         }
         else
         {
-        <b>Tổng số câu cần làm : @Model.gioihancau</b>
+        <b id="custom746">Tổng số câu cần làm : @Model.gioihancau</b>
         }
         <br />
-        <b>
+        <b id="custom747">
             Thời gian làm bài : @Model.timelambai phút
             @if (ViewBag.TimeLamBai != null)
             {
-            <div class="divOnTop">
-                <span style="color:blue;text-align:center">
+            <div class="divOnTop" id="custom748">
+                <span style="color:blue;text-align:center" id="custom749">
                     <h2 id="Time">00 : 00 : 00</h2>
                 </span>
             </div>
@@ -754,170 +754,170 @@ Layout = null;
         {
         if (TempData["online_null"] == null)
         {
-        <tr style="height:40px; background-color: @TempData["mau-trac-nghiem-"+i]">
-        <td></td>
-        <td>
+        <tr style="height:40px; background-color: @TempData["mau-trac-nghiem-"+i]" id="custom750">
+        <td id="custom751"></td>
+        <td id="custom752">
             @if (TempData["ViewSiteBasic"] == "false")
             {
-            <h3><b name="mau-TN-1">Câu số @(i + 1)</b>. <span name="mau-TN-2" id="causo-@i"> <b>@Html.Raw(Model.ch[@i])</b></span></h3>
+            <h3 id="custom753"><b name="mau-TN-1" id="custom754">Câu số @(i + 1)</b>. <span name="mau-TN-2" id="causo-@i"> <b id="custom755">@Html.Raw(Model.ch[@i])</b></span></h3>
             }
             else
             {
-            <h3 style="color:blue"><b name="mau-TN-1">Câu số @(i + 1)</b>. <span name="mau-TN-2" id="causo-@i"> <b>@Html.Raw(Model.ch[@i])</b></span></h3>
+            <h3 style="color:blue" id="custom756"><b name="mau-TN-1" id="custom757">Câu số @(i + 1)</b>. <span name="mau-TN-2" id="causo-@i"> <b id="custom758">@Html.Raw(Model.ch[@i])</b></span></h3>
             }
             <br />
         </td>
         </tr>
         @if (ViewBag.ND_File != null)
         {
-        <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]">
-        <td></td>
-        <td>
-            <h4>
+        <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]" id="custom759">
+        <td id="custom760"></td>
+        <td id="custom761">
+            <h4 id="custom762">
                 <input type="text" size="50" placeholder="Nhập link hình ảnh online cần thêm" id="hinhanh-@i" /> 
                 <textarea cols="50" rows="20" name="anh-@i" id="anhX-@i" style="display:none"></textarea>
                 <select name="kichthuoc-@i" id="kt-@i">
-                    <option>100x100</option>
-                    <option>300x300</option>
-                    <option>500x500</option>
-                    <option>500x1000</option>
-                    <option>500x300</option>
+                    <option id="custom763">100x100</option>
+                    <option id="custom764">300x300</option>
+                    <option id="custom765">500x500</option>
+                    <option id="custom766">500x1000</option>
+                    <option id="custom767">500x300</option>
                 </select>
                 <a onclick="themhinhanh(@i)" href="#xuly">THÊM/SỬA</a> <span id="soluong-@i" style="color:deeppink">0</span>
             </h4>
-            <h4>
-                <b>
+            <h4 id="custom768">
+                <b id="custom769">
                     <select id="chonanh-@i" onchange="doianh(@i)">
-                        <option></option>
+                        <option id="custom770"></option>
                     </select>
                     <br>
                 </b>
                 <a onclick="xoahinhanh(@i)" href="#xuly">XOÁ</a> || <a href="#xuly" onClick="xemanh(@i)">XEM HÌNH ẢNH</a>
             </h4>
-            <input type="checkbox" id="hoanvix-@i" name="txtHoanVix-@i" /><span style="color:orangered">&nbsp;Không hoán vị đáp án</span>
+            <input type="checkbox" id="hoanvix-@i" name="txtHoanVix-@i" /><span style="color:orangered" id="custom771">&nbsp;Không hoán vị đáp án</span>
             <br /><br />
         </td>
         </tr>
         }
-        <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]">
-        <td></td>
+        <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]" id="custom772">
+        <td id="custom773"></td>
         @if(ViewData["KetQua-"+@i] ==  null)
         {
-        <td>
+        <td id="custom774">
             @if (TempData["ViewSiteBasic"] == "false")
             {
-            <h4><b> <a href="#@(i+1)" onclick="chondapan(@i,1)"><span id="dapanA-@i" name="colorX" style="color:@TempData["mau_text"]">A. <span id="DAA-@i">@Html.Raw(Model.a[@i])</span></span></a></b></h4>
+            <h4 id="custom775"><b id="custom776"> <a href="#@(i+1)" onclick="chondapan(@i,1)"><span id="dapanA-@i" name="colorX" style="color:@TempData["mau_text"]">A. <span id="DAA-@i">@Html.Raw(Model.a[@i])</span></span></a></b></h4>
             }
             else
             {
-            <h4 style="color:black"><b> <a href="#@(i+1)" onclick="chondapan(@i,1)"><span id="dapanA-@i">A. <span id="DAA-@i">@Html.Raw(Model.a[@i])</span></span></a></b></h4>
+            <h4 style="color:black" id="custom777"><b id="custom778"> <a href="#@(i+1)" onclick="chondapan(@i,1)"><span id="dapanA-@i">A. <span id="DAA-@i">@Html.Raw(Model.a[@i])</span></span></a></b></h4>
             }
             <br>
         </td>
         }
         else
         {
-        <td>
+        <td id="custom779">
             @if (TempData["ViewSiteBasic"] == "false")
             {
-            <h4><b>A. @Html.Raw(Model.a[@i])</b></h4>
+            <h4 id="custom780"><b id="custom781">A. @Html.Raw(Model.a[@i])</b></h4>
             }
             else
             {
-            <h4 style="color:black"><b>A. @Html.Raw(Model.a[@i])</b></h4>
+            <h4 style="color:black" id="custom782"><b id="custom783">A. @Html.Raw(Model.a[@i])</b></h4>
             }
             <br> 
         </td>
         }
         </tr>
-        <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]">
-        <td></td>
+        <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]" id="custom784">
+        <td id="custom785"></td>
         @if(ViewData["KetQua-"+@i] ==  null)
         {
-        <td>
+        <td id="custom786">
             @if (TempData["ViewSiteBasic"] == "false")
             {
-            <h4><b> <a href="#@(i+1)" onclick="chondapan(@i,2)"><span id="dapanB-@i" name="colorX" style="color:@TempData["mau_text"]">B. <span id="DAB-@i">@Html.Raw(Model.b[@i])</span></span></a></b></h4>
+            <h4 id="custom787"><b id="custom788"> <a href="#@(i+1)" onclick="chondapan(@i,2)"><span id="dapanB-@i" name="colorX" style="color:@TempData["mau_text"]">B. <span id="DAB-@i">@Html.Raw(Model.b[@i])</span></span></a></b></h4>
             }
             else
             {
-            <h4 style="color:black"><b> <a href="#@(i+1)" onclick="chondapan(@i,2)"><span id="dapanB-@i">B. <span id="DAB-@i">@Html.Raw(Model.b[@i])</span></span></a></b></h4>
+            <h4 style="color:black" id="custom789"><b id="custom790"> <a href="#@(i+1)" onclick="chondapan(@i,2)"><span id="dapanB-@i">B. <span id="DAB-@i">@Html.Raw(Model.b[@i])</span></span></a></b></h4>
             }
             <br />
         </td>
         }
         else
         {
-        <td>
+        <td id="custom791">
             @if (TempData["ViewSiteBasic"] == "false")
             {
-            <h4><b>B. @Html.Raw(Model.b[@i])</b></h4>
+            <h4 id="custom792"><b id="custom793">B. @Html.Raw(Model.b[@i])</b></h4>
             }
             else
             {
-            <h4 style="color:black"><b>B. @Html.Raw(Model.b[@i])</b></h4>
+            <h4 style="color:black" id="custom794"><b id="custom795">B. @Html.Raw(Model.b[@i])</b></h4>
             }
             <br />
         </td>
         }
         </tr>
-        <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]">
-        <td></td>
+        <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]" id="custom796">
+        <td id="custom797"></td>
         @if(ViewData["KetQua-"+@i] ==  null)
         {
-        <td>
+        <td id="custom798">
             @if (TempData["ViewSiteBasic"] == "false")
             {
-            <h4><b> <a href="#@(i+1)" onclick="chondapan(@i,3)"><span id="dapanC-@i" name="colorX" style="color:@TempData["mau_text"]">C. <span id="DAC-@i">@Html.Raw(Model.c[@i])</span></span></a></b></h4>
+            <h4 id="custom799"><b id="custom800"> <a href="#@(i+1)" onclick="chondapan(@i,3)"><span id="dapanC-@i" name="colorX" style="color:@TempData["mau_text"]">C. <span id="DAC-@i">@Html.Raw(Model.c[@i])</span></span></a></b></h4>
             }
             else
             {
-            <h4 style="color:black"><b> <a href="#@(i+1)" onclick="chondapan(@i,3)"><span id="dapanC-@i">C. <span id="DAC-@i">@Html.Raw(Model.c[@i])</span></span></a></b></h4>
+            <h4 style="color:black" id="custom801"><b id="custom802"> <a href="#@(i+1)" onclick="chondapan(@i,3)"><span id="dapanC-@i">C. <span id="DAC-@i">@Html.Raw(Model.c[@i])</span></span></a></b></h4>
             }
             <br> 
         </td>
         }
         else
         {
-        <td>
+        <td id="custom803">
             @if (TempData["ViewSiteBasic"] == "false")
             {
-            <h4><b>C. @Html.Raw(Model.c[@i])</b></h4>
+            <h4 id="custom804"><b id="custom805">C. @Html.Raw(Model.c[@i])</b></h4>
             }
             else
             {
-            <h4 style="color:black"><b>C. @Html.Raw(Model.c[@i])</b></h4>
+            <h4 style="color:black" id="custom806"><b id="custom807">C. @Html.Raw(Model.c[@i])</b></h4>
             }
             <br> 
         </td>
         }
         </tr>
-        <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]">
-        <td></td>
+        <tr style="height:40px; background-color:@TempData["mau-trac-nghiem-"+i]" id="custom808">
+        <td id="custom809"></td>
         @if(ViewData["KetQua-"+@i] ==  null)
         {
-        <td>
+        <td id="custom810">
             @if (TempData["ViewSiteBasic"] == "false")
             {
-            <h4><b> <a href="#@(i+1)" onclick="chondapan(@i,4)"><span id="dapanD-@i" name="colorX" style="color:@TempData["mau_text"]">D. <span id="DAD-@i">@Html.Raw(Model.d[@i])</span></span></a></b></h4>
+            <h4 id="custom811"><b id="custom812"> <a href="#@(i+1)" onclick="chondapan(@i,4)"><span id="dapanD-@i" name="colorX" style="color:@TempData["mau_text"]">D. <span id="DAD-@i">@Html.Raw(Model.d[@i])</span></span></a></b></h4>
             }
             else
             {
-            <h4 style="color:black"><b> <a href="#@(i+1)" onclick="chondapan(@i,4)"><span id="dapanD-@i">D. <span id="DAD-@i">@Html.Raw(Model.d[@i])</span></span></a></b></h4>
+            <h4 style="color:black" id="custom813"><b id="custom814"> <a href="#@(i+1)" onclick="chondapan(@i,4)"><span id="dapanD-@i">D. <span id="DAD-@i">@Html.Raw(Model.d[@i])</span></span></a></b></h4>
             }
             <br> 
         </td>
         }
         else
         {
-        <td>
+        <td id="custom815">
             @if (TempData["ViewSiteBasic"] == "false")
             {
-            <h4><b>D. @Html.Raw(Model.d[@i])</b></h4>
+            <h4 id="custom816"><b id="custom817">D. @Html.Raw(Model.d[@i])</b></h4>
             }
             else
             {
-            <h4 style="color:black"><b>D. @Html.Raw(Model.d[@i])</b></h4>
+            <h4 style="color:black" id="custom818"><b id="custom819">D. @Html.Raw(Model.d[@i])</b></h4>
             }
             <br />
         </td>
@@ -925,17 +925,17 @@ Layout = null;
         </tr>
         @if(ViewData["KetQua-"+@i] ==  null)
         {
-        <tr style="height:40px">
-            <td></td>
-            <td>
-                <h3>
+        <tr style="height:40px" id="custom820">
+            <td id="custom821"></td>
+            <td id="custom822">
+                <h3 id="custom823">
                     <select name="dapan-@i" class="dapanX" id="ans-@i" style="display:none">
-                        <b>
-                            <option></option>
-                            <option>A</option>
-                            <option>B</option>
-                            <option>C</option>
-                            <option>D</option>
+                        <b id="custom824">
+                            <option id="custom825"></option>
+                            <option id="custom826">A</option>
+                            <option id="custom827">B</option>
+                            <option id="custom828">C</option>
+                            <option id="custom829">D</option>
                         </b>
                     </select>
                 </h3>
@@ -945,12 +945,12 @@ Layout = null;
         }
         else
         {
-        <tr style="height:40px">
-            <td></td>
-            <td>
+        <tr style="height:40px" id="custom830">
+            <td id="custom831"></td>
+            <td id="custom832">
                 @Html.Raw(ViewData["ketqua-"+@i])
-                <h4>@Html.Raw(ViewData["dapandachon-"+@i])</h4>
-                <h4>@Html.Raw(ViewData["dapandung-"+@i])</h4>
+                <h4 id="custom833">@Html.Raw(ViewData["dapandachon-"+@i])</h4>
+                <h4 id="custom834">@Html.Raw(ViewData["dapandung-"+@i])</h4>
                 <br>
             </td>
         </tr>
@@ -958,20 +958,20 @@ Layout = null;
         }
         else
         {
-        <table border="0">
-            <tr>
-                <th>Câu @(i+1).  </th>
+        <table border="0" id="custom835">
+            <tr id="custom836">
+                <th id="custom837">Câu @(i+1).  </th>
                 @if (ViewData["ketqua-"+@i].ToString().Contains("ĐÚNG RỒI"))
                 {
-                <th><b style="color:green">Đúng</b></th>
+                <th id="custom838"><b style="color:green" id="custom839">Đúng</b></th>
                 }
                 else if (ViewData["ketqua-"+@i].ToString().Contains("SAI RỒI"))
                 {
-                <th><b style="color:red">Sai</b></th>
+                <th id="custom840"><b style="color:red" id="custom841">Sai</b></th>
                 }
                 else
                 {
-                <th><b style="color:orangered">Chưa trả lời</b></th>
+                <th id="custom842"><b style="color:orangered" id="custom843">Chưa trả lời</b></th>
                 }
             </tr>
         </table>
@@ -979,9 +979,9 @@ Layout = null;
         }
         @if (ViewBag.KetQuaDung == "")
         {
-        <tr style="height:40px">
-            <td></td>
-            <td>
+        <tr style="height:40px" id="custom844">
+            <td id="custom845"></td>
+            <td id="custom846">
                 @if(ViewBag.ND_File == null)
                 {
                 <input style="font-weight:bolder" onclick="hayqua()" id="OKX" type="Submit" value="Đánh Giá Bài Làm" />
@@ -993,7 +993,7 @@ Layout = null;
                 <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />
                 }
                 <br>
-                <p style="color:deeppink">Lưu ý : kiểm tra thật kỹ toàn bộ bài làm trước khi xem kết quả!</p>
+                <p style="color:deeppink" id="custom847">Lưu ý : kiểm tra thật kỹ toàn bộ bài làm trước khi xem kết quả!</p>
             </td>
         </tr>
         }
@@ -1001,7 +1001,7 @@ Layout = null;
         {
         if (TempData["online_null"] == null)
         {
-        <h3>@Html.ActionLink("Thực hiện bài test trắc nghiệm mới", "TracNghiemX_Multiple")</h3>
+        <h3 id="custom848">@Html.ActionLink("Thực hiện bài test trắc nghiệm mới", "TracNghiemX_Multiple")</h3>
         <br />
         }
         }
@@ -1009,23 +1009,23 @@ Layout = null;
         <input type="text" readonly name="TongSoCau" value="@ViewBag.TongSoCau" hidden />
         <input type="text" readonly name="GioiHanCau" value="@ViewBag.GioiHanCau" hidden />
         <input type="text" readonly name="TimeLamBai" value="@ViewBag.TimeLamBaiX" hidden />
-        <input type="text" readonly name="TenMon" value="@ViewBag.TenMon" hidden>
+        <input type="text" readonly name="TenMon" value="@ViewBag.TenMon" hidden id="custom849">
         <input type="text" hidden readonly name="OnlineX" id="Xonline" value="@TempData["TracNghiem_Online"]" />
-        <textarea name="File_ND" hidden>@ViewBag.ND_File</textarea>
-        <textarea readonly name="CauHoi" hidden>@ViewBag.CauHoi</textarea>
-        <textarea readonly name="A" hidden>@ViewBag.A</textarea>
-        <textarea readonly name="B" hidden>@ViewBag.B</textarea>
-        <textarea readonly name="C" hidden>@ViewBag.C</textarea>
-        <textarea readonly name="D" hidden>@ViewBag.D</textarea>
-        <textarea readonly name="Dung" hidden>@ViewBag.Dung</textarea>
+        <textarea name="File_ND" hidden id="custom850">@ViewBag.ND_File</textarea>
+        <textarea readonly name="CauHoi" hidden id="custom851">@ViewBag.CauHoi</textarea>
+        <textarea readonly name="A" hidden id="custom852">@ViewBag.A</textarea>
+        <textarea readonly name="B" hidden id="custom853">@ViewBag.B</textarea>
+        <textarea readonly name="C" hidden id="custom854">@ViewBag.C</textarea>
+        <textarea readonly name="D" hidden id="custom855">@ViewBag.D</textarea>
+        <textarea readonly name="Dung" hidden id="custom856">@ViewBag.Dung</textarea>
         <textarea readonly id="hoanvis" hidden>@ViewBag.HoanVis</textarea>
         }
         @if(ViewBag.ND_File != null)
         {
         <tr style="height:40px" id="xong">
-            <td></td>
-            <td>
-                <button><b onclick="xongroi()">CẬP NHẬT</b></button>
+            <td id="custom857"></td>
+            <td id="custom858">
+                <button id="custom859"><b onclick="xongroi()" id="custom860">CẬP NHẬT</b></button>
             </td>
         </tr>
         }

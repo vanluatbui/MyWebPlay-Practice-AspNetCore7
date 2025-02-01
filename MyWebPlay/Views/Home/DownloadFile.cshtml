@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -148,46 +148,46 @@ Layout = null;
      }
     
 </script>
-<table align="center">
-    <h2 style="text-align:center">DOWNLOAD YOUR FILE ON SERVER</h2>
+<table align="center" id="custom255">
+    <h2 style="text-align:center" id="custom256">DOWNLOAD YOUR FILE ON SERVER</h2>
     <br /><br />
-    <h3 style="color:red">@ViewBag.KQF</h3>
+    <h3 style="color:red" id="custom257">@ViewBag.KQF</h3>
     <br /><br />
     @for (int i = 0; i < ViewBag.XL; i++)
     {
     if (ViewBag.All == "1")
     {
-    <b> KẾT QUẢ FILE THỨ @(i+1) CỦA BẠN : </b>
+    <b id="custom258"> KẾT QUẢ FILE THỨ @(i+1) CỦA BẠN : </b>
     }
     else if (ViewBag.All == "2")
     {
-    <b> KẾT QUẢ FOLDER THỨ @(i+1) TRONG THƯ MỤC BẠN CHỈ ĐỊNH : </b>
+    <b id="custom259"> KẾT QUẢ FOLDER THỨ @(i+1) TRONG THƯ MỤC BẠN CHỈ ĐỊNH : </b>
     }
     <br />
-    <h3 style="color:sienna">@Html.Raw(@ViewData["KetQua"+i])</h3>
+    <h3 style="color:sienna" id="custom260">@Html.Raw(@ViewData["KetQua"+i])</h3>
     <br />
     <br />
     }
     <hr />
     <input type="password" id="matkhauadmin" size="30" />
-    <button style="color:purple" onclick="xoaallfile()">Xoá tất cả các file trên Server - toàn bộ (dành cho admin)</button>
+    <button style="color:purple" onclick="xoaallfile()" id="custom261">Xoá tất cả các file trên Server - toàn bộ (dành cho admin)</button>
     <br />
     <br />
-    <button style="color:blueviolet" onclick="uploadfile()">Bạn chưa đăng tải file trên hệ thống trước đó?</button>
+    <button style="color:blueviolet" onclick="uploadfile()" id="custom262">Bạn chưa đăng tải file trên hệ thống trước đó?</button>
     <br />
     <br />
-    <a href="#xuly" onclick="xoaValue('Folder')"><b>Nhập chính xác path folder để truy xuất các file (không bao gồm các folder con) để download - nếu để / mặc định là ROOT : </b></a><input id="Folder" type="text" size="50" value="/Folder1/Folder2" />
-    <button style="color:blue;font-weight:bold" onclick="downall()">ALL DOWNLOAD SERVER IN THIS FOLDER</button>
-    <button style="color:blue;font-weight:bold" onclick="downall1()">ALL DOWNLOAD SERVER IN THIS FOLDER (NÉN ALL ZIP)</button>
+    <a href="#xuly" onclick="xoaValue('Folder')"><b id="custom263">Nhập chính xác path folder để truy xuất các file (không bao gồm các folder con) để download - nếu để / mặc định là ROOT : </b></a><input id="Folder" type="text" size="50" value="/Folder1/Folder2" />
+    <button style="color:blue;font-weight:bold" onclick="downall()" id="custom264">ALL DOWNLOAD SERVER IN THIS FOLDER</button>
+    <button style="color:blue;font-weight:bold" onclick="downall1()" id="custom265">ALL DOWNLOAD SERVER IN THIS FOLDER (NÉN ALL ZIP)</button>
     <br />
     <br />
     <button style="color:brown;font-weight:bold" onclick="alldown()">ALL DOWNLOAD (TOÀN BỘ - chỉ admin)</button>
     <br />
     <br />
-    @*<b>Nhập số lượng file mà bạn muốn download (ROOT) : </b>*@ <input hidden type="number" id="SL" value="@ViewBag.SL" min="1"/>
+    @*<b id="custom266">Nhập số lượng file mà bạn muốn download (ROOT) : </b>*@ <input hidden type="number" id="SL" value="@ViewBag.SL" min="1"/>
     @* <button id="okX" onclick="soluongfile()">OK</button>*@
     <br />
     <br />
-    <a href="#xuly" onclick="xoaValue('FOLD')"><b>Nếu bạn không nhớ các folder trên Server có thể <u>lần mò từ từ</u> để xuất DS các thư mục đang tồn tại, bắt đầu bỏ trống trường này để đi từ mục ROOT (chỉ admin) : </b></a> <input type="text" value="/Folder1/Folder2" id="FOLD" size="50" /><button onclick="qwerty()"><b>XUẤT DS FOLDER IN THIS</b></button>
+    <a href="#xuly" onclick="xoaValue('FOLD')"><b id="custom267">Nếu bạn không nhớ các folder trên Server có thể <u id="custom268">lần mò từ từ</u> để xuất DS các thư mục đang tồn tại, bắt đầu bỏ trống trường này để đi từ mục ROOT (chỉ admin) : </b></a> <input type="text" value="/Folder1/Folder2" id="FOLD" size="50" /><button onclick="qwerty()" id="custom269"><b id="custom270">XUẤT DS FOLDER IN THIS</b></button>
     <br /><br />
 </table>

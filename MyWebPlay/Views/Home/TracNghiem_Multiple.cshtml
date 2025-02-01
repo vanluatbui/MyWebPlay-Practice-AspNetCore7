@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -96,21 +96,21 @@ Layout = null;
         soluong();
     }
 </script>
-<h3 style="color:aqua">Bạn nên trải nghiệm tính năng này trên máy tính (PC), laptop,... nhé 😄</h3>
+<h3 style="color:aqua" id="custom1667">Bạn nên trải nghiệm tính năng này trên máy tính (PC), laptop,... nhé 😄</h3>
 <br />
-<h2>@Html.ActionLink("Phiên bản này đã quá cũ, đi đến trải nghiệm phiên bản mới?", "TracNghiemX_Multiple")</h2>
+<h2 id="custom1668">@Html.ActionLink("Phiên bản này đã quá cũ, đi đến trải nghiệm phiên bản mới?", "TracNghiemX_Multiple")</h2>
 <br />
 <br />
-<table align="center">
-    <h2 style="text-align:center">Play Test Trắc Nghiệm - Multiple</h2>
+<table align="center" id="custom1669">
+    <h2 style="text-align:center" id="custom1670">Play Test Trắc Nghiệm - Multiple</h2>
     <br />
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+    <tr style="height:40px" id="custom1671">
+        <td id="custom1672"> </td>
+        <td id="custom1673">
             <br>
-            <b> Nhập số lượng chương bài học : </b>
+            <b id="custom1674"> Nhập số lượng chương bài học : </b>
             <br>
-            <input type="number" id="txtSL" onkeydown="return hanhphuc(event)" value="@ViewBag.SL"/><button onclick="soluong()">OK</button>
+            <input type="number" id="txtSL" onkeydown="return hanhphuc(event)" value="@ViewBag.SL"/><button onclick="soluong()" id="custom1675">OK</button>
         </td>
     </tr>
     @if (ViewBag.SL > 0)
@@ -119,82 +119,82 @@ Layout = null;
     {
     @Html.ValidationSummary(true)
     <input type="text" name="txtSoluong" value="@ViewBag.SL" hidden/>
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+    <tr style="height:40px" id="custom1676">
+        <td id="custom1677"> </td>
+        <td id="custom1678">
             <br>
-            <b> Nhập tên môn học/tên kỳ kiểm tra : </b>
+            <b id="custom1679"> Nhập tên môn học/tên kỳ kiểm tra : </b>
             <br>
             <input type="text" name="txtMon" size="50" value=" "/>
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
+            <span style="color:red; font-style:italic" id="custom1680">@ViewData["Loi"] </span>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+    <tr style="height:40px" id="custom1681">
+        <td id="custom1682"> </td>
+        <td id="custom1683">
             <br>
-            <b>Số câu cần làm :</b>
+            <b id="custom1684">Số câu cần làm :</b>
             <br>
-            <input type="number" name="txtSoCau" min="1" value="100">
+            <input type="number" name="txtSoCau" min="1" value="100" id="custom1685">
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+            <span style="color:red; font-style:italic" id="custom1686">@ViewData["Loi2"] </span>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1687">
+        <td id="custom1688"></td>
+        <td id="custom1689">
             <br>
-            <b>Thời gian làm bài (phút) : </b>
+            <b id="custom1690">Thời gian làm bài (phút) : </b>
             <br>
-            <input type="number" name="txtTime" min="1" value="30">
+            <input type="number" name="txtTime" min="1" value="30" id="custom1691">
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
+            <span style="color:red; font-style:italic" id="custom1692">@ViewData["Loi3"] </span>
         </td>
     </tr>
     for (int i = 0; i < ViewBag.SL; i++)
     {
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+    <tr style="height:40px" id="custom1693">
+        <td id="custom1694"> </td>
+        <td id="custom1695">
             <br>
-            <b> Tải file TXT trắc nghiệm của bạn cho chương bài @(i+1) (đã xử lý) : </b>
+            <b id="custom1696"> Tải file TXT trắc nghiệm của bạn cho chương bài @(i+1) (đã xử lý) : </b>
             <br>
             <input type="file" name="txtFile"/>
             @if (i == 0)
             {
-            <b>@Html.ActionLink("Bạn chưa có file trắc nghiệm?","CreateFile_TracNghiem")</b><br />
+            <b id="custom1697">@Html.ActionLink("Bạn chưa có file trắc nghiệm?","CreateFile_TracNghiem")</b><br />
             }
-            <span style="color:red; font-style:italic">@ViewData["Loi1-"+@i] </span>
+            <span style="color:red; font-style:italic" id="custom1698">@ViewData["Loi1-"+@i] </span>
         </td>
     </tr>
     }
     @if (ViewBag.SL != null && ViewBag.SL > 0)
     {
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+    <tr style="height:40px" id="custom1699">
+        <td id="custom1700"> </td>
+        <td id="custom1701">
             <br>
-            <input id="checkmucdo" name="txtMucDox" type="checkbox" onchange="tuychinhmucdo()" /><b style="color:orangered">Tuỳ chỉnh mức độ phân phối câu hỏi theo từng chương</b>
+            <input id="checkmucdo" name="txtMucDox" type="checkbox" onchange="tuychinhmucdo()" /><b style="color:orangered" id="custom1702">Tuỳ chỉnh mức độ phân phối câu hỏi theo từng chương</b>
             <br />
-            <span style="color:red; font-style:italic">@ViewData["LoiMucDo"] </span>
+            <span style="color:red; font-style:italic" id="custom1703">@ViewData["LoiMucDo"] </span>
             <br /><br />
             <div id="hienmucdo" style="display:none">
                 @for (int i = 0; i < ViewBag.SL; i++)
                 {
-                <b style="color:purple">Chương/Bài @(i+1)  : </b><input type="number" name="txtMucDo-@i" min="1" max="100" value="1" /><b style="color:lawngreen">%</b>
+                <b style="color:purple" id="custom1704">Chương/Bài @(i+1)  : </b><input type="number" name="txtMucDo-@i" min="1" max="100" value="1" /><b style="color:lawngreen" id="custom1705">%</b>
                 <br />
                 }
                 <br />
-                <span style="color:blue; font-style:italic">Lưu ý : bạn có thể tuỳ chỉnh các mức độ phân phối cho mỗi chương tuỳ ý, nhưng cũng phải dựa trên số liệu thực tế hiện có</span>
+                <span style="color:blue; font-style:italic" id="custom1706">Lưu ý : bạn có thể tuỳ chỉnh các mức độ phân phối cho mỗi chương tuỳ ý, nhưng cũng phải dựa trên số liệu thực tế hiện có</span>
             </div>
         </td>
     </tr>
     }
     <br />
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1707">
+        <td id="custom1708"></td>
+        <td id="custom1709">
             <input  id="ok" onclick="xong()" style="font-weight:bolder" type="Submit" value="Bắt đầu làm bài" />
             <br>
             <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />

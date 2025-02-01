@@ -1,24 +1,24 @@
-﻿@{
+@{
 Layout = null;
 }
 
 <!DOCTYPE html>
 <html lang="vi">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8" id="custom289">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" id="custom290">
         @if (TempData["OffRandomTab"] == "true")
         {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>@TempData["TabTittleView"]</title>
+        <title id="custom291">@TempData["TabTittleView"]</title>
         <link rel="icon" href="/images/imagex.png">
         }
         else
         {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>@TempData["Tab_Tittle"]</title>
+        <title id="custom292">@TempData["Tab_Tittle"]</title>
         <link rel="icon" href="@TempData["Tab_Image"]">
         }
         <style>
@@ -155,20 +155,20 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-    <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]">
+    <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]" id="custom293">
     <div id="bodyIndex">
         @using(Html.BeginForm())
         {
         <div class="header" style="color:orangered" name="backgroundX">Edit Text Note (soạn thảo bản nháp ghi chú)</div>
-        <div class="container">
+        <div class="container" id="custom294">
             <div name="backgroundX" class="line-numbers" id="lineNumbers">1</div>
-            <div class="editor-container">
+            <div class="editor-container" id="custom295">
                 <div class="highlight" id="highlight"></div>
                 <textarea autofocus class="editor" id="editor" name="txtText">@ViewBag.Text</textarea>
             </div>
         </div>
-        <div class="footer" name="backgroundX">
-            <button style="color:red">LƯU LẠI</button>
+        <div class="footer" name="backgroundX" id="custom296">
+            <button style="color:red" id="custom297">LƯU LẠI</button>
             &nbsp;&nbsp;&nbsp;&nbsp;
             @Html.ActionLink("Trở về", "ViewNoteFile")
         </div>

@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -51,66 +51,66 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-<table align="center">
-    <h2 style="text-align:center">Special X - OrderBy</h2>
-    <h3 style="color:purple" onclick="muaxuan()">@ViewBag.KetQua</h3>
+<table align="center" id="custom1078">
+    <h2 style="text-align:center" id="custom1079">Special X - OrderBy</h2>
+    <h3 style="color:purple" onclick="muaxuan()" id="custom1080">@ViewBag.KetQua</h3>
     @using (Html.BeginForm())
     {
     @Html.ValidationSummary(true)
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1081">
+        <td id="custom1082"></td>
+        <td id="custom1083">
             <br>
-            <b>Dữ kiện thứ tự sắp xếp và ưu tiên (index mỗi từ) : </b>
+            <b id="custom1084">Dữ kiện thứ tự sắp xếp và ưu tiên (index mỗi từ) : </b>
             <br>
-            <input type="text" size="50" name="SapXep" value="N-1=N-2=0=1">
+            <input type="text" size="50" name="SapXep" value="N-1=N-2=0=1" id="custom1085">
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+            <span style="color:red; font-style:italic" id="custom1086">@ViewData["Loi1"] </span>
         </td>
     </tr>
     <br />
     <br />
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+    <tr style="height:40px" id="custom1087">
+        <td id="custom1088"> </td>
+        <td id="custom1089">
             <br>
-            <b>Chuỗi của bạn : </b>
+            <b id="custom1090">Chuỗi của bạn : </b>
             <br>
-            <textarea rows="20" cols="150" name="Chuoi" autofocus>@ViewBag.ChuoiViDu</textarea>
+            <textarea rows="20" cols="150" name="Chuoi" autofocus id="custom1091">@ViewBag.ChuoiViDu</textarea>
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+            <span style="color:red; font-style:italic" id="custom1092">@ViewData["Loi2"] </span>
         </td>
     </tr>
     <br /><br />
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1093">
+        <td id="custom1094"></td>
+        <td id="custom1095">
             <br>
-            <b> Với 0 là sắp tăng và 1 là sắp giảm </b>
+            <b id="custom1096"> Với 0 là sắp tăng và 1 là sắp giảm </b>
             <br>
-            <input type="number" size="50" name="TangGiam" value="0" max="1" min="0">
+            <input type="number" size="50" name="TangGiam" value="0" max="1" min="0" id="custom1097">
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
+            <span style="color:red; font-style:italic" id="custom1098">@ViewData["Loi3"] </span>
         </td>
     </tr>
     <br />
     <br />
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1099">
+        <td id="custom1100"></td>
+        <td id="custom1101">
             <br>
-            <b> Nhập số ô cần xác định sắp xếp (index start in 1)  </b>
+            <b id="custom1102"> Nhập số ô cần xác định sắp xếp (index start in 1)  </b>
             <br>
-            <input type="number" size="50" name="CoDinh" value="2" min="1">
+            <input type="number" size="50" name="CoDinh" value="2" min="1" id="custom1103">
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi4"] </span>
+            <span style="color:red; font-style:italic" id="custom1104">@ViewData["Loi4"] </span>
         </td>
     </tr>
     <br />
     <br />
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1105">
+        <td id="custom1106"></td>
+        <td id="custom1107">
             <input type="Submit" value="Kết Quả" />
         </td>
     </tr>

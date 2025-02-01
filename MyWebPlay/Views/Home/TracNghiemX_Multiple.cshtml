@@ -1,4 +1,4 @@
-﻿@if (TempData["ViewSiteBasic"] == "true")
+@if (TempData["ViewSiteBasic"] == "true")
 {
 Layout = null;
 }
@@ -126,89 +126,89 @@ Layout = null;
         }
     }
 </script>
-<h3 style="color:aqua">Bạn nên trải nghiệm tính năng này trên máy tính (PC), laptop,... nhé 😄</h3>
+<h3 style="color:aqua" id="custom1632">Bạn nên trải nghiệm tính năng này trên máy tính (PC), laptop,... nhé 😄</h3>
 <br />
-<h2>@Html.ActionLink("Bạn muốn trải nghiệm lại phiên bản cũ?", "TracNghiem_Multiple")</h2>
+<h2 id="custom1633">@Html.ActionLink("Bạn muốn trải nghiệm lại phiên bản cũ?", "TracNghiem_Multiple")</h2>
 <br />
 <br />
-<table align="center">
-    <h2 style="text-align:center">Play Test X Trắc Nghiệm - Multiple</h2>
+<table align="center" id="custom1634">
+    <h2 style="text-align:center" id="custom1635">Play Test X Trắc Nghiệm - Multiple</h2>
     <br />
     @using (Html.BeginForm("TracNghiemX_Multiple", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
     @Html.ValidationSummary(true)
     <input type="text" name="txtSoluong" value="@ViewBag.SL" hidden/>
-    <tr style="height:40px">
-        <td> </td>
+    <tr style="height:40px" id="custom1636">
+        <td id="custom1637"> </td>
         <td id="phan3">
             <br>
-            <b> Nhập tên môn học/tên kỳ kiểm tra : </b>
+            <b id="custom1638"> Nhập tên môn học/tên kỳ kiểm tra : </b>
             <br>
             <input type="text" name="txtMon" size="50" value=" "/>
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi"] </span>
+            <span style="color:red; font-style:italic" id="custom1639">@ViewData["Loi"] </span>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td> </td>
+    <tr style="height:40px" id="custom1640">
+        <td id="custom1641"> </td>
         <td id="phan2">
             <br>
-            <b>Số câu cần làm (nếu bạn muốn làm hết toàn bộ các số câu hiện có, hãy thử nhập tại đây một số bất kỳ mà nó lớn hơn số lượng câu hỏi thực tế của bạn) :</b>
+            <b id="custom1642">Số câu cần làm (nếu bạn muốn làm hết toàn bộ các số câu hiện có, hãy thử nhập tại đây một số bất kỳ mà nó lớn hơn số lượng câu hỏi thực tế của bạn) :</b>
             <br>
-            <input type="number" name="txtSoCau" min="1" value="100">
+            <input type="number" name="txtSoCau" min="1" value="100" id="custom1643">
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi2"] </span>
+            <span style="color:red; font-style:italic" id="custom1644">@ViewData["Loi2"] </span>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
+    <tr style="height:40px" id="custom1645">
+        <td id="custom1646"></td>
         <td id="phan1">
             <br>
-            <b>Thời gian làm bài (phút) : </b>
+            <b id="custom1647">Thời gian làm bài (phút) : </b>
             <br>
-            <input type="number" name="txtTime" min="1" value="30">
+            <input type="number" name="txtTime" min="1" value="30" id="custom1648">
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi3"] </span>
+            <span style="color:red; font-style:italic" id="custom1649">@ViewData["Loi3"] </span>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td> </td>
-        <td>
+    <tr style="height:40px" id="custom1650">
+        <td id="custom1651"> </td>
+        <td id="custom1652">
             <br>
             <div id="upfile">
-            <b> Đưa tất cả các file trắc nghiệm (chương bài học) của bạn vào cùng 1 thư mục sau đó sẽ dễ dàng kéo tất cả các file vào đây...</b>
+            <b id="custom1653"> Đưa tất cả các file trắc nghiệm (chương bài học) của bạn vào cùng 1 thư mục sau đó sẽ dễ dàng kéo tất cả các file vào đây...</b>
             <br>
             <input type="file" onchange="return xemfile(event)" name="txtFile" multiple/>
             </div>
             <div id="noupfile">
-                <input type="checkbox" name="cbCoSan" id="cosan" onchange="xulycosan()" /><b style="color:orangered">Sử dụng mẫu trắc nghiệm có sẵn của hệ thống</b>
+                <input type="checkbox" name="cbCoSan" id="cosan" onchange="xulycosan()" /><b style="color:orangered" id="custom1654">Sử dụng mẫu trắc nghiệm có sẵn của hệ thống</b>
                 <br />
             </div>
-            <b>@Html.ActionLink("Bạn chưa có file trắc nghiệm?","CreateFile_TracNghiem")</b>
+            <b id="custom1655">@Html.ActionLink("Bạn chưa có file trắc nghiệm?","CreateFile_TracNghiem")</b>
             <br>
-            <span style="color:red; font-style:italic">@ViewData["Loi1"] </span>
+            <span style="color:red; font-style:italic" id="custom1656">@ViewData["Loi1"] </span>
             <br><br>
             <div id="listfile">
-            <h4 style="color:midnightblue">Danh sách các file bạn đã chọn :</h4>
+            <h4 style="color:midnightblue" id="custom1657">Danh sách các file bạn đã chọn :</h4>
             <ul id="ulx"></ul>
             </div>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1658">
+        <td id="custom1659"></td>
+        <td id="custom1660">
             <br>
             <input type="checkbox" name="txtTick" id="ticky" onchange="doitick()" /> <b style="color:brown">File trắc nghiệm của tôi hiện chưa có đáp án (nếu đã có thì vẫn có thể tiếp tục chỉnh sửa)</b>
             <br>
-            <span style="color:deeppink">Sử dụng tính năng này với mục đích setting/update answer trắc nghiệm vào file của bạn bằng cách chơi trực tiếp!</span><br>
-            <span style="color:red">Lưu ý : nếu bạn đã tự ý thủ công chỉnh sửa nội dung file trắc nghiệm trước đó, rất có thể khi bạn dùng tính năng chỉnh sửa này sẽ xảy ra một số lỗi khi hoàn tất...</span><br>
-            <span style="color:red">Ngoài ra, nếu file TXT của bạn tải lên là dạng <a href="/Home/CreateFile_Question">Question/Answer</a> thì vẫn có thể sử dụng tạm tính năng này để chỉnh sửa (tương tự).</span>
+            <span style="color:deeppink" id="custom1661">Sử dụng tính năng này với mục đích setting/update answer trắc nghiệm vào file của bạn bằng cách chơi trực tiếp!</span><br>
+            <span style="color:red" id="custom1662">Lưu ý : nếu bạn đã tự ý thủ công chỉnh sửa nội dung file trắc nghiệm trước đó, rất có thể khi bạn dùng tính năng chỉnh sửa này sẽ xảy ra một số lỗi khi hoàn tất...</span><br>
+            <span style="color:red" id="custom1663">Ngoài ra, nếu file TXT của bạn tải lên là dạng <a href="/Home/CreateFile_Question">Question/Answer</a> thì vẫn có thể sử dụng tạm tính năng này để chỉnh sửa (tương tự).</span>
             <br><br>
         </td>
     </tr>
-    <tr style="height:40px">
-        <td></td>
-        <td>
+    <tr style="height:40px" id="custom1664">
+        <td id="custom1665"></td>
+        <td id="custom1666">
             <input  id="ok" style="font-weight:bolder" type="Submit" onclick="xem()" value="Bắt đầu làm bài" />
             <br>
             <img id="loading" src="/Image_Play/waiting.gif" style="display:none" />

@@ -1937,7 +1937,6 @@ namespace MyWebPlay.Controllers
                     {
                         var noidung = pax[0] + "<>" + pax[1];
                         System.IO.File.WriteAllText(path, noidung);
-                        no_logout = true;
                     }
                 }
 
@@ -2024,6 +2023,10 @@ namespace MyWebPlay.Controllers
                     HttpContext.Session.SetString("admin-userIP", SetUserIPClientWhenAPI());
                     HttpContext.Session.SetString("keyTempAdmin", key);
 
+                    HttpContext.Session.SetString("open-admin", "true");
+                    HttpContext.Session.SetString("open-admin-yes", "true");
+                    TempData["admin-open"] = "true";
+
                     return Ok(new { result = "Thành công !" });
                 }
                 else
@@ -2031,6 +2034,11 @@ namespace MyWebPlay.Controllers
                     HttpContext.Session.Remove("adminSetting");
                     HttpContext.Session.Remove("admin-userIP");
                     HttpContext.Session.Remove("IsLoginAdminTemp");
+
+                    HttpContext.Session.Remove("open-admin");
+                    HttpContext.Session.Remove("open-admin-yes");
+                    TempData.Remove("admin-open");
+
                     return Ok(new { result = "Thất bại !" });
                 }
             }
@@ -2039,6 +2047,11 @@ namespace MyWebPlay.Controllers
                 HttpContext.Session.Remove("adminSetting");
                 HttpContext.Session.Remove("admin-userIP");
                 HttpContext.Session.Remove("IsLoginAdminTemp");
+
+                HttpContext.Session.Remove("open-admin");
+                HttpContext.Session.Remove("open-admin-yes");
+                TempData.Remove("admin-open");
+
                 return Ok(new { result = "Thất bại rồi !" });
             }
         }

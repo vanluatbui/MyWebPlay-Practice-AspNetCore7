@@ -2292,11 +2292,6 @@ namespace MyWebPlay.Controllers
             else if (type == "2")
             {
                 var data = MegaIo.TestMegaIO(_webHostEnvironment.WebRootPath);
-                if (data == true || data == false)
-                {
-                    MegaIo.LoginANDlogout(_webHostEnvironment.WebRootPath);
-                }
-
                 return Ok(new { result = data });
             }
 

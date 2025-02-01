@@ -4,6 +4,7 @@ using MyWebPlay.Extension;
 using MyWebPlay.Model;
 using System.Globalization;
 using System.Security.Cryptography.X509Certificates;
+using System.Net;
 
 namespace MyWebPlay.Controllers
 {
@@ -683,6 +684,28 @@ namespace MyWebPlay.Controllers
                     exception = "true"
                 });
             }
+        }
+
+        public ActionResult ShowMyHtml(string path, string isRoot = "true")
+        {
+            if (string.IsNullOrEmpty(path) == false)
+            {
+                if (isRoot == "true")
+                {
+                    var noidung = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath, path));
+                    return Content(noidung, "text/html");
+                }
+                else
+                {
+                    WebClient client = new WebClient();
+                    Stream stream = client.OpenRead(path);
+                    StreamReader reader = new StreamReader(stream);
+                    string noidung = reader.ReadToEnd();
+                    return Content(noidung, "text/html");
+                }
+            }
+
+            return Content("Đã xảy ra lỗi.");
         }
     }
 }

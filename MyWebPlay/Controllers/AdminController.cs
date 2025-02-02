@@ -4213,6 +4213,11 @@ namespace MyWebPlay.Controllers
                 var pathTmp = Path.Combine(_webHostEnvironment.WebRootPath, "Others", "TempSession.txt");
                 System.IO.File.WriteAllText(pathTmp, "");
 
+                for (var i = 1; i <= 6; i++)
+                {
+                    System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "SavedTempSession", i + ".txt"), "");
+                }
+
                 var noteLog = Path.Combine(_webHostEnvironment.WebRootPath, "note", "notelog.txt");
                 if (System.IO.File.Exists(noteLog) == false)
                 {

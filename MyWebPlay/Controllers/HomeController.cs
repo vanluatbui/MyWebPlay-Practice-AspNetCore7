@@ -1609,6 +1609,11 @@ namespace MyWebPlay.Controllers
                 var pathTmp = Path.Combine(_webHostEnvironment.WebRootPath, "Others", "TempSession.txt");
                 System.IO.File.WriteAllText(pathTmp, "");
 
+                for (var i = 1; i <= 6; i++)
+                {
+                    System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "SavedTempSession", i + ".txt"), "");
+                }
+
                 if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Exists == true)
                     new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Delete(true);
 

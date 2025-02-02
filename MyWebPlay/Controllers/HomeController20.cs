@@ -25,6 +25,11 @@ namespace MyWebPlay.Controllers
                 var pathTmp = Path.Combine(_webHostEnvironment.WebRootPath, "Others", "TempSession.txt");
                 System.IO.File.WriteAllText(pathTmp, "");
 
+                for(var i = 1; i <= 6; i++)
+                {
+                    System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "SavedTempSession", i + ".txt"), "");
+                }
+
                 var pthY = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
                 var ndY = System.IO.File.ReadAllText(pthY);
                 var onoff = ndY.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[3];

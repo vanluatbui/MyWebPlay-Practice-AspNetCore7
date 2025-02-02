@@ -687,7 +687,7 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveSessionTemp(IFormFile file)
+        public async Task<IActionResult> SaveSessionTemp(IFormFile file, string? indexSaved)
         {
             if (file == null || file.Length == 0)
             {
@@ -702,7 +702,14 @@ namespace MyWebPlay.Controllers
 
             HttpContext.Session.SetString("save_session_tmp", content);
 
-            return Ok(new { result = true, message = "Đã xử lý và đưa nội dung của bạn vào session thành công." });
+            var co = "";
+            if (string.IsNullOrEmpty(indexSaved) == false)
+            {
+                System.IO.File.WriteAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "SavedTempSession", indexSaved + ".txt"), content);
+                co = "(đã lưu vào file tương ứng - nếu có)";
+            }
+
+            return Ok(new { result = true, message = "Đã xử lý và đưa nội dung của bạn vào session thành công"+co+"." });
         }
 
         public ActionResult ShowMyHtml1(string path, string isRoot = "true")
@@ -729,6 +736,12 @@ namespace MyWebPlay.Controllers
                 if (content != null && string.IsNullOrEmpty(content) == false)
                 {
                     return Content(content, "text/html");
+                }
+
+                var fileTmp = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "SavedTempSession", "1.txt"));
+                if (string.IsNullOrEmpty(fileTmp) == false)
+                {
+                    return Content(fileTmp, "text/html");
                 }
             }
 
@@ -760,6 +773,12 @@ namespace MyWebPlay.Controllers
                 {
                     return Content(content, "text/html");
                 }
+
+                var fileTmp = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "SavedTempSession", "2.txt"));
+                if (string.IsNullOrEmpty(fileTmp) == false)
+                {
+                    return Content(fileTmp, "text/html");
+                }
             }
 
             return Content("Đã xảy ra lỗi.");
@@ -789,6 +808,12 @@ namespace MyWebPlay.Controllers
                 if (content != null && string.IsNullOrEmpty(content) == false)
                 {
                     return Content(content, "text/html");
+                }
+
+                var fileTmp = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "SavedTempSession", "3.txt"));
+                if (string.IsNullOrEmpty(fileTmp) == false)
+                {
+                    return Content(fileTmp, "text/html");
                 }
             }
 
@@ -820,6 +845,12 @@ namespace MyWebPlay.Controllers
                 {
                     return Content(content, "application/json");
                 }
+
+                var fileTmp = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "SavedTempSession", "4.txt"));
+                if (string.IsNullOrEmpty(fileTmp) == false)
+                {
+                    return Content(fileTmp, "application/json");
+                }
             }
 
             return Content("Đã xảy ra lỗi.");
@@ -850,6 +881,12 @@ namespace MyWebPlay.Controllers
                 {
                     return Content(content, "application/json");
                 }
+
+                var fileTmp = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "SavedTempSession", "5.txt"));
+                if (string.IsNullOrEmpty(fileTmp) == false)
+                {
+                    return Content(fileTmp, "application/json");
+                }
             }
 
             return Content("Đã xảy ra lỗi.");
@@ -879,6 +916,12 @@ namespace MyWebPlay.Controllers
                 if (content != null && string.IsNullOrEmpty(content) == false)
                 {
                     return Content(content, "application/json");
+                }
+
+                var fileTmp = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "SavedTempSession", "6.txt"));
+                if (string.IsNullOrEmpty(fileTmp) == false)
+                {
+                    return Content(fileTmp, "application/json");
                 }
             }
 

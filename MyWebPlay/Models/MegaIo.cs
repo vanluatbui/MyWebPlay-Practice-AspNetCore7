@@ -45,7 +45,7 @@ namespace MyWebPlay.Models
             {
                 if (megaClient.IsLoggedIn)
                 {
-                    megaClient.Logout();
+                    return true;
                 }
 
                 var email = "mywebplay.savefile@gmail.com";
@@ -73,6 +73,14 @@ namespace MyWebPlay.Models
             }
 
             return true;
+        }
+
+        public static void Logout()
+        {
+            if (megaClient.IsLoggedIn)
+            {
+                megaClient.Logout();
+            }
         }
     }
 }

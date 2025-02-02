@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using System.Text.RegularExpressions;
 using Org.BouncyCastle.Asn1;
 using System.IO;
+using MyWebPlay.Models;
 
 namespace MyWebPlay.Controllers
 {
@@ -2601,6 +2602,7 @@ namespace MyWebPlay.Controllers
 
                         if (xinh != info[3])
                         {
+                            MegaIo.Logout();
                             cometo = "#come-" + i;
                             dix++;
                         }

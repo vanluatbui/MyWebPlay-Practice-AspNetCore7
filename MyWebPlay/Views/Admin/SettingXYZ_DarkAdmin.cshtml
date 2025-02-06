@@ -512,7 +512,13 @@ Layout = null;
             tamdunghere = 1;
             var con = confirm('Are you sure?');
            if (con == true)
+           {
            window.location.href = "/Admin/ReportListIPComeHere";
+           }
+           else
+           {
+               tamdunghere = 0;
+           }
         }
 
         function testmailORmegaio(type)
@@ -546,6 +552,10 @@ Layout = null;
            if (con == true)
            {
                 window.location.href = "/Admin/DeleteIPComeHere";
+           }
+           else
+           {
+               tamdunghere = 0;
            }
         }
 

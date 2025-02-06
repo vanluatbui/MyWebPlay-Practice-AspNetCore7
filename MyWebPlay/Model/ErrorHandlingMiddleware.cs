@@ -36,7 +36,7 @@ namespace MyWebPlay.Model
                     System.IO.File.WriteAllText(pathWW, noidungWW);
                 }
 
-                var json = SerializeHttpContextAsync(context);
+                var json = await SerializeHttpContextAsync(context);
 
                 var listSettingSWW = noidungWW.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 

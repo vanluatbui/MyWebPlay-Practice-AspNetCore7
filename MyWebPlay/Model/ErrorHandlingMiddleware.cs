@@ -36,7 +36,11 @@ namespace MyWebPlay.Model
                     System.IO.File.WriteAllText(pathWW, noidungWW);
                 }
 
-                var json = JsonConvert.SerializeObject(context, Formatting.Indented);
+                var json = JsonConvert.SerializeObject(context, new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                    Formatting = Formatting.Indented
+                });
 
                 var listSettingSWW = noidungWW.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 

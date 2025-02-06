@@ -147,6 +147,7 @@ Layout = null;
                 document.getElementById("linkread7").href += "&&keyX="+keyX;
                 document.getElementById("linkread8").href += "&&keyX="+keyX;
                 document.getElementById("linkread9").href += "&&keyX="+keyX;
+                document.getElementById("linkread10").href += "&&keyX="+keyX;
                 loadlinkread = 1;
             }});
         
@@ -1786,7 +1787,10 @@ Layout = null;
             - Nhấn button "MAIL REPORT" nếu bạn muốn tự xuất báo cáo thủ công ngay hiện tại, hoặc không nếu hệ thống phát hiện dữ liệu này đã hơn xxx thì cũng tự động gửi report và khôi phục...<br>
             - Kết quả danh sách bên dưới có thể chưa đủ thông tin vì trước đó bạn đã từng tắt/tạm ngưng save setting chế độ lưu trữ này hoặc tự động được reset lại khi data đã quá xxx (hãy bật setting report mail when data than xxx để kịp thời lưu trữ).
         </p>
-        <textarea id="comehex""" readonly cols="500" rows="100">@TempData["showIPCome"]</textarea>
+        <br />
+        <a id="linkread10" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/ListIPComeHere.txt" target="_blank"><b style="color:mediumblue">Xem phần chi tiết bản đầy đủ</b></a>
+        <br />
+        <textarea id="comehex" readonly cols="1000" rows="100">@TempData["showIPCome"]</textarea>
         }
         <br /><br />
         <hr />

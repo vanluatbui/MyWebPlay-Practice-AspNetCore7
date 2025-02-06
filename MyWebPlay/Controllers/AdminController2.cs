@@ -11,6 +11,7 @@ using System.Web;
 using Org.BouncyCastle.Security.Certificates;
 using MyWebPlay.Models;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using System.Text.RegularExpressions;
 
 namespace MyWebPlay.Controllers
 {
@@ -2382,6 +2383,9 @@ namespace MyWebPlay.Controllers
 
             var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
             var data = docfile(pathS);
+
+            data = Regex.Replace(data, @"^.*\[DEBUG\].*\n?", string.Empty, RegexOptions.Multiline);
+
             return Ok(new { result = data });
         }
     }

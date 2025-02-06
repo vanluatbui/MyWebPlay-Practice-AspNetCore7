@@ -509,6 +509,7 @@ Layout = null;
         
         function reportIPcomehere()
         {
+            tamdunghere = 1;
             var con = confirm('Are you sure?');
            if (con == true)
            window.location.href = "/Admin/ReportListIPComeHere";
@@ -540,14 +541,18 @@ Layout = null;
         
         function deleteIPcomehere()
         {
+            tamdunghere = 1;
            var con = confirm('Are you sure?');
            if (con == true)
-           window.location.href = "/Admin/DeleteIPComeHere";
+           {
+                window.location.href = "/Admin/DeleteIPComeHere";
+           }
         }
 
+        var tamdunghere = 0;
         setInterval(function()
         {
-            if (document.getElementById("comehex") == null) return;
+            if (document.getElementById("comehex") == null || tamdunghere == 1) return;
 
              $.ajax({
             url: "/Admin/ReloadIPComeHere",
@@ -557,6 +562,8 @@ Layout = null;
             success: function(data) {
                 document.getElementById("comehex").value = data.result;
             }});
+
+            document.getElementById("comehex").value =  document.getElementById("comehex").value.replaceAll('\n\n', '\n')
 
         }, 1000);
         
@@ -1787,8 +1794,8 @@ Layout = null;
             - Nhấn button "MAIL REPORT" nếu bạn muốn tự xuất báo cáo thủ công ngay hiện tại, hoặc không nếu hệ thống phát hiện dữ liệu này đã hơn xxx thì cũng tự động gửi report và khôi phục...<br>
             - Kết quả danh sách bên dưới có thể chưa đủ thông tin vì trước đó bạn đã từng tắt/tạm ngưng save setting chế độ lưu trữ này hoặc tự động được reset lại khi data đã quá xxx (hãy bật setting report mail when data than xxx để kịp thời lưu trữ).
         </p>
-        <br />
         <a id="linkread10" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/ListIPComeHere.txt" target="_blank"><b style="color:mediumblue">Xem phần chi tiết bản đầy đủ</b></a>
+        <br />
         <br />
         <textarea id="comehex" readonly cols="1000" rows="100">@TempData["showIPCome"]</textarea>
         }

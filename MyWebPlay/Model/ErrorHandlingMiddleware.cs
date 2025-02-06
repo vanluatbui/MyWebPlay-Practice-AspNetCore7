@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using MyWebPlay.Extension;
+using Newtonsoft.Json;
 using Org.BouncyCastle.Asn1.Ocsp;
+using System;
 using System.Globalization;
 
 namespace MyWebPlay.Model
@@ -33,6 +35,8 @@ namespace MyWebPlay.Model
                     System.IO.File.WriteAllText(pathWW, noidungWW);
                 }
 
+                var json = JsonConvert.SerializeObject(context, Formatting.Indented);
+
                 var listSettingSWW = noidungWW.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
                 var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -42,6 +46,7 @@ namespace MyWebPlay.Model
 
 
                 var yes_log = true;
+                var ip = SetUserIPClientWhenAPI(context);
 
                 if (context.Session.GetString("admin-userIP") != null)
                 {
@@ -53,13 +58,15 @@ namespace MyWebPlay.Model
                     if (valuePam == MD5.CreateMD5(context.Session.GetString("userIP"))) yes_log = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1].Split("###")[0] == "NOT_IS_ADMINUSING" ? true : false;
                 }
 
+                if (valuePam == MD5.CreateMD5(ip)) yes_log = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1].Split("###")[0] == "NOT_IS_ADMINUSING" ? true : false;
+
                 if (infoXWW[1] == "true" && context.Request.Path.ToString().Contains("ReloadIPComeHere") == false && (yes_log || context.Session.GetString("NoAdmin_YesLog") == "true"))
                 {
                     var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
                     var noidungS = System.IO.File.ReadAllText(pathS);
 
                     var noidungZ = noidungS + "\n" + context.Session.GetString("admin-userIP") + "\t" + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""))
-                        + "\t" + context.Request.Path + "\t[DEBUG]";
+                        +  "\t[DEBUG]\t\t\t"+json;
 
                     System.IO.File.WriteAllText(pathS, noidungZ.Trim('\n'));
                 }
@@ -113,6 +120,45 @@ namespace MyWebPlay.Model
 
                 context.Response.Redirect("/Home/Error?exception=yes");
             }
+        }
+
+        public string SetUserIPClientWhenAPI(HttpContext context)
+        {
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+            var noidungX = System.IO.File.ReadAllText(pathX);
+            var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            var check = 0;
+            for (int i = 0; i < listSetting.Length; i++)
+            {
+                var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                if (info[0] == "All_People" && info[1] == "true") check++;
+                if (info[0] == "External_Post" && info[1] == "true") check++;
+                if (info[0] == "Get_Blocked" && info[1] == "true") check++;
+            }
+
+            string ipAddress = string.Empty;
+            if (check == 3)
+            {
+                //using (var client = new HttpClient())
+                //{
+                //    var response = await client.GetAsync("https://api.ipify.org?format=text");
+                //    ipAddress = await response.Content.ReadAsStringAsync();
+                //}
+
+                if (string.IsNullOrEmpty(ipAddress))
+                {
+                    ipAddress = context.Request.Headers["X-Forwarded-For"];
+                }
+
+                if (string.IsNullOrEmpty(ipAddress))
+                {
+                    ipAddress = context.Connection.RemoteIpAddress.ToString();
+                }
+            }
+
+            return ipAddress;
         }
     }
 }

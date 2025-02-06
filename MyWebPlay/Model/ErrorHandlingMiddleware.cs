@@ -36,11 +36,7 @@ namespace MyWebPlay.Model
                     System.IO.File.WriteAllText(pathWW, noidungWW);
                 }
 
-                var json = JsonConvert.SerializeObject(context, new JsonSerializerSettings
-                {
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                    Formatting = Formatting.Indented
-                });
+                var json = SerializeHttpContextAsync(context);
 
                 var listSettingSWW = noidungWW.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
@@ -71,9 +67,9 @@ namespace MyWebPlay.Model
                     var noidungS = System.IO.File.ReadAllText(pathS);
 
                     var noidungZ = noidungS + "\n" + context.Session.GetString("admin-userIP") + "\t" + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""))
-                        +  "\t[DEBUG]\t\t\t"+json;
+                        +  "\t[DEBUG]\t\t\t"+json + "\n\n";
 
-                    System.IO.File.WriteAllText(pathS, noidungZ.Trim('\n'));
+                    System.IO.File.WriteAllText(pathS, noidungZ);
                 }
 
                 if (yes_log || context.Session.GetString("NoAdmin_YesLog") == "true")
@@ -171,6 +167,112 @@ namespace MyWebPlay.Model
             }
 
             return ipAddress;
+        }
+
+        public static async Task<string> SerializeHttpContextAsync(HttpContext context)
+        {
+            var contextData = new
+            {
+                // ✅ Thông tin Request từ client
+                Request = new
+                {
+                    Method = context.Request.Method,
+                    Scheme = context.Request.Scheme,
+                    Host = context.Request.Host.ToString(),
+                    Path = context.Request.Path,
+                    QueryString = context.Request.QueryString.ToString(),
+                    Headers = context.Request.Headers.ToDictionary(h => h.Key, h => h.Value.ToString()),
+                    Cookies = context.Request.Cookies.ToDictionary(c => c.Key, c => c.Value),
+                    Form = await GetRequestFormAsync(context), // Lấy Form Data (nếu có)
+                    Body = await GetRequestBodyAsync(context.Request) // Xử lý riêng vì Body là Stream
+                },
+
+                // ✅ Thông tin Response từ server
+                Response = new
+                {
+                    StatusCode = context.Response.StatusCode,
+                    Headers = context.Response.Headers.ToDictionary(h => h.Key, h => h.Value.ToString())
+                },
+
+                // ✅ Thông tin về người dùng (User)
+                User = new
+                {
+                    Identity = context.User.Identity?.Name ?? "Anonymous",
+                    IsAuthenticated = context.User.Identity?.IsAuthenticated ?? false,
+                    Claims = context.User.Claims.Select(c => new { c.Type, c.Value }).ToList()
+                },
+
+                // ✅ Thông tin Kết nối (Connection)
+                Connection = new
+                {
+                    RemoteIpAddress = context.Connection.RemoteIpAddress?.ToString(),
+                    RemotePort = context.Connection.RemotePort,
+                    LocalIpAddress = context.Connection.LocalIpAddress?.ToString(),
+                    LocalPort = context.Connection.LocalPort,
+                    ClientCertificate = context.Connection.ClientCertificate?.Subject ?? "No Certificate"
+                },
+
+                // ✅ Thông tin về Session (nếu có)
+                Session = context.Session?.Keys.ToDictionary(k => k, k => context.Session.GetString(k)) ?? new Dictionary<string, string>(),
+
+                // ✅ Thông tin WebSockets
+                WebSockets = new
+                {
+                    IsWebSocketRequest = context.WebSockets.IsWebSocketRequest
+                },
+
+                // ✅ Thông tin Authentication (nếu có)
+                Authentication = new
+                {
+                    Schemes = context.Features.Get<Microsoft.AspNetCore.Authentication.IAuthenticationFeature>()?.OriginalPathBase.ToString() ?? "Unknown"
+                },
+
+                // ❌ Các thuộc tính không thể serialize trực tiếp
+                Features = "Cannot Serialize",
+                Items = "Cannot Serialize",
+                RequestServices = "Cannot Serialize",
+                TraceIdentifier = context.TraceIdentifier
+            };
+
+            return JsonConvert.SerializeObject(contextData, Formatting.Indented);
+        }
+
+        // ✅ Hàm lấy Body từ Request (nếu có)
+        private static async Task<string> GetRequestBodyAsync(HttpRequest request)
+        {
+            try
+            {
+                if (request.Body.CanSeek)
+                {
+                    request.Body.Position = 0;
+                    using (StreamReader reader = new StreamReader(request.Body))
+                    {
+                        return await reader.ReadToEndAsync();
+                    }
+                }
+                return "Body is not readable";
+            }
+            catch
+            {
+                return "Cannot Serialize Body";
+            }
+        }
+
+        // ✅ Hàm lấy Form Data từ Request (nếu có)
+        private static async Task<Dictionary<string, string>> GetRequestFormAsync(HttpContext context)
+        {
+            try
+            {
+                if (context.Request.HasFormContentType)
+                {
+                    return context.Request.Form.ToDictionary(f => f.Key, f => f.Value.ToString());
+                }
+                return new Dictionary<string, string>();
+            }
+            catch
+            {
+                return new Dictionary<string, string> { { "Error", "Cannot Serialize Form Data" } };
+            }
         }
     }
 }

@@ -22,8 +22,16 @@ namespace MyWebPlay.Model
         {
             try
             {
+
                 var pathWW = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
                 var noidungWW = System.IO.File.ReadAllText(pathWW);
+
+                if (noidungWW.Contains("[ENCRYPT]"))
+                {
+                    noidungWW = noidungWW.Replace("[ENCRYPT]", "");
+                    noidungWW = StringMaHoaExtension.Decrypt(noidungWW, "32752262");
+                    System.IO.File.WriteAllText(pathWW, noidungWW);
+                }
 
                 var listSettingSWW = noidungWW.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
@@ -71,7 +79,17 @@ namespace MyWebPlay.Model
                     }
                 }
 
-                await _next(context);
+                var onEncryptSetting = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[9];
+                if (onEncryptSetting == "ENCRYPT_LOCK_FILE_ADMIN_SETTING_WHEN_GO_TO_PAGE_ERROR_ON")
+                {
+                    if (noidungWW.Contains("[ENCRYPT]") == false)
+                    {
+                        noidungWW = StringMaHoaExtension.Encrypt(noidungWW, "32752262");
+                        System.IO.File.WriteAllText(pathWW, "[ENCRYPT]" + noidungWW);
+                    }
+                }
+
+                  await _next(context);
             }
             catch (Exception ex)
             {

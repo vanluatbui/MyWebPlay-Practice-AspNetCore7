@@ -22,6 +22,55 @@ namespace MyWebPlay.Model
         {
             try
             {
+                var pathWW = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidungWW = System.IO.File.ReadAllText(pathWW);
+
+                var listSettingSWW = noidungWW.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                var valuePam = System.IO.File.ReadAllText(pam).Split("<>")[0];
+
+
+                var yes_log = true;
+
+                if (context.Session.GetString("admin-userIP") != null)
+                {
+                    if (valuePam == MD5.CreateMD5(context.Session.GetString("admin-userIP"))) yes_log = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1].Split("###")[0] == "NOT_IS_ADMINUSING" ? true : false;
+                }
+
+                if (context.Session.GetString("userIP") != null)
+                {
+                    if (valuePam == MD5.CreateMD5(context.Session.GetString("userIP"))) yes_log = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1].Split("###")[0] == "NOT_IS_ADMINUSING" ? true : false;
+                }
+
+                if (infoXWW[1] == "true" && (yes_log || context.Session.GetString("NoAdmin_YesLog") == "true"))
+                {
+                    var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
+                    var noidungS = System.IO.File.ReadAllText(pathS);
+
+                    var noidungZ = noidungS + "\n" + context.Session.GetString("admin-userIP") + "\t" + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""))
+                        + "\t" + context.Request.Path + "\t[DEBUG]";
+
+                    System.IO.File.WriteAllText(pathS, noidungZ.Trim('\n'));
+                }
+
+                if (yes_log || context.Session.GetString("NoAdmin_YesLog") == "true")
+                {
+                    var lockedApp = listSettingSWW[43].Split("<3275>");
+                    if (lockedApp[3] != "[NULL]")
+                    {
+                        var xi = context.Request.Path;
+                        if (xi == "" || xi == "/" || xi == null) xi = "/" + System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[20].Replace("--", "/");
+
+                        if (lockedApp[3].Contains(xi))
+                        {
+                            context.Response.Redirect("/Home/Error#debug");
+                        }
+                    }
+                }
+
                 await _next(context);
             }
             catch (Exception ex)

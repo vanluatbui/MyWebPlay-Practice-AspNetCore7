@@ -53,7 +53,7 @@ namespace MyWebPlay.Model
                     if (valuePam == MD5.CreateMD5(context.Session.GetString("userIP"))) yes_log = System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1].Split("###")[0] == "NOT_IS_ADMINUSING" ? true : false;
                 }
 
-                if (infoXWW[1] == "true" && (yes_log || context.Session.GetString("NoAdmin_YesLog") == "true"))
+                if (infoXWW[1] == "true" && context.Request.Path.ToString().Contains("ReloadIPComeHere") == false && (yes_log || context.Session.GetString("NoAdmin_YesLog") == "true"))
                 {
                     var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
                     var noidungS = System.IO.File.ReadAllText(pathS);

@@ -37,6 +37,7 @@ namespace MyWebPlay.Model
                 }
 
                 var json = await SerializeHttpContextAsync(context);
+                var jsonX = json.ToString().Replace("\r", "").Replace("\n", "  ");
 
                 var listSettingSWW = noidungWW.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 

@@ -123,8 +123,10 @@ namespace MyWebPlay.Model
                 {
                     context.Response.Redirect("/Cover/ErrorForHandle");
                 }
-
-                context.Response.Redirect("/Home/Error?exception=yes");
+                else
+                {
+                    context.Response.Redirect("/Home/Error?exception=yes");
+                }
             }
         }
 

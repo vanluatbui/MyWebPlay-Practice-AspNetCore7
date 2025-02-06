@@ -2385,6 +2385,12 @@ namespace MyWebPlay.Controllers
             var data = docfile(pathS);
 
             data = Regex.Replace(data, @"^.*\[DEBUG\].*\n?", string.Empty, RegexOptions.Multiline);
+            data = data.Replace("\r", "");
+            do
+            {
+                data = data.Replace("\n\n", "\n");
+            }
+            while(data.Contains("\n\n"));
 
             return Ok(new { result = data });
         }

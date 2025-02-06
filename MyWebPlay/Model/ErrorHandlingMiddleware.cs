@@ -68,7 +68,7 @@ namespace MyWebPlay.Model
                     var noidungS = System.IO.File.ReadAllText(pathS);
 
                     var noidungZ = noidungS + "\n" + context.Session.GetString("admin-userIP") + "\t" + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(System.IO.File.ReadAllText(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""))
-                        +  "\t[DEBUG]\t\t\t"+json + "\n\n";
+                        +  "\t[DEBUG]\t\t\t"+jsonX + "\n\n";
 
                     System.IO.File.WriteAllText(pathS, noidungZ);
                 }

@@ -33,7 +33,7 @@ app.UseRouting();
 app.UseSession();
 app.UseAuthorization();
 
-var sao = System.IO.File.ReadAllText(Path.Combine(app.Environment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n");
+var sao = FileExtension.ReadFile(Path.Combine(app.Environment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n");
 var port = sao[21].Split("-");
 
 builder.WebHost.UseUrls(port);
@@ -44,7 +44,7 @@ var con = string.Format("@leftcontroller={0}@right/@leftaction={1}@right/@leftid
 
 //Unlock login admin
 //var pam = Path.Combine(app.Environment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
-//System.IO.File.WriteAllText(pam, string.Empty);
+//FileExtension.WriteFile(pam, string.Empty);
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
 

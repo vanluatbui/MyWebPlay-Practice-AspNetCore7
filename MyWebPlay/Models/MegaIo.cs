@@ -5,6 +5,7 @@ using MyWebPlay.Extension;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using MyWebPlay.Model;
 
 namespace MyWebPlay.Models
 {
@@ -51,8 +52,8 @@ namespace MyWebPlay.Models
                 var email = "mywebplay.savefile@gmail.com";
                 var password = "vanluat12345#";
 
-                var path = Path.Combine(rootPth.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", System.IO.File.ReadAllText(Path.Combine(rootPth.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
-                var noidung = System.IO.File.ReadAllText(path);
+                var path = Path.Combine(rootPth.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", FileExtension.ReadFile(Path.Combine(rootPth.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                var noidung = FileExtension.ReadFile(path);
 
                 var listSetting = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 

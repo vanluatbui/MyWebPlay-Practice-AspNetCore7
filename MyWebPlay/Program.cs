@@ -52,6 +52,17 @@ app.MapControllerRoute(
     name: "default",
     pattern: con.Replace("@left","{").Replace("@right", "}"));
 
+app.Use(async (context, next) =>
+{
+    context.Response.Headers["Accept-CH"] = "Sec-CH-UA, Sec-CH-UA-Platform";
+    await next();
+});
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
+
 BuildProgram.BuildProgramPlay(app.Environment);
 
 app.Run();

@@ -2384,14 +2384,6 @@ namespace MyWebPlay.Controllers
             var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
             var data = FileExtension.ReadFile(pathS);
 
-            data = Regex.Replace(data, @"^.*\[DEBUG\].*\n?", string.Empty, RegexOptions.Multiline);
-            data = data.Replace("\r", "");
-            do
-            {
-                data = data.Replace("\n\n", "\n");
-            }
-            while(data.Contains("\n\n"));
-
             return Ok(new { result = data });
         }
     }

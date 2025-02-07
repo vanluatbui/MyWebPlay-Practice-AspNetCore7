@@ -545,11 +545,6 @@ namespace MyWebPlay.Controllers
         {
             return Ok(new { url = StringMaHoaExtension.Encrypt(url) });
         }
-
-        public ActionResult RedirectUrlEncode(string? id, string code)
-        {
-            return Redirect(StringMaHoaExtension.Decrypt(code));
-        }
    
         public class STData
         {

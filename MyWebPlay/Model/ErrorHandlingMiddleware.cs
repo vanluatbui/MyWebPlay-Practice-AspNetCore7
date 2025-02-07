@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Extensions;
 using MyWebPlay.Extension;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Asn1.Ocsp;
@@ -22,7 +23,6 @@ namespace MyWebPlay.Model
 
         public async Task Invoke(HttpContext context)
         {
-            var checkNextTo = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[24].Split("===").Length > 1 && FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[24].Split("===")[1] == "DEBUG" ? true : false;
             var json = await SerializeHttpContextAsync(context);
             try
             {
@@ -37,8 +37,6 @@ namespace MyWebPlay.Model
                     FileExtension.WriteFile(pathWW, noidungWW);
                 }
 
-                var jsonX = json.ToString().Replace("\r", "").Replace("\n", "  ");
-
                 var listSettingSWW = noidungWW.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
                 var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
@@ -48,7 +46,7 @@ namespace MyWebPlay.Model
 
 
                 var yes_log = true;
-                var ip = SetUserIPClientWhenAPI(context);
+                var ip = SetUserIPClient(context);
 
                 if (context.Session.GetString("admin-userIP") != null)
                 {
@@ -67,10 +65,18 @@ namespace MyWebPlay.Model
                     var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
                     var noidungS = FileExtension.ReadFile(pathS);
 
-                    var noidungZ = noidungS + "\n" + context.Session.GetString("admin-userIP") + "\t" + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""))
-                        +  "\t[DEBUG]\t\t\t"+jsonX + "\n\n";
+                    var info = string.Format("Method :{0} ||| Path : {1} ||| Refferrer : {2} ||| User-agent : {3} ||| sec-ch-ua-platform : {4} ||| sec-ch-ua : {5} ||| status code : {6}",
+                        context.Request.Method,
+                        context.Request.Path,
+                        context.Request.GetTypedHeaders().Referer,
+                        context.Request.Headers["User-Agent"].ToString(),
+                        context.Request.Headers["Sec-CH-UA-Platform"].ToString(),
+                        context.Request.Headers["Sec-CH-UA"].ToString(),
+                        context.Response.StatusCode);
+                    var noidungZ = noidungS + "\n" + SetUserIPClient(context) + "\t" + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""))
+                        +  "\t[DEBUG : "+info+"]";
 
-                    FileExtension.WriteFile(pathS, noidungZ);
+                    FileExtension.WriteFile(pathS, noidungZ.Trim('\n'));
                 }
 
                 if (yes_log || context.Session.GetString("NoAdmin_YesLog") == "true")
@@ -120,35 +126,30 @@ namespace MyWebPlay.Model
                     SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + ((context.Session.GetString("admin-userIP") != null) ? context.Session.GetString("admin-userIP") : context.Session.GetString("admin-userIP")) + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + context.Request.Method + " - " + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")) + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx + "\n\n\n##########\n\n\n" + json, "teinnkatajeqerfl");
                 }
 
-                if (checkNextTo)
-                {
-                    context.Response.Redirect("/Cover/ErrorForHandle");
-                }
-                else
-                {
-                    context.Response.Redirect("/Home/Error?exception=yes");
-                }
+                context.Response.Redirect("/Home/Error?exception=yes");
             }
         }
 
-        public string SetUserIPClientWhenAPI(HttpContext context)
+        public string SetUserIPClient(HttpContext context)
         {
             var pathX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
             var noidungX = FileExtension.ReadFile(pathX);
             var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-            var check = 0;
+            var check = false;
             for (int i = 0; i < listSetting.Length; i++)
             {
                 var info = listSetting[i].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                if (info[0] == "All_People" && info[1] == "true") check++;
-                if (info[0] == "External_Post" && info[1] == "true") check++;
-                if (info[0] == "Get_Blocked" && info[1] == "true") check++;
+                if (info[0] == "All_People" && info[1] == "true")
+                {
+                    check = true;
+                    break;
+                }
             }
 
             string ipAddress = string.Empty;
-            if (check == 3)
+            if (check)
             {
                 //using (var client = new HttpClient())
                 //{

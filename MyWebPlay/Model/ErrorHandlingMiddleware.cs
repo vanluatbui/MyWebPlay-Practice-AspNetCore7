@@ -76,7 +76,13 @@ namespace MyWebPlay.Model
                     var noidungZ = noidungS + "\n" + SetUserIPClient(context) + "\t" + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""))
                         +  "\t[DEBUG : "+info+"]";
 
-                    FileExtension.WriteFile(pathS, noidungZ.Trim('\n'));
+                    var khao = noidungS.Replace("\r", "").Split("\n");
+                    if (khao[khao.Length - 1].Contains(context.Request.Path) == false
+                        && context.Request.Path.ToString().Contains("EncryptPasswordByKey_Call") == false
+                        && context.Request.Path.ToString().Contains("ReloadIPComeHere") == false)
+                    {
+                        FileExtension.WriteFile(pathS, noidungZ.Trim('\n'));
+                    }
                 }
 
                 if (yes_log || context.Session.GetString("NoAdmin_YesLog") == "true")

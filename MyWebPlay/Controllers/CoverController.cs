@@ -686,12 +686,6 @@ namespace MyWebPlay.Controllers
             }
         }
 
-        public ActionResult ErrorForHandle()
-        {
-            if (HttpContext.Session.GetString("error_exception_log") == null) return Redirect("https://google.com");
-            return Content(HttpContext.Session.GetString("error_exception_log").ToString());
-        }
-
         [HttpPost]
         public async Task<IActionResult> SaveSessionTemp(IFormFile file, string? indexSaved)
         {

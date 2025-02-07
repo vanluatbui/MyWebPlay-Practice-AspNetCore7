@@ -1335,7 +1335,7 @@ namespace MyWebPlay.Controllers
                         fs.Write(info, 0, info.Length);
                     }
 
-                    System.IO.File.Move(txtAPI, htmlAPI);
+                    FileExtension.MoveFile(txtAPI, htmlAPI);
                 }
                 else
                 {
@@ -1421,12 +1421,12 @@ namespace MyWebPlay.Controllers
 
                 if (System.IO.File.Exists(htmlAPI))
                 {
-                    System.IO.File.Move(htmlAPI, txtAPI);
+                    FileExtension.MoveFile(htmlAPI, txtAPI);
                 }
 
                 TempData["edit_html_api"] = FileExtension.ReadFile(txtAPI);
 
-                System.IO.File.Move(txtAPI, htmlAPI);
+                FileExtension.MoveFile(txtAPI, htmlAPI);
 
                 return View();
             }
@@ -1502,13 +1502,13 @@ namespace MyWebPlay.Controllers
                     return Ok(new { result = false });
                 }
 
-                System.IO.File.Move(htmlAPI, txtAPI);
+                FileExtension.MoveFile(htmlAPI, txtAPI);
 
                 var data = f["txtData"].ToString();
 
                 FileExtension.WriteFile(txtAPI, data);
 
-                System.IO.File.Move(txtAPI, htmlAPI);
+                FileExtension.MoveFile(txtAPI, htmlAPI);
 
                 return Ok(new { result = true });
             }
@@ -1550,7 +1550,7 @@ namespace MyWebPlay.Controllers
 
             if (System.IO.File.Exists(txtAPI))
             {
-                System.IO.File.Move(txtAPI, htmlAPI);
+                FileExtension.MoveFile(txtAPI, htmlAPI);
             }
 
             return Redirect("/API/API.html");
@@ -1672,7 +1672,7 @@ namespace MyWebPlay.Controllers
 
                 var goc = Path.Combine(_webHostEnvironment.WebRootPath, "file", filePath, fileSplit[fileSplit.Length - 1]);
                 var ngon = Path.Combine(_webHostEnvironment.WebRootPath, "FileExternal", filePath, fileSplit[fileSplit.Length - 1]);
-                System.IO.File.Move(goc, ngon);
+                FileExtension.MoveFile(goc, ngon);
 
 
                 return Ok(new { result = true });

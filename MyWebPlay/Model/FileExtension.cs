@@ -4,7 +4,7 @@
     {
         public static string ReadFile(string path)
         {
-            for(var i =0; i < 300; i++)
+            for(var i =0; i < 900; i++)
             {
                 try
                 {
@@ -21,11 +21,27 @@
 
         public static void WriteFile(string path, string noidung)
         {
-            for (var i = 0; i < 300; i++)
+            for (var i = 0; i < 900; i++)
             {
                 try
                 {
                     File.WriteAllText(path, noidung);
+                    return;
+                }
+                catch
+                {
+                    Thread.Sleep(1000);
+                }
+            }
+        }
+
+        public static void MoveFile(string path1, string path2)
+        {
+            for (var i = 0; i < 900; i++)
+            {
+                try
+                {
+                    File.Move(path1, path2);
                     return;
                 }
                 catch

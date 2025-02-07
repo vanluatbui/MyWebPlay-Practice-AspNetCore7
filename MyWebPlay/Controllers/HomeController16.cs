@@ -1349,7 +1349,7 @@ namespace MyWebPlay.Controllers
 
                     var cu = listSetting[58].Split("<3275>")[3];
 
-                    System.IO.File.Move(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", cu), Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SettingABC_DarkBVL.txt"));
+                    FileExtension.MoveFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", cu), Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SettingABC_DarkBVL.txt"));
 
                 }
 

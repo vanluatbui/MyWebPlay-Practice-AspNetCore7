@@ -4,7 +4,8 @@
     {
         public static string ReadFile(string path)
         {
-            for(var i =0; i < 900; i++)
+            var delay = 1000;
+            for(var i =0; i < 500; i++)
             {
                 try
                 {
@@ -12,7 +13,8 @@
                 }
                 catch
                 {
-                    Thread.Sleep(1000);
+                    Thread.Sleep(delay);
+                    delay *= 2;
                 }
             }
 
@@ -21,7 +23,8 @@
 
         public static void WriteFile(string path, string noidung)
         {
-            for (var i = 0; i < 900; i++)
+            var delay = 1000;
+            for (var i = 0; i < 500; i++)
             {
                 try
                 {
@@ -30,14 +33,16 @@
                 }
                 catch
                 {
-                    Thread.Sleep(1000);
+                    Thread.Sleep(delay);
+                    delay *= 2;
                 }
             }
         }
 
         public static void MoveFile(string path1, string path2)
         {
-            for (var i = 0; i < 900; i++)
+            var delay = 1000;
+            for (var i = 0; i < 500; i++)
             {
                 try
                 {
@@ -46,7 +51,8 @@
                 }
                 catch
                 {
-                    Thread.Sleep(1000);
+                    Thread.Sleep(delay);
+                    delay *= 2;
                 }
             }
         }

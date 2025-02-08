@@ -2164,11 +2164,11 @@
             
                 so = (so2 - so1) / 10;
             
-                if (n > 1 && LBH[n - 1] == "[Empty]" && empty == -1) {
+                if (n > 1 && (LBH[n - 1] == "[Empty]" || LBH[n - 1] == "[Music]") && empty == -1) {
                     empty = kf;
                 }
             
-                if (LBH[n - 3] == "[Empty]") empty = -1;
+                if (LBH[n - 3] == "[Empty]" || LBH[n - 3] == "[Music]") empty = -1;
             
                 if ((t >= h_xh[0] - 28 && t <= h_xh[0] - 1) || (t >= h_xh[empty] - 28 && t <= h_xh[empty] - 1)) {
                     var hang = new Number(document.getElementById("hang").value);

@@ -420,7 +420,7 @@
                         }
             
                         if (hasSinger != "true") {
-                            if (e.key === "c" || e.key === "C") {
+                            if (e.key === "K" || e.key === "k") {
                                 if (document.getElementById("chon").options.selectedIndex == 0) {
                                     document.getElementById("chon").options.selectedIndex = 1;
                                 } else {
@@ -1793,7 +1793,7 @@
                         var ss = LBH[i].split("#");
                         time_xuathien[k] = new Number(ss[0]);
                         LBH[k] = ss[1];
-                        if (ss[1] != "[Empty]" && ss[1] != "[Empty-X]") {
+                        if (ss[1] != "[Empty]" && ss[1] != "[Empty-X]" && ss[1] != "[Music]") {
                             time_luuvet[k] = ss[2];
                         }
                         k++;
@@ -1982,7 +1982,7 @@
                     h_xh = [];
                     h_le = [];
             
-                    if (LBH[n] != "[Empty]" && LBH[n] != "[Empty-X]") {
+                    if (LBH[n] != "[Empty]" && LBH[n] != "[Empty-X]" && LBH[n] != "[Music]") {
 
                 if ('@TempData["random_font"]' == "true")
                 {
@@ -2052,7 +2052,7 @@
                         document.getElementById("thietkeKara").innerHTML = "";
                     }
             
-                    if (LBH[n] == "[Empty]" || LBH[n] == "[Empty-X]") {
+                    if (LBH[n] == "[Empty]" || LBH[n] == "[Empty-X]" || LBH[n] == "[Music]") {
                         document.getElementById("txtKaraoke1").innerHTML = "";
                         document.getElementById("txtKaraoke2").innerHTML = "";
                         document.getElementById("txtKara1").value = "";
@@ -2661,7 +2661,7 @@
                 <br />
                 <div id="menu" style="display: block;position: relative;">
                     @if (ViewBag.Music != ViewBag.Musix && TempData["hassinger"] != "true") {
-                    <select id="chon" onchange="changeKara()" title="Có thể nhấn phím c/C để chuyển đổi chế độ">
+                    <select id="chon" onchange="changeKara()" title="Có thể nhấn phím k/K để chuyển đổi chế độ">
                         <option id="custom1381">Chế độ Karaoke</option>
                         <option id="custom1382">Chế độ Ca sĩ hát</option>
                     </select>
@@ -3172,7 +3172,7 @@
                     <br />
                     <div id="menu" style="display: block;position: relative;">
                         @if (ViewBag.Music != ViewBag.Musix && TempData["hassinger"] != "true") {
-                        <select id="chon" onchange="changeKara()" title="Có thể nhấn phím c/C để chuyển đổi chế độ">
+                        <select id="chon" onchange="changeKara()" title="Có thể nhấn phím k/K để chuyển đổi chế độ">
                             <option id="custom1536">Chế độ Karaoke</option>
                             <option id="custom1537">Chế độ Ca sĩ hát</option>
                         </select>

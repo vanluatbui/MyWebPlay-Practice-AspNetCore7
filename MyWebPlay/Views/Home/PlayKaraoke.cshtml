@@ -516,7 +516,7 @@ Layout = null;
                                 var ss = LBH[i].split("#");
                                 time_xuathien[k] = new Number(ss[0]);
                                 LBH[k] = ss[1];
-                                if (ss[1] != "[Empty]" && ss[1] != "[Empty-X]")
+                                if (ss[1] != "[Empty]" && ss[1] != "[Music]" && ss[1] != "[Empty-X]")
                                 {
                                     time_luuvet[k] = ss[2];
                                 }
@@ -564,7 +564,7 @@ Layout = null;
                         h_xh = [];
                         h_le = [];
             
-                        if (LBH[n] != "[Empty]" && LBH[n] != "[Empty-X]")
+                        if (LBH[n] != "[Empty]" && LBH[n] != "[Empty-X]" && LBH[n] != "[Music]")
                         {
                             var s = time_luuvet[n].split(",");
             
@@ -577,7 +577,7 @@ Layout = null;
                             }
                         }
             
-                        if (LBH[n] == "[Empty]" || LBH[n] == "[Empty-X]")
+                        if (LBH[n] == "[Empty]" || LBH[n] == "[Music]" || LBH[n] == "[Empty-X]")
                         {
                             document.getElementById("txtKaraoke1").innerHTML = "";
                             document.getElementById("txtKaraoke2").innerHTML = "";

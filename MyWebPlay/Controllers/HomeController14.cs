@@ -1189,7 +1189,7 @@ namespace MyWebPlay.Controllers
             {
                 var nd = noidung[i].Split("#");
 
-                if (nd[1] == "[Empty]" || nd[1] == "[Empty-X]" || nd[1].Contains("\t"))
+                if (nd[1] == "[Empty-X]" || nd[1].Contains("\t"))
                 {
                     listText.Add("[null]");
                     continue;
@@ -1230,7 +1230,7 @@ namespace MyWebPlay.Controllers
             {
                 var nd = noidung[i].Split("#");
 
-                if (nd[1] == "[Empty]" || nd[1] == "[Empty-X]" || nd[1].Contains("\t"))
+                if (nd[1] == "[Empty-X]" || nd[1].Contains("\t"))
                 {
                     listTime.Add("[null]");
                     continue;
@@ -1321,7 +1321,7 @@ namespace MyWebPlay.Controllers
             {
                 var nd = noidung[i].Split("#");
 
-                if (nd[1] == "[Empty]" || nd[1] == "[Empty-X]" || nd[1].Contains("\t"))
+                if (nd[1] == "[Empty-X]" || nd[1].Contains("\t"))
                 {
                     ok += noidung[i];
                 }

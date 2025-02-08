@@ -65,25 +65,29 @@ namespace MyWebPlay.Model
                     var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
                     var noidungS = FileExtension.ReadFile(pathS);
 
-                    var info = string.Format("Method :{0} ||| Path : {1} ||| Refferrer : {2} ||| User-agent : {3} ||| sec-ch-ua-platform : {4} ||| sec-ch-ua : {5} ||| status code : {6}",
+                    var data = await GetRequestFormAsync(context);
+                    var info = string.Format("Method :{0} ||| Path : {1} ||| Refferrer : {2} ||| User-agent : {3} ||| sec-ch-ua-platform : {4} ||| sec-ch-ua : {5} ||| status code : {6} ||| query : {7} ||| data : {8} ||| file : {9}",
                         context.Request.Method,
                         context.Request.Path,
                         context.Request.GetTypedHeaders().Referer,
                         context.Request.Headers["User-Agent"].ToString(),
                         context.Request.Headers["Sec-CH-UA-Platform"].ToString(),
                         context.Request.Headers["Sec-CH-UA"].ToString(),
-                        context.Response.StatusCode);
+                        context.Response.StatusCode,
+                        context.Request.QueryString,
+                        "(" + string.Join("  =&&= ", data.Where(it => it.Key.Contains("RequestVerificationToken") == false).Select(kv =>
+                        {
+                            string value = kv.Value ?? ""; // Xử lý nếu null
+                            value = value.Replace("\r", "").Replace("\n", "\\n"); // Thay thế ký tự xuống dòng
+
+                            return (value.Length < 200) ? $"{kv.Key} :=: {value}" : $"{kv.Key} :=: {value.Substring(0, 200)}...";
+                        })) + ")",
+                        "(" + GetRequestFiles(context) + ")");
                     var noidungZ = noidungS + "\n" + SetUserIPClient(context) + "\t" + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""))
                         +  "\t[DEBUG : "+info+"]";
 
                     var khao = noidungS.Replace("\r", "").Split("\n");
-                    if (khao[khao.Length - 1].Contains(context.Request.Path) == false
-                        && khao[khao.Length - 1].Contains(SetUserIPClient(context)) == false
-                        && context.Session.GetString("admin-userIP") != null
-                        && khao[khao.Length - 1].Contains(context.Session.GetString("admin-userIP")) == false
-                        && context.Session.GetString("userIP") != null
-                        && khao[khao.Length - 1].Contains(context.Session.GetString("userIP")) == false
-                        && context.Request.Path.ToString().Contains("EncryptPasswordByKey_Call") == false
+                    if (context.Request.Path.ToString().Contains("EncryptPasswordByKey_Call") == false
                         && context.Request.Path.ToString().Contains("ReloadIPComeHere") == false)
                     {
                         FileExtension.WriteFile(pathS, noidungZ.Trim('\n'));
@@ -285,6 +289,22 @@ namespace MyWebPlay.Model
             catch
             {
                 return new Dictionary<string, string> { { "Error", "Cannot Serialize Form Data" } };
+            }
+        }
+
+        private static string GetRequestFiles(HttpContext context)
+        {
+            try
+            {
+                var fileNames = context.Request.Form.Files
+                    .Select(file => file.FileName) // Lấy danh sách tên file
+                    .ToList();
+
+                return string.Join(", ", fileNames); // Gộp tất cả tên file thành một chuỗi
+            }
+            catch
+            {
+                return "Cannot read uploaded files";
             }
         }
     }

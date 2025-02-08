@@ -374,7 +374,7 @@ namespace MyWebPlay.Controllers
                 String[] split = {
           "\n#\n"
         };
-                String[] t1 = ND_file.Split(split, StringSplitOptions.RemoveEmptyEntries);
+                String[] t1 = ND_file.Replace("\r","").Split(split, StringSplitOptions.RemoveEmptyEntries);
 
                 for (int i = 0; i < t1.Length; i++)
                 {

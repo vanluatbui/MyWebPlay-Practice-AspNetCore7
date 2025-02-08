@@ -551,6 +551,12 @@ namespace MyWebPlay.Controllers
                 TempData["auto_close_window"] = (FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[0] == "JS_AUTO_CLOSE_WINDOW_ON") ? "true" : "false";
 
                 TempData["https_url"] = (FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[10] == "LINK_HTTPS_ON") ? "https" : "http";
+                
+                if (TempData["auto_close_window"] == "true")
+                {
+                    Thread.Sleep(300000);
+                }
+                
                 // Send mail try again - karaoke with member
 
                 string hostt = "{" + Request.Host.ToString() + " - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "}"

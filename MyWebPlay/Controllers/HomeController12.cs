@@ -776,12 +776,12 @@ namespace MyWebPlay.Controllers
                 ViewBag.TimeLamBaiX = tnX.timelambai;
                 ViewBag.TenMon = tnX.tenmon;
 
-                ViewBag.CauHoi = String.Join("\r\n", tnX.ch);
-                ViewBag.A = String.Join("\r\n", tnX.a);
-                ViewBag.B = String.Join("\r\n", tnX.b);
-                ViewBag.C = String.Join("\r\n", tnX.c);
-                ViewBag.D = String.Join("\r\n", tnX.d);
-                ViewBag.Dung = String.Join("\r\n", tnX.dung);
+                ViewBag.CauHoi = StringMaHoaExtension.Encrypt(String.Join("\r\n", tnX.ch), "32752006");
+                ViewBag.A = StringMaHoaExtension.Encrypt(String.Join("\r\n", tnX.a), "32752006");
+                ViewBag.B = StringMaHoaExtension.Encrypt(String.Join("\r\n", tnX.b), "32752006");
+                ViewBag.C = StringMaHoaExtension.Encrypt(String.Join("\r\n", tnX.c), "32752006");
+                ViewBag.D = StringMaHoaExtension.Encrypt(String.Join("\r\n", tnX.d), "32752006");
+                ViewBag.Dung = StringMaHoaExtension.Encrypt(String.Join("\r\n", tnX.dung), "32752006");
 
                 ViewBag.KetQuaDung = "";
 
@@ -1393,12 +1393,12 @@ namespace MyWebPlay.Controllers
                 ViewBag.TimeLamBaiX = tnX.timelambai;
                 ViewBag.TenMon = tnX.tenmon;
 
-                ViewBag.CauHoi = String.Join("\r\n", tnX.ch);
-                ViewBag.A = String.Join("\r\n", tnX.a);
-                ViewBag.B = String.Join("\r\n", tnX.b);
-                ViewBag.C = String.Join("\r\n", tnX.c);
-                ViewBag.D = String.Join("\r\n", tnX.d);
-                ViewBag.Dung = String.Join("\r\n", tnX.dung);
+                ViewBag.CauHoi = StringMaHoaExtension.Encrypt(String.Join("\r\n", tnX.ch), "32752006");
+                ViewBag.A = StringMaHoaExtension.Encrypt(String.Join("\r\n", tnX.a), "32752006");
+                ViewBag.B = StringMaHoaExtension.Encrypt(String.Join("\r\n", tnX.b), "32752006");
+                ViewBag.C = StringMaHoaExtension.Encrypt(String.Join("\r\n", tnX.c), "32752006");
+                ViewBag.D = StringMaHoaExtension.Encrypt(String.Join("\r\n", tnX.d), "32752006");
+                ViewBag.Dung = StringMaHoaExtension.Encrypt(String.Join("\r\n", tnX.dung), "32752006");
 
                 ViewBag.KetQuaDung = "";
 

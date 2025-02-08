@@ -1170,12 +1170,12 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-                ViewBag.CauHoi = String.Join("\r\n", tnX.ch);
-                ViewBag.A = String.Join("\r\n", tnX.a);
-                ViewBag.B = String.Join("\r\n", tnX.b);
-                ViewBag.C = String.Join("\r\n", tnX.c);
-                ViewBag.D = String.Join("\r\n", tnX.d);
-                ViewBag.Dung = String.Join("\r\n", tnX.dung);
+                ViewBag.CauHoi = StringMaHoaExtension.Encrypt(String.Join("\r\n", tnX.ch), "32752006");
+                ViewBag.A = StringMaHoaExtension.Encrypt(String.Join("\r\n", tnX.a), "32752006");
+                ViewBag.B = StringMaHoaExtension.Encrypt(String.Join("\r\n", tnX.b), "32752006");
+                ViewBag.C = StringMaHoaExtension.Encrypt(String.Join("\r\n", tnX.c), "32752006");
+                ViewBag.D = StringMaHoaExtension.Encrypt(String.Join("\r\n", tnX.d), "32752006");
+                ViewBag.Dung = StringMaHoaExtension.Encrypt(String.Join("\r\n", tnX.dung), "32752006");
 
                 ViewBag.KetQuaDung = "";
 
@@ -1689,12 +1689,12 @@ namespace MyWebPlay.Controllers
                     tn.timelambai = int.Parse(f["TimeLamBai"].ToString());
                     tn.tenmon = f["TenMon"].ToString();
 
-                    tn.ch = f["CauHoi"].ToString().Replace("\r", "").Split("\n");
-                    tn.a = f["A"].ToString().Replace("\r", "").Split("\n");
-                    tn.b = f["B"].ToString().Replace("\r", "").Split("\n");
-                    tn.c = f["C"].ToString().Replace("\r", "").Split("\n");
-                    tn.d = f["D"].ToString().Replace("\r", "").Split("\n");
-                    tn.dung = f["Dung"].ToString().Replace("\r", "").Split("\n");
+                    tn.ch = StringMaHoaExtension.Decrypt(f["CauHoi"].ToString(), "32752006").Replace("\r", "").Split("\n");
+                    tn.a = StringMaHoaExtension.Decrypt(f["A"].ToString(), "32752006").Replace("\r", "").Split("\n");
+                    tn.b = StringMaHoaExtension.Decrypt(f["B"].ToString(), "32752006").Replace("\r", "").Split("\n");
+                    tn.c = StringMaHoaExtension.Decrypt(f["C"].ToString(), "32752006").Replace("\r", "").Split("\n");
+                    tn.d = StringMaHoaExtension.Decrypt(f["D"].ToString(), "32752006").Replace("\r", "").Split("\n");
+                    tn.dung = StringMaHoaExtension.Decrypt(f["Dung"].ToString(), "32752006").Replace("\r", "").Split("\n");
                 }
                 else
                     tn = HttpContext.Session.GetObject<TracNghiem>("TracNghiem");

@@ -66,6 +66,7 @@
 /Cover/ShowMyHtml4
 /Cover/ShowMyHtml5
 /Cover/ShowMyHtml6
+/Cover/GetDateTimeServer
 /Home/TextToColumn2
 /Home/TextToColumn1
 /Home/TextConvertX

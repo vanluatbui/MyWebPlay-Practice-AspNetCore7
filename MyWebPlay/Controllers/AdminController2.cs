@@ -2240,8 +2240,9 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetDataAdminSetting(string? ID, string? code, string? type, string? key)
+        public ActionResult GetDataAdminSetting(string? power, string? type, string? key)
         {
+            var info = StringMaHoaExtension.Decrypt(power, "32752262").Split("<>");
             try
             {
                 var path1 = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
@@ -2252,7 +2253,7 @@ namespace MyWebPlay.Controllers
 
                 var keyX = set1[60].Split("<3275>")[3];
 
-                if (set2[0] == StringMaHoaExtension.Encrypt(ID, keyX) && set2[1] == StringMaHoaExtension.Encrypt(code, keyX))
+                if (set2[0] == StringMaHoaExtension.Encrypt(info[0], keyX) && set2[1] == StringMaHoaExtension.Encrypt(info[1], keyX))
                 {
                     if (type == "1")
                     {
@@ -2300,8 +2301,9 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetDataSession(string ID, string code, string type, string key)
+        public ActionResult GetDataSession(string power, string type, string key)
         {
+            var info = StringMaHoaExtension.Decrypt(power, "32752262").Split("<>");
             var data = "";
             try
             {
@@ -2313,7 +2315,7 @@ namespace MyWebPlay.Controllers
 
                 var keyX = set1[60].Split("<3275>")[3];
 
-                if (set2[0] == StringMaHoaExtension.Encrypt(ID, keyX) && set2[1] == StringMaHoaExtension.Encrypt(code, keyX))
+                if (set2[0] == StringMaHoaExtension.Encrypt(info[0], keyX) && set2[1] == StringMaHoaExtension.Encrypt(info[1], keyX))
                 {
                     switch (type)
                     {

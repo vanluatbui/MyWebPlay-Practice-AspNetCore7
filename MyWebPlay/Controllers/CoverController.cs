@@ -927,5 +927,47 @@ namespace MyWebPlay.Controllers
 
             return Content("Đã xảy ra lỗi.");
         }
+
+        public ActionResult GetDateTimeServer(string? format = "")
+        {
+            Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+            var delayTime = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "");
+            var partDelayTime = delayTime.Split("#");
+            var hourDL = partDelayTime[0].Replace("H", "");
+            var minDL = partDelayTime[1].Replace("M", "");
+            var secDL = partDelayTime[2].Replace("S", "");
+
+            var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+
+            if (hourDL.Contains("-"))
+            {
+                xuxu = xuxu.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
+            }
+            else
+            {
+                xuxu = xuxu.AddHours(int.Parse(hourDL));
+            }
+
+            if (minDL.Contains("-"))
+            {
+                xuxu = xuxu.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
+            }
+            else
+            {
+                xuxu = xuxu.AddHours(int.Parse(minDL));
+            }
+
+            if (secDL.Contains("-"))
+            {
+                xuxu = xuxu.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
+            }
+            else
+            {
+                xuxu.AddSeconds(int.Parse(secDL));
+            }
+
+            return Ok(new { data = xuxu.ToString(format) });
+        }
     }
 }

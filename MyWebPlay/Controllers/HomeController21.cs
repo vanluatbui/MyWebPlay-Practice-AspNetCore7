@@ -824,37 +824,37 @@ namespace MyWebPlay.Controllers
 
                 var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                var yes_log = true;
+                //var yes_log = true;
 
                 var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
                 var valuePam = FileExtension.ReadFile(pam).Split("<>")[0];
 
-                if (HttpContext.Session.GetString("admin-userIP") != null)
-                {
-                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("admin-userIP"))) yes_log = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1].Split("###")[0] == "NOT_IS_ADMINUSING" ? true : false;
-                }
+                //if (HttpContext.Session.GetString("admin-userIP") != null)
+                //{
+                //    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("admin-userIP"))) yes_log = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1].Split("###")[0] == "NOT_IS_ADMINUSING" ? true : false;
+                //}
 
-                if (HttpContext.Session.GetString("userIP") != null)
-                {
-                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1].Split("###")[0] == "NOT_IS_ADMINUSING" ? true : false;
-                }
+                //if (HttpContext.Session.GetString("userIP") != null)
+                //{
+                //    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1].Split("###")[0] == "NOT_IS_ADMINUSING" ? true : false;
+                //}
 
-                if (infoXWW[1] == "true" && (yes_log || HttpContext.Session.GetString("NoAdmin_YesLog") == "true"))
-                {
-                    var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
-                    var noidungS = FileExtension.ReadFile(pathS);
+                //if (infoXWW[1] == "true" && (yes_log || HttpContext.Session.GetString("NoAdmin_YesLog") == "true"))
+                //{
+                //    var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
+                //    var noidungS = FileExtension.ReadFile(pathS);
 
-                    var ipAddress = SetUserIPClientWhenAPI();
-                    if (string.IsNullOrEmpty(ipAddress))
-                    {
-                        ipAddress = HttpContext.Session.GetString("userIP");
-                    }
+                //    var ipAddress = SetUserIPClientWhenAPI();
+                //    if (string.IsNullOrEmpty(ipAddress))
+                //    {
+                //        ipAddress = HttpContext.Session.GetString("userIP");
+                //    }
 
-                    var noidungZ = noidungS + "\n" + ipAddress + "\t" + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""))
-                        + "\t" + this.Request.Path + "\t[GET]";
+                //    var noidungZ = noidungS + "\n" + ipAddress + "\t" + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""))
+                //        + "\t" + this.Request.Path + "\t[GET]";
 
-                    FileExtension.WriteFile(pathS, noidungZ.Trim('\n'));
-                }
+                //    FileExtension.WriteFile(pathS, noidungZ.Trim('\n'));
+                //}
 
                 for (int i = 0; i < listSetting.Length; i++)
                 {
@@ -936,37 +936,37 @@ namespace MyWebPlay.Controllers
 
                 var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
-                var yes_log = true;
+                //var yes_log = true;
 
                 var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
                 var valuePam = FileExtension.ReadFile(pam).Split("<>")[0];
 
-                if (HttpContext.Session.GetString("admin-userIP") != null)
-                {
-                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("admin-userIP"))) yes_log = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1].Split("###")[0] == "NOT_IS_ADMINUSING" ? true : false;
-                }
+                //if (HttpContext.Session.GetString("admin-userIP") != null)
+                //{
+                //    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("admin-userIP"))) yes_log = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1].Split("###")[0] == "NOT_IS_ADMINUSING" ? true : false;
+                //}
 
-                if (HttpContext.Session.GetString("userIP") != null)
-                {
-                    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1].Split("###")[0] == "NOT_IS_ADMINUSING" ? true : false;
-                }
+                //if (HttpContext.Session.GetString("userIP") != null)
+                //{
+                //    if (valuePam == MD5.CreateMD5(HttpContext.Session.GetString("userIP"))) yes_log = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1].Split("###")[0] == "NOT_IS_ADMINUSING" ? true : false;
+                //}
 
-                if (infoXWW[1] == "true" && (yes_log || HttpContext.Session.GetString("NoAdmin_YesLog") == "true"))
-                {
-                    var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
-                    var noidungS = FileExtension.ReadFile(pathS);
+                //if (infoXWW[1] == "true" && (yes_log || HttpContext.Session.GetString("NoAdmin_YesLog") == "true"))
+                //{
+                //    var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
+                //    var noidungS = FileExtension.ReadFile(pathS);
 
-                    var ipAddress = SetUserIPClientWhenAPI();
-                    if (string.IsNullOrEmpty(ipAddress))
-                    {
-                        ipAddress = HttpContext.Session.GetString("userIP");
-                    }
+                //    var ipAddress = SetUserIPClientWhenAPI();
+                //    if (string.IsNullOrEmpty(ipAddress))
+                //    {
+                //        ipAddress = HttpContext.Session.GetString("userIP");
+                //    }
 
-                    var noidungZ = noidungS + "\n" + ipAddress + "\t" + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""))
-                        + "\t" + this.Request.Path + "\t[GET]";
+                //    var noidungZ = noidungS + "\n" + ipAddress + "\t" + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""))
+                //        + "\t" + this.Request.Path + "\t[GET]";
 
-                   FileExtension.WriteFile(pathS, noidungZ.Trim('\n'));
-                }
+                //   FileExtension.WriteFile(pathS, noidungZ.Trim('\n'));
+                //}
 
                 for (int i = 0; i < listSetting.Length; i++)
                 {

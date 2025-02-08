@@ -78,6 +78,11 @@ namespace MyWebPlay.Model
 
                     var khao = noidungS.Replace("\r", "").Split("\n");
                     if (khao[khao.Length - 1].Contains(context.Request.Path) == false
+                        && khao[khao.Length - 1].Contains(SetUserIPClient(context)) == false
+                        && context.Session.GetString("admin-userIP") != null
+                        && khao[khao.Length - 1].Contains(context.Session.GetString("admin-userIP")) == false
+                        && context.Session.GetString("userIP") != null
+                        && khao[khao.Length - 1].Contains(context.Session.GetString("userIP")) == false
                         && context.Request.Path.ToString().Contains("EncryptPasswordByKey_Call") == false
                         && context.Request.Path.ToString().Contains("ReloadIPComeHere") == false)
                     {

@@ -552,10 +552,6 @@ namespace MyWebPlay.Controllers
 
                 TempData["https_url"] = (FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[10] == "LINK_HTTPS_ON") ? "https" : "http";
                 
-                if (TempData["auto_close_window"] == "true")
-                {
-                    Thread.Sleep(300000);
-                }
                 
                 // Send mail try again - karaoke with member
 

@@ -269,12 +269,12 @@ else if (TempData["karax-cre"] == "1")
                 document.getElementById("part-"+i).style.display = "none";
             }
     
-             if (document.getElementById("sd-"+(o+1)).innerText.includes("Empty") == true || document.getElementById("sd-"+(o+1)).innerText.includes("Music") == true || document.getElementById("sd-"+(o+1)).innerText.includes("# *#") == true)
+             if (document.getElementById("sd-"+(o+1)).innerText.includes("Empty") == true || document.getElementById("sd-"+(o+1)).innerText.includes("[Music]") == true || document.getElementById("sd-"+(o+1)).innerText.includes("# *#") == true)
              {
                 document.getElementById("xl").innerHTML = "<b id=\"custom565\" style=\"color:blue\">BỎ QUA</b>";;
              }
     
-            if (document.getElementById("sd-"+o).innerText.includes("Empty") == true || document.getElementById("sd-"+o).innerText.includes("Music") == true || document.getElementById("sd-"+o).innerText.includes("# *#") == true)
+            if (document.getElementById("sd-"+o).innerText.includes("Empty") == true || document.getElementById("sd-"+o).innerText.includes("[Music]") == true || document.getElementById("sd-"+o).innerText.includes("# *#") == true)
             {
                 document.getElementById("noidung").value += document.getElementById("sd-"+o).innerText;
             }

@@ -13,6 +13,7 @@
                 catch
                 {
                     var nan = new Random().Next(500 / 500, 300000 / 500 + 1) * 500;
+                    Thread.Sleep(nan);
                     continue;
                 }
             }
@@ -32,6 +33,7 @@
                 catch
                 {
                     var nan = new Random().Next(500 / 500, 300000 / 500 + 1) * 500;
+                    Thread.Sleep(nan);
                     continue;
                 }
             }
@@ -49,6 +51,7 @@
                 catch
                 {
                     var nan = new Random().Next(500 / 500, 300000 / 500 + 1) * 500;
+                    Thread.Sleep(nan);
                     continue;
                 }
             }

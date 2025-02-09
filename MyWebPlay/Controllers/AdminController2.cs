@@ -2241,7 +2241,7 @@ namespace MyWebPlay.Controllers
 
             if (data == "")
             return Ok(new { result = false });
-            return Ok(new { result = true, data = data });
+            return Ok(new { result = true, html = data });
         }
 
         [HttpPost]

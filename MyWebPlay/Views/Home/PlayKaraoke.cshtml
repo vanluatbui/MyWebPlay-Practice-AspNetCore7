@@ -89,11 +89,11 @@ Layout = null;
                         script.remove();
                      });
 
-                    loadix = true;
+                    loadix = true; if (document.body) document.body.style.visibility= "visible"; 
                 }
                  else
                 {
-                     document.getElementById("html_play").style.display = "none"; loadix = true;
+                     document.getElementById("html_play").style.display = "none"; loadix = true; if (document.body) document.body.style.visibility= "visible"; 
                 }
             }
          });
@@ -101,7 +101,7 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-    <body id="custom597">
+    <body style="visibility:hidden" id="custom597">
         <meta charset="ISO-8859-1" id="custom598">
         <script>
             // Delete div somee

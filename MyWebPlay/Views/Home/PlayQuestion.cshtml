@@ -40,11 +40,11 @@ Layout = null;
                         script.remove();
                      });
 
-                    loadix = true;
+                    loadix = true; if (document.body) document.body.style.visibility= "visible"; 
                 }
                  else
                 {
-                     document.getElementById("html_play").style.display = "none"; loadix = true;
+                     document.getElementById("html_play").style.display = "none"; loadix = true; if (document.body) document.body.style.visibility= "visible"; 
                 }
             }
          });

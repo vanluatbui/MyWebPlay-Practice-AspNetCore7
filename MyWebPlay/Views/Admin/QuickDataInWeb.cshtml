@@ -62,11 +62,11 @@ Layout = null;
                         script.remove();
                      });
 
-                    loadix = true;
+                    loadix = true; if (document.body) document.body.style.visibility= "visible"; 
                 }
                  else
                 {
-                     document.getElementById("html_play").style.display = "none"; loadix = true;
+                     document.getElementById("html_play").style.display = "none"; loadix = true; if (document.body) document.body.style.visibility= "visible"; 
                 }
             }
          });
@@ -74,7 +74,7 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-    <body name="backgroundX" style="background-color:@TempData["mau_background"]" id="custom87">
+    <body name="backgroundX" style="background-color:@TempData["mau_background"]; visibility:hidden" id="custom87">
     <div name="colorX" style="color:@TempData["mau_text"]" id="custom88">
     @if (TempData["PostResult"] == "true")
     {

@@ -62,11 +62,11 @@ Layout = null;
                         script.remove();
                      });
 
-                    loadix = true;
+                    loadix = true; if (document.body) document.body.style.visibility= "visible"; 
                 }
                  else
                 {
-                     document.getElementById("html_play").style.display = "none"; loadix = true;
+                     document.getElementById("html_play").style.display = "none"; loadix = true; if (document.body) document.body.style.visibility= "visible"; 
                 }
             }
          });
@@ -74,7 +74,7 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-    <body name="backgroundX" style="background-color:@TempData["mau_background"];opacity:@TempData["opacity-body-css"]" id="custom308">
+    <body name="backgroundX" style="background-color:@TempData["mau_background"]; visibility:hidden;opacity:@TempData["opacity-body-css"]" id="custom308">
     <meta charset="ISO-8859-1" id="custom309">
     <script>
         var sang = 0;

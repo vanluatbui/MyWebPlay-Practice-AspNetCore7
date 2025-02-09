@@ -49,11 +49,11 @@ Layout = null;
                         script.remove();
                      });
 
-                    loadix = true;
+                    loadix = true; if (document.body) document.body.style.visibility= "visible"; 
                 }
                  else
                 {
-                     document.getElementById("html_play").style.display = "none"; loadix = true;
+                     document.getElementById("html_play").style.display = "none"; loadix = true; if (document.body) document.body.style.visibility= "visible"; 
                 }
             }
          });
@@ -61,7 +61,7 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-    <body name="backgroundX" style="background-color:@TempData["mau_background"]" id="custom272">
+    <body name="backgroundX" style="background-color:@TempData["mau_background"]; visibility:hidden" id="custom272">
     <meta charset="ISO-8859-1" id="custom273">
     <script>
         var xi = 0;

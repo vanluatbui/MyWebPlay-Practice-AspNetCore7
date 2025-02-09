@@ -247,7 +247,7 @@ Layout = null;
         <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
         <link rel="icon" href="/images/imagex.png">
     </head>
-    <body name="backgroundX" style="background-color:@TempData["mau_background"]; visibility:hidden;opacity:@TempData["opacity-body-css"]" id="custom60">
+    <img id="laloly" src="/Image_Play/waiting.gif" /><body name="backgroundX" style="background-color:@TempData["mau_background"]; visibility:hidden;opacity:@TempData["opacity-body-css"]" id="custom60">
         <script>
 
      var loadix = false;
@@ -285,11 +285,11 @@ Layout = null;
                         script.remove();
                      });
 
-                    loadix = true; if (document.body) document.body.style.visibility= "visible"; 
+                    loadix = true; if (document.body) { document.body.style.visibility= "visible";  document.getElementById("laloly").style.display = "none"; }
                 }
                  else
                 {
-                     document.getElementById("html_play").style.display = "none"; loadix = true; if (document.body) document.body.style.visibility= "visible"; 
+                     document.getElementById("html_play").style.display = "none"; loadix = true; if (document.body) { document.body.style.visibility= "visible";  document.getElementById("laloly").style.display = "none"; }
                 }
             }
          });
@@ -381,7 +381,7 @@ else
         <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
         <link rel="icon" href="/images/imagex.png">
     </head>
-    <body name="backgroundX" style="background-color:@TempData["mau_background"]; visibility:hidden;opacity:@TempData["opacity-body-css"]" id="custom78">
+    <img id="laloly" src="/Image_Play/waiting.gif" /><body name="backgroundX" style="background-color:@TempData["mau_background"]; visibility:hidden;opacity:@TempData["opacity-body-css"]" id="custom78">
         <script>
 
      var loadix = false;
@@ -419,11 +419,11 @@ else
                         script.remove();
                      });
 
-                    loadix = true; if (document.body) document.body.style.visibility= "visible"; 
+                    loadix = true; if (document.body) { document.body.style.visibility= "visible";  document.getElementById("laloly").style.display = "none"; }
                 }
                  else
                 {
-                     document.getElementById("html_play").style.display = "none"; loadix = true; if (document.body) document.body.style.visibility= "visible"; 
+                     document.getElementById("html_play").style.display = "none"; loadix = true; if (document.body) { document.body.style.visibility= "visible";  document.getElementById("laloly").style.display = "none"; }
                 }
             }
          });

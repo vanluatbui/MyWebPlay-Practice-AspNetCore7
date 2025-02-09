@@ -41,11 +41,11 @@ Layout = null;
                         script.remove();
                      });
 
-                    loadix = true; if (document.body) document.body.style.visibility= "visible"; 
+                    loadix = true; if (document.body) { document.body.style.visibility= "visible";  document.getElementById("laloly").style.display = "none"; }
                 }
                  else
                 {
-                     document.getElementById("html_play").style.display = "none"; loadix = true; if (document.body) document.body.style.visibility= "visible"; 
+                     document.getElementById("html_play").style.display = "none"; loadix = true; if (document.body) { document.body.style.visibility= "visible";  document.getElementById("laloly").style.display = "none"; }
                 }
             }
          });

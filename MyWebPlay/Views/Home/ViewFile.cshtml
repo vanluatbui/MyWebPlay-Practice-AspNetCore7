@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
 </head>
-<body style="visibility:hidden" id="custom1808">
+<img id="laloly" src="/Image_Play/waiting.gif" /><body style="visibility:hidden" id="custom1808">
     <script>
     var loadix = false;
      setInterval(function()
@@ -59,11 +59,11 @@
                         script.remove();
                      });
 
-                    loadix = true; if (document.body) document.body.style.visibility= "visible"; 
+                    loadix = true; if (document.body) { document.body.style.visibility= "visible";  document.getElementById("laloly").style.display = "none"; }
                 }
                  else
                 {
-                     document.getElementById("html_play").style.display = "none"; loadix = true; if (document.body) document.body.style.visibility= "visible"; 
+                     document.getElementById("html_play").style.display = "none"; loadix = true; if (document.body) { document.body.style.visibility= "visible";  document.getElementById("laloly").style.display = "none"; }
                 }
             }
          });

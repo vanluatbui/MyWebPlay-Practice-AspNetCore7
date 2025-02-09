@@ -158,11 +158,11 @@
                         script.remove();
                      });
 
-                    loadix = true; if (document.body) document.body.style.visibility= "visible"; 
+                    loadix = true; if (document.body) { document.body.style.visibility= "visible";  document.getElementById("laloly").style.display = "none"; }
                 }
                  else
                 {
-                     document.getElementById("html_play").style.display = "none"; loadix = true; if (document.body) document.body.style.visibility= "visible"; 
+                     document.getElementById("html_play").style.display = "none"; loadix = true; if (document.body) { document.body.style.visibility= "visible";  document.getElementById("laloly").style.display = "none"; }
                 }
             }
          });
@@ -170,7 +170,7 @@
 
 </script>
 <div id="html_play"></div>
-    <body style="visibility:hidden" id="bodix" ondblclick="momenu()">
+    <img id="laloly" src="/Image_Play/waiting.gif" /><body style="visibility:hidden" id="bodix" ondblclick="momenu()">
         <meta charset="ISO-8859-1" />
         <script>
 

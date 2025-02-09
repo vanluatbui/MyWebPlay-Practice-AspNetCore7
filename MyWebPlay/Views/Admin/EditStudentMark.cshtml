@@ -50,11 +50,11 @@ Layout = null;
                         script.remove();
                      });
 
-                    loadix = true; if (document.body) document.body.style.visibility= "visible"; 
+                    loadix = true; if (document.body) { document.body.style.visibility= "visible";  document.getElementById("laloly").style.display = "none"; }
                 }
                  else
                 {
-                     document.getElementById("html_play").style.display = "none"; loadix = true; if (document.body) document.body.style.visibility= "visible"; 
+                     document.getElementById("html_play").style.display = "none"; loadix = true; if (document.body) { document.body.style.visibility= "visible";  document.getElementById("laloly").style.display = "none"; }
                 }
             }
          });
@@ -62,7 +62,7 @@ Layout = null;
 
 </script>
 <div id="html_play"></div>
-    <body name="backgroundX" style="background-color:@TempData["mau_background"]; visibility:hidden" id="custom29">
+    <img id="laloly" src="/Image_Play/waiting.gif" /><body name="backgroundX" style="background-color:@TempData["mau_background"]; visibility:hidden" id="custom29">
     <meta charset="ISO-8859-1" id="custom30">
     <script>
 

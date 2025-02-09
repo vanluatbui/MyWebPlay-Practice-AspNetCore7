@@ -170,7 +170,7 @@
 
 </script>
 <div id="html_play"></div>
-    <img id="laloly" src="/Image_Play/waiting.gif" /><body style="visibility:hidden" id="bodix" ondblclick="momenu()">
+    <body style="visibility:hidden" id="bodix" ondblclick="momenu()">
         <meta charset="ISO-8859-1" />
         <script>
 
@@ -1107,7 +1107,7 @@
             var mi = 0;
             var chiase  = 0;
             setInterval(function () {
-                if (mi == 1) return;
+                if (mi == 1 || '@TempData["post-kara"]' == "false") return;
             
                 var fontKara = '@TempData["fontKara"]'.replaceAll("&#xD;&#xA;", "\n").split("\n");
             

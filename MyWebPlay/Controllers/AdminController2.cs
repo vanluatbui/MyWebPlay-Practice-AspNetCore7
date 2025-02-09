@@ -2218,7 +2218,10 @@ namespace MyWebPlay.Controllers
                 var nd = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Html_Play.txt")).Replace("\r", "").Split("\n#3275#\n");
                 var urlRoot = "/" + FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[20].Replace("--", "/");
                  if (website == "/" | website == "/Home" || website == "/Home/") website = urlRoot;
-                 for (var i = 0; i < nd.Length; i++)
+
+                var data = "";
+            
+                for (var i = 0; i < nd.Length; i++)
                 {
                     var ndx = nd[i].Split("\n||\n");
                     var ndy = ndx[0].Split("---");
@@ -2229,14 +2232,16 @@ namespace MyWebPlay.Controllers
                     {
                         if (ndy.Length > 2 && ((ndy[0] == "BOQUA" && ndy[2].Contains(website)) || (ndy[0] == "CHIBAOGOM" && ndy[2].Contains(website) == false)))
                         {
-                             return Ok(new { result = false });
+                            continue;
                         }
 
-                        return Ok(new { result = true, html = ndx[1] });
+                         data += ndx[1];
                     }
                 }
 
+            if (data == "")
             return Ok(new { result = false });
+            return Ok(new { result = true, data = data });
         }
 
         [HttpPost]

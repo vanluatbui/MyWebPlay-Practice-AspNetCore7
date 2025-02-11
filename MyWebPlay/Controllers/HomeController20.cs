@@ -16,7 +16,10 @@ namespace MyWebPlay.Controllers
             try
             {
                 var pathLogMail = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "MailLog");
-                new System.IO.DirectoryInfo(pathLogMail).Delete(true);
+                if (new System.IO.DirectoryInfo(pathLogMail).Exists)
+                {
+                    new System.IO.DirectoryInfo(pathLogMail).Delete(true);
+                }
 
                 FileExtension.WriteFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "EXCEPTION_ERROR_LOG.txt"), "");
                 if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Exists == true)
@@ -50,6 +53,12 @@ namespace MyWebPlay.Controllers
                 {
                     System.IO.File.Create(noteLog);
                 }
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied")).Exists == true)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied")).Delete(true);
+
+                if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied")).Exists == false)
+                    new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied")).Create();
 
                 if (onoff == "file_MO")
                 {

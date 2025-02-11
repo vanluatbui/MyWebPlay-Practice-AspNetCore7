@@ -651,6 +651,57 @@ Layout = null;
                }
            }
         }
+
+        async function okCopySetting()
+        {
+            var st = prompt("Nhập vị trí index (start in 1) tương ứng của file copied mẫu admin setting đã có sẵn để thiết lập lại cho kỳ này, nếu chưa biết vui lòng xem lại DS ở link phía trên : ");
+            if (st != "" && st != null)
+            {
+               var con = confirm("Bạn có chắc chắn không?");
+               if (con == true)
+               {
+                    var api = await fetch('/Admin/OkCopyAdminSetting?index='+st);
+                  var data = await api.json();
+                  if (data != null)
+                  {
+                      alert("Thành công, hệ thống sẽ xử lý đăng nhập lại sau đó...");
+                        window.location.reload();
+                  }
+               }
+            }
+        }
+
+        async function mauCopySetting()
+        {
+            var api = await fetch('/Admin/ListCopyAdminSetting');
+              var data = await api.json();
+              if (data != null)
+              {
+                    alert(data.result);
+              }
+        }
+
+        async function copySetting()
+        {
+            var con = confirm("Bạn có chắc chắn không?");
+            if (con == false) return;
+
+            var st = prompt("Mời bạn nhập trạng thái setting hiện tại cần copy (đặt tên sao cho tự bạn dễ nhận biết) : ");
+            if (st != "" && st != null)
+            {
+                var api = await fetch('/Admin/CopyAdminSetting?name='+st);
+                var data = await api.json();
+                    if (data != null && data.result == true)
+                    {
+                        alert("Thành công, hệ thống sẽ xử lý đăng nhập lại sau đó...");
+                        window.location.reload();
+                    }
+                    else
+                    {
+                        alert("Xử lý thất bại !");
+                    }
+            }
+        }
         
         function chonnhanh()
         {
@@ -1491,6 +1542,12 @@ Layout = null;
                         <option id="custom161">Sử dụng web công khai (*)</option>
                     </select>
                     <br /><br /><a href="#xuly" onclick="chonnhanh()">Xử lý setting nhanh (có sẵn)</a>
+                    <br />
+                    <a href="#xuly" onclick="copySetting()" style="color:crimson">Copy admin setting (mẫu hiện tại)</a> (* DeleteBin sẽ xoá đi toàn bộ file copied admin setting đã lưu trữ này).
+                    <br />
+                    <a href="#xuly" onclick="mauCopySetting()" style="color:crimson">Xem DS các file mẫu copy admin setting đã lưu sẵn có</a>
+                    <br />
+                    <a href="#xuly" onclick="okCopySetting()" style="color:crimson">Áp dụng thiết lập lại setting từ file mẫu copied cho kỳ này(*)</a>
                     <br /><br />
                 </h4>
                 <br>
@@ -1803,6 +1860,8 @@ Layout = null;
         <p style="color:purple" id="custom235">
             - Nhấn button "MAIL REPORT" nếu bạn muốn tự xuất báo cáo thủ công ngay hiện tại, hoặc không nếu hệ thống phát hiện dữ liệu này đã hơn xxx thì cũng tự động gửi report và khôi phục...<br>
             - Kết quả danh sách bên dưới có thể chưa đủ thông tin vì trước đó bạn đã từng tắt/tạm ngưng save setting chế độ lưu trữ này hoặc tự động được reset lại khi data đã quá xxx (hãy bật setting report mail when data than xxx để kịp thời lưu trữ).
+        <br />
+        <a id="linkread10" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/ListIPComeHere.txt&&isHTML=false" target="_blank" style="color:lime">Xem chi tiết (edit)</a>
         </p>
         <br />
         <textarea id="comehex" readonly cols="1000" rows="100">@TempData["showIPCome"]</textarea>

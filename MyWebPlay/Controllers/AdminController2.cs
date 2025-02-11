@@ -1588,11 +1588,19 @@ namespace MyWebPlay.Controllers
 
                 var valuePamX = valuePam[0];
                 var test = ip.Split("-");
+
                 if (valuePam.Length > 2 && valuePamX == MD5.CreateMD5(test[0]) && MD5.CreateMD5(test[1]) == valuePam[2])
                 {
                     HttpContext.Session.SetString("admin-userIP", test[0]);
                     adminIP = test[0];
                 }
+                else
+                if (valuePam.Length > 0 && valuePamX == MD5.CreateMD5(test[0]))
+                {
+                    HttpContext.Session.SetString("admin-userIP", test[0]);
+                    adminIP = test[0];
+                }
+
 
                 if (adminIP != null)
                 {
@@ -2392,6 +2400,192 @@ namespace MyWebPlay.Controllers
             var data = FileExtension.ReadFile(pathS);
 
             return Ok(new { result = data });
+        }
+
+        public ActionResult CopyAdminSetting(string? name)
+        {
+            TempData["opacity-body-css"] = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[16].Replace("OPACITY_CSS_BODY_", "");
+            if (HttpContext.Session.GetString("adminSetting") == null || string.IsNullOrEmpty(name))
+            {
+                return RedirectToAction("LoginSettingAdmin");
+            }
+
+
+            khoawebsiteAdmin();
+            var dua = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
+            {
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+
+            if (TempData["locked-app"] == "true")
+                return RedirectToAction("Error", "Home", "Home");
+
+            var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+            var noidung = FileExtension.ReadFile(path);
+            FileExtension.WriteFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied", name + ".txt"), noidung);
+
+            HttpContext.Session.Remove("adminSetting");
+            return Ok(new { result = true });
+        }
+
+        public ActionResult ListCopyAdminSetting()
+        {
+            TempData["opacity-body-css"] = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[16].Replace("OPACITY_CSS_BODY_", "");
+            if (HttpContext.Session.GetString("adminSetting") == null)
+            {
+                return RedirectToAction("LoginSettingAdmin");
+            }
+
+
+            khoawebsiteAdmin();
+            var dua = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
+            {
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+
+            if (TempData["locked-app"] == "true")
+                return RedirectToAction("Error", "Home", "Home");
+
+            var files = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied")).GetFiles();
+            var listFiles = "";
+            var index = 0;
+            foreach (var file in files)
+            {
+                index++;
+                listFiles += "[" + index + "] " + file.Name.Replace(".txt","")+"\r\n\r\n";
+            }
+
+            return Ok(new { result = listFiles });
+        }
+
+        public ActionResult OkCopyAdminSetting(string? index)
+        {
+            TempData["opacity-body-css"] = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[16].Replace("OPACITY_CSS_BODY_", "");
+            if (HttpContext.Session.GetString("adminSetting") == null || string.IsNullOrEmpty(index))
+            {
+                return RedirectToAction("LoginSettingAdmin");
+            }
+
+
+            khoawebsiteAdmin();
+            var dua = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
+            {
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+
+            if (TempData["locked-app"] == "true")
+                return RedirectToAction("Error", "Home", "Home");
+
+            var path1 = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+
+            var files = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied")).GetFiles();
+            var vitri = 0;
+            foreach (var file in files)
+            {
+                vitri++;
+                if (int.Parse(index) == vitri)
+                {
+                    var path2 = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied", file.Name);
+                    var nd = FileExtension.ReadFile(path2);
+                    FileExtension.WriteFile(path1, nd);
+
+                    var px = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin/Setting_Status.txt");
+
+                    Calendar xi = CultureInfo.InvariantCulture.Calendar;
+
+                    var delayTime = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "");
+                    var partDelayTime = delayTime.Split("#");
+                    var hourDL = partDelayTime[0].Replace("H", "");
+                    var minDL = partDelayTime[1].Replace("M", "");
+                    var secDL = partDelayTime[2].Replace("S", "");
+
+                    var xuxu = xi.AddHours(DateTime.UtcNow, 7);
+
+                    if (hourDL.Contains("-"))
+                    {
+                        xuxu = xuxu.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
+                    }
+                    else
+                    {
+                        xuxu = xuxu.AddHours(int.Parse(hourDL));
+                    }
+
+                    if (minDL.Contains("-"))
+                    {
+                        xuxu = xuxu.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
+                    }
+                    else
+                    {
+                        xuxu = xuxu.AddHours(int.Parse(minDL));
+                    }
+
+                    if (secDL.Contains("-"))
+                    {
+                        xuxu = xuxu.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
+                    }
+                    else
+                    {
+                        xuxu.AddSeconds(int.Parse(secDL));
+                    }
+
+                    FileExtension.WriteFile(px, "[FROM FILES ADMIN COPY SETTING] "+file.Name.Replace(".txt","")+" # " + xuxu);
+                    break;
+                }
+            }
+
+             HttpContext.Session.Remove("adminSetting");
+            return Ok(new { result = true });
         }
     }
 }

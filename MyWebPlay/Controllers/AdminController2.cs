@@ -2528,6 +2528,10 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("Error", "Home", "Home");
 
             var path1 = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+            var noidung = FileExtension.ReadFile(path1);
+            var listSettingA = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var infoA1 = listSettingA[58].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+            var infoA2 = listSettingA[60].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
             var files = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied")).GetFiles();
             var vitri = 0;
@@ -2540,8 +2544,34 @@ namespace MyWebPlay.Controllers
                     var nd = FileExtension.ReadFile(path2);
                     FileExtension.WriteFile(path1, nd);
 
-                    var px = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin/Setting_Status.txt");
+                    var listSettingB = nd.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    var infoB1 = listSettingB[58].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+                    var infoB2 = listSettingB[60].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
 
+                    //
+
+                    var ptj = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
+                    var lan = FileExtension.ReadFile(ptj);
+                    var na = lan.Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+                    var id = StringMaHoaExtension.Decrypt(na[0], infoA2[3]);
+                    string code = StringMaHoaExtension.Decrypt(na[1], infoA2[3]);
+
+                    lan = lan.Replace(na[0], StringMaHoaExtension.Encrypt(id, infoB2[3]));
+                    lan = lan.Replace(na[1], StringMaHoaExtension.Encrypt(code, infoB2[3]));
+                    FileExtension.WriteFile(ptj, lan);
+
+                    //
+
+                    FileExtension.MoveFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", infoA1[3]), Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", infoB1[3]));
+
+                    var xpath = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
+                    var ndOfPath = FileExtension.ReadFile(xpath);
+
+                    ndOfPath = ndOfPath.Replace(infoA1[3], infoB1[3]);
+
+                    FileExtension.WriteFile(xpath, ndOfPath);
+
+                    var px = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin/Setting_Status.txt");
                     Calendar xi = CultureInfo.InvariantCulture.Calendar;
 
                     var delayTime = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "");

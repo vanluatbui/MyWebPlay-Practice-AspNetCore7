@@ -26,112 +26,114 @@ namespace MyWebPlay.Model
             var json = await SerializeHttpContextAsync(context);
             try
             {
-
-                var pathWW = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
-                var noidungWW = FileExtension.ReadFile(pathWW);
-
-                if (noidungWW.Contains("[ENCRYPT]"))
+                if (context.Request.QueryString.ToString().Contains("show-error") == false)
                 {
-                    noidungWW = noidungWW.Replace("[ENCRYPT]", "");
-                    noidungWW = StringMaHoaExtension.Decrypt(noidungWW, "32752262");
-                    FileExtension.WriteFile(pathWW, noidungWW);
-                }
+                    var pathWW = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                    var noidungWW = FileExtension.ReadFile(pathWW);
 
-                var listSettingSWW = noidungWW.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
-
-                var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
-
-                var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
-                var valuePam = FileExtension.ReadFile(pam).Split("<>")[0];
-
-
-                var yes_log = true;
-                var ip = SetUserIPClient(context);
-
-                if (context.Session.GetString("admin-userIP") != null)
-                {
-                    if (valuePam == MD5.CreateMD5(context.Session.GetString("admin-userIP"))) yes_log = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1].Split("###")[0] == "NOT_IS_ADMINUSING" ? true : false;
-                }
-
-                if (context.Session.GetString("userIP") != null)
-                {
-                    if (valuePam == MD5.CreateMD5(context.Session.GetString("userIP"))) yes_log = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1].Split("###")[0] == "NOT_IS_ADMINUSING" ? true : false;
-                }
-
-                if (valuePam == MD5.CreateMD5(ip)) yes_log = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1].Split("###")[0] == "NOT_IS_ADMINUSING" ? true : false;
-
-                if (infoXWW[1] == "true" && context.Request.Path.ToString().Contains("ReloadIPComeHere") == false && (yes_log || context.Session.GetString("NoAdmin_YesLog") == "true"))
-                {
-                    var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
-                    var noidungS = FileExtension.ReadFile(pathS);
-
-                    var data = await GetRequestFormAsync(context);
-                    var info = string.Format("Method :{0} ||| Path : {1} ||| Refferrer : {2} ||| User-agent : {3} ||| sec-ch-ua-platform : {4} ||| sec-ch-ua : {5} ||| status code : {6} ||| query : {7} ||| data : {8} ||| file : {9}",
-                        context.Request.Method,
-                        context.Request.Path,
-                        context.Request.GetTypedHeaders().Referer,
-                        context.Request.Headers["User-Agent"].ToString(),
-                        context.Request.Headers["Sec-CH-UA-Platform"].ToString(),
-                        context.Request.Headers["Sec-CH-UA"].ToString(),
-                        context.Response.StatusCode,
-                        context.Request.QueryString,
-                        "(" + string.Join("  =&&= ", data.Where(it => it.Key.Contains("RequestVerificationToken") == false).Select(kv =>
-                        {
-                            string value = kv.Value ?? ""; // Xử lý nếu null
-                            value = value.Replace("\r", "").Replace("\n", "\\n"); // Thay thế ký tự xuống dòng
-
-                            return (value.Length < 200) ? $"{kv.Key} :=: {value}" : $"{kv.Key} :=: {value.Substring(0, 200)}...";
-                        })) + ")",
-                        "(" + GetRequestFiles(context) + ")");
-                    var noidungZ = noidungS + "\n" + SetUserIPClient(context) + "\t" + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""))
-                        +  "\t[DEBUG : "+info+"]";
-
-                    var khao = noidungS.Replace("\r", "").Split("\n");
-                    if (context.Request.Path.ToString().Contains("EncryptPasswordByKey_Call") == false
-                        && context.Request.Path.ToString().Contains("ReloadIPComeHere") == false)
+                    if (noidungWW.Contains("[ENCRYPT]"))
                     {
-                        FileExtension.WriteFile(pathS, noidungZ.Trim('\n'));
+                        noidungWW = noidungWW.Replace("[ENCRYPT]", "");
+                        noidungWW = StringMaHoaExtension.Decrypt(noidungWW, "32752262");
+                        FileExtension.WriteFile(pathWW, noidungWW);
                     }
-                }
 
-                if (yes_log || context.Session.GetString("NoAdmin_YesLog") == "true")
-                {
-                    var lockedApp = listSettingSWW[43].Split("<3275>");
-                    if (lockedApp[3] != "[NULL]")
+                    var listSettingSWW = noidungWW.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                    var infoXWW = listSettingSWW[22].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                    var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+                    var valuePam = FileExtension.ReadFile(pam).Split("<>")[0];
+
+
+                    var yes_log = true;
+                    var ip = SetUserIPClient(context);
+
+                    if (context.Session.GetString("admin-userIP") != null)
                     {
-                        var xi = context.Request.Path;
-                        if (xi == "" || xi == "/" || xi == null) xi = "/" + FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[20].Replace("--", "/");
+                        if (valuePam == MD5.CreateMD5(context.Session.GetString("admin-userIP"))) yes_log = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1].Split("###")[0] == "NOT_IS_ADMINUSING" ? true : false;
+                    }
 
-                        if (lockedApp[3].Contains(xi))
+                    if (context.Session.GetString("userIP") != null)
+                    {
+                        if (valuePam == MD5.CreateMD5(context.Session.GetString("userIP"))) yes_log = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1].Split("###")[0] == "NOT_IS_ADMINUSING" ? true : false;
+                    }
+
+                    if (valuePam == MD5.CreateMD5(ip)) yes_log = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1].Split("###")[0] == "NOT_IS_ADMINUSING" ? true : false;
+
+                    if (infoXWW[1] == "true" && context.Request.Path.ToString().Contains("ReloadIPComeHere") == false && (yes_log || context.Session.GetString("NoAdmin_YesLog") == "true"))
+                    {
+                        var pathS = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
+                        var noidungS = FileExtension.ReadFile(pathS);
+
+                        var data = await GetRequestFormAsync(context);
+                        var info = string.Format("Method :{0} ||| Path : {1} ||| Refferrer : {2} ||| User-agent : {3} ||| sec-ch-ua-platform : {4} ||| sec-ch-ua : {5} ||| status code : {6} ||| query : {7} ||| data : {8} ||| file : {9}",
+                            context.Request.Method,
+                            context.Request.Path,
+                            context.Request.GetTypedHeaders().Referer,
+                            context.Request.Headers["User-Agent"].ToString(),
+                            context.Request.Headers["Sec-CH-UA-Platform"].ToString(),
+                            context.Request.Headers["Sec-CH-UA"].ToString(),
+                            context.Response.StatusCode,
+                            context.Request.QueryString,
+                            "(" + string.Join("  =&&= ", data.Where(it => it.Key.Contains("RequestVerificationToken") == false).Select(kv =>
+                            {
+                                string value = kv.Value ?? ""; // Xử lý nếu null
+                                value = value.Replace("\r", "").Replace("\n", "\\n"); // Thay thế ký tự xuống dòng
+
+                                return (value.Length < 200) ? $"{kv.Key} :=: {value}" : $"{kv.Key} :=: {value.Substring(0, 200)}...";
+                            })) + ")",
+                            "(" + GetRequestFiles(context) + ")");
+                        var noidungZ = noidungS + "\n" + SetUserIPClient(context) + "\t" + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""))
+                            + "\t[DEBUG : " + info + "]";
+
+                        var khao = noidungS.Replace("\r", "").Split("\n");
+                        if (context.Request.Path.ToString().Contains("EncryptPasswordByKey_Call") == false
+                            && context.Request.Path.ToString().Contains("ReloadIPComeHere") == false)
                         {
-                            context.Response.Redirect("/Home/Error#debug");
+                            FileExtension.WriteFile(pathS, noidungZ.Trim('\n'));
+                        }
+                    }
+
+                    if (yes_log || context.Session.GetString("NoAdmin_YesLog") == "true")
+                    {
+                        var lockedApp = listSettingSWW[43].Split("<3275>");
+                        if (lockedApp[3] != "[NULL]")
+                        {
+                            var xi = context.Request.Path;
+                            if (xi == "" || xi == "/" || xi == null) xi = "/" + FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[20].Replace("--", "/");
+
+                            if (lockedApp[3].Contains(xi))
+                            {
+                                context.Response.Redirect("/Home/Error#debug");
+                            }
+                        }
+                    }
+
+                    var onEncryptSetting = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[9];
+                    if (onEncryptSetting == "ENCRYPT_LOCK_FILE_ADMIN_SETTING_WHEN_GO_TO_PAGE_ERROR_ON")
+                    {
+                        if (noidungWW.Contains("[ENCRYPT]") == false)
+                        {
+                            noidungWW = StringMaHoaExtension.Encrypt(noidungWW, "32752262");
+                            FileExtension.WriteFile(pathWW, "[ENCRYPT]" + noidungWW);
+                        }
+                    }
+
+                    var fileOption = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[3];
+                    if (fileOption == "file_TAT")
+                    {
+                        if (context.Request.HasFormContentType && context.Request.Form?.Files?.Any() == true)
+                        {
+                            if (context.Request.Form.Files.All(file => file.FileName.EndsWith(".txt", StringComparison.OrdinalIgnoreCase)) == false)
+                            {
+                                throw new Exception("Không thể xử lý file do bị giới hạn tải lên server !");
+                            }
                         }
                     }
                 }
 
-                var onEncryptSetting = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[9];
-                if (onEncryptSetting == "ENCRYPT_LOCK_FILE_ADMIN_SETTING_WHEN_GO_TO_PAGE_ERROR_ON")
-                {
-                    if (noidungWW.Contains("[ENCRYPT]") == false)
-                    {
-                        noidungWW = StringMaHoaExtension.Encrypt(noidungWW, "32752262");
-                        FileExtension.WriteFile(pathWW, "[ENCRYPT]" + noidungWW);
-                    }
-                }
-
-                var fileOption = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[3];
-                if (fileOption == "file_TAT")
-                {
-                    if (context.Request.HasFormContentType && context.Request.Form?.Files?.Any() == true)
-                    {
-                        if (context.Request.Form.Files.All(file => file.FileName.EndsWith(".txt", StringComparison.OrdinalIgnoreCase)) == false)
-                        {
-                            throw new Exception("Không thể xử lý file do bị giới hạn tải lên server !");
-                        }
-                    }
-                }
-
-                  await _next(context);
+                await _next(context);
             }
             catch (Exception ex)
             {

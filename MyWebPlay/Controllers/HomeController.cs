@@ -93,7 +93,7 @@ namespace MyWebPlay.Controllers
                     var error = HttpContext.Session.GetString("error_exception_log");
                     TempData["exception_show_after"] = error;
                     HttpContext.Session.Clear();
-                    return RedirectToAction("Error_Exception", "Cover");
+                    return Redirect("/Cover/Error_Exception#" + exception);
                 }
 
                 if (yeslog == "true")

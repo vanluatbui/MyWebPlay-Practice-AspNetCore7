@@ -986,7 +986,7 @@ namespace MyWebPlay.Controllers
         {
             if (TempData["exception_show_after"] == null || TempData["exception_show_after"].ToString() == "")
             {
-                return RedirectToAction("/Home/Error");
+                return RedirectToAction("Error", "Home");
             }
 
             TempData["exception_show"] = TempData["exception_show_after"];

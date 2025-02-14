@@ -19,15 +19,28 @@
             color: #ecf0f1;
             text-align: center;
             padding: 50px;
+             margin: 0;
+    padding: 0;
         }
         .error-container {
             background-color: #e74c3c;
-            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
             display: inline-block;
             text-align: left;
-            max-width: 600px;
+            max-width: none;
+            max-height: none;
+            padding: 40px;
+            box-sizing: border-box;
+              width: 100%;
+            height: 100%;
+            min-height:100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+    box-sizing: border-box;
         }
         h1 {
             color: #fff;
@@ -38,9 +51,10 @@
             padding: 15px;
             border-radius: 5px;
             overflow-x: auto;
-            font-size: 14px;
+            font-size: 15px;
             color: #fff;
-            white-space: pre-wrap;
+             white-space: pre-wrap; /* Cho phép xuống dòng nếu nội dung quá dài */
+            word-wrap: break-word; /* Tự động ngắt từ nếu cần */
         }
         p {
             color: #fff;
@@ -110,9 +124,13 @@
     <img id="laloly" src="/Image_Play/waiting.gif" /><body style="visibility:hidden" id="custom2">
     <div class="error-container">
         <h1 id="custom3">Lỗi hệ thống (Error - Exception)</h1>
+        <br />
         <pre id="custom5">
             @TempData["exception_show"]
         </pre>
     </div>
 </body>
+ <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> @Html.Raw(TempData["HTML-added"])
 </html>

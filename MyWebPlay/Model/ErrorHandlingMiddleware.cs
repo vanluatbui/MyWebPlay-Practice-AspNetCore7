@@ -49,6 +49,68 @@ namespace MyWebPlay.Model
                     var yes_log = true;
                     var ip = SetUserIPClient(context);
 
+                    if (string.IsNullOrEmpty(ip) == false)
+                    {
+                    var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "ListIPComeToHereTheFirst.txt");
+
+                    var listIP = FileExtension.ReadFile(path);
+
+                    Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+                    var delayTime = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "");
+                    var partDelayTime = delayTime.Split("#");
+                    var hourDL = partDelayTime[0].Replace("H", "");
+                    var minDL = partDelayTime[1].Replace("M", "");
+                    var secDL = partDelayTime[2].Replace("S", "");
+                    var xuxu = x.AddHours(DateTime.UtcNow, 7);
+                    if (hourDL.Contains("-"))
+                    {
+                        xuxu = xuxu.AddHours(-1 * int.Parse(hourDL.Replace("-", "")));
+                    }
+                    else
+                    {
+                        xuxu = xuxu.AddHours(int.Parse(hourDL));
+                    }
+
+                    if (minDL.Contains("-"))
+                    {
+                        xuxu = xuxu.AddMinutes(-1 * int.Parse(minDL.Replace("-", "")));
+                    }
+                    else
+                    {
+                        xuxu = xuxu.AddHours(int.Parse(minDL));
+                    }
+
+                    if (secDL.Contains("-"))
+                    {
+                        xuxu = xuxu.AddSeconds(-1 * int.Parse(secDL.Replace("-", "")));
+                    }
+                    else
+                    {
+                        xuxu.AddSeconds(int.Parse(secDL));
+                    }
+
+                        if (listIP.Contains(ip) == false)
+                        {
+                            // Random number and character string
+
+                            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                            var stringChars = new char[10];
+                            var random = new Random();
+
+                            for (int i = 0; i < stringChars.Length; i++)
+                            {
+                                stringChars[i] = chars[random.Next(chars.Length)];
+                            }
+
+                            var finalString = new String(stringChars);
+
+                            if (string.IsNullOrEmpty(listIP))
+                                FileExtension.WriteFile(path, ip + "\t" + xuxu + "\t" + "[" + finalString + "]");
+                            else
+                                FileExtension.WriteFile(path, listIP + "\r\n" + ip + "\t" + xuxu + "\t" + "[" + finalString + "]");
+                        }
+
                     if (context.Session.GetString("admin-userIP") != null)
                     {
                         if (valuePam == MD5.CreateMD5(context.Session.GetString("admin-userIP"))) yes_log = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===").Length > 1 && FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[1].Split("###")[0] == "NOT_IS_ADMINUSING" ? true : false;

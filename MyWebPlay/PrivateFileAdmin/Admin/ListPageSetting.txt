@@ -70,6 +70,8 @@
 /Cover/ShowMyHtml5
 /Cover/ShowMyHtml6
 /Cover/GetDateTimeServer
+/Cover/GetDataResult
+/Cover/Error_Exception
 /Home/TextToColumn2
 /Home/TextToColumn1
 /Home/TextConvertX

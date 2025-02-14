@@ -83,7 +83,7 @@ namespace MyWebPlay.Controllers
         {
             try
             {
-                if (exception.Contains("show-error"))
+                if (exception != null && exception.Contains("show-error"))
                 {
                     foreach (var cookie in Request.Cookies.Keys)
                     {
@@ -91,8 +91,9 @@ namespace MyWebPlay.Controllers
                     }
 
                     var error = HttpContext.Session.GetString("error_exception_log");
+                    TempData["exception_show_after"] = error;
                     HttpContext.Session.Clear();
-                    return Content(error);
+                    return RedirectToAction("Error_Exception", "Cover");
                 }
 
                 if (yeslog == "true")

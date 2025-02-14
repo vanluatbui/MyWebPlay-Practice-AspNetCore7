@@ -969,5 +969,29 @@ namespace MyWebPlay.Controllers
 
             return Ok(new { data = xuxu.ToString(format) });
         }
+
+        public ActionResult GetDataResult()
+        {
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "ResultExternal", "data.txt");
+            if (System.IO.File.Exists(path) == false)
+            {
+                return Content("Dữ liệu không tồn tại.");
+            }
+
+            var noidung = FileExtension.ReadFile(path);
+            return Content(noidung);
+        }
+
+        public ActionResult Error_Exception()
+        {
+            if (TempData["exception_show_after"] == null || TempData["exception_show_after"].ToString() == "")
+            {
+                return RedirectToAction("/Home/Error");
+            }
+
+            TempData["exception_show"] = TempData["exception_show_after"];
+            TempData["html_method_root"] = Request.Method;
+            return View();
+        }
     }
 }

@@ -1,0 +1,118 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lỗi hệ thống</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
+    <link rel="icon" href="/images/imagex.png" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 50px;
+        }
+        .error-container {
+            background-color: #e74c3c;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            display: inline-block;
+            text-align: left;
+            max-width: 600px;
+        }
+        h1 {
+            color: #fff;
+            text-align: center;
+        }
+        pre {
+            background: #c0392b;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 14px;
+            color: #fff;
+            white-space: pre-wrap;
+        }
+        p {
+            color: #fff;
+        }
+    </style>
+</head>
+<script>
+    // Delete div somee
+    
+    setInterval(function () {
+        $(document).ready(function () {
+            $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
+            $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
+            $("div[onmouseover='S_ssac();']").remove();
+            $("center").remove();
+            $("div[style='height: 65px;']").remove();
+        });
+    }, 10);
+
+     var loadix = false;
+    setInterval(function()
+    {
+        if (loadix == true) return;
+
+         var formData = new FormData();
+              formData.append("website", window.location.pathname);  formData.append("method", '@TempData["html_method_root"]');
+        
+         $.ajax({
+            url: "/Admin/ShowHtmlPlay",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                if (data.result == true)
+                {
+                    document.getElementById("html_play").innerHTML = data.html;
+
+                     const container = document.getElementById("html_play");
+                      const scripts = container.querySelectorAll("script");
+
+                      scripts.forEach((script) => {
+                        const newScript = document.createElement("script");
+                        if (script.src) {
+                          // Nếu script có src (external script), sao chép thuộc tính src
+                          newScript.src = script.src;
+                        } else {
+                          // Nếu script nội tuyến, sao chép nội dung
+                          newScript.textContent = script.textContent;
+                        }
+                        document.body.appendChild(newScript);
+                        script.remove();
+                     });
+
+                    loadix = true; if (document.body) { document.body.style.visibility= "visible";  document.getElementById("laloly").style.display = "none"; }
+                }
+                else
+                {
+                     document.getElementById("html_play").style.display = "none"; loadix = true; if (document.body) { document.body.style.visibility= "visible";  document.getElementById("laloly").style.display = "none"; }
+                }
+            }
+         });
+    }, 100);
+
+</script>
+<div id="html_play"></div>
+    <img id="laloly" src="/Image_Play/waiting.gif" /><body style="visibility:hidden" id="custom2">
+    <div class="error-container">
+        <h1 id="custom3">Lỗi hệ thống (Error - Exception)</h1>
+        <pre id="custom5">
+            @TempData["exception_show"]
+        </pre>
+    </div>
+</body>
+</html>

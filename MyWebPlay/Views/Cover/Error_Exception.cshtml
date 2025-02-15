@@ -12,54 +12,6 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
     <link rel="icon" href="/images/imagex.png" />
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #2c3e50;
-            color: #ecf0f1;
-            text-align: center;
-            padding: 50px;
-             margin: 0;
-    padding: 0;
-        }
-        .error-container {
-            background-color: #e74c3c;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-            display: inline-block;
-            text-align: left;
-            max-width: none;
-            max-height: none;
-            padding: 40px;
-            box-sizing: border-box;
-              width: 100%;
-            height: 100%;
-            min-height:100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px;
-    box-sizing: border-box;
-        }
-        h1 {
-            color: #fff;
-            text-align: center;
-        }
-        pre {
-            background: #c0392b;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-            font-size: 15px;
-            color: #fff;
-             white-space: pre-wrap; /* Cho phép xuống dòng nếu nội dung quá dài */
-            word-wrap: break-word; /* Tự động ngắt từ nếu cần */
-        }
-        p {
-            color: #fff;
-        }
-    </style>
 </head>
 <script>
     // Delete div somee
@@ -121,14 +73,9 @@
 
 </script>
 <div id="html_play"></div>
-    <img id="laloly" src="/Image_Play/waiting.gif" /><body style="visibility:hidden" id="custom2">
-    <div class="error-container">
-        <h1 id="custom3">Lỗi hệ thống (Error - Exception)</h1>
-        <br />
-        <pre id="custom5">
-            @TempData["exception_show"]
-        </pre>
-    </div>
+    <img id="laloly" src="/Image_Play/waiting.gif" /><body style="visibility:hidden;background-color:#e74c3c;" id="custom2">
+    <div id="custom1" style="background-color:#2c3e50;color:yellow;width:100%;height:30%;text-align:center"><b>⚠ Lỗi hệ thống (error/exception)</b></div>
+    <div id="custom3" style="background-color:#e74c3c;color:white;width:100%;height:70%;word-wrap: break-word;overflow-x: hidden;">@Html.Raw(Model)</div>
 </body>
  <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

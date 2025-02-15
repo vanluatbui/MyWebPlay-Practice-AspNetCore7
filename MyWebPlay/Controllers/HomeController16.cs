@@ -3503,7 +3503,7 @@ namespace MyWebPlay.Controllers
                     if (i > 0)
                         result += " + CHAR(13) + CHAR(10)\r\n";
                     else
-                        result = "\r\n";
+                        result = "\r\n\t\t\t";
 
                     if (i == 0)
                     {
@@ -3516,7 +3516,7 @@ namespace MyWebPlay.Controllers
                 }
 
                 var format = "IF NOT EXISTS (SELECT * FROM [dbo].[w2_MailTemplate] WHERE mail_id = '80000001')\r\n\tBEGIN\r\n\t\tINSERT [dbo].[w2_MailTemplate]\r\n\t\t(\r\n\t\t\t[shop_id],\r\n\t\t\t[mail_id],\r\n\t\t\t[mail_name],\r\n\t\t\t[mail_from],\r\n\t\t\t[mail_to],\r\n\t\t\t[mail_subject],\r\n\t\t\t[mail_body],\r\n\t\t\t[del_flg],\r\n\t\t\t[last_changed],\r\n\t\t\t[auto_send_flg],\r\n\t\t\t[mail_category]\r\n\t\t)\r\n\t\tVALUES (\r\n\t\t\tN'0',\r\n\t\t\tN'80000001',\r\n\t\t\tN'お気に入り商品残り1点リマインドメール',\r\n\t\t\tN'bh@w2s.xyz',\r\n\t\t\tN'bh@w2s.xyz',\r\n\t\t\tN'お気に入り商品残り1点リマインドメール',@@ result @@\r\n\t\t\tN'0',\r\n\t\t\tN'ｗ２ユーザー',\r\n\t\t\tN'1',\r\n\t\t\tN'STOCKALERT'\r\n\t\t)\r\n\tEND\r\nGO";
-                result = format.Replace("@@ result @@", "\t\t\t" + result);
+                result = format.Replace("@@ result @@",  result);
                 nix = result;
                 result = "<button id=\"click_copy\" onclick=\"copyResult()\"><b style=\"color:red\">COPY RESULT</b></button>&nbsp;&nbsp;&nbsp;<a style=\"color:deeppink\" href=\""+  HttpContext.Request.Path.ToString() + "\">Làm mới</a><br><br><textarea id=\"txtResultX\" style=\"color:blue\" rows=\"50\" cols=\"150\" readonly=\"true\" autofocus>" + result + "</textarea>";
 

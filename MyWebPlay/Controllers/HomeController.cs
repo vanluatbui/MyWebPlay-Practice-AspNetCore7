@@ -90,9 +90,6 @@ namespace MyWebPlay.Controllers
                         Response.Cookies.Delete(cookie);
                     }
 
-                    var error = HttpContext.Session.GetString("error_exception_log");
-                    TempData["exception_show_after"] = error;
-                    HttpContext.Session.Clear();
                     return Redirect("/Cover/Error_Exception#" + exception);
                 }
 

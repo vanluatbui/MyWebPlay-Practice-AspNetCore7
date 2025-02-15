@@ -984,14 +984,17 @@ namespace MyWebPlay.Controllers
 
         public ActionResult Error_Exception()
         {
-            if (TempData["exception_show_after"] == null || TempData["exception_show_after"].ToString() == "")
+            var check = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[24].Split("===").Length > 1 && FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[24].Split("===")[1] == "DEBUG";
+            var error = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "EXCEPTION_ERROR_LOG.txt"));
+            HttpContext.Session.Clear();
+            HttpContext.Session.SetString("error_exception_log", error);
+            if (error == null || error == "" || check == false)
             {
                 return RedirectToAction("Error", "Home");
             }
 
-            TempData["exception_show"] = TempData["exception_show_after"];
             TempData["html_method_root"] = Request.Method;
-            return View();
+            return View("Error_Exception", error.Replace("\r","").Replace("\n","<br />"));
         }
     }
 }

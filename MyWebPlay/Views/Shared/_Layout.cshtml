@@ -915,6 +915,7 @@
              if (sang == 0)
              {
                  sang = 1;
+                 if (document.getElementById("chuyenlightdark") != null)
                   document.getElementById("chuyenlightdark").innerText = "Đổi nền tối";
              document.getElementById("nenta").style.backgroundColor = "dodgerblue";
              var li1 = document.getElementsByName("backgroundX").length;
@@ -933,6 +934,7 @@
             else
             {
                 sang = 0;
+                if (document.getElementById("chuyenlightdark") != null)
                 document.getElementById("chuyenlightdark").innerText = "Đổi nền sáng";
                   document.getElementById("nenta").style.backgroundColor = "rebeccapurple";
              var li1 = document.getElementsByName("backgroundX").length;

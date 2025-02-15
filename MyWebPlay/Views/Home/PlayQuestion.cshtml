@@ -104,6 +104,7 @@ Layout = null;
     
     function myJapan()
     {
+        if (document.getElementById("answix-" + indexJP) != null)
         document.getElementById("answix-"+indexJP).value = new String(document.getElementById("answix-"+indexJP).value).replaceAll("\r","").replaceAll("\n","");
     
         if ('@TempData["chuyendoiJapan"]' != "true" || indexJP == -1)

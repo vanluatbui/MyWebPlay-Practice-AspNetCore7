@@ -895,7 +895,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult Karaoke_Ajax_Call(string url, int index)
         {
-            if (FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[24] == "AJAX_JAVASCRIPT_OFF")
+            if (FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[24].Split("===")[0] == "AJAX_JAVASCRIPT_OFF")
             {
                 return Ok(new { error = "true" });
             }
@@ -1006,7 +1006,7 @@ namespace MyWebPlay.Controllers
         [HttpPost]
         public ActionResult ListSongKaraoke_Call(string url)
         {
-            if (FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[24] == "AJAX_JAVASCRIPT_OFF")
+            if (FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[24].Split("===")[0] == "AJAX_JAVASCRIPT_OFF")
             {
                 return Ok(new { error = "true" });
             }

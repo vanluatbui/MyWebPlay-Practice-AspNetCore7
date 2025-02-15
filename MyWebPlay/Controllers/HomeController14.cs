@@ -131,7 +131,7 @@ namespace MyWebPlay.Controllers
                 var pathSecure = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
                 var noidungSecure = FileExtension.ReadFile(pathSecure);
                 var fileMOTAT = noidungSecure.Replace("\r", "").Split("\n")[3];
-                var ajax = noidungSecure.Replace("\r", "").Split("\n")[24];
+                var ajax = noidungSecure.Replace("\r", "").Split("\n")[24].Split("===")[0];
                 if (fileMOTAT == "file_TAT" && (txtKaraoke != null && txtKaraoke.Length > 0 || txtMusic != null && txtMusic.Length > 0 || txtMusix != null && txtMusix.Length > 0)) return RedirectToAction("Error", "Home");
 
                 var fix = "";
@@ -454,7 +454,7 @@ namespace MyWebPlay.Controllers
                 var pathSecure = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
                 var noidungSecure = FileExtension.ReadFile(pathSecure);
                 var fileMOTAT = noidungSecure.Replace("\r", "").Split("\n")[3];
-                var ajax = noidungSecure.Replace("\r", "").Split("\n")[24];
+                var ajax = noidungSecure.Replace("\r", "").Split("\n")[24].Split("===")[0];
                 if (fileMOTAT == "file_TAT" && ajax == "AJAX_JAVASCRIPT_ON")
                 {
                     TempData["ajax_on_no_upload"] = "Hiện tại bạn không thể thực hiện tải lên file Karaoke liên quan tại đây. Tuy nhiên hãy cứ bỏ qua điều này và thực hiện các bước tiếp theo, bạn sẽ được hướng dẫn thêm sau đó...";
@@ -820,7 +820,7 @@ namespace MyWebPlay.Controllers
                 var pathSecure = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
                 var noidungSecure = FileExtension.ReadFile(pathSecure);
                 var fileMOTAT = noidungSecure.Replace("\r", "").Split("\n")[3];
-                var ajax = noidungSecure.Replace("\r", "").Split("\n")[24];
+                var ajax = noidungSecure.Replace("\r", "").Split("\n")[24].Split("===")[0];
                 if (fileMOTAT == "file_TAT" && ajax == "AJAX_JAVASCRIPT_ON")
                 {
                     TempData["ajax_on_no_upload"] = "OK";
@@ -989,7 +989,7 @@ namespace MyWebPlay.Controllers
                 var pathSecure = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
                 var noidungSecure = FileExtension.ReadFile(pathSecure);
                 var fileMOTAT = noidungSecure.Replace("\r", "").Split("\n")[3];
-                var ajax = noidungSecure.Replace("\r", "").Split("\n")[24];
+                var ajax = noidungSecure.Replace("\r", "").Split("\n")[24].Split("===")[0];
                 if (fileMOTAT == "file_TAT" && ajax == "AJAX_JAVASCRIPT_ON")
                 {
                     TempData["ajax_on_no_upload"] = "OK";
@@ -1405,7 +1405,7 @@ namespace MyWebPlay.Controllers
                 var pathSecure = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
                 var noidungSecure = FileExtension.ReadFile(pathSecure);
                 var fileMOTAT = noidungSecure.Replace("\r", "").Split("\n")[3];
-                var ajax = noidungSecure.Replace("\r", "").Split("\n")[24];
+                var ajax = noidungSecure.Replace("\r", "").Split("\n")[24].Split("===")[0];
                 if (fileMOTAT == "file_TAT" && ajax == "AJAX_JAVASCRIPT_ON")
                 {
                     TempData["ajax_on_no_upload"] = "Hiện tại bạn không thể thực hiện tải lên các file Karaoke liên quan tại đây. Tuy nhiên hãy cứ bỏ qua điều này và thực hiện các bước tiếp theo, bạn sẽ được hướng dẫn thêm sau đó...";
@@ -1685,7 +1685,7 @@ namespace MyWebPlay.Controllers
                 var fileMOTAT = noidungSecure.Replace("\r", "").Split("\n")[3];
                 if (fileMOTAT == "file_TAT" && (txtKaraoke != null && txtKaraoke.Length > 0 || txtMusic != null && txtMusic.Length > 0 || txtMusix != null && txtMusix.Length > 0)) return RedirectToAction("Error", "Home");
 
-                var ajax = noidungSecure.Replace("\r", "").Split("\n")[24];
+                var ajax = noidungSecure.Replace("\r", "").Split("\n")[24].Split("===")[0];
 
                 TempData["ajax_file_on_off"] = (fileMOTAT == "file_TAT").ToString();
                 TempData["ajax_on_off"] = (ajax == "AJAX_JAVASCRIPT_ON").ToString();

@@ -556,7 +556,7 @@ namespace MyWebPlay.Controllers
 
                 TempData["user_ip_form_regist"] = (FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[22] == "FORM_IP_USER_REGIST_ON") ? "true" : "false";
 
-                TempData["ajax_js"] = (FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[24] == "AJAX_JAVASCRIPT_ON") ? "true" : "false";
+                TempData["ajax_js"] = (FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[24].Split("===")[0] == "AJAX_JAVASCRIPT_ON") ? "true" : "false";
 
                 TempData["auto_close_window"] = (FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[23].Split("===")[0] == "JS_AUTO_CLOSE_WINDOW_ON") ? "true" : "false";
 

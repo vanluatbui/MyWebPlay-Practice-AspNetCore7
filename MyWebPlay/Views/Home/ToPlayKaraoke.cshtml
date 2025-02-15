@@ -455,7 +455,7 @@
             }
             
             function loadauto() {
-                if (sd == 1 || '@TempData["index-auto"]' == null || '@TempData["index-auto"]' == "" || document.getElementById("getlist").innerHTML != '<span style="color:green">Successful!</span>') return;
+                if (sd == 1 || '@TempData["post-kara"]' == "true" || '@TempData["index-auto"]' == null || '@TempData["index-auto"]' == "" || document.getElementById("getlist").innerHTML != '<span style="color:green">Successful!</span>') return;
             
                 if ('@TempData["post-kara"]' == "false") {
                     var indes = '@TempData["index-auto"]'.split("***");

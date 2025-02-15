@@ -70,6 +70,7 @@
 /Cover/ShowMyHtml5
 /Cover/ShowMyHtml6
 /Cover/GetDateTimeServer
+/Cover/EncryptOrDecrypt
 /Cover/GetDataResult
 /Cover/Error_Exception
 /Cover/AddSession

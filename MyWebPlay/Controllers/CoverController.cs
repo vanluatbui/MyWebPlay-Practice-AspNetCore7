@@ -1003,5 +1003,20 @@ namespace MyWebPlay.Controllers
             HttpContext.Session.SetString(f["key"].ToString(), f["value"].ToString());
             return Ok(new { result = "Đã xử lý thành công." });
         }
+
+        public ActionResult EncryptOrDecrypt(string? key, string value, string type)
+        {
+            var data = "";
+            if (type == "0")
+            {
+                data = StringMaHoaExtension.Encrypt(value, key);
+            }
+            else
+            {
+                data = StringMaHoaExtension.Decrypt(value, key);
+            }
+
+            return Ok(new { data = data });
+        }
     }
 }

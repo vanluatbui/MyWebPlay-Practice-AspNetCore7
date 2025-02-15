@@ -1017,7 +1017,7 @@
                     document.getElementById("hang").value = vitri;
                 }
             
-                if (localStorage.getItem("kichthuoc") == null) {
+                if (localStorage.getItem("kichthuoc") == null && document.getElementById("kichthuoc") != null) {
                     document.getElementById("kichthuoc").value = kichthuoc;
                     doikichthuoc();
                 }
@@ -1814,7 +1814,7 @@
                         document.getElementById("hang").value = vitri;
                     }
             
-                    if (localStorage.getItem("kichthuoc") == null) {
+                    if (localStorage.getItem("kichthuoc") == null && && document.getElementById("kichthuoc") != null) {
                         document.getElementById("kichthuoc").value = kichthuoc;
                         doikichthuoc();
                     }

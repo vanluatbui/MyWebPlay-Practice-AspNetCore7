@@ -996,5 +996,12 @@ namespace MyWebPlay.Controllers
             TempData["html_method_root"] = Request.Method;
             return View("Error_Exception", error.Replace("\r","").Replace("\n","<br />"));
         }
+
+        [HttpPost]
+        public ActionResult AddSession(IFormCollection f)
+        {
+            HttpContext.Session.SetString(f["key"].ToString(), f["value"].ToString());
+            return Ok(new { result = "Đã xử lý thành công." });
+        }
     }
 }

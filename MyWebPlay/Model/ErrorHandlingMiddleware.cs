@@ -196,6 +196,24 @@ namespace MyWebPlay.Model
                     }
                 }
 
+                SetAcceptReferrer(context);
+                var pathAccept = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Others", "AcceptReferrer.txt");
+                var noidungAccept = FileExtension.ReadFile(pathAccept);
+
+                if (noidungAccept.Contains(context.Request.Path+"[3275]"))
+                {
+                    var checkAccept = CheckAcceptReferrer(context);
+                    if (checkAccept == false || context.Session.GetString(context.Request.Path.ToString().Replace("/", "_32752262")) != "32752262")
+                    {
+                        RemoveAcceptReferrer(context);
+                        throw new Exception("Yêu cầu dịch vụ của server lúc này đã bị chặn, mời bạn thử truy cập lại sau !");
+                    }
+
+                    RemoveAcceptReferrer(context);
+                }
+
+               RemoveAcceptReferrerAnother(context);
+
                 await _next(context);
             }
             catch (Exception ex)
@@ -381,7 +399,68 @@ namespace MyWebPlay.Model
             }
             catch
             {
-                return "Cannot read uploaded files";
+                return "Can't read uploaded files";
+            }
+        }
+
+        private void SetAcceptReferrer(HttpContext context)
+        {
+            var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Others", "AcceptReferrer.txt");
+            var noidung = FileExtension.ReadFile(path).Replace("\r", "").Split("\n");
+
+            foreach(var item in noidung)
+            {
+                var pat = item.Split("[3275]");
+                if (context.Request.Path.ToString().Contains(pat[1]))
+                {
+                    context.Session.SetString(pat[0].Replace("/", "_32752262"), "32752262");
+                }
+            }
+        }
+
+        private bool CheckAcceptReferrer(HttpContext context)
+        {
+            var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Others", "AcceptReferrer.txt");
+            var noidung = FileExtension.ReadFile(path).Replace("\r", "").Split("\n");
+
+            foreach (var item in noidung)
+            {
+                var pat = item.Split("[3275]");
+                if (context.Request.Path.ToString().Contains(pat[0])
+                    && context.Request.GetTypedHeaders().Referer.ToString().Contains(pat[1]) == false)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void RemoveAcceptReferrer(HttpContext context)
+        {
+            var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Others", "AcceptReferrer.txt");
+            var noidung = FileExtension.ReadFile(path).Replace("\r", "").Split("\n");
+
+            foreach (var item in noidung)
+            {
+                var pat = item.Split("[3275]");
+                context.Session.Remove(pat[0].Replace("/", "_32752262"));
+            }
+        }
+
+        private void RemoveAcceptReferrerAnother(HttpContext context)
+        {
+            var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Others", "AcceptReferrer.txt");
+            var noidung = FileExtension.ReadFile(path).Replace("\r", "").Split("\n");
+
+            foreach (var item in noidung)
+            {
+                var pat = item.Split("[3275]");
+                if (context.Request.GetTypedHeaders().Referer.ToString().Contains(pat[1])
+                    && context.Request.Path.ToString().Contains(pat[0]) == false)
+                {
+                    context.Session.Remove(pat[0].Replace("/", "_32752262"));
+                }
             }
         }
     }

@@ -1004,7 +1004,7 @@ namespace MyWebPlay.Controllers
             return Ok(new { result = "Đã xử lý thành công." });
         }
 
-        public ActionResult EncryptOrDecrypt(string? key, string value, string type)
+        public ActionResult EncryptOrDecrypt(string value, string type, string? key = "buivanluat-ADMIN3275")
         {
             var data = "";
             if (type == "0")

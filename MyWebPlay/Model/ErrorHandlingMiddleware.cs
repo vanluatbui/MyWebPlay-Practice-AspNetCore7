@@ -426,8 +426,9 @@ namespace MyWebPlay.Model
             foreach (var item in noidung)
             {
                 var pat = item.Split("[3275]");
-                if (context.Request.Path.ToString().Contains(pat[0])
-                    && context.Request.GetTypedHeaders().Referer.ToString().Contains(pat[1]) == false)
+                if (context.Request.GetTypedHeaders().Referer == null
+                    || (context.Request.Path.ToString().Contains(pat[0])
+                    && context.Request.GetTypedHeaders().Referer.ToString().Contains(pat[1]) == false))
                 {
                     return false;
                 }
@@ -456,7 +457,8 @@ namespace MyWebPlay.Model
             foreach (var item in noidung)
             {
                 var pat = item.Split("[3275]");
-                if (context.Request.GetTypedHeaders().Referer.ToString().Contains(pat[1])
+                if (context.Request.GetTypedHeaders().Referer != null
+                    && context.Request.GetTypedHeaders().Referer.ToString().Contains(pat[1])
                     && context.Request.Path.ToString().Contains(pat[0]) == false)
                 {
                     context.Session.Remove(pat[0].Replace("/", "_32752262"));

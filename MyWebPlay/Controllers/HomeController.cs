@@ -93,6 +93,8 @@ namespace MyWebPlay.Controllers
                     return Redirect("/Cover/Error_Exception#" + exception);
                 }
 
+                HttpContext.Session.Clear();
+
                 if (yeslog == "true")
                 {
                     HttpContext.Session.SetString("NoAdmin_YesLog", "true");

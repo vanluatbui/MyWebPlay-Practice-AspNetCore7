@@ -215,7 +215,7 @@ namespace MyWebPlay.Model
                     RemoveAcceptReferrer(context);
                 }
 
-                if (context.Request.HasFormContentType && context.Request.Form != null)
+                if (context.Request.HasFormContentType && context.Request.Form != null && context.Request.Form.ContainsKey("replace_type"))
                 {
                     var formFeature = context.Features.Get<IFormFeature>();
                     var originalForm = formFeature?.Form ?? await context.Request.ReadFormAsync();

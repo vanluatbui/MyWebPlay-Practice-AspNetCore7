@@ -986,7 +986,7 @@ namespace MyWebPlay.Controllers
         {
             var check = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[24].Split("===").Length > 1 && FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[24].Split("===")[1] == "DEBUG";
             var error = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "EXCEPTION_ERROR_LOG.txt"));
-            HttpContext.Session.Clear();
+           // HttpContext.Session.Clear();
             HttpContext.Session.SetString("error_exception_log", error);
             if (error == null || error == "" || check == false)
             {

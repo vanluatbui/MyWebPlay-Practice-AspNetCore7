@@ -81,6 +81,7 @@
                     var n = new Number(hash);
 
                     document.getElementById("fr-view").src = view[n - 1];
+                    document.title = view[n - 1].split('/').pop();
                 });
         }
     }
@@ -96,9 +97,11 @@
             if (view.length > 1)
             {
                 document.getElementById("fr-view").src = view[0];
+                    document.title = view[0].split('/').pop();
             }
             else{
                 document.getElementById("fr-view").src = '@TempData["file_view_path"]';
+                document.title = '@TempData["file_view_path"]'.split('/').pop();
             }
         }
 

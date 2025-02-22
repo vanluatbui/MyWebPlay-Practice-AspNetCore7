@@ -174,7 +174,8 @@ Layout = null;
 
         function xemmatam()
         {
-            navigator.clipboard.writeText('@TempData["logincodetemp"]');
+             let loginCode = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(TempData["logincodetemp"]));
+            navigator.clipboard.writeText(loginCode);
             alert("Đã copy mã login admin tạm vào clipboard của bạn !");
         }
 

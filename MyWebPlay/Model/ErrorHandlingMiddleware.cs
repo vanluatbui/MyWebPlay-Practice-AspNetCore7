@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.Primitives;
 using MyWebPlay.Extension;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Asn1.Ocsp;
@@ -211,6 +213,24 @@ namespace MyWebPlay.Model
                     }
 
                     RemoveAcceptReferrer(context);
+                }
+
+                if (context.Request.HasFormContentType && context.Request.Form != null)
+                {
+                    var formFeature = context.Features.Get<IFormFeature>();
+                    var originalForm = formFeature?.Form ?? await context.Request.ReadFormAsync();
+                    var formData = new Dictionary<string, StringValues>(originalForm);
+
+                    foreach (var key in formData.Keys)
+                    {
+                        if (!StringValues.IsNullOrEmpty(formData[key]))
+                        {
+                            formData[key] = formData[key].ToString().Replace("[T-PLAY]", "\t")
+                                .Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r").Replace("[ngoackep_0000]", "\"");
+                        }
+                    }
+
+                    context.Features.Set<IFormFeature>(new FormFeature(new FormCollection(formData)));
                 }
 
                 await _next(context);

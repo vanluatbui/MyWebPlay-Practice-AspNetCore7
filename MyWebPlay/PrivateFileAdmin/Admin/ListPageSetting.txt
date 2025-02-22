@@ -73,6 +73,8 @@
 /Cover/EncryptOrDecrypt
 /Cover/GetDataResult
 /Cover/Error_Exception
+/Cover/ChangeFirstUrl
+/Cover/ReadFileExternal
 /Cover/AddSession
 /Home/TextToColumn2
 /Home/TextToColumn1

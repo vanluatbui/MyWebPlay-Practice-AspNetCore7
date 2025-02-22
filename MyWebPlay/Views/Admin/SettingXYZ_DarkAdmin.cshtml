@@ -514,6 +514,22 @@ Layout = null;
             document.getElementById(x2).value = "";
             document.getElementById("textclick-"+i).style.display = "none";
         }
+
+        function tamdungday()
+        {
+            if (tamdunghere == 0)
+            {
+                tamdunghere = 1;
+                document.getElementById("lamda").innerHTML = "Tiếp tục";
+                document.getElementById("lamda").style.color = "green";
+            }
+            else
+            {
+                tamdunghere = 0;
+                document.getElementById("lamda").innerHTML = "Tạm dừng";
+                document.getElementById("lamda").style.color = "red";
+            }
+        }
         
         function reportIPcomehere()
         {
@@ -1550,7 +1566,7 @@ Layout = null;
                     </select>
                     <br /><br /><a href="#xuly" onclick="chonnhanh()">Xử lý setting nhanh (có sẵn)</a>
                     <br /><br />
-                    <a href="#xuly" onclick="copySetting()" style="color:crimson">Copy admin setting (mẫu hiện tại)</a> (* DeleteBin sẽ xoá đi toàn bộ file copied admin setting đã lưu trữ này).
+                    <a href="#xuly" onclick="copySetting()" style="color:crimson">Copy admin setting (mẫu hiện tại)</a> (* DeleteBin với param "remove = true"" sẽ xoá đi toàn bộ file copied admin setting đã lưu trữ này).
                     <br />
                     <a href="#xuly" onclick="mauCopySetting()" style="color:crimson">Xem DS các file mẫu copy admin setting đã lưu sẵn có</a>
                     <br />
@@ -1870,7 +1886,9 @@ Layout = null;
             - Nhấn button "MAIL REPORT" nếu bạn muốn tự xuất báo cáo thủ công ngay hiện tại, hoặc không nếu hệ thống phát hiện dữ liệu này đã hơn xxx thì cũng tự động gửi report và khôi phục...<br>
             - Kết quả danh sách bên dưới có thể chưa đủ thông tin vì trước đó bạn đã từng tắt/tạm ngưng save setting chế độ lưu trữ này hoặc tự động được reset lại khi data đã quá xxx (hãy bật setting report mail when data than xxx để kịp thời lưu trữ).
         <br />
-        <a id="linkread10" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/ListIPComeHere.txt&&isHTML=false" target="_blank" style="color:lime">Xem chi tiết (edit)</a>
+        <a id="linkread10" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/ListIPComeHere.txt&&isHTML=false" target="_blank" style="color:coral">Xem chi tiết (edit)</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="#xuly" id="lamda" style="color:red" onclick="tamdungday()">Tạm dừng</a>
         </p>
         <br />
         <textarea id="comehex" readonly cols="1000" rows="100">@TempData["showIPCome"]</textarea>

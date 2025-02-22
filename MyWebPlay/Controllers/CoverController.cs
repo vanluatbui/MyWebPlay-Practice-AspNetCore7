@@ -1018,5 +1018,34 @@ namespace MyWebPlay.Controllers
 
             return Ok(new { data = data });
         }
+
+        public ActionResult ChangeFirstUrl(string url, string ID, string Password)
+        {
+            var pathX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+            var noidungX = FileExtension.ReadFile(pathX);
+            var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            var pth = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
+            var password = FileExtension.ReadFile(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[1];
+            var Id = FileExtension.ReadFile(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[0];
+
+            var key = listSetting[60].Split("<3275>")[3];
+            var oldUrl = FileExtension.ReadFile(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[20];
+            var document = FileExtension.ReadFile(pth);
+            if (StringMaHoaExtension.Decrypt(password, key) == Password && StringMaHoaExtension.Decrypt(Id, key) == ID)
+            {
+                document = document.Replace(oldUrl, url.TrimStart('/').Replace("/", "---"));
+                FileExtension.WriteFile(pth, document);
+                return Ok(new { message = "Đã thay đổi thành công. Tuy nhiên bạn có thể phải đợi thêm vài giờ để nó chính thức hoạt động !" });
+            }
+
+            return Ok(new { message = "Đã xảy ra lỗi." });
+        }
+
+        public ActionResult ReadFileExternal(string path)
+        {
+             var noidung = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath, "FileExternal", path));
+             return Ok(new { data = noidung });
+        }
     }
 }

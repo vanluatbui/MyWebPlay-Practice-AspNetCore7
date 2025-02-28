@@ -36,11 +36,26 @@
                         script.remove();
                      });
 
-                    loadix = true; if (document.body) { document.body.style.visibility= "visible";  document.getElementById("laloly").style.display = "none"; }
+                    loadix = true; if (document.body) {
+                        document.body.style.visibility= "visible"; 
+                        document.getElementById("laloly").style.display = "none";
+                        let styles1 = window.getComputedStyle(document.body);
+                        backgroundColorGoc = styles1.backgroundColor;
+                        let styles2 = window.getComputedStyle(document.getElementsByName("colorX")[0]);
+                        colorGoc = styles2.color;
+                    }
                 }
                  else
                 {
-                     document.getElementById("html_play").style.display = "none"; loadix = true; if (document.body) { document.body.style.visibility= "visible";  document.getElementById("laloly").style.display = "none"; }
+                     document.getElementById("html_play").style.display = "none"; loadix = true;
+                     if (document.body) { 
+                         document.body.style.visibility= "visible"; 
+                         document.getElementById("laloly").style.display = "none";
+                        let styles1 = window.getComputedStyle(document.body);
+                        backgroundColorGoc = styles1.backgroundColor;
+                        let styles2 = window.getComputedStyle(document.getElementsByName("colorX")[0]);
+                        colorGoc = styles2.color;
+                     }
                 }
             }
          });
@@ -54,62 +69,56 @@ Layout = null;
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> @Html.Raw(TempData["HTML-added"])
+}
 <script>
     var tim1 = 30;
     var idX1 = setInterval(myFay1, 1000);
-    
-    function myFay1()
-    {
-      if ($('#thoigian1').length)
-      {
-       var va = document.getElementById("thoigian1");
-       va.innerHTML = tim1;
-       tim1--;
-       if (va.innerText == 0)
-       {
-           clearInterval(idX1);
-           window.location.href="/Home/XoaAllFile_X1";
-       }
-      }
+
+    var colorGoc = "";
+    var backgroundColorGoc = "";
+
+    function myFay1() {
+        if ($('#thoigian1').length) {
+            var va = document.getElementById("thoigian1");
+            va.innerHTML = tim1;
+            tim1--;
+            if (va.innerText == 0) {
+                clearInterval(idX1);
+                window.location.href = "/Home/XoaAllFile_X1";
+            }
+        }
     }
-    
+
     var tim2 = 30;
     var idX2 = setInterval(myFay2, 1000);
-    
-    function myFay2()
-    {
-      if ($('#thoigian2').length)
-      {
-       var va = document.getElementById("thoigian2");
-       va.innerHTML = tim2;
-       tim2--;
-       if (va.innerText == 0)
-       {
-           clearInterval(idX2);
-           window.location.href="/Home/XoaAllFile_X2";
-       }
-      }
+
+    function myFay2() {
+        if ($('#thoigian2').length) {
+            var va = document.getElementById("thoigian2");
+            va.innerHTML = tim2;
+            tim2--;
+            if (va.innerText == 0) {
+                clearInterval(idX2);
+                window.location.href = "/Home/XoaAllFile_X2";
+            }
+        }
     }
-    
+
     var tim3 = 30;
     var idX3 = setInterval(myFay3, 1000);
-    
-    function myFay3()
-    {
-        if ($('#thoigian3').length)
-      {
-       var va = document.getElementById("thoigian3");
-       va.innerHTML = tim3;
-       tim3--;
-       if (va.innerText == 0)
-       {
-           clearInterval(idX3);
-           window.location.href="/Home/XoaKaraoke";
-       }
-      }
+
+    function myFay3() {
+        if ($('#thoigian3').length) {
+            var va = document.getElementById("thoigian3");
+            va.innerHTML = tim3;
+            tim3--;
+            if (va.innerText == 0) {
+                clearInterval(idX3);
+                window.location.href = "/Home/XoaKaraoke";
+            }
+        }
     }
 </script>
-}
 <script>
     setInterval(resetchange, 1);
     
@@ -117,7 +126,6 @@ Layout = null;
     var readyX = false;
     
     var sansang = false;
-    
     
     window.onload = function()
      {
@@ -151,9 +159,16 @@ Layout = null;
                 if ('@ViewBag.ND_File' == null || '@ViewBag.ND_File' == "")
                 {
                     alert("Bài trắc nghiệm của bạn đã được tải hoàn tất.\nNhấn [OK] nếu bạn đã sẵn sàng!");
-                    loadix = false;
                 }
              }
+
+              document.body.style.backgroundColor = backgroundColorGoc;
+                var colorXX = document.getElementsByName("colorX");
+                for (var i = 0; i < colorXX.length; i++) {
+                    colorXX[i].style.color = colorGoc;
+                }
+            document.getElementById("chuyenlightdark").style.display = "none";
+
             return;
         }
     
@@ -189,6 +204,8 @@ Layout = null;
     {
         mau = "black";
     }
+
+    mau = colorGoc;
     
     var tomau = '@TempData["mau-TN"]';
     
@@ -421,6 +438,8 @@ Layout = null;
     {
         mau = "black";
     }
+
+    mau = colorGoc;
     
     var tomau = '@TempData["mau-TN"]';
     
@@ -556,6 +575,8 @@ Layout = null;
     {
         mau = "black";
     }
+
+    mau = colorGoc;
     
     var tomau = '@TempData["mau-TN"]';
     
@@ -610,6 +631,8 @@ Layout = null;
     {
         mau = "black";
     }
+
+    mau = colorGoc;
     
     if (check == true)
     {

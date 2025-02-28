@@ -5,6 +5,8 @@ Layout = null;
 }
 <script>
 
+    var colorGoc = "";
+    var backgroundColorGoc = "";
      var loadix = false;
     setInterval(function()
     {
@@ -40,11 +42,26 @@ Layout = null;
                         script.remove();
                      });
 
-                    loadix = true; if (document.body) { document.body.style.visibility= "visible";  document.getElementById("laloly").style.display = "none"; }
+                    loadix = true; if (document.body) { 
+                        document.body.style.visibility= "visible"; 
+                        document.getElementById("laloly").style.display = "none";
+                        let styles1 = window.getComputedStyle(document.body);
+                        backgroundColorGoc = styles1.backgroundColor;
+                        let styles2 = window.getComputedStyle(document.getElementsByName("colorX")[0]);
+                        colorGoc = styles2.color;
+                    }
                 }
                  else
                 {
-                     document.getElementById("html_play").style.display = "none"; loadix = true; if (document.body) { document.body.style.visibility= "visible";  document.getElementById("laloly").style.display = "none"; }
+                     document.getElementById("html_play").style.display = "none"; loadix = true; 
+                     if (document.body) { 
+                         document.body.style.visibility= "visible";
+                         document.getElementById("laloly").style.display = "none";
+                        let styles1 = window.getComputedStyle(document.body);
+                        backgroundColorGoc = styles1.backgroundColor;
+                        let styles2 = window.getComputedStyle(document.getElementsByName("colorX")[0]);
+                        colorGoc = styles2.color;
+                     }
                 }
             }
          });
@@ -92,8 +109,14 @@ Layout = null;
                      nensangtoi("null");
                  }
             alert("Bài question của bạn đã được tải hoàn tất.\nNhấn [OK] nếu bạn đã sẵn sàng!");
-                loadix = false;
              }
+
+            document.body.style.backgroundColor = backgroundColorGoc;
+            var colorXX = document.getElementsByName("colorX");
+            for (var i = 0; i < colorXX.length; i++) {
+                colorXX[i].style.color = colorGoc;
+            }
+            document.getElementById("chuyenlightdark").style.display = "none";
             return;
         }
     

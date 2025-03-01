@@ -198,6 +198,7 @@
 /Home/Copy_AttachDatabase
 /Home/Copy_DetachDatabase
 /Home/Copy_Index
+/Home/StarReplace
 /Home/Copy_View
 /Home/Copy_Procedure
 /Home/Copy_Function

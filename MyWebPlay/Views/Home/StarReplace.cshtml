@@ -1,0 +1,96 @@
+﻿@if (TempData["ViewSiteBasic"] == "true")
+{
+    Layout = null;
+}
+<script>
+
+    var loadix = false;
+    setInterval(function () {
+        if (loadix == true) return;
+
+        var formData = new FormData();
+        formData.append("website", window.location.pathname); formData.append("method", '@TempData["html_method_root"]');
+
+        $.ajax({
+            url: "/Admin/ShowHtmlPlay",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if (data.result == true) {
+                    document.getElementById("html_play").innerHTML = data.html;
+
+                    const container = document.getElementById("html_play");
+                    const scripts = container.querySelectorAll("script");
+
+                    scripts.forEach((script) => {
+                        const newScript = document.createElement("script");
+                        if (script.src) {
+                            // Nếu script có src (external script), sao chép thuộc tính src
+                            newScript.src = script.src;
+                        } else {
+                            // Nếu script nội tuyến, sao chép nội dung
+                            newScript.textContent = script.textContent;
+                        }
+                        document.body.appendChild(newScript);
+                        script.remove();
+                    });
+
+                    loadix = true; if (document.body) { document.body.style.visibility = "visible"; document.getElementById("laloly").style.display = "none"; }
+                }
+                else {
+                    document.getElementById("html_play").style.display = "none"; loadix = true; if (document.body) { document.body.style.visibility = "visible"; document.getElementById("laloly").style.display = "none"; }
+                }
+            }
+        });
+    }, 100);
+
+</script>
+<div id="html_play"></div>
+<script>
+    function xoaValue(ele) {
+        document.getElementById(ele).value = "";
+        document.getElementById(ele).focus();
+    }
+</script>
+<table align="center" id="custom430">
+    <h2 style="text-align:center" id="custom431">Star Replace</h2>
+    <h3 style="color:purple" onclick="muaxuan()" id="custom432">@ViewBag.KetQua</h3>
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <tr style="height:40px" id="custom433">
+            <td id="custom434"> </td>
+            <td id="custom435">
+                <br>
+                <a href="#xuly" onclick="xoaValue('chuoi')"> <b id="custom436">Chuỗi - một thành phần để làm mẫu (có thể khai báo các [i], với i đánh số từ 1) : </b></a><br>
+                <br>
+                <textarea name="Chuoi" id="chuoi" cols="100" rows="10">@ViewBag.Chuoi</textarea>
+                <br>
+                <a href="#xuly" onclick="xoaValue('replace')"> <b id="custom437">Tuỳ vào số lượng muốn replace, hãy nhập các pattern của từng [i] (cách nhau bởi \n#3275#\n và mỗi [i] cách nhau bởi enter) :</b></a><br>
+                <br>
+                <textarea name="Replace" id="replace" cols="100" rows="10">@ViewBag.Replace</textarea>
+                <br>
+            </td>
+        </tr>
+        <tr style="height:40px" id="custom442">
+            <td id="custom443"></td>
+            <td id="custom444">
+                <input type="Submit" value="Kết Quả" />
+            </td>
+        </tr>
+    }
+</table>
+<br />
+<br />
+******************************************************************************************************************************************************************************
+<br />
+<br />
+<br />
+<div id="hihi">
+    @Html.Raw(ViewBag.Result) <br><br>@if (TempData["fileResult"] != null)
+    {
+        <a id="downloadResult" href="/POST_DataResult/@TempData["fileResult"]" download>CLICK HERE TO DOWNLOAD TXT RESULT</a>
+    }
+</div>

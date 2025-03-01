@@ -452,8 +452,7 @@ namespace MyWebPlay.Model
             foreach (var item in noidung)
             {
                 var pat = item.Split("[3275]");
-                if (context.Request.GetTypedHeaders().Referer == null
-                    || (xa.Contains(pat[0])
+                if ((context.Request.GetTypedHeaders().Referer != null && string.IsNullOrEmpty(pat[1])) || (xa.Contains(pat[0])
                     && referrer.Contains(pat[1]) == false))
                 {
                     return false;

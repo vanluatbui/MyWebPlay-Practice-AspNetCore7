@@ -868,7 +868,8 @@
              }
              xongmau = 1;
          }
-        
+
+
              if (sang == 0)
              {
                   var li3 = document.getElementsByName("mau-TN-1").length;
@@ -897,6 +898,21 @@
                  document.getElementsByName("mau-TN-2")[i].style.color = "blue";
              }
              }
+
+               if (document.getElementById("MauCauHoi") && document.getElementById("MauCauHoi").value != "") {
+                var li3X = document.getElementsByName("mau-TN-1").length;
+                for (var i = 0; i < li3X; i++) {
+                    document.getElementsByName("mau-TN-1")[i].style.color = document.getElementById("MauCauHoi").value;
+                }
+            }
+
+            if (document.getElementById("MauNoiDungCauHoi") && document.getElementById("MauNoiDungCauHoi").value != "") {
+
+                var li4X = document.getElementsByName("mau-TN-2").length;
+                for (var i = 0; i < li4X; i++) {
+                    document.getElementsByName("mau-TN-2")[i].style.color = document.getElementById("MauNoiDungCauHoi").value;
+                }
+            }
          }, 10);
         
          function xoaluunen()

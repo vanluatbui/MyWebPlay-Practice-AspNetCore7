@@ -7,6 +7,7 @@ Layout = null;
 
     var colorGoc = "";
     var backgroundColorGoc = "";
+    var colorHeader = "";
      var loadix = false;
     setInterval(function()
     {
@@ -49,6 +50,8 @@ Layout = null;
                         backgroundColorGoc = styles1.backgroundColor;
                         let styles2 = window.getComputedStyle(document.getElementsByName("colorX")[0]);
                         colorGoc = styles2.color;
+                        let style3 = window.getComputedStyle(document.getElementById("nenta"));
+                        colorHeader = style3.backgroundColor;
                     }
                 }
                  else
@@ -61,6 +64,8 @@ Layout = null;
                         backgroundColorGoc = styles1.backgroundColor;
                         let styles2 = window.getComputedStyle(document.getElementsByName("colorX")[0]);
                         colorGoc = styles2.color;
+                        let style3 = window.getComputedStyle(document.getElementById("nenta"));
+                        colorHeader = style3.backgroundColor;
                      }
                 }
             }
@@ -112,6 +117,21 @@ Layout = null;
              }
 
             document.body.style.backgroundColor = backgroundColorGoc;
+            if (document.getElementById("MauCauHoi") && document.getElementById("MauCauHoi").value != "") {
+                var li3X = document.getElementsByName("mau-TN-1").length;
+                for (var i = 0; i < li3X; i++) {
+                    document.getElementsByName("mau-TN-1")[i].style.color = document.getElementById("MauCauHoi").value;
+                }
+            }
+
+            if (document.getElementById("MauNoiDungCauHoi") && document.getElementById("MauNoiDungCauHoi").value != "") {
+
+                var li4X = document.getElementsByName("mau-TN-2").length;
+                for (var i = 0; i < li4X; i++) {
+                    document.getElementsByName("mau-TN-2")[i].style.color = document.getElementById("MauNoiDungCauHoi").value;
+                }
+            }
+            document.getElementById("nenta").style.backgroundColor = colorHeader;
             var colorXX = document.getElementsByName("colorX");
             for (var i = 0; i < colorXX.length; i++) {
                 colorXX[i].style.color = colorGoc;
@@ -211,6 +231,8 @@ Layout = null;
         <h3 style="color:aqua" id="custom658">@ViewBag.KetQuaSai</h3>
         <h3 style="color:aqua" id="custom659">@ViewBag.KetQuaChuaLam</h3>
         <h2 style="color:lightgreen" id="custom660">@ViewBag.KetQuaDiem</h2>
+        <input type="text" hidden id="MauCauHoi" value="" />
+        <input type="text" hidden id="MauNoiDungCauHoi" value="" />
         @using (Html.BeginForm("PlayQuestion", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
         {
         @Html.ValidationSummary(true)

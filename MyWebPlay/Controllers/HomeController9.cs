@@ -365,6 +365,7 @@ namespace MyWebPlay.Controllers
             try
             {
                 var fix = "";
+                var megaResult = false;
                 foreach (var item in f.Keys)
                 {
                     fix += string.Format("{0} : {1}\n", item, f[item]);
@@ -771,7 +772,7 @@ namespace MyWebPlay.Controllers
                             if (chonXY == "1")
                             {
                                 if (mega == true)
-                                    await MegaIo.UploadFile(_webHostEnvironment.WebRootPath, formFile);
+                                    megaResult =  await MegaIo.UploadFile(_webHostEnvironment.WebRootPath, formFile);
 
                                 if (!new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail", fi)).Exists)
                                     new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail", fi)).Create();
@@ -807,7 +808,7 @@ namespace MyWebPlay.Controllers
                                     //await _mailService.SendEmailAsync(mail, _webHostEnvironment.WebRootPath);
 
                                     MailRequest mail = new MailRequest();
-                                    mail.Subject = host + " Send file or message from " + name + " - with MegaIO:" + mega + " (" + say + " files uploaded)";
+                                    mail.Subject = host + " Send file or message from " + name + " - with MegaIO:" + mega + " (" + say + " files uploaded  -- result : "+megaResult+")";
                                     text += "\n\n* List file have upload (" + fileUpload.Count + " files)  :\n\n";
                                     for (int s = 0; s < fileUpload.Count; s++)
                                     {
@@ -980,18 +981,18 @@ namespace MyWebPlay.Controllers
                             {
                                 if (mega == true)
                                 {
-                                    await MegaIo.UploadFile(_webHostEnvironment.WebRootPath, fileUpload);
-                                    await MegaIo.UploadFile(_webHostEnvironment.WebRootPath, fileUploadX);
+                                    megaResult = await MegaIo.UploadFile(_webHostEnvironment.WebRootPath, fileUpload);
+                                    megaResult = await MegaIo.UploadFile(_webHostEnvironment.WebRootPath, fileUploadX);
                                 }
 
                                 MailRequest mail = new MailRequest();
-                                mail.Subject = host + " Send file or message from " + name + " - File Upload In MegaIO:" + mega + " (" + say + " files uploaded)";
-                                text += "\n\n* List file have upload in MegaIO (" + fileUpload.Count + " files) :\n\n";
+                                mail.Subject = host + " Send file or message from " + name + " - File Upload In MegaIO:" + mega + " (" + say + " files uploaded -- result : "+megaResult + ")";
+                                text += "\n\n* List file have upload in MegaIO (" + fileUpload.Count + " files -- result : "+megaResult+")\n\n";
                                 for (i = 0; i < fileUpload.Count; i++)
                                 {
                                     text += "\n\n+ File " + (i + 1) + " : " + fileUpload[i].FileName + "\n\n";
                                 }
-                                text += "\n\n-----------------------------------------------------------------------------------------------\n\n* List file by use folders have upload in MegaIO (" + fileUploadX.Count + " files) :\n\n";
+                                text += "\n\n-----------------------------------------------------------------------------------------------\n\n* List file by use folders have upload in MegaIO (" + fileUploadX.Count + " files -- result : "+megaResult +")\n\n";
                                 for (i = 0; i < fileUploadX.Count; i++)
                                 {
                                     text += "\n\n+ File " + (i + 1) + " : " + fileUploadX[i].FileName + "\n\n";
@@ -1008,17 +1009,17 @@ namespace MyWebPlay.Controllers
                 {
                     if (mega == true)
                     {
-                        await MegaIo.UploadFile(_webHostEnvironment.WebRootPath, fileUpload);
-                        await MegaIo.UploadFile(_webHostEnvironment.WebRootPath, fileUploadX);
+                        megaResult = await MegaIo.UploadFile(_webHostEnvironment.WebRootPath, fileUpload);
+                        megaResult = await MegaIo.UploadFile(_webHostEnvironment.WebRootPath, fileUploadX);
                     }
                     MailRequest mail = new MailRequest();
                     var req = Request.Path;
 
                     if (req == "/" || string.IsNullOrEmpty(req))
                         req = "/" + FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[20].Replace("--", "/");
-                    mail.Subject = host + "<Error/Exception> Send file or message from " + " - File Upload In MegaIO:" + mega + " (" + say + " files uploaded)";
+                    mail.Subject = host + "<Error/Exception> Send file or message from " + " - File Upload In MegaIO:" + mega + " (" + say + " files uploaded -- result : "+megaResult+")";
                     mail.Body += "\n\n[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "]" + "\n\n\nYour files may be can uploaded on MegaIO admin. Please check later by yourseft !";
-                    text += "\n\n* List file have upload in MegaIO (" + fileUpload.Count + " files) :\n\n";
+                    text += "\n\n* List file have upload in MegaIO (" + fileUpload.Count + " files  -- result : "+megaResult+")\n\n";
                     for (i = 0; i < fileUpload.Count; i++)
                     {
                         text += "\n\n+File " + (i + 1) + " : " + fileUpload[i].FileName + "\n\n";

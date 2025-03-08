@@ -76,6 +76,8 @@
 /Cover/ChangeFirstUrl
 /Cover/ReadFileExternal
 /Cover/AddSession
+/Cover/ReadCurrentLogMail
+/Cover/ReadCurrentError
 /Home/TextToColumn2
 /Home/TextToColumn1
 /Home/TextConvertX

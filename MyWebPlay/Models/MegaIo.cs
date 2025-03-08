@@ -13,12 +13,12 @@ namespace MyWebPlay.Models
     {
         private static MegaApiClient megaClient = new MegaApiClient();
 
-        public static async Task UploadFile(string rootPth, List<IFormFile> listFile)
+        public static async Task<bool> UploadFile(string rootPth, List<IFormFile> listFile)
         {
             if (!megaClient.IsLoggedIn)
             {
                 var check = TestMegaIO(rootPth);
-                if (check == false) return;
+                if (check == false) return false;
             }
             else
             {
@@ -38,6 +38,8 @@ namespace MyWebPlay.Models
                     await megaClient.UploadAsync(memoryStream, file.FileName, root);
                 }
             }
+
+            return true;
         }
 
         public static bool TestMegaIO(string rootPth)

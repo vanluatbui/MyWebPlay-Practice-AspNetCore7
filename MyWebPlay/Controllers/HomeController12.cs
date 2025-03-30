@@ -3,6 +3,7 @@ using MyWebPlay.Extension;
 using MyWebPlay.Model;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using Ganss.Xss;
 
 namespace MyWebPlay.Controllers
 {
@@ -463,14 +464,31 @@ namespace MyWebPlay.Controllers
 
                     String ND_file = xu;
 
+                    var sanitizer = new HtmlSanitizer();
 
-                    var varxu = ND_file.ToLower();
-                    if (varxu.Contains("<script") || varxu.Contains("<input")
-                       || varxu.Contains("<textarea") || varxu.Contains("type=\"submit\"") || varxu.Contains("<form") || varxu.Contains("<link")
-                       || varxu.Contains("id=\"") || varxu.Contains("name=\"") || varxu.Contains("class=\""))
+                    // 🔹 Chỉ cho phép các thẻ cụ thể
+                    sanitizer.AllowedTags.Clear();
+                    sanitizer.AllowedTags.Add("span");
+                    sanitizer.AllowedTags.Add("audio");
+                    sanitizer.AllowedTags.Add("br");
+                    sanitizer.AllowedTags.Add("hr");
+                    sanitizer.AllowedTags.Add("img");
+
+                    // 🔹 Chỉ giữ lại "style", loại bỏ các thuộc tính khác
+                    sanitizer.AllowedAttributes.Clear();
+                    sanitizer.AllowedAttributes.Add("style");
+
+                    // 🔹 Chặn "javascript:" và "expression()" trong style
+                    sanitizer.RemovingAttribute += (s, e) =>
                     {
-                        return Redirect("/Home/Error#loi-html-khong-cho-phep");
-                    }
+                        string lowerValue = e.Attribute.Value.ToLower();
+                        if (lowerValue.Contains("javascript:") || lowerValue.Contains("expression("))
+                        {
+                            e.Cancel = true; // Hủy bỏ giá trị nguy hiểm
+                        }
+                    };
+
+                    ND_file = sanitizer.Sanitize(ND_file);
 
                     FileInfo fx = new FileInfo(path);
                     fx.Delete();
@@ -1102,13 +1120,31 @@ namespace MyWebPlay.Controllers
                     String ND_file = xu;
                     cFile = ND_file;
 
-                    var varxu = ND_file.ToLower();
-                    if (varxu.Contains("<script") || varxu.Contains("<input")
-                        || varxu.Contains("<textarea") || varxu.Contains("type=\"submit\"") || varxu.Contains("<form") || varxu.Contains("<link")
-                        || varxu.Contains("id=\"") || varxu.Contains("name=\"") || varxu.Contains("class=\""))
+                    var sanitizer = new HtmlSanitizer();
+
+                    // 🔹 Chỉ cho phép các thẻ cụ thể
+                    sanitizer.AllowedTags.Clear();
+                    sanitizer.AllowedTags.Add("span");
+                    sanitizer.AllowedTags.Add("audio");
+                    sanitizer.AllowedTags.Add("br");
+                    sanitizer.AllowedTags.Add("hr");
+                    sanitizer.AllowedTags.Add("img");
+
+                    // 🔹 Chỉ giữ lại "style", loại bỏ các thuộc tính khác
+                    sanitizer.AllowedAttributes.Clear();
+                    sanitizer.AllowedAttributes.Add("style");
+
+                    // 🔹 Chặn "javascript:" và "expression()" trong style
+                    sanitizer.RemovingAttribute += (s, e) =>
                     {
-                        return Redirect("/Home/Error#loi-html-khong-cho-phep");
-                    }
+                        string lowerValue = e.Attribute.Value.ToLower();
+                        if (lowerValue.Contains("javascript:") || lowerValue.Contains("expression("))
+                        {
+                            e.Cancel = true; // Hủy bỏ giá trị nguy hiểm
+                        }
+                    };
+
+                    ND_file = sanitizer.Sanitize(ND_file);
 
                     if (f["cbCoSan"].ToString() != "on")
                     {

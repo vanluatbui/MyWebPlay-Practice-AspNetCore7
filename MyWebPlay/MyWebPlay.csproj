@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="Google.Apis.Drive.v3" Version="1.60.0.3061" />
+    <PackageReference Include="HtmlSanitizer" Version="9.0.876" />
     <PackageReference Include="MailKit" Version="3.6.0" />
     <PackageReference Include="MegaApiClient" Version="1.10.3" />
     <PackageReference Include="MimeKit" Version="3.6.1" />

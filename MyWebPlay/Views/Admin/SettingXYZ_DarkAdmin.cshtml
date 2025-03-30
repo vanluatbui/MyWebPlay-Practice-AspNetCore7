@@ -325,10 +325,21 @@ Layout = null;
            {
                document.getElementById("linkmausan").href = "/Admin/ReadAdminFileByStatic?file=/Others/FormatQuestion.txt&&isHTML=false&&keyX="+passEncrypt;
            }
+           else if (chon == 10)
+           {
+               document.getElementById("linkmausan").href = "/Admin/ReadAdminFileByStatic?file=/Others/HtmlSanitizerAccept.txt&&isHTML=false&&keyX="+passEncrypt;
+           }
         }
         
         function okreplace()
         {
+              var chon = document.getElementById("chonlua").options.selectedIndex;
+              if (chon == 10)
+              {
+                  alert("Vui lòng tự chỉnh sửa bằng tính năng xem/edit file admin có sẵn thông thường...");
+                  return;
+              }
+
             var xn = confirm('Bạn có chắc chắn không? (tất cả dữ liệu liên quan sẽ được thay thế và được áp dụng vào lần tới, hệ thống sẽ lọc ra những file không cần thiết). Mọi sự thay đổi sẽ không thể khôi phục lại.');
            if (xn == true)
            {
@@ -1869,6 +1880,7 @@ Layout = null;
                                         <option id="custom226">Thay thế các tệp dành cho Karaoke demo của hệ thống (chỉ tải lên các file : TextDemo.txt, KaraokeDemo.mp3, NhacDemo.mp3, LyricDemo.txt - admin tự hiểu và cẩn thận 😎)</option>
                                         <option id="custom227">Thay thế file mẫu trắc nghiệm của hệ thống (tải lên 1 file *.txt hoặc lấy file đầu tiên)</option>
                                         <option id="custom228">Thay thế file mẫu question của hệ thống (tải lên 1 file *.txt hoặc lấy file đầu tiên)</option>
+                                        <option id="custom299">Thay thế HtmlSanitizerAccept - tags/attributes (tải lên 1 file *.txt hoặc lấy file đầu tiên)</option>
                                     </select>
                                     @using (Html.BeginForm("ReplaceUpload", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
                                     {

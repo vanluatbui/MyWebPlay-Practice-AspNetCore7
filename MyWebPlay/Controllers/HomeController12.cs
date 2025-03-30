@@ -465,29 +465,25 @@ namespace MyWebPlay.Controllers
                     String ND_file = xu;
 
                     var sanitizer = new HtmlSanitizer();
-
-                    // 🔹 Chỉ cho phép các thẻ cụ thể
                     sanitizer.AllowedTags.Clear();
-                    sanitizer.AllowedTags.Add("span");
-                    sanitizer.AllowedTags.Add("audio");
-                    sanitizer.AllowedTags.Add("br");
-                    sanitizer.AllowedTags.Add("hr");
-                    sanitizer.AllowedTags.Add("img");
-                    sanitizer.AllowedTags.Add("source");
-
-
-                    // 🔹 Chỉ giữ lại "style", loại bỏ các thuộc tính khác
                     sanitizer.AllowedAttributes.Clear();
-                    sanitizer.AllowedAttributes.Add("style");
-                    sanitizer.AllowedAttributes.Add("src");
-                    sanitizer.AllowedAttributes.Add("alt");
-                    sanitizer.AllowedAttributes.Add("title");
-                    sanitizer.AllowedAttributes.Add("width");
-                    sanitizer.AllowedAttributes.Add("height");
-                    sanitizer.AllowedAttributes.Add("type");
-                    sanitizer.AllowedAttributes.Add("muted");
-                    sanitizer.AllowedAttributes.Add("hidden");
-                    sanitizer.AllowedAttributes.Add("autoplay");
+                    var pathSD = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Others", "HtmlSanitizerAccept.txt");
+                    var noidungSD = FileExtension.ReadFile(pathSD).Replace("\r", "").Split("\n==========\n");
+                    for (var iss = 0; iss < noidungSD.Length; iss++)
+                    {
+                        var htmlSanitizerAccept = noidungSD[iss].Replace("\r", "").Split("\n");
+                        for (var joo = 0; joo < htmlSanitizerAccept.Length; joo++)
+                        {
+                            if (iss == 0)
+                            {
+                                sanitizer.AllowedTags.Add(htmlSanitizerAccept[joo]);
+                            }
+                            else
+                            {
+                                sanitizer.AllowedAttributes.Add(htmlSanitizerAccept[joo]);
+                            }
+                        }
+                    }
 
                     // 🔹 Chặn "javascript:" và "expression()" trong style
                     sanitizer.RemovingAttribute += (s, e) =>
@@ -1132,29 +1128,25 @@ namespace MyWebPlay.Controllers
                     cFile = ND_file;
 
                     var sanitizer = new HtmlSanitizer();
-
-                    // 🔹 Chỉ cho phép các thẻ cụ thể
                     sanitizer.AllowedTags.Clear();
-                    sanitizer.AllowedTags.Add("span");
-                    sanitizer.AllowedTags.Add("audio");
-                    sanitizer.AllowedTags.Add("br");
-                    sanitizer.AllowedTags.Add("hr");
-                    sanitizer.AllowedTags.Add("img");
-                    sanitizer.AllowedTags.Add("source");
-
-
-                    // 🔹 Chỉ giữ lại "style", loại bỏ các thuộc tính khác
                     sanitizer.AllowedAttributes.Clear();
-                    sanitizer.AllowedAttributes.Add("style");
-                    sanitizer.AllowedAttributes.Add("src");
-                    sanitizer.AllowedAttributes.Add("alt");
-                    sanitizer.AllowedAttributes.Add("title");
-                    sanitizer.AllowedAttributes.Add("width");
-                    sanitizer.AllowedAttributes.Add("height");
-                    sanitizer.AllowedAttributes.Add("type");
-                    sanitizer.AllowedAttributes.Add("muted");
-                    sanitizer.AllowedAttributes.Add("hidden");
-                    sanitizer.AllowedAttributes.Add("autoplay");
+                    var pathSD = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Others", "HtmlSanitizerAccept.txt");
+                    var noidungSD = FileExtension.ReadFile(pathSD).Replace("\r", "").Split("\n==========\n");
+                    for (var iss = 0; iss < noidungSD.Length; iss++)
+                    {
+                        var htmlSanitizerAccept = noidungSD[iss].Replace("\r", "").Split("\n");
+                        for (var joo = 0; joo < htmlSanitizerAccept.Length; joo++)
+                        {
+                            if (iss == 0)
+                            {
+                                sanitizer.AllowedTags.Add(htmlSanitizerAccept[joo]);
+                            }
+                            else
+                            {
+                                sanitizer.AllowedAttributes.Add(htmlSanitizerAccept[joo]);
+                            }
+                        }
+                    }
 
                     // 🔹 Chặn "javascript:" và "expression()" trong style
                     sanitizer.RemovingAttribute += (s, e) =>

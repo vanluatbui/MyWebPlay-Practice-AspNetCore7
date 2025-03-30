@@ -473,10 +473,21 @@ namespace MyWebPlay.Controllers
                     sanitizer.AllowedTags.Add("br");
                     sanitizer.AllowedTags.Add("hr");
                     sanitizer.AllowedTags.Add("img");
+                    sanitizer.AllowedTags.Add("source");
+
 
                     // 🔹 Chỉ giữ lại "style", loại bỏ các thuộc tính khác
                     sanitizer.AllowedAttributes.Clear();
                     sanitizer.AllowedAttributes.Add("style");
+                    sanitizer.AllowedAttributes.Add("src");
+                    sanitizer.AllowedAttributes.Add("alt");
+                    sanitizer.AllowedAttributes.Add("title");
+                    sanitizer.AllowedAttributes.Add("width");
+                    sanitizer.AllowedAttributes.Add("height");
+                    sanitizer.AllowedAttributes.Add("type");
+                    sanitizer.AllowedAttributes.Add("muted");
+                    sanitizer.AllowedAttributes.Add("hidden");
+                    sanitizer.AllowedAttributes.Add("autoplay");
 
                     // 🔹 Chặn "javascript:" và "expression()" trong style
                     sanitizer.RemovingAttribute += (s, e) =>
@@ -1129,10 +1140,21 @@ namespace MyWebPlay.Controllers
                     sanitizer.AllowedTags.Add("br");
                     sanitizer.AllowedTags.Add("hr");
                     sanitizer.AllowedTags.Add("img");
+                    sanitizer.AllowedTags.Add("source");
+
 
                     // 🔹 Chỉ giữ lại "style", loại bỏ các thuộc tính khác
                     sanitizer.AllowedAttributes.Clear();
                     sanitizer.AllowedAttributes.Add("style");
+                    sanitizer.AllowedAttributes.Add("src");
+                    sanitizer.AllowedAttributes.Add("alt");
+                    sanitizer.AllowedAttributes.Add("title");
+                    sanitizer.AllowedAttributes.Add("width");
+                    sanitizer.AllowedAttributes.Add("height");
+                    sanitizer.AllowedAttributes.Add("type");
+                    sanitizer.AllowedAttributes.Add("muted");
+                    sanitizer.AllowedAttributes.Add("hidden");
+                    sanitizer.AllowedAttributes.Add("autoplay");
 
                     // 🔹 Chặn "javascript:" và "expression()" trong style
                     sanitizer.RemovingAttribute += (s, e) =>

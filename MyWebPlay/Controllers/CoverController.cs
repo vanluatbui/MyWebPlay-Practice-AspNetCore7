@@ -1082,5 +1082,76 @@ namespace MyWebPlay.Controllers
             var read = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "EXCEPTION_ERROR_LOG.txt"));
             return Content(read, "text/html");
         }
+
+        public async Task<string> PostDataWithQueryParams(string url, Dictionary<string, string> queryParams)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var uriBuilder = new UriBuilder(url)
+                {
+                    Query = string.Join("&", queryParams.Select(p => $"{p.Key}={p.Value}"))
+                };
+
+                HttpResponseMessage response = await client.PostAsync(uriBuilder.ToString(), null);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsStringAsync();
+                }
+                else
+                {
+                    throw new Exception("Request failed with status: " + response.StatusCode);
+                }
+            }
+        }
+
+        public async Task<string> PostDataWithFormBody(string url, Dictionary<string, string> formData)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var content = new FormUrlEncodedContent(formData);
+
+                HttpResponseMessage response = await client.PostAsync(url, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsStringAsync();
+                }
+                else
+                {
+                    throw new Exception("Request failed with status: " + response.StatusCode);
+                }
+            }
+        }
+
+        public async Task<ActionResult> SecureCallAPI(string url, string[] keys, string[] values, string type = "0", string encrypt="0")
+        {
+            if (keys.Length != values.Length)
+            {
+                return Ok(new { error = "Đã xảy ra lỗi, vui lòng thử lại sau..." });
+            }
+
+            url = (encrypt == "0") ? url : StringMaHoaExtension.Decrypt(url);
+
+            var result = string.Empty;
+            var formData = new Dictionary<string, string>();
+            for (var i = 0; i < keys.Length; i++)
+            {
+                var key = (encrypt == "0") ? keys[i] : StringMaHoaExtension.Decrypt(keys[i]);
+                var value = (encrypt == "0") ? values[i] : StringMaHoaExtension.Decrypt(values[i]);
+                formData.Add(key, value);
+            }
+
+            if (type == "0")
+            {
+                result = await PostDataWithFormBody(url, formData);
+            }
+            else if (type == "1")
+            {
+                result = await PostDataWithQueryParams(url, formData);
+            }
+
+            return Content(result);
+        }
     }
 }

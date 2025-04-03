@@ -78,6 +78,7 @@
 /Cover/AddSession
 /Cover/ReadCurrentLogMail
 /Cover/ReadCurrentError
+/Cover/SecureCallAPI
 /Home/TextToColumn2
 /Home/TextToColumn1
 /Home/TextConvertX

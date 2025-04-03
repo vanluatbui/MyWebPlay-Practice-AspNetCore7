@@ -1159,6 +1159,7 @@ namespace MyWebPlay.Controllers
                 result = await PostDataWithQueryParams(url, formData);
             }
 
+            if (result.ToLower().Contains("html") || result.ToLower().Contains("body")) result = "Một kết quả HTML không thể hiển thị...";
             return Content(result);
         }
     }

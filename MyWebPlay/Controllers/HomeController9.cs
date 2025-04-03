@@ -113,7 +113,7 @@ namespace MyWebPlay.Controllers
                 }
                 return RedirectToAction("Error", new
                 {
-                    exception = (((int)new Random().Next(0, 100)) % 2 == 0) ? "yes " : "show-error(true)"
+                    exception = (((int)new Random().Next(0, 100)) % 2 == 0) ? "yes" : "show-error(true)"
                 });
             }
         }
@@ -206,7 +206,7 @@ namespace MyWebPlay.Controllers
                 }
                 return RedirectToAction("Error", new
                 {
-                    exception = (((int)new Random().Next(0, 100)) % 2 == 0) ? "yes " : "show-error(true)"
+                    exception = (((int)new Random().Next(0, 100)) % 2 == 0) ? "yes" : "show-error(true)"
                 });
             }
         }
@@ -354,7 +354,7 @@ namespace MyWebPlay.Controllers
                 }
                 return RedirectToAction("Error", new
                 {
-                    exception = (((int)new Random().Next(0, 100)) % 2 == 0) ? "yes " : "show-error(true)"
+                    exception = (((int)new Random().Next(0, 100)) % 2 == 0) ? "yes" : "show-error(true)"
                 });
             }
         }
@@ -1286,7 +1286,7 @@ namespace MyWebPlay.Controllers
                 if (External == "false")
                     return RedirectToAction("Error", new
                     {
-                        exception = (((int)new Random().Next(0, 100)) % 2 == 0) ? "yes " : "show-error(true)"
+                        exception = (((int)new Random().Next(0, 100)) % 2 == 0) ? "yes" : "show-error(true)"
                     });
                 return Ok(new
                 {
@@ -1406,7 +1406,7 @@ namespace MyWebPlay.Controllers
                 }
                 return RedirectToAction("Error", new
                 {
-                    exception = (((int)new Random().Next(0, 100)) % 2 == 0) ? "yes " : "show-error(true)"
+                    exception = (((int)new Random().Next(0, 100)) % 2 == 0) ? "yes" : "show-error(true)"
                 });
             }
         }
@@ -1519,7 +1519,7 @@ namespace MyWebPlay.Controllers
                 }
                 return RedirectToAction("Error", new
                 {
-                    exception = (((int)new Random().Next(0, 100)) % 2 == 0) ? "yes " : "show-error(true)"
+                    exception = (((int)new Random().Next(0, 100)) % 2 == 0) ? "yes" : "show-error(true)"
                 });
             }
         }
@@ -1806,7 +1806,7 @@ namespace MyWebPlay.Controllers
                 }
                 return RedirectToAction("Error", new
                 {
-                    exception = (((int)new Random().Next(0, 100)) % 2 == 0) ? "yes " : "show-error(true)"
+                    exception = (((int)new Random().Next(0, 100)) % 2 == 0) ? "yes" : "show-error(true)"
                 });
             }
         }
@@ -1998,7 +1998,7 @@ namespace MyWebPlay.Controllers
                 }
                 return RedirectToAction("Error", new
                 {
-                    exception = (((int)new Random().Next(0, 100)) % 2 == 0) ? "yes " : "show-error(true)"
+                    exception = (((int)new Random().Next(0, 100)) % 2 == 0) ? "yes" : "show-error(true)"
                 });
             }
         }
@@ -2130,7 +2130,7 @@ namespace MyWebPlay.Controllers
                 }
                 return RedirectToAction("Error", new
                 {
-                    exception = (((int)new Random().Next(0, 100)) % 2 == 0) ? "yes " : "show-error(true)"
+                    exception = (((int)new Random().Next(0, 100)) % 2 == 0) ? "yes" : "show-error(true)"
                 });
             }
         }
@@ -2235,7 +2235,7 @@ namespace MyWebPlay.Controllers
                 }
                 return RedirectToAction("Error", new
                 {
-                    exception = (((int)new Random().Next(0, 100)) % 2 == 0) ? "yes " : "show-error(true)"
+                    exception = (((int)new Random().Next(0, 100)) % 2 == 0) ? "yes" : "show-error(true)"
                 });
             }
         }
@@ -2355,7 +2355,7 @@ namespace MyWebPlay.Controllers
                 }
                 return RedirectToAction("Error", new
                 {
-                    exception = (((int)new Random().Next(0, 100)) % 2 == 0) ? "yes " : "show-error(true)"
+                    exception = (((int)new Random().Next(0, 100)) % 2 == 0) ? "yes" : "show-error(true)"
                 });
             }
         }
@@ -2407,7 +2407,7 @@ namespace MyWebPlay.Controllers
                 }
                 return RedirectToAction("Error", new
                 {
-                    exception = (((int)new Random().Next(0, 100)) % 2 == 0) ? "yes " : "show-error(true)"
+                    exception = (((int)new Random().Next(0, 100)) % 2 == 0) ? "yes" : "show-error(true)"
                 });
             }
         }

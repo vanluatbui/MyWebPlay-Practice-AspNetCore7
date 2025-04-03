@@ -1131,14 +1131,22 @@ namespace MyWebPlay.Controllers
                 return Ok(new { error = "Đã xảy ra lỗi, vui lòng thử lại sau..." });
             }
 
-            url = (encrypt == "0") ? url : StringMaHoaExtension.Decrypt(url);
+            var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+            var noidung = FileExtension.ReadFile(path);
+
+            var listSetting = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+            var infoX = listSetting[39].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+            var keyEncrypt = listSetting[60].Split("<3275>")[3];
+
+            url = (encrypt == "0") ? url : StringMaHoaExtension.Decrypt(url, keyEncrypt);
 
             var result = string.Empty;
             var formData = new Dictionary<string, string>();
             for (var i = 0; i < keys.Length; i++)
             {
-                var key = (encrypt == "0") ? keys[i] : StringMaHoaExtension.Decrypt(keys[i]);
-                var value = (encrypt == "0") ? values[i] : StringMaHoaExtension.Decrypt(values[i]);
+                var key = (encrypt == "0") ? keys[i] : StringMaHoaExtension.Decrypt(keys[i], keyEncrypt);
+                var value = (encrypt == "0") ? values[i] : StringMaHoaExtension.Decrypt(values[i], keyEncrypt);
                 formData.Add(key, value);
             }
 

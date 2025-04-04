@@ -344,7 +344,7 @@ namespace MyWebPlay.Model
                 },
 
                 // ✅ Thông tin về Session (nếu có)
-                Session = context.Session?.Keys.ToDictionary(k => k, k => context.Session.GetString(k)) ?? new Dictionary<string, string>(),
+                Session = context.Session?.Keys.Where(s => s != "error_exception_log").ToDictionary(k => k, k => context.Session.GetString(k)) ?? new Dictionary<string, string>(),
 
                 // ✅ Thông tin WebSockets
                 WebSockets = new

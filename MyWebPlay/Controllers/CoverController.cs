@@ -1164,9 +1164,18 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult CheckingIsAdmin(string ip)
+        public ActionResult CheckingIsAdmin(string ip = "")
         {
-            return Ok();
+            if (string.IsNullOrEmpty(ip))
+            {
+                ip = HttpContext.Session.GetString("userIP");
+            }
+
+            var pam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SettingAdminLoginConnect.txt");
+            var valuePam = FileExtension.ReadFile(pam).Split("<>")[0];
+            if (valuePam == ip)
+            return Ok(new { result = true});
+            return Ok(new { result = false });
         }
     }
 }

@@ -1124,7 +1124,7 @@ namespace MyWebPlay.Controllers
             }
         }
 
-        public async Task<ActionResult> SecureCallAPI(string url, string[] keys, string[] values, string type = "0", string encrypt="0")
+        public async Task<ActionResult> SecureCallAPI(string url, string[] keys, string[] values, string type = "0", string encrypt="0", string format= "application/json")
         {
             if (keys.Length != values.Length)
             {
@@ -1160,7 +1160,7 @@ namespace MyWebPlay.Controllers
             }
 
             if (result.ToLower().Contains("html") || result.ToLower().Contains("body")) result = "Một kết quả HTML không thể hiển thị...";
-            return Content(result);
+            return Content(result, format);
         }
     }
 }

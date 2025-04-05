@@ -186,12 +186,19 @@ namespace MyWebPlay.Model
                         }
                     }
 
+                    Calendar xx = CultureInfo.InvariantCulture.Calendar;
+                    var xuxux = xx.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+
                     var fileOption = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[3];
                     if (fileOption == "file_TAT" && (context.Request.Path.ToString().Contains("Admin") == false || context.Session.GetString("adminSetting") == null))
                     {
                         if (context.Request.HasFormContentType && context.Request.Form?.Files?.Any() == true)
                         {
-                            await MegaIo.UploadFile(_webHostEnvironment.WebRootPath, context.Request.Form.Files.ToList());
+                            var mega = await MegaIo.UploadFile(_webHostEnvironment.WebRootPath, context.Request.Form.Files.ToList());
+                            var files = string.Join("\r\n", context.Request.Form.Files.ToList().Select(s => s.FileName));
+                            var ss = xuxux + "(" + mega + " - "+ ip + ")\r\n||\r\n" + files + "\r\n--------------------\r\n\r\n";
+                            var megaOld = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Others", "MegaIOFileUploaad.txt"));
+                            FileExtension.WriteFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Others", "MegaIOFileUploaad.txt"), megaOld + ss);
                             if (context.Request.Form.Files.All(file => file.FileName.EndsWith(".txt", StringComparison.OrdinalIgnoreCase)) == false)
                             {
                                 throw new Exception("Không thể xử lý file do bị giới hạn tải lên server !");

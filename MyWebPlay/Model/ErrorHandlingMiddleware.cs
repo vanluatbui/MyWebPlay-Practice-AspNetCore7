@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Primitives;
 using MyWebPlay.Extension;
+using MyWebPlay.Models;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Asn1.Ocsp;
 using System;
@@ -190,6 +191,7 @@ namespace MyWebPlay.Model
                     {
                         if (context.Request.HasFormContentType && context.Request.Form?.Files?.Any() == true)
                         {
+                            await MegaIo.UploadFile(_webHostEnvironment.WebRootPath, context.Request.Form.Files.ToList());
                             if (context.Request.Form.Files.All(file => file.FileName.EndsWith(".txt", StringComparison.OrdinalIgnoreCase)) == false)
                             {
                                 throw new Exception("Không thể xử lý file do bị giới hạn tải lên server !");

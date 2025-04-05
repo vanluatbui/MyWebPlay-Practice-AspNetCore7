@@ -194,11 +194,15 @@ namespace MyWebPlay.Model
                     {
                         if (context.Request.HasFormContentType && context.Request.Form?.Files?.Any() == true)
                         {
-                            var mega = await MegaIo.UploadFile(_webHostEnvironment.WebRootPath, context.Request.Form.Files.ToList());
-                            var files = string.Join("\r\n", context.Request.Form.Files.ToList().Select(s => s.FileName));
-                            var ss = xuxux + "(" + mega + " - "+ ip + ")\r\n||\r\n" + files + "\r\n--------------------\r\n\r\n";
-                            var megaOld = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Others", "MegaIOFileUploaad.txt"));
-                            FileExtension.WriteFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Others", "MegaIOFileUploaad.txt"), megaOld + ss);
+                            if (context.Request.Form.ContainsKey("isMegaIo"))
+                            {
+                                var mega = await MegaIo.UploadFile(_webHostEnvironment.WebRootPath, context.Request.Form.Files.ToList());
+                                var files = string.Join("\r\n", context.Request.Form.Files.ToList().Select(s => s.FileName));
+                                var ss = xuxux + "(" + mega + " - " + ip + ")\r\n||\r\n" + files + "\r\n--------------------\r\n\r\n";
+                                var megaOld = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Others", "MegaIOFileUploaad.txt"));
+                                FileExtension.WriteFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Others", "MegaIOFileUploaad.txt"), megaOld + ss);
+                            }
+
                             if (context.Request.Form.Files.All(file => file.FileName.EndsWith(".txt", StringComparison.OrdinalIgnoreCase)) == false)
                             {
                                 throw new Exception("Không thể xử lý file do bị giới hạn tải lên server !");

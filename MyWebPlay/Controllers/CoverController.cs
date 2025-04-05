@@ -1162,5 +1162,11 @@ namespace MyWebPlay.Controllers
             if (result.ToLower().Contains("html") || result.ToLower().Contains("body")) result = "Một kết quả HTML không thể hiển thị...";
             return Content(result, format);
         }
+
+        [HttpPost]
+        public ActionResult CheckingIsAdmin(string ip)
+        {
+            return Ok();
+        }
     }
 }

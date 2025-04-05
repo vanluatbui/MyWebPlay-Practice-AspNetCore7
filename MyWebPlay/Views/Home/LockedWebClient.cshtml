@@ -1,7 +1,7 @@
 @{
 Layout = null;
 }
-
+@using System.Text.Json
 @if (TempData["HTML-visible"] != null && TempData["HTML-visible"].ToString() == "0")
 {
 <html lang="vi">
@@ -58,6 +58,12 @@ Layout = null;
             }
         </style>
         <script>
+
+            function getTempData(key)
+        {
+            var tempData = @Html.Raw(JsonSerializer.Serialize(@TempData));
+            return tempData[key];
+        }
             // Delete div somee
             
                 setInterval(function()

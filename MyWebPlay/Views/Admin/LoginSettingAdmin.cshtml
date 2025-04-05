@@ -1,6 +1,7 @@
 @{
 Layout = null;
 }
+@using System.Text.Json
 @if (TempData["HTML-visible"] != null && TempData["HTML-visible"].ToString() != "2")
 {
 @model MyWebPlay.Model.SettingAdmin;
@@ -58,6 +59,12 @@ Layout = null;
     }
 </style>
 <script>
+
+    function getTempData(key)
+        {
+            var tempData = @Html.Raw(JsonSerializer.Serialize(@TempData));
+            return tempData[key];
+        }
 
     //----------------------------------------------------------
 

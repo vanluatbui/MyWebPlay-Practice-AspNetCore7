@@ -79,6 +79,7 @@
 /Cover/ReadCurrentLogMail
 /Cover/ReadCurrentError
 /Cover/SecureCallAPI
+/Cover/CheckingIsAdmin
 /Home/TextToColumn2
 /Home/TextToColumn1
 /Home/TextConvertX
@@ -227,4 +228,3 @@
 /Home/Multiple_API
 /Home/ExcuteKaraokeText
 /Home/ViewFile
-...

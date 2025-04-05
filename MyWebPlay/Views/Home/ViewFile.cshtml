@@ -1,6 +1,7 @@
 @{
     Layout = null;
 }
+@using System.Text.Json
 <html lang="vi">
 <head>
     <meta charset="UTF-8" id="custom1806">
@@ -13,6 +14,11 @@
 </head>
 <img id="laloly" src="/Image_Play/waiting.gif" /><body style="visibility:hidden" id="custom1808">
     <script>
+        function getTempData(key)
+        {
+            var tempData = @Html.Raw(JsonSerializer.Serialize(@TempData));
+            return tempData[key];
+        }
     var loadix = false;
      setInterval(function()
                 {

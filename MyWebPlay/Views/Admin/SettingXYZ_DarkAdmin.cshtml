@@ -3,6 +3,7 @@
 Layout = null;
 <!DOCTYPE html>
 @model MyWebPlay.Model.SettingAdmin;
+@using System.Text.Json
 <html lang="vi">
     <head>
         <meta charset="utf-8" />
@@ -67,6 +68,12 @@ Layout = null;
         }
     </style>
     <script>
+
+        function getTempData(key)
+        {
+            var tempData = @Html.Raw(JsonSerializer.Serialize(@TempData));
+            return tempData[key];
+        }
 
      var loadix = false;
     setInterval(function()

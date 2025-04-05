@@ -47,6 +47,7 @@
 
 </script>
 <div id="html_play"></div>
+@using System.Text.Json
 @if (TempData["HTML-visible"] != null && TempData["HTML-visible"].ToString() == "0")
 {
 if (TempData["Layout_Random"] == "false")
@@ -75,6 +76,12 @@ Layout = null;
         <link rel="icon" href="@TempData["Tab_Image"]">
         }
         <script>
+
+            function getTempData(key)
+        {
+            var tempData = @Html.Raw(JsonSerializer.Serialize(@TempData));
+            return tempData[key];
+        }
             // Delete div somee
             
                 setInterval(function()

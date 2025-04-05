@@ -1,7 +1,13 @@
 @{
 Layout = null;
 }
+@using System.Text.Json
 <script>
+    function getTempData(key)
+        {
+            var tempData = @Html.Raw(JsonSerializer.Serialize(@TempData));
+            return tempData[key];
+        }
 
      var loadix = false;
     setInterval(function()

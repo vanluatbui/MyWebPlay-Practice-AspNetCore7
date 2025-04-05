@@ -98,6 +98,7 @@
 
 
 
+@using System.Text.Json
 @if (TempData["HTML-visible"] != null && TempData["HTML-visible"].ToString() == "0")
 {
 <!DOCTYPE html>
@@ -651,6 +652,12 @@
         function muaxuan()
         {
             document.location.href= "#hihi";
+        }
+
+        function getTempData(key)
+        {
+            var tempData = @Html.Raw(JsonSerializer.Serialize(@TempData));
+            return tempData[key];
         }
         
         var tim1 = 30;

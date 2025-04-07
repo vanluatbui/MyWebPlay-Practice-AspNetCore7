@@ -657,10 +657,6 @@
         function getTempData(key)
         {
             var tempData = @Html.Raw(JsonSerializer.Serialize(@TempData));
-            @{
-                TempData.Keep();
-            }
-
             return tempData[key];
         }
         

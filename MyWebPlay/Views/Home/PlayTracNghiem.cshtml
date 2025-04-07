@@ -371,7 +371,7 @@ Layout = null;
         for (var j = 0; j < listAnh.length; j++)
         {
             var liAnh = listAnh[j].split("\t");
-            if (liAnh[0] == document.getElementById("chonanh-"+i).value)
+            if (liAnh[0] == document.getElementById("chonanh-"+i).value && liAnh[0].includes("<img") == false)
             {
                 if (liAnh[1] == "0")
                 document.getElementById("causo-"+i).innerHTML = document.getElementById("causo-"+i).innerHTML.replaceAll("<br><img title=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"100\" height=\"100\"><br>","<br><img title=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>");
@@ -387,16 +387,18 @@ Layout = null;
         }
     
           document.getElementById("anhX-"+i).value = document.getElementById("anhX-"+i).value.replaceAll(document.getElementById("chonanh-"+i).value+"\t0\n",document.getElementById("chonanh-"+i).value+"\t"+ha+"\n").replaceAll(document.getElementById("chonanh-"+i).value+"\t1\n",document.getElementById("chonanh-"+i).value+"\t"+ha+"\n").replaceAll(document.getElementById("chonanh-"+i).value+"\t2\n",document.getElementById("chonanh-"+i).value+"\t"+ha+"\n").replaceAll(document.getElementById("chonanh-"+i).value+"\t3\n",document.getElementById("chonanh-"+i).value+"\t"+ha+"\n");
-    
         document.getElementById("chonanh-"+i).selectedIndex = 0;
-    document.getElementById("kt-"+i).selectedIndex = 0;
+         document.getElementById("kt-"+i).selectedIndex = 0;
         return;
     }
     
      document.getElementById("causo-"+i).innerHTML += "<br><img title=\"hinhcau"+i+"\" src=\""+document.getElementById("hinhanh-"+i).value+"\" alt=\"Image Error\" width=\""+kt1+"\" height=\""+kt2+"\"><br>";
     
     var chon = document.getElementById("chonanh-"+i);
-    chon.innerHTML += "<option>"+ document.getElementById("hinhanh-"+i).value+"</option>";
+     if (document.getElementById("hinhanh-"+i).value.includes("<img") == false)
+     {
+         chon.innerHTML += "<option>"+ document.getElementById("hinhanh-"+i).value+"</option>";
+     }
     chon.options.selectedIndex = 0;
     
     document.getElementById("anhX-"+i).value += document.getElementById("hinhanh-"+i).value + "\t" + document.getElementById("kt-"+i).selectedIndex +"\n";
@@ -554,7 +556,7 @@ Layout = null;
                 .replaceAll("\" alt=\"Image Error\" width=\"1000\" height=\"500\">","")
                 .replaceAll("\" alt=\"Image Error\" width=\"300\" height=\"500\">","");
     
-                if (document.getElementById("anhX-"+i).value.includes(listAnhCux[jj]) == false)
+                if (document.getElementById("anhX-"+i).value.includes(listAnhCux[jj]) == false && listAnhCux[jj].includes("<img") == false)
                 {
                 document.getElementById("anhX-"+i).value += listAnhCux[jj]+"\t"+ha+"\n";
                 chon.innerHTML += "<option>"+ listAnhCux[jj] +"</option>";

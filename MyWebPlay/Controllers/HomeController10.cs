@@ -1164,7 +1164,7 @@ namespace MyWebPlay.Controllers
                             }
 
                             string ch = tn.ch[i] + "<br><img title=\"hinhcau" + i + "\" src=\"" + ax[0] + "\" alt=\"Image Error\" width=\"" + kt1 + "\" height=\"" + kt2 + "\" /><br>";
-                            ND_File = ND_File.Replace(tn.ch[i], ch);
+                            ND_File = ND_File.Replace(tn.ch[i].TrimEnd("<br>".ToCharArray()), ch);
                         }
 
                         string da = f["dapan-" + i].ToString();

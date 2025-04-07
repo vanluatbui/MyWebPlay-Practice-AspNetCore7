@@ -1103,7 +1103,7 @@ namespace MyWebPlay.Controllers
                     for (int i = 0; i < tn.gioihancau; i++)
                     {
 
-                        tn.ch[i] = Regex.Replace(tn.ch[i], "<br><img.*><br>", "");
+                        tn.ch[i] = Regex.Replace(tn.ch[i], @"<img.*>", "");
 
                         var chx = tn.ch[i];
 

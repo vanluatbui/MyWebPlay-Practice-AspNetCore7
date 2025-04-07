@@ -548,6 +548,11 @@ Layout = null;
                 .replaceAll("\" alt=\"Image Error\" width=\"500\" height=\"500\" />","")
                 .replaceAll("\" alt=\"Image Error\" width=\"1000\" height=\"500\" />","")
                 .replaceAll("\" alt=\"Image Error\" width=\"300\" height=\"500\" />","")
+                .replaceAll("\" alt=\"Image Error\" width=\"100\" height=\"100\">","")
+                .replaceAll("\" alt=\"Image Error\" width=\"300\" height=\"300\">","")
+                .replaceAll("\" alt=\"Image Error\" width=\"500\" height=\"500\">","")
+                .replaceAll("\" alt=\"Image Error\" width=\"1000\" height=\"500\">","")
+                .replaceAll("\" alt=\"Image Error\" width=\"300\" height=\"500\">","");
     
                 if (document.getElementById("anhX-"+i).value.includes(listAnhCux[jj]) == false)
                 {
@@ -562,7 +567,7 @@ Layout = null;
         for (var j = 0; j < listAnh.length; j++)
         {
             var liAnh = listAnh[j].split("\t");
-            if (liAnh[0] != "" && document.getElementById("causo-"+i).innerHTML.includes(liAnh[0]) == false)
+            if (liAnh[0] != "" && liAnh[0].includes("<img") == false && document.getElementById("causo-"+i).innerHTML.includes(liAnh[0]) == false)
             {
                 if (liAnh[1] == "0")
                 document.getElementById("causo-"+i).innerHTML += "<br><img title=\"hinhcau"+i+"\" src=\""+liAnh[0]+"\" alt=\"Image Error\" width=\"100\" height=\"100\"><br>";

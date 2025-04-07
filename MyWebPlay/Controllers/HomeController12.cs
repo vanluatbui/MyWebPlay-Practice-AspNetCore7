@@ -1474,7 +1474,7 @@ namespace MyWebPlay.Controllers
                     txtSoCau = n9_S.ToString();
                     ViewBag.TongCau = n9_S;
 
-                    Regex regExp = new Regex("<br><img.*/><br>");
+                    Regex regExp = new Regex(@"<img.*>");
 
                     ViewBag.HinhAnh = "";
 
@@ -1483,7 +1483,7 @@ namespace MyWebPlay.Controllers
                         string result = "";
                         foreach (Match match in regExp.Matches(tnX.ch[i]))
                         {
-                            result += match.Value;
+                            result += "<br>" + match.Value.ToString() + "<br>";
                             break;
                         }
                         ViewBag.HinhAnh += String.Join("\r\n", result.Split("<br><br>")).Replace("<br>", "") + "\n\n";

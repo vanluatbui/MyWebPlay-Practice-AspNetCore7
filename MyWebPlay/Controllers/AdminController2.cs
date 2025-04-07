@@ -396,6 +396,9 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                var isHTML = HttpContext.Session.GetString("html_fileadmin");
+                HttpContext.Session.Remove("html_fileadmin");
+                TempData["html_fileadmin"] = isHTML;
                 if (string.IsNullOrEmpty(HttpContext.Session.GetString("fileDataAdmin"))) return RedirectToAction("Error", "Home");
                 var pathXY = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin/SecureSettingAdmin.txt");
 
@@ -631,6 +634,7 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                HttpContext.Session.SetString("html_fileadmin", isHTML);
                 var pathXY = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin/SecureSettingAdmin.txt");
                 var matpassAd = FileExtension.ReadFile(pathXY).Replace("\r", "").Split("\n")[1];
 

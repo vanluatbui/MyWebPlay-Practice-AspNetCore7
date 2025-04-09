@@ -13,6 +13,8 @@ Layout = null;
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
         <link rel="icon" href="/images/imagex.png">
+        <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Open+Sans&family=Tahoma&display=swap" rel="stylesheet">
     </head>
     <style>
         .switch {
@@ -66,8 +68,58 @@ Layout = null;
         .slider.round:before {
         border-radius: 50%;
         }
+
+        #editor {
+        height: 462px;
+        width: 5000px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        overflow-y: auto; /* Cho phép cuộn khi nội dung dài */
+        font-family: Arial, sans-serif; /* Chọn phông chữ dễ nhìn */
+        font-size: 14px; /* Kích thước phông chữ */
+        background-color:darkgoldenrod;
+    }
+
+    #toolbar {
+        margin-bottom: 10px;
+    }
+
+    .ql-container {
+        min-height: 200px; /* Điều chỉnh chiều cao của vùng soạn thảo */
+        border: 1px solid #ccc;
+    }
+
+    .ql-editor {
+        font-family: 'Arial', 'Courier New', 'Georgia', 'Times New Roman', 'Verdana', sans-serif;
+    }
     </style>
     <script>
+
+        var quill = null;
+
+        window.onload = function () {
+            // Khởi tạo Quill editor
+            quill = new Quill('#editor', {
+                theme: 'snow', // Bạn có thể thay đổi theme (snow hoặc bubble)
+                modules: {
+                    toolbar: [
+                        [{ 'header': '1' }, { 'header': '2' }, {
+                            'font': []
+                        }],
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                        [{ 'indent': '-1' }, { 'indent': '+1' }],
+                        [{ 'align': [] }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        ['link'],
+                        [{ 'color': [] }, { 'background': [] }],
+                        ['blockquote', 'code-block'],
+                        ['image']
+                    ]
+                }
+            });
+
+            quill.root.innerHTML = '@TempData["showIPCome"]';
+        }
 
         function getTempData(key)
         {
@@ -614,7 +666,7 @@ Layout = null;
         var tamdunghere = 0;
         setInterval(function()
         {
-            if (document.getElementById("comehex") == null || tamdunghere == 1) return;
+                if (document.getElementById("editor") == null || tamdunghere == 1 || quill == null) return;
 
              $.ajax({
             url: "/Admin/ReloadIPComeHere",
@@ -622,22 +674,24 @@ Layout = null;
             contentType: false,
             processData: false,
             success: function(data) {
-                document.getElementById("comehex").value = data.result;
+                quill.root.innerHTML = data.result;
             }});
 
-            document.getElementById("comehex").value =  document.getElementById("comehex").value.replaceAll('\n\n', '\n')
+            quill.root.innerHTML =  quill.root.innerHTML.replaceAll('\n\n', '\n')
 
         }, 1000);
         
         function listIPcomehere()
         {
+            if (quill == null) return;
+
             $.ajax({
             url: "/Admin/ReloadIPComeHere",
             type: "POST",
             contentType: false,
             processData: false,
             success: function(data) {
-                document.getElementById("comehex").value = data.result;
+                        quill.root.innerHTML = data.result;
             }});
 
            window.location.href = "#listIPcomehere";
@@ -1552,7 +1606,7 @@ Layout = null;
                 <a href="#xuly" style="color:orangered" onclick="updatetrangthai()">Thay đổi trạng thái</a><br /><br />
                 @if (TempData["IsLoginAdminTemp"] != "true")
                         {
-                            <h4 id="custom128"><a href="#xuly" onclick="refreshHetHan()" style="color:purple">Refresh hoặc xoá tất cả thư mục và các file hết hạn</a>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:15px; color:lime" id="custom129"><input type="checkbox" id="chkFileExternal" />&nbsp;&nbsp;<b id="custom130">Xoá luôn các file tại root - FileExternal (ngoại trừ các file nằm bên ngoài và không nằm trong thư mục con)</b></span></h4><a id="linkread8" href="/Admin/ReadAdminFileByStatic?file=/InfoWebFile/InfoWebFile.txt" target="_blank" style="color:deeppink">Xem list các file đã tải và thời hạn</a>
+                            <h4 id="custom128"><a href="#xuly" onclick="refreshHetHan()" style="color:purple">Refresh hoặc xoá tất cả thư mục và các file hết hạn</a>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:15px; color:lime" id="custom129"><input type="checkbox" id="chkFileExternal" />&nbsp;&nbsp;<b id="custom130">Xoá luôn các file tại root - FileExternal (ngoại trừ các file nằm bên ngoài và không nằm trong thư mục con)</b></span></h4><a id="linkread8" href="/Admin/ReadAdminFileByStatic?file=/InfoWebFile/InfoWebFile.txt&isHTML=false" target="_blank" style="color:deeppink">Xem list các file đã tải và thời hạn</a>
                         }
                 <br>
                 <h4 id="custom131">
@@ -1915,12 +1969,13 @@ Layout = null;
             - Nhấn button "MAIL REPORT" nếu bạn muốn tự xuất báo cáo thủ công ngay hiện tại, hoặc không nếu hệ thống phát hiện dữ liệu này đã hơn xxx thì cũng tự động gửi report và khôi phục...<br>
             - Kết quả danh sách bên dưới có thể chưa đủ thông tin vì trước đó bạn đã từng tắt/tạm ngưng save setting chế độ lưu trữ này hoặc tự động được reset lại khi data đã quá xxx (hãy bật setting report mail when data than xxx để kịp thời lưu trữ).
         <br />
-        <a id="linkread10" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/ListIPComeHere.txt&&isHTML=false" target="_blank" style="color:coral">Xem chi tiết (edit)</a>
+        <a id="linkread10" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/ListIPComeHere.txt&&isHTML=true" target="_blank" style="color:coral">Xem chi tiết (edit)</a>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <a href="#xuly" id="lamda" style="color:red" onclick="tamdungday()">Tạm dừng</a>
         </p>
         <br />
-        <textarea id="comehex" readonly cols="1000" rows="100">@TempData["showIPCome"]</textarea>
+       @* <textarea id="comehex" readonly cols="1000" rows="100">@TempData["showIPCome"]</textarea>*@
+                <div id="editor" contenteditable="false"></div>
         }
         <br /><br />
         <hr />
@@ -2901,3 +2956,4 @@ Layout = null;
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> @Html.Raw(TempData["HTML-added"])
+<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>

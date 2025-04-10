@@ -1097,6 +1097,40 @@ namespace MyWebPlay.Controllers
                 else
                 {
                     var ND_File = f["File_ND"].ToString();
+
+                    var sanitizer = new HtmlSanitizer();
+                    sanitizer.AllowedTags.Clear();
+                    sanitizer.AllowedAttributes.Clear();
+                    var pathSD = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Others", "HtmlSanitizerAccept.txt");
+                    var noidungSD = FileExtension.ReadFile(pathSD).Replace("\r", "").Split("\n==========\n");
+                    for (var iss = 0; iss < noidungSD.Length; iss++)
+                    {
+                        var htmlSanitizerAccept = noidungSD[iss].Replace("\r", "").Split("\n");
+                        for (var joo = 0; joo < htmlSanitizerAccept.Length; joo++)
+                        {
+                            if (iss == 0)
+                            {
+                                sanitizer.AllowedTags.Add(htmlSanitizerAccept[joo]);
+                            }
+                            else
+                            {
+                                sanitizer.AllowedAttributes.Add(htmlSanitizerAccept[joo]);
+                            }
+                        }
+                    }
+
+                    // 🔹 Chặn "javascript:" và "expression()" trong style
+                    sanitizer.RemovingAttribute += (s, e) =>
+                    {
+                        string lowerValue = e.Attribute.Value.ToLower();
+                        if (lowerValue.Contains("javascript:") || lowerValue.Contains("expression("))
+                        {
+                            e.Cancel = true; // Hủy bỏ giá trị nguy hiểm
+                        }
+                    };
+
+                    ND_File = sanitizer.Sanitize(ND_File);
+
                     ViewBag.ND_File = null;
 
                     TempData["Socola"] = "hay";
@@ -1105,25 +1139,25 @@ namespace MyWebPlay.Controllers
                     for (int i = 0; i < tn.gioihancau; i++)
                     {
 
-                        tn.ch[i] = Regex.Replace(tn.ch[i], @"<img.*>", "");
+                        tn.ch[i] = Regex.Replace(tn.ch[i], @"<img.*>", "").TrimEnd("<br>".ToCharArray());
 
                         var chx = tn.ch[i];
 
                         if (f["txtHoanVix-" + i].ToString() == "on")
                         {
                             chx = "$" + chx;
-                            if (ND_File.Contains("$" + tn.ch[i]))
+                            if (ND_File.Contains("$" + tn.ch[i].TrimEnd("<br>".ToCharArray())))
                             {
-                                ND_File = ND_File.Replace("$" + tn.ch[i], chx);
+                                ND_File = ND_File.Replace("$" + tn.ch[i].TrimEnd("<br>".ToCharArray()), chx);
                             }
-                            else if (ND_File.Contains(tn.ch[i]))
+                            else if (ND_File.Contains(tn.ch[i].TrimEnd("<br>".ToCharArray())))
                             {
-                                ND_File = ND_File.Replace(tn.ch[i], chx);
+                                ND_File = ND_File.Replace(tn.ch[i].TrimEnd("<br>".ToCharArray()), chx);
                             }
                         }
                         else if (f["txtHoanVix-" + i].ToString() != "on")
                         {
-                            ND_File = ND_File.Replace("$" + tn.ch[i], tn.ch[i]);
+                            ND_File = ND_File.Replace("$" + tn.ch[i].TrimEnd("<br>".ToCharArray()), tn.ch[i].TrimEnd("<br>".ToCharArray()));
                         }
 
                         //---------------------------------------------------------------------------

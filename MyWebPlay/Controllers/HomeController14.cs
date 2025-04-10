@@ -912,7 +912,7 @@ namespace MyWebPlay.Controllers
 
                         for (int i = 0; i < lyrix.Length; i++)
                         {
-                            if (lyrix[i] == "\t" || lyrix[i].Contains("Empty") || string.IsNullOrEmpty(lyrix[i]))
+                            if (lyrix[i] == "\t" || lyrix[i].Contains("Empty") || lyrix[i].Contains("[Music]") || string.IsNullOrEmpty(lyrix[i]))
                             {
                                 sa += lyrix[i];
 

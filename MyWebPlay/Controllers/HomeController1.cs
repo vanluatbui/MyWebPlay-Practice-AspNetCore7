@@ -313,6 +313,7 @@ namespace MyWebPlay.Controllers
                     foreach (var file in listFile)
                     {
                         FileInfo fx = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", file));
+                        if (fx.Exists)
                         fx.Delete();
                     }
 
@@ -933,6 +934,7 @@ namespace MyWebPlay.Controllers
                 foreach (var file in listFile)
                 {
                     FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", file));
+                    if (f.Exists)
                     f.Delete();
                 }
                 return RedirectToAction("TracNghiemX_Multiple");

@@ -618,7 +618,8 @@ namespace MyWebPlay.Controllers
                 foreach (var file in listFile)
                 {
                     FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", file));
-                    f.Delete();
+                    if (f.Exists)
+                        f.Delete();
                 }
 
                 return View();
@@ -955,7 +956,8 @@ namespace MyWebPlay.Controllers
                     if (cbCoSan == false)
                     {
                         FileInfo fx = new FileInfo(path);
-                        fx.Delete();
+                        if (fx.Exists)
+                            fx.Delete();
                     }
 
                     if (ND_file.Length == 0)
@@ -2068,7 +2070,8 @@ namespace MyWebPlay.Controllers
                 foreach (var file in listFile)
                 {
                     FileInfo fx = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", file));
-                    fx.Delete();
+                    if (fx.Exists)
+                        fx.Delete();
                 }
 
                 String[] ss = Regex.Split(f["txtChuoi"].ToString(), "\r\n");
@@ -2258,7 +2261,8 @@ namespace MyWebPlay.Controllers
                 foreach (var file in listFile)
                 {
                     FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", file));
-                    f.Delete();
+                    if (f.Exists)
+                        f.Delete();
                 }
                 return RedirectToAction("PlayQuestion_Multiple");
             }

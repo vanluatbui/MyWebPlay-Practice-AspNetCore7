@@ -306,10 +306,16 @@ namespace MyWebPlay.Controllers
 
                 TempData["X"] = ViewBag.X;
 
+                var yf = "0";
                 if (upload == 0)
+                {
                     ViewBag.Y = 0;
+                }
                 else
+                {
                     ViewBag.Y = 1;
+                    yf = "1";
+                }
 
                 if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Exists == true)
                     new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-gmail")).Delete(true);
@@ -323,7 +329,7 @@ namespace MyWebPlay.Controllers
                 if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Exists == false)
                     new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "zip-result")).Create();
 
-                TempData["Y"] = ViewBag.Y;
+                HttpContext.Session.SetString("Y", yf);
 
                 ViewBag.SL = sl;
 
@@ -400,9 +406,9 @@ namespace MyWebPlay.Controllers
                 var email = f["txtMail"].ToString();
 
                 if (txtExternal == "true" || External == "true")
-                    TempData["Y"] = 0;
+                    HttpContext.Session.SetString("Y", "0");
 
-                if (onoff == "file_TAT" && TempData["Y"].ToString() == "1")
+                if (onoff == "file_TAT" && HttpContext.Session.GetString("Y").ToString() == "1")
                 {
                     if (External == "false")
                         return RedirectToAction("UploadFile");
@@ -583,7 +589,7 @@ namespace MyWebPlay.Controllers
                 var mega = true;
                 var passAd = "";
 
-                if (TempData["Y"].ToString() == "1")
+                if (HttpContext.Session.GetString("Y").ToString() == "1")
                 {
                     var pathX1 = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
                     var noidungX1 = FileExtension.ReadFile(pathX1);
@@ -673,11 +679,10 @@ namespace MyWebPlay.Controllers
                 int flag = 0;
                 ViewBag.SL = TempData["SL"];
                 ViewBag.X = TempData["X"];
-                ViewBag.Y = TempData["Y"];
+                ViewBag.Y = int.Parse(HttpContext.Session.GetString("Y"));
 
                 TempData["SL"] = ViewBag.SL;
                 TempData["X"] = ViewBag.X;
-                TempData["Y"] = ViewBag.Y;
 
                 var xanh = (ViewBag.Y == 0) ? "[ADMIN]" : "[USER]";
 
@@ -1595,8 +1600,8 @@ namespace MyWebPlay.Controllers
                 if (string.IsNullOrEmpty(folder) == false && folder.Contains("<split>"))
                 {
                     var po = folder.Split("<split>", StringSplitOptions.RemoveEmptyEntries);
-                    folder = po[0];
-                    all = po[1];
+                        folder = po[0];
+                        all = po[1];
                 }
 
                 if (HttpContext.Session.GetString("adminDirectURL") != null && HttpContext.Session.GetString("adminDirectURL") == "YES")
@@ -1627,6 +1632,8 @@ namespace MyWebPlay.Controllers
                     ViewBag.All = "4";
 
                 ViewBag.Folder = folder;
+                HttpContext.Session.SetString("Folder", folder);
+                HttpContext.Session.SetString("All", all);
 
                 string ketqua = "";
 
@@ -2096,7 +2103,8 @@ namespace MyWebPlay.Controllers
                         var listFile = new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + folder)).GetFiles();
                         foreach (var file in listFile)
                         {
-                            file.Delete();
+                            if (file.Exists)
+                                file.Delete();
                         }
                     }
                 }
@@ -2212,7 +2220,7 @@ namespace MyWebPlay.Controllers
 
                 return RedirectToAction("DownloadFile", new
                 {
-                    folder = ViewBag.Folder + "<split>" + ViewBag.All
+                    folder = HttpContext.Session.GetString("Folder") + "<split>" + HttpContext.Session.GetString("All")
                 });
             }
             catch (Exception ex)
@@ -2309,7 +2317,8 @@ namespace MyWebPlay.Controllers
                 if (new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + file)).Exists)
                 {
                     FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "file" + file));
-                    f.Delete();
+                    if (f.Exists)
+                        f.Delete();
                 }
 
                 ViewBag.All = TempData["All"];

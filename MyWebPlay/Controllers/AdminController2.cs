@@ -1249,6 +1249,7 @@ namespace MyWebPlay.Controllers
                     // Lấy danh sách tất cả các file và thư mục con
                     foreach (FileInfo file in dir.GetFiles())
                     {
+                        if (file.Exists)
                         file.Delete(); // Xoá từng file
                     }
 

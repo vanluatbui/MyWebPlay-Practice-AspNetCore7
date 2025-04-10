@@ -8,6 +8,7 @@ namespace MyWebPlay.Extension
         public static void BuildProgramPlay(IHostEnvironment environment)
         {
             DeleteBin((IWebHostEnvironment)environment);
+            LogInfoBuildTheWeb((IWebHostEnvironment)environment);
         }
 
         private static void DeleteBin(IWebHostEnvironment _webHostEnvironment)
@@ -88,7 +89,8 @@ namespace MyWebPlay.Extension
             foreach (var file in listFile)
             {
                 FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", file));
-                f.Delete();
+                if (f.Exists)
+                    f.Delete();
             }
 
             if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Exists)
@@ -140,7 +142,8 @@ namespace MyWebPlay.Extension
                 if (SoSanh2Ngay(d1, m1, y1, d2, m2, y2) >= 0 || new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0])).Exists == false)
                 {
                     FileInfo fx = new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0].TrimStart('/')));
-                    fx.Delete();
+                    if (fx.Exists)
+                        fx.Delete();
                     infoFile = infoFile.Replace(fi[0] + "\t" + fi[1] + "\n", "");
                 }
 
@@ -216,6 +219,22 @@ namespace MyWebPlay.Extension
                     return -1;
             }
             return 1;
+        }
+
+        private static void LogInfoBuildTheWeb(IWebHostEnvironment _webHostEnvironment)
+        {
+            var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+            var noidung = FileExtension.ReadFile(path);
+            var saveComeHere = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[22].Split("<3275>")[1];
+            if (saveComeHere == "true")
+            {
+                var path1 = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "ClientConnect/ListIPComeHere.txt");
+                var noidung1 = FileExtension.ReadFile(path1);
+                Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                var nowDate = xz.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")).ToString("dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                var build = noidung1 + "\r\n" + "[BUILD] "+nowDate;
+                FileExtension.WriteFile(path1, build);
+            }
         }
     }
 }

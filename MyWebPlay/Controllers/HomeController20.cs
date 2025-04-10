@@ -105,7 +105,8 @@ namespace MyWebPlay.Controllers
                 foreach (var file in listFile)
                 {
                     FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", file));
-                    f.Delete();
+                    if (f.Exists)
+                        f.Delete();
                 }
 
                 if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath, "karaoke")).Exists)
@@ -157,7 +158,8 @@ namespace MyWebPlay.Controllers
                     if (SoSanh2Ngay(d1, m1, y1, d2, m2, y2) >= 0 || new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0])).Exists == false)
                     {
                         FileInfo fx = new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0].TrimStart('/')));
-                        fx.Delete();
+                        if (fx.Exists)
+                            fx.Delete();
                         infoFile = infoFile.Replace(fi[0] + "\t" + fi[1] + "\n", "");
                     }
 

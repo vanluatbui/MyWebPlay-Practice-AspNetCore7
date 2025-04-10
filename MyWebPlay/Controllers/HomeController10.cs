@@ -91,6 +91,7 @@ namespace MyWebPlay.Controllers
                 foreach (var file in listFile)
                 {
                     FileInfo f = new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, "tracnghiem", file));
+                    if (f.Exists)
                     f.Delete();
                 }
 
@@ -388,6 +389,7 @@ namespace MyWebPlay.Controllers
                 ND_file = sanitizer.Sanitize(ND_file);
 
                 FileInfo fx = new FileInfo(path);
+                if (fx.Exists)
                 fx.Delete();
 
                 if (ND_file.Length == 0)

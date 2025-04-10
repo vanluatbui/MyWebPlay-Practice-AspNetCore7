@@ -742,7 +742,7 @@ namespace MyWebPlay.Controllers
                 }
 
                 TempData["Lyric"] = f["txtLyric"].ToString();
-                TempData["TrangTri"] = f["txtTrangTri"].ToString();
+                HttpContext.Session.SetString("TrangTri", f["txtTrangTri"].ToString());
 
                 if (f["txtCuoiCung"].ToString() == "on")
                     HttpContext.Session.SetString("CuoiCung", "true");
@@ -895,8 +895,8 @@ namespace MyWebPlay.Controllers
                 ViewBag.KaraX = "";
 
                 var lyric = TempData["Lyric"].ToString();
-                var trangtri = TempData["TrangTri"].ToString();
-                TempData["TrangTri"] = trangtri;
+                var trangtri = HttpContext.Session.GetString("TrangTri");
+                //TempData["TrangTri"] = trangtri;
 
                 var sa = "";
 
@@ -1116,7 +1116,7 @@ namespace MyWebPlay.Controllers
 
                 if (HttpContext.Session.GetString("karaoke_Final") == "true")
                 {
-                    var trangtri = TempData["TrangTri"].ToString();
+                    var trangtri = HttpContext.Session.GetString("TrangTri");
 
                     xanh = BoSungIconTienTo_Karaoke(xanh, trangtri);
                 }

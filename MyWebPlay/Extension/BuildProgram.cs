@@ -224,7 +224,16 @@ namespace MyWebPlay.Extension
         private static void LogInfoBuildTheWeb(IWebHostEnvironment _webHostEnvironment)
         {
             var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
-            var noidung = FileExtension.ReadFile(path);
+            var noidung = string.Empty;
+            try
+            {
+               noidung = StringMaHoaExtension.Decrypt(FileExtension.ReadFile(path).Replace("[ENCRYPT]", ""), "32752262");
+            }
+            catch
+            {
+                noidung = FileExtension.ReadFile(path);
+            }
+
             var saveComeHere = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[22].Split("<3275>")[1];
             if (saveComeHere == "true")
             {

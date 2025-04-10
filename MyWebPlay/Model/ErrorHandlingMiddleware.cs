@@ -463,19 +463,19 @@ namespace MyWebPlay.Model
             if (xa == "" || xa == "/" || xa == null) xa = "/" + FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[20].Replace("--", "/");
 
             var referrer = (context.Request.GetTypedHeaders().Referer != null) ? context.Request.GetTypedHeaders().Referer.ToString().Replace(context.Request.Scheme + "://" + context.Request.Host, "") : string.Empty;
-            if (referrer == "" || referrer == "/" || referrer == null) referrer = "/" + FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[20].Replace("--", "/");
+            if (context.Request.GetTypedHeaders().Referer != null && (referrer == "" || referrer == "/" || referrer == null)) referrer = "/" + FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[20].Replace("--", "/");
 
             foreach (var item in noidung)
             {
                 var pat = item.Split("[3275]");
                 if ((context.Request.GetTypedHeaders().Referer != null && string.IsNullOrEmpty(pat[1])) || (xa.Contains(pat[0])
-                    && referrer.Contains(pat[1]) == false))
+                    && referrer.Contains(pat[1])))
                 {
-                    return false;
+                    return true;
                 }
             }
 
-            return true;
+            return false;
         }
 
         private void RemoveAcceptReferrer(HttpContext context)

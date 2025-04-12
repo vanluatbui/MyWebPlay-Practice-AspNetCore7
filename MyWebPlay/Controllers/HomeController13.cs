@@ -951,7 +951,17 @@ namespace MyWebPlay.Controllers
                         }
                     };
 
+                    var socautatca = ND_file.Replace("\r", "").Split("\n#\n").Length;
+                    for (var index = 0; index < socautatca; index++)
+                    {
+                        ND_file = ND_file.Replace("[<?" + index + "?>]", "DARKAXNA_TRACNGHIEM_" + index);
+                    }
+
                     ND_file = sanitizer.Sanitize(ND_file);
+                    for (var index = 0; index < socautatca; index++)
+                    {
+                        ND_file = ND_file.Replace("DARKAXNA_TRACNGHIEM_" + index, "[<?" + index + "?>]");
+                    }
 
                     if (cbCoSan == false)
                     {

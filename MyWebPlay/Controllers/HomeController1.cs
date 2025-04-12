@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using MyWebPlay.Model;
+using Ganss.Xss;
 
 namespace MyWebPlay.Controllers
 {
@@ -87,7 +88,7 @@ namespace MyWebPlay.Controllers
                     ViewBag.HoanVi_VD = "đều đúng\r\nđều sai\r\nA,B và C\r\nA và B\r\ntất cả\r\nđáp án";
 
                 if (ViewBag.ChuoiVD == null)
-                    ViewBag.ChuoiVD = "\r\n\r\n\r\n                                               Câu số 1. 1 + 1 = ?\r\nChọn đáp án đúng :\r\nA. 1\r\nB. 2\r\n                                            C. 3\r\n\r\n\r\nD. 4\r\n\r\n                                       \r\nCâu số 2. Lan có 5 quả cam, Lan cho Hà 3 quả. Hỏi <span style=\"color:red\">Lan</span> \r\n                       \r\n\r\n                                    còn lại bao nhiêu quả cam?\r\nA. 4 quả\r\nB. 5 quả\r\nC. 2 quả                                    D. 1 quả\r\n\r\n\r\n             Câu số 3. Tìm x biết x - 10 = 20?\r\nA. x = 50       B. x = 60\r\n                              C. x = <span style=\"color:green\"> 30</span>\r\n                         \r\n\r\n                        D. x = 0\r\n\r\n\r\n\r\nCâu số 7. Hạnh phúc là gì?<br><img title=\"hinhcau3\" src=\"https://cayxinh.vn/wp-content/uploads/2019/12/gemini-02.jpg\" alt=\"Image Error\" width=\"300\" height=\"500\" /><br>\r\nA. Là niềm vui\r\nLà tất cả\r\nLà nụ cười     B. Là hạnh phúc\r\n\r\nLà sự bình yênC. Là nụ cười\r\nD. Là tình yêu\r\n\r\n            Là những gì bạn đang mong ước\r\n\r\n\r\n\r\nCâu số 8. Tính diện tích hình vuông có cạnh là 5 cm?\r\nA. 5 cm<sup>2</sup>   B. 10 cm<sup>2</sup>C. 15 cm<sup>2</sup>               D. 25 cm<sup>2</sup>\r\n\r\n     Câu số 9. Chu vi hình vuông có cạnh 4 cm là?\r\n\r\nA. 16 cm\r\nB. 160 mm\t\tC. 1.6 dm\r\n\r\n           D. Tất cả đáp án đều đúng\r\n\t\t\t\r\n                      \r\n\r\n\r\n\r\n";
+                    ViewBag.ChuoiVD = "Câu số 1. 1 + 1 = ?\r\nChọn đáp án đúng :\r\nA. 1\r\nB. 2\r\nC. 3\r\nD. 4\r\nCâu số 2. Lan có 5 quả cam, Lan\t\t cho Hà 3 quả. Hỏi <span style=\"color:rgb(255, 255, 0)\">Lan</span> còn lại bao nhiêu quả cam?\r\nA. 4 quả\r\nB. 5 quả\r\nC. 2 quả D. 1 quả\r\nCâu số 3. Tìm x biết x - 10 = 20?\r\nA. x = 50 B. x = 60\r\nC. x = <span style=\"background-color:rgb(153, 51, 255);\"> 30</span>\r\nD. x = 0\r\nCâu số 7. Hạnh phúc là gì?<br>\r\nA. Là niềm vui\r\nLà tất cả\r\nLà nụ cười B. Là hạnh phúc\r\nLà sự bình yênC. Là nụ cười\r\nD. Là tình yêu Là những gì bạn đang mong ước\r\nCâu số 8. Tính diện tích hình vuông có cạnh là 5 cm?\r\nA. 5 cm<sup>2</sup> B. 10 cm<sup>2</sup>C. 15 cm<sup>2</sup> D. 25 cm<sup>2</sup>\r\n Câu số 9. Chu vi hình vuông có cạnh 4 cm là?\r\nA. 16 cm\r\nB. 160 mm\t\tC. 1.6 dm\r\n D. Tất cả đáp án đều đúng";
 
                 if (ViewBag.CH_VD == null)
                     ViewBag.CH_VD = "1-3.7-9";
@@ -302,7 +303,12 @@ namespace MyWebPlay.Controllers
                         }
                     }
                 }
-                string s = "\r\n" + f["txtChuoi"].ToString();
+
+                var xp1 = StringMaHoaExtension.ClearSpaceTabEnterString(f["txtChuoi"].ToString());
+                var xp2 = f["txtX"].ToString() + "1" + f["txtXX"].ToString();
+                var tachra = xp1.Substring(0, xp1.IndexOf(xp2));
+
+                string s = "\r\n" + xp1.TrimStart(tachra.ToCharArray());
                 bool err = true;
                 var tick = f["Tick"].ToString();
                 try
@@ -446,7 +452,7 @@ namespace MyWebPlay.Controllers
             '>'
           };
                     s = s.TrimStart(sk);
-                    s = s.TrimEnd(sk);
+                    s = StringMaHoaExtension.TrimEnd(s, "<br>");
 
                     char[] sm = {
             ' ',
@@ -603,6 +609,49 @@ namespace MyWebPlay.Controllers
             '\n'
           };
                     copy = copy.TrimEnd(cc);
+                    copy = tachra.Replace("\r", "").Replace("\n", "") + copy;
+                    var sanitizer = new HtmlSanitizer();
+                    sanitizer.AllowedTags.Clear();
+                    sanitizer.AllowedAttributes.Clear();
+                    var pathSD = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Others", "HtmlSanitizerAccept.txt");
+                    var noidungSD = FileExtension.ReadFile(pathSD).Replace("\r", "").Split("\n==========\n");
+                    for (var iss = 0; iss < noidungSD.Length; iss++)
+                    {
+                        var htmlSanitizerAccept = noidungSD[iss].Replace("\r", "").Split("\n");
+                        for (var joo = 0; joo < htmlSanitizerAccept.Length; joo++)
+                        {
+                            if (iss == 0)
+                            {
+                                sanitizer.AllowedTags.Add(htmlSanitizerAccept[joo]);
+                            }
+                            else
+                            {
+                                sanitizer.AllowedAttributes.Add(htmlSanitizerAccept[joo]);
+                            }
+                        }
+                    }
+
+                    // 🔹 Chặn "javascript:" và "expression()" trong style
+                    sanitizer.RemovingAttribute += (s, e) =>
+                    {
+                        string lowerValue = e.Attribute.Value.ToLower();
+                        if (lowerValue.Contains("javascript:") || lowerValue.Contains("expression("))
+                        {
+                            e.Cancel = true; // Hủy bỏ giá trị nguy hiểm
+                        }
+                    };
+
+                    var socautatca = copy.Replace("\r", "").Split("\n#\n").Length;
+                    for (var index = 0; index < socautatca; index++)
+                    {
+                        copy = copy.Replace("[<?" + index + "?>]", "DARKAXNA_TRACNGHIEM_" + index);
+                    }
+
+                    copy = sanitizer.Sanitize(copy);
+                    for (var index = 0; index < socautatca; index++)
+                    {
+                        copy = copy.Replace("DARKAXNA_TRACNGHIEM_" + index, "[<?" + index + "?>]");
+                    }
 
                     Calendar x = CultureInfo.InvariantCulture.Calendar;
 
@@ -624,8 +673,7 @@ namespace MyWebPlay.Controllers
 
                     //------------------------------------
 
-                    ViewBag.ChuoiVD = "\r\n\r\n\r\n                                               Câu số 1. 1 + 1 = ?\r\nChọn đáp án đúng :\r\nA. 1\r\nB. 2\r\n                                            C. 3\r\n\r\n\r\nD. 4\r\n\r\n                                       \r\nCâu số 2. Lan có 5 quả cam, Lan cho Hà 3 quả. Hỏi <span style=\"color:red\">Lan</span> \r\n                       \r\n\r\n                                    còn lại bao nhiêu quả cam?\r\nA. 4 quả\r\nB. 5 quả\r\nC. 2 quả                                    D. 1 quả\r\n\r\n\r\n             Câu số 3. Tìm x biết x - 10 = 20?\r\nA. x = 50       B. x = 60\r\n                              C. x = <span style=\"color:green\"> 30</span>\r\n                         \r\n\r\n                        D. x = 0\r\n\r\n\r\n\r\nCâu số 7. Hạnh phúc là gì?<br><img title=\"hinhcau3\" src=\"https://cayxinh.vn/wp-content/uploads/2019/12/gemini-02.jpg\" alt=\"Image Error\" width=\"300\" height=\"500\" /><br>\r\nA. Là niềm vui\r\nLà tất cả\r\nLà nụ cười     B. Là hạnh phúc\r\n\r\nLà sự bình yênC. Là nụ cười\r\nD. Là tình yêu\r\n\r\n            Là những gì bạn đang mong ước\r\n\r\n\r\n\r\nCâu số 8. Tính diện tích hình vuông có cạnh là 5 cm?\r\nA. 5 cm<sup>2</sup>   B. 10 cm<sup>2</sup>C. 15 cm<sup>2</sup>               D. 25 cm<sup>2</sup>\r\n\r\n     Câu số 9. Chu vi hình vuông có cạnh 4 cm là?\r\n\r\nA. 16 cm\r\nB. 160 mm\t\tC. 1.6 dm\r\n\r\n           D. Tất cả đáp án đều đúng\r\n\t\t\t\r\n                      \r\n\r\n\r\n\r\n";
-
+                    ViewBag.ChuoiVD = "Câu số 1. 1 + 1 = ?\r\nChọn đáp án đúng :\r\nA. 1\r\nB. 2\r\nC. 3\r\nD. 4\r\nCâu số 2. Lan có 5 quả cam, Lan\t\t cho Hà 3 quả. Hỏi <span style=\"color:rgb(255, 255, 0)\">Lan</span> còn lại bao nhiêu quả cam?\r\nA. 4 quả\r\nB. 5 quả\r\nC. 2 quả D. 1 quả\r\nCâu số 3. Tìm x biết x - 10 = 20?\r\nA. x = 50 B. x = 60\r\nC. x = <span style=\"background-color:rgb(153, 51, 255);\"> 30</span>\r\nD. x = 0\r\nCâu số 7. Hạnh phúc là gì?<br>\r\nA. Là niềm vui\r\nLà tất cả\r\nLà nụ cười B. Là hạnh phúc\r\nLà sự bình yênC. Là nụ cười\r\nD. Là tình yêu Là những gì bạn đang mong ước\r\nCâu số 8. Tính diện tích hình vuông có cạnh là 5 cm?\r\nA. 5 cm<sup>2</sup> B. 10 cm<sup>2</sup>C. 15 cm<sup>2</sup> D. 25 cm<sup>2</sup>\r\n Câu số 9. Chu vi hình vuông có cạnh 4 cm là?\r\nA. 16 cm\r\nB. 160 mm\t\tC. 1.6 dm\r\n D. Tất cả đáp án đều đúng";
                     ViewBag.CH_VD = "1-3.7-9";
 
                     ViewBag.HoanVi_VD = "đều đúng\r\nđều sai\r\nA,B và C\r\nA và B\r\ntất cả\r\nđáp án";

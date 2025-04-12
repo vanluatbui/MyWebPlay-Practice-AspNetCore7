@@ -126,13 +126,84 @@
         <link rel="stylesheet" href="~/MyWebPlay.styles.css" asp-append-version="true" />
         <link rel="icon" href="@TempData["Tab_Image"]">
         }
+        <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Open+Sans&family=Tahoma&display=swap" rel="stylesheet">
     </head>
     <img id="laloly" src="/Image_Play/waiting.gif" /><body name="backgroundX" style="background-color:@TempData["mau_background"]; visibility:hidden;opacity:@TempData["opacity-body-css"]" id="custom3">
     <meta charset="ISO-8859-1" id="custom4">
+    <style>
+            #editor {
+                height: 462px;
+                width: 7000px;
+                border: 1px solid #ccc;
+                padding: 10px;
+                overflow-y: auto; /* Cho phép cuộn khi nội dung dài */
+                font-family: Arial, sans-serif; /* Chọn phông chữ dễ nhìn */
+                font-size: 18px; /* Kích thước phông chữ */
+            }
+
+            #toolbar {
+                margin-bottom: 10px;
+            }
+
+            .ql-toolbar {
+                background-color: #f1f1f1;
+                border: 1px solid #ccc;
+            }
+
+            .ql-container {
+                min-height: 200px; /* Điều chỉnh chiều cao của vùng soạn thảo */
+                border: 1px solid #ccc;
+            }
+
+            .ql-editor {
+                font-family: 'Arial', 'Courier New', 'Georgia', 'Times New Roman', 'Verdana', sans-serif;
+            }
+    </style>
     <script>
          //var queryString = window.location.search;
          //var urlParams = new URLSearchParams(queryString);
          //var closex = urlParams.get('closex');
+
+         function clearEnterRNString(s)
+         {
+             while (s.includes("\r\n\r\n"))
+             {
+                 s = s.replaceAll("\r\n\r\n", "\r\n");
+             }
+
+             return s;
+         }
+
+          function clearEnterNString(s)
+         {
+             while (s.includes("\n\n"))
+             {
+                 s = s.replaceAll("\n\n", "\n");
+             }
+
+             return s;
+         }
+
+          function clearSpaceString(s)
+         {
+             while (s.includes("  "))
+             {
+                 s = s.replaceAll("  ", " ");
+             }
+
+             return s;
+         }
+
+          function clearTabString(s)
+         {
+             while (s.includes("\t\t"))
+             {
+                 s = s.replaceAll("\t\t", "\t");
+             }
+
+             return s;
+         }
 
     var urlExternal = "";
 
@@ -1267,6 +1338,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> @Html.Raw(TempData["HTML-added"])
+        <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <textarea id="notice" hidden>@TempData["notice-play"]</textarea>
     </body>

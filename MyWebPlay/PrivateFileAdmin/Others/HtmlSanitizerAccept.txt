@@ -7,6 +7,13 @@ source
 sup
 sub
 video
+p
+em
+blockquote
+pre
+strong
+s
+u
 ==========
 style
 src
@@ -18,3 +25,5 @@ type
 muted
 loop
 autoplay
+class
+spellcheck

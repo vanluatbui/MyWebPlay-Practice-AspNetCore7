@@ -67,5 +67,36 @@ namespace MyWebPlay.Extension
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
             return System.Convert.ToBase64String(plainTextBytes);
         }
+
+        public static string ClearSpaceTabEnterString(string text)
+        {
+            while (text.Contains("  "))
+            {
+                text = text.Replace("  ", " ");
+            }
+            while (text.Contains("\r\n\r\n"))
+            {
+                text = text.Replace("\r\n\r\n", "\r\n");
+            }
+            while (text.Contains("\n\n"))
+            {
+                text = text.Replace("\n\n", "\n");
+            }
+            while (text.Contains("\t\t"))
+            {
+                text = text.Replace("\t\t", "\t");
+            }
+
+            return text;
+        }
+
+        public static string TrimEnd(string input, string suffix)
+        {
+            if (input.EndsWith(suffix))
+            {
+                return input.Substring(0, input.Length - suffix.Length);
+            }
+            return input;
+        }
     }
 }

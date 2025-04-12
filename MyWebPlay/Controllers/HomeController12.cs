@@ -4,6 +4,7 @@ using MyWebPlay.Model;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using Ganss.Xss;
+using System;
 
 namespace MyWebPlay.Controllers
 {
@@ -497,7 +498,17 @@ namespace MyWebPlay.Controllers
                         }
                     };
 
+                    var socautatca = ND_file.Replace("\r", "").Split("\n#\n").Length;
+                    for (var index = 0; index < socautatca; index++)
+                    {
+                        ND_file = ND_file.Replace("[<?" + index + "?>]", "DARKAXNA_TRACNGHIEM_" + index);
+                    }
+
                     ND_file = sanitizer.Sanitize(ND_file);
+                    for (var index = 0; index < socautatca; index++)
+                    {
+                        ND_file = ND_file.Replace("DARKAXNA_TRACNGHIEM_" + index, "[<?" + index + "?>]");
+                    }
 
                     FileInfo fx = new FileInfo(path);
                     if (fx.Exists)
@@ -1161,7 +1172,17 @@ namespace MyWebPlay.Controllers
                         }
                     };
 
+                    var socautatca = ND_file.Replace("\r", "").Split("\n#\n").Length;
+                    for (var index = 0; index < socautatca; index++)
+                    {
+                        ND_file = ND_file.Replace("[<?" + index + "?>]", "DARKAXNA_TRACNGHIEM_" + index);
+                    }
+
                     ND_file = sanitizer.Sanitize(ND_file);
+                    for (var index = 0; index < socautatca; index++)
+                    {
+                        ND_file = ND_file.Replace("DARKAXNA_TRACNGHIEM_" + index, "[<?" + index + "?>]");
+                    }
 
                     if (f["cbCoSan"].ToString() != "on")
                     {

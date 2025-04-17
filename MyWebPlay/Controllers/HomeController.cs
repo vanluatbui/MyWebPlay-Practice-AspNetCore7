@@ -1734,7 +1734,7 @@ namespace MyWebPlay.Controllers
                         FileInfo fx = new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, fi[0].TrimStart('/')));
                         if (fx.Exists)
                         fx.Delete();
-                        infoFile = infoFile.Replace(fi[0] + "\t" + fi[1] + "\n", "");
+                        infoFile = infoFile.Replace(fi[0] + "\t" + fi[1] + "\r\n", "");
                     }
 
                 }

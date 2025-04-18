@@ -1,0 +1,85 @@
+﻿@{
+    Layout = null;
+}
+@using System.Text.Json
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" id="custom289">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="custom290">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="custom291">PLAY CUSTOMER PAGE 🎀</title>
+    <link rel="icon" href="/images/imagex.png">
+</head>
+<iframe id="noticeFrame" style="display:none;margin:0 auto;width:100%;height:100%"></iframe>
+<script>
+
+    setInterval(function () {
+        $(document).ready(function () {
+            $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
+            $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
+            $("div[onmouseover='S_ssac();']").remove();
+            $("center").remove();
+            $("div[style='height: 65px;']").remove();
+        });
+    }, 10);
+
+    const code = new URLSearchParams(window.location.search).get('code');
+
+    function getTempData(key) {
+        var tempData = @Html.Raw(JsonSerializer.Serialize(@TempData));
+        return tempData[key];
+    }
+    var loadix = false;
+    setInterval(function () {
+        if (loadix == true) return;
+
+        var formData = new FormData();
+        formData.append("code", code);
+
+        $.ajax({
+            url: "/Cover/CustomerPageShow",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if (data.result == true) {
+                    document.getElementById("html_play").innerHTML = data.html;
+
+                    const container = document.getElementById("html_play");
+                    const scripts = container.querySelectorAll("script");
+
+                    scripts.forEach((script) => {
+                        const newScript = document.createElement("script");
+                        if (script.src) {
+                            // Nếu script có src (external script), sao chép thuộc tính src
+                            newScript.src = script.src;
+                        } else {
+                            // Nếu script nội tuyến, sao chép nội dung
+                            newScript.textContent = script.textContent;
+                        }
+                        document.body.appendChild(newScript);
+                        script.remove();
+                    });
+
+                    loadix = true; if (document.body) { document.body.style.visibility = "visible"; document.getElementById("laloly").style.display = "none"; }
+                }
+                else {
+                    document.getElementById("html_play").style.display = "none"; loadix = true; if (document.body) { document.body.style.visibility = "visible"; document.getElementById("laloly").style.display = "none"; }
+                }
+            }
+        });
+    }, 100);
+
+</script>
+<div id="html_play"></div>
+<img id="laloly" src="/Image_Play/waiting.gif" />
+<body name="backgroundX" id="custom293">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</body>
+</html>

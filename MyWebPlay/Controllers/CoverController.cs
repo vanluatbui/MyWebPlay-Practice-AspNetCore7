@@ -1177,5 +1177,31 @@ namespace MyWebPlay.Controllers
             return Ok(new { result = true});
             return Ok(new { result = false });
         }
+
+        public ActionResult CustomerPagePlay()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CustomerPageShow(string code)
+        {
+            var nd = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "CustomerPage_Play.txt")).Replace("\r", "").Split("\n#3275#\n");
+
+            var data = "";
+
+            for (var i = 0; i < nd.Length; i++)
+            {
+                var ndx = nd[i].Split("\n||\n");
+                if (ndx[0] == code)
+                {
+                    data += ndx[1];
+                }
+            }
+
+            if (data == "")
+                return Ok(new { result = false });
+            return Ok(new { result = true, html = data });
+        }
     }
 }

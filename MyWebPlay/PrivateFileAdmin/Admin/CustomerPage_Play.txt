@@ -1,0 +1,19 @@
+﻿12345
+||
+<h1>Đây là mẫu customer page 1 ❤</h1>
+#3275#
+67890
+||
+<b>Nhập số thứ nhất :</b> <input type="number" id="sothu1" />
+<br />
+<b>Nhập số thứ hai :</b> <input type="number" id="sothu2" />
+<br />
+<button onclick="tinhtong2so()">TÍNH TỔNG 2 SỐ</button>
+<script>
+function tinhtong2so()
+{
+var so1 = new Number(document.getElementById("sothu1").value);
+var so2 = new Number(document.getElementById("sothu2").value);
+alert(so1 + " + " + so2 + " = "+ (so1 + so2));
+}
+</script>

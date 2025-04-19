@@ -4,6 +4,11 @@
     {
         public static string ReadFile(string path)
         {
+            if (new FileInfo(path).Exists == false)
+            {
+                return "[File không tồn tại]";
+            }
+
             for(var i =0; i < 500; i++)
             {
                 try
@@ -41,6 +46,11 @@
 
         public static void MoveFile(string path1, string path2)
         {
+            if (new FileInfo(path1).Exists == false || new FileInfo(path2).Exists == false)
+            {
+                throw new Exception("[Một trong các file không tồn tại]");
+            }
+
             for (var i = 0; i < 500; i++)
             {
                 try

@@ -740,6 +740,11 @@ namespace MyWebPlay.Controllers
                     return View();
                 }
 
+                if (new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin" + file)).Exists == false)
+                {
+                    return RedirectToAction("Error", "Home");
+                }
+
                 var nd = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin" + file));
                 string host = "{" + Request.Host.ToString() + "}"
                   .Replace("http://", "")

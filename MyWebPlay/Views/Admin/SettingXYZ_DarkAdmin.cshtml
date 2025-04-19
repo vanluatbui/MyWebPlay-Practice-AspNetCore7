@@ -177,6 +177,15 @@ Layout = null;
     <img id="laloly" src="/Image_Play/waiting.gif" /><body name="backgroundX" style="background-color:@TempData["mau_background"]; visibility:hidden;opacity:@TempData["opacity-body-css"]" id="custom110">
     <br />
     <script>
+
+        const today = new Date();
+
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0'); // Tháng trong JS tính từ 0
+        const yyyy = today.getFullYear();
+
+        const datenow = `${dd}${mm}${yyyy}`;
+
         var loadlinkread = 0;
         var passEncrypt = "";
         setInterval(function()
@@ -224,6 +233,7 @@ Layout = null;
                 document.getElementById("linkread13").href += "&&keyX="+encodeURIComponent(keyX);
                  document.getElementById("linkread14").href += "&&keyX="+encodeURIComponent(keyX);
                   document.getElementById("linkread15").href += "&&keyX="+encodeURIComponent(keyX);
+                   document.getElementById("linkread16").href = "/Admin/ReadAdminFileByStatic?file=/MailLog/maillog_"+datenow+".txt&isHTML=false" + "&&keyX="+encodeURIComponent(keyX);
             }});
 
             loadlinkread = 1;
@@ -1607,7 +1617,10 @@ Layout = null;
                 <a href="#xuly" style="color:orangered" onclick="updatetrangthai()">Thay đổi trạng thái</a><br /><br />
                 @if (TempData["IsLoginAdminTemp"] != "true")
                         {
-                            <h4 id="custom128"><a href="#xuly" onclick="refreshHetHan()" style="color:purple">Refresh hoặc xoá tất cả thư mục và các file hết hạn</a>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:15px; color:lime" id="custom129"><input type="checkbox" id="chkFileExternal" />&nbsp;&nbsp;<b id="custom130">Xoá luôn các file tại root - FileExternal (ngoại trừ các file nằm bên ngoài và không nằm trong thư mục con)</b></span></h4><a id="linkread8" href="/Admin/ReadAdminFileByStatic?file=/InfoWebFile/InfoWebFile.txt&isHTML=false" target="_blank" style="color:deeppink">Xem list các file đã tải và thời hạn</a>
+                            <h4 id="custom128"><a href="#xuly" onclick="refreshHetHan()" style="color:purple">Refresh hoặc xoá tất cả thư mục và các file hết hạn</a>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:15px; color:lime" id="custom129"><input type="checkbox" id="chkFileExternal" />&nbsp;&nbsp;<b id="custom130">Xoá luôn các file tại root - FileExternal (ngoại trừ các file nằm bên ngoài và không nằm trong thư mục con)</b></span></h4>
+                            <a id="linkread8" href="/Admin/ReadAdminFileByStatic?file=/InfoWebFile/InfoWebFile.txt&isHTML=false" target="_blank" style="color:deeppink">Xem list các file đã upload server và thời hạn</a>
+                            <br />
+                            <a id="linkread16" href="#xuly" target="_blank" style="color:firebrick">Xem log email - admin (hôm nay)</a>
                         }
                 <br>
                 <h4 id="custom131">
@@ -1909,24 +1922,24 @@ Layout = null;
                     <b id="labelActive" name="colorX" style="color:@TempData["mau_text"]">DANH SÁCH CÁC IP ĐANG HOẠT ĐỘNG (một số thiết bị có thể chưa xác nhận cấp phép/approve sử dụng hoặc họ đã xoá dữ liệu trình duyệt)</b>
                     <br />
                     <select onclick="loadActive()" onchange="setActive()" id="ip_active">
-                    </select><span id="custom181">&nbsp;</span><input type="text" id="txtIPActive" />&nbsp;&nbsp;<span id="custom182"><a id="linkread1" style="color:violet" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/ListUserIPApproveWaiting.txt" target="_blank">Xem list IP user đang chờ approve</a><span id="custom183">&nbsp;&nbsp;<span id="custom184"><a style="color:violet" href="#xuly" onclick="DeleteAllListApprove()">Delete all list IP user (đang chờ approve)</a><span id="custom185"><br />
+                    </select><span id="custom181">&nbsp;</span><input type="text" id="txtIPActive" />&nbsp;&nbsp;<span id="custom182"><a id="linkread1" style="color:violet" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/ListUserIPApproveWaiting.txt&isHTML=false" target="_blank">Xem list IP user đang chờ approve</a><span id="custom183">&nbsp;&nbsp;<span id="custom184"><a style="color:violet" href="#xuly" onclick="DeleteAllListApprove()">Delete all list IP user (đang chờ approve)</a><span id="custom185"><br />
                                     <input type="text" size="100" placeholder="Nhập thông tin user hoặc ghi chú (nếu có)" id="ghichu" /><br />
                                     <button onclick="addActive()" style="color:green" id="custom186">THÊM (HOẠT ĐỘNG NHƯNG CHƯA XÁC NHẬN THIẾT BỊ)</button><span id="custom187">&nbsp;</span><button onclick="removeActive()" style="color:red" id="custom188">XOÁ (HẾT HẠN)</button><span id="custom189">&nbsp;</span>
-                                    <br />(<a id="linkread0" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/ListIPOnWebPlay.txt" target="_blank" style="color:yellow">List IP đang đăng kí (hoạt động)</a><b id="custom190"> <span id="custom191">&nbsp;</span> </b><a id="linkread2" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/InfoIPRegist.txt" target="_blank" style="color:yellow">Xem Chi Tiết - list IP đã từng/đang đăng kí (có thể chưa đủ thông tin)</a><b id="custom192"> <span id="custom193">&nbsp;</span> </b><a style="color:yellow" href="/ClientConnect/InfoIPRegist.txt" @*onclick="xoachitiet()"*@ download="">Tải xuống</a> <span id="custom194">&nbsp;</span> <a style="color:yellow" href="#xuly" onclick="deletechitiet()">Delete detail</a> <span id="custom195">&nbsp;</span> <a style="color:yellow" href="#xuly" onclick="deleteX()">Delete all this</a>&nbsp;&nbsp;<a style="color:orangered" href="#xuly" onclick="addApprove()">Add IP approve to list</a>&nbsp;&nbsp;<a style="color:orangered" href="#xuly" onclick="removeApprove()">Remove IP approve to list</a><span id="custom196">)</span>
+                                    <br />(<a id="linkread0" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/ListIPOnWebPlay.txt&isHTML=false" target="_blank" style="color:yellow">List IP đang đăng kí (hoạt động)</a><b id="custom190"> <span id="custom191">&nbsp;</span> </b><a id="linkread2" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/InfoIPRegist.txt" target="_blank" style="color:yellow">Xem Chi Tiết - list IP đã từng/đang đăng kí (có thể chưa đủ thông tin)</a><b id="custom192"> <span id="custom193">&nbsp;</span> </b><a style="color:yellow" href="/ClientConnect/InfoIPRegist.txt" @*onclick="xoachitiet()"*@ download="">Tải xuống</a> <span id="custom194">&nbsp;</span> <a style="color:yellow" href="#xuly" onclick="deletechitiet()">Delete detail</a> <span id="custom195">&nbsp;</span> <a style="color:yellow" href="#xuly" onclick="deleteX()">Delete all this</a>&nbsp;&nbsp;<a style="color:orangered" href="#xuly" onclick="addApprove()">Add IP approve to list</a>&nbsp;&nbsp;<a style="color:orangered" href="#xuly" onclick="removeApprove()">Remove IP approve to list</a><span id="custom196">)</span>
                                     <br />
                                     <br />
                                     <b name="colorX" style="color:@TempData["mau_text"]" id="custom197">DANH SÁCH CÁC IP ĐANG BỊ KHOÁ (ADMIN)</b>
                                     <br />
                                     <select onclick="loadLockAdmin()" onchange="setLockAdmin()" id="ip_blockadmin">
                                     </select><span id="custom198">&nbsp;</span><input type="text" id="txtIPLockAdmin" /><br />
-                                    <button onclick="addLockAdmin()" style="color:green" id="custom199">THÊM (KHOÁ IP ADMIN)</button><span id="custom200">&nbsp;</span><button onclick="removeLockAdmin()" style="color:red" id="custom201">XOÁ (MỞ KHOÁ IP ADMIN)</button><span id="custom202">&nbsp;</span><a id="linkread3" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/ListIPLock.txt" target="_blank" style="color:yellow">Xem Chi Tiết</a> <span id="custom203"> || </span> <a style="color:yellow" href="#xuly" onclick="deleteY()">Delete all this</a>
+                                    <button onclick="addLockAdmin()" style="color:green" id="custom199">THÊM (KHOÁ IP ADMIN)</button><span id="custom200">&nbsp;</span><button onclick="removeLockAdmin()" style="color:red" id="custom201">XOÁ (MỞ KHOÁ IP ADMIN)</button><span id="custom202">&nbsp;</span><a id="linkread3" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/ListIPLock.txt&isHTML=false" target="_blank" style="color:yellow">Xem Chi Tiết</a> <span id="custom203"> || </span> <a style="color:yellow" href="#xuly" onclick="deleteY()">Delete all this</a>
                                     <br />
                                     <br />
                                     <b name="colorX" style="color:@TempData["mau_text"]" id="custom204">DANH SÁCH CÁC IP ĐANG BỊ KHOÁ (CLIENT)</b>
                                     <br />
                                     <select onclick="loadLockClient()" onchange="setLockClient()" id="ip_blockclient">
                                     </select><span id="custom205">&nbsp;</span><input type="text" id="txtIPLockClient" size="180" placeholder="Nhập với cấu trúc : IP<>Mật khẩu; hoặc nếu bạn muốn sử dụng mật khẩu mặc định thì nhập như sau : IP" /><br />
-                                    <button onclick="addLockClient()" style="color:green" id="custom206">THÊM (KHOÁ IP CLIENT)</button><span id="custom207">&nbsp;</span><button onclick="removeLockClient()" style="color:red" id="custom208">XOÁ (MỞ KHOÁ IP CLIENT)</button><span id="custom209">&nbsp;</span><button onclick="changeCodeLockClient()" style="color:orangered" id="custom210">ĐỔI MẬT KHẨU</button><span id="custom211">&nbsp;</span><a id="linkread4" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/LockedIPClient.txt" target="_blank" style="color:yellow">Xem Chi Tiết</a><span id="custom212"> || </span><a style="color:yellow" href="#xuly" onclick="deleteZ()">Delete all this</a>
+                                    <button onclick="addLockClient()" style="color:green" id="custom206">THÊM (KHOÁ IP CLIENT)</button><span id="custom207">&nbsp;</span><button onclick="removeLockClient()" style="color:red" id="custom208">XOÁ (MỞ KHOÁ IP CLIENT)</button><span id="custom209">&nbsp;</span><button onclick="changeCodeLockClient()" style="color:orangered" id="custom210">ĐỔI MẬT KHẨU</button><span id="custom211">&nbsp;</span><a id="linkread4" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/LockedIPClient.txt&isHTML=false" target="_blank" style="color:yellow">Xem Chi Tiết</a><span id="custom212"> || </span><a style="color:yellow" href="#xuly" onclick="deleteZ()">Delete all this</a>
                                     <br/><br />
                                     <a id="linkread5" href="/Admin/ReadAdminFileByStatic?file=/Admin/ListIPComeToHereTheFirst.txt" style="color:aqua" target="_blank">Xem list các IP đã ghé thăm (save in the first) hiện có</a><span id="custom213">&nbsp;</span><span id="custom214">&nbsp;</span><span id="custom215">&nbsp;</span><a href="#xuly" style="color:aqua" onclick="deleteFirstIP()">Delete</a><span id="custom216">&nbsp;</span><span id="custom217">&nbsp;</span><span id="custom218">&nbsp;</span><a href="#xuly" style="color:aqua" onclick="mailthefirstIP()">Báo cáo list các IP đã ghé thăm (save in the first) hiện có qua mail và refresh</a>
                                     <hr />
@@ -1970,7 +1983,7 @@ Layout = null;
             - Nhấn button "MAIL REPORT" nếu bạn muốn tự xuất báo cáo thủ công ngay hiện tại, hoặc không nếu hệ thống phát hiện dữ liệu này đã hơn xxx thì cũng tự động gửi report và khôi phục...<br>
             - Kết quả danh sách bên dưới có thể chưa đủ thông tin vì trước đó bạn đã từng tắt/tạm ngưng save setting chế độ lưu trữ này hoặc tự động được reset lại khi data đã quá xxx (hãy bật setting report mail when data than xxx để kịp thời lưu trữ).
         <br />
-        <a id="linkread10" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/ListIPComeHere.txt&&isHTML=true" target="_blank" style="color:coral">Xem chi tiết (edit)</a>
+        <a id="linkread10" href="/Admin/ReadAdminFileByStatic?file=/ClientConnect/ListIPComeHere.txt" target="_blank" style="color:coral">Xem chi tiết (edit)</a>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <a href="#xuly" id="lamda" style="color:red" onclick="tamdungday()">Tạm dừng</a>
         </p>

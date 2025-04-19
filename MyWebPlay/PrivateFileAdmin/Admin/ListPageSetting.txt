@@ -80,6 +80,8 @@
 /Cover/ReadCurrentError
 /Cover/SecureCallAPI
 /Cover/CheckingIsAdmin
+/Cover/CustomerPagePlay
+/Cover/CustomerPageShow
 /Home/TextToColumn2
 /Home/TextToColumn1
 /Home/TextConvertX

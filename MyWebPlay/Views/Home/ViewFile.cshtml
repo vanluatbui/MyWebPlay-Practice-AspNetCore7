@@ -75,9 +75,9 @@
          });
     }, 100);
 
-    if('@TempData["file_view_path"]' != "" && '@TempData["file_view_path"]' != null)
+    if('@TempData["file_view_path"]'.replaceAll("#fileclose", "%23fileclose") != "" && '@TempData["file_view_path"]'.replaceAll("#fileclose", "%23fileclose") != null)
     {
-        var view = '@TempData["file_view_path"]'.split(',');
+        var view = '@TempData["file_view_path"]'.replaceAll("#fileclose", "%23fileclose").split(',');
         if (view.length > 1)
         {
             alert("Hiện tại đang có khá nhiều file cần được hiển thị tại đây, bạn có thể thiết lập index của files muốn xem/hiển thị bằng fragment # của thanh url hiện tại trên trình duyệt của bạn...\n(Hiện tại đang có : "+view.length+" files, index bắt đầu từ 1)");
@@ -97,17 +97,17 @@
 
         if (loaded == 1 || document.getElementById("fr-view") == null) return;
 
-        if('@TempData["file_view_path"]' != "" && '@TempData["file_view_path"]' != null)
+        if('@TempData["file_view_path"]'.replaceAll("#fileclose", "%23fileclose") != "" && '@TempData["file_view_path"]'.replaceAll("#fileclose", "%23fileclose") != null)
         {
-            var view = '@TempData["file_view_path"]'.split(',');
+            var view = '@TempData["file_view_path"]'.replaceAll("#fileclose", "%23fileclose").split(',');
             if (view.length > 1)
             {
                 document.getElementById("fr-view").src = view[0];
                     document.title = view[0].split('/').pop();
             }
             else{
-                document.getElementById("fr-view").src = '@TempData["file_view_path"]';
-                document.title = '@TempData["file_view_path"]'.split('/').pop();
+                document.getElementById("fr-view").src = '@TempData["file_view_path"]'.replaceAll("#fileclose", "%23fileclose");
+                document.title = '@TempData["file_view_path"]'.replaceAll("#fileclose", "%23fileclose").split('/').pop();
             }
         }
 

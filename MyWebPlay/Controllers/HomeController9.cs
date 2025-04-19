@@ -1709,8 +1709,8 @@ namespace MyWebPlay.Controllers
 
                             Calendar x = CultureInfo.InvariantCulture.Calendar;
 
-                            ketqua += "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/file" + folder + "/" + item.Name + "\" download> tại đây</a> <span style=\"color:seagreen\">(" + x.AddHours(item.LastWriteTimeUtc, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) + ")</span> <br> Link xem trực tiếp (nếu có thể) : <a target=\"_blank\" style=\"color:green\"" +
-                              "href=\"/Home/ViewFile?path=/file" + folder + "/" + item.Name + "\">/file" + folder + "/" + item.Name + "</a><br><br>" +
+                            ketqua += "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/file" + folder.Replace("#fileclose", "%23fileclose") + "/" + item.Name + "\" download> tại đây</a> <span style=\"color:seagreen\">(" + x.AddHours(item.LastWriteTimeUtc, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) + ")</span> <br> Link xem trực tiếp (nếu có thể) : <a target=\"_blank\" style=\"color:green\"" +
+                              "href=\"/Home/ViewFile?path=/file" + folder.Replace("#fileclose", "%23fileclose") + "/" + item.Name + "\">/file" + folder + "/" + item.Name + "</a><br><br>" +
                               "<button style=\"color:deeppink\" onclick=\"xacnhan('" + file + "')\">Click để xoá thủ công file này?</button>&nbsp;&nbsp;&nbsp;&nbsp;<button style=\"color:red\" onclick=\"dichuyenExternal('" + file + "')\">Di chuyển sang thư mục root FileExternal (Admin)</button><br>";
                             ketqua += "<br><br>";
                             ViewBag.XL = listFile.Count();
@@ -1829,8 +1829,8 @@ namespace MyWebPlay.Controllers
                 if (new System.IO.FileInfo(Path.Combine(_webHostEnvironment.WebRootPath, file.TrimStart("/".ToCharArray()))).Exists)
                 {
                     Calendar x = CultureInfo.InvariantCulture.Calendar;
-                    ketqua += "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/" + path + "/" + item.Name + "\" download> tại đây</a> <span style=\"color:seagreen\">(" + x.AddHours(item.LastWriteTimeUtc, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) + ")</span> <br> Link xem trực tiếp (nếu có thể) : <a target=\"_blank\" style=\"color:green\"" +
-                      "href=\"/Home/ViewFile?path=/" + path + "/" + item.Name + "\">/" + path + "/" + item.Name + "</a><br><br>";
+                    ketqua += "Thành công! Xem hoặc download file của bạn <a style=\"color:purple\" href=\"/" + path.Replace("#fileclose", "%23fileclose") + "/" + item.Name + "\" download> tại đây</a> <span style=\"color:seagreen\">(" + x.AddHours(item.LastWriteTimeUtc, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) + ")</span> <br> Link xem trực tiếp (nếu có thể) : <a target=\"_blank\" style=\"color:green\"" +
+                      "href=\"/Home/ViewFile?path=/" + path.Replace("#fileclose", "%23fileclose") + "/" + item.Name + "\">/" + path + "/" + item.Name + "</a><br><br>";
                     ViewData["KetQua" + k] = ketqua;
                     ketqua = "";
                     k++;

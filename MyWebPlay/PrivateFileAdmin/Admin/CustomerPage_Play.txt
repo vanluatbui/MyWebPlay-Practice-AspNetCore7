@@ -1,6 +1,13 @@
 ﻿12345
 ||
-<h1>Đây là mẫu customer page 1 ❤</h1>
+<h1 id="thevidu">Đây là mẫu customer page 1 ❤</h1>
+<style>
+#thevidu
+{
+	color:red;
+	background-color:yellow;
+}
+</style>
 #3275#
 67890
 ||

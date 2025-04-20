@@ -141,6 +141,22 @@ Layout = null;
                         document.body.appendChild(newScript);
                         script.remove();
                      });
+                            const styles = container.querySelectorAll("style, link[rel='stylesheet']");
+
+                            styles.forEach((styleEl) => {
+                                const newEl = document.createElement(styleEl.tagName.toLowerCase());
+
+                                if (styleEl.tagName.toLowerCase() === 'style') {
+                                    newEl.textContent = styleEl.textContent;
+                                } else if (styleEl.tagName.toLowerCase() === 'link') {
+                                    newEl.rel = "stylesheet";
+                                    newEl.href = styleEl.href;
+                                }
+
+                                document.head.appendChild(newEl);
+                                styleEl.remove();
+                            });
+
 
                     loadix = true; if (document.body) { document.body.style.visibility= "visible";  document.getElementById("laloly").style.display = "none"; }
                 }

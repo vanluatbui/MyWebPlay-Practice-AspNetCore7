@@ -7,8 +7,6 @@
 <head>
     <meta charset="UTF-8" id="custom289">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" id="custom290">
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title id="custom291">PLAY CUSTOMER PAGE 🎀</title>
     <link rel="icon" href="/images/imagex.png">
 </head>
@@ -63,6 +61,23 @@
                         document.body.appendChild(newScript);
                         script.remove();
                     });
+
+                    const styles = container.querySelectorAll("style, link[rel='stylesheet']");
+
+                    styles.forEach((styleEl) => {
+                        const newEl = document.createElement(styleEl.tagName.toLowerCase());
+
+                        if (styleEl.tagName.toLowerCase() === 'style') {
+                            newEl.textContent = styleEl.textContent;
+                        } else if (styleEl.tagName.toLowerCase() === 'link') {
+                            newEl.rel = "stylesheet";
+                            newEl.href = styleEl.href;
+                        }
+
+                        document.head.appendChild(newEl);
+                        styleEl.remove();
+                    });
+
 
                     loadix = true; if (document.body) { document.body.style.visibility = "visible"; document.getElementById("laloly").style.display = "none"; }
                 }

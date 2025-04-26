@@ -83,6 +83,9 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                var pathSet = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
+                var noidungSet = FileExtension.ReadFile(pathSet);
+
                 if (exception != null && exception.Contains("show-error"))
                 {
                     if (HttpContext.Session.GetString("adminSetting") != "true")
@@ -127,23 +130,25 @@ namespace MyWebPlay.Controllers
                 var noidung = FileExtension.ReadFile(path);
 
                 var onEncryptSetting = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[9];
-                if (onEncryptSetting == "ENCRYPT_LOCK_FILE_ADMIN_SETTING_WHEN_GO_TO_PAGE_ERROR_ON" || encrypt == "true")
+                if (encrypt == null && onEncryptSetting == "ENCRYPT_LOCK_FILE_ADMIN_SETTING_WHEN_GO_TO_PAGE_ERROR_ON" || encrypt == "true")
                 {
                     if (noidung.Contains("[ENCRYPT]") == false)
                     {
                         noidung = StringMaHoaExtension.Encrypt(noidung, "32752262");
                         FileExtension.WriteFile(path, "[ENCRYPT]" + noidung);
+                        FileExtension.WriteFile(pathSet, noidungSet.Replace("ENCRYPT_LOCK_FILE_ADMIN_SETTING_WHEN_GO_TO_PAGE_ERROR_OFF", "ENCRYPT_LOCK_FILE_ADMIN_SETTING_WHEN_GO_TO_PAGE_ERROR_ON"));
                     }
                     TempData["HTML-visible"] = "0";
                     return View();
                 }
-                else if (onEncryptSetting == "ENCRYPT_LOCK_FILE_ADMIN_SETTING_WHEN_GO_TO_PAGE_ERROR_OFF" || encrypt == "false")
+                else if (encrypt == null && onEncryptSetting == "ENCRYPT_LOCK_FILE_ADMIN_SETTING_WHEN_GO_TO_PAGE_ERROR_OFF" || encrypt == "false")
                 {
                     if (noidung.Contains("[ENCRYPT]"))
                     {
                         noidung = noidung.Replace("[ENCRYPT]", "");
                         noidung = StringMaHoaExtension.Decrypt(noidung, "32752262");
                         FileExtension.WriteFile(path, noidung);
+                        FileExtension.WriteFile(pathSet, noidungSet.Replace("ENCRYPT_LOCK_FILE_ADMIN_SETTING_WHEN_GO_TO_PAGE_ERROR_ON", "ENCRYPT_LOCK_FILE_ADMIN_SETTING_WHEN_GO_TO_PAGE_ERROR_OFF"));
                     }
                 }
 

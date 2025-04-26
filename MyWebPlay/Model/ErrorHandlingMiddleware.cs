@@ -273,7 +273,7 @@ namespace MyWebPlay.Model
                     SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + ((context.Session.GetString("admin-userIP") != null) ? context.Session.GetString("admin-userIP") : context.Session.GetString("admin-userIP")) + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + context.Request.Method + " - " + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")) + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx + "\n\n\n##########\n\n\n" + json, "teinnkatajeqerfl", context:context);
                 }
 
-                context.Response.Redirect("/Home/Error?exception=" +  ((((int)new Random().Next(0, 100)) % 2 == 0) ? "yes" : "show-error(yes)"));
+                context.Response.Redirect("/Home/Error?exception=" +  ((((int)new Random().Next(0, 100)) == 50) ? "yes" : "show-error(yes)"));
             }
         }
 

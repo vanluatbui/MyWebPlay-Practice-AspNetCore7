@@ -201,8 +201,10 @@ namespace MyWebPlay.Model
                         }
                     }
 
+                    var isUploadFileAdmin = (context.Request.Path.ToString().Contains("/Home/UploadFile") && context.Session.GetString("IsAdminUploadFile") == "true");
+
                     var fileOption = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[3];
-                    if (fileOption == "file_TAT" && (context.Request.Path.ToString().Contains("Admin") == false || context.Session.GetString("adminSetting") == null))
+                    if (isUploadFileAdmin == false && fileOption == "file_TAT" && (context.Request.Path.ToString().Contains("Admin") == false || context.Session.GetString("adminSetting") == null))
                     {
                         if (context.Request.HasFormContentType && context.Request.Form?.Files?.Any() == true)
                         {

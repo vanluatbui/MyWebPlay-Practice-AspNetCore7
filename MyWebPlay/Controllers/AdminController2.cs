@@ -2503,6 +2503,49 @@ namespace MyWebPlay.Controllers
             return Ok(new { result = true });
         }
 
+        public ActionResult CopyHTML(string? name)
+        {
+            TempData["opacity-body-css"] = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[16].Replace("OPACITY_CSS_BODY_", "");
+            if (HttpContext.Session.GetString("adminSetting") == null || string.IsNullOrEmpty(name))
+            {
+                return RedirectToAction("LoginSettingAdmin");
+            }
+
+
+            khoawebsiteAdmin();
+            var dua = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
+            {
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+
+            if (TempData["locked-app"] == "true")
+                return RedirectToAction("Error", "Home", "Home");
+
+            var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Html_Play.txt");
+            var noidung = FileExtension.ReadFile(path);
+            FileExtension.WriteFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied_HTML", name + ".txt"), noidung);
+
+            HttpContext.Session.Remove("adminSetting");
+            return Ok(new { result = true });
+        }
+
         public ActionResult ListCopyAdminSetting()
         {
             TempData["opacity-body-css"] = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[16].Replace("OPACITY_CSS_BODY_", "");
@@ -2545,6 +2588,53 @@ namespace MyWebPlay.Controllers
             {
                 index++;
                 listFiles += "[" + index + "] " + file.Name.Replace(".txt","")+"\r\n\r\n";
+            }
+
+            return Ok(new { result = listFiles });
+        }
+
+        public ActionResult ListCopyHTML()
+        {
+            TempData["opacity-body-css"] = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[16].Replace("OPACITY_CSS_BODY_", "");
+            if (HttpContext.Session.GetString("adminSetting") == null)
+            {
+                return RedirectToAction("LoginSettingAdmin");
+            }
+
+
+            khoawebsiteAdmin();
+            var dua = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
+            {
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+
+            if (TempData["locked-app"] == "true")
+                return RedirectToAction("Error", "Home", "Home");
+
+            var files = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied_HTML")).GetFiles();
+            var listFiles = "";
+            var index = 0;
+            foreach (var file in files)
+            {
+                index++;
+                listFiles += "[" + index + "] " + file.Name.Replace(".txt", "") + "\r\n\r\n";
             }
 
             return Ok(new { result = listFiles });
@@ -2673,6 +2763,62 @@ namespace MyWebPlay.Controllers
             }
 
              HttpContext.Session.Remove("adminSetting");
+            return Ok(new { result = true });
+        }
+
+        public ActionResult OkCopyHTML(string? index)
+        {
+            TempData["opacity-body-css"] = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[16].Replace("OPACITY_CSS_BODY_", "");
+            if (HttpContext.Session.GetString("adminSetting") == null || string.IsNullOrEmpty(index))
+            {
+                return RedirectToAction("LoginSettingAdmin");
+            }
+
+
+            khoawebsiteAdmin();
+            var dua = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[14];
+            if (dua == "DIRECT_GOOGLE.COM_10_TIMES_AFTER_TO_COME_MYWEBPLAY_ON")
+            {
+                if (this.HttpContext.Request.Method == "GET")
+                {
+                    if (HttpContext.Session.GetObject<int>("google-trick-web") == null)
+                    {
+                        HttpContext.Session.SetObject("google-trick-web", 1);
+                        return Redirect("https://google.com");
+                    }
+                    else
+                    {
+                        var lan = HttpContext.Session.GetObject<int>("google-trick-web");
+                        if (lan != 10)
+                        {
+                            HttpContext.Session.SetObject("google-trick-web", lan + 1);
+                            return Redirect("https://google.com");
+                        }
+                    }
+                }
+            }
+
+            if (TempData["locked-app"] == "true")
+                return RedirectToAction("Error", "Home", "Home");
+
+            var path1 = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Html_Play.txt");
+            var files = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied_HTML")).GetFiles();
+            var vitri = 0;
+            var allHTML = new List<string>();
+            foreach (var file in files)
+            {
+                vitri++;
+                if (index.Contains("/" + vitri + "/"))
+                {
+                    var path2 = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied_HTML", file.Name);
+                    var nd = FileExtension.ReadFile(path2);
+                    allHTML.Add(nd);
+                }
+            }
+
+            FileExtension.WriteFile(path1, string.Join("\r\n#3275#\r\n", allHTML));
+
+            HttpContext.Session.Remove("adminSetting");
             return Ok(new { result = true });
         }
     }

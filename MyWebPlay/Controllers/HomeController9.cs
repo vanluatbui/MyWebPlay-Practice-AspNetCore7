@@ -215,6 +215,18 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                if (HttpContext.Request.Method == "GET")
+                {
+                    if (type == "1<splix>0<splix>0")
+                    {
+                        HttpContext.Session.SetString("IsAdminUploadFile", "true");
+                    }
+                    else
+                    {
+                        HttpContext.Session.Remove("IsAdminUploadFile");
+                    }
+                }
+
                 TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
                 khoawebsiteClient(null);
                 var dua = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[14];

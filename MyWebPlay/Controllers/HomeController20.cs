@@ -11,7 +11,7 @@ namespace MyWebPlay.Controllers
 {
     public partial class HomeController : Controller
     {
-        public ActionResult DeleteBin(bool apidel = false, bool remove = false)
+        public ActionResult DeleteBin(bool apidel = false, bool remove = false, bool remove_X = false)
         {
             try
             {
@@ -61,6 +61,15 @@ namespace MyWebPlay.Controllers
 
                     if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied")).Exists == false)
                         new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied")).Create();
+                }
+
+                if (remove_X)
+                {
+                    if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied_HTML")).Exists == true)
+                        new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied_HTML")).Delete(true);
+
+                    if (new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied_HTML")).Exists == false)
+                        new System.IO.DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied_HTML")).Create();
                 }
 
                 if (onoff == "file_MO")

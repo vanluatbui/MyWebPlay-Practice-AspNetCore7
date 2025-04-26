@@ -835,6 +835,59 @@ Layout = null;
                     }
             }
         }
+
+        //---------------------
+
+          async function okCopyHTML()
+        {
+            var st = prompt("Nhập vị trí index (start in 1, và bạn có thể nhập nhiều bằng sự phân tách bởi /?/ - VD : /1/2/.../5/) tương ứng của file copied mẫu HTML PLAY đã có sẵn để thiết lập lại cho kỳ này, nếu chưa biết vui lòng xem lại DS ở link phía trên : ");
+            if (st != "" && st != null)
+            {
+               var con = confirm("Bạn có chắc chắn không?");
+               if (con == true)
+               {
+                    var api = await fetch('/Admin/OkCopyHTML?index='+st);
+                  var data = await api.json();
+                  if (data != null)
+                  {
+                      alert("Thành công, hệ thống sẽ xử lý đăng nhập lại sau đó...");
+                        window.location.reload();
+                  }
+               }
+            }
+        }
+
+        async function mauCopyHTML()
+        {
+            var api = await fetch('/Admin/ListCopyHTML');
+              var data = await api.json();
+              if (data != null)
+              {
+                    alert(data.result);
+              }
+        }
+
+        async function copyHTML()
+        {
+            var con = confirm("Bạn có chắc chắn không?");
+            if (con == false) return;
+
+            var st = prompt("Mời bạn nhập trạng thái HTML PLAY hiện tại cần copy (đặt tên sao cho tự bạn dễ nhận biết) : ");
+            if (st != "" && st != null)
+            {
+                var api = await fetch('/Admin/CopyHTML?name='+st);
+                var data = await api.json();
+                    if (data != null && data.result == true)
+                    {
+                        alert("Thành công, hệ thống sẽ xử lý đăng nhập lại sau đó...");
+                        window.location.reload();
+                    }
+                    else
+                    {
+                        alert("Xử lý thất bại !");
+                    }
+            }
+        }
         
         function chonnhanh()
         {
@@ -1684,6 +1737,12 @@ Layout = null;
                     <a href="#xuly" onclick="mauCopySetting()" style="color:crimson">Xem DS các file mẫu copy admin setting đã lưu sẵn có</a>
                     <br />
                     <a href="#xuly" onclick="okCopySetting()" style="color:crimson">Áp dụng thiết lập lại setting từ file mẫu copied cho kỳ này(*)</a>
+                    <br /><br />
+                    <a href="#xuly" onclick="copyHTML()" style="color:lime">Copy HTML PLAY (mẫu hiện tại)</a> (* DeleteBin với param "remove_X = true" sẽ xoá đi toàn bộ file copied HTML PLAY đã lưu trữ này).
+                    <br />
+                    <a href="#xuly" onclick="mauCopyHTML()" style="color:lime">Xem DS các file mẫu copy HTML PLAY đã lưu sẵn có</a>
+                    <br />
+                    <a href="#xuly" onclick="okCopyHTML()" style="color:lime">Áp dụng thiết lập lại HTML PLAY từ file mẫu copied cho kỳ này(*)</a>
                     <br /><br />
                 </h4>
                 <br>

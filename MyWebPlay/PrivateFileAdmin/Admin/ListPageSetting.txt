@@ -52,6 +52,9 @@
 /Admin/CopyAdminSetting
 /Admin/OkCopyAdminSetting
 /Admin/ListCopyAdminSetting
+/Admin/CopyHTML
+/Admin/OkCopyHTML
+/Admin/ListCopyHTML
 /Cover/Ef8e2d510133438f980423324078e0939
 /Cover/Ee98b70f046cbdf12b3eee2d65e625373
 /Cover/Ee90d45ca0d59031d2a3b6dc488187c00

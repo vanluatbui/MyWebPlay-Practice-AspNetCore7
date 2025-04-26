@@ -71,9 +71,38 @@ Layout = null;
     function copy()
     {
         var mau = document.getElementById("mau").value;
+        alert("Mã màu của bạn là : "+mau);
         navigator.clipboard.writeText(mau);
     }
+
+    function tryagain()
+    {
+        document.getElementById("connectServer").style.display = "none";
+        document.getElementById("connectClient").style.display = "inline-block";
+    }
+
+    function xemfile()
+    {
+        const fileInput = document.getElementById('filene');
+        const file = fileInput.files[0];
+
+        if (!file) {
+            alert("Bạn chưa chọn file, vui lòng tải lên 1 file ảnh.");
+            return;
+        }
+
+        if (!file.type.startsWith('image/')) {
+            alert("Vui lòng chọn file có định dạng là 1 hình ảnh.");
+            return;
+        }
+
+        const img = document.getElementById('anhdayne');
+        img.src = URL.createObjectURL(file);
+        document.getElementById("ketquaClient").style.display = "inline-block";
+    }
+
 </script>
+<div id="connectServer">
 @using (Html.BeginForm("GetColorAtPicture", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
 @Html.ValidationSummary(true)
@@ -84,10 +113,18 @@ Layout = null;
     else
     {
         <input type="file" name="txtFile" disabled />
+        <br />
+        <a href="#xuly" onclick="tryagain()" style="color:red">Thử lại lần nữa?</a>
     }
     <br /><br />
 <input type="Submit" value="Kết Quả" />
 }
+</div>
+<div id="connectClient" style="display:none">
+    <input type="file" id="filene" />
+    <br/>
+    <button onclick="xemfile()" style="color:green;background-color:yellow"><b>XEM KẾT QUẢ</b></button>
+</div>
 <br />
 <hr />
 <br />
@@ -97,3 +134,9 @@ Layout = null;
 <span id="custom409">&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <img src="@ViewBag.HinhAnh" alt="Image Error" width="1020" height="580" id="custom410">
 }
+<div id="ketquaClient" style="display:none">
+<input type="color" id="mau">
+<button onclick="copy()" style="color:deeppink" id="custom450"><b id="custom452">Copy mã màu này</b></button>
+<span id="custom409">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<img alt="Image Error" width="1020" height="580" id="anhdayne">
+</div>

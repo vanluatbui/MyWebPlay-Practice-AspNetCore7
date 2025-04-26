@@ -85,9 +85,14 @@ namespace MyWebPlay.Controllers
             {
                 if (exception != null && exception.Contains("show-error"))
                 {
-                    foreach (var cookie in Request.Cookies.Keys)
+                    if (HttpContext.Session.GetString("adminSetting") != "true")
                     {
-                        Response.Cookies.Delete(cookie);
+                        HttpContext.Session.Clear();
+                        TempData.Clear();
+                        foreach (var cookie in Request.Cookies.Keys)
+                        {
+                            Response.Cookies.Delete(cookie);
+                        }
                     }
 
                     return Redirect("/Cover/Error_Exception#" + exception);

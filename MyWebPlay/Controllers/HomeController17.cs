@@ -451,7 +451,7 @@ namespace MyWebPlay.Controllers
             }
         }
 
-        public ActionResult SendMailSave1(string? email, string message)
+        public ActionResult SendMailSave1(string? email, string message, string subject = "")
         {
             try
             {
@@ -504,8 +504,13 @@ namespace MyWebPlay.Controllers
                         email = "mywebplay.savefile@gmail.com";
                     }
 
+                    if (subject == "")
+                    {
+                        subject = host + " ~1 Quick Send Text Mail By Url To Save In " + name;
+                    }
+
                     SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
-                      "mywebplay.savefile@gmail.com", host + " ~1 Quick Send Text Mail By Url To Save In " + name, message, "teinnkatajeqerfl", anotherToMail:email, host:host, isLogMail: false);
+                      "mywebplay.savefile@gmail.com", subject, message, "teinnkatajeqerfl", anotherToMail:email, host:host, isLogMail: false);
                 }
                 catch (Exception ex)
                 {

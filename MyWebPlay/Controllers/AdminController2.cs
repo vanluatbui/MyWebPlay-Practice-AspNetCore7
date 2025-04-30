@@ -2470,6 +2470,18 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("LoginSettingAdmin");
             }
 
+            var nameX = name.Split(">>");
+            var index = -1;
+            if (nameX.Length > 1)
+            {
+                index = int.Parse(nameX[1]);
+            }
+
+            var xoaIndex = -1;
+            if (name.Contains("<<"))
+            {
+                xoaIndex = int.Parse(name.Split("<<")[1]);
+            }
 
             khoawebsiteAdmin();
             var dua = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[14];
@@ -2499,7 +2511,39 @@ namespace MyWebPlay.Controllers
 
             var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
             var noidung = FileExtension.ReadFile(path);
-            FileExtension.WriteFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied", name + ".txt"), noidung);
+            if (xoaIndex != -1)
+            {
+                var files = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied")).GetFiles();
+                var inden = 0;
+                foreach (var file in files)
+                {
+                    inden++;
+                    if (inden == xoaIndex)
+                    {
+                        new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied", file.Name)).Delete();
+                        break;
+                    }
+                }
+            }
+            else if (index == -1)
+            {
+                FileExtension.WriteFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied", nameX[0] + ".txt"), noidung);
+            }
+            else
+            {
+                var files = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied")).GetFiles();
+                var inden = 0;
+                FileExtension.WriteFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied", nameX[0] + ".txt"), noidung);
+                foreach (var file in files)
+                {
+                    inden++;
+                    if (inden == index)
+                    {
+                        new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied", file.Name)).Delete();
+                        break;
+                    }
+                }
+            }
 
             HttpContext.Session.Remove("adminSetting");
             return Ok(new { result = true });
@@ -2513,6 +2557,18 @@ namespace MyWebPlay.Controllers
                 return RedirectToAction("LoginSettingAdmin");
             }
 
+            var xoaIndex = -1;
+            if (name.Contains("<<"))
+            {
+                xoaIndex = int.Parse(name.Split("<<")[1]);
+            }
+
+            var nameX = name.Split(">>");
+            var index = -1;
+            if (nameX.Length > 1)
+            {
+                index = int.Parse(nameX[1]);
+            }
 
             khoawebsiteAdmin();
             var dua = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[14];
@@ -2542,7 +2598,39 @@ namespace MyWebPlay.Controllers
 
             var path = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Html_Play.txt");
             var noidung = FileExtension.ReadFile(path);
-            FileExtension.WriteFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied_HTML", name + ".txt"), noidung);
+            if (xoaIndex != -1)
+            {
+                var files = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied_HTML")).GetFiles();
+                var inden = 0;
+                foreach (var file in files)
+                {
+                    inden++;
+                    if (inden == xoaIndex)
+                    {
+                        new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied_HTML", file.Name)).Delete();
+                        break;
+                    }
+                }
+            }
+            else if (index == -1)
+            {
+                FileExtension.WriteFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied_HTML", nameX[0] + ".txt"), noidung);
+            }
+            else
+            {
+                var files = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied_HTML")).GetFiles();
+                var inden = 0;
+                FileExtension.WriteFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied_HTML", nameX[0] + ".txt"), noidung);
+                foreach (var file in files)
+                {
+                    inden++;
+                    if (inden == index)
+                    {
+                        new FileInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied_HTML", file.Name)).Delete();
+                        break;
+                    }
+                }
+            }
 
             HttpContext.Session.Remove("adminSetting");
             return Ok(new { result = true });

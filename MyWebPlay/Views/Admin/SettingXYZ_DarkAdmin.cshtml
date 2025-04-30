@@ -819,7 +819,7 @@ Layout = null;
             var con = confirm("Bạn có chắc chắn không?");
             if (con == false) return;
 
-            var st = prompt("Mời bạn nhập trạng thái setting hiện tại cần copy (đặt tên sao cho tự bạn dễ nhận biết) : ");
+                var st = prompt("Mời bạn nhập trạng thái setting hiện tại cần copy (đặt tên sao cho tự bạn dễ nhận biết)\n[Có thể thêm hậu tố >>? để xoá vị trí file đang có nhằm mục đích thay thế file đang tạo mới hiện tại - start in 1 - ? là index file hiện tại muốn xoá || còn nếu để hậu tố là <<? thì chỉ xoá file hiện tại ở index đang chỉ định mà không thay thế/bổ sung file mới nào khác]");
             if (st != "" && st != null)
             {
                 var api = await fetch('/Admin/CopyAdminSetting?name='+st);
@@ -872,7 +872,7 @@ Layout = null;
             var con = confirm("Bạn có chắc chắn không?");
             if (con == false) return;
 
-            var st = prompt("Mời bạn nhập trạng thái HTML PLAY hiện tại cần copy (đặt tên sao cho tự bạn dễ nhận biết) : ");
+                        var st = prompt("Mời bạn nhập trạng thái HTML PLAY hiện tại cần copy (đặt tên sao cho tự bạn dễ nhận biết)\n[Có thể thêm hậu tố >>? để xoá vị trí file đang có nhằm mục đích thay thế file đang tạo mới hiện tại - start in 1 - ? là index file hiện tại muốn xoá || còn nếu để hậu tố là <<? thì chỉ xoá file hiện tại ở index đang chỉ định mà không thay thế/bổ sung file mới nào khác]");
             if (st != "" && st != null)
             {
                 var api = await fetch('/Admin/CopyHTML?name='+st);

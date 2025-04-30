@@ -340,6 +340,7 @@ namespace MyWebPlay.Controllers
                 if (string.IsNullOrEmpty(setting) == false)
                 {
                     TempData["settingR"] = setting;
+                    HttpContext.Session.SetString("settingR", setting);
                 }
 
                 if (id != null)

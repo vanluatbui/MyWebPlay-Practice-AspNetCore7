@@ -1342,6 +1342,7 @@ namespace MyWebPlay.Controllers
         {
             try
             {
+                HttpContext.Session.Remove("settingR");
                 if (string.IsNullOrEmpty(ip) == false)
                 {
                     HttpContext.Session.SetString("userIP", ip);
@@ -1533,9 +1534,9 @@ namespace MyWebPlay.Controllers
                 string? background = TempData["background"].ToString();
                 int? option = int.Parse(TempData["option"].ToString());
 
-                if (TempData["settingR"] != null)
+                if (TempData["settingR"] != null || HttpContext.Session.GetString("settingR") != null)
                 {
-                    var setting = TempData["settingR"];
+                    var setting = HttpContext.Session.GetString("settingR");
                     TempData["settingR"] = setting;
 
                 }
@@ -1871,9 +1872,9 @@ namespace MyWebPlay.Controllers
 
                 TempData["casi"] = "true";
 
-                if (TempData["settingR"] != null)
+                if (TempData["settingR"] != null || HttpContext.Session.GetString("settingR") != null)
                 {
-                    var setting = TempData["settingR"].ToString();
+                    var setting = HttpContext.Session.GetString("settingR");
                     var set = setting.Split("<>");
                     if (set[0] == "[NULL]")
                         TempData["R-hang"] = null;

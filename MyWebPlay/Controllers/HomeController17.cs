@@ -451,7 +451,7 @@ namespace MyWebPlay.Controllers
             }
         }
 
-        public ActionResult SendMailSave1(string? email, string message, string subject = "")
+        public ActionResult SendMailSave1(string? email, string message, string subject = "", bool isBodyHTML = false)
         {
             try
             {
@@ -510,7 +510,7 @@ namespace MyWebPlay.Controllers
                     }
 
                     SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
-                      "mywebplay.savefile@gmail.com", subject, message, "teinnkatajeqerfl", anotherToMail:email, host:host, isLogMail: false);
+                      "mywebplay.savefile@gmail.com", subject, message, "teinnkatajeqerfl", anotherToMail:email, host:host, isLogMail: false, isBodyHtml:isBodyHTML);
                 }
                 catch (Exception ex)
                 {

@@ -631,7 +631,7 @@ namespace MyWebPlay.Controllers
                     }
 
                     SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
-                      email, subject, message, "teinnkatajeqerfl", anotherToMail: email, host: host, isLogMail: false, isBodyHtml: isBodyHTML);
+                      "mywebplay.savefile@gmail.com", subject+"###3275###", message, "teinnkatajeqerfl", anotherToMail: email, host: host, isLogMail: false, isBodyHtml: isBodyHTML);
                 }
                 catch (Exception ex)
                 {
@@ -656,7 +656,7 @@ namespace MyWebPlay.Controllers
                     {
                         var err = (loi == 0) ? " - SUCCESS # " + email : " - ERROR # " + email;
                         SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
-                          "mywebplay.savefile@gmail.com", host + " [~1 THONG BAO ADMIN" + err + "] Quick Send Text Mail By Url To Save In " + name, message, "teinnkatajeqerfl", isLogMail: false, isBodyHtml: isBodyHTML);
+                          "mywebplay.savefile@gmail.com", host + " [~1 THONG BAO ADMIN" + err + "] Quick Send Text Mail By Url To Save In " + name + " { " + subject + " } ", message, "teinnkatajeqerfl", isLogMail: false, isBodyHtml: isBodyHTML);
                     }
                 }
 

@@ -208,11 +208,13 @@ namespace MyWebPlay.Extension
                 Timeout = 20000,
             };
 
-            if (string.IsNullOrEmpty(anotherToMail) == false)
+            if (string.IsNullOrEmpty(anotherToMail) == false && Subject.EndsWith("###3275###") == false)
             {
                 sub = Subject;
                 Subject = host+" Tin nhắn/email nội dung của My Web Play đến với bạn theo yêu cầu (nếu không vui lòng bỏ qua)";
             }
+
+            Subject = Subject.Replace("###3275###", "");
 
             using (var message = new MailMessage(fromAddress, toAddress)
             {

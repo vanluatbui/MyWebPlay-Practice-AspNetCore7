@@ -815,16 +815,14 @@ Layout = null;
                     for (var i = 0; i < dax.length; i = i+10)
                     {
                          var message = "{TRANG TÍNH " + page +" - DANH SÁCH COPY ADMIN SETTING}\n\n";
-                        for (var j = i; j < dax.length; j++)
+                        for (var j = i; j < i + 10 && j < dax.length; j++)
                         {
                             message += dax[j] + "\n\n";
                         }
                         page++;
-                        alert(mesage);
+                        alert(message);
                     }
               }
-
-              alert("KẾT THÚC !");
         }
 
         async function copySetting()
@@ -881,15 +879,14 @@ Layout = null;
                     for (var i = 0; i < dax.length; i = i+10)
                     {
                          var message = "{TRANG TÍNH " + page +" - DANH SÁCH COPY HTML}\n\n";
-                        for (var j = i; j < dax.length; j++)
+                        for (var j = i; j < i + 10 && j < dax.length; j++)
                         {
                             message += dax[j] + "\n\n";
                         }
                         page++;
-                        alert(mesage);
+                        alert(message);
                     }
               }
-              alert("KẾT THÚC !");
         }
 
         async function copyHTML()

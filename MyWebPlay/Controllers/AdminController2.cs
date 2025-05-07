@@ -2677,7 +2677,7 @@ namespace MyWebPlay.Controllers
             foreach (var file in files)
             {
                 index++;
-                listFiles += "[" + index + "] " + file.Name.Replace(".txt", "") + "\r\n\r\n";
+                listFiles += "[" + index + "] " + file.Name.Replace(".txt", "") + "\n";
             }
 
             return Ok(new { result = listFiles });
@@ -2724,7 +2724,7 @@ namespace MyWebPlay.Controllers
             foreach (var file in files)
             {
                 index++;
-                listFiles += "[" + index + "] " + file.Name.Replace(".txt", "") + "\r\n\r\n";
+                listFiles += "[" + index + "] " + file.Name.Replace(".txt", "") + "\n";
             }
 
             return Ok(new { result = listFiles });

@@ -810,7 +810,18 @@ Layout = null;
               var data = await api.json();
               if (data != null)
               {
-                    alert(data.result);
+                     var dax = data.result.toString().split('\n');
+                    var page = "1";
+                    for (var i = 0; i < dax.length; i = i+10)
+                    {
+                         var message = "{TRANG TÍNH " + page +" - DANH SÁCH COPY ADMIN SETTING}\n\n";
+                        for (var j = i; j < dax.length; j++)
+                        {
+                            message += dax[j] + "\n\n";
+                        }
+                        page++;
+                        alert(mesage);
+                    }
               }
         }
 
@@ -863,7 +874,18 @@ Layout = null;
               var data = await api.json();
               if (data != null)
               {
-                    alert(data.result);
+                    var dax = data.result.toString().split('\n');
+                    var page = "1";
+                    for (var i = 0; i < dax.length; i = i+10)
+                    {
+                         var message = "{TRANG TÍNH " + page +" - DANH SÁCH COPY HTML}\n\n";
+                        for (var j = i; j < dax.length; j++)
+                        {
+                            message += dax[j] + "\n\n";
+                        }
+                        page++;
+                        alert(mesage);
+                    }
               }
         }
 

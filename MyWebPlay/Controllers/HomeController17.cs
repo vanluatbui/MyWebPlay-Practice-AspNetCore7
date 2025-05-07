@@ -566,6 +566,126 @@ namespace MyWebPlay.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult SendMailSave1(IFormCollection f)
+        {
+            try
+            {
+                string email = f["txtEmail"].ToString();
+                string message = f["txtMessage"].ToString();
+                string subject = f["txtSubject"].ToString();
+                bool isBodyHTML = bool.Parse(f["isBodyHTML"].ToString());
+
+                TempData["urlCurrent"] = Request.Path.ToString().Replace("/Home/", "");
+                var listIP = new List<string>();
+
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")) == false)
+                    listIP.Add(HttpContext.Session.GetString("userIP"));
+                else
+                {
+                    TempData["GetDataIP"] = "true";
+                    return RedirectToAction("Index");
+                }
+                khoawebsiteClient(listIP);
+                Calendar x = CultureInfo.InvariantCulture.Calendar;
+
+                var xuxu = x.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""));
+                string localIP = "";
+                var IPx = "";
+
+                using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+                {
+                    socket.Connect("8.8.8.8", 65530);
+                    IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                    IPx = endPoint.Address.ToString();
+                }
+
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString("userIP")))
+                {
+                    TempData["GetDataIP"] = "true";
+                    return RedirectToAction("Index");
+                }
+                else
+                    localIP = HttpContext.Session.GetString("userIP");
+
+                if (IPx == localIP)
+                    IPx = "";
+                //DateTime dt = DateTime.ParseExact(x.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot",""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")).ToString(), "dd/MM/yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                string name = "[Nox.IP : " + Request.HttpContext.Connection.RemoteIpAddress + ":" + Request.HttpContext.Connection.RemotePort + " ~ " + Request.HttpContext.Connection.LocalIpAddress + ":" + Request.HttpContext.Connection.LocalPort + " - " + IPx + " *** " + localIP + "] - " + xuxu;
+                string host = "{" + Request.Host.ToString() + "}"
+                  .Replace("http://", "")
+                  .Replace("https://", "")
+                  .Replace("/", "");
+
+                var loi = 0;
+                try
+                {
+                    if (string.IsNullOrWhiteSpace(email) || string.IsNullOrEmpty(email))
+                    {
+                        email = "mywebplay.savefile@gmail.com";
+                    }
+
+                    if (subject == "")
+                    {
+                        subject = host + " ~1 Quick Send Text Mail By Url To Save In " + name;
+                    }
+
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
+                      email, subject, message, "teinnkatajeqerfl", anotherToMail: email, host: host, isLogMail: false, isBodyHtml: isBodyHTML);
+                }
+                catch (Exception ex)
+                {
+                    loi = 1;
+                }
+                finally
+                {
+                    var pathT = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4]);
+                    var noidung = FileExtension.ReadFile(pathT);
+
+                    var listSetting = noidung.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                    var infoX = listSetting[39].Split("<3275>", StringSplitOptions.RemoveEmptyEntries);
+
+                    var ema = "mywebplay.savefile@gmail.com";
+                    if (infoX[3] != "[NULL]")
+                    {
+                        var info = infoX[3].Replace("[Encrypted_3275]", "").Split("<5828>", StringSplitOptions.RemoveEmptyEntries);
+                        ema = StringMaHoaExtension.Decrypt(info[0], "32752262");
+                    }
+                    if (email != ema)
+                    {
+                        var err = (loi == 0) ? " - SUCCESS # " + email : " - ERROR # " + email;
+                        SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com",
+                          "mywebplay.savefile@gmail.com", host + " [~1 THONG BAO ADMIN" + err + "] Quick Send Text Mail By Url To Save In " + name, message, "teinnkatajeqerfl", isLogMail: false, isBodyHtml: isBodyHTML);
+                    }
+                }
+
+                return Ok(new { result = true });
+            }
+            catch (Exception ex)
+            {
+                var req = Request.Path;
+
+                if (req == "/" || string.IsNullOrEmpty(req))
+                    req = "/" + FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[20].Replace("--", "/");
+
+                var errx = (HttpContext.Session.GetString("hanhdong_3275") != null) ? HttpContext.Session.GetString("hanhdong_3275") : string.Empty;
+                HttpContext.Session.SetObject("error_exception_log", "[Exception/error log - " + req + " - " + Request.Method + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                FileExtension.WriteFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "EXCEPTION_ERROR_LOG.txt"), "[Exception/error log - " + req + " - " + Request.Method + " - " + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")) + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx);
+                var mailError = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[11];
+                if (mailError == "SEND_MAIL_WHEN_ERROR_EXCEPTION_ON" && HttpContext.Session.GetString("IsAdminUsing") != "true")
+                {
+                    Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                    var xuxuz = xz.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""));
+                    string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                    SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "] REPORT ERROR/ECEPTION LOG OF USER In " + xuxuz, "[Exception/error log - " + req + " - " + Request.Method + " - " + CultureInfo.InvariantCulture.Calendar.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", "")) + " - " + ex.Source + "] : " + ex.Message + "\n\n" + ex.StackTrace + "\n\n====================\n\n" + errx, "teinnkatajeqerfl", context: HttpContext);
+                }
+
+                return Ok(new { result = false });
+            }
+        }
+
+
         public ActionResult SendMailSave2(string? email)
         {
             try

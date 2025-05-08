@@ -517,7 +517,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-                var n = int.Parse(f["txtIndex"].ToString());
+                var n = fileData == null ? int.Parse(f["txtIndex"].ToString()) : 0;
 
                 var s = "";
 

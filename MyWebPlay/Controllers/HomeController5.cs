@@ -704,6 +704,11 @@ namespace MyWebPlay.Controllers
                 chuoi = chuoi.Replace("[N-PLAY]", "\n");
                 chuoi = chuoi.Replace("[R-PLAY]", "\r");
 
+                string pattern = f["Pattern"].ToString();
+                pattern = pattern.Replace("[T-PLAY]", "\t");
+                pattern = pattern.Replace("[N-PLAY]", "\n");
+                pattern = pattern.Replace("[R-PLAY]", "\r");
+
                 if (f.ContainsKey("txtAPI") || (fileData != null && string.IsNullOrEmpty(fileData.FileName) == false))
                 {
                     var txtAPI = f["txtAPI"].ToString().Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
@@ -720,6 +725,7 @@ namespace MyWebPlay.Controllers
                     }
                     var apiValue = txtAPI.ToString().Replace("\r", "").Split("\n||\n");
                     chuoi = apiValue[0].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
+                    pattern = apiValue[1].Replace("[Empty]", "").Replace("[T-PLAY]", "\t").Replace("[N-PLAY]", "\n").Replace("[R-PLAY]", "\r");
                 }
 
                 TempData["dataPost"] = "[" + chuoi.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "]";
@@ -815,10 +821,7 @@ namespace MyWebPlay.Controllers
                     return this.Check_Regex();
                 }
 
-                string pattern = f["Pattern"].ToString();
-                pattern = pattern.Replace("[T-PLAY]", "\t");
-                pattern = pattern.Replace("[N-PLAY]", "\n");
-                pattern = pattern.Replace("[R-PLAY]", "\r");
+               
                 if (string.IsNullOrEmpty(pattern))
                 {
                     ViewData["Loi2"] = "Trường này không được để trống!";

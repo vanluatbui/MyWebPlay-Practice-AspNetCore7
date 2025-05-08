@@ -1203,5 +1203,37 @@ namespace MyWebPlay.Controllers
                 return Ok(new { result = false });
             return Ok(new { result = true, html = data });
         }
+
+        public ActionResult DownloadCopyAdminSetting()
+        {
+            var files = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied")).GetFiles();
+            foreach (var file in files)
+            {
+                Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                var xuxuz = xz.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""));
+                string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                var path2 = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied", file.Name);
+                var nd = FileExtension.ReadFile(path2);
+                SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "] DOWNLOAD COPY FILES ADMIN SETTING In " + xuxuz + " === { "+file.Name+" }", nd, "teinnkatajeqerfl", context: HttpContext);
+            }
+
+           return Content("Quá trình xử lý đang diễn ra, vui lòng đợi một lát...", "text/html");
+        }
+
+        public ActionResult DownloadCopyHTMLPlay()
+        {
+            var files = new DirectoryInfo(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied_HTML")).GetFiles();
+            foreach (var file in files)
+            {
+                Calendar xz = CultureInfo.InvariantCulture.Calendar;
+                var xuxuz = xz.AddHours(DateTime.UtcNow, 7).SendToDelaySetting(FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[25].Replace("DELAY_DATETIME:", ""));
+                string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
+                var path2 = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied_HTML", file.Name);
+                var nd = FileExtension.ReadFile(path2);
+                SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "] DOWNLOAD COPY FILES HTML PLAY In " + xuxuz + " === { " + file.Name + " }", nd, "teinnkatajeqerfl", context: HttpContext);
+            }
+
+            return Content("Quá trình xử lý đang diễn ra, vui lòng đợi một lát...", "text/html");
+        }
     }
 }

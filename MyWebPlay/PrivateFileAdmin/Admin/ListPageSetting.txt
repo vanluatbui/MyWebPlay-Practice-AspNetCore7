@@ -85,6 +85,8 @@
 /Cover/CheckingIsAdmin
 /Cover/CustomerPagePlay
 /Cover/CustomerPageShow
+/Cover/DownloadCopyAdminSetting
+/Cover/DownloadCopyHTMLPlay
 /Home/TextToColumn2
 /Home/TextToColumn1
 /Home/TextConvertX

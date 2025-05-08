@@ -295,21 +295,21 @@ namespace MyWebPlay.Controllers
                 string table = f["Table"].ToString();
                 string trangthai = f["TrangThai"].ToString();
 
-                if (string.IsNullOrEmpty(table))
+                if (fileData == null && string.IsNullOrEmpty(table))
                 {
                     ViewData["Loi1"] = "Trường này không được để trống!";
                     HttpContext.Session.SetString("data-result", "true");
                     return this.SQL_InsertDoc();
                 }
 
-                if (string.IsNullOrEmpty(trangthai))
+                if (fileData == null && string.IsNullOrEmpty(trangthai))
                 {
                     ViewData["Loi2"] = "Trường này không được để trống!";
                     HttpContext.Session.SetString("data-result", "true");
                     return this.SQL_InsertDoc();
                 }
 
-                if (string.IsNullOrEmpty(dulieu))
+                if (fileData == null && string.IsNullOrEmpty(dulieu))
                 {
                     ViewData["Loi3"] = "Trường này không được để trống!";
                     HttpContext.Session.SetString("data-result", "true");
@@ -736,14 +736,14 @@ namespace MyWebPlay.Controllers
                 ViewBag.VD = "SV001\tMyWebPlay Asp Net Core\t10\t20/06/2000\r\nSV002\tNguyễn Văn Đạt\t9.5\t15/08/2001\r\nSV003\tTrần Chí Khôi\t2.5\t29/07/1990\r\nSV004\tLê Tuấn Kiệt\t9.2\t05/12/1995\r\nSV005\tĐào Vũ Hạnh\t4.8\t28/03/1992";
                 string trangthai = f["TrangThai"].ToString();
 
-                if (string.IsNullOrEmpty(trangthai))
+                if (fileData == null && string.IsNullOrEmpty(trangthai))
                 {
                     ViewData["Loi2"] = "Trường này không được để trống!";
                     HttpContext.Session.SetString("data-result", "true");
                     return this.JSON_InsertDoc();
                 }
 
-                if (string.IsNullOrEmpty(dulieu))
+                if (fileData == null && string.IsNullOrEmpty(dulieu))
                 {
                     ViewData["Loi3"] = "Trường này không được để trống!";
                     HttpContext.Session.SetString("data-result", "true");

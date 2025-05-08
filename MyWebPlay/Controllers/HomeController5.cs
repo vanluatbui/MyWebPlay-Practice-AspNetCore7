@@ -290,7 +290,7 @@ namespace MyWebPlay.Controllers
                     }
                 }
 
-                if (string.IsNullOrEmpty(chuoi))
+                if (fileData == null && string.IsNullOrEmpty(chuoi))
                 {
                     ViewData["Loi1"] = "Trường này không được để trống!";
                     HttpContext.Session.SetString("data-result", "true");
@@ -301,7 +301,7 @@ namespace MyWebPlay.Controllers
                 dukien1 = dukien1.Replace("[T-PLAY]", "\t");
                 dukien1 = dukien1.Replace("[N-PLAY]", "\n");
                 dukien1 = dukien1.Replace("[R-PLAY]", "\r");
-                if (string.IsNullOrEmpty(dukien1))
+                if (fileData == null && string.IsNullOrEmpty(dukien1))
                 {
                     ViewData["Loi2"] = "Trường này không được để trống!";
                     HttpContext.Session.SetString("data-result", "true");
@@ -309,7 +309,7 @@ namespace MyWebPlay.Controllers
                 }
 
                 string pattern = f["Pattern"].ToString();
-                if (string.IsNullOrEmpty(pattern))
+                if (fileData == null && string.IsNullOrEmpty(pattern))
                 {
                     ViewData["Loi3"] = "Trường này không được để trống!";
                     HttpContext.Session.SetString("data-result", "true");
@@ -321,7 +321,7 @@ namespace MyWebPlay.Controllers
                 pattern = pattern.Replace("[R-PLAY]", "\r");
 
                 string dukien2 = f["DuKien2"].ToString();
-                if (string.IsNullOrEmpty(dukien2))
+                if (fileData == null && string.IsNullOrEmpty(dukien2))
                 {
                     ViewData["Loi4"] = "Trường này không được để trống!";
                     HttpContext.Session.SetString("data-result", "true");

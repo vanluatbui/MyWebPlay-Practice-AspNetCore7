@@ -87,6 +87,7 @@
 /Cover/CustomerPageShow
 /Cover/DownloadCopyAdminSetting
 /Cover/DownloadCopyHTMLPlay
+/Cover/ExectFilePower
 /Home/TextToColumn2
 /Home/TextToColumn1
 /Home/TextConvertX

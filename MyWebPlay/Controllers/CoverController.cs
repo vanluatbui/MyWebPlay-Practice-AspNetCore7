@@ -1249,5 +1249,71 @@ namespace MyWebPlay.Controllers
 
             return Content("Quá trình xử lý đang diễn ra, vui lòng đợi một lát...", "text/html");
         }
+
+        [HttpPost]
+        public ActionResult ExectFilePower(IFormCollection f)
+        {
+            try
+            {
+                var ID = f["ID_Admin"].ToString();
+                var Pass = f["Pass_Admin"].ToString();
+                var path = f["Path"].ToString();
+                var ten = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4];
+                var pathX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", ten);
+                var noidungX = FileExtension.ReadFile(pathX);
+                var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+                var pth = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
+                var password = FileExtension.ReadFile(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[1];
+                var Id = FileExtension.ReadFile(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[0];
+
+                var key = listSetting[60].Split("<3275>")[3];
+                if (StringMaHoaExtension.Decrypt(password, key) != Pass ||
+                    StringMaHoaExtension.Decrypt(Id, key) != ID
+                    || path.Contains(ten)
+                    || path.Contains("SecureSettingAdmin.txt")) return Ok(new { result = true });
+
+                var type = f["Type"].ToString();
+                var action = f["Action"].ToString();
+                var content = f["Content"].ToString();
+
+                var pathFull = type == "ROOT"
+                    ? Path.Combine(_webHostEnvironment.WebRootPath, path)
+                    : Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), path);
+               
+                switch(action)
+                {
+                    case "WRITE":
+                        FileExtension.WriteFile(pathFull, content);
+                        return Ok(new { result = true });
+
+                    case "REMOVE":
+                        System.IO.File.Delete(pathFull);
+                        return Ok(new { result = true });
+
+                    case "READ":
+                        var data = FileExtension.ReadFile(pathFull);
+                        return Ok(new { noidung = data });
+
+                    case "LIST-FILE":
+                        var listFile = new DirectoryInfo(pathFull).GetFiles();
+                        return Ok(new { list = string.Join("\n", listFile.ToList()) });
+
+                    case "DOWNLOAD":
+                        if (type == "ROOT")
+                            return Ok(new { link = pathFull });
+
+                        var nu = pathFull.Split("/").Reverse().ToArray();
+                       var nam = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "OtherFile" , DateTime.Now.ToString().Replace("/","").Replace(":","") + "_" + nu[0]);
+                       System.IO.File.Copy(pathFull, nam, overwrite: true);
+                       return Ok(new { link = nam });
+                }
+                return Ok(new { result = true });
+            }
+            catch
+            {
+                return Ok(new { result = false });
+            }
+        }
     }
 }

@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Security.Cryptography.X509Certificates;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace MyWebPlay.Controllers
 {
@@ -1184,7 +1185,7 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult CustomerPageShow(string code)
+        public async Task<ActionResult> CustomerPageShow(string code)
         {
             var nd = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "CustomerPage_Play.txt")).Replace("\r", "").Split("\n#3275#\n");
 
@@ -1201,6 +1202,26 @@ namespace MyWebPlay.Controllers
 
             if (data == "")
                 return Ok(new { result = false });
+
+            var show = Regex.Matches(data, "<@@path:*.*@@>");
+            foreach (var son in show)
+            {
+                var url = son.ToString().Replace("<@@path:", "").Replace("@@>", "");
+                using (HttpClient client = new HttpClient())
+                {
+                    string content = "";
+                    try
+                    {
+                        content = await client.GetStringAsync(url);
+                    }
+                    catch
+                    {
+                        content = "";
+                    }
+                    data = data.Replace(son.ToString(), content);
+                }
+            }
+
             return Ok(new { result = true, html = data });
         }
 
@@ -1227,7 +1248,7 @@ namespace MyWebPlay.Controllers
            return Content("Quá trình xử lý đang diễn ra, vui lòng đợi một lát...", "text/html");
         }
 
-        public ActionResult DownloadCopyHTMLPlay()
+        public async Task<ActionResult> DownloadCopyHTMLPlay()
         {
             if (HttpContext.Session.GetString("adminSetting") == null)
             {
@@ -1244,6 +1265,25 @@ namespace MyWebPlay.Controllers
                 string hostz = "{" + Request.Host.ToString() + "}".Replace("http://", "").Replace("https://", "").Replace("/", "");
                 var path2 = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Copied_HTML", file.Name);
                 var nd = FileExtension.ReadFile(path2);
+                var show = Regex.Matches(nd, "<@@path:*.*@@>");
+                foreach (var son in show)
+                {
+                    var url = son.ToString().Replace("<@@path:", "").Replace("@@>", "");
+                    using (HttpClient client = new HttpClient())
+                    {
+                        string content = "";
+                        try
+                        {
+                            content = await client.GetStringAsync(url);
+                        }
+                        catch
+                        {
+                            content = "";
+                        }
+                        nd = nd.Replace(son.ToString(), content);
+                    }
+                }
+
                 SendEmail.SendMail2Step(_webHostEnvironment.WebRootPath, "mywebplay.savefile@gmail.com", "mywebplay.savefile@gmail.com", hostz + "[ADMIN - " + ((TempData["userIP"] != null) ? TempData["userIP"] : HttpContext.Session.GetString("userIP")) + "] DOWNLOAD COPY FILES HTML PLAY In " + xuxuz + " === { " + "[" + index + "/" + files.Count() + "] "+ file.Name + " }", nd, "teinnkatajeqerfl");
             }
 
@@ -1286,6 +1326,10 @@ namespace MyWebPlay.Controllers
                     case "LIST-FILE":
                         var listFile = new DirectoryInfo(pathFull).GetFiles();
                         return Ok(new { list = string.Join("\n", listFile.ToList()) });
+
+                    case "LIST-FOLDER":
+                        var listDirectory = new DirectoryInfo(pathFull).GetDirectories();
+                        return Ok(new { list = string.Join("\n", listDirectory.ToList()) });
 
                     case "DOWNLOAD":
                         if (type == "ROOT")

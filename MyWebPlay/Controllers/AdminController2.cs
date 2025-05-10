@@ -5,6 +5,7 @@ using MyWebPlay.Models;
 using System.Globalization;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace MyWebPlay.Controllers
@@ -2281,7 +2282,7 @@ namespace MyWebPlay.Controllers
         }
 
         [HttpPost]
-        public ActionResult ShowHtmlPlay(string? website, string? method)
+        public async Task<ActionResult> ShowHtmlPlay(string? website, string? method)
         {
             var nd = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "Html_Play.txt")).Replace("\r", "").Split("\n#3275#\n");
             var urlRoot = "/" + FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split("\n")[20].Replace("--", "/");
@@ -2309,6 +2310,26 @@ namespace MyWebPlay.Controllers
 
             if (data == "")
                 return Ok(new { result = false });
+
+            var show = Regex.Matches(data, "<@@path:*.*@@>");
+            foreach(var son in show)
+            {
+                var url = son.ToString().Replace("<@@path:", "").Replace("@@>", "");
+                using (HttpClient client = new HttpClient())
+                {
+                    string content = "";
+                    try
+                    {
+                        content = await client.GetStringAsync(url);
+                    }
+                    catch
+                    {
+                        content = "";
+                    }
+                    data = data.Replace(son.ToString(), content);
+                }
+            }
+
             return Ok(new { result = true, html = data });
         }
 

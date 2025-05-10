@@ -1255,22 +1255,10 @@ namespace MyWebPlay.Controllers
         {
             try
             {
-                var ID = f["ID_Admin"].ToString();
-                var Pass = f["Pass_Admin"].ToString();
-                var path = f["Path"].ToString();
+                var path = StringMaHoaExtension.Decrypt(f["Path"].ToString(), "32752262-20062000");
                 var ten = FileExtension.ReadFile(Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt")).Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries)[4];
-                var pathX = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", ten);
-                var noidungX = FileExtension.ReadFile(pathX);
-                var listSetting = noidungX.Replace("\r", "").Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-                var pth = Path.Combine(_webHostEnvironment.WebRootPath.Replace("\\wwwroot", ""), "PrivateFileAdmin", "Admin", "SecureSettingAdmin.txt");
-                var password = FileExtension.ReadFile(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[1];
-                var Id = FileExtension.ReadFile(pth).Replace("\r", "").Split("\n", StringSplitOptions.RemoveEmptyEntries)[0];
-
-                var key = listSetting[60].Split("<3275>")[3];
-                if (StringMaHoaExtension.Decrypt(password, key) != Pass ||
-                    StringMaHoaExtension.Decrypt(Id, key) != ID
-                    || path.Contains(ten)
+                if (path.Contains(ten)
                     || path.Contains("SecureSettingAdmin.txt")) return Ok(new { result = true });
 
                 var type = f["Type"].ToString();
